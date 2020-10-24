@@ -1,0 +1,90 @@
+﻿@using RezaB.Web.Authentication
+
+@model RadiusR_Manager.Models.RadiusViewModels.CashierViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Cashiers + "-" + RadiusR.Localization.Pages.Common.Details;
+}
+
+<table class="details-table">
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.CompanyTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.CompanyTitle)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.ProfitCut)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.ProfitCut)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.User.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.User.Name)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.PhoneNo)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.PhoneNo)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.TaxNo)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.TaxNo)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.TaxRegion)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.TaxRegion)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Address)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.TotalCredit)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.TotalCredit)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.IsEnabled)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IsEnabled)
+        </td>
+    </tr>
+</table>
+@if (User.HasPermission("Modify Cashiers"))
+{
+    <div style="padding: 0.5em;">
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index",null, new { @class = "link-button iconed-button back-button" })&nbsp;
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "Edit", new { id = Model.ID }, new { @class = "link-button iconed-button edit-button" })&nbsp;
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.ManageCredit, "ManageCredit", new { id = Model.ID }, new { @class = "link-button iconed-button credit-button" })
+    </div>
+}

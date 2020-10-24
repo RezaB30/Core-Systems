@@ -1,0 +1,52 @@
+﻿div.call-center-box {
+    position: relative;
+    float: right;
+    line-height: 3.2em;
+    cursor: pointer;
+    text-align: center;
+    min-width: 5em;
+    background-image: url('../Images/Shared/telephone-white.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 2em;
+    transition: 0.5s all ease;
+    background-color: transparent;
+}
+
+    div.call-center-box:hover {
+        background-color: black;
+        background-position: 2em center;
+    }
+
+div.call-center-details-box {
+    position: fixed;
+    right: 0;
+    top: 3.2em;
+    width: 24.3em;
+    background-color: #032f4b;
+    border-top: 1px dashed white;
+    box-shadow: -0.2em 0.2em 0.5em black;
+    border-radius: 0 0 0 0.6em;
+    max-height: 30em;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: none;
+}
+
+    div.call-center-details-box div.event-message {
+        background-color: black;
+        border-top: 1px dashed white;
+    }
+
+        div.call-center-details-box div.event-message span.client-name {
+            color: orange;
+        }
+
+        div.call-center-details-box div.event-message a {
+            color: black;
+        }
+
+        div.call-center-details-box div.event-message div.event-time {
+            color: gray;
+            line-height: 1.5em;
+        }

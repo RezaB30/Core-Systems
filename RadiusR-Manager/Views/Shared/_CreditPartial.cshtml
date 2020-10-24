@@ -1,0 +1,15 @@
+﻿@using RadiusR.DB
+
+
+@if (User.IsInRole("cashier"))
+{
+    <div class="credit-box">
+        @RadiusR.Localization.Model.RadiusR.TotalCredit:&nbsp;
+        @using (RadiusREntities db = new RadiusREntities())
+        {
+            var totalCredit = db.Cashiers.Find(User.GiveUserCashierId()).CashierBalances.Sum(credit => credit.Amount).ToString("###,##0.00");
+            @Html.DisplayFor(model => totalCredit, "Currency")
+        }
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.ManageCredit, "ManageCredit", "Cashier", new { id = User.GiveUserCashierId() }, new { @class = "link-button iconed-button credit-button", @style = "line-height: 2em; height: 2em; color: initial;" })
+    </div>
+}

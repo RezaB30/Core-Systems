@@ -1,0 +1,107 @@
+﻿@model RadiusR_Manager.Models.ViewModels.AddressSettingsViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.AddressAPISettings;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.AddressAPIType)
+                    </td>
+                    <td id="api-type-container">
+                        @Html.EditorFor(model => model.AddressAPIType)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.AddressAPIType)
+                    </td>
+                </tr>
+                <tbody id="address-api-inputs-container">
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.AddressAPIUsername)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.AddressAPIUsername, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.AddressAPIUsername)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.AddressAPIPassword)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.AddressAPIPassword, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.AddressAPIPassword)
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody id="address-direct-inputs-container">
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.AddressAPIDirectUserId)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.AddressAPIDirectUserId, new { htmlAttributes = new { @maxlength = 18, @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.AddressAPIDirectUserId)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.AddressAPIDirectPassword)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.AddressAPIDirectPassword, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.AddressAPIDirectPassword)
+                        </td>
+                    </tr>
+                </tbody>
+                <tr>
+                    <td class="centered" colspan="2">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Reset, "Settings", null, new { @class = "link-button iconed-button reload-button" })
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+@section PageScripts{
+    <script>
+        $('#api-type-container').find('input[type=hidden][name]').change(function () {
+            var value = $(this).val();
+            $('#address-api-inputs-container,#address-direct-inputs-container').hide();
+            if (value == '@((short)RadiusR.DB.Enums.AddressAPIType.AddressQueryService)') {
+                $('#address-api-inputs-container').show();
+            }
+            if (value == '@((short)RadiusR.DB.Enums.AddressAPIType.DirectAccess)') {
+                $('#address-direct-inputs-container').show();
+            }
+        });
+        $('#api-type-container').find('input[type=hidden][name]').trigger('change');
+    </script>
+}

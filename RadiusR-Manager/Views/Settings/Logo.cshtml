@@ -1,0 +1,19 @@
+﻿@using RadiusR_Manager.Helpers
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Settings + "-" + RadiusR.Localization.Pages.Common.ChangeLogo;
+}
+
+<div class="centered">
+    <img src="@Url.Content("~/Content/Images/Logo/logo.svg")" alt="@RadiusR.Localization.Pages.Common.Logo" style="max-width: 25em;" />
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.FileUpload("logo", "image/*")
+        </div>
+        <div style="margin-top: 1em;">
+            <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+        </div>
+    }
+</div>

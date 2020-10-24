@@ -1,0 +1,114 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model RadiusR_Manager.Models.RadiusViewModels.BTKSchedulerSettingsViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.BTKLogs + "-" + RadiusR.Localization.Pages.Common.SchedulerSettings;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.LogType)
+            </td>
+            <td colspan="3">
+                @Html.DisplayFor(model => model.LogType)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.SchedulerStartTime)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.SchedulerStartTime, new { @htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+            </td>
+            <td>
+                @Html.LabelFor(model => model.SchedulerActiveTime)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.SchedulerActiveTime, new { @htmlAttributes = new { @maxlength = 8, @autocomplete = "off", @placeholder = "1,2,12,16,..." } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.SchedulerStartTime)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.SchedulerActiveTime)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.SchedulerWorkPeriod)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.SchedulerWorkPeriod)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.SchedulerStartDay)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.SchedulerStartDay, new { @htmlAttributes = new { @maxlength = 83, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.SchedulerWorkPeriod)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.SchedulerStartDay)
+                @Html.ValidationMessageFor(model => model.StartingDaysOfWeek)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.FTPFolder)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.FTPFolder, new { @htmlAttributes = new { @maxlength = 500, @autocomplete = "off" } })
+            </td>
+            <td colspan="2" style="text-align: right;">
+                @Html.EditorFor(model => model.PartitionFiles)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.FTPFolder)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.PartitionFiles)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.FTPUsername)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.FTPUsername, new { @htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+            </td>
+            <td>
+                @Html.LabelFor(model => model.FTPPassword)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.FTPPassword, new { @htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.FTPUsername)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.FTPPassword)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" class="centered">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "SchedulerSettings", null, new { @class = "link-button iconed-button back-button" })
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+            </td>
+        </tr>
+    </table>
+}

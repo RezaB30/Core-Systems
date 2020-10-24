@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = ViewBag.partnerName + "-" + RadiusR.Localization.Pages.Common.Settings;
+}
+
+<div class="centered">
+    <div class="button-row">
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.WorkAreas, "WorkAreas", new { id = Request.RequestContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button location-button large-button" })
+    </div>
+    <div class="button-row">
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.PartnerPermissions, "Permissions", new { id = Request.RequestContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button nat-button large-button" })
+    </div>
+    <div class="button-row">
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.Credits, "Credits", new { id = Request.RequestContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button payment-button large-button" })
+    </div>
+    <div style="border-top: 1px solid gray;"></div>
+    <div class="button-row">
+        <a href="@ViewBag.ReturnUrl" class="link-button iconed-button back-button large-button">@RadiusR.Localization.Pages.Common.Back</a>
+    </div>
+</div>

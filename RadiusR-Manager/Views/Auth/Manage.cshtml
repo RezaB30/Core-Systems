@@ -1,0 +1,50 @@
+﻿@model RadiusR_Manager.Models.ViewModels.ChangePasswordViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Credentials + "-" + RadiusR.Localization.Pages.Common.Manage;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model=>model.redirectUrl)
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model=>model.OldPassword)
+            </td>
+            <td>
+                @Html.EditorFor(model=>model.OldPassword, new { htmlAttributes = new { @maxlength = 100 } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model=>model.OldPassword)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.NewPassword)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.NewPassword, new { htmlAttributes = new { @maxlength = 100 } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model=>model.NewPassword)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationSummary(true)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: right;">
+                <a href="@Model.redirectUrl" class="link-button iconed-button back-button" style="float: left;">@RadiusR.Localization.Pages.Common.Back</a>
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+            </td>
+        </tr>
+    </table>
+}

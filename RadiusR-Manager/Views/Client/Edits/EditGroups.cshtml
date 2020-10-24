@@ -1,0 +1,21 @@
+﻿@using RezaB.Web.Helpers
+
+@{
+    ViewBag.Title = ViewBag.CustomerName + "-" + RadiusR.Localization.Pages.Common.GroupsList;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            
+            @Html.MultiSelect("groupIds", (MultiSelectList)ViewBag.GroupList, RadiusR.Localization.Pages.Common.Choose)
+
+            <div class="centered button-row">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Details", new { id = Request.RequestContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button back-button" })
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+            </div>
+        }
+    </div>
+</div>

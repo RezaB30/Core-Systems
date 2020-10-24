@@ -1,0 +1,43 @@
+﻿@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.QuotaPackageViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.QuotaPackages;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "EditPackage", new { id = item.ID }, new { @class = "link-button iconed-button edit-button" })
+                @using (Html.BeginForm("RemovePackage",null,FormMethod.Post, new { @confirm = "enabled" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("id", item.ID)
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button delete-button" />
+                }
+            </td>
+        </tr>
+    }
+</table>

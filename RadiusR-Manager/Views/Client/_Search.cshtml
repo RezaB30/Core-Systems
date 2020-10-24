@@ -1,0 +1,137 @@
+﻿@using RezaB.Web.Helpers
+@using RadiusR.Helpers
+
+
+@model RadiusR_Manager.Models.ViewModels.CustomerSearchViewModel
+
+@using (Html.BeginForm(null, null, FormMethod.Get))
+{
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.ValidDisplayName)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.ValidDisplayName, new { htmlAttributes = new { @autocomplete = "off", @maxlength = "250" } })
+            </td>
+            <td>
+                @Html.LabelFor(model => model.Phone)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @autocomplete = "off", @maxlength = "10" } })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.TCKNo)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.TCKNo, new { htmlAttributes = new { @autocomplete = "off", @maxlength = "11" } })
+            </td>
+            <td>
+                @Html.LabelFor(model => model.Username)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @autocomplete = "off", @maxlength = "64" } })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.SubscriberNo)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.SubscriberNo, new { htmlAttributes = new { @autocomplete = "off", @maxlength = "10" } })
+            </td>
+            <td colspan="2" class="centered">
+                @Html.CheckButton(model => model.DisabledForDebt, RadiusR.Localization.Pages.Common.DebtDisabledClients)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.TelekomSubscriberNo)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.TelekomSubscriberNo, new { htmlAttributes = new { @autocomplete = "off", @maxlength = "10" } })
+            </td>
+            <td>
+                @Html.LabelFor(model => model.PSTNNo)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.PSTNNo, new { htmlAttributes = new { @autocomplete = "off", @maxlength = "10" } })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.CustomerType)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.CustomerType)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.State)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.State, new { htmlAttributes = new { @autocomplete = "off", @maxlength = "64" } })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.ServiceName)
+            </td>
+            <td colspan="3">
+                @Html.Select(model => model.ServiceName, (SelectList)ViewBag.Services, RadiusR.Localization.Pages.Common.Choose, htmlAttributes: new { @class = "wide-input" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Address)
+            </td>
+            <td>
+                @Html.AddressSearchFor(model => model.Address)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.GroupID)
+            </td>
+            <td>
+                @Html.Select(model => model.GroupID, (SelectList)ViewBag.Groups, RadiusR.Localization.Pages.Common.Choose)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.ActivationDateStart)
+            </td>
+            <td colspan="3">
+                @Html.EditorFor(model => model.ActivationDateStart)
+                -
+                @Html.EditorFor(model => model.ActivationDateEnd)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.RegistrationDateStart)
+            </td>
+            <td colspan="3">
+                @Html.EditorFor(model => model.RegistrationDateStart)
+                -
+                @Html.EditorFor(model => model.RegistrationDateEnd)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.BillingPeriod)
+            </td>
+            <td>
+                @Html.Select(model => model.BillingPeriod, HelperUtilities.CreateNumericSelectList(1,29, Model.BillingPeriod), RadiusR.Localization.Pages.Common.Choose)
+            </td>
+            <td colspan="2" class="centered">
+                @Html.CheckButton(model => model.HasStaticIP, RadiusR.Localization.Model.RadiusR.StaticIP)
+            </td>
+        </tr>
+        <tr>
+            <td class="centered" colspan="4">
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+            </td>
+        </tr>
+    </table>
+}

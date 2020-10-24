@@ -1,0 +1,504 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Code_011" xml:space="preserve">
+    <value>Officer</value>
+  </data>
+  <data name="Code_021" xml:space="preserve">
+    <value>Permanent members of non-officer armed forces</value>
+  </data>
+  <data name="Code_031" xml:space="preserve">
+    <value>Other occupations in the armed forces</value>
+  </data>
+  <data name="Code_111" xml:space="preserve">
+    <value>Lawmakers and senior executives</value>
+  </data>
+  <data name="Code_112" xml:space="preserve">
+    <value>general managers and presidents (private sector)</value>
+  </data>
+  <data name="Code_121" xml:space="preserve">
+    <value>managers of business services and administration</value>
+  </data>
+  <data name="Code_122" xml:space="preserve">
+    <value>sales, marketing and business development managers</value>
+  </data>
+  <data name="Code_131" xml:space="preserve">
+    <value>agricultural, forestry and fishery production managers</value>
+  </data>
+  <data name="Code_132" xml:space="preserve">
+    <value>manufacturing, mining, construction and distribution managers</value>
+  </data>
+  <data name="Code_133" xml:space="preserve">
+    <value>information and communication technology service managers</value>
+  </data>
+  <data name="Code_134" xml:space="preserve">
+    <value>professional service managers</value>
+  </data>
+  <data name="Code_141" xml:space="preserve">
+    <value>hotel, restaurant and restaurant managers</value>
+  </data>
+  <data name="Code_142" xml:space="preserve">
+    <value>retail and wholesale trade managers</value>
+  </data>
+  <data name="Code_143" xml:space="preserve">
+    <value>other service managers</value>
+  </data>
+  <data name="Code_211" xml:space="preserve">
+    <value>professional groups related to physics and earth sciences</value>
+  </data>
+  <data name="Code_212" xml:space="preserve">
+    <value>mathematicians, statistics and actuaries</value>
+  </data>
+  <data name="Code_213" xml:space="preserve">
+    <value>life sciences professionals</value>
+  </data>
+  <data name="Code_214" xml:space="preserve">
+    <value>professional groups related to engineering (except electrotechnical engineers)</value>
+  </data>
+  <data name="Code_215" xml:space="preserve">
+    <value>Electrical Engineer</value>
+  </data>
+  <data name="Code_216" xml:space="preserve">
+    <value>architects, planners, surveyors and designers</value>
+  </data>
+  <data name="Code_221" xml:space="preserve">
+    <value>medical doctors</value>
+  </data>
+  <data name="Code_222" xml:space="preserve">
+    <value>nursing and midwifery professionals</value>
+  </data>
+  <data name="Code_223" xml:space="preserve">
+    <value>traditional and complementary medical professionals</value>
+  </data>
+  <data name="Code_224" xml:space="preserve">
+    <value>paramedical practitioners</value>
+  </data>
+  <data name="Code_225" xml:space="preserve">
+    <value>vets</value>
+  </data>
+  <data name="Code_226" xml:space="preserve">
+    <value>other health personnel</value>
+  </data>
+  <data name="Code_231" xml:space="preserve">
+    <value>university and higher education faculty</value>
+  </data>
+  <data name="Code_232" xml:space="preserve">
+    <value>vocational education teachers</value>
+  </data>
+  <data name="Code_233" xml:space="preserve">
+    <value>Secondary (secondary and high school) teachers</value>
+  </data>
+  <data name="Code_234" xml:space="preserve">
+    <value>primary and pre-school teachers</value>
+  </data>
+  <data name="Code_235" xml:space="preserve">
+    <value>other professionals of education</value>
+  </data>
+  <data name="Code_241" xml:space="preserve">
+    <value>finance professionals</value>
+  </data>
+  <data name="Code_242" xml:space="preserve">
+    <value>management professionals</value>
+  </data>
+  <data name="Code_243" xml:space="preserve">
+    <value>sales, marketing and public relations professionals</value>
+  </data>
+  <data name="Code_251" xml:space="preserve">
+    <value>software and application developers and analysts</value>
+  </data>
+  <data name="Code_252" xml:space="preserve">
+    <value>database and computer networks professionals</value>
+  </data>
+  <data name="Code_261" xml:space="preserve">
+    <value>law professionals</value>
+  </data>
+  <data name="Code_262" xml:space="preserve">
+    <value>librarians, archivists and curators</value>
+  </data>
+  <data name="Code_263" xml:space="preserve">
+    <value>social and religious professionals</value>
+  </data>
+  <data name="Code_264" xml:space="preserve">
+    <value>writers, journalists and linguists</value>
+  </data>
+  <data name="Code_265" xml:space="preserve">
+    <value>creative artists and stage artists</value>
+  </data>
+  <data name="Code_311" xml:space="preserve">
+    <value>physics and engineering science technicians</value>
+  </data>
+  <data name="Code_312" xml:space="preserve">
+    <value>mining, manufacturing and construction supervisors</value>
+  </data>
+  <data name="Code_313" xml:space="preserve">
+    <value>Process control technicians</value>
+  </data>
+  <data name="Code_314" xml:space="preserve">
+    <value>life sciences and technicians and related assistants</value>
+  </data>
+  <data name="Code_315" xml:space="preserve">
+    <value>ship and aircraft controllers and technicians</value>
+  </data>
+  <data name="Code_321" xml:space="preserve">
+    <value>medical technicians and pharmaceutical technicians</value>
+  </data>
+  <data name="Code_322" xml:space="preserve">
+    <value>nursing and midwifery assisting professionals</value>
+  </data>
+  <data name="Code_323" xml:space="preserve">
+    <value>Helping professionals in traditional and complementary medicine</value>
+  </data>
+  <data name="Code_324" xml:space="preserve">
+    <value>veterinary technicians and assistants</value>
+  </data>
+  <data name="Code_325" xml:space="preserve">
+    <value>other auxiliary health personnel</value>
+  </data>
+  <data name="Code_331" xml:space="preserve">
+    <value>associate professionals in finance and mathematical affairs</value>
+  </data>
+  <data name="Code_332" xml:space="preserve">
+    <value>sales and purchasing agents and brokers</value>
+  </data>
+  <data name="Code_333" xml:space="preserve">
+    <value>business services agents</value>
+  </data>
+  <data name="Code_334" xml:space="preserve">
+    <value>secretaries specializing in administrative and specific areas</value>
+  </data>
+  <data name="Code_335" xml:space="preserve">
+    <value>adjunct professionals in regulatory state related areas</value>
+  </data>
+  <data name="Code_341" xml:space="preserve">
+    <value>legal, social and dim related professionals</value>
+  </data>
+  <data name="Code_342" xml:space="preserve">
+    <value>sports and fitness workers</value>
+  </data>
+  <data name="Code_343" xml:space="preserve">
+    <value>art, culture and culinary professionals</value>
+  </data>
+  <data name="Code_351" xml:space="preserve">
+    <value>information and communication technologies operating and user support technicians</value>
+  </data>
+  <data name="Code_352" xml:space="preserve">
+    <value>telecommunications and broadcast technicians</value>
+  </data>
+  <data name="Code_411" xml:space="preserve">
+    <value>general office staff</value>
+  </data>
+  <data name="Code_412" xml:space="preserve">
+    <value>secretaries (general)</value>
+  </data>
+  <data name="Code_413" xml:space="preserve">
+    <value>operators using keyboards</value>
+  </data>
+  <data name="Code_421" xml:space="preserve">
+    <value>cashiers, collectors and similar staff</value>
+  </data>
+  <data name="Code_422" xml:space="preserve">
+    <value>customer advisory staff</value>
+  </data>
+  <data name="Code_431" xml:space="preserve">
+    <value>office staff</value>
+  </data>
+  <data name="Code_432" xml:space="preserve">
+    <value>office personnel for material records and transportation</value>
+  </data>
+  <data name="Code_441" xml:space="preserve">
+    <value>other office services</value>
+  </data>
+  <data name="Code_511" xml:space="preserve">
+    <value>travel staff, conductors and bus assistants and guides</value>
+  </data>
+  <data name="Code_512" xml:space="preserve">
+    <value>cooks</value>
+  </data>
+  <data name="Code_513" xml:space="preserve">
+    <value>waiters and bartenders</value>
+  </data>
+  <data name="Code_514" xml:space="preserve">
+    <value>hairdressers, beauticians and related workers</value>
+  </data>
+  <data name="Code_515" xml:space="preserve">
+    <value>building and cleaning and maintenance</value>
+  </data>
+  <data name="Code_516" xml:space="preserve">
+    <value>other personal services</value>
+  </data>
+  <data name="Code_521" xml:space="preserve">
+    <value>street, bench and market salespeople</value>
+  </data>
+  <data name="Code_522" xml:space="preserve">
+    <value>store, shop etc. sales staff</value>
+  </data>
+  <data name="Code_523" xml:space="preserve">
+    <value>cashiers and ticket sellers</value>
+  </data>
+  <data name="Code_524" xml:space="preserve">
+    <value>other salespersons</value>
+  </data>
+  <data name="Code_531" xml:space="preserve">
+    <value>child care services and teacher assistants</value>
+  </data>
+  <data name="Code_532" xml:space="preserve">
+    <value>personal care workers in health care</value>
+  </data>
+  <data name="Code_541" xml:space="preserve">
+    <value>personnel providing protection services</value>
+  </data>
+  <data name="Code_611" xml:space="preserve">
+    <value>gardeners and plant growers</value>
+  </data>
+  <data name="Code_612" xml:space="preserve">
+    <value>animal breeders</value>
+  </data>
+  <data name="Code_621" xml:space="preserve">
+    <value>forestry and forestry workers</value>
+  </data>
+  <data name="Code_622" xml:space="preserve">
+    <value>aquaculture workers, hunters and traps</value>
+  </data>
+  <data name="Code_631" xml:space="preserve">
+    <value>herbalist growers</value>
+  </data>
+  <data name="Code_632" xml:space="preserve">
+    <value>livestock growers</value>
+  </data>
+  <data name="Code_633" xml:space="preserve">
+    <value>mixed crops and livestock growers for their livelihoods</value>
+  </data>
+  <data name="Code_634" xml:space="preserve">
+    <value>fishermen, hunters, trappers and gatherers for their livelihood</value>
+  </data>
+  <data name="Code_711" xml:space="preserve">
+    <value>craftsmen</value>
+  </data>
+  <data name="Code_712" xml:space="preserve">
+    <value>construction works and craftsmen</value>
+  </data>
+  <data name="Code_713" xml:space="preserve">
+    <value>whitewash, paint and building exterior cleaning and related workers</value>
+  </data>
+  <data name="Code_721" xml:space="preserve">
+    <value>metal sheet and construction material, metal molders and welders and related workers</value>
+  </data>
+  <data name="Code_722" xml:space="preserve">
+    <value>blacksmiths, tool makers and related workers</value>
+  </data>
+  <data name="Code_723" xml:space="preserve">
+    <value>machinery maintenance and repair</value>
+  </data>
+  <data name="Code_731" xml:space="preserve">
+    <value>crafts employees</value>
+  </data>
+  <data name="Code_732" xml:space="preserve">
+    <value>print workers</value>
+  </data>
+  <data name="Code_741" xml:space="preserve">
+    <value>electrical equipment dealers and repairers</value>
+  </data>
+  <data name="Code_742" xml:space="preserve">
+    <value>electronic and telecommunications agencies and repairers</value>
+  </data>
+  <data name="Code_751" xml:space="preserve">
+    <value>food processing and related workers</value>
+  </data>
+  <data name="Code_752" xml:space="preserve">
+    <value>woodworking, wood furniture manufacturers and related workers</value>
+  </data>
+  <data name="Code_753" xml:space="preserve">
+    <value>textile and clothing</value>
+  </data>
+  <data name="Code_754" xml:space="preserve">
+    <value>other craftsmen and related workers</value>
+  </data>
+  <data name="Code_811" xml:space="preserve">
+    <value>mining and mineral processing plant operators</value>
+  </data>
+  <data name="Code_813" xml:space="preserve">
+    <value>chemical and photographic products plant and machinery operators</value>
+  </data>
+  <data name="Code_814" xml:space="preserve">
+    <value>machine operators of rubber, plastic and paper products</value>
+  </data>
+  <data name="Code_815" xml:space="preserve">
+    <value>textile, fur and leather machine operators</value>
+  </data>
+  <data name="Code_816" xml:space="preserve">
+    <value>machine operators of food-related products</value>
+  </data>
+  <data name="Code_817" xml:space="preserve">
+    <value>woodworking and paper manufacturing plant operators</value>
+  </data>
+  <data name="Code_818" xml:space="preserve">
+    <value>other stationary and machine operators</value>
+  </data>
+  <data name="Code_821" xml:space="preserve">
+    <value>installers</value>
+  </data>
+  <data name="Code_831" xml:space="preserve">
+    <value>locomotive engine drivers and related workers</value>
+  </data>
+  <data name="Code_832" xml:space="preserve">
+    <value>drivers of cars, vans and motorcycles</value>
+  </data>
+  <data name="Code_833" xml:space="preserve">
+    <value>heavy duty truck and bus drivers</value>
+  </data>
+  <data name="Code_834" xml:space="preserve">
+    <value>mobile machinery and equipment operators</value>
+  </data>
+  <data name="Code_835" xml:space="preserve">
+    <value>ship deck crews and related workers</value>
+  </data>
+  <data name="Code_911" xml:space="preserve">
+    <value>cleaners and household chores working in homes, hotels and offices</value>
+  </data>
+  <data name="Code_912" xml:space="preserve">
+    <value>vehicle and window cleaning, laundry and other manual cleaning</value>
+  </data>
+  <data name="Code_921" xml:space="preserve">
+    <value>agricultural, forestry and fishery sectors</value>
+  </data>
+  <data name="Code_931" xml:space="preserve">
+    <value>non-qualified workers in the mining and construction sectors</value>
+  </data>
+  <data name="Code_932" xml:space="preserve">
+    <value>non-qualified workers in manufacturing</value>
+  </data>
+  <data name="Code_933" xml:space="preserve">
+    <value>non-qualified workers in the transport and storage sectors</value>
+  </data>
+  <data name="Code_941" xml:space="preserve">
+    <value>food preparation aids</value>
+  </data>
+  <data name="Code_951" xml:space="preserve">
+    <value>street and street service workers</value>
+  </data>
+  <data name="Code_952" xml:space="preserve">
+    <value>street vendors (excluding food)</value>
+  </data>
+  <data name="Code_961" xml:space="preserve">
+    <value>scavengers and waste collectors</value>
+  </data>
+  <data name="Code_962" xml:space="preserve">
+    <value>other non-qualified employees</value>
+  </data>
+</root>

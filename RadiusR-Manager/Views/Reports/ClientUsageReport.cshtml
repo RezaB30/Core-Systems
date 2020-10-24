@@ -1,0 +1,69 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.ClientUsageReportViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.TopUsages;
+
+    var search = (RadiusR_Manager.Models.ViewModels.ClientUsageReportSearchViewModel)ViewBag.Search;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm(null, null, FormMethod.Get))
+            {
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(modelItem => search.StartDate)
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => search.StartDate)-@Html.EditorFor(modelItem => search.EndDate)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubscriberNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usage)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="@Url.Action("Details", "Client", new { id = item.ClientID})" class="details-link">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubscriberNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usage)
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

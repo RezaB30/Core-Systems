@@ -1,0 +1,161 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Helpers
+@using RezaB.Web.Authentication
+@using RadiusR.DB.Enums.CustomerSetup;
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.CustomerSetupServiceTaskViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.CustomerSetupTasks;
+    var search = ViewBag.Search as RadiusR_Manager.Models.ViewModels.CustomerSetupTaskSearchViewModel;
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Get))
+{
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.OperatorID)
+            </td>
+            <td>
+                @Html.Select(model => search.OperatorID, (SelectList)ViewBag.Operators, RadiusR.Localization.Pages.Common.Choose)
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.TaskType)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.TaskType)
+            </td>
+            <td>
+                @Html.LabelFor(model => search.TaskState)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.TaskState)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.StartDate)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.StartDate)
+            </td>
+            <td>
+                @Html.LabelFor(model => search.EndDate)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.EndDate)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" style="text-align: right;">
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+            </td>
+        </tr>
+    </table>
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Client.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Client.SubscriberNo)
+        </th>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IssueDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReservationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompletionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsCharged)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a class="details-link" href="@Url.Action("Details", "Client", new { id = item.Client.ID })">
+                    @Html.DisplayFor(modelItem => item.Client.Name)
+                </a>
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Client.SubscriberNo)
+                @Html.HiddenFor(modelItem => item.Client.Username, new { @class = "ajax-username" })
+            </td>
+            <td class="centered">
+                @Html.ClientStateDisplay(modelItem => item.Client.State)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.IssueDate)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.ReservationDate)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.CompletionDate)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.TaskType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td class="online-status-container">
+                <div class="online-status-loading"></div>
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.IsCharged)
+            </td>
+            <td>
+                @if (!item.IsCharged && User.HasPermission("Setup Task Service Fee") && item.Status == (short)TaskStatuses.Completed)
+                {
+                    using (Html.BeginForm("AddServiceFee", null, new { id = item.ID, page = Request.QueryString["page"] }, FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.AddServiceFee" class="link-button iconed-button money-button" />
+                    }
+                }
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", new { id = item.ID, redirectUrl = Request.Url.AbsoluteUri }, new { @class = "link-button iconed-button details-button" })
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+
+@section PageScripts{
+    <script type="text/javascript">
+        LoadClientConnectionStatus(".ajax-username", 'tr', '@Url.Action("GetOnlineUsers", "Client")',
+                    '@RadiusR.Localization.Pages.Common.Online', '@RadiusR.Localization.Pages.Common.Offline', '@RadiusR.Localization.Pages.Common.LoadingError', '@RadiusR.Localization.Pages.Common.NASAlert');
+    </script>
+}

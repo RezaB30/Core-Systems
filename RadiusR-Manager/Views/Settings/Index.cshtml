@@ -1,0 +1,481 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.AppSettingsViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Settings;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div style="text-align: center;">
+        <div id="settings-category" class="settings-category-wrapper category-list-wrapper">
+
+            <div class="category-list-head" tabindex="0">
+                @RadiusR.Localization.Pages.Common.Logo
+            </div>
+            <div class="category-list-contents">
+                <table class="input-table" style="width: 100%">
+                    <tr>
+                        <td style="text-align: center;">
+                            @Html.ActionLink(RadiusR.Localization.Pages.Common.ChangeLogo, "Logo", null, new { @class = "link-button iconed-button edit-button" })
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="category-list-head" tabindex="0">
+                @RadiusR.Localization.AppSettings.CategoryNames.TableSettings
+            </div>
+            <div class="category-list-contents">
+                <table class="input-table" style="width: 100%">
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.TableRows)
+                        </td>
+                        <td>
+                            @Html.Select(model => model.TableRows, HelperUtilities.CreateNumericSelectList(5, 100, Model.TableRows))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.TableRows)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.PagesLinkCount)
+                        </td>
+                        <td>
+                            @Html.Select(model => model.PagesLinkCount, HelperUtilities.CreateNumericSelectList(3, 10, Model.PagesLinkCount))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.PagesLinkCount)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="category-list-head" tabindex="0">
+                @RadiusR.Localization.AppSettings.CategoryNames.ChartSettings
+            </div>
+            <div class="category-list-contents">
+                <table class="input-table" style="width: 100%">
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.ChartMaxSteps)
+                        </td>
+                        <td>
+                            @Html.Select(model => model.ChartMaxSteps, HelperUtilities.CreateNumericSelectList(10, 100, Model.ChartMaxSteps))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.ChartMaxSteps)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="category-list-head" tabindex="0">
+                @RadiusR.Localization.AppSettings.CategoryNames.Suffix
+            </div>
+            <div class="category-list-contents">
+                <table class="input-table" style="width: 100%">
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.CountryPhoneCode)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.CountryPhoneCode, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = "4" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.CountryPhoneCode)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="category-list-head" tabindex="0">
+                @RadiusR.Localization.AppSettings.CategoryNames.EBillSettings
+            </div>
+            <div class="category-list-contents">
+                <table class="input-table" style="width: 100%">
+                    <tr>
+                        <td>
+                            @RadiusR.Localization.Model.RadiusR.State
+                        </td>
+                        <td>
+                            @Html.CheckButton(model => model.EBillIsActive)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.EBillIsActive)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.EBillsThreshold)
+                        </td>
+                        <td>
+                            @Html.Select(model => model.EBillsThreshold, HelperUtilities.CreateNumericSelectList(1,30, Model.EBillsThreshold))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.EBillsThreshold)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.ReviewDelay)
+                        </td>
+                        <td>
+                            @Html.Select(model => model.ReviewDelay, HelperUtilities.CreateNumericSelectList(0, 5, Model._ReviewDelay))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.ReviewDelay)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.PastDueFlatPenalty)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.PastDueFlatPenalty, new { @htmlAttributes = new { @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.PastDueFlatPenalty)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.PastDuePenaltyPercentage)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.PastDuePenaltyPercentage, new { @htmlAttributes = new { @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.PastDuePenaltyPercentage)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.InvoiceArchiveIDPrefix)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.InvoiceArchiveIDPrefix, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = "3" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.InvoiceArchiveIDPrefix)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.InvoiceBillIDPrefix)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.InvoiceBillIDPrefix, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = "3" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.InvoiceBillIDPrefix)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.SenderCentralSystemNo)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.SenderCentralSystemNo, new { @htmlAttributes = new { @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.SenderCentralSystemNo)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.SenderCityName)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.SenderCityName, new { @htmlAttributes = new { @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.SenderCityName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.SenderCountryName)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.SenderCountryName, new { @htmlAttributes = new { @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.SenderCountryName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.SenderProvinceName)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.SenderProvinceName, new { @htmlAttributes = new { @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.SenderProvinceName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.SenderCompanyTaxRegion)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.SenderCompanyTaxRegion, new { @htmlAttributes = new { @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.SenderCompanyTaxRegion)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.SenderCompanyTitle)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.SenderCompanyTitle, new { @htmlAttributes = new { @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.SenderCompanyTitle)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.SenderEmail)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.SenderEmail, new { @htmlAttributes = new { @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.SenderEmail)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.SenderPhoneNo)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.SenderPhoneNo, new { @htmlAttributes = new { @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.SenderPhoneNo)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.SenderFaxNo)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.SenderFaxNo, new { @htmlAttributes = new { @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.SenderFaxNo)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.SenderRegistrationNo)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.SenderRegistrationNo, new { @htmlAttributes = new { @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.SenderRegistrationNo)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.SenderTaxNo)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.SenderTaxNo, new { @htmlAttributes = new { @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.SenderTaxNo)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="category-list-head" tabindex="0">
+                @RadiusR.Localization.AppSettings.CategoryNames.EBillCredentials
+            </div>
+            <div class="category-list-contents">
+                <table class="input-table" style="width: 100%">
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.EBillCompanyCode)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.EBillCompanyCode, new { @htmlAttributes = new { @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.EBillCompanyCode)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.EBillApiUsername)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.EBillApiUsername, new { @htmlAttributes = new { @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.EBillApiUsername)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.EBillApiPassword)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.EBillApiPassword, new { @htmlAttributes = new { @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.EBillApiPassword)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="category-list-head" tabindex="0">
+                @RadiusR.Localization.AppSettings.CategoryNames.CustomerWebsite
+            </div>
+            <div class="category-list-contents">
+                <table class="input-table" style="width: 100%">
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.OnlinePasswordDuration)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.OnlinePasswordDuration, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = "8" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.OnlinePasswordDuration)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            @*<div class="category-list-head" tabindex="0">
+                @RadiusR.Localization.AppSettings.CategoryNames.BillSettings
+            </div>
+            <div class="category-list-contents">
+                <table class="input-table" style="width: 100%">
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.PaymentTolerance)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.PaymentTolerance, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = "2" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.PaymentTolerance)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.ExpirationTolerance)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.ExpirationTolerance, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = "2" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.ExpirationTolerance)
+                        </td>
+                    </tr>
+                </table>
+            </div>*@
+
+            <div class="category-list-head" tabindex="0">
+                @RadiusR.Localization.AppSettings.CategoryNames.GoogleAPIs
+            </div>
+            <div class="category-list-contents">
+                <table class="input-table" style="width: 100%">
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.GeocodingAPIKey)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.GeocodingAPIKey, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = "50" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.GeocodingAPIKey)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="category-list-contents" style="text-align: center; padding: 0.5em; display: block;">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Reset, null, null, new { @class = "link-button iconed-button reload-button" })&nbsp;
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+            </div>
+        </div>
+    </div>
+}
+
+@section PageScripts{
+    <script type="text/javascript">
+        SetupCategorySliders('#page-contents');
+    </script>
+}

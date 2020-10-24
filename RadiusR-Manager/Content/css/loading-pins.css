@@ -1,0 +1,40 @@
+﻿@keyframes loading-pins-animation {
+    0% {
+        transform: scale(0.5);
+    }
+
+    50% {
+        transform: scale(1);
+        background-color: orange;
+    }
+
+    100% {
+        transform: scale(0.5);
+    }
+}
+
+div.loading-pins-container {
+    text-align: center;
+    padding: 0.5em;
+}
+
+    div.loading-pins-container .loading-pin {
+        width: 1em;
+        height: 1em;
+        background-color: transparent;
+        border-radius: 100%;
+        display: inline-block;
+        animation: loading-pins-animation infinite 1s backwards ease-in-out;
+    }
+
+        div.loading-pins-container .loading-pin.pin1 {
+            animation-delay: 0;
+        }
+
+        div.loading-pins-container .loading-pin.pin2 {
+            animation-delay: 0.1s;
+        }
+
+        div.loading-pins-container .loading-pin.pin3 {
+            animation-delay: 0.2s;
+        }

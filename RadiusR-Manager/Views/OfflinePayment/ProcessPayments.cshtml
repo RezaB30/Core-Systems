@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.OfflinePayments;
+    var StatusReport = ViewBag.CheckList as IEnumerable<RadiusR_Manager.Controllers.OfflinePaymentController.PaymentFileList>;
+    var reportDate = ViewBag.StatusReportTime as DateTime?;
+}
+
+@if (StatusReport != null)
+{
+
+    <table class="data-table">
+        <tr>
+            <th>
+                @RadiusR.Localization.Pages.Common.OfflinePaymentGateways
+            </th>
+            <th>
+                @RadiusR.Localization.Pages.Common.FileList
+            </th>
+        </tr>
+        @if (StatusReport.Count() == 0)
+                {
+            <tr>
+                <td class="text-danger" colspan="2">
+                    @RadiusR.Localization.Pages.Common.NoData
+                </td>
+            </tr>
+        }
+        @foreach (var item in StatusReport)
+        {
+            <tr>
+                <td rowspan="@Math.Max(item.FileNames.Count(), 1)" style="border-bottom: 1px solid black;">@item.Name</td>
+                @if (item.FileNames.Count() > 0)
+                {
+                    <td>@item.FileNames.FirstOrDefault()</td>
+                }
+                else
+                {
+                    <td>@RadiusR.Localization.Pages.Common.NoFilesFound</td>
+                }
+            </tr>
+            if (item.FileNames.Any())
+            {
+                foreach (var fileName in item.FileNames.Skip(1).ToArray())
+                {
+                    <tr>
+                        <td>@fileName</td>
+                    </tr>
+                }
+            }
+        }
+    </table>
+    <div class="centered-form-wrapper button-row">
+        <div class="centered-form">
+            <div>
+                @Html.Partial("_WaitTimer")
+            </div>
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "submit-row" }))
+            {
+                @Html.AntiForgeryToken()
+                if (reportDate.HasValue)
+                {
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.LastOperation, "StatusReport", null, new { @class = "link-button iconed-button validate-button" })
+                    @: &nbsp;
+                }
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+            }
+        </div>
+    </div>
+}
+
+@section PageScripts{
+    <script type="text/javascript">
+        // form submit loading pane
+        $('#submit-row').closest('form').submit(function () {
+            $('#submit-row').hide();
+            StartWaitingCounter('div.waiting-progress');
+        });
+    </script>
+}

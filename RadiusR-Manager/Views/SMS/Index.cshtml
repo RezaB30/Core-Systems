@@ -1,0 +1,63 @@
+﻿@using RezaB.Web.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.SMSViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.SMS + "-" + RadiusR.Localization.Pages.Common.Texts;
+    var index = 0;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Culture)
+            </td>
+            <td colspan="3">
+                @Html.ActionLink("Türkçe", "Index", new { id = "tr-tr" }, new { @class = "link-button" })&nbsp;@Html.ActionLink("English", "Index", new { id = "en-US" }, new { @class = "link-button" })
+            </td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            ViewData.TemplateInfo.HtmlFieldPrefix = "item[" + index + "]";
+            <tr>
+                @Html.Hidden("Type", item.Type)
+                @Html.Hidden("Culture", item.Culture)
+                <td>
+                    @Html.CheckButton("item[" + index + "].IsActive", RadiusR.Localization.Model.RadiusR.IsActive, item.IsActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.TextArea("Text", item.Text, new { @maxlength = 500, @class = "sms-text-editor" })
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => item.ValidParameters)
+                </td>
+            </tr>
+            <tr>
+                <td class="text-danger">
+                    @Html.ValidationMessageFor(modelItem => item.IsActive)
+                </td>
+                <td colspan="3" class="text-danger">
+                    @Html.ValidationMessage("Text")
+                </td>
+            </tr>
+            index++;
+        }
+        <tr>
+            <td colspan="3" class="centered">
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+            </td>
+        </tr>
+    </table>
+}
+
+@section PageScripts{
+    <script type="text/javascript">
+        SetupSMSParameters('#page-contents');
+    </script>
+}

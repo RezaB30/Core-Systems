@@ -1,0 +1,53 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.TelekomTariffViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.TelekomTariffs;
+}
+
+<div class="centered-form-wrapper" style="margin-bottom: 0.5em;">
+    <div class="centered-form">
+        @using (Html.BeginForm("ClearTelekomTariffsCache", null, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="@RadiusR.Localization.Pages.Common.ClearCache" class="link-button iconed-button reload-button" />
+        }
+    </div>
+</div>
+
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SpeedCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpeedCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @using (Html.BeginForm("RemoveTelekomTariff", null, FormMethod.Post, new { @confirm = "enabled" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("id", item.SpeedCode)
+                    <input type="submit" name="" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button remove-button" />
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+<div class="centered" style="margin: 0.5em 0;">
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "AddTelekomTariff", null, new { @class = "link-button iconed-button new-button" })
+</div>

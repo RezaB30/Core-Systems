@@ -1,0 +1,183 @@
+﻿@using RezaB.Web.Authentication
+
+@model RadiusR_Manager.Models.ViewModels.Customer.IDCardViewModel
+
+<table class="input-table" style="width: 100%;">
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.FirstName)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+        </td>
+        <td>
+            @Html.LabelFor(model => model.LastName)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.LastName)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.CardType)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.CardType)
+        </td>
+        <td>
+            @Html.LabelFor(model => model.PassportNo)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.PassportNo, new { htmlAttributes = new { @maxlength = 12, @autocomplete = "off" } })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.CardType)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.PassportNo)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.TCKNo)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.TCKNo, new { htmlAttributes = new { @maxlength = 11, @autocomplete = "off" } })
+        </td>
+        <td>
+            @Html.LabelFor(model => model.VolumeNo)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.VolumeNo, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.TCKNo)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.VolumeNo)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.RowNo)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.RowNo, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+        </td>
+        <td>
+            @Html.LabelFor(model => model.PageNo)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.PageNo, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.RowNo)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.PageNo)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Province)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.Province, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+        </td>
+        <td>
+            @Html.LabelFor(model => model.District)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.District, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.Province)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.District)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Neighbourhood)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.Neighbourhood, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+        </td>
+        <td>
+            @Html.LabelFor(model => model.SerialNo)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.SerialNo, new { htmlAttributes = new { @maxlength = 12, @autocomplete = "off" } })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.Neighbourhood)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.SerialNo)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.PlaceOfIssue)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.PlaceOfIssue, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+        </td>
+        <td>
+            @Html.LabelFor(model => model.BirthDate)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.BirthDate)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.PlaceOfIssue)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.BirthDate)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.DateOfIssue)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.DateOfIssue)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.DateOfIssue)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    @if (User.HasPermission("Skip TCK Validation") && (bool?)ViewBag.SkipValidation == true)
+    {
+        <tr>
+            <td class="centered" colspan="4">
+                @Html.EditorFor(model => model.SkipValidation)
+            </td>
+        </tr>
+    }
+</table>

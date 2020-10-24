@@ -1,0 +1,40 @@
+﻿@model string
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.BatchExpirationDateUpdate;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>@RadiusR.Localization.Model.RadiusR.SubscriberNo</td>
+                    <td>
+                        @Html.TextArea("subscriberNos", ViewBag.Values as string, new { @rows = 15 })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-danger">
+                        @ViewBag.ErrorMessage
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        <input id="batch-submit" type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+@section PageScripts{
+    <script>
+        $('#batch-submit').closest('form').submit(function () {
+            $('#batch-submit').hide();
+        });
+    </script>
+}

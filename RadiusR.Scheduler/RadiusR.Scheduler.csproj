@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3FF52E24-F6D0-42F3-834B-9B4AEF04FDF2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RadiusR.Scheduler</RootNamespace>
+    <AssemblyName>RadiusR.Scheduler</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.5.11\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.API.MobilExpress, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.API.MobilExpress.1.0.0\lib\net452\RezaB.API.MobilExpress.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.NetInvoice, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.NetInvoice.1.0.0\lib\net452\RezaB.NetInvoice.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.NetInvoice.Wrapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.NetInvoice.Wrapper.1.0.0\lib\net452\RezaB.NetInvoice.Wrapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutomaticPayments.cs" />
+    <Compile Include="IssueBills.cs" />
+    <Compile Include="IssueEBills.cs" />
+    <Compile Include="Scheduler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScheduledTasks.cs" />
+    <Compile Include="ScheduleSMSes.cs" />
+    <Compile Include="SendSMSes.cs" />
+    <Compile Include="SMSLogs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RadiusR.API.MobilExpress.DBAdapter\RadiusR.API.MobilExpress.DBAdapter.csproj">
+      <Project>{5547b2c6-bef3-4fc2-a383-9a302c1f458b}</Project>
+      <Name>RadiusR.API.MobilExpress.DBAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.DB.Utilities\RadiusR.DB.Utilities.csproj">
+      <Project>{67fe460b-c88f-466c-86c4-8d8ec860d777}</Project>
+      <Name>RadiusR.DB.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.DB\RadiusR.DB.csproj">
+      <Project>{1475b653-8eef-42d3-aa5f-d811aabca41c}</Project>
+      <Name>RadiusR.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.Localization\RadiusR.Localization.csproj">
+      <Project>{c11ab331-2ac5-4f7e-8fd2-94715f266ec7}</Project>
+      <Name>RadiusR.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.Scheduler.SMS\RadiusR.Scheduler.SMS.csproj">
+      <Project>{774b9617-4624-4cb2-9236-8e57f888796c}</Project>
+      <Name>RadiusR.Scheduler.SMS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.SMS\RadiusR.SMS.csproj">
+      <Project>{158ef52e-9fad-4f56-9726-e5fe91078abe}</Project>
+      <Name>RadiusR.SMS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.SystemLogs\RadiusR.SystemLogs.csproj">
+      <Project>{77db6f16-2d64-4c4a-afbb-24109233a18d}</Project>
+      <Name>RadiusR.SystemLogs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RezaB.NetInvoice.RadiusRDBAdapter\RezaB.NetInvoice.RadiusRDBAdapter.csproj">
+      <Project>{d4e02412-724b-49c8-9559-37cad8c3bc2f}</Project>
+      <Name>RezaB.NetInvoice.RadiusRDBAdapter</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,108 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.CashDeskViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.CashDeskReport;
+    var search = (RadiusR_Manager.Models.ViewModels.CashDeskSearchViewModel)ViewBag.Search;
+    var total = ViewBag.Total as string;
+}
+
+@using (Html.BeginForm(null, null, method: FormMethod.Get))
+{
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.FullName)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.FullName)
+            </td>
+            <td>
+                @Html.LabelFor(model => search.PaymentType)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.PaymentType)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model=>search.AccountantID)
+            </td>
+            <td>
+                @Html.Select(model=> search.AccountantID, (SelectList)ViewBag.AccountantList, RadiusR.Localization.Pages.Common.Choose)
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.StartDate)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.StartDate)
+            </td>
+            <td>
+                @Html.LabelFor(model => search.EndDate)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.EndDate)
+            </td>
+        </tr>
+        <tr>
+            <td class="centered" colspan="4">
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+            </td>
+        </tr>
+    </table>
+}
+
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountantName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountantName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+
+<div style="text-align: right; padding: 0.3em;">
+    @RadiusR.Localization.Pages.Common.Total:
+    <div class="bills-total-container">
+        @Html.DisplayFor(model => total, "Currency")
+    </div>
+</div>

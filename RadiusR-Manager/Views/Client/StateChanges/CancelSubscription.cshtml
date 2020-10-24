@@ -1,0 +1,59 @@
+﻿@using RezaB.Web.Authentication
+@model RadiusR_Manager.Models.ViewModels.ClientStates.SubscriptionCancelOptionsViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.CancelSubscriber + "-" + ViewBag.SubscriberName;
+    var isForce = ViewBag.IsForce as bool? ?? false;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.ReasonID)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.ReasonID)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.ReasonID)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.ReasonDescription)
+            </td>
+            <td>
+                @Html.TextAreaFor(model => model.ReasonDescription, new { @maxlength = 300 })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.ReasonDescription)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="text-danger">@ViewBag.WebServiceError</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="centered">
+                <a href="@ViewBag.BackUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                @if (isForce && User.HasPermission("Force Cancellation"))
+                {
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Force" class="link-button iconed-button warning-button" />
+                    @Html.Hidden("force", "on")
+                }
+                else
+                {
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                }
+            </td>
+        </tr>
+    </table>
+}

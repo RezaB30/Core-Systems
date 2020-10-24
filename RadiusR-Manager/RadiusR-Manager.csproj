@@ -1,0 +1,1032 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{54892EE6-CD46-400D-8F8F-E53366128DB2}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RadiusR_Manager</RootNamespace>
+    <AssemblyName>RadiusR-Manager</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.0.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.0.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.0.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.0.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.0.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.0.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.1.0.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.API.TCKValidation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.API.TCKValidation.1.0.0\lib\net452\RezaB.API.TCKValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.Data, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Data.1.0.1\lib\net452\RezaB.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.FTPUtilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.FTPUtilities.1.0.0\lib\net452\RezaB.FTPUtilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.Mikrotik, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Mikrotik.1.0.0\lib\net452\RezaB.Mikrotik.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.Mikrotik.Extentions, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Mikrotik.Extentions.1.2.0\lib\net452\RezaB.Mikrotik.Extentions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.NetInvoice, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.NetInvoice.1.0.0\lib\net452\RezaB.NetInvoice.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.NetInvoice.Wrapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.NetInvoice.Wrapper.1.0.0\lib\net452\RezaB.NetInvoice.Wrapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.Networking, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Networking.1.0.1\lib\net452\RezaB.Networking.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.TurkTelekom.WebServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.TurkTelekom.WebServices.1.0.0\lib\net452\RezaB.TurkTelekom.WebServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Web.1.0.0\lib\net452\RezaB.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.Web.Helpers, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Web.Helpers.1.0.1\lib\net452\RezaB.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.Web.VPOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Web.VPOS.1.0.0\lib\net452\RezaB.Web.VPOS.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Authenticator.cs" />
+    <Compile Include="AuthenticatorExtentions.cs" />
+    <Compile Include="Binders\BooleanBinder.cs" />
+    <Compile Include="Binders\DateBinder.cs" />
+    <Compile Include="Binders\DateWithTimeBinder.cs" />
+    <Compile Include="Binders\InvariantCultureDecimalBinder.cs" />
+    <Compile Include="Controllers\AdditionalFeeController.cs" />
+    <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\BackgroundServicesController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BillController.cs" />
+    <Compile Include="Controllers\BTKLogsController.cs" />
+    <Compile Include="Controllers\BTKSettingsController.cs" />
+    <Compile Include="Controllers\CashierController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\ClientExtras\AjaxActions.cs" />
+    <Compile Include="Controllers\ClientExtras\DetailsTabs.cs" />
+    <Compile Include="Controllers\ClientExtras\Edits.cs" />
+    <Compile Include="Controllers\ClientExtras\PrivateMethods.cs" />
+    <Compile Include="Controllers\ClientExtras\Register.cs" />
+    <Compile Include="Controllers\ClientExtras\StateChanges.cs" />
+    <Compile Include="Controllers\ClientExtras\ModelStateFixes.cs" />
+    <Compile Include="Controllers\CustomerSetupServiceController.cs" />
+    <Compile Include="Controllers\DomainSettingsController.cs" />
+    <Compile Include="Controllers\EBillController.cs" />
+    <Compile Include="Controllers\FeeTypeVariantController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MobilExpressController.cs" />
+    <Compile Include="Controllers\NASController.cs" />
+    <Compile Include="Controllers\OfflinePaymentController.cs" />
+    <Compile Include="Controllers\PartnerController.cs" />
+    <Compile Include="Controllers\PaymentServicesController.cs" />
+    <Compile Include="Controllers\PDFTemplatesController.cs" />
+    <Compile Include="Controllers\QuotaController.cs" />
+    <Compile Include="Controllers\RadiusSettingsController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\SchedulerController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controllers\Shared\CalendarController.cs" />
+    <Compile Include="Controllers\SMSController.cs" />
+    <Compile Include="Controllers\SpecialOffersController.cs" />
+    <Compile Include="Controllers\SupportRequestController.cs" />
+    <Compile Include="Controllers\TaxController.cs" />
+    <Compile Include="Controllers\TelekomWorkOrderController.cs" />
+    <Compile Include="Controllers\TTServicesController.cs" />
+    <Compile Include="Controllers\UserManagementController.cs" />
+    <Compile Include="Controllers\CallCenterController.cs" />
+    <Compile Include="Controllers\VPOSPaymentController.cs" />
+    <Compile Include="Controllers\VPOSSettingsController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\AddressOnMapHelper.cs" />
+    <Compile Include="Helpers\AvailabilityResultsHelper.cs" />
+    <Compile Include="Helpers\ClientFeeListHelper.cs" />
+    <Compile Include="Helpers\ClientStateDisplayHelper.cs" />
+    <Compile Include="Helpers\CustomFeeListHelper.cs" />
+    <Compile Include="Helpers\RecurringDiscountEditorHelper.cs" />
+    <Compile Include="Helpers\DisplayMultiListForHelper.cs" />
+    <Compile Include="Helpers\ExpiredPoolListHelper.cs" />
+    <Compile Include="Helpers\FeeTypeVariantListHelper.cs" />
+    <Compile Include="Helpers\IPNetmapListHelper.cs" />
+    <Compile Include="Helpers\RateLimitTimePartitionHelper.cs" />
+    <Compile Include="Helpers\RelatedSubscriptionsHelper.cs" />
+    <Compile Include="Helpers\ServiceDomainHelper.cs" />
+    <Compile Include="Helpers\SMSParameterEditorHelper.cs" />
+    <Compile Include="Helpers\VerticalIPMapListHelper.cs" />
+    <Compile Include="Helpers\LanguageLinkHelper.cs" />
+    <Compile Include="Helpers\CaptchaHelper.cs" />
+    <Compile Include="Helpers\CurrentHelper.cs" />
+    <Compile Include="Helpers\DatePickerHelper.cs" />
+    <Compile Include="Helpers\FileUploadHelper.cs" />
+    <Compile Include="Helpers\LinearDiagramHelper.cs" />
+    <Compile Include="Helpers\PaymentButtonHelper.cs" />
+    <Compile Include="Helpers\RoleEditorHelper.cs" />
+    <Compile Include="Helpers\LocalizedListEditorHelper.cs" />
+    <Compile Include="Helpers\LocalizedListTextHelper.cs" />
+    <Compile Include="Helpers\ClientStateSelectorHelper.cs" />
+    <Compile Include="Helpers\MultiButtonHelper.cs" />
+    <Compile Include="Helpers\PagedListHelper.cs" />
+    <Compile Include="Helpers\PhoneCallHelper.cs" />
+    <Compile Include="Helpers\PieChartHelper.cs" />
+    <Compile Include="Helpers\RoleDisplayHelper.cs" />
+    <Compile Include="Helpers\TTPacketSelectHelper.cs" />
+    <Compile Include="Helpers\WebPhoneCallHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Version History.txt" />
+    <Content Include="Content\css\address-check-bookmark.css" />
+    <Content Include="Content\css\address-details.css" />
+    <Content Include="Content\css\availability-results.css" />
+    <Content Include="Content\css\bill-receipt.css" />
+    <Content Include="Content\css\call-center.css" />
+    <Content Include="Content\css\captcha.css" />
+    <Content Include="Content\css\card-payment.css" />
+    <Content Include="Content\css\check-name.css" />
+    <Content Include="Content\css\checkbutton.css" />
+    <Content Include="Content\css\client-state-selector.css" />
+    <Content Include="Content\css\confirm-box.css" />
+    <Content Include="Content\css\custom-fee-list.css" />
+    <Content Include="Content\css\customer-state.css" />
+    <Content Include="Content\css\datatable.css" />
+    <Content Include="Content\css\datepicker.css" />
+    <Content Include="Content\css\details-table.css" />
+    <Content Include="Content\css\diagrams.css" />
+    <Content Include="Content\css\expired-pool-list.css" />
+    <Content Include="Content\css\fee-type-variant-list.css" />
+    <Content Include="Content\css\file-upload.css" />
+    <Content Include="Content\css\file-view.css" />
+    <Content Include="Content\css\loading-pins.css" />
+    <Content Include="Content\css\payment-button.css" />
+    <Content Include="Content\css\pdf-templates.css" />
+    <Content Include="Content\css\registration-trace-view.css" />
+    <Content Include="Content\css\related-subscriptions.css" />
+    <Content Include="Content\css\reports.css" />
+    <Content Include="Content\css\search-slider.css" />
+    <Content Include="Content\css\select-list.css" />
+    <Content Include="Content\css\service-rate-time-table.css" />
+    <Content Include="Content\css\sliding-box.css" />
+    <Content Include="Content\css\sms-parameters.css" />
+    <Content Include="Content\css\subscription-add-fee-editor.css" />
+    <Content Include="Content\css\tree-checker.css" />
+    <Content Include="Content\css\views\background-services.css" />
+    <Content Include="Content\css\views\bill-calculate-total.css" />
+    <Content Include="Content\css\views\home-page.css" />
+    <Content Include="Content\css\inputs.css" />
+    <Content Include="Content\css\ip-map-list.css" />
+    <Content Include="Content\css\views\client-ip-type.css" />
+    <Content Include="Content\css\views\client-online-status.css" />
+    <Content Include="Content\css\views\error-page.css" />
+    <Content Include="Content\css\views\infrastructure-check.css" />
+    <Content Include="Content\css\views\line-quality.css" />
+    <Content Include="Content\css\views\manage-cities.css" />
+    <Content Include="Content\css\views\receipt.css" />
+    <Content Include="Content\css\views\work-order-details.css" />
+    <Content Include="Content\css-m\_media-related.css" />
+    <Content Include="Content\css\multi-button.css" />
+    <Content Include="Content\css\nav-bar.css" />
+    <Content Include="Content\css\rate-limit-text.css" />
+    <Content Include="Content\css\additional-fee.css" />
+    <Content Include="Content\css\views\client-details.css" />
+    <Content Include="Content\css\views\login.css" />
+    <Content Include="Content\css\views\manage-credit.css" />
+    <Content Include="Content\css\views\settings-page.css" />
+    <Content Include="Content\css\views\task-feed.css" />
+    <Content Include="Content\css\waiting-progress.css" />
+    <Content Include="Content\Images\Buttons\disconnect.svg" />
+    <Content Include="Content\Images\Buttons\discount.svg" />
+    <Content Include="Content\Images\Buttons\download.svg" />
+    <Content Include="Content\Images\Buttons\e-bill-tag.svg" />
+    <Content Include="Content\Images\Buttons\nat.svg" />
+    <Content Include="Content\Images\Buttons\numeric-keypad.svg" />
+    <Content Include="Content\Images\Buttons\wrench.svg" />
+    <Content Include="Content\Images\Home\bill.svg" />
+    <Content Include="Content\Images\Home\client.svg" />
+    <Content Include="Content\Images\Home\dealer.svg" />
+    <Content Include="Content\Images\Home\fee.svg" />
+    <Content Include="Content\Images\Home\router.svg" />
+    <Content Include="Content\Images\Home\service.svg" />
+    <Content Include="Content\Images\Home\sms.svg" />
+    <Content Include="Content\Images\Home\support.svg" />
+    <Content Include="Content\Images\Home\technician.svg" />
+    <Content Include="Content\Images\Home\work-order.svg" />
+    <Content Include="Content\Images\Logo\logo.svg" />
+    <Content Include="Content\Images\Shared\blank-file.svg" />
+    <Content Include="Content\Images\Shared\city-list-accept.svg" />
+    <Content Include="Content\Images\Shared\city-list-cancel.svg" />
+    <Content Include="Content\Images\Shared\error-triangle.svg" />
+    <Content Include="Content\Images\Shared\eye-close-up.svg" />
+    <Content Include="Content\Images\Shared\FTTX.svg" />
+    <Content Include="Content\Images\Shared\loading-symbol.svg" />
+    <Content Include="Content\Images\Shared\map.svg" />
+    <Content Include="Content\Images\Shared\main-logo.svg" />
+    <Content Include="Content\Images\Shared\main-logo-blue.svg" />
+    <Content Include="Content\Images\Shared\nav-bar-toggle.svg" />
+    <Content Include="Content\Images\Shared\offline.svg" />
+    <Content Include="Content\Images\Shared\online.svg" />
+    <Content Include="Content\Images\Shared\radius-settings.svg" />
+    <Content Include="Content\Images\Shared\main-logo_old.svg" />
+    <Content Include="Content\Images\Shared\settings.svg" />
+    <Content Include="Content\Images\Shared\slider-lip.svg" />
+    <Content Include="Content\Images\Shared\telephone-white.svg" />
+    <Content Include="Content\Images\Shared\tree-minus.svg" />
+    <Content Include="Content\Images\Shared\tree-plus.svg" />
+    <Content Include="Content\Images\Shared\warning.svg" />
+    <Content Include="Content\Images\Shared\wifi.svg" />
+    <Content Include="Content\Images\Tree\tree-filler.svg" />
+    <Content Include="Content\Images\Tree\tree-last-selected.svg" />
+    <Content Include="Content\Images\Tree\tree-last-unselected.svg" />
+    <Content Include="Content\Images\Tree\tree-linked-selected.svg" />
+    <Content Include="Content\Images\Tree\tree-linked-unselected.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\css\Site.css" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\Images\Shared\debit-card.svg" />
+    <Content Include="Content\Images\Buttons\credit-card.svg" />
+    <Content Include="Content\Images\Buttons\location-on-map.svg" />
+    <Content Include="Content\Images\Buttons\speedometer.svg" />
+    <Content Include="Content\Images\Buttons\availability-item.svg" />
+    <Content Include="Content\Images\Buttons\sign-in.svg" />
+    <Content Include="Content\Images\Shared\m-menu.svg" />
+    <Content Include="Content\Images\Shared\search-slider-lip-m.svg" />
+    <Content Include="Content\Images\Shared\progress-gear.svg" />
+    <Content Include="Content\Images\Shared\light-bulb.svg" />
+    <Content Include="Content\Images\Shared\exclamation-mark.svg" />
+    <Content Include="Content\Images\Shared\halt.svg" />
+    <Content Include="Content\Images\Buttons\back.svg" />
+    <Content Include="Content\Images\Buttons\bin.svg" />
+    <Content Include="Content\Images\Buttons\browse.svg" />
+    <Content Include="Content\Images\Buttons\calendar.svg" />
+    <Content Include="Content\Images\Buttons\cancel.svg" />
+    <Content Include="Content\Images\Buttons\checked.svg" />
+    <Content Include="Content\Images\Buttons\unchecked.svg" />
+    <Content Include="Content\Images\Buttons\check-mark.svg" />
+    <Content Include="Content\Images\Buttons\drop-down-arrow.svg" />
+    <Content Include="Content\Images\Buttons\eraser.svg" />
+    <Content Include="Content\Images\Buttons\history.svg" />
+    <Content Include="Content\Images\Buttons\information.svg" />
+    <Content Include="Content\Images\Buttons\insert.svg" />
+    <Content Include="Content\Images\Buttons\key.svg" />
+    <Content Include="Content\Images\Buttons\list.svg" />
+    <Content Include="Content\Images\Buttons\locked.svg" />
+    <Content Include="Content\Images\Buttons\unlocked.svg" />
+    <Content Include="Content\Images\Buttons\logo.svg" />
+    <Content Include="Content\Images\Buttons\magnifier.svg" />
+    <Content Include="Content\Images\Buttons\minus.svg" />
+    <Content Include="Content\Images\Buttons\plus.svg" />
+    <Content Include="Content\Images\Buttons\money.svg" />
+    <Content Include="Content\Images\Buttons\multi-button-drop.svg" />
+    <Content Include="Content\Images\Buttons\next.svg" />
+    <Content Include="Content\Images\Buttons\previous.svg" />
+    <Content Include="Content\Images\Buttons\pencil.svg" />
+    <Content Include="Content\Images\Buttons\printer.svg" />
+    <Content Include="Content\Images\Buttons\reload.svg" />
+    <Content Include="Content\Images\Buttons\remove.svg" />
+    <Content Include="Content\Images\Buttons\save.svg" />
+    <Content Include="Content\Images\Buttons\select.svg" />
+    <Content Include="Content\Images\Buttons\send.svg" />
+    <Content Include="Content\Images\Buttons\TL-symbol.svg" />
+    <Content Include="Content\Images\Buttons\validate.svg" />
+    <Content Include="Content\Images\Buttons\view-list.svg" />
+    <Content Include="Content\Images\Shared\language.svg" />
+    <Content Include="Content\Images\Shared\logout-button.svg" />
+    <Content Include="Content\Images\Shared\telephone.svg" />
+    <Content Include="Content\Images\Check\check-duplicate.svg" />
+    <Content Include="Content\Images\Check\check-invalid.svg" />
+    <Content Include="Content\Images\Check\check-valid.svg" />
+    <Content Include="Content\Images\Buttons\main-menu-bullet.svg" />
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\PublishProfiles\Laptop.pubxml" />
+    <None Include="Properties\PublishProfiles\On Disk.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Scripts\jquery\jquery-1.10.2.intellisense.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="Scripts\Custom\address-details.js" />
+    <Content Include="Scripts\Custom\address-editor.js" />
+    <Content Include="Scripts\Custom\address-search.js" />
+    <Content Include="Scripts\Custom\ajax-loader.js" />
+    <Content Include="Scripts\Custom\billing-type-change.js" />
+    <Content Include="Scripts\Custom\call-center.js" />
+    <Content Include="Scripts\Custom\category-slider.js" />
+    <Content Include="Scripts\Custom\checkbutton.js" />
+    <Content Include="Scripts\Custom\clear-search.js" />
+    <Content Include="Scripts\Custom\client-connection-status.js" />
+    <Content Include="Scripts\Custom\client-ip-loader.js" />
+    <Content Include="Scripts\Custom\client-payment.js" />
+    <Content Include="Scripts\Custom\client-type.js" />
+    <Content Include="Scripts\Custom\confirm-dialog.js" />
+    <Content Include="Scripts\Custom\confirm.js" />
+    <Content Include="Scripts\Custom\debit-card.js" />
+    <Content Include="Scripts\Custom\discount-editor.js" />
+    <Content Include="Scripts\Custom\ip-subnet-list.js" />
+    <Content Include="Scripts\Custom\ip-pool-list.js" />
+    <Content Include="Scripts\Custom\custom-fee-list.js" />
+    <Content Include="Scripts\Custom\datepicker.js" />
+    <Content Include="Scripts\Custom\fee-type-variant-list.js" />
+    <Content Include="Scripts\Custom\file-upload.js" />
+    <Content Include="Scripts\Custom\json-loader.js" />
+    <Content Include="Scripts\Custom\linear-diagram.js" />
+    <Content Include="Scripts\Custom\listed-entity-editor.js" />
+    <Content Include="Scripts\Custom\manage-cities.js" />
+    <Content Include="Scripts\Custom\manage-credit.js" />
+    <Content Include="Scripts\Custom\monthpicker.js" />
+    <Content Include="Scripts\Custom\multi-button.js" />
+    <Content Include="Scripts\Custom\multiselectlist.js" />
+    <Content Include="Scripts\Custom\nav-bar-toggle.js" />
+    <Content Include="Scripts\Custom\nav-bar.js" />
+    <Content Include="Scripts\Custom\online-client-count.js" />
+    <Content Include="Scripts\Custom\page-accardeon.js" />
+    <Content Include="Scripts\Custom\payment-button.js" />
+    <Content Include="Scripts\Custom\phone-no-editor.js" />
+    <Content Include="Scripts\Custom\phone-no-list.js" />
+    <Content Include="Scripts\Custom\pie-chart.js" />
+    <Content Include="Scripts\Custom\province-city-list.js" />
+    <Content Include="Scripts\Custom\quota-type-change.js" />
+    <Content Include="Scripts\Custom\related-subscriptions.js" />
+    <Content Include="Scripts\Custom\response-boxes.js" />
+    <Content Include="Scripts\Custom\scroll-to-element.js" />
+    <Content Include="Scripts\Custom\search-slider.js" />
+    <Content Include="Scripts\Custom\selectlist.js" />
+    <Content Include="Scripts\Custom\service-rate-time-table.js" />
+    <Content Include="Scripts\Custom\slider-box.js" />
+    <Content Include="Scripts\Custom\sms-parameters.js" />
+    <Content Include="Scripts\Custom\subscription-add-fee.js" />
+    <Content Include="Scripts\Custom\telekom-tariff.js" />
+    <Content Include="Scripts\Custom\text-list-editor.js" />
+    <Content Include="Scripts\Custom\transfer-limit.js" />
+    <Content Include="Scripts\Custom\traffic-limit.js" />
+    <Content Include="Scripts\Custom\transfer-rate.js" />
+    <Content Include="Scripts\Custom\tree-checker.js" />
+    <Content Include="Scripts\Custom\waiting-progress.js" />
+    <Content Include="Scripts\initialize.js" />
+    <Content Include="Scripts\jquery\jquery.cookie-1.4.1.min.js" />
+    <Content Include="Scripts\jquery\jquery.cookie.js" />
+    <Content Include="Scripts\jquery\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery\_references.js" />
+    <Content Include="Scripts\Views\customer-register.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Auth\Login.cshtml" />
+    <Content Include="Views\NAS\Index.cshtml" />
+    <Content Include="Views\NAS\Add.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Currency.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ExactTime.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\LocalizedList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\LocalizedList.cshtml" />
+    <Content Include="Views\Shared\_NavPartial.cshtml" />
+    <Content Include="Views\Shared\_LanguagePartial.cshtml" />
+    <Content Include="Views\Shared\_NoAuthLayout.cshtml" />
+    <Content Include="Views\Shared\Attachments\_Confirm.cshtml" />
+    <Content Include="Views\Service\Add.cshtml" />
+    <Content Include="Views\Service\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\RateLimit.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\TrafficLimit.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\TrafficLimit.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\RateLimit.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\IntToHour.cshtml" />
+    <Content Include="Views\Shared\Attachments\_ErrorBox.cshtml" />
+    <Content Include="Views\Service\ChangeName.cshtml" />
+    <Content Include="Views\Client\Index.cshtml" />
+    <Content Include="Views\Shared\_SetCalendarLink.cshtml" />
+    <Content Include="Views\Calendar\CalendarData.cshtml" />
+    <Content Include="Views\Client\Details.cshtml" />
+    <Content Include="Views\Client\TrafficUsage.cshtml" />
+    <Content Include="Views\AdditionalFee\Index.cshtml" />
+    <Content Include="Views\AdditionalFee\Edit.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Boolean.cshtml" />
+    <Content Include="Views\Bill\Index.cshtml" />
+    <Content Include="Views\Bill\Details.cshtml" />
+    <Content Include="Views\FeeTypeVariant\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ClientFee.cshtml" />
+    <Content Include="Views\Bill\ClientBills.cshtml" />
+    <Content Include="Views\Bill\ClientPayment.cshtml" />
+    <Content Include="Views\Bill\ClientPaymentConfirm.cshtml" />
+    <Content Include="Views\Settings\Index.cshtml" />
+    <Content Include="Scripts\jquery\jquery.cookie.wrapper.js" />
+    <Content Include="Views\Shared\_DealerNavPartial.cshtml" />
+    <Content Include="Views\Shared\_NoMenuLayout.cshtml" />
+    <Content Include="Views\Home\Cashier.cshtml" />
+    <Content Include="Views\Shared\_CreditPartial.cshtml" />
+    <Content Include="Views\Client\WorkOrders.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ClientFee.cshtml" />
+    <Content Include="Views\Client\Credit.cshtml" />
+    <Content Include="Views\Client\ExtendPackage.cshtml" />
+    <Content Include="Views\SupportRequest\Index.cshtml" />
+    <Content Include="Views\SupportRequest\Details.cshtml" />
+    <Content Include="Views\Auth\Manage.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\FormattedBytes.cshtml" />
+    <Content Include="Views\Client\UsageDetails.cshtml" />
+    <Content Include="Views\NAS\Edit.cshtml" />
+    <Content Include="Views\Client\ConnectionHistory.cshtml" />
+    <Content Include="Views\RadiusSettings\Index.cshtml" />
+    <Content Include="Views\SMS\Index.cshtml" />
+    <Content Include="Views\Group\Index.cshtml" />
+    <Content Include="Views\Group\Add.cshtml" />
+    <Content Include="Views\Group\Edit.cshtml" />
+    <Content Include="Views\SMS\Send.cshtml" />
+    <Content Include="Views\SMS\ClientSMS.cshtml" />
+    <Content Include="Views\Client\DetailsTabs\Notes.cshtml" />
+    <Content Include="Views\Client\Edits\EditNote.cshtml" />
+    <Content Include="Views\Bill\PrepaidPayment.cshtml" />
+    <Content Include="Views\Client\AddAdditionalFees.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CustomFee.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\VerticalIPMap.cshtml" />
+    <Content Include="Views\Client\_SAMPLE_ClientCountReport.cshtml" />
+    <Content Include="Views\Client\Edits\ExtendExpirationDate.cshtml" />
+    <Content Include="Views\Shared\_SearchSliderPartial.cshtml" />
+    <Content Include="Views\Client\UnstableClientCount.cshtml" />
+    <Content Include="Views\Client\UnstableClients.cshtml" />
+    <Content Include="Views\Bill\TodayPayments.cshtml" />
+    <Content Include="Views\Client\AjaxActions\LastRegisters.cshtml" />
+    <Content Include="Views\Settings\Logo.cshtml" />
+    <Content Include="Views\Bill\Receipt.cshtml" />
+    <Content Include="Views\Shared\_PrintLayout.cshtml" />
+    <Content Include="Views\Bill\CalculateTotal.cshtml" />
+    <Content Include="Views\SupportRequest\FinishRequest.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\PaymentTypeDescription.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Role.cshtml" />
+    <Content Include="Views\UserManagement\Index.cshtml" />
+    <Content Include="Views\UserManagement\Add.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Role.cshtml" />
+    <Content Include="Views\UserManagement\Edit.cshtml" />
+    <Content Include="Views\UserManagement\ChangePassword.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\Add.cshtml" />
+    <Content Include="Views\Role\Edit.cshtml" />
+    <Content Include="Views\Cashier\Index.cshtml" />
+    <Content Include="Views\Cashier\Add.cshtml" />
+    <Content Include="Views\Cashier\Details.cshtml" />
+    <Content Include="Views\Cashier\Edit.cshtml" />
+    <Content Include="Views\Cashier\ManageCredit.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Percent.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Percent.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\IPPool.cshtml" />
+    <Content Include="Views\SMS\Settings.cshtml" />
+    <Content Include="Views\Client\CreateBillForFees.cshtml" />
+    <Content Include="Views\VPOSPayment\Index.cshtml" />
+    <Content Include="Views\VPOSPayment\FailedPay.cshtml" />
+    <Content Include="Views\Shared\_AddressCheckPartial.cshtml" />
+    <Content Include="Views\TTServices\InfrastructureCheckByBBK.cshtml" />
+    <Content Include="Views\TTServices\GetAvailability.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\TransferRate.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\AvailabilityResult.cshtml" />
+    <Content Include="Views\TTServices\InfrastructureCheck.cshtml" />
+    <Content Include="Views\TTServices\InfrastructureCheckByPSTN.cshtml" />
+    <Content Include="Views\TTServices\LineQualityCheck.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\MonthOfYear.cshtml" />
+    <Content Include="Views\Tax\StampDuty.cshtml" />
+    <Content Include="Views\UserManagement\SignInError.cshtml" />
+    <Content Include="Views\PaymentServices\Index.cshtml" />
+    <Content Include="Views\PaymentServices\Add.cshtml" />
+    <Content Include="Views\PaymentServices\Edit.cshtml" />
+    <Content Include="Views\PaymentServices\ResetPassword.cshtml" />
+    <Content Include="Views\Client\_Search.cshtml" />
+    <Content Include="Views\TTServices\PacketSelection.cshtml" />
+    <Content Include="Views\Shared\_JSGlobalVarsPartial.cshtml" />
+    <Content Include="Views\Client\AjaxActions\ChangeSpeedProfile.cshtml" />
+    <Content Include="Views\Client\AjaxActions\ChangeSpeedProfileResult.cshtml" />
+    <Content Include="Views\Tax\TaxRates.cshtml" />
+    <Content Include="Views\TTServices\GeneralFaults.cshtml" />
+    <Content Include="Views\Client\Transfer.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Netmap.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Netmap.cshtml" />
+    <Content Include="Views\NAS\EditVerticalIPMaps.cshtml" />
+    <Content Include="Views\NAS\EditNetmap.cshtml" />
+    <Content Include="Views\Client\StepSpeedProfile.cshtml" />
+    <Content Include="Views\Auth\ForgotPassword.cshtml" />
+    <Content Include="Views\Auth\ForgotPasswordConfirm.cshtml" />
+    <Content Include="Views\Bill\Discount.cshtml" />
+    <Content Include="Views\EBill\Batch.cshtml" />
+    <Content Include="Views\EBill\BatchResults.cshtml" />
+    <Content Include="Connection.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Client\Files.cshtml" />
+    <Content Include="Views\Client\ReserveClientActions.cshtml" />
+    <Content Include="Views\Client\SetupBySetupService.cshtml" />
+    <Content Include="Views\CustomerSetupService\Index.cshtml" />
+    <Content Include="Views\CustomerSetupService\Users.cshtml" />
+    <Content Include="Views\CustomerSetupService\EditUser.cshtml" />
+    <Content Include="Views\CustomerSetupService\ChangePassword.cshtml" />
+    <Content Include="Views\CustomerSetupService\AddUser.cshtml" />
+    <Content Include="Views\CustomerSetupService\AddNewTask.cshtml" />
+    <Content Include="Views\Client\AddWorkOrder.cshtml" />
+    <Content Include="Views\SupportRequest\AddWorkOrder.cshtml" />
+    <Content Include="Views\CustomerSetupService\Details.cshtml" />
+    <Content Include="Views\SupportRequest\Add.cshtml" />
+    <Content Include="Views\VPOSSettings\Index.cshtml" />
+    <Content Include="Views\Client\TransferActions.cshtml" />
+    <Content Include="Views\Reports\ServicesClientCount.cshtml" />
+    <Content Include="Views\Reports\MonthlyBillReport.cshtml" />
+    <Content Include="Views\Reports\CashDeskReport.cshtml" />
+    <Content Include="Views\Reports\RiskyClients.cshtml" />
+    <Content Include="Views\Reports\ClientCount.cshtml" />
+    <Content Include="Views\Reports\OnlineClients.cshtml" />
+    <Content Include="Views\Reports\ClientUsageReport.cshtml" />
+    <Content Include="Views\Reports\CancelledClients.cshtml" />
+    <Content Include="Views\Reports\CancelledClientsUnpaidBills.cshtml" />
+    <Content Include="Views\Reports\TotalDownloadUpload.cshtml" />
+    <Content Include="Views\BackgroundServices\Index.cshtml" />
+    <Content Include="Views\Reports\StaticIPReport.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Address.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\BigLocalizedList.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\BigLocalizedList.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\PhoneNo.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Address.cshtml" />
+    <Content Include="Views\Client\AddWizard\AddSubscription.cshtml" />
+    <Content Include="Views\PDFTemplates\Index.cshtml" />
+    <Content Include="Views\PDFTemplates\EditTemplate.cshtml" />
+    <Content Include="Views\Client\SystemLogs.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\RawHtml.cshtml" />
+    <Content Include="Views\Client\Edits\ChangeService.cshtml" />
+    <Content Include="Views\Reports\SystemLogsReport.cshtml" />
+    <Content Include="Views\Reports\CommitmentReport.cshtml" />
+    <Content Include="Views\CallCenter\Settings.cshtml" />
+    <Content Include="Views\Shared\_CallCenterPartial.cshtml" />
+    <Content Include="Views\BTKSettings\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Boolean.cshtml" />
+    <Content Include="Views\BTKLogs\IPBlocks.cshtml" />
+    <Content Include="Views\BTKLogs\AddIPBlock.cshtml" />
+    <Content Include="Views\BTKLogs\SchedulerSettings.cshtml" />
+    <Content Include="Views\BTKLogs\EditSchedulerSettings.cshtml" />
+    <Content Include="Views\PDFTemplates\ContractClausesPDF.cshtml" />
+    <Content Include="Views\Client\StateChanges\FreezeSubscription.cshtml" />
+    <Content Include="Views\Client\StateChanges\CancelSubscription.cshtml" />
+    <Content Include="Views\Client\StateChanges\UnfreezeError.cshtml" />
+    <Content Include="Views\Client\SubscriberSupportRequests.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\TimeOfDay.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ServiceRateTimeTable.cshtml" />
+    <Content Include="Views\Quota\Settings.cshtml" />
+    <Content Include="Views\Quota\Packages.cshtml" />
+    <Content Include="Views\Quota\AddPackage.cshtml" />
+    <Content Include="Views\Client\AddQuota.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SMSParameters.cshtml" />
+    <Content Include="Views\Client\QuotaDetails.cshtml" />
+    <Content Include="Views\MobilExpress\Settings.cshtml" />
+    <Content Include="Views\Scheduler\Settings.cshtml" />
+    <Content Include="Views\Reports\AutomaticPayments.cshtml" />
+    <Content Include="Views\DomainSettings\Index.cshtml" />
+    <Content Include="Views\DomainSettings\Add.cshtml" />
+    <Content Include="Views\Shared\_WaitTimer.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\PhoneNoList.cshtml" />
+    <Content Include="Views\Client\AddWizard\Register.cshtml" />
+    <Content Include="Views\Client\Edits\CustomerIdentity.cshtml" />
+    <Content Include="Views\Client\Edits\CustomerGeneralInfo.cshtml" />
+    <Content Include="Views\Client\Edits\IndividualCustomerInfo.cshtml" />
+    <Content Include="Views\Client\Edits\CorporateCustomerInfo.cshtml" />
+    <Content Include="Views\Client\Edits\CustomerSubscription.cshtml" />
+    <Content Include="Views\Address\Settings.cshtml" />
+    <Content Include="Views\TTServices\TelekomTariffs.cshtml" />
+    <Content Include="Views\TTServices\AddTelekomTariff.cshtml" />
+    <Content Include="Views\TTServices\GetTelekomPacketSelector.cshtml" />
+    <Content Include="Views\Client\DetailsTabs\SubscriptionFees.cshtml" />
+    <Content Include="Views\Client\DetailsTabs\AddFee.cshtml" />
+    <Content Include="Views\Client\DetailsTabs\CustomerDetails.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\PhoneNoList.cshtml" />
+    <Content Include="Views\Client\Edits\EditCustomerGeneralInfo.cshtml" />
+    <Content Include="Views\Client\Edits\EditCustomerIDCard.cshtml" />
+    <Content Include="Views\Client\Edits\EditCustomerIndividualInfo.cshtml" />
+    <Content Include="Views\Client\Edits\EditCustomerCorporateInfo.cshtml" />
+    <Content Include="Views\Client\Edits\ChangeUsername.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\TelekomWorkOrderState.cshtml" />
+    <Content Include="Views\TelekomWorkOrder\Index.cshtml" />
+    <Content Include="Views\TelekomWorkOrder\Details.cshtml" />
+    <Content Include="Views\TelekomWorkOrder\PostToReserveSubscriber.cshtml" />
+    <Content Include="Views\Client\DetailsTabs\Faults.cshtml" />
+    <Content Include="Views\TelekomWorkOrder\ManuallyAdd.cshtml" />
+    <Content Include="Views\Client\Edits\TransportActions.cshtml" />
+    <Content Include="Views\Client\Edits\ChangeInstallationAddress.cshtml" />
+    <Content Include="Views\Client\Edits\Commitment.cshtml" />
+    <Content Include="Views\Client\Edits\EditGroups.cshtml" />
+    <Content Include="Views\Client\Edits\ChangeDSLNo.cshtml" />
+    <Content Include="Views\Client\Edits\ChangeStaticIP.cshtml" />
+    <Content Include="Views\Bill\EBillCancellationError.cshtml" />
+    <Content Include="Views\VPOSSettings\Add.cshtml" />
+    <Content Include="Views\Partner\Index.cshtml" />
+    <Content Include="Views\Partner\Add.cshtml" />
+    <Content Include="Views\Partner\SubUserDetails.cshtml" />
+    <Content Include="Views\Partner\ChangePassword.cshtml" />
+    <Content Include="Views\Partner\Settings.cshtml" />
+    <Content Include="Views\Partner\WorkAreas.cshtml" />
+    <Content Include="Views\Partner\AddWorkArea.cshtml" />
+    <Content Include="Views\Partner\ValidTariffs.cshtml" />
+    <Content Include="Views\Partner\AddValidTariff.cshtml" />
+    <Content Include="Views\Partner\Groups.cshtml" />
+    <Content Include="Views\Partner\AddGroup.cshtml" />
+    <Content Include="Views\Partner\Permissions.cshtml" />
+    <Content Include="Views\Partner\EditPermissions.cshtml" />
+    <Content Include="Views\Partner\Credits.cshtml" />
+    <Content Include="Views\Partner\AddCredits.cshtml" />
+    <Content Include="Views\Shared\Attachments\_WaitTimerWrapper.cshtml" />
+    <Content Include="Views\Client\AddWizard\SendTelekomRegistration.cshtml" />
+    <Content Include="Views\Reports\IPDR.cshtml" />
+    <Content Include="Views\Partner\APISettings.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ExpiredPoolList.cshtml" />
+    <Content Include="Views\NAS\EditExpiredPools.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ExactTime.cshtml" />
+    <Content Include="Views\Client\DetailsTabs\RecurringDiscounts.cshtml" />
+    <Content Include="Views\Client\Edits\AddRecurringDiscount.cshtml" />
+    <Content Include="Views\Reports\Discounts.cshtml" />
+    <Content Include="Views\SpecialOffers\Index.cshtml" />
+    <Content Include="Views\SpecialOffers\Add.cshtml" />
+    <Content Include="Views\TelekomWorkOrder\Retry.cshtml" />
+    <Content Include="Views\OfflinePayment\Index.cshtml" />
+    <Content Include="Views\OfflinePayment\Add.cshtml" />
+    <Content Include="Views\OfflinePayment\ProcessPayments.cshtml" />
+    <Content Include="Views\OfflinePayment\StatusReport.cshtml" />
+    <Content Include="Views\Client\Edits\AddReferralDiscount.cshtml" />
+    <Content Include="Views\OfflinePayment\BatchExpDateUpdate.cshtml" />
+    <Content Include="Views\Reports\ReferralDiscounts.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="Scripts\jquery\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RadiusR.OfflinePayment\RadiusR.OfflinePayment.csproj">
+      <Project>{20554ebc-26fa-44fe-88cc-af1a9545ae8e}</Project>
+      <Name>RadiusR.OfflinePayment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.PDFForms\RadiusR.PDFForms.csproj">
+      <Project>{8e91d521-5c86-4627-96f2-ead23e235730}</Project>
+      <Name>RadiusR.PDFForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.VPOS\RadiusR.VPOS.csproj">
+      <Project>{2c1b2806-6087-4cb2-96bd-232f1b00887f}</Project>
+      <Name>RadiusR.VPOS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.Address.QueryInterface\RadiusR.Address.QueryInterface.csproj">
+      <Project>{ee5ac945-3995-4632-a4d2-0261faf25591}</Project>
+      <Name>RadiusR.Address.QueryInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.Address\RadiusR.Address.csproj">
+      <Project>{89499405-d1a5-4f80-b69b-001c165a4d32}</Project>
+      <Name>RadiusR.Address</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.DB.DomainsCache\RadiusR.DB.DomainsCache.csproj">
+      <Project>{83ccbccf-9209-433e-a75e-d15df6c5a9ed}</Project>
+      <Name>RadiusR.DB.DomainsCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.DB.TelekomOperations\RadiusR.DB.TelekomOperations.csproj">
+      <Project>{a03d29a9-5c16-4e2d-bdb0-625a301f6304}</Project>
+      <Name>RadiusR.DB.TelekomOperations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.DB.Utilities.ComplexOperations\RadiusR.DB.Utilities.ComplexOperations.csproj">
+      <Project>{686baf19-a0b2-4dc3-9ac5-9c995c127968}</Project>
+      <Name>RadiusR.DB.Utilities.ComplexOperations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.DB.Utilities\RadiusR.DB.Utilities.csproj">
+      <Project>{67FE460B-C88F-466C-86C4-8D8EC860D777}</Project>
+      <Name>RadiusR.DB.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.DB\RadiusR.DB.csproj">
+      <Project>{1475b653-8eef-42d3-aa5f-d811aabca41c}</Project>
+      <Name>RadiusR.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.Files\RadiusR.Files.csproj">
+      <Project>{540063c2-c62d-4411-afdd-11ad68ca36f9}</Project>
+      <Name>RadiusR.Files</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.Helpers\RadiusR.Helpers.csproj">
+      <Project>{47584a90-c40a-40ac-bd9e-1a2c6eeea082}</Project>
+      <Name>RadiusR.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.Localization\RadiusR.Localization.csproj">
+      <Project>{c11ab331-2ac5-4f7e-8fd2-94715f266ec7}</Project>
+      <Name>RadiusR.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.Models\RadiusR_Manager.Models.csproj">
+      <Project>{0b536eed-58dc-4e95-8cc2-67f2a9aa9fa9}</Project>
+      <Name>RadiusR_Manager.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.SMS\RadiusR.SMS.csproj">
+      <Project>{158ef52e-9fad-4f56-9726-e5fe91078abe}</Project>
+      <Name>RadiusR.SMS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.SystemLogs\RadiusR.SystemLogs.csproj">
+      <Project>{77db6f16-2d64-4c4a-afbb-24109233a18d}</Project>
+      <Name>RadiusR.SystemLogs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.Verimor\RadiusR.Verimor.csproj">
+      <Project>{c3afa8ea-e342-442f-a232-e28cb6ea9fe7}</Project>
+      <Name>RadiusR.Verimor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RezaB.NetInvoice.RadiusRDBAdapter\RezaB.NetInvoice.RadiusRDBAdapter.csproj">
+      <Project>{d4e02412-724b-49c8-9559-37cad8c3bc2f}</Project>
+      <Name>RezaB.NetInvoice.RadiusRDBAdapter</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53182</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/RadiusR-Manager</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

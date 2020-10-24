@@ -1,0 +1,33 @@
+﻿
+@model RadiusR_Manager.Models.RadiusViewModels.SupportRequestMessageViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.FinishRequest;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Message)
+            </td>
+            <td>
+                @Html.TextAreaFor(model => model.Message)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.Message)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: right;">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Details", new { id = Model.RequestID }, new { @class = "link-button iconed-button back-button", @style = "float: left;" }) &nbsp;
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+            </td>
+        </tr>
+    </table>
+}

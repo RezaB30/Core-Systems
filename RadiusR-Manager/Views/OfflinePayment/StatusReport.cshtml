@@ -1,0 +1,65 @@
+﻿@model IEnumerable<RadiusR_Manager.Models.ViewModels.OfflinePaymentStatusReportViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.OfflinePayments + "-" + RadiusR.Localization.Pages.Common.BatchResults;
+    var reportDate = ViewBag.ReportTime as DateTime?;
+}
+
+@if (Model == null || !Model.Any())
+{
+    <div class="centered text-danger">@RadiusR.Localization.Pages.Common.NoData</div>
+}
+else
+{
+    if (reportDate.HasValue)
+    {
+        <div class="centered button-row">@RadiusR.Localization.Pages.Common.LastOperationTime : @reportDate.Value.ToString("yyyy-MM-dd HH:mm:ss")</div>
+    }
+    <table class="data-table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Gateway)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Results)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsSuccess)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DetailedList)
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="centered">
+                    @Html.DisplayFor(modelItem => item.Gateway)
+                </td>
+                <td class="centered">
+                    @Html.DisplayFor(modelItem => item.Stage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Results)
+                </td>
+                <td class="centered">
+                    @Html.DisplayFor(modelItem => item.IsSuccess)
+                </td>
+                <td style="text-align: left;">
+                    @if (item.DetailedList != null)
+                    {
+                        foreach (var detailItem in item.DetailedList)
+                        {
+                            <div class="batch-detail-item">
+                                @Html.DisplayFor(modelItem => detailItem)
+                            </div>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}

@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css?family=Racing+Sans+One|Roboto+Condensed|Francois+One:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet">
+
+    <title>@ViewBag.Title - @RadiusR.Localization.Pages.Common.RadiusRManager</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body style="background-color: white;">
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/scripts")
+    @RenderSection("scripts", required: false)
+    @RenderSection("PageScripts", required: false)
+    @Html.Partial("_SetCalendarLink")
+
+    <div class="attachments">
+        @Html.Partial("Attachments/_Confirm")
+        @Html.Partial("Attachments/_ErrorBox")
+    </div>
+</body>
+</html>

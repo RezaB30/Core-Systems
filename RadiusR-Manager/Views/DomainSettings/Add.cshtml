@@ -1,0 +1,168 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.RadiusViewModels.DomainViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.DomainSettings + "-" + RadiusR.Localization.Pages.Common.Add;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Name)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 32 } })
+            </td>
+            <td>
+                @Html.LabelFor(model => model.UsernamePrefix)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.UsernamePrefix, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 2 } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.Name)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.UsernamePrefix)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.SubscriberNoPrefix)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.SubscriberNoPrefix, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 3 } })
+            </td>
+            <td>
+                @Html.LabelFor(model => model.MaxFreezeDuration)
+            </td>
+            <td>
+                @Html.Select(model => model.MaxFreezeDuration, HelperUtilities.CreateNumericSelectList(30,365, Model.MaxFreezeDuration), RadiusR.Localization.Pages.Common.Choose)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.SubscriberNoPrefix)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.MaxFreezeDuration)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.MaxFreezesPerYear)
+            </td>
+            <td>
+                @Html.Select(model => model.MaxFreezesPerYear, HelperUtilities.CreateNumericSelectList(1, 12, Model.MaxFreezesPerYear), RadiusR.Localization.Pages.Common.Choose)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.AccessMethod)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.AccessMethod, new { DefaultText = RadiusR.Localization.Pages.Common.Others })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.AccessMethod)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.MaxFreezesPerYear)
+            </td>
+        </tr>
+        <tbody id="telekom-credentials-group">
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.TelekomAccessCredential.XDSLWebServiceUsername)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.TelekomAccessCredential.XDSLWebServiceUsername, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 9 } })
+                </td>
+                <td>
+                    @Html.LabelFor(model => model.TelekomAccessCredential.XDSLWebServicePassword)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.TelekomAccessCredential.XDSLWebServicePassword, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 50 } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.TelekomAccessCredential.XDSLWebServiceUsername)
+                </td>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.TelekomAccessCredential.XDSLWebServicePassword)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.TelekomAccessCredential.OLOPortalUsername)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.TelekomAccessCredential.OLOPortalUsername, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 50 } })
+                </td>
+                <td>
+                    @Html.LabelFor(model => model.TelekomAccessCredential.OLOPortalPassword)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.TelekomAccessCredential.OLOPortalPassword, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 50 } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.TelekomAccessCredential.OLOPortalUsername)
+                </td>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.TelekomAccessCredential.OLOPortalPassword)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.TelekomAccessCredential.XDSLWebServiceCustomerCode)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.TelekomAccessCredential.XDSLWebServiceCustomerCode, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 10 } })
+                </td>
+                <td>
+                    @Html.LabelFor(model => model.TelekomAccessCredential.OLOPortalCustomerCode)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.TelekomAccessCredential.OLOPortalCustomerCode, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 5 } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.TelekomAccessCredential.XDSLWebServiceCustomerCode)
+                </td>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.TelekomAccessCredential.OLOPortalCustomerCode)
+                </td>
+            </tr>
+        </tbody>
+        <tr>
+            <td colspan="4" class="centered">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class = "link-button iconed-button back-button" })
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+            </td>
+        </tr>
+    </table>
+}
+
+@section PageScripts{
+    <script>
+        $('input[name="AccessMethod"]').change(function () {
+            if ($(this).val() == "") {
+                $('#telekom-credentials-group').hide();
+            }
+            else {
+                $('#telekom-credentials-group').show();
+            }
+        });
+        $('input[name="AccessMethod"]').change();
+    </script>
+}

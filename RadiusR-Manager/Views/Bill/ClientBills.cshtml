@@ -1,0 +1,86 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Authentication
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.BillViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.BillPayment + "-" + ViewBag.ClientName;
+}
+
+<table class="data-table centered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IssueDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DueDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PayDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StateID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentTypeDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Source)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalCost)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        var isCancelled = item.StateID == (short)RadiusR.DB.Enums.BillState.Cancelled ? "highlighted-row" : string.Empty;
+
+        <tr class="@isCancelled">
+            <td>
+                @Html.DisplayFor(modelItem => item.IssueDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StateID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentTypeDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Source)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPayableAmount)
+            </td>
+            <td>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", "Bill", new { id = item.ID, redirectUrl = Url.Action("Details", "Client", new { id = ViewBag.ClientID }, Request.Url.Scheme) + "#bills" }, new { @class = "link-button iconed-button details-button" })
+                @if (item.EBillIsSent)
+                {
+                    <div class="ebill-info-tag" title="@RadiusR.Localization.Model.RadiusR.EBillIsSent"></div>
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+@if (User.HasPermission("Payment") || User.IsInRole("cashier"))
+{
+    if (ViewBag.IsValidForPacketExtention)
+    {
+        <div class="centered" style="margin-top: 1em;">
+            @Html.ActionLink(RadiusR.Localization.Pages.Common.ExtendPackage, "ExtendPackage", "Client", new { id = ViewBag.ClientID }, new { @class = "link-button iconed-button history-button" })
+        </div>
+    }
+    else if(ViewBag.HasBilling)
+    {
+        <div class="centered" style="margin-top: 1em;">
+            @Html.ActionLink(RadiusR.Localization.Pages.Common.BillPayment, "ClientPayment", "Bill", new { id = ViewBag.ClientID }, new { @class = "link-button iconed-button payment-button" })
+        </div>
+    }
+}

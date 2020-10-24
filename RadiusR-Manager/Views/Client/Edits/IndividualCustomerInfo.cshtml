@@ -1,0 +1,112 @@
+﻿@model RadiusR_Manager.Models.ViewModels.Customer.IndividualCustomerInfoViewModel
+
+<table class="input-table" style="width: 100%;">
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.FathersName)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.FathersName, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+        </td>
+        <td>
+            @Html.LabelFor(model => model.MothersName)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.MothersName, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.FathersName)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.MothersName)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.MothersMaidenName)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.MothersMaidenName, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+        </td>
+        <td>
+            @Html.LabelFor(model => model.BirthPlace)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.BirthPlace, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.MothersMaidenName)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.BirthPlace)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Sex)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.Sex)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.Sex)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Nationality)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.Nationality)
+        </td>
+        <td>
+            @Html.LabelFor(model => model.Profession)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.Profession)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.Nationality)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.Profession)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" class="input-table-row-group-separator"></td>
+    </tr>
+    <tr>
+        <td style="border-right: 1px solid grey;">
+            @Html.LabelFor(model => model.ResidencyAddress)
+        </td>
+        <td colspan="3">
+            @if ((bool?)ViewBag.IsEdit != true)
+            {
+                <div id="residency-address-same-as-setup" style="margin-bottom: 0.5em;">
+                    @Html.EditorFor(model => model.ResidencySameAsSetupAddress)
+                </div>
+            }
+            <div id="residency-address-editor-container">
+                @Html.EditorFor(model => model.ResidencyAddress)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            @Html.ValidationMessageFor(model => model.ResidencyAddress)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" class="input-table-row-group-separator"></td>
+    </tr>
+</table>

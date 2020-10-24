@@ -1,0 +1,39 @@
+﻿@using RadiusR_Manager.Helpers
+@using RadiusR.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.PartnerWorkAreaViewModel>
+
+@{
+    ViewBag.Title = ViewBag.PartnerName + "-" + RadiusR.Localization.Pages.Common.WorkAreas;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @RadiusR.Localization.Pages.Common.WorkAreas
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.PartnerWorkAreaDisplayFor(modelItem => item)
+            </td>
+            <td>
+                @using (Html.BeginForm("RemoveWorkArea", null, new { id = Request.RequestContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl, workAreaID = item.ID }, FormMethod.Post, new { @confirm = "enabled" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button remove-button" />
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+
+<div class="centered button-row">
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Settings", new { id = Request.RequestContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button back-button" })
+    &nbsp;
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "AddWorkArea", new { id = Request.RequestContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button new-button" })
+</div>

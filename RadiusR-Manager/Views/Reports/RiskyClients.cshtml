@@ -1,0 +1,61 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.RiskyClientViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Clients + "-" + RadiusR.Localization.Pages.Common.RiskyClients;
+    var search = (RadiusR_Manager.Models.ViewModels.RiskyClientsSearchViewModel)ViewBag.Search;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm(null, null, FormMethod.Get))
+        {
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(modelItem => search.UnpaidBillCount)
+                    </td>
+                    <td>
+                        @Html.Select(modelItem=> search.UnpaidBillCount, HelperUtilities.CreateNumericSelectList(2, 30, search.UnpaidBillCount))
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnpaidBillCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnpaidAmount)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="@Url.Action("Details", "Client", new { id = item.ID })#bills" class="details-link">@Html.DisplayFor(modelItem => item.FullName)</a>
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.UnpaidBillCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnpaidAmount)
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

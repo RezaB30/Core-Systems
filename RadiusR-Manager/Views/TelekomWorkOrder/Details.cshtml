@@ -1,0 +1,169 @@
+﻿@using RezaB.Web.Authentication
+
+@model RadiusR_Manager.Models.RadiusViewModels.TelekomWorkOrderViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.TelekomWorkOrders + "-" + RadiusR.Localization.Pages.Common.Details;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        <table class="details-table">
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Username)
+                </td>
+                <td>
+                    @Html.ActionLink(Html.DisplayTextFor(model => model.Username).ToString(), "Details", "Client", new { id = Model.SubscriberID }, new { @class = "details-link" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.SubscriberName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.SubscriberName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.PhoneNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PhoneNo)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.XDSLNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.XDSLNo)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.OperationType)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.OperationType)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.OperationSubType)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.OperationSubType)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.XDSLNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.XDSLNo)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.ManagementCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ManagementCode)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.ProvinceCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ProvinceCode)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.QueueNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.QueueNo)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.CreationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.CreationDate)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.LastRetryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.LastRetryDate)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.ClosingDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ClosingDate)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.AppUserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.AppUserName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.State)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.State)
+                </td>
+            </tr>
+        </table>
+        <div>
+            @Html.Partial("_WaitTimer")
+        </div>
+        <div id="submit-row" class="centered" style="margin-top: 1em;">
+            <a href="@ViewBag.ReturnUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+            @*@Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class = "link-button iconed-button back-button" })*@
+            @if (Model.IsOpen && User.HasPermission("Telekom Work Order Edits"))
+            {
+                @:&nbsp;
+                using (Html.BeginForm(null, null, FormMethod.Post, new { @style = "display: inline-block;", @confirm = "enabled" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("id", Model.ID)
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Finish" class="link-button iconed-button accept-button" />
+                }
+                @:&nbsp;
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Retry, "Retry", new { id = Model.ID, returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button reload-button" })
+                @*using (Html.BeginForm("Retry", null, FormMethod.Post, new { @style = "display: inline-block;", @confirm = "enabled" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("returnUrl", ViewBag.ReturnUrl as string)
+                    @Html.Hidden("id", Model.ID)
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Retry" class="link-button iconed-button reload-button" />
+                }*@
+            }
+        </div>
+    </div>
+</div>
+
+@section PageScripts{
+    <script>
+        $('#submit-row').closest('form').submit(function () {
+            $('#submit-row').hide();
+            StartWaitingCounter('div.waiting-progress');
+        });
+    </script>
+}

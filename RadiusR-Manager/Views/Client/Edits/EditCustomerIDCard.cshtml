@@ -1,0 +1,24 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.Customer.IDCardViewModel
+
+@{
+    ViewBag.Title = ViewBag.CustomerName + "-" + RadiusR.Localization.Model.RadiusR.CustomerIdentity;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.PartialFor(model => model, "Edits/CustomerIdentity")
+            <div class="centered">
+                @Html.Raw(ViewBag.TCKValidationResults)
+            </div>
+            <div class="centered">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Details", new { id = Request.QueryString["subId"] }, new { @class = "link-button iconed-button back-button" })
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+            </div>
+        }
+    </div>
+</div>

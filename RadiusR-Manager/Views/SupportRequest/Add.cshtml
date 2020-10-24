@@ -1,0 +1,43 @@
+﻿@model RadiusR_Manager.Models.RadiusViewModels.SupportRequestViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.CreateSupportRequest;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Subscription.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Subscription.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Message)
+                    </td>
+                    <td>
+                        @Html.TextAreaFor(model => model.Message, new { @maxlength = 3000 })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.Message)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        <a href="@Url.Action("Details", "Client", new { id = Model.Subscription.ID })#faults" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

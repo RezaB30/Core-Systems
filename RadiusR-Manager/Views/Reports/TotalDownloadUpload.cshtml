@@ -1,0 +1,67 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.UsageInfoViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.TotalDownloadUpload;
+    var search = ViewBag.Search as RadiusR_Manager.Models.ViewModels.TotalDownloadUploadSearchViewModel;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm(null, null, FormMethod.Get))
+        {
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => search.StartDate)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => search.StartDate)-@Html.EditorFor(model => search.EndDate)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                        <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Download)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Upload)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item._year &nbsp;
+                @System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item._month.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Download)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Upload)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

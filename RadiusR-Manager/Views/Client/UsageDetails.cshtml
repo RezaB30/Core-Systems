@@ -1,0 +1,63 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.UsageInfoViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Details + "-" + RadiusR.Localization.Pages.Common.Usage;
+}
+
+<div class="rate-limit-title">
+    @RadiusR.Localization.Pages.Common.Details
+</div>
+<div class="centered" style="padding: 1em 0;">
+    @if ((bool)ViewBag.Monthly)
+    {
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.Daily, "UsageDetails",new { username = Request.QueryString["username"] },new { @class="link-button iconed-button calendar-button" })
+    }
+    else
+    {
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.Monthly, "UsageDetails", new { monthly=1, username = Request.QueryString["username"] }, new { @class = "link-button iconed-button calendar-button" })
+    }
+</div>
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Download)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Upload)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="centered">
+                @if (item._month.HasValue)
+                {
+                    @item._year@:&nbsp;
+                    @System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item._month.Value)
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.Date)
+                }
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Download)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Upload)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

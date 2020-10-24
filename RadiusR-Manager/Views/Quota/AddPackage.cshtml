@@ -1,0 +1,56 @@
+﻿@model RadiusR_Manager.Models.RadiusViewModels.QuotaPackageViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.QuotaPackages + "-" + RadiusR.Localization.Pages.Common.Add;
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Name)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Name)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.Name)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Amount)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Amount)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.Amount)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Price)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Price)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.Price)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="centered">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Packages", null, new { @class = "link-button iconed-button back-button" })
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+            </td>
+        </tr>
+    </table>
+}

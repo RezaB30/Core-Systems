@@ -1,0 +1,23 @@
+﻿div.sms-parameter-wrapper.hidden {
+    display: none;
+}
+
+    div.sms-parameter-wrapper div.sms-parameter-item {
+        padding: 0.1em;
+        margin: 0.1em;
+        background-color: rgba(100,200,140,0.4);
+        border: 1px solid seagreen;
+        border-radius: 0.3em;
+        cursor: pointer;
+    }
+
+        div.sms-parameter-wrapper div.sms-parameter-item:hover, div.sms-parameter-wrapper div.sms-parameter-item:focus {
+            background-color: rgba(100,200,140,0.9);
+            border-color: black;
+        }
+
+    div.sms-parameter-wrapper span.sms-parameter-name {
+        text-decoration: underline;
+        font-style: italic;
+        color: #6f6d6d;
+    }

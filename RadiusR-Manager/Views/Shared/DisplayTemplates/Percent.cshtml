@@ -1,0 +1,23 @@
+﻿@using System.Globalization
+@using System.Threading
+
+@model string
+@{
+    var currentNumberFormat = NumberFormatInfo.GetInstance(Thread.CurrentThread.CurrentCulture);
+    var isLeftSided = currentNumberFormat.PercentPositivePattern >= 2;
+}
+@if (string.IsNullOrEmpty(Model))
+{
+    @:-
+}
+else
+{
+    if (isLeftSided)
+    {
+        <span class="percent-symbol">@NumberFormatInfo.GetInstance(CultureInfo.GetCultureInfo("tr-tr")).PercentSymbol</span>@Model
+    }
+    else
+    {
+        @Model<span class="percent-symbol">@NumberFormatInfo.GetInstance(CultureInfo.GetCultureInfo("tr-tr")).PercentSymbol</span>
+    }
+}

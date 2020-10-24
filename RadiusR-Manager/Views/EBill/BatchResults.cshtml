@@ -1,0 +1,52 @@
+﻿@model RadiusR_Manager.Models.ViewModels.EBillBatchResultsViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.EBill + "-" + RadiusR.Localization.Pages.Common.BatchResults;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.SuccessfulCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.SuccessfulCount)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.UnsuccessfulCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.UnsuccessfulCount)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.InvalidCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.InvalidCount)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.TotalCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.TotalCount)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.ErrorCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ErrorCode)
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

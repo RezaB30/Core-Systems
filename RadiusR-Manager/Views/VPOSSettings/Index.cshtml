@@ -1,0 +1,56 @@
+﻿@using RadiusR_Manager.Helpers
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.VPOSSettingsViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.VPOSSettings;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.VPOSType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MerchantID)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        var rowStyle = item.IsSelected ? "background-color: #dfffce;" : string.Empty;
+
+        <tr style="@rowStyle">
+            <td>
+                @Html.DisplayFor(modelItem => item.VPOSType)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.MerchantID)
+            </td>
+            <td>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "Edit", new { id = item.ID }, new { @class = "link-button iconed-button edit-button" })
+                @if (!item.IsSelected)
+                {
+                    @:&nbsp;
+                    using (Html.BeginForm("Select", null, FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", item.ID)
+                        <input type="submit" name="" value="@RadiusR.Localization.Pages.Common.Activate" class="link-button iconed-button accept-button" />
+                    }
+                    @:&nbsp;
+                    using (Html.BeginForm("Remove", null, FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", item.ID)
+                        <input type="submit" name="" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button remove-button" />
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+
+<div class="button-row centered">
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "Add", null, new { @class = "link-button iconed-button new-button" })
+</div>

@@ -1,0 +1,14 @@
+﻿@using System.Globalization
+@using System.Threading
+
+@model string
+
+@{ 
+    var currentNumberFormat = NumberFormatInfo.GetInstance(Thread.CurrentThread.CurrentCulture);
+    var percentSymbolClass = (currentNumberFormat.PercentPositivePattern >= 2) ? "percent-symbol-left" : "percent-symbol-right";
+    var percentInputClass = (currentNumberFormat.PercentPositivePattern >= 2) ? "percent-input-left" : "percent-input-right";
+}
+
+<div class="percent-input-wrapper">
+    @Html.TextBoxFor(model => model, new { @class = "percent-editor " + percentInputClass, @autocomplete = "off", @maxlength = 6 }) <span class="@percentSymbolClass">@currentNumberFormat.PercentSymbol</span>
+</div>

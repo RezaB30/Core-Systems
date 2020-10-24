@@ -1,0 +1,119 @@
+﻿@model RadiusR_Manager.Models.RadiusViewModels.BTKIPBlockViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.BTKIPBlocks + "-" + RadiusR.Localization.Pages.Common.Edit;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.OperatorName)
+            </td>
+            <td colspan="3">
+                @Html.EditorFor(model => model.OperatorName, new { @htmlAttributes = new { @maxlength = 250, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                @Html.ValidationMessageFor(model => model.OperatorName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.StartingIP)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.StartingIP, new { @htmlAttributes = new { @maxlength = 15, @autocomplete = "off" } })
+            </td>
+            <td>
+                @Html.LabelFor(model => model.EndingIP)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.EndingIP, new { @htmlAttributes = new { @maxlength = 15, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.StartingIP)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.EndingIP)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.ServiceType)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.ServiceType)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.UsesNAT)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.UsesNAT)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.ServiceType)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.UsesNAT)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.AllocationDate)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.AllocationDate)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.DeallocationDate)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.DeallocationDate)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.AllocationDate)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.DeallocationDate)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.BlockType)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.BlockType)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.UseLocation)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.UseLocation, new { @htmlAttributes = new { @maxlength = 15, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.BlockType)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.UseLocation)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" class="centered">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "IPBlocks", null, new { @class = "link-button iconed-button back-button" })
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button new-button" />
+            </td>
+        </tr>
+    </table>
+}

@@ -1,0 +1,26 @@
+﻿div.rate-limit-time-partition-wrapper {
+}
+
+    div.rate-limit-time-partition-wrapper div.sample-row {
+        display: none;
+    }
+
+    div.rate-limit-time-partition-wrapper div.item-row {
+        border-top: 1px solid grey;
+        margin-top: 0.5em;
+    }
+
+    div.rate-limit-time-partition-wrapper div.add-instance-row {
+        padding: 0.5em 0;
+        border-top: 1px solid grey;
+        margin-top: 0.5em;
+    }
+
+    div.rate-limit-time-partition-wrapper div.remove-row {
+        text-align: right;
+    }
+
+    div.rate-limit-time-partition-wrapper div.time-selection {
+        background-color: honeydew;
+        border-bottom: 1px dashed gray;
+    }

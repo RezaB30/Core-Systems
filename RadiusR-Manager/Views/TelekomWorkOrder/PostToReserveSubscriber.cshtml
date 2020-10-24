@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.WorkOrders + "-" + RadiusR.Localization.Pages.Common.Finish;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form" id="form-container">
+        @using (Html.BeginForm("ChangeStatus", "Client", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("id", (long)ViewBag.SubscriberID)
+            @Html.Hidden("State", (int)ViewBag.State)
+            @Html.Hidden("redirectUrl", (string)ViewBag.RedirectUrl)
+            @RadiusR.Localization.Pages.Common.Processing
+        }
+    </div>
+</div>
+
+@section PageScripts{
+    <script>
+        $('#form-container').find('form').submit();
+    </script>
+}

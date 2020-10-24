@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{686BAF19-A0B2-4DC3-9AC5-9C995C127968}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RadiusR.DB.Utilities.ComplexOperations</RootNamespace>
+    <AssemblyName>RadiusR.DB.Utilities.ComplexOperations</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.API.TCKValidation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.API.TCKValidation.1.0.0\lib\net452\RezaB.API.TCKValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.Data, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Data.1.0.1\lib\net452\RezaB.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.TurkTelekom.WebServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.TurkTelekom.WebServices.1.0.0\lib\net452\RezaB.TurkTelekom.WebServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Discounts\DiscountOperationOptions.cs" />
+    <Compile Include="Discounts\DiscountUtilities.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\RegistrationValidationMessages.tr-tr.Designer.cs">
+      <DependentUpon>RegistrationValidationMessages.tr-tr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\RegistrationValidationMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RegistrationValidationMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ValidationMessages.tr-tr.Designer.cs">
+      <DependentUpon>ValidationMessages.tr-tr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\ValidationMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ValidationMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Subscriptions\Registration\PositiveIntegerAttribute.cs" />
+    <Compile Include="Subscriptions\Registration\PositiveDecimalAttribute.cs" />
+    <Compile Include="Subscriptions\Registration\CustomerRegistrationInfo.cs" />
+    <Compile Include="Subscriptions\Registration\RandomGenerator.cs" />
+    <Compile Include="Subscriptions\Registration\Registration.cs" />
+    <Compile Include="Subscriptions\StateChanges\ActivateSubscriptionOptions.cs" />
+    <Compile Include="Subscriptions\StateChanges\CancelSubscriptionOptions.cs" />
+    <Compile Include="Subscriptions\StateChanges\ChangeStateOptionsBase.cs" />
+    <Compile Include="Subscriptions\StateChanges\FreezeSubscriptionOptions.cs" />
+    <Compile Include="Subscriptions\StateChanges\RegisterSubscriptionOptions.cs" />
+    <Compile Include="Subscriptions\StateChanges\ReserveSubscriptionOptions.cs" />
+    <Compile Include="Subscriptions\StateChanges\StateChangeUtilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RadiusR.DB.DomainsCache\RadiusR.DB.DomainsCache.csproj">
+      <Project>{83ccbccf-9209-433e-a75e-d15df6c5a9ed}</Project>
+      <Name>RadiusR.DB.DomainsCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.DB.TelekomOperations\RadiusR.DB.TelekomOperations.csproj">
+      <Project>{a03d29a9-5c16-4e2d-bdb0-625a301f6304}</Project>
+      <Name>RadiusR.DB.TelekomOperations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.DB.Utilities\RadiusR.DB.Utilities.csproj">
+      <Project>{67fe460b-c88f-466c-86c4-8d8ec860d777}</Project>
+      <Name>RadiusR.DB.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.DB\RadiusR.DB.csproj">
+      <Project>{1475b653-8eef-42d3-aa5f-d811aabca41c}</Project>
+      <Name>RadiusR.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.SMS\RadiusR.SMS.csproj">
+      <Project>{158ef52e-9fad-4f56-9726-e5fe91078abe}</Project>
+      <Name>RadiusR.SMS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.SystemLogs\RadiusR.SystemLogs.csproj">
+      <Project>{77db6f16-2d64-4c4a-afbb-24109233a18d}</Project>
+      <Name>RadiusR.SystemLogs</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\RegistrationValidationMessages.tr-tr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RegistrationValidationMessages.tr-tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\RegistrationValidationMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RegistrationValidationMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ValidationMessages.tr-tr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidationMessages.tr-tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ValidationMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidationMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

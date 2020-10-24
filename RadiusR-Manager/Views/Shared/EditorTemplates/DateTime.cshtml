@@ -1,0 +1,10 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Helpers
+
+@model DateTime?
+
+@*@Html.TextBoxFor(model => model, new { @autocomplete = "off", @maxlength = 40, @placeholder = DateTime.Now.ToString(System.Threading.Thread.CurrentThread.CurrentUICulture.DateTimeFormat.ShortDatePattern) })*@
+
+@Html.ShortDateEditorFor(model => model, ViewData["htmlAttributes"])
+
+@*@Html.DatePicker(model => model, Model)*@

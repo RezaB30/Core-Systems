@@ -1,0 +1,253 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.RadiusViewModels.ServiceViewModel
+
+@{
+    var isEdit = ViewBag.IsEdit as bool? ?? false;
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Services + "-" + (isEdit ? RadiusR.Localization.Pages.Common.EditService : RadiusR.Localization.Pages.Common.AddService);
+    var invoicedTypeId = RadiusR.DB.Enums.ServiceBillingType.Invoiced;
+    var preInvoicedTypeId = RadiusR.DB.Enums.ServiceBillingType.PreInvoiced;
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, htmlAttributes: new { @novalidate = "novalidate" }))
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Name)
+            </td>
+            <td>
+                @if (isEdit)
+                {
+                    <div>
+                        @Html.DisplayFor(model => model.Name)
+                        @Html.HiddenFor(model => model.Name)
+                    </div>
+                    <div style="margin-top: 0.5em;">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.ChangeName, "ChangeName", new { oldName = Model.Name }, new { @class = "link-button iconed-button edit-button" })
+                    </div>
+                }
+                else
+                {
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @autocomplete = "off" } })
+                }
+            </td>
+            <td>
+                @Html.LabelFor(model => model.BillingType)
+            </td>
+            <td>
+                @if (isEdit)
+                {
+                    @Html.DisplayFor(model => model.BillingType)
+                    @Html.HiddenFor(model => model.BillingType)
+                }
+                else
+                {
+                    @Html.EditorFor(model => model.BillingType)
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.Name)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.BillingType)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.InfrastructureType)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.InfrastructureType)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.QuotaType)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.QuotaType, new { defaultText = RadiusR.Localization.Lists.QuotaType.NoQuota })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.InfrastructureType)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.QuotaType)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <div class="rate-limit-title">
+                    @Html.DisplayNameFor(model => model.ServiceDomains)
+                </div>
+                @Html.ServiceDomainEditorFor(model => model.ServiceDomains, (IEnumerable<RadiusR_Manager.Models.ViewModels.ServiceDomainViewModel>)ViewBag.AllDomains)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                @Html.ValidationMessageFor(model => model.ServiceDomains)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <div class="rate-limit-title">
+                    @Html.DisplayNameFor(model => model.RateLimitView)
+                </div>
+                @Html.EditorFor(model => model.RateLimitView)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" class="centered">
+                @Html.ValidationMessageFor(model => model.RateLimitView)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" class="centered">
+                @Html.EditorFor(model => model.NoQueue)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <div class="rate-limit-title">
+                    @Html.DisplayNameFor(model => model.ServiceRateTimeTable)
+                </div>
+                @Html.EditorFor(model => model.ServiceRateTimeTable)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" class="centered">
+                <span class="text-danger">
+                    @ViewBag.TimeTableError
+                </span>
+            </td>
+        </tr>
+        <tr class="quota-type-2">
+            <td colspan="4">
+                <div class="rate-limit-title">
+                    @Html.DisplayNameFor(model => model.SoftQuotaRateLimitView)
+                </div>
+                @Html.EditorFor(model => model.SoftQuotaRateLimitView)
+            </td>
+        </tr>
+        <tr class="quota-type-2">
+            <td colspan="4" class="centered">
+                @Html.ValidationMessageFor(model => model.SoftQuotaRateLimitView)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <div class="rate-limit-title">@RadiusR.Localization.Pages.Common.BillingInfo</div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+            <td>
+                @Html.LabelFor(model => model.Price)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Price)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.Price)
+            </td>
+        </tr>
+        <tr class="quota-type-1 quota-type-2 quota-type-3">
+            <td class="quota-type-3">
+                @Html.LabelFor(model => model.MaxSmartQuotaPrice)
+            </td>
+            <td class="quota-type-3">
+                @Html.EditorFor(model => model.MaxSmartQuotaPrice)
+            </td>
+            <td colspan="2" class="quota-type-1 quota-type-2"></td>
+            <td class="quota-type-1 quota-type-2 quota-type-3">
+                @Html.LabelFor(model => model.BaseQuota)
+            </td>
+            <td class="quota-type-1 quota-type-2 quota-type-3">
+                @Html.EditorFor(model => model.BaseQuota)
+            </td>
+        </tr>
+        <tr class="quota-type-1 quota-type-2 quota-type-3">
+            <td colspan="2" class="quota-type-3">
+                @Html.ValidationMessageFor(model => model.MaxSmartQuotaPrice)
+                <span class="text-danger">@ViewBag.MaxSmartPriceError</span>
+            </td>
+            <td colspan="2" class="quota-type-1 quota-type-2"></td>
+            <td colspan="2" class="quota-type-1 quota-type-2 quota-type-3">
+                @Html.ValidationMessageFor(model => model.BaseQuota)
+            </td>
+        </tr>
+        <tr class="billing-type-1 billing-type-2">
+            <td>
+                @Html.LabelFor(model => model.PaymentTolerance)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.PaymentTolerance, new { htmlAttributes = new { @maxlength = 2, @autocomplete = "off" } })
+            </td>
+            <td>
+                @Html.LabelFor(model => model.ExpirationTolerance)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.ExpirationTolerance, new { htmlAttributes = new { @maxlength = 2, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr class="billing-type-1 billing-type-2">
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.PaymentTolerance)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.PaymentTolerance)
+            </td>
+        </tr>
+        <tr class="billing-type-1 billing-type-2">
+            <td>
+                @Html.LabelFor(model => model.BillingPeriods)
+            </td>
+            <td colspan="3">
+                @Html.MultiSelectFor(model => model.BillingPeriods, (MultiSelectList)ViewBag.BillingPeriods, RadiusR.Localization.Pages.Common.Choose)
+            </td>
+        </tr>
+        <tr class="billing-type-1 billing-type-2">
+            <td colspan="4">
+                @Html.ValidationMessageFor(model => model.BillingPeriods)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" class="centered">
+                @Html.Partial("_WaitTimer")
+            </td>
+        </tr>
+    </table>
+
+
+
+    <div id="submit-row" class="centered">
+        <div>
+            <span class="field-validation-error">@ViewBag.ConflictError</span>
+        </div>
+        @if (isEdit)
+        {
+            @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class = "link-button iconed-button back-button" })
+        }
+        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+    </div>
+}
+
+@section PageScripts{
+    <script type="text/javascript">
+        SetupQuotaTypeChange('.page-contents', 'QuotaType');
+
+        SetupBillingTypeChange('.page-contents', 'BillingType');
+
+        $('#submit-row').closest('form').submit(function () {
+            $('#submit-row').hide();
+            StartWaitingCounter('div.waiting-progress');
+        });
+    </script>
+}

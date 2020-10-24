@@ -1,0 +1,70 @@
+﻿@model RadiusR_Manager.Models.ViewModels.MobilExpressSettingsViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.MobilExpress + "-" + RadiusR.Localization.Pages.Common.Settings;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.MobilExpressMerchantKey)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.MobilExpressMerchantKey, new { @htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.MobilExpressMerchantKey)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.MobilExpressAPIPassword)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.MobilExpressAPIPassword, new { @htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.MobilExpressAPIPassword)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.MobilExpressPOSID)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.MobilExpressPOSID, new { @htmlAttributes = new { @maxlength = 9, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.MobilExpressPOSID)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.MobilExpressIsActive)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.MobilExpressIsActive)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.MobilExpressIsActive)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="centered">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Reset, null, null, new { @class = "link-button iconed-button reload-button" })&nbsp;
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+            </td>
+        </tr>
+    </table>
+}

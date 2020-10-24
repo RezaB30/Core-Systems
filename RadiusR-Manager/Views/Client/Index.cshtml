@@ -1,0 +1,104 @@
+﻿@using RadiusR_Manager.Helpers
+@using RadiusR.DB.Enums
+@using RezaB.Web.Authentication
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.Customer.SubscriptionListDisplayViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Clients + "-" + RadiusR.Localization.Pages.Common.ClientList;
+    var search = (RadiusR_Manager.Models.ViewModels.CustomerSearchViewModel)ViewBag.Search;
+}
+
+@Html.Partial("_Search", search)
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubscriberNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactPhoneNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DSLNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TariffName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.State)
+        </th>
+        <th>
+            @RadiusR.Localization.Pages.Common.Connection
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="ajax-username">
+                @Html.ActionLink(Html.DisplayTextFor(modelItem => item.Username).ToString(), "Details", new { id = item.ID }, new { @class = "details-link" })
+                @Html.HiddenFor(modelItem => item.Username, new { @class = "ajax-username" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.SubscriberNo)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.ContactPhoneNo)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.DSLNo)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.TariffName)
+            </td>
+            <td class="centered">
+                @if (User.HasPermission("Subscriber State"))
+                {
+                    @Html.ClientStateSelector(modelItem => item.ValidStateChanges, item.ID, (CustomerState)item.State, "ChangeStatus")
+                }
+                else
+                {
+                    @Html.ClientStateDisplay(modelItem => item.State)
+                }
+            </td>
+            <td class="online-status-container">
+                <div class="online-status-loading"></div>
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+
+@if (User.HasPermission("Download Subscriber List"))
+{
+    <div style="text-align: right; padding: 0.3em;">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="@RadiusR.Localization.Pages.Common.GetPrintableDoc" class="link-button iconed-button download-button" />
+        }
+    </div>
+}
+
+@section PageScripts{
+    <script type="text/javascript">
+        LoadClientConnectionStatus(".ajax-username", 'tr', '@Url.Action("GetOnlineUsers", "Client")',
+                    '@RadiusR.Localization.Pages.Common.Online', '@RadiusR.Localization.Pages.Common.Offline', '@RadiusR.Localization.Pages.Common.LoadingError', '@RadiusR.Localization.Pages.Common.NASAlert');
+    </script>
+}

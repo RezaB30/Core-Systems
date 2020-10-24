@@ -1,0 +1,30 @@
+﻿@using RadiusR.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.SubscriberFeesAddViewModel>
+
+@{
+    ViewBag.Title = ViewBag.SubscriberName + "-" + RadiusR.Localization.Pages.Common.AdditionalFees;
+    ViewData.TemplateInfo.HtmlFieldPrefix = "fees";
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.AddFeeEditorFor(model => model, (IEnumerable<RadiusR_Manager.Models.ViewModels.SubscriberFeesAddViewModel>)ViewBag.AvailableFees)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="centered">
+                        <a href='@Url.Action("Details", new { id = Request.RequestContext.RouteData.Values["id"] })#additional-fees' class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

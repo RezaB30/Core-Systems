@@ -1,0 +1,108 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.DiscountReportViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.DiscountReport;
+    var rowSample = new RadiusR_Manager.Models.ViewModels.DiscountReportViewModel.BillRow();
+    var search = ViewBag.Search as RadiusR_Manager.Models.ViewModels.DiscountReportSearchViewModel;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm(null, null, FormMethod.Get))
+        {
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => search.StartDate)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => search.StartDate)
+                        -
+                        @Html.EditorFor(model => search.EndDate)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                        <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="centered text-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}
+else
+{
+    <table class="data-table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => rowSample.SubscriberNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => rowSample.IssueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => rowSample.Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => rowSample.DiscountTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => rowSample.PaymentTotal)
+            </th>
+        </tr>
+        @foreach (var item in Model.Rows)
+        {
+            var rowClass = item.IsCancelled ? "highlighted-row" : string.Empty;
+            <tr class="@rowClass">
+                <td>
+                    @Html.ActionLink(item.SubscriberNo, "Details", "Client", new { id = item.SubscriberId }, new { @class = "details-link" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IssueDate)
+                </td>
+                <td class="centered">
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td class="centered">
+                    @Html.DisplayFor(modelItem => item.DiscountTotal)
+                </td>
+                <td class="centered">
+                    @Html.DisplayFor(modelItem => item.PaymentTotal)
+                </td>
+            </tr>
+        }
+        <tr style="background-color: #292929; color: white;">
+            <td colspan="2">
+                @RadiusR.Localization.Pages.Common.Total
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(model => model.Total)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(model => model.DiscountTotal)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(model => model.PaymentTotal)
+            </td>
+        </tr>
+    </table>
+    @Html.PagedList((int)ViewBag.PageCount)
+
+    <div style="text-align: right; padding: 0.3em;">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="@RadiusR.Localization.Pages.Common.GetPrintableDoc" class="link-button iconed-button download-button" />
+        }
+    </div>
+}

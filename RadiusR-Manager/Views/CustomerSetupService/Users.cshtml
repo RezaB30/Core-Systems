@@ -1,0 +1,54 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.CustomerSetupUserViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.CustomerSetupUsers;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @using (Html.BeginForm("ChangeState", null, new { id = item.ID }, FormMethod.Post, new { @confirm = "enabled" }))
+                {
+                    @Html.AntiForgeryToken()
+                    if (item.IsEnabled)
+                    {
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Deactivate" class="link-button iconed-button lock-button" />
+                    }
+                    else
+                    {
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Activate" c class="link-button iconed-button unlock-button" />
+                    }
+                }
+                @if (!item.HasAssignedTasks)
+                {
+                    using (Html.BeginForm("Remove", null, new { id = item.ID }, FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button delete-button" />
+                    }
+                }
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "EditUser", new { id = item.ID}, new { @class = "link-button iconed-button edit-button" })
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

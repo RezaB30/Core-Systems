@@ -1,0 +1,33 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.PartnerPermissionSelectionViewModel
+
+@{
+    ViewBag.Title = ViewBag.PartnerName + "-" + RadiusR.Localization.Pages.Common.PartnerPermissions;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Permissions)
+                    </td>
+                    <td>
+                        @Html.MultiSelectFor(model => model.Permissions, (MultiSelectList)ViewBag.Permissions, RadiusR.Localization.Pages.Common.Choose)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Permissions", new { id = Request.RequestContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button back-button" })
+                        &nbsp;
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

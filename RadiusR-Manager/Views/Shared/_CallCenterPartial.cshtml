@@ -1,0 +1,12 @@
+﻿@if (Request.IsAuthenticated && User.HasInternalNo())
+{
+    <div class="call-center-box">
+        &nbsp;
+    </div>
+    <div class="call-center-details-box unselectable">
+        <input id="webphone-button" type="button" value="@RadiusR.Localization.Pages.Common.WebPhone" class="link-button iconed-button keypad-button" link-ref="@Url.Action("WebPhone", "CallCenter")" />
+        <div id="call-center-events-container" refresh-ref="@Url.Action("GetEvents", "CallCenter")">
+
+        </div>
+    </div>
+}

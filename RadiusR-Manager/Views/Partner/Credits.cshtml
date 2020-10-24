@@ -1,0 +1,77 @@
+﻿@using RezaB.Web.Helpers
+@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.PartnerCreditViewModel>
+
+@{
+    ViewBag.Title = ViewBag.PartnerName + "-" + RadiusR.Localization.Pages.Common.Credits;
+    var total = ViewBag.CreditsTotal as string;
+}
+
+@if (ViewBag.PermissionWarning != null)
+{
+    <div class="centered button-row">
+        <div class="warning-message" style="display: inline-block;">
+            @ViewBag.PermissionWarning
+        </div>
+    </div>
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BillID)
+            /
+            @Html.DisplayNameFor(model => model.Details)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td class="centered">
+                @if (item.BillID.HasValue)
+                {
+                    if (item._amount < 0)
+                    {
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.BillPayment, "Details", "Bill", new { id = item.BillID, @redirectUrl = Request.Url.AbsoluteUri }, new { @class = "details-link" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.PaymentCancellation, "Details", "Bill", new { id = item.BillID, @redirectUrl = Request.Url.AbsoluteUri }, new { @class = "details-link" })
+                    }
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.Details)
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+
+<div class="button-row" style="text-align: right;">
+    @RadiusR.Localization.Pages.Common.Total
+    :
+    @Html.CurrencyDisplayFor(model => total)
+</div>
+
+<div class="centered button-row">
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Settings", new { id = Request.RequestContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button back-button" })
+    &nbsp;
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.AddCredits, "AddCredits", new { id = Request.RequestContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button new-button" })
+    &nbsp;
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.SubtractCredits, "SubtractCredits", new { id = Request.RequestContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button minus-button" })
+</div>

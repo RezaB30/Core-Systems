@@ -1,0 +1,44 @@
+﻿@model RadiusR_Manager.Models.RadiusViewModels.TelekomTariffViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.TelekomTariffs + "-" + RadiusR.Localization.Pages.Common.Add;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.SpeedCode)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.SpeedCode, new { htmlAttributes = new { @maxlength = 9, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.SpeedCode)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Name)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.Name)
+            </td>
+        </tr>
+        <tr>
+            <td class="centered" colspan="2">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "TelekomTariffs", null, new { @class = "link-button iconed-button back-button" })
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+            </td>
+        </tr>
+    </table>
+}

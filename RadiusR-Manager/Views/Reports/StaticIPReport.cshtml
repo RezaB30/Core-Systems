@@ -1,0 +1,63 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.StaticIPReportViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.StaticIPReport;
+    var search = ViewBag.Search as RadiusR_Manager.Models.ViewModels.StaticIPReportSearchViewModel;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm(null, null, FormMethod.Get))
+        {
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => search.StaticIP)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model=>search.StaticIP, new { @htmlAttributes = new { @maxlength = 15 } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                        <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model=>model.ClientName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model=> model.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model=>model.StaticIP)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="@Url.Action("Details", "Client", new { id = item.ClientID })" class="details-link">
+                    @Html.DisplayFor(modelItem => item.ClientName)
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaticIP)
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

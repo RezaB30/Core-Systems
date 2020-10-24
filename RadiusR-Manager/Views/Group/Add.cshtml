@@ -1,0 +1,31 @@
+﻿
+@model RadiusR_Manager.Models.RadiusViewModels.GroupViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Model.RadiusR.Groups + "-" + RadiusR.Localization.Pages.Common.AddGroup;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Name)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Name)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.Name)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="centered">
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Add" class="link-button iconed-button accept-button" />
+            </td>
+        </tr>
+    </table>
+}

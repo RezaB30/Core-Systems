@@ -1,0 +1,50 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.ServiceClientCountViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.ServicesClientCount;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientCount)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceName)
+            </td>
+            <td class="centered">
+                <a href="@Url.Action("Index", "Client", new { ServiceName = item.ServiceName, State = (short)RadiusR.DB.Enums.CustomerState.Active })" class="details-link">
+                    @Html.DisplayFor(modelItem => item.ClientCount)
+                </a>
+            </td>
+            <td>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("id", item.ServiceID)
+
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.TariffSubscriptionBillsCount" class="link-button iconed-button download-button" />
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+
+@section PageScripts{
+    <script>
+        $('.download-button').closest('form').submit(function () {
+            $(this).find('input.download-button').remove();
+        });
+    </script>
+    }

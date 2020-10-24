@@ -1,0 +1,59 @@
+﻿@model RadiusR_Manager.Models.ViewModels.NetmapListViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.NAS + "-" + RadiusR.Localization.Pages.Common.EditNetmap;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table id="netmap-table" class="input-table" style="min-width: 34em;">
+        <tr>
+            <td colspan="6" class="centered">
+                @Html.LabelFor(model => model.NASName):&nbsp;
+                @Html.DisplayFor(model => model.NASName)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                <div class="rate-limit-title">
+                    @Html.DisplayNameFor(model => model.NASNetmaps)
+                </div>
+            </td>
+        </tr>
+        @Html.EditorFor(model => model.NASNetmaps)
+        <tr>
+            <td colspan="6" class="centered">
+                @Html.ValidationMessage("Router")
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6" class="centered">
+                <div class="waiting-progress">
+                    <div class="waiting-progress-message">@RadiusR.Localization.Pages.Common.NATCreatingWaitingMessage</div>
+                    <div class="waiting-progress-image-wrapper">
+                        <div class="waiting-progress-image"></div>
+                        <div class="waiting-progress-timer"></div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr id="submit-row">
+            <td class="centered" colspan="6">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class = "link-button iconed-button back-button" })
+                &nbsp;
+                <input type="submit" name="" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button new-button" />
+            </td>
+        </tr>
+    </table>
+}
+
+@section PageScripts{
+    <script type="text/javascript">
+        SetupIPPoolList('tbody.ip-map-container');
+        $('#netmap-table').closest('form').submit(function () {
+            $('#submit-row').hide();
+            StartWaitingCounter('div.waiting-progress');
+        });
+    </script>
+}

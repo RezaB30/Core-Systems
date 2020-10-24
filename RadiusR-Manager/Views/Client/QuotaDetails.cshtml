@@ -1,0 +1,36 @@
+﻿@model IEnumerable<RadiusR_Manager.Models.ViewModels.QuotaDetailViewModel>
+
+@{
+    ViewBag.Title = ViewBag.CustomerName + "-" + RadiusR.Localization.Pages.Common.QuotaDetails;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddDate)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.ItemValue)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.AddDate)
+            </td>
+        </tr>
+    }
+</table>
+<div style="padding: 1em;" class="centered">
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Details", new { id = Request.RequestContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button back-button" })
+</div>

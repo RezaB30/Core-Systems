@@ -1,0 +1,76 @@
+﻿@using RezaB.Web.Helpers
+@using RezaB.Web.Authentication
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.SavedFileViewModel>
+
+@{
+    ViewBag.Title = ViewBag.ClientName + "-" + RadiusR.Localization.Pages.Common.AttachedFiles;
+}
+
+<div class="centered">
+    @if (Model.Count() <= 0)
+    {
+        <div class="text-danger">
+            @RadiusR.Localization.Pages.Common.NoFilesFound
+        </div>
+    }
+    @foreach (var item in Model)
+    {
+        <div class="file-item-wrapper">
+            <a href="@Url.Action("ViewFile", new { id = ViewBag.ClientID, fileName = item.FileName })" target="_blank">
+                <div class="file-view-container">
+                    <div>
+                        <div class="file-icon">@Html.DisplayFor(modelItem => item.FileExtention)</div>
+                    </div>
+                    <div>
+                        @Html.DisplayFor(modelItem => item.FileName)
+                    </div>
+                    <div class="creation-date">
+                        @Html.DisplayFor(modelItem => item.CreationDate)
+                    </div>
+                </div>
+            </a>
+            <div class="centered" style="margin-top: 1em;">
+                @if (User.HasPermission("Edit Client Files"))
+                {
+                    using (Html.BeginForm("RemoveAttachment", "Client", FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block; vertical-align: middle;" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", (long)ViewBag.ClientID)
+                        @Html.Hidden("fileName", item.FileName)
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button delete-button" />
+                    }
+                    @:&nbsp;
+                }
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Download, "DownloadFile", new { id = ViewBag.ClientID, fileName = item.FileName }, new { @class = "link-button iconed-button download-button" })
+            </div>
+        </div>
+    }
+</div>
+
+@if (User.HasPermission("Edit Client Files"))
+{
+    <div class="add-client-attachment">
+        @using (Html.BeginForm("UploadAttachment", "Client", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("id", (long)ViewBag.ClientID)
+            @Html.FileUpload("newAttachment", ".jpg,.png,.pdf")
+            <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+        }
+        @Html.Partial("_WaitTimer")
+    </div>
+}
+
+<div class="centered" style="margin-top: 1em;">
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Details", new { id = ViewBag.ClientID }, new { @class = "link-button iconed-button back-button" })
+</div>
+
+@section PageScripts{
+    <script type="text/javascript">
+        $('.add-client-attachment').find('form').submit(function () {
+            $(this).hide();
+            StartWaitingCounter('div.waiting-progress');
+        });
+    </script>
+}

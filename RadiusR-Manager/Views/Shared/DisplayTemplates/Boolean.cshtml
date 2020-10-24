@@ -1,0 +1,9 @@
+﻿@model bool?
+@if (Model.HasValue && Model.Value)
+{
+    @:<img class="boolean-checkmark" src='@Url.Content("~/Content/Images/Buttons/checked.svg")' />
+}
+else
+{
+    @:<img class="boolean-checkmark" src='@Url.Content("~/Content/Images/Buttons/unchecked.svg")' />
+}

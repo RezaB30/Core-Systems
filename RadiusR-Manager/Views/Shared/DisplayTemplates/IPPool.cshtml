@@ -1,0 +1,10 @@
+﻿@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.IPPoolViewModel>
+
+<div style="display: inline-block;">
+    @foreach (var item in Model)
+    {
+        <div>
+            @Html.DisplayFor(modelItem => item.Range)
+        </div>
+    }
+</div>

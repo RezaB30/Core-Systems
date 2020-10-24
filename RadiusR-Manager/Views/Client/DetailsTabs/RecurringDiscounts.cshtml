@@ -1,0 +1,147 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Authentication
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.RecurringDiscountViewModel>
+
+<div class="rate-limit-title">
+    @RadiusR.Localization.Pages.Common.RecurringDiscounts
+</div>
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CreationTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiscountType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplicationType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FeeTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimesApplied)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OnlyFullInvoice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @RadiusR.Localization.Pages.Common.CancellationDetails
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReferrerCode)/@Html.DisplayNameFor(model => model.ReferringCode)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        var rowClass = string.Empty;
+        if (item.IsFinished)
+        {
+            rowClass = "greenlit-row";
+        }
+        else if (item.IsDisabled)
+        {
+            rowClass = "highlighted-row";
+        }
+        <tr class="@rowClass">
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.CreationTime)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.DiscountType)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.ApplicationType)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.FeeTypeID)
+            </td>
+            <td class="centered">
+                @if (item.DiscountType == (short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountType.Static)
+                {
+                    @Html.DisplayFor(modelItem => item.Amount)
+                }
+                else if (item.DiscountType == (short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountType.Percentage)
+                {
+                    @Html.DisplayFor(modelItem => item.PercentageAmount)
+                }
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.TimesApplied)/@Html.DisplayFor(modelItem => item.ApplicationTimes)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.OnlyFullInvoice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td class="centered">
+                @if (item.IsDisabled)
+                {
+                    @Html.DisplayFor(modelItem => item.CancellationDate)
+                    @:-
+                    @Html.DisplayFor(modelItem => item.CancellationCause)
+                }
+            </td>
+            <td class="centered">
+                @if (item.ReferrerCode != null)
+                {
+                    @Html.DisplayNameFor(model => model.ReferrerCode)
+                    <a href="@Url.Action("Details", new { id = item.ReferencedSubscriptionID })" class="details-link">
+                        @Html.DisplayFor(modelItem => item.ReferrerCode)
+                    </a>
+                }
+                @if (item.ReferringCode != null)
+                {
+                    @Html.DisplayNameFor(model => model.ReferringCode)
+                    <a href="@Url.Action("Details", new { id = item.ReferencedSubscriptionID })" class="details-link">
+                        @Html.DisplayFor(modelItem => item.ReferringCode)
+                    </a>
+                }
+            </td>
+            <td>
+                @if (!item.IsDisabled && User.HasPermission("Discount"))
+                {
+                    if (item.TimesApplied <= 0)
+                    {
+                        using (Html.BeginForm("RemoveRecurringDiscount", null, new { id = item.ID, subscriptionId = ViewContext.RouteData.Values["id"] }, FormMethod.Post, new { @confirm = "enabled" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button remove-button" />
+                        }
+                    }
+                    else if (!item.IsFinished)
+                    {
+                        using (Html.BeginForm("RemoveRecurringDiscount", null, new { id = item.ID, subscriptionId = ViewContext.RouteData.Values["id"] }, FormMethod.Post, new { @confirm = "enabled" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="@RadiusR.Localization.Pages.Common.Cancel" class="link-button iconed-button cancel-button" />
+                        }
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+
+@if (User.HasPermission("Discount"))
+{
+    <div class="button-row centered">
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "AddRecurringDiscount", new { id = ViewContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button new-button" })
+        @if (User.HasPermission("Add Referral Discount") && ViewBag.IsValidForReferralDiscount as bool? == true)
+        {
+            @: &nbsp;
+            @Html.ActionLink(RadiusR.Localization.Pages.Common.AddReferralDiscount, "AddReferralDiscount", new { id = ViewContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button discount-button" })
+        }
+    </div>
+}

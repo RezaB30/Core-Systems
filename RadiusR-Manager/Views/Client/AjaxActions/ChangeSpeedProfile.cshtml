@@ -1,0 +1,33 @@
+﻿@using RadiusR_Manager.Helpers
+@using RadiusR.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.TelekomTariffHelperViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.ChangeSpeedProfile;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm("ChangeSpeedProfileConfirm", "Client", FormMethod.Post, new { @class = "change-speed-profile-form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("id", Request.RequestContext.RouteData.Values["id"])
+            @Html.TelekomTariffEditorFor(model => model, ViewBag.Domain as RadiusR.DB.DomainsCache.CachedDomain)
+            <div>
+                <div class="text-danger">
+                    @ViewBag.ErrorMessage
+                </div>
+                <div class="centered">
+                    <input id="accept-button" type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                </div>
+            </div>
+        }
+        <div class="tt-packet-selection-loading" style="text-align: center; display: none;">
+            <div style="position: relative; width: 1.5em; height: 1.5em; display: inline-block; vertical-align: middle;">
+                <div class="online-status-loading"></div>
+            </div>
+            @RadiusR.Localization.Pages.Common.Processing
+        </div>
+    </div>
+</div>

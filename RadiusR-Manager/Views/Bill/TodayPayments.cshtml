@@ -1,0 +1,61 @@
+﻿@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.BillViewModel>
+
+@{
+    var billsTotal = ViewBag.BillsTotal;
+    var totalCredits = ViewBag.CreditsTotal;
+    var totalPayments = ViewBag.TotalPayments;
+}
+
+<div class="rate-limit-title">@RadiusR.Localization.Pages.Common.TodayPayments</div>
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Subscription.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PayDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentTypeDescription)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="text-align: left;">
+                <div style="text-overflow: ellipsis; overflow: hidden; max-width: 14em; white-space: nowrap;">
+                    <a href="@Url.Action("Details", "Client", new { id = item.SubscriptionID })#bills" class="details-link">
+                        @Html.DisplayFor(modelItem => item.Subscription.Name)
+                    </a>
+                </div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentTypeDescription)
+            </td>
+        </tr>
+    }
+</table>
+<div class="rate-limit-title" style="padding: 0 0.2em;">
+    <div style="text-align: left;">
+        @RadiusR.Localization.Pages.Common.Total
+        @Html.DisplayFor(model => billsTotal, "Currency")
+
+        <div style="float: right;">
+            @RadiusR.Localization.Pages.Common.Credit
+            @Html.DisplayFor(model => totalCredits, "Currency")
+        </div>
+    </div>
+    <div>
+        @RadiusR.Localization.Pages.Common.TodayPayments
+        @Html.DisplayFor(model => totalPayments, "Currency")
+    </div>
+</div>

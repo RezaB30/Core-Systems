@@ -1,0 +1,28 @@
+﻿@using RezaB.TurkTelekom.WebServices.TTApplication
+
+@model short?
+
+@if (Model == (short)RegistrationState.Cancelled)
+{
+    <div class="registration-trace-container" style="display: inline-block; vertical-align: middle;" title="@RadiusR.Localization.Lists.RegistrationState.Cancelled">
+        <div class="registration-trace-view cancelled"></div>
+    </div>
+}
+@if (Model == (short)RegistrationState.Done)
+{
+    <div class="registration-trace-container" style="display: inline-block; vertical-align: middle;" title="@RadiusR.Localization.Lists.RegistrationState.Done">
+        <div class="registration-trace-view done"></div>
+    </div>
+}
+@if (Model == (short)RegistrationState.InProgress)
+{
+    <div class="registration-trace-container" style="display: inline-block; vertical-align: middle;" title="@RadiusR.Localization.Lists.RegistrationState.InProgress">
+        <div class="registration-trace-view in-progress"></div>
+    </div>
+}
+@if (Model == (short)RegistrationState.Unknown)
+{
+    <div class="registration-trace-container" style="display: inline-block; vertical-align: middle;" title="@RadiusR.Localization.Lists.RegistrationState.Unknown">
+        <div class="registration-trace-view unknown-error"></div>
+    </div>
+}

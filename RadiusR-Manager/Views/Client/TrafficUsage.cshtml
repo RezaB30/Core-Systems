@@ -1,0 +1,36 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.TrafficUsageViewModel
+
+<div>
+    @using (Html.BeginForm("TrafficUsage"))
+    {
+        @Html.HiddenFor(model => model.ClientID)
+        <table style="margin: auto;">
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.StartDate)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.StartDate)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.EndDate)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.EndDate)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                </td>
+            </tr>
+        </table>
+    }
+    <div style="text-align: center; padding: 2em;">
+        @Html.LinearDiagram(300, 300, (List<LinearDiagramDataArray>)ViewBag.DiagramData, new LinearDiagramTags() { HorizontalBarTitle = RadiusR.Localization.Pages.Common.Time, VerticalBarTitle = RadiusR.Localization.Pages.Common.Usage })
+    </div>
+</div>

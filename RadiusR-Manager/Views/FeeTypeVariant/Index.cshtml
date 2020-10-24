@@ -1,0 +1,24 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.FeeTypeVariantViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.AdditionalFees + "-" + new RezaB.Data.Localization.LocalizedList<RadiusR.DB.Enums.FeeType, RadiusR.Localization.Lists.FeeType>().GetDisplayText(ViewBag.FeeTypeID);
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("id", (short)ViewBag.FeeTypeID)
+    @Html.FeeTypeVariantList(model => model, "variants")
+    <div class="centered">
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.Cancel, "Index", "AdditionalFee", null, new { @class = "link-button iconed-button back-button" }) &nbsp;
+        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button save-button" />
+    </div>
+}
+
+@section PageScripts{
+    <script type="text/javascript">
+        SetupFeeTypeVariantLists('#page-contents');
+    </script>
+}

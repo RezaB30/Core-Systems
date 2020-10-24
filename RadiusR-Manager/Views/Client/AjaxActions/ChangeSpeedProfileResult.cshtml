@@ -1,0 +1,16 @@
+﻿@model RadiusR_Manager.Models.ViewModels.ChangeSpeedProfileResultViewModel
+
+<div class="centered">
+    @if (Model.IsSuccess)
+    {
+        <div style="color: seagreen;">
+            @Html.DisplayFor(model => model.Message)
+        </div>
+    }
+    else
+    {
+        <div class="text-danger">
+            @Html.DisplayFor(model => model.Message)
+        </div>
+    }
+</div>

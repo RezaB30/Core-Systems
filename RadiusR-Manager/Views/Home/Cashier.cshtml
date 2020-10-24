@@ -1,0 +1,66 @@
+﻿@model RadiusR_Manager.Models.ViewModels.CashierClientSearchViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.HomePage;
+}
+
+<div style="text-align: center;">
+    <div style="display: inline-block; text-align: initial;">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.SubscriberNo)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.SubscriberNo, new { htmlAttributes = new { @autocomplete = "off", @maxlength = "10" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.SubscriberNo)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.PhoneNo)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.PhoneNo, new { htmlAttributes = new { @autocomplete = "off", @maxlength = "10" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.PhoneNo)
+                    </td>
+                </tr>
+                @*<tr>
+                    <td>
+                        @Html.LabelFor(model => model.TCKNo)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.TCKNo, new { htmlAttributes = new { @autocomplete = "off", @maxlength = "11" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.TCKNo)
+                    </td>
+                </tr>*@
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessage("results")
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+
+    </div>
+</div>

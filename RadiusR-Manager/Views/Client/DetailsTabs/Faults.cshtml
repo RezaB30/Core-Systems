@@ -1,0 +1,40 @@
+﻿@using RadiusR.DB.Enums
+@using RezaB.Web.Authentication
+
+@model RadiusR_Manager.Models.ViewModels.Customer.CustomerDetailsViewModel
+
+<div class="active-faults-page-container">
+    <div class="rate-limit-title">
+        @RadiusR.Localization.Pages.Common.WorkOrders
+    </div>
+    <div id="client-assigned-tasks-container"></div>
+    @if ((Model.SubscriptionInfo.State == (short)CustomerState.Active || Model.SubscriptionInfo.State == (short)CustomerState.Reserved) && User.HasPermission("Create Setup Task"))
+    {
+        <div class="centered" style="padding: 0.5em;">
+            @Html.ActionLink(RadiusR.Localization.Pages.Common.AssignWorkOrder, "AddWorkOrder", "Client", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button validate-button" })
+        </div>
+    }
+    <div class="rate-limit-title">
+        @RadiusR.Localization.Pages.Common.SupportRequests
+    </div>
+    <div id="client-support-requests-container"></div>
+    @if (Model.SubscriptionInfo.State == (short)CustomerState.Active && User.HasPermission("Create Support Request"))
+    {
+        <div class="centered" style="padding: 0.5em;">
+            @Html.ActionLink(RadiusR.Localization.Pages.Common.CreateSupportRequest, "Add", "SupportRequest", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button next-button" })
+        </div>
+    }
+    @if (Model.SubscriptionInfo.TelekomInfo != null && User.HasPermission("Telekom Work Orders"))
+    {
+        <div class="rate-limit-title">
+            @RadiusR.Localization.Pages.Common.TelekomWorkOrders
+        </div>
+        <div id="client-telekom-work-orders"></div>
+        if (User.HasPermission("Telekom Work Order Edits"))
+        {
+            <div class="centered" style="padding: 0.5em;">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.ManuallyAdd, "ManuallyAdd", "TelekomWorkOrder", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button new-button" })
+            </div>
+        }
+    }
+</div>

@@ -1,0 +1,50 @@
+﻿@using RadiusR.DB.Enums
+
+<div class="sliding-box-slide slide-1">
+    <a href="@Url.Action("Index", "Client")">
+        <div>
+            @RadiusR.Localization.Pages.Common.RegisteredClients
+        </div>
+        <div style="padding: 1em; font-size: 1.2em;">
+            @ViewBag.TotalClientCount
+        </div>
+    </a>
+</div>
+<div class="sliding-box-slide slide-2 right">
+    <a href="@Url.Action("Index", "Client", new RouteValueDictionary() { { "search.State", (short)CustomerState.Cancelled } })">
+        <div>
+            @RadiusR.Localization.Pages.Common.CancelledClients
+        </div>
+        <div style="padding: 1em; font-size: 1.2em;">
+            @ViewBag.TotalCancelledCount
+        </div>
+    </a>
+</div>
+<div class="sliding-box-slide slide-3 right">
+    <a href="@Url.Action("Index", "Client", new RouteValueDictionary() { { "search.DisabledForDebt", "on" } })">
+        <div>
+            @RadiusR.Localization.Pages.Common.DebtDisabledClients
+        </div>
+        <div style="padding: 1em; font-size: 1.2em;">
+            @ViewBag.TotalDisabledForDebtCount
+        </div>
+    </a>
+</div>
+<div class="sliding-box-slide slide-4 right">
+    <a href="@Url.Action("Index", "Client", new RouteValueDictionary() { { "search.State", (short)CustomerState.Disabled } })">
+        <div>
+            @RadiusR.Localization.Pages.Common.FreezedClients
+        </div>
+        <div style="padding: 1em; font-size: 1.2em;">
+            @ViewBag.TotalFreezedCount
+        </div>
+    </a>
+</div>
+<div class="sliding-box-button-strip">
+    <div class="sliding-box-button selected"></div>
+    @for (int i = 1; i < 4; i++)
+    {
+        <div class="sliding-box-button"></div>
+    }
+</div>
+<div class="link-box-prestine"></div>

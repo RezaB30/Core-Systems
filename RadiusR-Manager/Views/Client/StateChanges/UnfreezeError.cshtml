@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.UnfreezeError + "-" + ViewBag.SubscriberName;
+}
+
+<div class="centered text-danger">
+    @ViewBag.ErrorMessage
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="centered">
+        <a href="@ViewBag.BackUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+        <input type="submit" value="@RadiusR.Localization.Pages.Common.Force" class="link-button iconed-button warning-button" />
+    </div>
+}
+
+

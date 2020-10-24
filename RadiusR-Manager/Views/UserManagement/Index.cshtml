@@ -1,0 +1,136 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.AppUserViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.UserManagement + "-" + RadiusR.Localization.Pages.Common.Users;
+    var userId = User.GiveUserId();
+    var search = ViewBag.Search as RadiusR_Manager.Models.ViewModels.AppUserSearchViewModel;
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Get))
+{
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.Email)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.Email, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+            </td>
+            <td>
+                @Html.LabelFor(model => search.FullName)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.FullName, new { htmlAttributes = new { @maxlength = 500, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.RoleID)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.RoleID)
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td class="centered" colspan="4">
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+            </td>
+        </tr>
+    </table>
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TCKNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Role)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InternalCallCenterNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsEnabled)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.TCKNo)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Role)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.InternalCallCenterNo)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.IsEnabled)
+            </td>
+            <td>
+                @if (item.ID != userId)
+                {
+                    using (Html.BeginForm("ChangeState", null, new { id = item.ID }, FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        if (item.IsEnabled)
+                        {
+                            <input type="submit" value="@RadiusR.Localization.Pages.Common.Deactivate" class="link-button iconed-button lock-button" />
+                        }
+                        else
+                        {
+                            <input type="submit" value="@RadiusR.Localization.Pages.Common.Activate" c class="link-button iconed-button unlock-button" />
+                        }
+                    }
+                    if (User.IsInRole("admin"))
+                    {
+                        @:&nbsp;
+                        using (Html.BeginForm("SignInAs", null, new { id = item.ID }, FormMethod.Post, new { @confirm = "enabled" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="@RadiusR.Localization.Pages.Common.SignInAs" class="link-button iconed-button sign-in-button" />
+                        }
+                    }
+                }
+                &nbsp;
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "Edit", new { id = item.ID }, new { @class = "link-button iconed-button edit-button" })
+                &nbsp;
+                @if (item.CanBeDeleted)
+                {
+                    using (Html.BeginForm("Remove", null, new { id = item.ID }, FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button remove-button" />
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

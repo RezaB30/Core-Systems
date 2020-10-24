@@ -1,0 +1,76 @@
+﻿@using RadiusR.Helpers
+@using RadiusR_Manager.Helpers
+@using RadiusR.DB.Enums;
+
+@model RadiusR_Manager.Models.ViewModels.ClientBillsViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.BillPayment + "-" + Model.FullName;
+    var index = 0;
+    string credits = ((decimal)ViewBag.Credits).ToString("###,##0.00");
+    string payingAmount = ((decimal)ViewBag.PayingAmount).ToString("###,##0.00");
+    short paymentType = ViewBag.PaymentType == null ? (short)PaymentType.Cash : (short)ViewBag.PaymentType;
+}
+
+@using (Html.BeginForm("ClientPaymentConfirm", null))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ClientID)
+    <table class="bill-receipt-container">
+        @foreach (var item in Model.BillSelections.Select(selection => selection.Bill))
+        {
+            <tr>
+                <td colspan="2">
+                    @Html.Hidden("billIds[" + index + "]", item.ID)
+                    @Html.BillDetailsFor(model => item)
+                    <div class="bill-receipt-footer"></div>
+                </td>
+            </tr>
+            index++;
+        }
+        <tr class="last-row">
+            <td>
+                @RadiusR.Localization.Pages.Common.Total
+            </td>
+            <td style="text-align: right;">
+                @Html.DisplayFor(model => model.TotalCost)
+            </td>
+        </tr>
+        <tr class="last-row">
+            <td>
+                @RadiusR.Localization.Pages.Common.Credit
+            </td>
+            <td style="text-align: right;">
+                @Html.DisplayFor(model => credits, "Currency")
+            </td>
+        </tr>
+        <tr class="last-row">
+            <td>
+                @RadiusR.Localization.Pages.Common.PayingAmount
+            </td>
+            <td style="text-align: right;">
+                @Html.DisplayFor(model => payingAmount, "Currency")
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: left; padding: 0.3em;">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "ClientPayment", new { id = Model.ClientID }, new { @class = "link-button iconed-button back-button" })
+            </td>
+            <td style="padding: 0.3em;">
+                @Html.PaymentButton(model => paymentType)
+            </td>
+        </tr>
+    </table>
+}
+
+@section PageScripts{
+    <script type="text/javascript">
+        $('.print-button').click(function () {
+            var currentButton = $(this);
+            currentButton.closest('form').append('<input type="hidden" name="HasPrintRequested" value="on" />');
+            currentButton.closest('form').submit();
+        });
+
+        setupPaymentButtons();
+    </script>
+}

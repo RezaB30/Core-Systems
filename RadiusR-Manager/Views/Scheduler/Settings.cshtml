@@ -1,0 +1,111 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.SchedulerSettingsViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.SchedulerSettings;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.SchedulerStartTime)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.SchedulerStartTime, new { @htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.SchedulerStartTime)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.SchedulerStopTime)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.SchedulerStopTime, new { @htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.SchedulerStopTime)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.SchedulerRetryDelay)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.SchedulerRetryDelay, new { @htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.SchedulerRetryDelay)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.SMSSchedulerStartTime)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.SMSSchedulerStartTime, new { @htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.SMSSchedulerStartTime)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.SMSSchedulerStopTime)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.SMSSchedulerStopTime, new { @htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.SMSSchedulerStopTime)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.SMSSchedulerPaymentReminderThreshold)
+            </td>
+            <td>
+                @Html.Select(model => model.SMSSchedulerPaymentReminderThreshold, HelperUtilities.CreateNumericSelectList(1,10, Model.SMSSchedulerPaymentReminderThreshold))
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.SMSSchedulerPaymentReminderThreshold)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.SMSSchedulerPrepaidReminderThreshold)
+            </td>
+            <td>
+                @Html.Select(model => model.SMSSchedulerPrepaidReminderThreshold, HelperUtilities.CreateNumericSelectList(1, 10, Model.SMSSchedulerPrepaidReminderThreshold))
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.SMSSchedulerPrepaidReminderThreshold)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="centered">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Reset, null, null, new { @class = "link-button iconed-button reload-button" })&nbsp;
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+            </td>
+        </tr>
+    </table>
+}

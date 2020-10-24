@@ -1,0 +1,28 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model RadiusR_Manager.Models.RadiusViewModels.RecurringDiscountViewModel
+
+@{
+    ViewBag.Title = ViewBag.SubscriberName + "-" + RadiusR.Localization.Pages.Common.RecurringDiscounts;
+}
+
+<div class="centered-form-wrapper">
+    <div id="discount-form" class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            
+            @Html.RecurringDiscountEditorFor(model => model, (SelectList)ViewBag.FeeTypeList)
+            <div class="centered button-row">
+                <a href="@Url.Action("Details", new { id = ViewContext.RouteData.Values["id"]})#additional-fees" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+            </div>
+        }
+    </div>
+</div>
+
+@section PageScripts{
+    <script>
+        SetupRecurringDiscountEditor('#discount-form', @((short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountType.Static), @((short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountType.Percentage), @((short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountApplicationType.FeeBased), @((short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountApplicationType.BillBased));
+    </script>
+}

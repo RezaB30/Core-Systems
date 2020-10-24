@@ -1,0 +1,25 @@
+﻿@model RadiusR_Manager.Models.ViewModels.PartnerAPISettingsViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.PartnerAPISettings;
+}
+
+<table class="input-table">
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.PartnerAPIKey)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.PartnerAPIKey)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="centered">
+            @using (Html.BeginForm(null,null,FormMethod.Post, new { @confirm = "enabled" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Reset" class="link-button iconed-button reload-button" />
+            }
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,12 @@
+﻿@using RezaB.Web.Helpers
+@using RadiusR_Manager.Helpers
+@model string
+
+@if (User.HasInternalNo())
+{
+    @Html.WebPhoneCallFor(model => model, RadiusR.DB.AppSettings.CountryPhoneCode)
+}
+else
+{
+    @Html.PhoneCallFor(model => model, RadiusR.DB.AppSettings.CountryPhoneCode)
+}

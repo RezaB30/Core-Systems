@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RadiusR.DB.Enums
+{
+    public enum ServiceInfrastructureTypes
+    {
+        POSTPAID_GSM = 1,
+        PREPAID_GSM = 2,
+        HSCSD = 3,
+        GSMPOS = 4,
+        PREPAID_INTERNET = 5,
+        POSTPAID_INTERNET = 6,
+        PREPAID_M2M = 7,
+        POSTPAID_M2M = 8,
+        ADSL = 9,
+        XDSL = 10,
+        FIBER = 11,
+        HIPER = 12,
+        FR = 13,
+        ATM = 14,
+        METRO = 15,
+        WIFI = 16,
+        SSG_INTERNET = 17,
+        VERI_MERKEZI = 18,
+        UYDU_INTERNET = 19,
+        UYDU_SES = 20,
+        UYDU_DATA = 21,
+        KABLONET = 22,
+        SAYISAL_COKLU_HAT = 23,
+        SAYISAL_COKLU_SERVIS_444 = 24,
+        SAYISAL_COKLU_SERVIS_3RAKAM = 25,
+        SAYISAL_COKLU_SERVIS_822 = 26,
+        SAYISAL_COKLU_SERVIS_800 = 27,
+        SANAL_SANTRAL = 28,
+        IP_COKLU_HAT = 29,
+        IP_COKLU_SERVIS_444 = 30,
+        TELEKS = 31,
+        SABIT_HAT = 32,
+        SERVIS_444 = 33,
+        ANKESOR = 34,
+        MULTIMEDYA_ANKESOR = 35,
+        CENTREKS = 36,
+        SERVIS_3RAKAM = 37,
+        SAYISAL_IKILI_HAT = 38,
+        SERVIS_800 = 39,
+        TELEFON = 40,
+        ISDN_PRI = 41,
+        WIMAX = 42,
+        GORUNTULU_TELEFON = 43,
+        KIRALIK_DEVRE_TELEFON = 44,
+        KIRALIK_DEVRE_TELEGRAF = 45,
+        ISDN_BULUT_AKADEMI = 46,
+        KURUMSAL_GUVENLIK = 47,
+        TES_UYDU_IP_VE_TELEFON = 48,
+        P2P_METRO = 49,
+        P2P_ATM = 50,
+        P2P_FR = 51,
+        P2P_GHDSL = 52,
+        P2P_ADSL = 53,
+        VPN_METRO = 54,
+        VPN_GHDSL = 55,
+        VPN_ADSL = 56,
+        VPN_FR = 57,
+        KIRALIK_DEVRE_DATA = 58,
+        KIRALIK_DEVRE_KISMI = 59
+    }
+}

@@ -1,0 +1,96 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model RadiusR_Manager.Models.RadiusViewModels.ClientCreditViewModel
+
+@{
+    ViewBag.Title = Model.FullName + "-" + RadiusR.Localization.Pages.Common.Credit;
+    var sampleCredit = new RadiusR_Manager.Models.RadiusViewModels.ClientCreditViewModel.CreditViewModel();
+    var editCreditModel = (RadiusR_Manager.Models.ViewModels.EditCreditViewModel)ViewBag.EditCreditModel;
+}
+
+<table class="data-table centered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => sampleCredit.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => sampleCredit.AccountantName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => sampleCredit.Date)
+        </th>
+        <th>
+            @RadiusR.Localization.Pages.Common.Description
+        </th>
+    </tr>
+    @foreach (var item in Model.Credits)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountantName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @if (item.Bill != null)
+                {
+                    <a href="@Url.Action("Details", "Bill", new { id = item.Bill.ID, redirectUrl = Request.Url.AbsoluteUri })" class="details-link">
+                        @RadiusR.Localization.Pages.Common.BillPayment
+                        -
+                        @Html.DisplayFor(modelItem => item.Bill.PayDate)
+                    </a>
+                }
+                else
+                {
+                    @:-
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+
+
+@if (Model.HasBilling)
+{
+    <div style="text-align: center; padding: 0.5em;">
+        <div style="display: inline-block; text-align: initial;">
+            <div style="display: inline-block; vertical-align: middle;">
+                @Html.DisplayNameFor(model => model.Total)&nbsp;
+                @Html.DisplayFor(model => model.Total)&nbsp;
+            </div>
+            <input id="add-button" type="button" value="@RadiusR.Localization.Pages.Common.Add" class="link-button iconed-button plus-button" style="vertical-align: middle;" />&nbsp;
+            <input id="subtract-button" type="button" value="@RadiusR.Localization.Pages.Common.Subtract" class="link-button iconed-button minus-button" style="vertical-align: middle;" />
+            <div id="add-form" class="edit-credit-form-container" style="display: none;">
+                @using (Html.BeginForm("AddCredit", "Client", new { id = Model.ID }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(model => editCreditModel.AddingAmount)@:&nbsp;
+                    @Html.EditorFor(model => editCreditModel.AddingAmount)@:&nbsp;
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Add" class="link-button iconed-button plus-button" />@:&nbsp;
+                    <input type="button" value="@RadiusR.Localization.Pages.Common.Cancel" class="link-button iconed-button cancel-button" />
+                }
+            </div>
+            <div id="subtract-form" class="edit-credit-form-container" style="display: none;">
+                @using (Html.BeginForm("SubtractCredit", "Client", new { id = Model.ID }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.LabelFor(model => editCreditModel.SubtractingAmount)@:&nbsp;
+                    @Html.EditorFor(model => editCreditModel.SubtractingAmount)@:&nbsp;
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Subtract" class="link-button iconed-button minus-button" />@:&nbsp;
+                    <input type="button" value="@RadiusR.Localization.Pages.Common.Cancel" class="link-button iconed-button cancel-button" />
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@section PageScripts{
+    <script type="text/javascript">
+        SetupCreditForms('#page-contents');
+    </script>
+}

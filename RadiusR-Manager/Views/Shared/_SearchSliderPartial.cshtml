@@ -1,0 +1,22 @@
+﻿@using RezaB.Web.Helpers
+
+@{
+    var search = new RadiusR_Manager.Models.ViewModels.CustomerSearchViewModel();
+}
+
+<div id="search-slider" class="search-slider-container" tabindex="-1">
+    <div>
+        <div class="slider-container">
+            <img src="@Url.Content("~/Content/Images/Shared/slider-lip.svg")" alt="lip" class="slider-lip" /><div class="slider-contents">
+                @using (Html.BeginForm("Index", "Client", null, FormMethod.Get))
+                {
+                    @Html.EditorFor(model => search.ValidDisplayName, new { htmlAttributes = new { @autocomplete = "off", @maxlength = "64", @placeholder = Html.DisplayNameTextFor(model => search.ValidDisplayName) } })
+                    @Html.EditorFor(model => search.Phone, new { htmlAttributes = new { @autocomplete = "off", @maxlength = "10", @placeholder = Html.DisplayNameTextFor(model => search.Phone) } })
+                    @Html.EditorFor(model => search.SubscriberNo, new { htmlAttributes = new { @autocomplete = "off", @maxlength = "10", @placeholder = Html.DisplayNameTextFor(model => search.SubscriberNo) } })
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                }
+            </div>
+            <div class="slider-lip"></div>
+        </div>
+    </div>
+</div>

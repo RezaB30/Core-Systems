@@ -1,0 +1,75 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.Customer.SubscriptionListDisplayViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.StampDuty;
+    var search = (RadiusR_Manager.Models.ViewModels.StampDutySearchViewModel)ViewBag.Search;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm(null, null, null, FormMethod.Get))
+        {
+            <table>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => search.Date)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => search.Date)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegistrationDate)
+        </th>
+        <th>
+            @RadiusR.Localization.Pages.Common.Service - @Html.DisplayNameFor(model => model.ServicePrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubscriberNo)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Name)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(model => item.RegistrationDate)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(model => item.ServicePrice)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(model => item.SubscriberNo)
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+
+<div style="padding: 0.3em;">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => search.Date)
+        <input type="submit" value="@RadiusR.Localization.Pages.Common.GetPrintableDoc" class="link-button iconed-button download-button" />
+    }
+</div>

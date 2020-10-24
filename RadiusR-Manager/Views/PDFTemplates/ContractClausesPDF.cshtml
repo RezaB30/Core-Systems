@@ -1,0 +1,41 @@
+﻿@using RadiusR_Manager.Helpers
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.ContractAppendix;
+    bool fileExists = (bool)ViewBag.FileExists;
+}
+
+<table class="input-table">
+    @if (fileExists)
+    {
+        <tr>
+            <td class="centered">
+                @(RadiusR.Localization.Pages.Common.ContractAppendix).pdf
+                &nbsp;
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Download, "DownloadContractClauses", null, new { @class = "link-button iconed-button download-button" })
+                &nbsp;
+                @using (Html.BeginForm("RemoveContractClauses", null, FormMethod.Post, new { @style = "display: inline-block; vertical-align: middle;", @confirm = "enabled" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button delete-button" />
+                }
+            </td>
+        </tr>
+    }
+    <tr>
+        <td>
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.FileUpload("AppendixFile", ".pdf");
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+            }
+        </td>
+    </tr>
+    <tr class="centered">
+        <td>
+            @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class = "link-button iconed-button back-button" })
+        </td>
+    </tr>
+</table>
+

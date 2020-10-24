@@ -1,0 +1,120 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.IPDRReportViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.IPDRReport;
+    var search = ViewBag.Search as RadiusR_Manager.Models.ViewModels.IPDRSearchViewModel;
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Get))
+{
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.StartDate)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.StartDate)
+            </td>
+            <td>
+                @Html.LabelFor(model => search.EndDate)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.EndDate)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.LocalIP)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.LocalIP, new { htmlAttributes = new { @maxlength = 15, @autocomplete = "off" } })
+            </td>
+            <td>
+                @Html.LabelFor(model => search.RealIP)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.RealIP, new { htmlAttributes = new { @maxlength = 15, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td class="centered" colspan="4">
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+            </td>
+        </tr>
+    </table>
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NASName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CallingStation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocalIP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RealIP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PortRange)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SessionID)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Username, "Details", "Client", new { id = item.SubscriptionID }, new { @class = "details-link" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NASName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CallingStation)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td class="centered">
+                @if (item._endDate.HasValue)
+                {
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                }
+                else
+                {
+                    @:@RadiusR.Localization.Pages.Common.LastConnection: @Html.DisplayFor(modelItem => item.EndDate)
+                }
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.LocalIP)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.RealIP)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.PortRange)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.SessionID)
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

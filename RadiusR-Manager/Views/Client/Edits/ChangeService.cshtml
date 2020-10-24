@@ -1,0 +1,76 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.ChangeServiceViewModel
+
+@{
+    ViewBag.Title = ViewBag.CustomerName + "-" + RadiusR.Localization.Pages.Common.ChangeService;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.ServiceID)
+                    </td>
+                    <td id="tariff-input">
+                        @Html.Select(model => model.ServiceID, (SelectList)ViewBag.ServiceList)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.ServiceID)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.BillingPeriod)
+                    </td>
+                    <td id="billing-period-input">
+                        @Html.Select(model => model.BillingPeriod, new SelectList(Enumerable.Empty<object>()))
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.BillingPeriod)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Details", new { id = ViewContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button back-button" })
+                        &nbsp;
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+@section PageScripts{
+    <script>
+        var tariffInput = $('#tariff-input').find('input[type="hidden"]');
+        function updateBillingPeriod(selectedValue) {
+            var billingPeriodSelection = $('#billing-period-input').find('div.select-list-wrapper');
+            if (tariffInput.val() != '') {
+                var currentBillingPeriod = billingPeriodSelection.find('input[type="hidden"]').val();
+                //alert(currentBillingPeriod);
+                FillSelectListFromUrl(billingPeriodSelection, '@Url.Action("GetServiceBillingPeriods", "Service")', { id: tariffInput.val() }, function (status, items) {
+                    if (selectedValue == null)
+                        selectOption(currentBillingPeriod, billingPeriodSelection);
+                    if (items != null && items.length > 0)
+                        billingPeriodSelection.fadeIn(200);
+                    else
+                        billingPeriodSelection.hide();
+                }, selectedValue);
+            }
+            else {
+                ClearSelectListItems(billingPeriodSelection);
+            }
+        }
+        tariffInput.change(function () { updateBillingPeriod(null); });
+        updateBillingPeriod(@Model.BillingPeriod);
+    </script>
+}

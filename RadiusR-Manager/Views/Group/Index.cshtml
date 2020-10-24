@@ -1,0 +1,45 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Authentication
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.GroupViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Model.RadiusR.Groups + "-" + RadiusR.Localization.Pages.Common.GroupsList;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubscriptionsCount)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.SubscriptionsCount)
+            </td>
+            <td>
+                @if (User.HasPermission("Modify Groups"))
+                {
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "Edit", new { id = item.ID }, new { @class = "link-button iconed-button edit-button" })
+                    @:&nbsp;
+                    using (Html.BeginForm("Remove", null, FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("ID", item.ID)
+                        <input type="submit" name="" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button remove-button" />
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

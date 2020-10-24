@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0B536EED-58DC-4E95-8CC2-67F2A9AA9FA9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RadiusR_Manager.Models</RootNamespace>
+    <AssemblyName>RadiusR_Manager.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.Data, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Data.1.0.1\lib\net452\RezaB.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.DBUtilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.DBUtilities.1.0.0\lib\net452\RezaB.DBUtilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.TurkTelekom.WebServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.TurkTelekom.WebServices.1.0.0\lib\net452\RezaB.TurkTelekom.WebServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Web.1.0.0\lib\net452\RezaB.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.Web.Helpers, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Web.Helpers.1.0.1\lib\net452\RezaB.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CSVModels\BatchEBillCSVModel.cs" />
+    <Compile Include="CSVModels\BillTaxDetailsCSVModel.cs" />
+    <Compile Include="CSVModels\CancelledClientsUnpaidBillsCSVModel.cs" />
+    <Compile Include="CSVModels\DiscountReportCSVViewModel.cs" />
+    <Compile Include="CSVModels\MonthlyClientCSVModel.cs" />
+    <Compile Include="CSVModels\SubscriberListCSVModel.cs" />
+    <Compile Include="CSVModels\TariffSubscriptionsBillDetails.cs" />
+    <Compile Include="CustomAttributes\EBillPrefixAttribute.cs" />
+    <Compile Include="CustomAttributes\RateLimitAttribute.cs" />
+    <Compile Include="CustomAttributes\TreeCheckerDisplayAttribute.cs" />
+    <Compile Include="Extentions\AddressViewModel.cs" />
+    <Compile Include="Extentions\IQueryableSubscriptions.cs" />
+    <Compile Include="PaymentTokenManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RadiusViewModels\AccountingRecord.cs" />
+    <Compile Include="RadiusViewModels\AdditionalFeeViewModel.cs" />
+    <Compile Include="RadiusViewModels\AddressViewModel.cs" />
+    <Compile Include="RadiusViewModels\AllTimeFeeViewModel.cs" />
+    <Compile Include="RadiusViewModels\AppUserViewModel.cs" />
+    <Compile Include="RadiusViewModels\BillFeeDiscountViewModel.cs" />
+    <Compile Include="RadiusViewModels\BillFeeViewModel.cs" />
+    <Compile Include="RadiusViewModels\BillViewModel.cs" />
+    <Compile Include="RadiusViewModels\BTKIPBlockViewModel.cs" />
+    <Compile Include="RadiusViewModels\BTKSchedulerSettingsViewModel.cs" />
+    <Compile Include="RadiusViewModels\CashierBalanceViewModel.cs" />
+    <Compile Include="RadiusViewModels\CashierViewModel.cs" />
+    <Compile Include="RadiusViewModels\ClientCancellationViewModel.cs" />
+    <Compile Include="RadiusViewModels\ClientCreditViewModel.cs" />
+    <Compile Include="RadiusViewModels\CustomerSetupServiceTaskViewModel.cs" />
+    <Compile Include="RadiusViewModels\CustomerSetupUserViewModel.cs" />
+    <Compile Include="RadiusViewModels\DomainViewModel.cs" />
+    <Compile Include="RadiusViewModels\EBillViewModel.cs" />
+    <Compile Include="RadiusViewModels\FeeTypeVariantViewModel.cs" />
+    <Compile Include="RadiusViewModels\FeeViewModel.cs" />
+    <Compile Include="RadiusViewModels\GroupViewModel.cs" />
+    <Compile Include="RadiusViewModels\NASNetmapViewModel.cs" />
+    <Compile Include="RadiusViewModels\NASVerticalIPMapViewModel.cs" />
+    <Compile Include="RadiusViewModels\NASViewModel.cs" />
+    <Compile Include="RadiusViewModels\NoteViewModel.cs" />
+    <Compile Include="RadiusViewModels\OfflinePaymentGatewayViewModel.cs" />
+    <Compile Include="RadiusViewModels\PartnerAvailableTariffViewModel.cs" />
+    <Compile Include="RadiusViewModels\PartnerCreditViewModel.cs" />
+    <Compile Include="RadiusViewModels\PartnerGroupViewModel.cs" />
+    <Compile Include="RadiusViewModels\PartnerPermissionViewModel.cs" />
+    <Compile Include="RadiusViewModels\PartnerSubUserViewModel.cs" />
+    <Compile Include="RadiusViewModels\PartnerViewModel.cs" />
+    <Compile Include="RadiusViewModels\PartnerWorkAreaViewModel.cs" />
+    <Compile Include="RadiusViewModels\QuotaPackageViewModel.cs" />
+    <Compile Include="RadiusViewModels\RadiusRBillingViewModel.cs" />
+    <Compile Include="RadiusViewModels\RadiusSettingsViewModel.cs" />
+    <Compile Include="RadiusViewModels\RecurringDiscountViewModel.cs" />
+    <Compile Include="RadiusViewModels\RoleViewModel.cs" />
+    <Compile Include="RadiusViewModels\ServiceRateTimePartitionViewModel.cs" />
+    <Compile Include="RadiusViewModels\ServiceViewModel.cs" />
+    <Compile Include="RadiusViewModels\SMSArchiveViewModel.cs" />
+    <Compile Include="RadiusViewModels\SMSViewModel.cs" />
+    <Compile Include="RadiusViewModels\SpecialOfferViewModel.cs" />
+    <Compile Include="RadiusViewModels\SubscriptionCommitmentViewModel.cs" />
+    <Compile Include="RadiusViewModels\SystemLogViewModel.cs" />
+    <Compile Include="RadiusViewModels\TelekomAccessCredentialViewModel.cs" />
+    <Compile Include="RadiusViewModels\TelekomTariffViewModel.cs" />
+    <Compile Include="RadiusViewModels\TelekomWorkOrderViewModel.cs" />
+    <Compile Include="ViewModels\AddressSettingsViewModel.cs" />
+    <Compile Include="ViewModels\AppUserSearchViewModel.cs" />
+    <Compile Include="ViewModels\AutomaticPaymentReportSearchViewModel.cs" />
+    <Compile Include="ViewModels\AutomaticPaymentReportViewModel.cs" />
+    <Compile Include="ViewModels\BTKSettingsViewModel.cs" />
+    <Compile Include="ViewModels\CallCenterSettingsViewModel.cs" />
+    <Compile Include="ViewModels\ChangeDSLNoViewModel.cs" />
+    <Compile Include="ViewModels\ChangeServiceViewModel.cs" />
+    <Compile Include="ViewModels\ChangeStaticIPViewModel.cs" />
+    <Compile Include="ViewModels\ClientStates\SubscriptionCancelOptionsViewModel.cs" />
+    <Compile Include="ViewModels\CommitmentReportSearchViewModel.cs" />
+    <Compile Include="ViewModels\CommitmentReportViewModel.cs" />
+    <Compile Include="ViewModels\Customer\CommitmentViewModel.cs" />
+    <Compile Include="ViewModels\Customer\CorporateCustomerInfoViewModel.cs" />
+    <Compile Include="ViewModels\Customer\CustomerDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Customer\CustomerGeneralInfoViewModel.cs" />
+    <Compile Include="ViewModels\Customer\CustomerRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\Customer\CustomerSubscriptionViewModel.cs" />
+    <Compile Include="ViewModels\Customer\IDCardViewModel.cs" />
+    <Compile Include="ViewModels\Customer\IndividualCustomerInfoViewModel.cs" />
+    <Compile Include="ViewModels\Customer\RelatedSubscriptionsViewModel.cs" />
+    <Compile Include="ViewModels\Customer\SubscriptionDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Customer\SubscriptionItems\UsernameEditViewModel.cs" />
+    <Compile Include="ViewModels\Customer\SubscriptionListDisplayViewModel.cs" />
+    <Compile Include="ViewModels\Customer\SubscriptionReferralDiscountViewModel.cs" />
+    <Compile Include="ViewModels\Customer\SubscriptionScheduledTariffChangeViewModel.cs" />
+    <Compile Include="ViewModels\Customer\SubscriptionTariffInfoViewModel.cs" />
+    <Compile Include="ViewModels\Customer\SubscriptionTelekomInfoViewModel.cs" />
+    <Compile Include="ViewModels\DiscountReportSearchViewModel.cs" />
+    <Compile Include="ViewModels\DiscountReportViewModel.cs" />
+    <Compile Include="ViewModels\ExpiredPoolListViewModel.cs" />
+    <Compile Include="ViewModels\ExpiredPoolViewModel.cs" />
+    <Compile Include="ViewModels\IPDRReportViewModel.cs" />
+    <Compile Include="ViewModels\IPDRSearchViewModel.cs" />
+    <Compile Include="ViewModels\JSON\SelectListJSON.cs" />
+    <Compile Include="ViewModels\MikrotikRateLimitViewModel.cs" />
+    <Compile Include="ViewModels\MobilExpressSettingsViewModel.cs" />
+    <Compile Include="ViewModels\OfflinePaymentStatusReportViewModel.cs" />
+    <Compile Include="ViewModels\PartnerAPISettingsViewModel.cs" />
+    <Compile Include="ViewModels\PartnerChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\PartnerCreditEditViewModel.cs" />
+    <Compile Include="ViewModels\PartnerPermissionSelectionViewModel.cs" />
+    <Compile Include="ViewModels\PartnerSearchViewModel.cs" />
+    <Compile Include="ViewModels\PDFTemplates\PDFParametersViewModel.cs" />
+    <Compile Include="ViewModels\QuotaDetailViewModel.cs" />
+    <Compile Include="ViewModels\QuotaSettingsViewModel.cs" />
+    <Compile Include="ViewModels\ReferralDiscountReportViewModel.cs" />
+    <Compile Include="ViewModels\SchedulerSettingsViewModel.cs" />
+    <Compile Include="ViewModels\SellQuotaViewModel.cs" />
+    <Compile Include="ViewModels\ServiceDomainViewModel.cs" />
+    <Compile Include="ViewModels\ServiceSearchViewModel.cs" />
+    <Compile Include="ViewModels\SMSParameterViewModel.cs" />
+    <Compile Include="ViewModels\StaticIPReportSearchViewModel.cs" />
+    <Compile Include="RadiusViewModels\SupportRequestMessageViewModel.cs" />
+    <Compile Include="RadiusViewModels\SupportRequestViewModel.cs" />
+    <Compile Include="RadiusViewModels\TaxRateViewModel.cs" />
+    <Compile Include="TreeCollection.cs" />
+    <Compile Include="ViewModels\AppSettingsViewModel.cs" />
+    <Compile Include="ViewModels\AvailabilityResultsViewModel.cs" />
+    <Compile Include="ViewModels\BackgroundServiceViewModel.cs" />
+    <Compile Include="ViewModels\BatchEBillViewModel.cs" />
+    <Compile Include="ViewModels\BillSearchViewModel.cs" />
+    <Compile Include="ViewModels\CancelledClientUnpaidBillsViewModel.cs" />
+    <Compile Include="ViewModels\CardPaymentViewModel.cs" />
+    <Compile Include="ViewModels\CashDeskSearchViewModel.cs" />
+    <Compile Include="ViewModels\CashDeskViewModel.cs" />
+    <Compile Include="ViewModels\CashierClientSearchViewModel.cs" />
+    <Compile Include="ViewModels\ChangeExpirationDateViewModel.cs" />
+    <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\ChangeSpeedProfileResultViewModel.cs" />
+    <Compile Include="ViewModels\ClientBillsViewModel.cs" />
+    <Compile Include="ViewModels\ClientCountReportViewModel.cs" />
+    <Compile Include="ViewModels\ClientFeeViewModel.cs" />
+    <Compile Include="ViewModels\ClientSMSViewModel.cs" />
+    <Compile Include="ViewModels\CancelledUnpaidBillsSearchViewModel.cs" />
+    <Compile Include="ViewModels\ClientUsageReportSearchViewModel.cs" />
+    <Compile Include="ViewModels\ClientUsageReportViewModel.cs" />
+    <Compile Include="ViewModels\CreateBillViewModel.cs" />
+    <Compile Include="ViewModels\CustomerSearchViewModel.cs" />
+    <Compile Include="ViewModels\CustomerSetupTaskSearchViewModel.cs" />
+    <Compile Include="ViewModels\CustomFeeViewModel.cs" />
+    <Compile Include="ViewModels\EBillBatchResultsViewModel.cs" />
+    <Compile Include="ViewModels\EditableRoleViewModel.cs" />
+    <Compile Include="ViewModels\EditCreditViewModel.cs" />
+    <Compile Include="ViewModels\ExtendPackageViewModel.cs" />
+    <Compile Include="ViewModels\ForgotPasswordConfirmViewModel.cs" />
+    <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
+    <Compile Include="ViewModels\GeneralFaultViewModel.cs" />
+    <Compile Include="ViewModels\GroupSMSViewModel.cs" />
+    <Compile Include="ViewModels\LineQualityViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MonthlyBillReport.cs" />
+    <Compile Include="ViewModels\NetmapListViewModel.cs" />
+    <Compile Include="ViewModels\NewSetupServiceTaskViewModel.cs" />
+    <Compile Include="ViewModels\OnlineClientsReportViewModel.cs" />
+    <Compile Include="ViewModels\ReaddAdditionalFees.cs" />
+    <Compile Include="ViewModels\ReceiptViewModel.cs" />
+    <Compile Include="ViewModels\RenameServiceViewModel.cs" />
+    <Compile Include="ViewModels\RiskyClientsSearchViewModel.cs" />
+    <Compile Include="ViewModels\RiskyClientViewModel.cs" />
+    <Compile Include="ViewModels\SavedFileViewModel.cs" />
+    <Compile Include="ViewModels\ServiceClientCountViewModel.cs" />
+    <Compile Include="RadiusViewModels\EditSetupServiceTaskViewModel.cs" />
+    <Compile Include="ViewModels\SetupServiceTaskDetailsViewModel.cs" />
+    <Compile Include="ViewModels\SMSSettingsViewModel.cs" />
+    <Compile Include="ViewModels\StampDutySearchViewModel.cs" />
+    <Compile Include="ViewModels\StaticIPReportViewModel.cs" />
+    <Compile Include="ViewModels\ClientStates\SubscriptionFreezeOptionsViewModel.cs" />
+    <Compile Include="ViewModels\SubscriberFeesAddViewModel.cs" />
+    <Compile Include="ViewModels\SubscriptionRelatedSubscriptionViewModel.cs" />
+    <Compile Include="ViewModels\SupportRequestSearchViewModel.cs" />
+    <Compile Include="ViewModels\SystemLogsReportSearchViewModel.cs" />
+    <Compile Include="ViewModels\SystemLogsReportViewModel.cs" />
+    <Compile Include="ViewModels\TelekomTariffViewModel.cs" />
+    <Compile Include="ViewModels\TelekomWorkOrderSearchViewModel.cs" />
+    <Compile Include="ViewModels\TotalDownloadUploadSearchViewModel.cs" />
+    <Compile Include="ViewModels\TrafficUsageViewModel.cs" />
+    <Compile Include="ViewModels\TTAddressViewModel.cs" />
+    <Compile Include="ViewModels\TTPacketViewModel.cs" />
+    <Compile Include="ViewModels\UsageInfoViewModel.cs" />
+    <Compile Include="ViewModels\UserManagementChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\VerticalIPMapListViewModel.cs" />
+    <Compile Include="ViewModels\VPOSPaymentViewModel.cs" />
+    <Compile Include="ViewModels\VPOSSettingsViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RadiusR.DB.DomainsCache\RadiusR.DB.DomainsCache.csproj">
+      <Project>{83ccbccf-9209-433e-a75e-d15df6c5a9ed}</Project>
+      <Name>RadiusR.DB.DomainsCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.DB.Localization\RadiusR.DB.Localization.csproj">
+      <Project>{c984a181-77b1-4bc8-bbe0-27300753ae9f}</Project>
+      <Name>RadiusR.DB.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.DB.Utilities.ComplexOperations\RadiusR.DB.Utilities.ComplexOperations.csproj">
+      <Project>{686baf19-a0b2-4dc3-9ac5-9c995c127968}</Project>
+      <Name>RadiusR.DB.Utilities.ComplexOperations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.DB.Utilities\RadiusR.DB.Utilities.csproj">
+      <Project>{67fe460b-c88f-466c-86c4-8d8ec860d777}</Project>
+      <Name>RadiusR.DB.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.DB\RadiusR.DB.csproj">
+      <Project>{1475b653-8eef-42d3-aa5f-d811aabca41c}</Project>
+      <Name>RadiusR.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.Localization\RadiusR.Localization.csproj">
+      <Project>{c11ab331-2ac5-4f7e-8fd2-94715f266ec7}</Project>
+      <Name>RadiusR.Localization</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

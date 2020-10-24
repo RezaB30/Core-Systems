@@ -1,0 +1,76 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Authentication
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.AccountingRecord>
+
+@{
+    ViewBag.Title = "ConnectionHistory";
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NasName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StopTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CallingStation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocalIP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RealIP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsOnline)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NasName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @if (item.IsOnline)
+                {
+                    @:(@RadiusR.Localization.Pages.Common.LastConnection: @Html.DisplayFor(modelItem => item.StopTime))
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.StopTime)
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CallingStation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocalIP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RealIP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsOnline)
+                @if (item.IsOnline && User.HasPermission("Disconnect User"))
+                {
+                    using (Html.BeginForm("DisconnectUser", null, new { id = item.ID }, FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="" class="link-button iconed-button disconnect-button" title="@RadiusR.Localization.Pages.Common.Close" />
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

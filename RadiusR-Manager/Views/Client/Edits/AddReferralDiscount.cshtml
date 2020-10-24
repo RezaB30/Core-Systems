@@ -1,0 +1,47 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.Customer.SubscriptionReferralDiscountViewModel
+
+@{
+    ViewBag.Title = ViewBag.SubscriberName + "-" + RadiusR.Localization.Pages.Common.AddReferralDiscount;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.ReferenceNo)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.ReferenceNo, new { htmlAttributes = new { @maxlength = 6, @autocomplete = "off" } })
+                    </td>
+                    <td>
+                        @Html.LabelFor(model => model.SpecialOfferID)
+                    </td>
+                    <td>
+                        @Html.Select(model => model.SpecialOfferID, (SelectList)ViewBag.SpecialOfferList)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.ReferenceNo)
+                    </td>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.SpecialOfferID)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="centered">
+                        <a href="@Url.Action("Details", new { id = ViewContext.RouteData.Values["id"] })#additional-fees" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+

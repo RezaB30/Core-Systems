@@ -1,0 +1,43 @@
+﻿div.select-list-search-form {
+    display: none;
+    position: fixed;
+    background-color: rgba(0,0,0,0.8);
+    top: 0;
+    padding: 1em;
+    z-index: 1000;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+}
+
+    div.select-list-search-form.open {
+        display: block;
+    }
+
+    div.select-list-search-form div.form-inner {
+        text-align: left;
+        display: inline-block;
+        background-color: whitesmoke;
+        padding: 1em;
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 100vh;
+        min-width: 40vw;
+    }
+
+    div.select-list-search-form div.search-box input[type="text"] {
+        width: calc(100% - 4em);
+        vertical-align: middle;
+    }
+
+    div.select-list-search-form div.list-item {
+        padding: 0.1em;
+        cursor: pointer;
+        transition: 0.5s all ease;
+    }
+
+        div.select-list-search-form div.list-item:hover {
+            text-indent: 0.5em;
+            background-color: #caddaf;
+        }

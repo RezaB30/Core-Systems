@@ -1,0 +1,54 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.SystemLogViewModel>
+
+@{
+    ViewBag.Title = "SystemLogs";
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LogType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LogInterfaceType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LogInterfaceUsername)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProcessedLog)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.LogType)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.LogInterfaceType)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.LogInterfaceUsername)
+            </td>
+            <td style="text-align: left;" class="system-log-display">
+                @Html.DisplayFor(modelItem => item.ProcessedLog)
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

@@ -1,0 +1,101 @@
+﻿@model RadiusR_Manager.Models.RadiusViewModels.OfflinePaymentGatewayViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.OfflinePaymentGateways + "-" + RadiusR.Localization.Pages.Common.Add;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Type)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.Type)
+                    </td>
+                    <td>
+                        @Html.LabelFor(model => model.Name)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @maxlength = 300, @autocomplete = "off" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.Type)
+                    </td>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.FTPAddress)
+                    </td>
+                    <td colspan="3">
+                        @Html.EditorFor(model => model.FTPAddress, new { htmlAttributes = new { @maxlength = 500, @autocomplete = "off", @style = "width: 100%;", @placeholder = "ftp://...., sftp://...." } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        @Html.ValidationMessageFor(model => model.FTPAddress)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.SendFolder)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.SendFolder, new { htmlAttributes = new { @maxlength = 100, @autocomplete = "off" } })
+                    </td>
+                    <td>
+                        @Html.LabelFor(model => model.ReceiveFolder)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.ReceiveFolder, new { htmlAttributes = new { @maxlength = 100, @autocomplete = "off" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.SendFolder)
+                    </td>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.ReceiveFolder)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.FTPUsername)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.FTPUsername, new { htmlAttributes = new { @maxlength = 64, @autocomplete = "off" } })
+                    </td>
+                    <td>
+                        @Html.LabelFor(model => model.FTPPassword)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.FTPPassword, new { htmlAttributes = new { @maxlength = 64, @autocomplete = "off" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.FTPUsername)
+                    </td>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.FTPPassword)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="centered">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class = "link-button iconed-button back-button" })
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

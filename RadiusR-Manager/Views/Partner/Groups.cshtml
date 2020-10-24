@@ -1,0 +1,47 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.PartnerGroupViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.PartnerGroups;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PartnerCount)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.PartnerCount)
+            </td>
+            <td>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.PartnerValidTariffs, "ValidTariffs", new { id = item.ID, returnUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button settings2-button" })
+                &nbsp;
+                @if (item.PartnerCount == 0)
+                {
+                    using (Html.BeginForm("RemoveGroup", null, FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", item.ID)
+                        <input type="submit" name="" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button remove-button" />
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+<div class="button-row centered">
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "AddGroup", null, new { @class = "link-button iconed-button new-button" })
+</div>

@@ -1,0 +1,116 @@
+﻿@using RezaB.Web.Authentication
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.HomePage;
+}
+
+<div class="centered">
+
+    @if (User.HasPermission("Clients"))
+    {
+        <div class="sliding-box-container home-page-link-box" id="unstable-connections">
+
+        </div>
+    }
+
+    @if (User.HasPermission("Clients"))
+    {
+        <a href="@Url.Action("Index", "Client")" class="home-page-link-box">
+            <div class="home-page-link-box">
+                <div class="link-box-image client-background"></div>
+                <div class="link-box-text">
+                    @RadiusR.Localization.Pages.Common.Clients
+                </div>
+                <div class="link-box-prestine"></div>
+            </div>
+        </a>
+    }
+
+    @if (User.HasPermission("Bills"))
+    {
+        <a href="@Url.Action("Index", "Bill")" class="home-page-link-box">
+            <div class="home-page-link-box">
+                <div class="link-box-image bill-background"></div>
+                <div class="link-box-text">
+                    @RadiusR.Localization.Pages.Common.Bills
+                </div>
+                <div class="link-box-prestine"></div>
+            </div>
+        </a>
+    }
+
+    @if (User.HasPermission("Support Requests"))
+    {
+        <a href="@Url.Action("Index", "SupportRequest")" class="home-page-link-box">
+            <div class="home-page-link-box">
+                <div class="link-box-image support-background"></div>
+                <div class="link-box-text">
+                    @RadiusR.Localization.Pages.Common.SupportRequests
+                </div>
+                <div class="link-box-notification">@ViewBag.UnfinishedSupportRequestCount</div>
+                <div class="link-box-prestine"></div>
+            </div>
+        </a>
+    }
+
+    @if (User.HasPermission("Work Orders"))
+    {
+        <a href="@Url.Action("WorkOrder", "Technician", new RouteValueDictionary { { "search.IsDone", "False" } })" class="home-page-link-box">
+            <div class="home-page-link-box">
+                <div class="link-box-image work-order-background"></div>
+                <div class="link-box-text">
+                    @RadiusR.Localization.Pages.Common.WorkOrders
+                </div>
+                <div class="link-box-notification">@ViewBag.UnfinishedWorkOrderCount</div>
+                <div class="link-box-prestine"></div>
+            </div>
+        </a>
+    }
+
+    <div>
+        @*@if (User.HasPermission("Bills"))
+        {
+            <div class="quick-data-view" id="today-payments">
+
+            </div>
+        }*@
+        @if (User.HasPermission("Clients"))
+        {
+            <div class="quick-data-view" id="recent-registers">
+
+            </div>
+        }
+    </div>
+
+
+</div>
+
+@section PageScripts{
+
+    @if (User.HasPermission("Clients"))
+    {
+        <script type="text/javascript">
+            var unstableConnectionsLoader = new AjaxLoader("#unstable-connections", false);
+            unstableConnectionsLoader.SetCallback(function () { SetupSliderBoxes("#unstable-connections"); });
+            unstableConnectionsLoader.Load("@Url.Action("UnstableClientCount", "Client")");
+        </script>
+    }
+    @*@if (User.HasPermission("Bills"))
+    {
+        <script type="text/javascript">
+            var todayPayments = new AjaxLoader("#today-payments", false);
+            todayPayments.Load("@Url.Action("TodayPayments", "Bill")");
+        </script>
+    }*@
+    @if (User.HasPermission("Clients"))
+    {
+        <script type="text/javascript">
+            var recentRegisters = new AjaxLoader("#recent-registers", false);
+            recentRegisters.SetCallback(function () {
+                LoadClientConnectionStatus(".ajax-username", 'tr', '@Url.Action("GetOnlineUsers", "Client")',
+                    '@RadiusR.Localization.Pages.Common.Online', '@RadiusR.Localization.Pages.Common.Offline', '@RadiusR.Localization.Pages.Common.LoadingError', '@RadiusR.Localization.Pages.Common.NASAlert');
+            });
+            recentRegisters.Load("@Url.Action("LastRegisters", "Client")");
+        </script>
+    }
+}

@@ -1,0 +1,76 @@
+﻿@using RezaB.Web.Authentication
+@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.FeeViewModel>
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FeeTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InstallmentBillCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cost)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        var rowClass = item.IsCancelled ? "highlighted-row" : string.Empty;
+
+        <tr class="@rowClass">
+            <td class="centered">
+                @if (!string.IsNullOrEmpty(item.Description))
+                {
+                    @Html.DisplayFor(modelItem => item.Description)
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.FeeTypeID)
+                }
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.InstallmentBillCount)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.FeeType.Price)
+            </td>
+            <td>
+                @if (!(bool)ViewBag.IsCancelled && User.HasPermission("Modify Clients") && item.CanBeCancelled)
+                {
+                    using (Html.BeginForm("CancelAdditionalFee", null, FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("feeId", item.ID)
+                        @Html.Hidden("subscriptionId", item.SubscriptionID)
+                        <input type="submit" name="" value="@RadiusR.Localization.Pages.Common.Cancel" class="link-button iconed-button cancel-button" />
+                    }
+                }
+                @if(item.IsCancelled)
+                {
+                    @RadiusR.Localization.Pages.Common.Cancelled
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+
+@if (User.HasPermission("Modify Clients"))
+{
+    <div class="centered button-row" style="margin-top: 1em;">
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "AddFee", new { id = ViewBag.SubscriptionID }, new { @class = "link-button iconed-button new-button" })
+        @if (Model.Any(fee => fee.CanBeCancelled && fee.InstallmentBillCount == 1 && !fee.FeeType.IsAllTime) && User.HasPermission("Create Bill"))
+        {
+            @Html.ActionLink(RadiusR.Localization.Pages.Common.CreateBill, "CreateBillForFees", new { id = ViewBag.SubscriptionID }, new { @class = "link-button iconed-button view-list-button" })
+        }
+    </div>
+}

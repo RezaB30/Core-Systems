@@ -1,0 +1,111 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.RadiusViewModels.EditSetupServiceTaskViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Clients + "-" + RadiusR.Localization.Pages.Common.AssignWorkOrder;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.ClientName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.ClientName)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.TaskType)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.TaskType)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.TaskType)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.SetupUserID)
+                    </td>
+                    <td>
+                        @Html.Select(model => model.SetupUserID, (SelectList)ViewBag.SetupServiceOperators, RadiusR.Localization.Pages.Common.Choose)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.SetupUserID)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.XDSLType)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.XDSLType)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.XDSLType)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.HasModem)
+                    </td>
+                    <td>
+                        @Html.CheckButton(model => model.HasModem)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.HasModem)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.ModemName)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.ModemName, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.ModemName)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.TaskDescription)
+                    </td>
+                    <td>
+                        @Html.TextAreaFor(model => model.TaskDescription, new { @autocomplete = "off", @maxlength = 3000 })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.TaskDescription)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        <a href="@Url.Action("Details", "Client", new { id = ViewBag.ClientID })#faults" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

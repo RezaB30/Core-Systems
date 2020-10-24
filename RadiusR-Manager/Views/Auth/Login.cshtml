@@ -1,0 +1,75 @@
+﻿
+@model RadiusR_Manager.Models.ViewModels.LoginViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Login;
+}
+
+<div style="text-align: center;">
+    <div class="login-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Email)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.Email)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="validation-message">
+                            @Html.ValidationMessageFor(model => model.Email)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Password)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.Password)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="validation-message">
+                            @Html.ValidationMessageFor(model => model.Password)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="centered">
+                            <input class="link-button iconed-button reset-password-button" type="submit" name="login" value="@RadiusR.Localization.Pages.Common.Login" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.ForgotPassword, "ForgotPassword", null, new { @class = "link-button iconed-button lock-button", @style = "font-size: 0.7em;" })
+                    </td>
+                </tr>
+            </table>
+        }
+        <div>
+            @Html.ValidationSummary(true)
+        </div>
+    </div>
+    <div>
+        <div class="login-form-info">
+            <div class="login-info-row-1">
+                <img src="~/Content/Images/Shared/main-logo-blue.svg" alt="Logo" class="logo-tm">
+            </div>
+            <div class="login-info-row-2">
+                v@(ViewBag.Version)
+            </div>
+            <div class="login-info-row-3">
+                &copy; 2017 - @DateTime.Now.Year
+            </div>
+        </div>
+    </div>
+</div>

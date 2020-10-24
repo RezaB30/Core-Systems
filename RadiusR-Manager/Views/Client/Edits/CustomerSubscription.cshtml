@@ -1,0 +1,256 @@
+﻿@using RezaB.Web.Helpers
+@using RadiusR.Helpers
+@using RezaB.Web.Authentication
+
+
+@model RadiusR_Manager.Models.ViewModels.Customer.CustomerSubscriptionViewModel
+
+<table class="input-table" style="width: 100%;">
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Username)
+        </td>
+        <td>
+            <span id="manual-username" style="display: none;">
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @maxlength = 64, @autocomplete = "off" } })
+            </span>
+            <span id="automatic-username">
+                @RadiusR.Localization.Pages.Common.Automatic
+            </span>
+        </td>
+        <td colspan="2">
+            <input id="username-mode-toggle" type="button" value="@RadiusR.Localization.Pages.Common.ToggleMode" class="link-button iconed-button reload-button" />
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.Username)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.DomainID)
+        </td>
+        <td id="domain-container">
+            @Html.Select(model => model.DomainID, (SelectList)ViewBag.Domains, RadiusR.Localization.Pages.Common.Choose)
+        </td>
+        <td>
+            @Html.LabelFor(model => model.ServiceID)
+        </td>
+        <td id="tariff-container">
+            @Html.Select(model => model.ServiceID, (SelectList)ViewBag.Services, RadiusR.Localization.Pages.Common.Choose)
+            <div id="tariff-check" class="check-name-invalid"></div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.DomainID)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.ServiceID)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.BillingPeriod)
+        </td>
+        <td id="billing-period-container">
+            @Html.Select(model => model.BillingPeriod, (SelectList)ViewBag.BillingPeriods, RadiusR.Localization.Pages.Common.Choose)
+            <div id="billing-period-check" class="check-name-invalid"></div>
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.BillingPeriod)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="4" class="input-table-row-group-separator"></td>
+    </tr>
+    <tr>
+        <td style="border-right: 1px solid grey;">
+            @Html.LabelFor(model => model.SetupAddress)
+        </td>
+        <td id="setup-address" colspan="3">
+            @Html.EditorFor(model => model.SetupAddress)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            @Html.ValidationMessageFor(model => model.SetupAddress)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" class="input-table-row-group-separator"></td>
+    </tr>
+    <tbody id="telekom-info" style="display: none;">
+        <tr>
+            <td class="centered" colspan="4">
+                <input id="infrastructure-check-button" type="button" value="@RadiusR.Localization.Pages.Common.InfrastructureCheck" class="link-button iconed-button validate-button" />
+            </td>
+        </tr>
+        <tr>
+            <td id="infrastructure-check-results" colspan="4" class="centered"></td>
+        </tr>
+        <tr class="automatic-telekom-info">
+            <td>
+                @Html.LabelFor(model => model.TelekomDetailedInfo.TelekomTariffInfo)
+            </td>
+            <td id="packet-selection-container" colspan="3">
+                @Html.TelekomTariffEditorFor(model => model.TelekomDetailedInfo.TelekomTariffInfo, ViewBag.SelectedDomain as RadiusR.DB.DomainsCache.CachedDomain)
+            </td>
+        </tr>
+        <tr class="automatic-telekom-info">
+            <td id="packet-selection-error" class="text-danger" colspan="4"></td>
+        </tr>
+        <tr class="automatic-telekom-info">
+            <td colspan="4">
+                @Html.ValidationMessageFor(model => model.TelekomDetailedInfo.TelekomTariffInfo)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>@RadiusR.Localization.Pages.Common.TelekomRegistrationInfo</label>
+            </td>
+            <td>
+                <span class="automatic-telekom-info">@RadiusR.Localization.Pages.Common.Automatic</span>
+                <span class="manual-telekom-info" style="display: none;">@RadiusR.Localization.Pages.Common.ManualEdit</span>
+            </td>
+            <td colspan="2">
+                <input id="telekom-info-mode-toggle" type="button" value="@RadiusR.Localization.Pages.Common.ToggleMode" class="link-button iconed-button reload-button" />
+            </td>
+        </tr>
+        <tr class="manual-telekom-info" style="display: none;">
+            <td>
+                @Html.LabelFor(model => model.TelekomDetailedInfo.SubscriberNo)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.TelekomDetailedInfo.SubscriberNo, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+            </td>
+            <td>
+                @Html.LabelFor(model => model.TelekomDetailedInfo.CustomerCode)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.TelekomDetailedInfo.CustomerCode, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr class="manual-telekom-info" style="display: none;">
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.TelekomDetailedInfo.SubscriberNo)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.TelekomDetailedInfo.CustomerCode)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.TelekomDetailedInfo.PSTN)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.TelekomDetailedInfo.PSTN, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.TelekomDetailedInfo.PSTN)
+            </td>
+            <td colspan="2"></td>
+        </tr>
+    </tbody>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.StaticIP)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.StaticIP, new { htmlAttributes = new { @maxlength = 15, @autocomplete = "off" } })
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.StaticIP)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.CommitmentInfo.CommitmentLength)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.CommitmentInfo.CommitmentLength)
+        </td>
+        <td>
+            @Html.LabelFor(model => model.CommitmentInfo.CommitmentExpirationDate)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.CommitmentInfo.CommitmentExpirationDate)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.CommitmentInfo.CommitmentLength)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.CommitmentInfo.CommitmentExpirationDate)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.GroupIds)
+        </td>
+        <td colspan="3">
+            @Html.MultiSelectFor(model => model.GroupIds, (MultiSelectList)ViewBag.GroupList, RadiusR.Localization.Pages.Common.Choose)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            @Html.ValidationMessageFor(model => model.GroupIds)
+        </td>
+    </tr>
+    <tr id="domain-credentials-error" style="display: none;">
+        <td colspan="4">
+            <span class="text-danger">@RadiusR.Localization.Pages.Common.LoadingError</span>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.AddedFeesInfo)
+        </td>
+        <td colspan="3">
+            @Html.AddFeeEditorFor(model => model.AddedFeesInfo, (IEnumerable<RadiusR_Manager.Models.ViewModels.SubscriberFeesAddViewModel>)ViewBag.AvailableFees)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            @Html.ValidationMessageFor(model => model.AddedFeesInfo)
+        </td>
+    </tr>
+    @if (User.HasPermission("Special Offers Usage"))
+    {
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.ReferralDiscount.ReferenceNo)
+            </td>
+            <td colspan="3" id="reference-no-input-container">
+                @Html.EditorFor(model => model.ReferralDiscount.ReferenceNo, new { htmlAttributes = new { @maxlength = 6, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                @Html.ValidationMessageFor(model => model.ReferralDiscount.ReferenceNo)
+            </td>
+        </tr>
+        <tr class="referral-discount-related">
+            <td>
+                @Html.LabelFor(model => model.ReferralDiscount.SpecialOfferID)
+            </td>
+            <td colspan="3" id="referral-discount-editor">
+                @Html.Select(model => model.ReferralDiscount.SpecialOfferID, (SelectList)ViewBag.SpecialOfferList)
+            </td>
+        </tr>
+    }
+</table>

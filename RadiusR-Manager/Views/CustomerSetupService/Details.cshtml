@@ -1,0 +1,122 @@
+﻿@model RadiusR_Manager.Models.ViewModels.SetupServiceTaskDetailsViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.CustomerSetupTasks + "-" + RadiusR.Localization.Pages.Common.Details;
+}
+
+<table class="details-table">
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.ClientName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.ClientName)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.IssueDate)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IssueDate)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.User)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.User)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.TaskType)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.TaskType)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.XDSLType)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.XDSLType)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.HasModem)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.HasModem)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.ModemName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.ModemName)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Details)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Details)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.IsCharged)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IsCharged)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Stages)
+        </td>
+        <td>
+            @foreach (var item in Model.Stages)
+            {
+                <div>
+                    <div class="rate-limit-title">
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </div>
+                    <table class="details-table">
+                        <tr>
+                            <td>
+                                @Html.LabelFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem=>item.Status)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(modelItem => item.Details)
+                            </td>
+                            <td style="white-space: pre-line;">@Html.DisplayFor(modelItem => item.Details)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(modelItem => item.ReservationDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReservationDate)
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            }
+        </td>
+    </tr>
+</table>
+<div class="centered" style="margin: 1em 0;">
+    <a class="link-button iconed-button back-button" href="@ViewBag.BackLink">@RadiusR.Localization.Pages.Common.Back</a>
+</div>

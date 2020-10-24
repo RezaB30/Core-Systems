@@ -1,0 +1,68 @@
+﻿@using RadiusR_Manager.Helpers
+@using RadiusR.DB.Enums
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.MonthlyBillReport>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Bills + "-" + RadiusR.Localization.Pages.Common.MonthlyReport;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model._month)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalBillAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalBillCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaidBillAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaidBillCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnpaidBillAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnpaidBillCount)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="centered">
+                @item._year&nbsp;
+                @System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item._month)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.TotalBillAmount)
+            </td>
+            <td class="centered">
+                <a class="details-link" href='@Url.Action("Index", "Bill", new RouteValueDictionary() { { "search.IssueDateStart", new DateTime(item._year, item._month, 1).ToShortDateString() }, { "search.IssueDateEnd", new DateTime(item._year, item._month, DateTime.DaysInMonth(item._year, item._month)).ToShortDateString() } } )'>
+                    @Html.DisplayFor(modelItem => item.TotalBillCount)
+                </a>
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.PaidBillAmount)
+            </td>
+            <td class="centered">
+                <a class="details-link" href='@Url.Action("Index", "Bill", new RouteValueDictionary() { { "search.IssueDateStart", new DateTime(item._year, item._month, 1).ToShortDateString() }, { "search.IssueDateEnd", new DateTime(item._year, item._month, DateTime.DaysInMonth(item._year, item._month)).ToShortDateString() }, { "search.State", (short)BillState.Paid } } )'>
+                    @Html.DisplayFor(modelItem => item.PaidBillCount)
+                </a>
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.UnpaidBillAmount)
+            </td>
+            <td class="centered">
+                <a class="details-link" href='@Url.Action("Index", "Bill", new RouteValueDictionary() { { "search.IssueDateStart", new DateTime(item._year, item._month, 1).ToShortDateString() }, { "search.IssueDateEnd", new DateTime(item._year, item._month, DateTime.DaysInMonth(item._year, item._month)).ToShortDateString() }, { "search.State", (short)BillState.Unpaid } } )'>
+                    @Html.DisplayFor(modelItem => item.UnpaidBillCount)
+                </a>
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

@@ -1,0 +1,83 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.Customer.SubscriptionListDisplayViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Clients + "-" + RadiusR.Localization.Pages.Common.UnstableConnections;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactPhoneNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubscriberNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TariffName)
+        </th>
+        <th>
+            @RadiusR.Localization.Pages.Common.Connection
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="ajax-username">
+                @Html.ActionLink(Html.DisplayTextFor(modelItem => item.Username).ToString(), "Details", new { id = item.ID }, new { @class = "details-link" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.ContactPhoneNo)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.SubscriberNo)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.TariffName)
+            </td>
+            <td class="online-status-container">
+                <div class="online-status-loading"></div>
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+
+@section PageScripts{
+    <script type="text/javascript">
+        var usernames = $('.ajax-username').find('a');
+
+        $.ajax('@Url.Action("GetOnlineUsers")', {
+            method: "POST",
+            complete: function (data, status) {
+                if (status == "success") {
+                    var response = data.responseJSON;
+                    usernames.each(function () {
+                        var currentLink = $(this);
+                        var currentUsername = currentLink.text();
+                        var statusContainer = currentLink.closest('tr').find('td.online-status-container');
+                        if (response.indexOf(currentUsername) > -1) {
+                            statusContainer.html('<div class="online-status-online" title="@RadiusR.Localization.Pages.Common.Online"></div>');
+                        }
+                        else {
+                            statusContainer.html('<div class="online-status-offline" title="@RadiusR.Localization.Pages.Common.Offline"></div>');
+                        }
+                    });
+                }
+                else {
+                    $('td.online-status-container').html('<div class="online-status-error" title="@RadiusR.Localization.Pages.Common.LoadingError"></div>');
+                }
+            }
+        });
+    </script>
+}

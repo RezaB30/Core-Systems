@@ -1,0 +1,46 @@
+﻿@using RadiusR.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.ClientBillsViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.BillPayment + "-" + Model.FullName;
+    var index = 0;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ClientID)
+    <div class="centered">
+        @foreach (var item in Model.BillSelections)
+        {
+            @Html.Hidden("BillSelections[" + index + "].BillID", item.BillID)
+            <input style="display: none;" type="checkbox" name="@Html.Raw("BillSelections[" + index + "].IsSelected")" @if (item.IsSelected) { @: checked="checked"
+                               } />
+            <div class="bill-receipt-container" tabindex="0">
+                @Html.BillDetailsFor(model=> item.Bill)
+                <div class="bill-receipt-check"></div>
+            </div>
+
+            index++;
+        }
+    </div>
+    <div class="centered">
+        @if (User.IsInRole("cashier"))
+        {
+            <a href='@Url.Action("Index", "Home")' class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>@:&nbsp;
+        }
+        else
+        {
+            <a href='@Url.Action("Details", "Client", new { id = Model.ClientID })#bills' class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>@:&nbsp;
+        }
+        <input type="button" value="@RadiusR.Localization.Pages.Common.PayAll" class="link-button iconed-button payment-button" />&nbsp;
+        <input type="submit" value="@RadiusR.Localization.Pages.Common.PaySelected" class="link-button iconed-button accept-button" />&nbsp;
+    </div>
+}
+
+@section PageScripts{
+    <script type="text/javascript">
+        SetupBillList('#page-contents');
+    </script>
+}

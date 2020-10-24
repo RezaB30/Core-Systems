@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    <div class="login-box">
+        @using (Html.BeginForm("LogOff", "Auth", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+        {
+            @Html.AntiForgeryToken()
+            <span>
+                @Html.ActionLink(User.Identity.GetUserName(), "Manage", "Auth", routeValues: new { redirectUrl = Request.Url }, htmlAttributes: new { title = RadiusR.Localization.Pages.Common.Manage })
+            </span>
+            <a href="javascript:document.getElementById('logoutForm').submit()">
+                <img class="logout-button" src="~/Content/Images/Shared/logout-button.svg" title="Log out"/>
+            </a>
+        }
+    </div>
+}

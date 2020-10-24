@@ -1,0 +1,219 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.RadiusViewModels.PartnerViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Partners + "-" + RadiusR.Localization.Pages.Common.Add;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.GroupID)
+                    </td>
+                    <td>
+                        @Html.Select(model => model.GroupID, (SelectList)ViewBag.Groups, RadiusR.Localization.Pages.Common.Choose)
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.GroupID)
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Title)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @maxlength = 300, @autocomplete = "off" } })
+                    </td>
+                    <td>
+                        @Html.LabelFor(model => model.ExecutiveTCK)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.ExecutiveTCK, new { htmlAttributes = new { @maxlength = 11, @autocomplete = "off" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.Title)
+                    </td>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.ExecutiveTCK)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.ExecutiveFirstName)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.ExecutiveFirstName, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+                    </td>
+                    <td>
+                        @Html.LabelFor(model => model.ExecutiveLastName)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.ExecutiveLastName, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.ExecutiveFirstName)
+                    </td>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.ExecutiveLastName)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.TaxNo)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.TaxNo, new { htmlAttributes = new { @maxlength = 50, @autocomplete = "off" } })
+                    </td>
+                    <td>
+                        @Html.LabelFor(model => model.TaxOffice)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.TaxOffice, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.TaxNo)
+                    </td>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.TaxOffice)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Email)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @maxlength = 250, @autocomplete = "off" } })
+                    </td>
+                    <td>
+                        @Html.LabelFor(model => model.PhoneNo)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.PhoneNo, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </td>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.PhoneNo)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="input-table-row-group-separator"></td>
+                </tr>
+                <tr>
+                    <td style="border-right: 1px solid grey;">
+                        @Html.LabelFor(model => model.Address)
+                    </td>
+                    <td colspan="3">
+                        <div id="billing-address-editor-container">
+                            @Html.EditorFor(model => model.Address)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        @Html.ValidationMessageFor(model => model.Address)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="input-table-row-group-separator"></td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.MaxActiveUsers)
+                    </td>
+                    <td>
+                        @Html.Select(model => model.MaxActiveUsers, HelperUtilities.CreateNumericSelectList(0, 100, Model.MaxActiveUsers), RadiusR.Localization.Pages.Common.Choose)
+                    </td>
+                    @if (ViewBag.IsEdit as bool? == true)
+                    {
+                        <td colspan="2">
+                            @Html.ActionLink(RadiusR.Localization.Pages.Common.ResetPassword, "ChangePassword", new { id = ViewContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button reload-button" })
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.LabelFor(model => model.Password)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @maxlength = 64, @autocomplete = "off" } })
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.MaxActiveUsers)
+                    </td>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.Password)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.PaymentAllowance)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.PaymentAllowance, new { htmlAttributes = new { @maxlength = 20, @autocomplete = "off" } })
+                    </td>
+                    <td>
+                        @Html.LabelFor(model => model.MinAmountForAllowance)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.MinAmountForAllowance, new { htmlAttributes = new { @maxlength = 20, @autocomplete = "off" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.PaymentAllowance)
+                    </td>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.MinAmountForAllowance)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.SetupAllowance)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.SetupAllowance, new { htmlAttributes = new { @maxlength = 20, @autocomplete = "off" } })
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.SetupAllowance)
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="centered">
+                        @if (ViewBag.ReturnUrl as string != null)
+                        {
+                            <a href="@ViewBag.ReturnUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                        }
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

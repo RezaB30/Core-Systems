@@ -1,0 +1,1431 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Address" xml:space="preserve">
+    <value>Adres</value>
+  </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>Doğum Tarihi</value>
+  </data>
+  <data name="CustomerCount" xml:space="preserve">
+    <value>Müşteri Sayısı</value>
+  </data>
+  <data name="Dealer" xml:space="preserve">
+    <value>Bayi</value>
+  </data>
+  <data name="DealerName" xml:space="preserve">
+    <value>Bayi Ünvan</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-posta</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Bitiş Tarihi</value>
+  </data>
+  <data name="ExecutiveFirstName" xml:space="preserve">
+    <value>Yetkilinin Adı</value>
+  </data>
+  <data name="ExecutiveFullName" xml:space="preserve">
+    <value>Yetkilinin Ad Soyad</value>
+  </data>
+  <data name="ExecutiveLastName" xml:space="preserve">
+    <value>Yetkilinin Soyadı</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Adı</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Soyadı</value>
+  </data>
+  <data name="MembershipDate" xml:space="preserve">
+    <value>Abonelik Başlangıç Tarihi</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Parola</value>
+  </data>
+  <data name="PhoneNo" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
+  <data name="ProcessBilling" xml:space="preserve">
+    <value>Hak Ediş</value>
+  </data>
+  <data name="RoleIds" xml:space="preserve">
+    <value>Yetkiler</value>
+  </data>
+  <data name="TelekomSubscriberNo" xml:space="preserve">
+    <value>XDSL No</value>
+  </data>
+  <data name="TaxNo" xml:space="preserve">
+    <value>Vergi No</value>
+  </data>
+  <data name="TaxOffice" xml:space="preserve">
+    <value>Vergi Dairesi</value>
+  </data>
+  <data name="TCKNo" xml:space="preserve">
+    <value>TC Kimlik No</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Adı Soyadı</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Fiyat</value>
+  </data>
+  <data name="NewName" xml:space="preserve">
+    <value>Yeni Adı</value>
+  </data>
+  <data name="OldName" xml:space="preserve">
+    <value>Eski Adı</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Başlangıç Tarihi</value>
+  </data>
+  <data name="FeeTypeID" xml:space="preserve">
+    <value>Ücret Tipi</value>
+  </data>
+  <data name="InstallmentCount" xml:space="preserve">
+    <value>Taksit Sayısı</value>
+  </data>
+  <data name="KDV" xml:space="preserve">
+    <value>KDV</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Tarih</value>
+  </data>
+  <data name="IsAllTime" xml:space="preserve">
+    <value>Tüm Faturalar</value>
+  </data>
+  <data name="Accountant" xml:space="preserve">
+    <value>Muhasebeci</value>
+  </data>
+  <data name="IssueDate" xml:space="preserve">
+    <value>Tanzim Tarihi</value>
+  </data>
+  <data name="PayDate" xml:space="preserve">
+    <value>Ödeme Tarihi</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Müşteri</value>
+  </data>
+  <data name="PaymentDay" xml:space="preserve">
+    <value>Fatura Dönemi</value>
+  </data>
+  <data name="CustomerName" xml:space="preserve">
+    <value>Müşteri Adı</value>
+  </data>
+  <data name="ActivationDate" xml:space="preserve">
+    <value>Aktivasiyon Tarihi</value>
+  </data>
+  <data name="ReactivationDate" xml:space="preserve">
+    <value>Yeniden Etkinleştirme Tarihi</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Sebep</value>
+  </data>
+  <data name="BillType" xml:space="preserve">
+    <value>Fatura Tipi</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>İsim</value>
+  </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>Aktif</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Miktar</value>
+  </data>
+  <data name="TotalCredit" xml:space="preserve">
+    <value>Toplam Kredi</value>
+  </data>
+  <data name="AddingAmount" xml:space="preserve">
+    <value>Ekleme Miktarı</value>
+  </data>
+  <data name="SubtractingAmount" xml:space="preserve">
+    <value>Çıkarma Miktarı</value>
+  </data>
+  <data name="TaskType" xml:space="preserve">
+    <value>İş Tipi</value>
+  </data>
+  <data name="IsDone" xml:space="preserve">
+    <value>Bitti</value>
+  </data>
+  <data name="PaymentType" xml:space="preserve">
+    <value>Ödeme Türü</value>
+  </data>
+  <data name="ServiceType" xml:space="preserve">
+    <value>Tarife Tipi</value>
+  </data>
+  <data name="PeriodLength" xml:space="preserve">
+    <value>Dönem Uzunluğu</value>
+  </data>
+  <data name="PeriodCount" xml:space="preserve">
+    <value>Dönem Sayısı</value>
+  </data>
+  <data name="OnlinePassword" xml:space="preserve">
+    <value>Online Şifre</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Mesaj</value>
+  </data>
+  <data name="AddToDescription" xml:space="preserve">
+    <value>Açıklamaya Ekle</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Yeni Şifre</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Şimdiki Şifre</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="InterimInterval" xml:space="preserve">
+    <value>Muhasebe Aralığı</value>
+  </data>
+  <data name="Protocol" xml:space="preserve">
+    <value>Protokol</value>
+  </data>
+  <data name="SMSCulture" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="SMSText" xml:space="preserve">
+    <value>SMS Metni</value>
+  </data>
+  <data name="SMSType" xml:space="preserve">
+    <value>SMS Tipi</value>
+  </data>
+  <data name="GroupName" xml:space="preserve">
+    <value>Grup Adı</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Gruplar</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="IPCapacity" xml:space="preserve">
+    <value>IP Kapasitesi</value>
+  </data>
+  <data name="IPRange" xml:space="preserve">
+    <value>IP Aralığı</value>
+  </data>
+  <data name="ApiPort" xml:space="preserve">
+    <value>API Portu</value>
+  </data>
+  <data name="Router" xml:space="preserve">
+    <value>Router(NAS)</value>
+  </data>
+  <data name="RealIP" xml:space="preserve">
+    <value>Gerçek IP</value>
+  </data>
+  <data name="ArchiveNo" xml:space="preserve">
+    <value>Arşiv No</value>
+  </data>
+  <data name="DaysRemaining" xml:space="preserve">
+    <value>Kalan Gün</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Son</value>
+  </data>
+  <data name="IPPool" xml:space="preserve">
+    <value>IP Havuzu</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Başlangıç</value>
+  </data>
+  <data name="SharedIP" xml:space="preserve">
+    <value>Paylaşılan IP</value>
+  </data>
+  <data name="StaticIP" xml:space="preserve">
+    <value>Statik IP</value>
+  </data>
+  <data name="LocalIP" xml:space="preserve">
+    <value>Yerel IP</value>
+  </data>
+  <data name="PaidBillAmount" xml:space="preserve">
+    <value>Ödenmiş Fatura Toplam</value>
+  </data>
+  <data name="PaidBillCount" xml:space="preserve">
+    <value>Ödenmiş Fatura Sayısı</value>
+  </data>
+  <data name="TotalBillAmount" xml:space="preserve">
+    <value>Kesilen Fatura Toplam</value>
+  </data>
+  <data name="TotalBillCount" xml:space="preserve">
+    <value>Kesilen Fatura Sayısı</value>
+  </data>
+  <data name="UnpaidBillAmount" xml:space="preserve">
+    <value>Ödenmemiş Fatura Toplam</value>
+  </data>
+  <data name="UnpaidBillCount" xml:space="preserve">
+    <value>Ödenmemiş Fatura Sayısı</value>
+  </data>
+  <data name="ExpirationDate" xml:space="preserve">
+    <value>Son Kullanım Tarihi</value>
+  </data>
+  <data name="IncomeType" xml:space="preserve">
+    <value>Gelir Tipi</value>
+  </data>
+  <data name="DailyDisconnectionTime" xml:space="preserve">
+    <value>Günlük Kesme Zamanı</value>
+  </data>
+  <data name="PaymentGateway" xml:space="preserve">
+    <value>Ödeme Geçidi</value>
+  </data>
+  <data name="AddDate" xml:space="preserve">
+    <value>Kayıt Tarihi</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Rol</value>
+  </data>
+  <data name="SystemRole" xml:space="preserve">
+    <value>Sistem Rolü</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Yetkiler</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>İlçe</value>
+  </data>
+  <data name="ProvinceAndCity" xml:space="preserve">
+    <value>İl ve İlçe</value>
+  </data>
+  <data name="Cities" xml:space="preserve">
+    <value>İlçeler</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Kod</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>İsim</value>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="LocalIPPool" xml:space="preserve">
+    <value>Yerel IP Havuzu</value>
+  </data>
+  <data name="RealIPPool" xml:space="preserve">
+    <value>Gerçek IP Havuzu</value>
+  </data>
+  <data name="CachingLength" xml:space="preserve">
+    <value>Önbelleğe Alma Uzunluğu</value>
+  </data>
+  <data name="ServicePassword" xml:space="preserve">
+    <value>Hizmet Şifresi</value>
+  </data>
+  <data name="ServiceTitle" xml:space="preserve">
+    <value>SMS Başlığı</value>
+  </data>
+  <data name="ServiceUsername" xml:space="preserve">
+    <value>Hizmat Kullanıcı Adı</value>
+  </data>
+  <data name="DealerNASes" xml:space="preserve">
+    <value>Bayi için mevcut NAS'ler</value>
+  </data>
+  <data name="CardExpirationMonth" xml:space="preserve">
+    <value>Kart Son Kullanma Tarihi</value>
+  </data>
+  <data name="CardExpirationYear" xml:space="preserve">
+    <value>Kart Son Kullanma Tarihi</value>
+  </data>
+  <data name="CardNumber" xml:space="preserve">
+    <value>Kart Numarası</value>
+  </data>
+  <data name="CVV2" xml:space="preserve">
+    <value>CVV2</value>
+  </data>
+  <data name="ADSL" xml:space="preserve">
+    <value>ADSL</value>
+  </data>
+  <data name="Availability" xml:space="preserve">
+    <value>Kullanılabilirlik</value>
+  </data>
+  <data name="Building" xml:space="preserve">
+    <value>Bina</value>
+  </data>
+  <data name="CabinetDistance" xml:space="preserve">
+    <value>Dolab Mesafesi</value>
+  </data>
+  <data name="DSLMaxSpeed" xml:space="preserve">
+    <value>DSL Maksimum Hız</value>
+  </data>
+  <data name="EmptyPort" xml:space="preserve">
+    <value>Boş Port</value>
+  </data>
+  <data name="Fiber" xml:space="preserve">
+    <value>Fiber</value>
+  </data>
+  <data name="FiberDistance" xml:space="preserve">
+    <value>Fiber Mesafesi</value>
+  </data>
+  <data name="HasOpenWorkOrder" xml:space="preserve">
+    <value>Açık İş Emri</value>
+  </data>
+  <data name="IndoorOutdoor" xml:space="preserve">
+    <value>İçeri/Dışarıda</value>
+  </data>
+  <data name="Infrastructure" xml:space="preserve">
+    <value>Alt Yapı</value>
+  </data>
+  <data name="LongDistance" xml:space="preserve">
+    <value>Uzun Mesafe</value>
+  </data>
+  <data name="PhoneLineRequired" xml:space="preserve">
+    <value>Telefon Hattı Gerekli</value>
+  </data>
+  <data name="VDSL" xml:space="preserve">
+    <value>VDSL</value>
+  </data>
+  <data name="ClientType" xml:space="preserve">
+    <value>Müşteri Tipi</value>
+  </data>
+  <data name="CompanyTitle" xml:space="preserve">
+    <value>Şirket Ünvanı</value>
+  </data>
+  <data name="ClientName" xml:space="preserve">
+    <value>Ad Soyadı/Şirket Ünvanı</value>
+  </data>
+  <data name="CRMSpeedProfile" xml:space="preserve">
+    <value>CRM Hız Profili</value>
+  </data>
+  <data name="CurrentDownloadSpeed" xml:space="preserve">
+    <value>Download Mevcut Hızı</value>
+  </data>
+  <data name="CurrentUploadSpeed" xml:space="preserve">
+    <value>Upload Mevcut Hızı</value>
+  </data>
+  <data name="DownloadAttn" xml:space="preserve">
+    <value>Download Attn.</value>
+  </data>
+  <data name="DownloadNoiseMargin" xml:space="preserve">
+    <value>Download Noise Margin</value>
+  </data>
+  <data name="DownloadOutputPower" xml:space="preserve">
+    <value>Download Çıkış Gücü</value>
+  </data>
+  <data name="DownloadSpeedCapacity" xml:space="preserve">
+    <value>Download Hız Kapasite</value>
+  </data>
+  <data name="DSLAM" xml:space="preserve">
+    <value>DSLAM</value>
+  </data>
+  <data name="LineState" xml:space="preserve">
+    <value>Hat Durumu</value>
+  </data>
+  <data name="NMSSpeedProfile" xml:space="preserve">
+    <value>NMS Hız Profili</value>
+  </data>
+  <data name="ShelfCardPort" xml:space="preserve">
+    <value>Shelf/Card/Port</value>
+  </data>
+  <data name="UploadAttn" xml:space="preserve">
+    <value>Upload Attn.</value>
+  </data>
+  <data name="UploadNoiseMargin" xml:space="preserve">
+    <value>Upload Noise Margin</value>
+  </data>
+  <data name="UploadOutputPower" xml:space="preserve">
+    <value>Upload Çıkış Gücü</value>
+  </data>
+  <data name="UploadSpeedCapacity" xml:space="preserve">
+    <value>Upload Hız Kapasite</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Toplam</value>
+  </data>
+  <data name="ServicePrice" xml:space="preserve">
+    <value>Tarife Fiyatı</value>
+  </data>
+  <data name="CancellationReason" xml:space="preserve">
+    <value>İptal Sebebi</value>
+  </data>
+  <data name="ClientNo" xml:space="preserve">
+    <value>Müşteri No.</value>
+  </data>
+  <data name="IncludeICMP" xml:space="preserve">
+    <value>ICMP'yi dahil et</value>
+  </data>
+  <data name="BBK" xml:space="preserve">
+    <value>BBK</value>
+  </data>
+  <data name="BuildingCode" xml:space="preserve">
+    <value>Bina Kodu</value>
+  </data>
+  <data name="BuildingNo" xml:space="preserve">
+    <value>Bina No</value>
+  </data>
+  <data name="CityCode" xml:space="preserve">
+    <value>İlçe Kodu</value>
+  </data>
+  <data name="DistrictName" xml:space="preserve">
+    <value>Mahalle Adı</value>
+  </data>
+  <data name="ManagementCode" xml:space="preserve">
+    <value>Müdürlük Kodu</value>
+  </data>
+  <data name="ProvinceCode" xml:space="preserve">
+    <value>İl Kodu</value>
+  </data>
+  <data name="QueueNo" xml:space="preserve">
+    <value>Sıra No</value>
+  </data>
+  <data name="StreetName" xml:space="preserve">
+    <value>Sokak Adı</value>
+  </data>
+  <data name="DSLType" xml:space="preserve">
+    <value>DSL Tipi</value>
+  </data>
+  <data name="PacketCode" xml:space="preserve">
+    <value>Paket</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>Hız</value>
+  </data>
+  <data name="TariffCode" xml:space="preserve">
+    <value>Tarife Kodu</value>
+  </data>
+  <data name="TaxTypes" xml:space="preserve">
+    <value>Vergi Türleri</value>
+  </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Oran</value>
+  </data>
+  <data name="ClientCount" xml:space="preserve">
+    <value>Müşteri Sayısı</value>
+  </data>
+  <data name="SubscriberNo" xml:space="preserve">
+    <value>Abone No</value>
+  </data>
+  <data name="PassportNo" xml:space="preserve">
+    <value>Pasaport No</value>
+  </data>
+  <data name="Backbone" xml:space="preserve">
+    <value>Omurga</value>
+  </data>
+  <data name="LocalIPSubnet" xml:space="preserve">
+    <value>Yerel IP Subnet</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>Harita</value>
+  </data>
+  <data name="NATInfo" xml:space="preserve">
+    <value>NAT bilgileri</value>
+  </data>
+  <data name="NATType" xml:space="preserve">
+    <value>NAT Tipi</value>
+  </data>
+  <data name="NetmapList" xml:space="preserve">
+    <value>Netmap Listesi</value>
+  </data>
+  <data name="RealIPSubnet" xml:space="preserve">
+    <value>Public IP Subnet</value>
+  </data>
+  <data name="PortCount" xml:space="preserve">
+    <value>Port Sayısı</value>
+  </data>
+  <data name="PreserveLastByte" xml:space="preserve">
+    <value>Son Baytı Koru</value>
+  </data>
+  <data name="LocalIPEnd" xml:space="preserve">
+    <value>Lokal IP Sonu</value>
+  </data>
+  <data name="LocalIPStart" xml:space="preserve">
+    <value>Lokal IP Başlangıç</value>
+  </data>
+  <data name="RealIPEnd" xml:space="preserve">
+    <value>Public IP Sonu</value>
+  </data>
+  <data name="RealIPStart" xml:space="preserve">
+    <value>Public IP Başlangıç</value>
+  </data>
+  <data name="VerticalIPMapList" xml:space="preserve">
+    <value>Dikey IP Harita Listesi</value>
+  </data>
+  <data name="CallingStation" xml:space="preserve">
+    <value>Santral MAC/IP</value>
+  </data>
+  <data name="AcceptableDistance" xml:space="preserve">
+    <value>Mesafe Yeterli</value>
+  </data>
+  <data name="Distance" xml:space="preserve">
+    <value>Mesafe</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>Hata Mesajı</value>
+  </data>
+  <data name="InfrastructureType" xml:space="preserve">
+    <value>Altyapı Tipi</value>
+  </data>
+  <data name="PortState" xml:space="preserve">
+    <value>Port Durumu</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Sonuç</value>
+  </data>
+  <data name="XDSLType" xml:space="preserve">
+    <value>XDSL Tipi</value>
+  </data>
+  <data name="SMSCode" xml:space="preserve">
+    <value>SMS Kodu</value>
+  </data>
+  <data name="BillNo" xml:space="preserve">
+    <value>Fatura No</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Son Ödeme Tarihi</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Yazan</value>
+  </data>
+  <data name="TotalDiscount" xml:space="preserve">
+    <value>Toplam İskonto</value>
+  </data>
+  <data name="EBillIsSent" xml:space="preserve">
+    <value>E-Fatura Gönderildi</value>
+  </data>
+  <data name="TaxBase" xml:space="preserve">
+    <value>Vergi Matrahı</value>
+  </data>
+  <data name="InvalidCount" xml:space="preserve">
+    <value>Geçersiz Sayım</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>Sonuçlar</value>
+  </data>
+  <data name="SuccessfulCount" xml:space="preserve">
+    <value>Başarılı Sayım</value>
+  </data>
+  <data name="TotalCount" xml:space="preserve">
+    <value>Toplam Sayı</value>
+  </data>
+  <data name="UnsuccessfulCount" xml:space="preserve">
+    <value>Başarısız Sayım</value>
+  </data>
+  <data name="PSTN" xml:space="preserve">
+    <value>PSTN</value>
+  </data>
+  <data name="HasModem" xml:space="preserve">
+    <value>Modem var mı?</value>
+  </data>
+  <data name="ModemName" xml:space="preserve">
+    <value>Modem Modeli</value>
+  </data>
+  <data name="SetupServiceUser" xml:space="preserve">
+    <value>Kurulum Servis Sağlayıcı</value>
+  </data>
+  <data name="CompletionDate" xml:space="preserve">
+    <value>Tamamlama tarihi</value>
+  </data>
+  <data name="Operator" xml:space="preserve">
+    <value>Operatör</value>
+  </data>
+  <data name="IsChargeable" xml:space="preserve">
+    <value>Ödetilebilir</value>
+  </data>
+  <data name="ReservationDate" xml:space="preserve">
+    <value>Rezervasyon Tarihi</value>
+  </data>
+  <data name="Stages" xml:space="preserve">
+    <value>Aşamalar</value>
+  </data>
+  <data name="Issuer" xml:space="preserve">
+    <value>Yayınlayan</value>
+  </data>
+  <data name="ActiveCount" xml:space="preserve">
+    <value>Aktif Sayısı</value>
+  </data>
+  <data name="CancelledCount" xml:space="preserve">
+    <value>İptal Edilen Sayısı</value>
+  </data>
+  <data name="FreezedCount" xml:space="preserve">
+    <value>Dondurulmuş Sayısı</value>
+  </data>
+  <data name="PassiveCount" xml:space="preserve">
+    <value>Pasif Sayısı</value>
+  </data>
+  <data name="EBillType" xml:space="preserve">
+    <value>E-Fatura Tipi</value>
+  </data>
+  <data name="ReferenceNo" xml:space="preserve">
+    <value>Referans No</value>
+  </data>
+  <data name="CancellationDate" xml:space="preserve">
+    <value>İptal Tarihi</value>
+  </data>
+  <data name="TotalDebt" xml:space="preserve">
+    <value>Toplam Borç</value>
+  </data>
+  <data name="EBillIssueDate" xml:space="preserve">
+    <value>E-Fatura Oluşturma Tarihi</value>
+  </data>
+  <data name="ServiceName" xml:space="preserve">
+    <value>Tarife Adı</value>
+  </data>
+  <data name="BirthPlace" xml:space="preserve">
+    <value>Doğum Yeri</value>
+  </data>
+  <data name="CentralSystemNo" xml:space="preserve">
+    <value>MERSİS No</value>
+  </data>
+  <data name="CompanyAddress" xml:space="preserve">
+    <value>Şirket Adresi</value>
+  </data>
+  <data name="ExecutivePhoneNo" xml:space="preserve">
+    <value>Yetkilinin Telefon No</value>
+  </data>
+  <data name="ExecutiveTCKNo" xml:space="preserve">
+    <value>Yetkilinin TCK No</value>
+  </data>
+  <data name="FathersName" xml:space="preserve">
+    <value>Baba Adı</value>
+  </data>
+  <data name="MothersMaidenName" xml:space="preserve">
+    <value>Anne Kızlık Soyadı</value>
+  </data>
+  <data name="MothersName" xml:space="preserve">
+    <value>Anne Adı</value>
+  </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>Uyruk</value>
+  </data>
+  <data name="Profession" xml:space="preserve">
+    <value>Meslek</value>
+  </data>
+  <data name="ResidenceAddress" xml:space="preserve">
+    <value>Yerleşim Adresi</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Cinsiyet</value>
+  </data>
+  <data name="Apartment" xml:space="preserve">
+    <value>Daire</value>
+  </data>
+  <data name="District" xml:space="preserve">
+    <value>İlçe</value>
+  </data>
+  <data name="DoorNo" xml:space="preserve">
+    <value>Kapı No</value>
+  </data>
+  <data name="Neighborhood" xml:space="preserve">
+    <value>Mahalle</value>
+  </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>Posta Kodu</value>
+  </data>
+  <data name="Province" xml:space="preserve">
+    <value>İl</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Köy</value>
+  </data>
+  <data name="Street" xml:space="preserve">
+    <value>Sokak</value>
+  </data>
+  <data name="AddressNo" xml:space="preserve">
+    <value>Adres No.</value>
+  </data>
+  <data name="InstallationAddress" xml:space="preserve">
+    <value>Tesis Adresi</value>
+  </data>
+  <data name="ExecutiveBirthDate" xml:space="preserve">
+    <value>Yetkilinin Doğum Tarihi</value>
+  </data>
+  <data name="APIType" xml:space="preserve">
+    <value>API Tipi</value>
+  </data>
+  <data name="CommitmentExpirationDate" xml:space="preserve">
+    <value>Taahhüt Bitiş Tarihi</value>
+  </data>
+  <data name="CommitmentLength" xml:space="preserve">
+    <value>Taahhüt Süresi</value>
+  </data>
+  <data name="BloodType" xml:space="preserve">
+    <value>Kan Grubu</value>
+  </data>
+  <data name="DateOfExpiry" xml:space="preserve">
+    <value>Geçerlilik Tarihi</value>
+  </data>
+  <data name="DateOfIssue" xml:space="preserve">
+    <value>Veriliş Tarihi</value>
+  </data>
+  <data name="DateOfValidity" xml:space="preserve">
+    <value>Geçerlilik Tarihi</value>
+  </data>
+  <data name="DocumentNo" xml:space="preserve">
+    <value>Belge No</value>
+  </data>
+  <data name="FamilySerialNo" xml:space="preserve">
+    <value>Aile Sıra No</value>
+  </data>
+  <data name="MaritalStatus" xml:space="preserve">
+    <value>Medeni Hali</value>
+  </data>
+  <data name="PlaceOfIssue" xml:space="preserve">
+    <value>Verildiği Yer</value>
+  </data>
+  <data name="PreviousLastName" xml:space="preserve">
+    <value>Önceki Soyadı</value>
+  </data>
+  <data name="ReasonOfIssue" xml:space="preserve">
+    <value>Veriliş Nedeni</value>
+  </data>
+  <data name="RegistrationNo" xml:space="preserve">
+    <value>Kayıt No</value>
+  </data>
+  <data name="Religion" xml:space="preserve">
+    <value>Dini</value>
+  </data>
+  <data name="RowNo" xml:space="preserve">
+    <value>Sıra No</value>
+  </data>
+  <data name="Serial" xml:space="preserve">
+    <value>Seri</value>
+  </data>
+  <data name="SerialNo" xml:space="preserve">
+    <value>Seri No</value>
+  </data>
+  <data name="VolumeNo" xml:space="preserve">
+    <value>Cilt No</value>
+  </data>
+  <data name="CountryCode" xml:space="preserve">
+    <value>Ülke Kodu</value>
+  </data>
+  <data name="PermitExpires" xml:space="preserve">
+    <value>İzin Bitiş Tarihi</value>
+  </data>
+  <data name="PermitValidFrom" xml:space="preserve">
+    <value>İzin Başlangıç Tarihi</value>
+  </data>
+  <data name="PersonalNo" xml:space="preserve">
+    <value>Şahıs No</value>
+  </data>
+  <data name="PlaceOfResidence" xml:space="preserve">
+    <value>İkamet Yeri</value>
+  </data>
+  <data name="ProvinceOfResidence" xml:space="preserve">
+    <value>İkamet İli</value>
+  </data>
+  <data name="ValidFrom" xml:space="preserve">
+    <value>Başlangıç Tarihi</value>
+  </data>
+  <data name="ValidUntil" xml:space="preserve">
+    <value>Bitiş Tarihi</value>
+  </data>
+  <data name="BillingAddress" xml:space="preserve">
+    <value>Fatura Adresi</value>
+  </data>
+  <data name="BuildingName" xml:space="preserve">
+    <value>Bina Adı</value>
+  </data>
+  <data name="Floor" xml:space="preserve">
+    <value>Kat</value>
+  </data>
+  <data name="LandPhone" xml:space="preserve">
+    <value>Sabit Telefon</value>
+  </data>
+  <data name="SubscriptionAddress" xml:space="preserve">
+    <value>Abonelik Adresi</value>
+  </data>
+  <data name="TradeRegistrationNo" xml:space="preserve">
+    <value>Ticaret Sicil No</value>
+  </data>
+  <data name="ExecutiveBirthPlace" xml:space="preserve">
+    <value>Yetkilinin Doğum Yeri</value>
+  </data>
+  <data name="ExecutiveFathersName" xml:space="preserve">
+    <value>Yetkilinin Baba Adı</value>
+  </data>
+  <data name="ExecutiveMothersMaidenName" xml:space="preserve">
+    <value>Yetkilinin Anne Kızlık Soyadı</value>
+  </data>
+  <data name="ExecutiveMothersName" xml:space="preserve">
+    <value>Yetkilinin Anne Adı</value>
+  </data>
+  <data name="ExecutiveNationality" xml:space="preserve">
+    <value>Yetkilinin Uyruk</value>
+  </data>
+  <data name="ExecutiveProfession" xml:space="preserve">
+    <value>Yetkilinin Meslek</value>
+  </data>
+  <data name="ExecutiveSex" xml:space="preserve">
+    <value>Yetkilinin Cinsiyet</value>
+  </data>
+  <data name="LogType" xml:space="preserve">
+    <value>Log Tipi</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Kullanıcı</value>
+  </data>
+  <data name="Subscribers" xml:space="preserve">
+    <value>Aboneler</value>
+  </data>
+  <data name="NoCommitment" xml:space="preserve">
+    <value>Taahhütsüz</value>
+  </data>
+  <data name="APIKey" xml:space="preserve">
+    <value>API Anahtarı</value>
+  </data>
+  <data name="InternalIDList" xml:space="preserve">
+    <value>Dahili Numaralar Listesi</value>
+  </data>
+  <data name="InternalCallCenterNo" xml:space="preserve">
+    <value>Dahili Telefon No</value>
+  </data>
+  <data name="IDCardType" xml:space="preserve">
+    <value>Kimlik Kart Tipi</value>
+  </data>
+  <data name="PageNo" xml:space="preserve">
+    <value>Sayfa No</value>
+  </data>
+  <data name="TaskID" xml:space="preserve">
+    <value>Görev Kodu</value>
+  </data>
+  <data name="BTKOperatorCode" xml:space="preserve">
+    <value>BTK Operatör Kodu</value>
+  </data>
+  <data name="BTKOperatorDepartment" xml:space="preserve">
+    <value>BTK Operatör Birimi</value>
+  </data>
+  <data name="BTKOperatorName" xml:space="preserve">
+    <value>BTK Operatör Adı</value>
+  </data>
+  <data name="BTKOperatorType" xml:space="preserve">
+    <value>BTK Operatör Tipi</value>
+  </data>
+  <data name="AllocationDate" xml:space="preserve">
+    <value>Tahsis Tarihi</value>
+  </data>
+  <data name="BlockType" xml:space="preserve">
+    <value>Blok Tipi</value>
+  </data>
+  <data name="DeallocationDate" xml:space="preserve">
+    <value>Serbest Bırakma Tarihi</value>
+  </data>
+  <data name="IPBlockServiceType" xml:space="preserve">
+    <value>Servis Tipi</value>
+  </data>
+  <data name="OperatorName" xml:space="preserve">
+    <value>Operatör Adı</value>
+  </data>
+  <data name="UseLocation" xml:space="preserve">
+    <value>Kullanma Lokasyonu</value>
+  </data>
+  <data name="UsesNAT" xml:space="preserve">
+    <value>NAT Kullanıyor</value>
+  </data>
+  <data name="EndingIP" xml:space="preserve">
+    <value>IP Bitişi</value>
+  </data>
+  <data name="StartingIP" xml:space="preserve">
+    <value>IP Başlangıcı</value>
+  </data>
+  <data name="BTKLogType" xml:space="preserve">
+    <value>BTK Log Tipi</value>
+  </data>
+  <data name="FTPFolder" xml:space="preserve">
+    <value>FTP Klasörü</value>
+  </data>
+  <data name="FTPIPAddress" xml:space="preserve">
+    <value>FTP IP Adresi</value>
+  </data>
+  <data name="FTPPassword" xml:space="preserve">
+    <value>FTP Şifresi</value>
+  </data>
+  <data name="FTPUsername" xml:space="preserve">
+    <value>FTP Kullanıcı Adı</value>
+  </data>
+  <data name="SchedulerActiveTime" xml:space="preserve">
+    <value>Zamanlayıcı Aktif Zamanı</value>
+  </data>
+  <data name="SchedulerStartDay" xml:space="preserve">
+    <value>Zamanlayıcı Başlangıç Günü</value>
+  </data>
+  <data name="SchedulerStartTime" xml:space="preserve">
+    <value>Görev Zamanlayıcı Başlama Zamanı (HerGün)</value>
+  </data>
+  <data name="SchedulerWorkPeriod" xml:space="preserve">
+    <value>Zamanlayıcı Çalışma Dönemi</value>
+  </data>
+  <data name="IsScanned" xml:space="preserve">
+    <value>Tarandı Mı</value>
+  </data>
+  <data name="PartitionFiles" xml:space="preserve">
+    <value>Dosyaları Böl</value>
+  </data>
+  <data name="BaseQuota" xml:space="preserve">
+    <value>Temel Kota</value>
+  </data>
+  <data name="MaxSmartQuotaPrice" xml:space="preserve">
+    <value>Akıllı Kota Maks Fiyatı</value>
+  </data>
+  <data name="QuotaType" xml:space="preserve">
+    <value>Kota Tipi</value>
+  </data>
+  <data name="SoftQuotaRateLimit" xml:space="preserve">
+    <value>Hızı Düşan Kotanın Hız limiti</value>
+  </data>
+  <data name="ServiceRateTimeTable" xml:space="preserve">
+    <value>Tarife Hızı Zaman Tablosu</value>
+  </data>
+  <data name="QuotaUnit" xml:space="preserve">
+    <value>Kota Birimi</value>
+  </data>
+  <data name="QuotaUnitPrice" xml:space="preserve">
+    <value>Kota Birim Fiyatı</value>
+  </data>
+  <data name="RemainingQuota" xml:space="preserve">
+    <value>Kalan Kota</value>
+  </data>
+  <data name="Package" xml:space="preserve">
+    <value>Paket</value>
+  </data>
+  <data name="NASListRefreshInterval" xml:space="preserve">
+    <value>NAS Listesi Yenilenme Aralığı</value>
+  </data>
+  <data name="RadiusSettingsRefreshInterval" xml:space="preserve">
+    <value>Radius Ayarların Yenilenme Aralığı</value>
+  </data>
+  <data name="BillsDetail" xml:space="preserve">
+    <value>Faturaların Detayı</value>
+  </data>
+  <data name="APIPassword" xml:space="preserve">
+    <value>API Şifresi</value>
+  </data>
+  <data name="MerchantKey" xml:space="preserve">
+    <value>Satıcı Anahtarı</value>
+  </data>
+  <data name="POSID" xml:space="preserve">
+    <value>VPOS ID</value>
+  </data>
+  <data name="AutoPaymentType" xml:space="preserve">
+    <value>Otomatik Ödeme Tipi</value>
+  </data>
+  <data name="SchedulerRetryDelay" xml:space="preserve">
+    <value>Görev Zamanlayıcı Yeniden Denemek İçin Bekleme Süresi</value>
+  </data>
+  <data name="SchedulerStopTime" xml:space="preserve">
+    <value>Görev Zamanlayıcı Durdurma Saati</value>
+  </data>
+  <data name="SMSSchedulerStartTime" xml:space="preserve">
+    <value>SMS Zamanlayıcısı Başlangıç Saati</value>
+  </data>
+  <data name="SMSSchedulerStopTime" xml:space="preserve">
+    <value>SMS Zamanlayıcısı Durdurma Saati</value>
+  </data>
+  <data name="SMSSchedulerPaymentReminderThreshold" xml:space="preserve">
+    <value>Ödeme Hatırlatma Eşiği (Gün)</value>
+  </data>
+  <data name="SMSSchedulerPrepaidReminderThreshold" xml:space="preserve">
+    <value>Ön Ödemeli Hatırlatma Eşiği (Gün)</value>
+  </data>
+  <data name="SendDate" xml:space="preserve">
+    <value>Gönderi Tarihi</value>
+  </data>
+  <data name="AccessMethod" xml:space="preserve">
+    <value>Erişim Yöntemi</value>
+  </data>
+  <data name="DomainName" xml:space="preserve">
+    <value>Domain Adı</value>
+  </data>
+  <data name="OLOPortalCustomerCode" xml:space="preserve">
+    <value>OLO Portalı Müşteri Kodu</value>
+  </data>
+  <data name="OLOPortalPassword" xml:space="preserve">
+    <value>OLO Portalı Şifre</value>
+  </data>
+  <data name="OLOPortalUsername" xml:space="preserve">
+    <value>OLO Portalı Kullanıcı Adı</value>
+  </data>
+  <data name="UsernamePrefix" xml:space="preserve">
+    <value>Kullanıcı Adı Öneki</value>
+  </data>
+  <data name="XDSLWebServiceCustomerCode" xml:space="preserve">
+    <value>XDSL Web Servisi Müşteri Kodu</value>
+  </data>
+  <data name="XDSLWebServicePassword" xml:space="preserve">
+    <value>XDSL Web Servisi Şifre</value>
+  </data>
+  <data name="XDSLWebServiceUsername" xml:space="preserve">
+    <value>XDSL Web Servisi Kullanıcı Adı</value>
+  </data>
+  <data name="ServiceDomains" xml:space="preserve">
+    <value>Tarifenin Domain'ları</value>
+  </data>
+  <data name="SubscriberNoPrefix" xml:space="preserve">
+    <value>Abone No. Önek</value>
+  </data>
+  <data name="ContactPhoneNo" xml:space="preserve">
+    <value>İrtibat Telefon No.</value>
+  </data>
+  <data name="CorporateCustomerInfo" xml:space="preserve">
+    <value>Kurumsal Müşteri Bilgileri</value>
+  </data>
+  <data name="CustomerGeneralInfo" xml:space="preserve">
+    <value>Müşteri Genel Bilgileri</value>
+  </data>
+  <data name="CustomerIdentity" xml:space="preserve">
+    <value>Müşteri Kimliği</value>
+  </data>
+  <data name="ExecutiveResidencyAddress" xml:space="preserve">
+    <value>Yetkilinin İkamet Adresi</value>
+  </data>
+  <data name="IndividualCustomerInfo" xml:space="preserve">
+    <value>Bireysel Müşteri Bilgileri</value>
+  </data>
+  <data name="OtherPhoneNos" xml:space="preserve">
+    <value>Diğer Telefon Numaraları</value>
+  </data>
+  <data name="BillingPeriods" xml:space="preserve">
+    <value>Fatura Dönemleri</value>
+  </data>
+  <data name="BillingPeriod" xml:space="preserve">
+    <value>Fatura Dönemi</value>
+  </data>
+  <data name="SubscriptionInfo" xml:space="preserve">
+    <value>Abonelik Bilgileri</value>
+  </data>
+  <data name="TTPacket" xml:space="preserve">
+    <value>Hız Profili</value>
+  </data>
+  <data name="RedbackName" xml:space="preserve">
+    <value>Redback Name</value>
+  </data>
+  <data name="TelekomCustomerCode" xml:space="preserve">
+    <value>Telekom Müşteri Kodu</value>
+  </data>
+  <data name="ExtraFees" xml:space="preserve">
+    <value>Ekstra Ücretler</value>
+  </data>
+  <data name="FeeVariant" xml:space="preserve">
+    <value>Ücret Değişkeni</value>
+  </data>
+  <data name="SameAsSetupAddress" xml:space="preserve">
+    <value>Tesis Adresiyle Aynı</value>
+  </data>
+  <data name="DirectPassword" xml:space="preserve">
+    <value>Doğrudan Kullanıcı Şifre</value>
+  </data>
+  <data name="DirectUsername" xml:space="preserve">
+    <value>Doğrudan Kullanıcı Adı</value>
+  </data>
+  <data name="SpeedCode" xml:space="preserve">
+    <value>Hız Kodu</value>
+  </data>
+  <data name="TariffName" xml:space="preserve">
+    <value>Tarife Adı</value>
+  </data>
+  <data name="IsPaperworkNeeded" xml:space="preserve">
+    <value>Evrak Gerekiyor</value>
+  </data>
+  <data name="SkipValidation" xml:space="preserve">
+    <value>Doğrulamayı Geç</value>
+  </data>
+  <data name="Commitment" xml:space="preserve">
+    <value>Taahhüt</value>
+  </data>
+  <data name="RegistrationDate" xml:space="preserve">
+    <value>Kayıt Tarihi</value>
+  </data>
+  <data name="TariffInfo" xml:space="preserve">
+    <value>Tarife Bilgileri</value>
+  </data>
+  <data name="TelekomInfo" xml:space="preserve">
+    <value>Telekom Bilgileri</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Oluşturulma Tarihi</value>
+  </data>
+  <data name="OperationSubType" xml:space="preserve">
+    <value>İşlem Alt Tipi</value>
+  </data>
+  <data name="OperationType" xml:space="preserve">
+    <value>İşlem Tipi</value>
+  </data>
+  <data name="ClosingDate" xml:space="preserve">
+    <value>Kapanış Tarihi</value>
+  </data>
+  <data name="IsOpen" xml:space="preserve">
+    <value>Açık</value>
+  </data>
+  <data name="LastRetryDate" xml:space="preserve">
+    <value>Son Yeniden Deneme Tarihi</value>
+  </data>
+  <data name="ShowClosed" xml:space="preserve">
+    <value>Kapalı Olanları Göster</value>
+  </data>
+  <data name="CurrentBillingPeriod" xml:space="preserve">
+    <value>Cari Fatura Dönemi</value>
+  </data>
+  <data name="BillingType" xml:space="preserve">
+    <value>Faturalandırma Tipi</value>
+  </data>
+  <data name="NewTariffActivationDate" xml:space="preserve">
+    <value>Yeni Trife Aktivasyon Tarihi</value>
+  </data>
+  <data name="NewTariffName" xml:space="preserve">
+    <value>Yeni Tarife Adı</value>
+  </data>
+  <data name="NoQueue" xml:space="preserve">
+    <value>Hız Sınırını Gönderilmesin</value>
+  </data>
+  <data name="ExecutiveTCK" xml:space="preserve">
+    <value>Yetkilinin TCK'sı</value>
+  </data>
+  <data name="MaxActiveUsers" xml:space="preserve">
+    <value>Maks. Etkin Kullanıcılar</value>
+  </data>
+  <data name="Allowance" xml:space="preserve">
+    <value>Hakediş</value>
+  </data>
+  <data name="PartnerCount" xml:space="preserve">
+    <value>Bayi Sayısı</value>
+  </data>
+  <data name="ShowDisabled" xml:space="preserve">
+    <value>Devre Dişileri Göster</value>
+  </data>
+  <data name="Permission" xml:space="preserve">
+    <value>Yetki</value>
+  </data>
+  <data name="PaymentAllowance" xml:space="preserve">
+    <value>Ödeme Hakediş</value>
+  </data>
+  <data name="SetupAllowance" xml:space="preserve">
+    <value>Kurulum Hakediş</value>
+  </data>
+  <data name="CancellationHistory" xml:space="preserve">
+    <value>İptal Geçmişi</value>
+  </data>
+  <data name="DaysSinceLastCancellation" xml:space="preserve">
+    <value>Son İptalin Beri Geçen Gün Sayısı</value>
+  </data>
+  <data name="BillPayment" xml:space="preserve">
+    <value>Fatura Ödeme</value>
+  </data>
+  <data name="MaxFreezeDuration" xml:space="preserve">
+    <value>Maks. Dondurma Süresi</value>
+  </data>
+  <data name="PortRange" xml:space="preserve">
+    <value>Port Aralığı</value>
+  </data>
+  <data name="SessionID" xml:space="preserve">
+    <value>Oturum ID</value>
+  </data>
+  <data name="MaxFreezesPerYear" xml:space="preserve">
+    <value>Yılda Maks. Dondurma Sayısı</value>
+  </data>
+  <data name="MinAmountForAllowance" xml:space="preserve">
+    <value>Hakediş Dahil Etmek İçin Min. Fatura</value>
+  </data>
+  <data name="SVUID" xml:space="preserve">
+    <value>Kod (SVUID)</value>
+  </data>
+  <data name="AllowanceThreshold" xml:space="preserve">
+    <value>Hakkediş Eşiği</value>
+  </data>
+  <data name="LogInterfaceType" xml:space="preserve">
+    <value>Log Arabirim Tipi</value>
+  </data>
+  <data name="LogInterfaceUsername" xml:space="preserve">
+    <value>Log Arabirim Kullanıcı Adı</value>
+  </data>
+  <data name="ExpiredPoolName" xml:space="preserve">
+    <value>Expired Pool Adı</value>
+  </data>
+  <data name="ExpiredPoolList" xml:space="preserve">
+    <value>Expired Pool Listesi</value>
+  </data>
+  <data name="BillCount" xml:space="preserve">
+    <value>Fatura Sayısı</value>
+  </data>
+  <data name="ApplicationTimes" xml:space="preserve">
+    <value>Uygulama Sayısı</value>
+  </data>
+  <data name="ApplicationType" xml:space="preserve">
+    <value>Uygulama Türü</value>
+  </data>
+  <data name="DiscountType" xml:space="preserve">
+    <value>İndirim Türü</value>
+  </data>
+  <data name="TimesApplied" xml:space="preserve">
+    <value>Uygulanmış Sayısı</value>
+  </data>
+  <data name="OnlyFullInvoice" xml:space="preserve">
+    <value>Sadece Tam Fatura</value>
+  </data>
+  <data name="ReferralDiscount" xml:space="preserve">
+    <value>Referans İskonto</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>İskonto</value>
+  </data>
+  <data name="IsReferral" xml:space="preserve">
+    <value>Referans</value>
+  </data>
+  <data name="Referrer" xml:space="preserve">
+    <value>Referans Olan</value>
+  </data>
+  <data name="Referring" xml:space="preserve">
+    <value>Referans Olunan</value>
+  </data>
+  <data name="FTPAddress" xml:space="preserve">
+    <value>FTP Adres</value>
+  </data>
+  <data name="GatewayType" xml:space="preserve">
+    <value>Geçit Türü</value>
+  </data>
+  <data name="LastOperationTime" xml:space="preserve">
+    <value>Son İşlem Tarihi</value>
+  </data>
+  <data name="LastProcessedFile" xml:space="preserve">
+    <value>Son İşlenen Dosya</value>
+  </data>
+  <data name="ReceiveFolder" xml:space="preserve">
+    <value>Alma Klasörü</value>
+  </data>
+  <data name="SendFolder" xml:space="preserve">
+    <value>Gönderme Klasörü</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Ayrıntılar</value>
+  </data>
+  <data name="Gateway" xml:space="preserve">
+    <value>Geçit</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Aşama</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Başarı</value>
+  </data>
+  <data name="ReferredSubscriptionNo" xml:space="preserve">
+    <value>Referans Olunan Abone No</value>
+  </data>
+  <data name="ReferrerSubscriptionNo" xml:space="preserve">
+    <value>Referans Abone No</value>
+  </data>
+  <data name="NASType" xml:space="preserve">
+    <value>NAS Türü</value>
+  </data>
+</root>

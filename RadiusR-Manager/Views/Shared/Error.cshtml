@@ -1,0 +1,16 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Error;
+}
+
+<div class="centered" style="margin-top: 6em;">
+    <img src="@Url.Content("~/Content/Images/Shared/warning.svg")" alt="" class="error-page-sign" />
+    <div class="error-page-head">
+        @RadiusR.Localization.Pages.Common.Error
+    </div>
+    <div class="error-page-description">
+        @RadiusR.Localization.Pages.Common.ErrorDescription
+    </div>
+</div>
+

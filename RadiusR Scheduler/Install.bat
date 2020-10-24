@@ -1,0 +1,2 @@
+sc create RadiusRScheduler binpath= "%~dp0RadiusR Scheduler.exe" displayname= "RadiusR Scheduler Service" start= auto && sc description RadiusRScheduler "RadiusR Scheduler Service that manages issuing bills, sending bill SMS and other scheduled tasks." && net start RadiusRScheduler && sc sdset RadiusRScheduler D:(A;;CCLCSWRPWPDTLOCRRC;;;SY)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)(A;;CCLCSWLOCRRC;;;IU)(A;;CCLCSWLOCRRC;;;SU)(A;;CCLCSWLOCRRCRPWPDT;;;AU)
+pause

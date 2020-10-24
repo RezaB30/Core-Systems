@@ -1,0 +1,46 @@
+﻿@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.TaxRateViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.TaxRates;
+    var index = 0;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="data-table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rate)
+                    </th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="centered">
+                            @Html.Hidden("[" + index + "].ID", item.ID)
+                            @Html.DisplayFor(modelItem => item.ID)
+                        </td>
+                        <td class="centered">
+                            <div>
+                                @Html.EditorFor(modelItem => item.Rate, null, "[" + index + "].Rate")
+                            </div>
+                            <div>
+                                @Html.ValidationMessage("[" + index + "].Rate")
+                            </div>
+                        </td>
+                    </tr>
+                    index++;
+                }
+            </table>
+            <div style="padding-top: 1em;" class="centered">
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+            </div>
+        }
+    </div>
+</div>

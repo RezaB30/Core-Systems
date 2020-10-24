@@ -1,0 +1,13 @@
+﻿div.payment-button-combo-wrapper {
+    text-align: initial;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+    div.payment-button-combo-wrapper > table {
+        border-collapse: collapse;
+    }
+
+        div.payment-button-combo-wrapper > table td {
+            padding-left: 0.5em;
+        }

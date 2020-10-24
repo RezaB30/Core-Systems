@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAdditionalFee" xml:space="preserve">
+    <value>Ek ücretleri ekledi: {0}</value>
+  </data>
+  <data name="AddFile" xml:space="preserve">
+    <value>Dosya ekledi: {0}</value>
+  </data>
+  <data name="AddressChange" xml:space="preserve">
+    <value>Adres değiştirdi.</value>
+  </data>
+  <data name="AddSubscription" xml:space="preserve">
+    <value>Abone {0} ekledi.</value>
+  </data>
+  <data name="AddWorkOrder" xml:space="preserve">
+    <value>İş emri ekledi: {0}</value>
+  </data>
+  <data name="BillPayment" xml:space="preserve">
+    <value>{0} faturaları {1} {2} üzerinden ödendi</value>
+  </data>
+  <data name="CancelPayment" xml:space="preserve">
+    <value>Fatura için ödeme iptal edildi: {0} {1}</value>
+  </data>
+  <data name="ChangeCustomer" xml:space="preserve">
+    <value>Müşteri bilgisini değiştirdi.</value>
+  </data>
+  <data name="ChangeLastAllowedDate" xml:space="preserve">
+    <value>Son kullanım tarihini {0}'den {1}'e değiştirdi.</value>
+  </data>
+  <data name="ChangeSubscriber" xml:space="preserve">
+    <value>Abone bilgisini değiştirdi.</value>
+  </data>
+  <data name="EditDiscount" xml:space="preserve">
+    <value>Faturada iskonto değişti: {0}</value>
+  </data>
+  <data name="LineQualityCheck" xml:space="preserve">
+    <value>Hat kalitesini kontrol etti. {0}</value>
+  </data>
+  <data name="RemoveAdditionalFee" xml:space="preserve">
+    <value>{0} ücreti kaldırdı.</value>
+  </data>
+  <data name="RemoveFile" xml:space="preserve">
+    <value>{0} dosyayı kaldırdı.</value>
+  </data>
+  <data name="RemoveWorkOrder" xml:space="preserve">
+    <value>{0} iş emri kaldırdı.</value>
+  </data>
+  <data name="ChangeClientState" xml:space="preserve">
+    <value>Abone durumunu {0}'den {1}'e değiştirdi.</value>
+  </data>
+  <data name="ChangeService" xml:space="preserve">
+    <value>Tarifesi {0}'dan {1}'e değiştirdi.</value>
+  </data>
+  <data name="ForceChangeService" xml:space="preserve">
+    <value>Tarifesi zorla değişti.</value>
+  </data>
+  <data name="ChangeSubscriptionSpeedProfile" xml:space="preserve">
+    <value>Abonenin Hız Profilini Değiştirdi: {0}</value>
+  </data>
+  <data name="StepDownSubscriptionSpeedProfile" xml:space="preserve">
+    <value>Abonenin Hız Profilini Azalttı.</value>
+  </data>
+  <data name="StepUpSubscriptionSpeedProfile" xml:space="preserve">
+    <value>Abonenin Hız Profilini Yükseltti.</value>
+  </data>
+  <data name="EditClientIdentityDocument" xml:space="preserve">
+    <value>Müşteri kimlik belgelerini değiştirdi.</value>
+  </data>
+  <data name="SellQuota" xml:space="preserve">
+    <value>Kota sattı: {0}.</value>
+  </data>
+  <data name="ActivateAutomaticPayment" xml:space="preserve">
+    <value>{0} kanalıyla otomatik ödeme aktif etti.</value>
+  </data>
+  <data name="AddCreditCard" xml:space="preserve">
+    <value>Ödemeler için kredi kartı ekledi: {0}</value>
+  </data>
+  <data name="DeactivateAutomaticPayment" xml:space="preserve">
+    <value>{0} kanalıyla otomatik ödeme pasif etti.</value>
+  </data>
+  <data name="RemoveCreditCard" xml:space="preserve">
+    <value>Kredi kartı kaldırdı: {0}</value>
+  </data>
+  <data name="ChangeSubscriberUsername" xml:space="preserve">
+    <value>Kullanıcı adını {0} yerine {1} olarak değiştirdi.</value>
+  </data>
+  <data name="CreateTelekomWorkOrder" xml:space="preserve">
+    <value>{0} [{2}] telekom iş emri oluşturdu: {1}</value>
+  </data>
+  <data name="CloseTelekomWorkOrder" xml:space="preserve">
+    <value>{0} telekom iş emri kapattı: {1}</value>
+  </data>
+  <data name="RetryTelekomWorkOrder" xml:space="preserve">
+    <value>{0} [{2}] telekom iş emrini tekrar göndedi: {1}</value>
+  </data>
+  <data name="ChangeInstallationAddress" xml:space="preserve">
+    <value>Tesis adresi {0} iken {1} olarak değiştirdi.</value>
+  </data>
+  <data name="EditSubscriberCommitment" xml:space="preserve">
+    <value>Abone taahhüdü değiştirdi.</value>
+  </data>
+  <data name="ChangeSubscriberDSLNo" xml:space="preserve">
+    <value>DSL No {0} yerine {1} olarak değiştirdi.</value>
+  </data>
+  <data name="ChangeSubscriberGroup" xml:space="preserve">
+    <value>Abone Grupları Değiştirdi.</value>
+  </data>
+  <data name="ChangeSubscriberStaticIP" xml:space="preserve">
+    <value>Abonenin statik IP'si {0} iken {1} olarak değiştirildi.</value>
+  </data>
+  <data name="CancelScheduledChangeService" xml:space="preserve">
+    <value>Zamanlanmış tarife değişikliği iptal edildi.</value>
+  </data>
+  <data name="ChangeServiceSchedule" xml:space="preserve">
+    <value>{0} 'dan planlanan tarifesi {1} olarak değiştirdi.</value>
+  </data>
+  <data name="CancelBill" xml:space="preserve">
+    <value>Faturaları iptal etti: {0}</value>
+  </data>
+  <data name="ChangeSubscriberPassword" xml:space="preserve">
+    <value>Kullanıcı şifresini {0} yerine {1} olarak değiştirdi.</value>
+  </data>
+  <data name="CancelAdditionalFee" xml:space="preserve">
+    <value>{0} ücreti iptal etti.</value>
+  </data>
+  <data name="ExtendPackage" xml:space="preserve">
+    <value>Paketini {0} ay uzattı.</value>
+  </data>
+  <data name="TelekomSync" xml:space="preserve">
+    <value>Telekom ile senkronize edildi.</value>
+  </data>
+  <data name="AddRecurringDiscount" xml:space="preserve">
+    <value>Tekrarlayan indirimi ekledi: {0}</value>
+  </data>
+  <data name="RemoveRecurringDiscount" xml:space="preserve">
+    <value>Tekrarlayan indirimi şu nedenle {0} kaldırıldı: {1}</value>
+  </data>
+  <data name="DisableRecurringDiscount" xml:space="preserve">
+    <value>Tekrarlayan indirimi şu nedenle {0} devre dişi biraktı: {0}</value>
+  </data>
+</root>

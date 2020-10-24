@@ -1,0 +1,178 @@
+﻿@using RezaB.Web.Authentication
+
+@model RadiusR_Manager.Models.ViewModels.LineQualityViewModel
+
+<div>
+    <table class="line-quality-data">
+        <tr>
+            <td colspan="2">
+                <div class="rate-limit-title">
+                    @RadiusR.Localization.Pages.Common.ClientDSLAMInfo
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                @Html.DisplayNameFor(model => model.DSLAM)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.DSLAM)
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                @Html.DisplayNameFor(model => model.ShelfCardPort)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.ShelfCardPort)
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                @Html.DisplayNameFor(model => model.CRMSpeedProfile)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CRMSpeedProfile)
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                @Html.DisplayNameFor(model => model.NMSSpeedProfile)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.NMSSpeedProfile)
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                @Html.DisplayNameFor(model => model.LineState)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.LineState)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="rate-limit-title">
+                    @RadiusR.Localization.Pages.Common.LineQualityData
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table class="line-quality-details">
+                    <tr>
+                        <td class="label">
+                            @Html.DisplayNameFor(model => model.DownloadAttn)
+                        </td>
+                        <td class="label">
+                            @Html.DisplayNameFor(model => model.UploadAttn)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.DownloadAttn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.UploadAttn)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            @Html.DisplayNameFor(model => model.DownloadNoiseMargin)
+                        </td>
+                        <td class="label">
+                            @Html.DisplayNameFor(model => model.UploadNoiseMargin)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.DownloadNoiseMargin)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.UploadNoiseMargin)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            @Html.DisplayNameFor(model => model.CurrentDownloadSpeed)
+                        </td>
+                        <td class="label">
+                            @Html.DisplayNameFor(model => model.CurrentUploadSpeed)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.CurrentDownloadSpeed)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.CurrentUploadSpeed)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            @Html.DisplayNameFor(model => model.DownloadSpeedCapacity)
+                        </td>
+                        <td class="label">
+                            @Html.DisplayNameFor(model => model.UploadSpeedCapacity)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.DownloadSpeedCapacity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.UploadSpeedCapacity)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            @Html.DisplayNameFor(model => model.DownloadOutputPower)
+                        </td>
+                        <td class="label">
+                            @Html.DisplayNameFor(model => model.UploadOutputPower)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.DownloadOutputPower)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.UploadOutputPower)
+                        </td>
+                    </tr>
+                    @if (User.HasPermission("Change Speed Profile"))
+                    {
+                        <tr>
+                            <td style="text-align: left;">
+                                <div class="tt-packet-selection-loading" style="text-align: center; display: none;">
+                                    <div style="position: relative; width: 1.5em; height: 1.5em; display: inline-block; vertical-align: middle;">
+                                        <div class="online-status-loading"></div>
+                                    </div>
+                                    @RadiusR.Localization.Pages.Common.Processing
+                                </div>
+                                @using (Html.BeginForm("StepUpSpeedProfile", "Client", new { id = ViewBag.SubscriberID }, FormMethod.Post, new { @style = "display: inline-block;", @class = "change-speed-profile-form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Increase" class="link-button iconed-button plus-button" />
+                                }
+                                &nbsp;
+                                @using (Html.BeginForm("StepDownSpeedProfile", "Client", new { id = ViewBag.SubscriberID }, FormMethod.Post, new { @style = "display: inline-block;", @class = "change-speed-profile-form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Decrease" class="link-button iconed-button minus-button" />
+                                }
+                            </td>
+                            <td style="text-align: right;">
+                                @using (Html.BeginForm("ChangeSpeedProfile", "Client", new { id = ViewBag.SubscriberID }))
+                                {
+                                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Edit" class="link-button iconed-button edit-button" />
+                                }
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>

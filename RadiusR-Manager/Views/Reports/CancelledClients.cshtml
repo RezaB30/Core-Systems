@@ -1,0 +1,45 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.Customer.SubscriptionListDisplayViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.CancelledClients;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th class="centered">
+            @Html.DisplayNameFor(model => model.SubscriberNo)
+        </th>
+        <th class="centered">
+            @Html.DisplayNameFor(model => model.ContactPhoneNo)
+        </th>
+        <th class="centered">
+            @Html.DisplayNameFor(model => model.CancellationDate)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="@Url.Action("Details", "Client", new { id = item.ID })" class="details-link">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </a>
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.SubscriberNo)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.ContactPhoneNo)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.CancellationDate)
+            </td>
+        </tr>
+    }
+</table>
+
+@Html.PagedList((int)ViewBag.PageCount)

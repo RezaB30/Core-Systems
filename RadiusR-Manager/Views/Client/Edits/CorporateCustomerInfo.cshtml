@@ -1,0 +1,196 @@
+﻿@model RadiusR_Manager.Models.ViewModels.Customer.CorporateCustomerInfoViewModel
+
+<table class="input-table" style="width: 100%;">
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.ExecutiveFathersName)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.ExecutiveFathersName, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+        </td>
+        <td>
+            @Html.LabelFor(model => model.ExecutiveMothersName)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.ExecutiveMothersName, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.ExecutiveFathersName)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.ExecutiveMothersName)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.ExecutiveMothersMaidenName)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.ExecutiveMothersMaidenName, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+        </td>
+        <td>
+            @Html.LabelFor(model => model.ExecutiveBirthPlace)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.ExecutiveBirthPlace, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.ExecutiveMothersMaidenName)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.ExecutiveBirthPlace)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.ExecutiveSex)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.ExecutiveSex)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.ExecutiveSex)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.ExecutiveNationality)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.ExecutiveNationality)
+        </td>
+        <td>
+            @Html.LabelFor(model => model.ExecutiveProfession)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.ExecutiveProfession)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.ExecutiveNationality)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.ExecutiveProfession)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" class="input-table-row-group-separator"></td>
+    </tr>
+    <tr>
+        <td style="border-right: 1px solid grey;">
+            @Html.LabelFor(model => model.ExecutiveResidencyAddress)
+        </td>
+        <td colspan="3">
+            @if ((bool?)ViewBag.IsEdit != true)
+            {
+                <div id="executive-residency-address-same-as-setup" style="margin-bottom: 0.5em;">
+                    @Html.EditorFor(model => model.ExecutiveResidencySameAsSetupAddress)
+                </div>
+            }
+            <div id="executive-residency-address-editor-container">
+                @Html.EditorFor(model => model.ExecutiveResidencyAddress)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            @Html.ValidationMessageFor(model => model.ExecutiveResidencyAddress)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" class="input-table-row-group-separator"></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Title)
+        </td>
+        <td colspan="3">
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @maxlength = 250, @autocomplete = "off" } })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            @Html.ValidationMessageFor(model => model.Title)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" class="input-table-row-group-separator"></td>
+    </tr>
+    <tr>
+        <td style="border-right: 1px solid grey;">
+            @Html.LabelFor(model => model.CompanyAddress)
+        </td>
+        <td colspan="3">
+            @if ((bool?)ViewBag.IsEdit != true)
+            {
+                <div id="company-address-same-as-setup" style="margin-bottom: 0.5em;">
+                    @Html.EditorFor(model => model.CompanySameAsSetupAddress)
+                </div>
+            }
+            <div id="company-address-editor-container">
+                @Html.EditorFor(model => model.CompanyAddress)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            @Html.ValidationMessageFor(model => model.CompanyAddress)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" class="input-table-row-group-separator"></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.TaxNo)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.TaxNo, new { htmlAttributes = new { @maxlength = 11, @autocomplete = "off" } })
+        </td>
+        <td>
+            @Html.LabelFor(model => model.TaxOffice)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.TaxOffice, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.TaxNo)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.TaxOffice)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.CentralSystemNo)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.CentralSystemNo, new { htmlAttributes = new { @maxlength = 16, @autocomplete = "off" } })
+        </td>
+        <td>
+            @Html.LabelFor(model => model.TradeRegistrationNo)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.TradeRegistrationNo, new { htmlAttributes = new { @maxlength = 6, @autocomplete = "off" } })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.CentralSystemNo)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.TradeRegistrationNo)
+        </td>
+    </tr>
+</table>

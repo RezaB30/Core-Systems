@@ -1,0 +1,45 @@
+﻿@model RadiusR_Manager.Models.ViewModels.GeneralFaultViewModel
+
+<div class="general-fault-container">
+    <div class="rate-limit-title">
+        @RadiusR.Localization.Pages.Common.GeneralFaults
+    </div>
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="centered text-danger">@Html.DisplayFor(model => model.ErrorMessage)</div>
+    }
+    else if (Model.Faults.Count() <= 0)
+    {
+        <div class="centered text-danger">@RadiusR.Localization.Pages.Common.NoGeneralFault</div>
+    }
+    else
+    {
+        <table class="data-table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => new RadiusR_Manager.Models.ViewModels.GeneralFaultViewModel.FaultViewModel().StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => new RadiusR_Manager.Models.ViewModels.GeneralFaultViewModel.FaultViewModel().EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => new RadiusR_Manager.Models.ViewModels.GeneralFaultViewModel.FaultViewModel().Topic)
+                </th>
+            </tr>
+            @foreach (var item in Model.Faults)
+            {
+                <tr>
+                    <td class="centered">
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td class="centered">
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td class="centered">
+                        @Html.DisplayFor(modelItem => item.Topic)
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+</div>

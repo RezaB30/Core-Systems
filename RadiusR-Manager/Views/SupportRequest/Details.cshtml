@@ -1,0 +1,177 @@
+﻿@using RadiusR.DB.Enums
+@using RezaB.Web.Authentication
+
+@model RadiusR_Manager.Models.RadiusViewModels.SupportRequestViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.SupportRequests + "-" + RadiusR.Localization.Pages.Common.Details;
+}
+
+<table class="details-table">
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.SubscriptionID)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Subscription.Name)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Subscription.ContactPhoneNo)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Subscription.ContactPhoneNo)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Subscription.InstallationAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Subscription.InstallationAddress)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Subscription.TariffName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Subscription.TariffName)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Subscription.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Subscription.Username)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Subscription.State)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Subscription.State)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Message)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Message)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @RadiusR.Localization.Pages.Common.WorkOrders
+        </td>
+        <td>
+            @if (Model.SetupServiceTask == null)
+            {
+                if (Model.StateID == (short)SupportRequestStateID.Sent)
+                {
+                    <div>@RadiusR.Localization.Pages.Common.NoWorkOrdersAssigned</div>
+                    if (User.HasPermission("Create Setup Task"))
+                    {
+                        <div>
+                            @Html.ActionLink(RadiusR.Localization.Pages.Common.AssignWorkOrder, "AddWorkOrder", "SupportRequest", new { id = Model.ID, returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button send-button" })
+                        </div>
+                    }
+                }
+            }
+            else
+            {
+                <div class="rate-limit-title">
+                    @RadiusR.Localization.Pages.Common.WorkOrders
+                </div>
+                <table class="details-table">
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.SetupServiceTask.IssueDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.SetupServiceTask.IssueDate)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.SetupServiceTask.Details)
+                        </td>
+                        <td>
+                            <div style="white-space: pre-line">@Html.DisplayFor(model => model.SetupServiceTask.Details)</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.SetupServiceTask.User)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.SetupServiceTask.User)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.SetupServiceTask.TaskType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.SetupServiceTask.TaskType)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.SetupServiceTask.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.SetupServiceTask.Status)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.SetupServiceTask.IsCharged)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.SetupServiceTask.IsCharged)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.SetupServiceTask.CompletionDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.SetupServiceTask.CompletionDate)
+                        </td>
+                    </tr>
+                    @if (User.HasPermission("Customer Setup Service"))
+                    {
+                        <tr>
+                            <td colspan="2" style="text-align: right;">
+                                @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", "CustomerSetupService", new { id = Model.CustomerSetupTaskID, redirectUrl = Url.Action("Details", "SupportRequest", new { id = Model.ID, returnUrl = ViewBag.ReturnUrl }, Request.Url.Scheme) }, new { @class = "link-button iconed-button details-button" })
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+        </td>
+    </tr>
+    @if (Model.AdminMessage != null)
+    {
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.AdminMessage)
+            </td>
+            <td style="white-space: pre-line;">@Html.DisplayFor(model => model.AdminMessage)</td>
+        </tr>
+    }
+</table>
+
+<div class="centered" style="margin: 1em;">
+    <a href="@ViewBag.ReturnUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+    @*@Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class = "link-button iconed-button back-button" })*@
+    @if (Model.StateID == (short)SupportRequestStateID.Sent)
+    {
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.FinishRequest, "FinishRequest", new { id = Model.ID, returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button accept-button" })
+    }
+</div>

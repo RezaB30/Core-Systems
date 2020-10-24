@@ -1,0 +1,97 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.Customer.CustomerGeneralInfoViewModel
+
+<table class="input-table" style="width: 100%;">
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.ContactPhoneNo)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.ContactPhoneNo, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+        </td>
+        <td>
+            @Html.LabelFor(model => model.Culture)
+        </td>
+        <td>
+            @Html.Select(model => model.Culture, new SelectList(new[] { "tr-tr", "en-US" }, Model.Culture), RadiusR.Localization.Pages.Common.Choose)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.ContactPhoneNo)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.Culture)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Email)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @maxlength = 250, @autocomple = "off" } })
+        </td>
+        @if ((bool?)ViewBag.IsEdit == true)
+        {
+            <td colspan="2"></td>
+        }
+        else
+        {
+            <td>
+                @Html.LabelFor(model => model.CustomerType)
+            </td>
+            <td id="customer-type-container">
+                @Html.EditorFor(model => model.CustomerType)
+            </td>
+        }
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.Email)
+        </td>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.CustomerType)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.OtherPhoneNos)
+        </td>
+        <td colspan="3">
+            @Html.EditorFor(model => model.OtherPhoneNos)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            @Html.ValidationMessageFor(model => model.OtherPhoneNos)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" class="input-table-row-group-separator"></td>
+    </tr>
+    <tr>
+        <td style="border-right: 1px solid grey;">
+            @Html.LabelFor(model => model.BillingAddress)
+        </td>
+        <td colspan="3">
+            @if ((bool?)ViewBag.IsEdit != true)
+            {
+                <div id="billing-address-same-as-setup" style="margin-bottom: 0.5em;">
+                    @Html.EditorFor(model => model.BillingSameAsSetupAddress)
+                </div>
+            }
+            <div id="billing-address-editor-container">
+                @Html.EditorFor(model => model.BillingAddress)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            @Html.ValidationMessageFor(model => model.BillingAddress)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" class="input-table-row-group-separator"></td>
+    </tr>
+</table>

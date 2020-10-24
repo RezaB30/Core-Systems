@@ -1,0 +1,92 @@
+﻿@using RezaB.Web.Authentication
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="//fonts.googleapis.com/css?family=Racing+Sans+One|Roboto+Condensed|Francois+One:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet">
+
+    <title>@ViewBag.Title - @RadiusR.Localization.Pages.Common.RadiusRManager</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/css-m")
+    @Html.Partial("_JSGlobalVarsPartial")
+</head>
+<body>
+    <div class="header-bar">
+        <div class="header-corner">
+            <a href="@Url.Action("Index","Home")" class="navbar-brand">
+                <img src="~/Content/Images/Shared/main-logo.svg" alt="Logo" class="logo-tm" />
+            </a>
+            @if (User.HasPermission("Online Clients"))
+            {
+                <a href="@Url.Action("OnlineClients", "Reports")">
+                    <div id="online-count-container" class="online-count-container" load-ref='@Url.Action("GetOnlineClientCount", "Reports")'>
+                        <div class="online-count">@ViewBag.OnlineClientCount</div>
+                    </div>
+                </a>
+            }
+        </div>
+        <span class="title">@ViewBag.Title</span>
+        @Html.Partial("_LoginPartial")
+        @Html.Partial("_LanguagePartial")
+        @Html.Partial("_CallCenterPartial")
+        <a class="m-menu" style="cursor: pointer;" onclick="initializeMobileMenu();"></a>
+    </div>
+
+    <div class="body">
+        @if (User.HasPermission("Clients"))
+        {
+            @Html.Partial("_SearchSliderPartial")
+        }
+        @if (User.HasPermission("Infrastructure Service") && RadiusR.DB.DomainsCache.DomainsCache.HasAnyTelekomDomains)
+        {
+            @Html.Partial("_AddressCheckPartial")
+        }
+        <div class="nav-bar">
+            @Html.Partial("_NavPartial")
+        </div>
+        <div id="page-contents" class="page-contents">
+            @RenderBody()
+        </div>
+        <div class="nav-bar-toggle"></div>
+    </div>
+
+    <footer>
+        <div class="footer">
+            <div class="footer-icons-container">
+                @if (User.HasPermission("System Settings"))
+                {
+                    <div class="settings-link">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Settings, "Index", "Settings", null, new { @class = "iconed-button settings-button" })
+                    </div>
+                }
+                @if (User.HasPermission("Radius Settings"))
+                {
+                    <div class="settings-link">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.RadiusSettings, "Index", "RadiusSettings", null, new { @class = "iconed-button radius-settings-button" })
+                    </div>
+                }
+                @if (User.IsInRole("seller"))
+                {
+                    @Html.Partial("_CreditPartial")
+                }
+            </div>
+            <div>
+                &copy; 2017 - @DateTime.Now.Year - @RadiusR.Localization.Pages.Common.RadiusRManager - v<span class="version-tag">@ViewBag.Version</span>
+            </div>
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/scripts")
+    @RenderSection("scripts", required: false)
+    @RenderSection("PageScripts", required: false)
+    @Html.Partial("_SetCalendarLink")
+
+    <div class="attachments">
+        @Html.Partial("Attachments/_Confirm")
+        @Html.Partial("Attachments/_ErrorBox")
+        @Html.Partial("Attachments/_WaitTimerWrapper")
+    </div>
+</body>
+</html>

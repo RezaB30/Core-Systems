@@ -1,0 +1,565 @@
+﻿@using RezaB.Web.Authentication
+<ul class="nav-list-main">
+    @if (User.HasPermission("Clients"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.Clients
+            </div>
+            <ul class="nav-list-sub">
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.ClientList, "Index", "Client")
+                </li>
+                @if (User.HasPermission("Modify Clients"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.AddClient, "Register", "Client")
+                    </li>
+                }
+                @if (User.HasPermission("Groups"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Model.RadiusR.Groups, "Index", "Group")
+                    </li>
+                    if (User.HasPermission("Modify Groups"))
+                    {
+                        <li>
+                            @Html.ActionLink(RadiusR.Localization.Pages.Common.AddGroup, "Add", "Group")
+                        </li>
+                    }
+                }
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("Support Requests"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.SupportRequests
+            </div>
+            <ul class="nav-list-sub">
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.SupportRequests, "Index", "SupportRequest")
+                </li>
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.NewSupportRequests, "Index", "SupportRequest", new { state = (short)RadiusR.DB.Enums.SupportRequestStateID.Sent }, null)
+                </li>
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("Telekom Work Orders") && RadiusR.DB.DomainsCache.DomainsCache.HasAnyTelekomDomains)
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.TelekomWorkOrders
+            </div>
+            <ul class="nav-list-sub">
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.TelekomWorkOrders, "Index", "TelekomWorkOrder")
+                </li>
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("Bills"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.BillingProcess
+            </div>
+            <ul class="nav-list-sub">
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Bills, "Index", "Bill")
+                </li>
+                @if (User.HasPermission("Offline Payments"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.OfflinePayments, "ProcessPayments", "OfflinePayment")
+                    </li>
+                }
+                @if (User.HasPermission("Batch Expiration Date Update"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.BatchExpirationDateUpdate, "BatchExpDateUpdate", "OfflinePayment")
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("Reports"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.Reports
+            </div>
+            <ul class="nav-list-sub">
+                @if (User.HasPermission("Services Client Count"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.ServicesClientCount, "ServicesClientCount", "Reports")
+                    </li>
+                }
+                @if (User.HasPermission("Monthly Bill Report"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.MonthlyReport, "MonthlyBillReport", "Reports")
+                    </li>
+                }
+                @if (User.HasPermission("Cash Desk Report"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.CashDeskReport, "CashDeskReport", "Reports")
+                    </li>
+                }
+                @if (User.HasPermission("Risky Clients"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.RiskyClients, "RiskyClients", "Reports")
+                    </li>
+                }
+                @if (User.HasPermission("Client Count"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.ClientCount, "ClientCount", "Reports")
+                    </li>
+                }
+                @if (User.HasPermission("Online Clients"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.OnlineClients, "OnlineClients", "Reports")
+                    </li>
+                }
+                @if (User.HasPermission("Client Usage Report"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.TopUsages, "ClientUsageReport", "Reports")
+                    </li>
+                }
+                @if (User.HasPermission("Cancelled Clients"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.CancelledClients, "CancelledClients", "Reports")
+                    </li>
+                }
+                @if (User.HasPermission("Cancelled Clients Unpaid Bills"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.CancelledClientsUnpaidBills, "CancelledClientsUnpaidBills", "Reports")
+                    </li>
+                }
+                @if (User.HasPermission("Total Download Upload"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.TotalDownloadUpload, "TotalDownloadUpload", "Reports")
+                    </li>
+                }
+                @if (User.HasPermission("Static IP Report"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.StaticIPReport, "StaticIPReport", "Reports")
+                    </li>
+                }
+                @if (User.HasPermission("System Logs Report"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.SystemLogsReport, "SystemLogsReport", "Reports")
+                    </li>
+                }
+                @if (User.HasPermission("Commitment Report"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.CommitmentReport, "CommitmentReport", "Reports")
+                    </li>
+                }
+                @if (User.HasPermission("Automatic Payment Report"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.AutomaticPaymentReport, "AutomaticPayments", "Reports")
+                    </li>
+                }
+                @if (User.HasPermission("IPDR Report"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.IPDRReport, "IPDR", "Reports")
+                    </li>
+                }
+                @if (User.HasPermission("Discount Report"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.DiscountReport, "Discounts", "Reports")
+                    </li>
+                }
+                @if (User.HasPermission("Referral Discount Report"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.ReferralDiscountReport, "ReferralDiscounts", "Reports")
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("NAS"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.NAS
+            </div>
+            <ul class="nav-list-sub">
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.NasList, "Index", "NAS")
+                </li>
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.AddServer, "Add", "NAS")
+                </li>
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("Services"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.Services
+            </div>
+            <ul class="nav-list-sub">
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.ServiceList, "Index", "Service")
+                </li>
+                @if (User.HasPermission("Modify Services"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.AddService, "Add", "Service")
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("Special Offers"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.SpecialOffers
+            </div>
+            <ul class="nav-list-sub">
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.SpecialOffers, "Index", "SpecialOffers")
+                </li>
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.AddSpecialOffer, "Add", "SpecialOffers")
+                </li>
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("Cashiers"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.Cashiers
+            </div>
+            <ul class="nav-list-sub">
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.CashiersList, "Index", "Cashier")
+                </li>
+                @if (User.HasPermission("Modify Cashiers"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.AddCashier, "Add", "Cashier")
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("Additional Fees"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.AdditionalFees
+            </div>
+            <ul class="nav-list-sub">
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.AdditionalFeesList, "Index", "AdditionalFee")
+                </li>
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("SMS Text") || User.HasPermission("Batch SMS") || User.HasPermission("SMS Settings"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.SMS
+            </div>
+            <ul class="nav-list-sub">
+                @if (User.HasPermission("SMS Texts"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Texts, "Index", "SMS")
+                    </li>
+                }
+                @if (User.HasPermission("Batch SMS"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.SendSMS, "Send", "SMS")
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("User Management"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.UserManagement
+            </div>
+            <ul class="nav-list-sub">
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Users, "Index", "UserManagement")
+                </li>
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.AddUser, "Add", "UserManagement")
+                </li>
+                @if (User.HasPermission("Role Management"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Roles, "Index", "Role")
+                    </li>
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.AddRole, "Add", "Role")
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("Taxes"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.Taxes
+            </div>
+            <ul class="nav-list-sub">
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.StampDuty, "StampDuty", "Tax")
+                </li>
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.TaxRates, "TaxRates", "Tax")
+                </li>
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("Payment Services"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.PaymentServices
+            </div>
+            <ul class="nav-list-sub">
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Users, "Index", "PaymentServices")
+                </li>
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.AddUser, "Add", "PaymentServices")
+                </li>
+                @if (User.HasPermission("Offline Payment Gateways"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.OfflinePaymentGateways, "Index", "OfflinePayment")
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("EBill"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.EBill
+            </div>
+            <ul class="nav-list-sub">
+                @if (User.HasPermission("Batch EBill"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.BatchEBill, "Batch", "EBill")
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("Customer Setup Service"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.CustomerSetupService
+            </div>
+            <ul class="nav-list-sub">
+                @if (User.HasPermission("Customer Setup Service"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.CustomerSetupTasks, "Index", "CustomerSetupService")
+                    </li>
+                }
+                @if (User.HasPermission("Customer Setup Users"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.CustomerSetupUsers, "Users", "CustomerSetupService")
+                    </li>
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.AddOperator, "AddUser", "CustomerSetupService")
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("Background Services"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.BackgroundServices
+            </div>
+            <ul class="nav-list-sub">
+
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.BackgroundServices, "Index", "BackgroundServices")
+                </li>
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("PDF Templates"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.PDFTemplates
+            </div>
+            <ul class="nav-list-sub">
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.PDFTemplates, "Index", "PDFTemplates")
+                </li>
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("BTK Logs"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.BTKLogs
+            </div>
+            <ul class="nav-list-sub">
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.BTKIPBlocks, "IPBlocks", "BTKLogs")
+                </li>
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.SchedulerSettings, "SchedulerSettings", "BTKLogs")
+                </li>
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("Quota Settings"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.Quota
+            </div>
+            <ul class="nav-list-sub">
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.QuotaPackages, "Packages", "Quota")
+                </li>
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.AddPackage, "AddPackage", "Quota")
+                </li>
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("Partners"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.Partners
+            </div>
+            <ul class="nav-list-sub">
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Partners, "Index", "Partner")
+                </li>
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.AddPartner, "Add", "Partner")
+                </li>
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.PartnerGroups, "Groups", "Partner")
+                </li>
+                @if (User.HasPermission("Partner API Settings"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.PartnerAPISettings, "APISettings", "Partner")
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+    @if (User.HasPermission("Other Settings"))
+    {
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.OtherSettings
+            </div>
+            <ul class="nav-list-sub">
+                @if (User.HasPermission("Call Center Settings"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.CallCenterSettings, "Settings", "CallCenter")
+                    </li>
+                }
+                @if (User.HasPermission("SMS Settings"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.SMSSettings, "Settings", "SMS")
+                    </li>
+                }
+                @if (User.HasPermission("VPOS Settings"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.VPOSSettings, "Index", "VPOSSettings")
+                    </li>
+                }
+                @if (User.HasPermission("BTK Settings"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.BTKSettings, "Index", "BTKSettings")
+                    </li>
+                }
+                @if (User.HasPermission("Quota Settings"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.QuotaSettings, "Settings", "Quota")
+                    </li>
+                }
+                @if (User.HasPermission("MobilExpress Settings"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.MobilExpressSettings, "Settings", "MobilExpress")
+                    </li>
+                }
+                @if (User.HasPermission("Scheduler Settings"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.SchedulerSettings, "Settings", "Scheduler")
+                    </li>
+                }
+                @if (User.HasPermission("Domain Settings"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.DomainSettings, "Index", "DomainSettings")
+                    </li>
+                }
+                @if (User.HasPermission("Address Settings"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.AddressAPISettings, "Settings", "Address")
+                    </li>
+                }
+                @if (User.HasPermission("Telekom Tariffs"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.TelekomTariffs, "TelekomTariffs", "TTServices")
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+</ul>
+
+<div class="logo-watermark"></div>

@@ -1,0 +1,32 @@
+﻿@using RezaB.Web.Helpers
+@model RadiusR_Manager.Models.ViewModels.SellQuotaViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.SellQuota + "-" + ViewBag.CustomerName;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.PacketID)
+            </td>
+            <td>
+                @Html.Select(model => model.PacketID, (SelectList)ViewBag.Packages, RadiusR.Localization.Pages.Common.Choose)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.PacketID)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="centered">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Details", new { id = ViewContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button back-button" })
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+            </td>
+        </tr>
+    </table>
+}

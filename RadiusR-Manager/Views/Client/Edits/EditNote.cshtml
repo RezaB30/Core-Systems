@@ -1,0 +1,25 @@
+﻿@model RadiusR_Manager.Models.RadiusViewModels.NoteViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Notes + "-" + RadiusR.Localization.Pages.Common.Edit;
+}
+
+<div class="centered">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.LabelFor(model => model.Message)
+        </div>
+        <div>
+            @Html.TextAreaFor(model => model.Message, new { @maxlength = 3000, @cols = 60 })
+        </div>
+        <div>
+            @Html.ValidationMessageFor(model => model.Message)
+        </div>
+        <div class="centered" style="margin: 0.5em 0;">
+            @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Notes", "Client", new { id = Model.SubscriptionID }, new { @class = "link-button iconed-button back-button" })
+            <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+        </div>
+    }
+</div>

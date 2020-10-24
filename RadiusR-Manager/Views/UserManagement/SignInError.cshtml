@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.SignInError;
+}
+
+<div class="centered">
+    <div class="text-danger">
+        @ViewBag.SignInError
+    </div>
+    <div>
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class= "link-button iconed-button back-button" })
+    </div>
+</div>

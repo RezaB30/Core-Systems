@@ -1,0 +1,54 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.AutomaticPaymentReportViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.AutomaticPaymentReport;
+    var search = ViewBag.Search as RadiusR_Manager.Models.ViewModels.AutomaticPaymentReportSearchViewModel ?? new RadiusR_Manager.Models.ViewModels.AutomaticPaymentReportSearchViewModel();
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Get))
+{
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(modelItem => search.Gateway)
+            </td>
+            <td>
+                @Html.Select(modelItem => search.Gateway, (SelectList)ViewBag.Gateways, RadiusR.Localization.Pages.Common.Choose)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+            </td>
+        </tr>
+    </table>
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SubscriberNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gateway)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="@Url.Action("Details", "Client", new { id = item.SubscriptionID })#bills" class="details-link">
+                    @Html.DisplayFor(modelItem => item.SubscriberNo)
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gateway)
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

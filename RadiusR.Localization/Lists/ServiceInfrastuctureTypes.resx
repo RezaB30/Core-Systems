@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ADSL" xml:space="preserve">
+    <value>ADSL</value>
+  </data>
+  <data name="ANKESOR" xml:space="preserve">
+    <value>Coin Box</value>
+  </data>
+  <data name="ATM" xml:space="preserve">
+    <value>ATM</value>
+  </data>
+  <data name="CENTREKS" xml:space="preserve">
+    <value>Centrex</value>
+  </data>
+  <data name="FIBER" xml:space="preserve">
+    <value>Fiber</value>
+  </data>
+  <data name="FR" xml:space="preserve">
+    <value>FR</value>
+  </data>
+  <data name="GORUNTULU_TELEFON" xml:space="preserve">
+    <value>Video Phone</value>
+  </data>
+  <data name="GSMPOS" xml:space="preserve">
+    <value>GSMPOS</value>
+  </data>
+  <data name="HIPER" xml:space="preserve">
+    <value>Hiper</value>
+  </data>
+  <data name="HSCSD" xml:space="preserve">
+    <value>HSCSD</value>
+  </data>
+  <data name="IP_COKLU_HAT" xml:space="preserve">
+    <value>Multi IP Line</value>
+  </data>
+  <data name="IP_COKLU_SERVIS_444" xml:space="preserve">
+    <value>Multi IP Service 444</value>
+  </data>
+  <data name="ISDN_BULUT_AKADEMI" xml:space="preserve">
+    <value>ISDN Cloud Academy</value>
+  </data>
+  <data name="ISDN_PRI" xml:space="preserve">
+    <value>ISDN PRI</value>
+  </data>
+  <data name="KABLONET" xml:space="preserve">
+    <value>Kable Net</value>
+  </data>
+  <data name="KIRALIK_DEVRE_DATA" xml:space="preserve">
+    <value>Leased Line Data</value>
+  </data>
+  <data name="KIRALIK_DEVRE_KISMI" xml:space="preserve">
+    <value>Leased Line Partial</value>
+  </data>
+  <data name="KIRALIK_DEVRE_TELEFON" xml:space="preserve">
+    <value>Leased Line Phone</value>
+  </data>
+  <data name="KIRALIK_DEVRE_TELEGRAF" xml:space="preserve">
+    <value>Leased Line Telegraph</value>
+  </data>
+  <data name="KURUMSAL_GUVENLIK" xml:space="preserve">
+    <value>Corporate Security</value>
+  </data>
+  <data name="METRO" xml:space="preserve">
+    <value>Metro</value>
+  </data>
+  <data name="MULTIMEDYA_ANKESOR" xml:space="preserve">
+    <value>Multimedia Coin Box</value>
+  </data>
+  <data name="P2P_ADSL" xml:space="preserve">
+    <value>P2P ADSL</value>
+  </data>
+  <data name="P2P_ATM" xml:space="preserve">
+    <value>P2P ATM</value>
+  </data>
+  <data name="P2P_FR" xml:space="preserve">
+    <value>P2P FR</value>
+  </data>
+  <data name="P2P_GHDSL" xml:space="preserve">
+    <value>P2P GHDSL</value>
+  </data>
+  <data name="P2P_METRO" xml:space="preserve">
+    <value>P2P Metro</value>
+  </data>
+  <data name="POSTPAID_GSM" xml:space="preserve">
+    <value>Postpaid GSM</value>
+  </data>
+  <data name="POSTPAID_INTERNET" xml:space="preserve">
+    <value>Postpaid Internet</value>
+  </data>
+  <data name="POSTPAID_M2M" xml:space="preserve">
+    <value>Postpaid M2M</value>
+  </data>
+  <data name="PREPAID_GSM" xml:space="preserve">
+    <value>Prepaid GSM</value>
+  </data>
+  <data name="PREPAID_INTERNET" xml:space="preserve">
+    <value>Prepaid Internet</value>
+  </data>
+  <data name="PREPAID_M2M" xml:space="preserve">
+    <value>Prepaid M2M</value>
+  </data>
+  <data name="SABIT_HAT" xml:space="preserve">
+    <value>Land Line</value>
+  </data>
+  <data name="SANAL_SANTRAL" xml:space="preserve">
+    <value>Virtual Switchboard</value>
+  </data>
+  <data name="SAYISAL_COKLU_HAT" xml:space="preserve">
+    <value>Digital Multiline</value>
+  </data>
+  <data name="SAYISAL_COKLU_SERVIS_3RAKAM" xml:space="preserve">
+    <value>Digital Multi Service 3 Digits</value>
+  </data>
+  <data name="SAYISAL_COKLU_SERVIS_444" xml:space="preserve">
+    <value>Digital Multi Service 444</value>
+  </data>
+  <data name="SAYISAL_COKLU_SERVIS_800" xml:space="preserve">
+    <value>Digital Multi Service 800</value>
+  </data>
+  <data name="SAYISAL_COKLU_SERVIS_822" xml:space="preserve">
+    <value>Digital Multi Service 822</value>
+  </data>
+  <data name="SAYISAL_IKILI_HAT" xml:space="preserve">
+    <value>Digital Double Line</value>
+  </data>
+  <data name="SERVIS_3RAKAM" xml:space="preserve">
+    <value>Service 3 Digits</value>
+  </data>
+  <data name="SERVIS_444" xml:space="preserve">
+    <value>Service 444</value>
+  </data>
+  <data name="SERVIS_800" xml:space="preserve">
+    <value>Service 800</value>
+  </data>
+  <data name="SSG_INTERNET" xml:space="preserve">
+    <value>SSG Internet</value>
+  </data>
+  <data name="TELEFON" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="TELEKS" xml:space="preserve">
+    <value>Telex</value>
+  </data>
+  <data name="TES_UYDU_IP_VE_TELEFON" xml:space="preserve">
+    <value>TES Satellite IP &amp; Phone</value>
+  </data>
+  <data name="UYDU_DATA" xml:space="preserve">
+    <value>Satellite Data</value>
+  </data>
+  <data name="UYDU_INTERNET" xml:space="preserve">
+    <value>Satellite Internet</value>
+  </data>
+  <data name="UYDU_SES" xml:space="preserve">
+    <value>Satellite Audio</value>
+  </data>
+  <data name="VERI_MERKEZI" xml:space="preserve">
+    <value>Data Center</value>
+  </data>
+  <data name="VPN_ADSL" xml:space="preserve">
+    <value>VPN ADSL</value>
+  </data>
+  <data name="VPN_FR" xml:space="preserve">
+    <value>VPN FR</value>
+  </data>
+  <data name="VPN_GHDSL" xml:space="preserve">
+    <value>VPN GHDSL</value>
+  </data>
+  <data name="VPN_METRO" xml:space="preserve">
+    <value>VPN Metro</value>
+  </data>
+  <data name="WIFI" xml:space="preserve">
+    <value>WIFI</value>
+  </data>
+  <data name="WIMAX" xml:space="preserve">
+    <value>WIMAX</value>
+  </data>
+  <data name="XDSL" xml:space="preserve">
+    <value>XDSL</value>
+  </data>
+</root>

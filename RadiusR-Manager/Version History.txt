@@ -1,0 +1,255 @@
+v 2.1.00
+- changed infrastructure check page.
+- changed Telekom package selection.
+v 2.1.07
+- added note author to client notes.
+v 2.1.08
+- added payment cancellation.
+v 2.1.09
+- added static IP and city to client search.
+v 2.1.10
+- SMS service update.
+v 2.2.00
+- changed bill & fee data structure for performance.
+v 2.2.01
+- added discount for bill fees.
+v 2.2.02
+- added manual e-bill batch.
+v 2.2.03
+- added telekom freeze web service.
+v 2.2.04
+- added BBK and PSTN to client telekom info.
+v 2.2.05
+- added client attachments.
+v 2.3.00
+- removed technicians.
+- added setup service and moved all technician data there.
+v 2.3.01
+- added the ability to create support request for clients.
+v 2.3.02
+- added VPOS settings.
+v 2.3.03
+- added search for setup tasks.
+v 2.4.00
+- added reports.
+- removed reports from home page.
+v 2.4.01
+- added link for service client count.
+v 2.4.02
+- added e-bill details.
+v 2.4.03
+- added cancelled client reports (2).
+v 2.4.04
+- fixed tax details download.
+- added batch e-bill date choice.
+- changed e-bill threshold from a constant date to a dynamic value.
+v 2.4.05
+- added total download/upload report.
+- fixed some minor bugs.
+v 2.4.06
+- added background services management.
+v 2.4.07
+- added static IP report.
+- added the ability to close open NAS connections.
+v 3.00.00
+- completely redone customers.
+- separate customer & subscription.
+- integrated TCK validation service.
+v 3.00.01
+- minor bug fixes. (day-1 patch)
+v 3.00.03
+- added verimor SMS client.
+v 3.00.04
+- added commitment.
+v 3.01.00
+- added identity cards.
+v 3.02.02
+- changed nationality to use enum.
+- added missing fields for corporate customer and address.
+v 3.02.03
+- added file download for cancelled clients debt report.
+v 3.03.00
+- added system log.
+v 3.04.00
+- added system log report.
+v 3.04.01
+- added commitment report.
+v 3.05.00
+- added call center.
+- fixed a critical bug in online client count query. (was running for all requests even ajax)
+v 3.05.01
+- added call button to call customers.
+v 3.05.02
+- changed identity documents.
+- changed cancellation reasons.
+- added service type to services.
+V 3.05.03
+- updated search for customer setup task.
+- added group to client search.
+v 3.05.04
+- fixed a bug with web phone repeated request.
+- added redback name to subscription TT info.
+v 3.06.00
+- added BTK Logs and BTK settings.
+v 3.06.01
+- added file preview.
+- added scanned boolean to subscriptions.
+- added download contract.
+v 3.06.02
+- added sessions log (BTK).
+v 3.06.03
+- added more options to BTK log settings.
+v 3.06.04
+- redone client state changes.
+v 3.06.05
+- added support requests to client details.
+- added loading indicator to ajaxes.
+v 4.00.00
+- added quota and service time table.
+- changed SMS infrastructure.
+v 4.00.01
+- changed radius settings.
+v 4.00.02
+- validation for max smart quota service price.
+v 4.00.03
+- added bill details to cancelled unpaid bill subscribers csv file download.
+v 4.01.00
+- added subscription navigation for customers with more than one subscription.
+- added quota details.
+- added control to quota sale.
+v 4.01.01
+- added search for some select lists.
+v 4.01.02
+- added new subscription button to subscription details.
+v 4.01.03
+- added finans bank 3d host VPOS.
+v 4.02.00 '2019-11-30'
+- added MobilExpress settings and SMSes.
+- added an indicator on subscriber bill page if it has applied for automatic payment.
+v 4.02.01
+- added disconnect button to user connection history.
+v 4.02.02 '2019-12-07'
+- added more system logs.
+v 4.03.00 '2019-12-13'
+- added automatic payments with card.
+v 4.03.02 '2019-12-23'
+- updated TCK validation web service.
+v 4.03.03 '2019-12-26'
+- added priority to service rate limit.
+v 4.03.04 '2019-12-30'
+- added due date to bill (db change).
+v 4.03.05 '2019-12-31'
+- added advanced address search.
+- added group names to downloadable subscription CSV.
+v 4.03.06 '2020-01-02'
+- added search to select lists.
+v 5.00.00 '2020-04-06'
+- changed customer tables. (removed individual customer table)
+- changed customer registration.
+- TCK validation is now running on registration page.
+- TCK info is now required and filled on registration. (secondary page removed)
+- added domains.
+- each tariff is now bound to one or more domains.
+- domains have different sale type.
+- added pre-invoiced tariffs.
+- fixed e-bill error for individuals with e-bill registration.
+- removed registration queue.
+- added telekom work order.
+- updated change tariff for subscriptions.
+- added telekom tariffs.
+- added phone no list for customers.
+- added address query API support.
+v 5.01.00 '2020-04-14'
+- added bill cancellation.
+- moved payment tolerance and expiration tolerance from general settings to be tariff specific.
+- optimized last allowed date update for subscriptions.
+v 5.01.01 '2020-04-15'
+- added disable toggle to NASes.
+v 5.01.02 '2020-05-05'
+- added change password to subscription.
+v 5.01.03 '2020-05-06'
+- added sync button to change dsl no.
+- added relevant web service.
+v 5.01.04 '2020-05-08'
+- added return url to telekom work orders + support requests.
+- fixed some bugs related to subscriber freezing and releasing and their bills.
+v 5.01.05 '2020-05-11'
+- fixed e-bill cancellation.
+v 5.01.06 '2020-05-12'
+- added no queue to services.
+v 5.01.07 '2020-05-15'
+- added update tt password web service to telekom sync.
+v 5.01.08 '2020-05-16'
+- added "edit notes" permission.
+v 5.01.09 '2020-05-18'
+- added billing period to subscriber and bill search.
+- updated tariff search.
+- updated pre-paid tariffs.
+v 5.02.00 '2020-05-22'
+- changed vpos settings to contain multiple items.
+- updated vpos payment helper and models.
+v 5.02.01 '2020-05-27'
+- changed remove additional fee to cancel additional fee.
+v 5.02.02 '2020-05-28'
+- finished pre-paid subscriptions.
+v 5.03.00 '2020-06-17'
+- added phase 1 partner management.
+- added days after cancellation to availability check.
+v 5.03.01 '2020-06-19'
+- added partner credits.
+- added max freeze duration to domains.
+v 5.03.02 '2020-06-23'
+- added halk vpos.
+v 5.03.03 '2020-07-01'
+- added pre-registered state for telekom registrations.
+v 5.03.04 '2020-07-02'
+- added subscriber state permission.
+v 5.03.05 '2020-07-02'
+- added IPDR report.
+- added max freezes per year to domian settings.
+- added user management search.
+v 5.03.06 '2020-07-27'
+- added registration module for customers and subscriptions.
+v 5.03.07 '2020-08-08'
+- added interface to system logs.
+- added SMS selection (active/disabled).
+- added expired pool setting.
+v 5.03.08 '2020-08-10'
+- added NAS expired pool.
+v 5.03.09 '2020-08-24'
+- added tariff subscriptions bill count report.
+v 5.03.10 '2020-08-28'
+- changed date time picker to input.
+v 5.03.11 '2020-09-05'
+- added recurring discount.
+- added recurring discount report.
+v 5.03.12 '2020-09-11'
+- added special offers.
+- added reference no.
+v 5.04.12 '2020-09-18'
+- finalized special offers.
+- added cancellation cause to special offers cancellation process.
+v 5.04.01 '2020-09-23'
+- added BBK to adderess selection.
+- added infrastructure check to address edit.
+v 5.04.02 '2020-09-24'
+- added Telekom work order state cache.
+- added Telekom work order state search.
+- added Telekom packet selection on retry.
+v 5.05.00 '2020-09-29'
+- added offline payment gateways.
+- added offline payment process.
+- fixed bill payment type list.
+- updated ftp module to include sftp.
+v 5.05.01 '2020-10-01'
+- added manual referral discount.
+v 5.05.02 '2020-10-02'
+- added batch expiration date update.
+v 5.05.03 '2020-10-02'
+- added referral discounts report.
+v 5.05.04 '2020-10-16'
+- added special offers usage permit permission.
+v 5.05.05 '2020-10-20'
+- added address to TT work orders search.
+v 5.05.06 '2020-10-22'
+- added details to TT work order system log.

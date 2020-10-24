@@ -1,0 +1,110 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model RadiusR_Manager.Models.RadiusViewModels.CashierViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Dealers + "-" + RadiusR.Localization.Pages.Common.ManageCredit;
+    var cashierCreditSample = new RadiusR_Manager.Models.RadiusViewModels.CashierBalanceViewModel();
+    var editCreditModel = (RadiusR_Manager.Models.ViewModels.EditCreditViewModel)ViewBag.EditCreditModel;
+}
+
+<h4>@Html.DisplayFor(model => model.FullName)</h4>
+
+@if (!User.IsInRole("cashier"))
+{
+    <div style="text-align: center; padding: 0.5em;">
+        <div style="display: inline-block; text-align: initial;">
+            <div style="display: inline-block; vertical-align: middle;">
+                @Html.DisplayNameFor(model => model.TotalCredit)&nbsp;
+                @Html.DisplayFor(model => model.TotalCredit)&nbsp;
+            </div>
+            <input id="add-button" type="button" value="@RadiusR.Localization.Pages.Common.Add" class="link-button iconed-button plus-button" style="vertical-align: middle;" />&nbsp;
+            <input id="subtract-button" type="button" value="@RadiusR.Localization.Pages.Common.Subtract" class="link-button iconed-button minus-button" style="vertical-align: middle;" />
+            <div id="add-form" class="edit-credit-form-container" style="display: none;">
+                @using (Html.BeginForm("AddCredit", null, new { id = Model.ID }))
+                {
+                    @Html.AntiForgeryToken()
+                    <table>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(model => editCreditModel.AddingAmount)&nbsp;
+                                @Html.EditorFor(model => editCreditModel.AddingAmount)
+                            </td>
+                            <td>
+                                @Html.LabelFor(model => editCreditModel.Details)&nbsp;
+                                @Html.EditorFor(model => editCreditModel.Details)
+                            </td>
+                            <td>
+                                <input type="submit" value="@RadiusR.Localization.Pages.Common.Add" class="link-button iconed-button plus-button" />&nbsp;
+                                <input type="button" value="@RadiusR.Localization.Pages.Common.Cancel" class="link-button iconed-button cancel-button" />
+                            </td>
+                        </tr>
+                    </table> 
+                }
+            </div>
+            <div id="subtract-form" class="edit-credit-form-container" style="display: none;">
+                @using (Html.BeginForm("SubtractCredit", null, new { id = Model.ID }))
+                {
+                    @Html.AntiForgeryToken()
+                    <table>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(model => editCreditModel.SubtractingAmount)&nbsp;
+                                @Html.EditorFor(model => editCreditModel.SubtractingAmount)
+                            </td>
+                            <td>
+                                @Html.LabelFor(model => editCreditModel.Details)&nbsp;
+                                @Html.EditorFor(model => editCreditModel.Details)
+                            </td>
+                            <td>
+                                <input type="submit" value="@RadiusR.Localization.Pages.Common.Subtract" class="link-button iconed-button minus-button" />&nbsp;
+                                <input type="button" value="@RadiusR.Localization.Pages.Common.Cancel" class="link-button iconed-button cancel-button" />
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+<div class="centered">
+    @Html.ValidationMessageFor(model => editCreditModel.AddingAmount)
+    @Html.ValidationMessageFor(model => editCreditModel.SubtractingAmount)
+    @Html.ValidationMessageFor(model => editCreditModel.Details)
+</div>
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => cashierCreditSample.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => cashierCreditSample.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => cashierCreditSample.Details)
+        </th>
+    </tr>
+    @foreach (var item in Model.CashierBalances)
+    {
+        <tr>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Details)
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+
+@section PageScripts{
+    <script type="text/javascript">
+        SetupCreditForms('#page-contents');
+    </script>
+}

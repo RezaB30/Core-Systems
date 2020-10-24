@@ -1,0 +1,99 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.SpecialOfferViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.SpecialOffers;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreationTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)/@Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsReferral)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiscountInfo.DiscountType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiscountInfo.ApplicationType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiscountInfo.OnlyFullInvoice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiscountInfo.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiscountInfo.FeeTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiscountInfo.ApplicationTimes)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.CreationTime)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.StartDate)-@Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.IsReferral)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.DiscountInfo.DiscountType)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.DiscountInfo.ApplicationType)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.DiscountInfo.OnlyFullInvoice)
+            </td>
+            <td class="centered">
+                @if (item.DiscountInfo.DiscountType == (short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountType.Static)
+                {
+                    @Html.DisplayFor(modelItem => item.DiscountInfo.Amount)
+                }
+                else if (item.DiscountInfo.DiscountType == (short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountType.Percentage)
+                {
+                    @Html.DisplayFor(modelItem => item.DiscountInfo.PercentageAmount)
+                }
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.DiscountInfo.FeeTypeID)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.DiscountInfo.ApplicationTimes)
+            </td>
+            <td>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "Edit", new { id = item.ID }, new { @class = "link-button iconed-button edit-button" })
+                @using (Html.BeginForm("Remove", null, FormMethod.Post, new { @confirm = "enabled" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("id", item.ID)
+                    <input type="submit" name="" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button delete-button" />
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+
+<div class="centered button-row">
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "Add", null, new { @class = "link-button iconed-button new-button" })
+</div>

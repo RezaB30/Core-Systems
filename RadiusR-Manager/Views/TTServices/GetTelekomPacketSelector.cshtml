@@ -1,0 +1,5 @@
+﻿@using RadiusR.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.TelekomTariffHelperViewModel
+
+@Html.TelekomTariffEditorFor(model => model, (RadiusR.DB.DomainsCache.CachedDomain)ViewBag.CurrentDomain)

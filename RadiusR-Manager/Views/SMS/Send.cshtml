@@ -1,0 +1,46 @@
+﻿@model RadiusR_Manager.Models.ViewModels.GroupSMSViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.SMS + "-" + RadiusR.Localization.Pages.Common.SendSMS;
+    var search = (RadiusR_Manager.Models.ViewModels.CustomerSearchViewModel)ViewBag.SearchModel ?? new RadiusR_Manager.Models.ViewModels.CustomerSearchViewModel();
+}
+
+@Html.Partial("~/Views/Client/_Search.cshtml", search)
+
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <table class="input-table">
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Text)
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.Text, new { @maxlength = 320, @class = "sms-text-editor" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.ValidParameters)
+                </td>
+            </tr>
+            @if (Request.RequestType == "POST")
+            {
+                <tr>
+                    <td colspan="3">
+                        @Html.ValidationMessageFor(model => model.Text)
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="3" class="centered">
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.SendSMS (@RadiusR.Localization.Pages.Common.TotalCount: @ViewBag.SelectedClientsCount)" class="link-button iconed-button send-button" />
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+@section PageScripts{
+    <script type="text/javascript">
+        SetupSMSParameters('#page-contents');
+    </script>
+}

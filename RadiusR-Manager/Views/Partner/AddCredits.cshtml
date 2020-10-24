@@ -1,0 +1,49 @@
+﻿@model RadiusR_Manager.Models.ViewModels.PartnerCreditEditViewModel
+
+@{
+    ViewBag.Title = ViewBag.PartnerName + "-" + ViewBag.PageTitle;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Amount)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @maxlength = 100, @autocomplete = "off" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.Amount)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Details)
+                    </td>
+                    <td>
+                        @Html.TextAreaFor(model => model.Details, new { @maxlength = 5000 })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.Details)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Credits", new { id = Request.RequestContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button back-button" })
+                        &nbsp;
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

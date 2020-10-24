@@ -1,0 +1,34 @@
+﻿@using RadiusR.Helpers
+@using RezaB.Web.Helpers.Telekom
+
+@model RezaB.Web.Helpers.Telekom.Models.TelekomPacket
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.AddClient;
+    var TTAddress = (RadiusR_Manager.Models.RadiusViewModels.AddressViewModel)ViewBag.TTAddress;
+    var packetList = ViewBag.PacketList as IEnumerable<RezaB.Web.Helpers.Telekom.Models.TelekomPacket>;
+}
+
+<div class="centered-form-wrapper">
+    <div id="packet-selection" class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AddressHiddenFor(model => TTAddress)
+            @Html.TelekomPacketSelection(model => model, packetList)
+            <div>
+                <div class="text-danger">
+                    @ViewBag.ErrorMessage
+                </div>
+                <div class="centered">
+                    <input id="accept-button" type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+@section PageScripts{
+    <script type="text/javascript">
+        SetupTelekomPacketSelectors('#packet-selection');
+    </script>
+}

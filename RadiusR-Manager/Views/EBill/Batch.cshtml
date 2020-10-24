@@ -1,0 +1,48 @@
+﻿@model RadiusR_Manager.Models.ViewModels.BatchEBillViewModel
+
+@using RadiusR_Manager.Helpers
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.BatchEBill;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        <div class="warning-message" style="max-width: 36em; margin-bottom: 1em;">@RadiusR.Localization.Pages.Common.ManualEBillWarning</div>
+    </div>
+</div>
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.IssueDate)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.IssueDate)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.FileUpload("BatchFile", ".csv")
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button send-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+        @Html.Partial("_WaitTimer")
+    </div>
+</div>
+
+@section PageScripts{
+    <script type="text/javascript">
+        $('#BatchFile').closest('form').submit(function () {
+            $(this).find('input[type=submit]').hide();
+            StartWaitingCounter('div.waiting-progress');
+        });
+    </script>
+}

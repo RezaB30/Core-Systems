@@ -1,0 +1,97 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.RadiusViewModels.RadiusSettingsViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.RadiusRManager + "-" + RadiusR.Localization.Pages.Common.RadiusSettings;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.AccountingInterimInterval)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.AccountingInterimInterval, new { @htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.AccountingInterimInterval)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.FramedProtocol)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.FramedProtocol)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.FramedProtocol)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.DailyDisconnectionTime)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.DailyDisconnectionTime, new { @htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.DailyDisconnectionTime)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.IncludeICMP)
+            </td>
+            <td>
+                @Html.CheckButton(model => model.IncludeICMP, Html.DisplayNameFor(model => model.IncludeICMP).ToString())
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.IncludeICMP)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.NASListRefreshInterval)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.NASListRefreshInterval, new { @htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.NASListRefreshInterval)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.RadiusSettingsRefreshInterval)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.RadiusSettingsRefreshInterval, new { @htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.RadiusSettingsRefreshInterval)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="centered">
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+            </td>
+        </tr>
+    </table>
+}

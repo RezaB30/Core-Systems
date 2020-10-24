@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="IntRange" xml:space="preserve">
+    <value>{0} kabul edilebilir aralık dışında.</value>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>{0} geçerli bir IP adresi olmalıdır.</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>{0} bir sayı olmalıdır.</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>{0} gerekli.</value>
+  </data>
+  <data name="MaxLength" xml:space="preserve">
+    <value>{0} {1} karakterden fazla olamaz.</value>
+  </data>
+  <data name="RateLimit" xml:space="preserve">
+    <value>{0} değerleri geçerli değil.</value>
+  </data>
+  <data name="ConflictError" xml:space="preserve">
+    <value>Bu isimle başka bir tarife zaten mevcut.</value>
+  </data>
+  <data name="FUPValidation" xml:space="preserve">
+    <value>AKN girdileri yeterli değil. Lütfen bunları düzgün bir şekilde doldurun veya boş bırakın.</value>
+  </data>
+  <data name="PositiveLong" xml:space="preserve">
+    <value>{0} 1-999.999.999.999.999.999 arası bir sayı olmalıdır.</value>
+  </data>
+  <data name="WordAndNumber" xml:space="preserve">
+    <value>{0} Yalnızca harf ve rakam karakterleri olabilir.</value>
+  </data>
+  <data name="ForeignKeyNotFound" xml:space="preserve">
+    <value>Bu {0} mevcut değil.</value>
+  </data>
+  <data name="EmailValidation" xml:space="preserve">
+    <value>E-posta Adresi biçimi geçerli değil.</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>{0} geçerli bir telefon numara değil.</value>
+  </data>
+  <data name="TaxNumber" xml:space="preserve">
+    <value>{0} geçerli bir vergi numarası değil.</value>
+  </data>
+  <data name="PositiveInt" xml:space="preserve">
+    <value>{0} 1-999.999.999 arası bir sayı olmalıdır.</value>
+  </data>
+  <data name="TCK" xml:space="preserve">
+    <value>{0} geçerli kimlik numarası değil.</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>{0}, geçerli bir para birimi değil.</value>
+  </data>
+  <data name="ReactivationDateError" xml:space="preserve">
+    <value>Bir yılda izin verilen maksimum gün sayısı 90'dır.</value>
+  </data>
+  <data name="UsernameExists" xml:space="preserve">
+    <value>Bu kullanıcı adı zaten mevcut.</value>
+  </data>
+  <data name="PortNumber" xml:space="preserve">
+    <value>{0} geçerli bir port numarası değil. [0-65535]</value>
+  </data>
+  <data name="TimeSpan" xml:space="preserve">
+    <value>{0} geçerli bir zaman aralığı değil. [SS: dd: ss]</value>
+  </data>
+  <data name="InvalidIPRange" xml:space="preserve">
+    <value>IP aralığı geçersiz.</value>
+  </data>
+  <data name="UnacceptableIP" xml:space="preserve">
+    <value>Kabul edilemez IP.</value>
+  </data>
+  <data name="ExistingEmail" xml:space="preserve">
+    <value>Bu E-posta zaten mevcut.</value>
+  </data>
+  <data name="NonZero" xml:space="preserve">
+    <value>{0} 0 olamaz.</value>
+  </data>
+  <data name="DoubleIP" xml:space="preserve">
+    <value>Hem paylaşılan hem de statik IP ayarlanamaz, birini seçebilirsiniz.</value>
+  </data>
+  <data name="MinLength" xml:space="preserve">
+    <value>{0} {1} karakterden daha az olamaz.</value>
+  </data>
+  <data name="InvalidPermissionSelection" xml:space="preserve">
+    <value>Geçersiz yetki seçimi.</value>
+  </data>
+  <data name="Percentage" xml:space="preserve">
+    <value>{0} geçerli bir yüzde değil.</value>
+  </data>
+  <data name="ProvinceIDExist" xml:space="preserve">
+    <value>Bu il kodu zaten mevcut.</value>
+  </data>
+  <data name="CityIDExist" xml:space="preserve">
+    <value>Bu ilçe kodu zaten mevcut.</value>
+  </data>
+  <data name="CityIDLength" xml:space="preserve">
+    <value>İlçe kodu 4 haneli bir sayı olmalıdır.</value>
+  </data>
+  <data name="InvalidNetmap" xml:space="preserve">
+    <value>Netmap geçersiz.</value>
+  </data>
+  <data name="IPCapacity" xml:space="preserve">
+    <value>{0} 1 ile 1290 arasında bir sayı olmalıdır.</value>
+  </data>
+  <data name="IPSubnet" xml:space="preserve">
+    <value>{0} geçerli bir IP subnet değil (255.255.255.255/32).</value>
+  </data>
+  <data name="PortCount" xml:space="preserve">
+    <value>{0}, 50 ile 5000 arasında bir sayı olmalıdır.</value>
+  </data>
+  <data name="EBillPrefix" xml:space="preserve">
+    <value>{0} geçerli bir önek değil.</value>
+  </data>
+  <data name="InvalidTelekomPacket" xml:space="preserve">
+    <value>Lütfen geçerli bir paket seçin.</value>
+  </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value>Yanlış giriş.</value>
+  </data>
+  <data name="DiscountExceedsFeeCost" xml:space="preserve">
+    <value>İskonto, ücret tutarından büyük olamaz.</value>
+  </data>
+  <data name="EmailAlreadyAssigned" xml:space="preserve">
+    <value>Bu e-posta zaten başka bir kullanıcıya atanmış.</value>
+  </data>
+  <data name="TCKCheckFailed" xml:space="preserve">
+    <value>TCK geçerli değil.</value>
+  </data>
+  <data name="CountryPhoneCode" xml:space="preserve">
+    <value>{0} geçerli bir telefon kodu değil.</value>
+  </data>
+  <data name="InvalidInternalIDs" xml:space="preserve">
+    <value>Geçersiz çağrı merkezi dahili numaraları.</value>
+  </data>
+  <data name="InternalNoAlreadyAssigned" xml:space="preserve">
+    <value>Bu numara zaten başka bir kullanıcıya atanmış.</value>
+  </data>
+  <data name="DaysOfMonth" xml:space="preserve">
+    <value>{0}, ',' ile ayrılan ayın günleri olmalıdır.</value>
+  </data>
+  <data name="DaysOfWeek" xml:space="preserve">
+    <value>{0}, ',' ile ayrılan haftanın günleri olmalıdır.</value>
+  </data>
+  <data name="TimeOfDay" xml:space="preserve">
+    <value>{0}, 00:00 ile 23:59 arasında olmalıdır.</value>
+  </data>
+  <data name="ServiceTimeTableConflict" xml:space="preserve">
+    <value>Zaman çizelgesinde bir çatışma var.</value>
+  </data>
+  <data name="MaxSmartQuotaPriceError" xml:space="preserve">
+    <value>Maksimum akıllı kota fiyatı, tamal fiyatından daha küçük olamaz.</value>
+  </data>
+  <data name="LatinLetters" xml:space="preserve">
+    <value>{0} yalnızca standart harfleri içerebilir.</value>
+  </data>
+  <data name="Unique" xml:space="preserve">
+    <value>{0} benzersiz olmalıdır.</value>
+  </data>
+  <data name="NoDomainsSelected" xml:space="preserve">
+    <value>Herhangi bir domain olmadan tarife oluşturulamaz.</value>
+  </data>
+  <data name="NoBillingPeriodSelected" xml:space="preserve">
+    <value>Herhangi bir fatura dönem olmadan tarife oluşturulamaz.</value>
+  </data>
+  <data name="TCKValidationStep1" xml:space="preserve">
+    <value>İlk adım TCK doğrulaması başarısız oldu.</value>
+  </data>
+  <data name="TCKValidationStep2" xml:space="preserve">
+    <value>İkinci adım TCK doğrulaması başarısız oldu.</value>
+  </data>
+  <data name="SpeedCodeExists" xml:space="preserve">
+    <value>Bu hız kodu zaten mevcut.</value>
+  </data>
+  <data name="TelekomError" xml:space="preserve">
+    <value>Telekom web servisi arama hatası.</value>
+  </data>
+  <data name="PartnerWorkAreaConflict" xml:space="preserve">
+    <value>Bu çalışma bölgesi zaten eklenmiştir.</value>
+  </data>
+  <data name="DateBinder" xml:space="preserve">
+    <value>{0} doğru bir tarih değil.</value>
+  </data>
+</root>

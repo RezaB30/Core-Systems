@@ -1,0 +1,54 @@
+﻿@model RadiusR_Manager.Models.ViewModels.ReceiptViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Receipt;
+    Layout = "~/Views/Shared/_PrintLayout.cshtml";
+}
+
+<div class="receipt-wrapper">
+    <div class="receipt-container">
+        <div class="receipt-logo">
+            <img src="@Url.Content("~/Content/Images/Logo/logo.svg")" alt="@RadiusR.Localization.Pages.Common.Logo" />
+        </div>
+        <div class="receipt-row">
+            @RadiusR.Localization.Pages.Common.PaymentReceipt
+        </div>
+        <div class="receipt-row">
+            @Html.DisplayFor(model => model.ClientName)
+        </div>
+        <div class="receipt-row" style="text-align: left;">
+            @Html.DisplayNameFor(model => model.Total)
+            <div style="text-align: right;">
+                @Html.DisplayFor(model => model.Total)
+            </div>
+        </div>
+        <div class="receipt-row">
+            <div>
+                @Html.DisplayNameFor(model => model.IssueDates)
+            </div>
+            @foreach (var item in Model.IssueDates)
+            {
+                <div>
+                    @Html.DisplayFor(modelItem => item)
+                </div>
+            }
+        </div>
+        <div class="receipt-row">
+            <div>
+                @Html.DisplayNameFor(model => model.Date)
+            </div>
+            <div>
+                @Html.DisplayFor(model => model.Date)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="non-printable centered">
+    <a href="@Model.RedirectUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+</div>
+
+@section PageScripts{
+    <script type="text/javascript">
+        window.print();
+    </script>
+}

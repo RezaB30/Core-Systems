@@ -1,0 +1,920 @@
+﻿@using RezaB.Web.Authentication
+@using RadiusR_Manager.Helpers
+@using RadiusR.DB.Enums
+
+@model RadiusR_Manager.Models.ViewModels.Customer.CustomerDetailsViewModel
+
+<table class="details-table last-cell-right-aligned">
+    <tr>
+        <td colspan="3" class="section-head">
+            @Html.DisplayNameFor(model => model.GeneralInfo)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.GeneralInfo.CustomerType)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.GeneralInfo.CustomerType)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.GeneralInfo.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.GeneralInfo.Email)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.GeneralInfo.Culture)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.GeneralInfo.Culture)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.GeneralInfo.ContactPhoneNo)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.GeneralInfo.ContactPhoneNo)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.GeneralInfo.OtherPhoneNos)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.GeneralInfo.OtherPhoneNos)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.GeneralInfo.BillingAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.GeneralInfo.BillingAddress)
+        </td>
+        <td></td>
+    </tr>
+    @if (User.HasPermission("Modify Clients"))
+    {
+        <tr>
+            <td colspan="3" style="text-align: right;">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "EditCustomerGeneralInfo", new { id = Model.ID, subId = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button edit-button" })
+            </td>
+        </tr>
+    }
+    <tr>
+        <td colspan="3" class="section-head">
+            @Html.DisplayNameFor(model => model.IDCard)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.IDCard.CardType)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IDCard.CardType)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.IDCard.PassportNo)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IDCard.PassportNo)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.IDCard.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IDCard.FirstName)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.IDCard.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IDCard.LastName)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.IDCard.TCKNo)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IDCard.TCKNo)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.IDCard.VolumeNo)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IDCard.VolumeNo)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.IDCard.RowNo)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IDCard.RowNo)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.IDCard.PageNo)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IDCard.PageNo)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.IDCard.Province)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IDCard.Province)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.IDCard.District)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IDCard.District)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.IDCard.Neighbourhood)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IDCard.Neighbourhood)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.IDCard.SerialNo)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IDCard.SerialNo)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.IDCard.PlaceOfIssue)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IDCard.PlaceOfIssue)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.IDCard.DateOfIssue)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IDCard.DateOfIssue)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.IDCard.BirthDate)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IDCard.BirthDate)
+        </td>
+        <td></td>
+    </tr>
+    @if (User.HasPermission("Edit ID Card"))
+    {
+        <tr>
+            <td colspan="3" style="text-align: right;">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "EditCustomerIDCard", new { id = Model.ID, subId = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button edit-button" })
+            </td>
+        </tr>
+    }
+    @if (Model.IndividualInfo != null)
+    {
+        <tr>
+            <td colspan="3" class="section-head">
+                @Html.DisplayNameFor(model => model.IndividualInfo)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.IndividualInfo.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.IndividualInfo.FirstName)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.IndividualInfo.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.IndividualInfo.LastName)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.IndividualInfo.Sex)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.IndividualInfo.Sex)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.IndividualInfo.Nationality)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.IndividualInfo.Nationality)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.IndividualInfo.FathersName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.IndividualInfo.FathersName)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.IndividualInfo.MothersName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.IndividualInfo.MothersName)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.IndividualInfo.MothersMaidenName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.IndividualInfo.MothersMaidenName)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.IndividualInfo.BirthPlace)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.IndividualInfo.BirthPlace)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.IndividualInfo.Profession)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.IndividualInfo.Profession)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.IndividualInfo.ResidencyAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.IndividualInfo.ResidencyAddress)
+            </td>
+            <td></td>
+        </tr>
+        if (User.HasPermission("Modify Clients"))
+        {
+            <tr>
+                <td colspan="3" style="text-align: right;">
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "EditCustomerIndividualInfo", new { id = Model.ID, subId = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button edit-button" })
+                </td>
+            </tr>
+        }
+    }
+    @if (Model.CorporateInfo != null)
+    {
+        <tr>
+            <td colspan="3" class="section-head">
+                @Html.DisplayNameFor(model => model.CorporateInfo)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CorporateInfo.ExecutiveFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CorporateInfo.ExecutiveFirstName)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CorporateInfo.ExecutiveLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CorporateInfo.ExecutiveLastName)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CorporateInfo.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CorporateInfo.Title)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CorporateInfo.TaxNo)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CorporateInfo.TaxNo)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CorporateInfo.TaxOffice)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CorporateInfo.TaxOffice)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CorporateInfo.CentralSystemNo)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CorporateInfo.CentralSystemNo)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CorporateInfo.TradeRegistrationNo)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CorporateInfo.TradeRegistrationNo)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CorporateInfo.ExecutiveFathersName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CorporateInfo.ExecutiveFathersName)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CorporateInfo.ExecutiveMothersName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CorporateInfo.ExecutiveMothersName)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CorporateInfo.ExecutiveMothersMaidenName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CorporateInfo.ExecutiveMothersMaidenName)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CorporateInfo.ExecutiveSex)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CorporateInfo.ExecutiveSex)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CorporateInfo.ExecutiveNationality)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CorporateInfo.ExecutiveNationality)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CorporateInfo.ExecutiveBirthPlace)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CorporateInfo.ExecutiveBirthPlace)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CorporateInfo.ExecutiveProfession)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CorporateInfo.ExecutiveProfession)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CorporateInfo.ExecutiveResidencyAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CorporateInfo.ExecutiveResidencyAddress)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CorporateInfo.CompanyAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CorporateInfo.CompanyAddress)
+            </td>
+            <td></td>
+        </tr>
+        if (User.HasPermission("Modify Clients"))
+        {
+            <tr>
+                <td colspan="3" style="text-align: right;">
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "EditCustomerCorporateInfo", new { id = Model.ID, subId = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button edit-button" })
+                </td>
+            </tr>
+        }
+    }
+    <tr>
+        <td colspan="3" class="section-head">
+            @Html.DisplayNameFor(model => model.SubscriptionInfo)
+        </td>
+    </tr>
+    @if (Model.RelatedSubscriptions.Count() > 0 || User.HasPermission("Modify Clients"))
+    {
+        <tr>
+            <td colspan="2" class="centered">
+                @if (Model.RelatedSubscriptions.Count() > 0)
+                {
+                    @Html.RelatedSubscriptionsDisplay(model => model.RelatedSubscriptions)
+                }
+            </td>
+            <td>
+                @if (User.HasPermission("Modify Clients"))
+                {
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.AddSubscription, "AddSubscription", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button new-button" })
+                }
+            </td>
+        </tr>
+    }
+    <tr style="background-color: #e1f0b6;">
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.ArchiveNo)
+        </td>
+        <td>
+            <table style="width: 100%;">
+                <tr style="background-color: transparent;">
+                    <td>
+                        @Html.DisplayFor(model => model.SubscriptionInfo.ArchiveNo)
+                    </td>
+                    <td style="text-align: right;">
+                        @Html.DisplayNameFor(model => model.SubscriptionInfo.IsScanned)
+                        &nbsp;
+                        @Html.DisplayFor(model => model.SubscriptionInfo.IsScanned)
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            @if (User.HasPermission("Modify Clients"))
+            {
+                using (Html.BeginForm("ToggleArchiveScan", null, new { id = Model.ID }, FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block; vertical-align: middle;" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.ChangeNow" class="link-button iconed-button reload-button" />
+                }
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.SubscriberNo)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.SubscriberNo)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.ReferenceNo)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.ReferenceNo)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.Username)
+            @Html.HiddenFor(model => model.SubscriptionInfo.Username, new { id = "client-username" })
+        </td>
+        <td>
+            @if (User.HasPermission("Change Username"))
+            {
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "ChangeUsername", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button edit-button" })
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.Password)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.OnlinePassword)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.OnlinePassword)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.State)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.State)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.InstallationAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.InstallationAddress)
+        </td>
+        <td>
+            @if (User.HasPermission("Modify Clients"))
+            {
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "TransportActions", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button edit-button" })
+            }
+        </td>
+    </tr>
+    @if (Model.SubscriptionInfo.Commitment != null)
+    {
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.SubscriptionInfo.Commitment.CommitmentLength)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SubscriptionInfo.Commitment.CommitmentLength)
+            </td>
+            <td>
+                @if (User.HasPermission("Commitment"))
+                {
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "Commitment", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button edit-button" })
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.SubscriptionInfo.Commitment.CommitmentExpirationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SubscriptionInfo.Commitment.CommitmentExpirationDate)
+            </td>
+            <td></td>
+        </tr>
+    }
+    else
+    {
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.SubscriptionInfo.Commitment)
+            </td>
+            <td>
+                @RadiusR.Localization.Pages.Common.NoCommitment
+            </td>
+            <td>
+                @if (User.HasPermission("Commitment"))
+                {
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "Commitment", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button new-button" })
+                }
+            </td>
+        </tr>
+    }
+    <tr>
+        <td colspan="3" class="section-head">
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo.DomainName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.DomainName)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo.TariffName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.TariffName)
+        </td>
+        <td>
+            @if (User.HasPermission("Change Client Service"))
+            {
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.ChangeService, "ChangeService", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button edit-button right-aligned" })
+            }
+        </td>
+    </tr>
+    @if (Model.SubscriptionInfo.TariffInfo.TariffChange != null)
+    {
+        <tr style="border-color: red; border-style: solid; border-width: 1px 0 0 0;background-color: #ffe8e8;">
+            <td>
+                @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo.TariffChange.NewScheduledTariffName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.TariffChange.NewScheduledTariffName)
+            </td>
+            <td>
+                @if (User.HasPermission("Change Client Service"))
+                {
+                    using (Html.BeginForm("CancelChangeService", null, new { id = Model.SubscriptionInfo.ArchiveNo },FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Cancel" class="link-button iconed-button cancel-button right-aligned" />
+                    }
+                }
+            </td>
+        </tr>
+        <tr style="border-color: red; border-style: solid; border-width: 0 0 1px 0;background-color: #ffe8e8;">
+            <td>
+                @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo.TariffChange.NewScheduledTariffActivationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.TariffChange.NewScheduledTariffActivationDate)
+            </td>
+            <td></td>
+        </tr>
+    }
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo.RegistrationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.RegistrationDate)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo.ActivationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.ActivationDate)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo.ExpirationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.ExpirationDate)
+        </td>
+        <td>
+            @if (User.HasPermission("Modify Expiration Date") && Model.SubscriptionInfo.TariffInfo.ExpirationDate.HasValue && Model.SubscriptionInfo.State == (short)CustomerState.Active)
+            {
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.ManualEdit, "ExtendExpirationDate", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button edit-button" })
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo.CancellationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.CancellationDate)
+        </td>
+        <td></td>
+    </tr>  
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo.DaysRemaining)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.DaysRemaining)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo.StaticIP)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.StaticIP)
+        </td>
+        <td>
+            @if (User.HasPermission("Change Static IP"))
+            {
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "ChangeStaticIP", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button edit-button" })
+            }
+        </td>
+    </tr>
+    @if (Model.SubscriptionInfo.TariffInfo.HasBilling)
+    {
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo.BillingPeriod)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.BillingPeriod)
+            </td>
+            <td></td>
+        </tr>
+        if (Model.SubscriptionInfo.TariffInfo.CurrentBillingPeriodStartDate.HasValue)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo.CurrentBillingPeriodStartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.CurrentBillingPeriodStartDate)
+                    -
+                    @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.CurrentBillingPeriodEndDate)
+                </td>
+                <td></td>
+            </tr>
+        }
+    }
+    <tr>
+        <td colspan="3" class="section-head">
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.Groups)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.Groups)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.Groups)
+        </td>
+        <td>
+            @if (User.HasPermission("Modify Clients"))
+            {
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "EditGroups", new { id = Model.SubscriptionInfo.ArchiveNo}, new { @class = "link-button iconed-button edit-button" })
+            }
+        </td>
+    </tr>
+    @if (Model.SubscriptionInfo.TelekomInfo != null)
+    {
+        <tr>
+            <td colspan="3" class="section-head">
+                @Html.DisplayNameFor(model => model.SubscriptionInfo.TelekomInfo)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.SubscriptionInfo.TelekomInfo.SubscriberNo)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SubscriptionInfo.TelekomInfo.SubscriberNo)
+            </td>
+            <td>
+                @if (User.HasPermission("Change DSL No"))
+                {
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "ChangeDSLNo", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button edit-button" })
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.SubscriptionInfo.TelekomInfo.CustomerCode)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SubscriptionInfo.TelekomInfo.CustomerCode)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.SubscriptionInfo.TelekomInfo.PSTN)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SubscriptionInfo.TelekomInfo.PSTN)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.SubscriptionInfo.TelekomInfo.RedbackName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SubscriptionInfo.TelekomInfo.RedbackName)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.SubscriptionInfo.TelekomInfo.TariffName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SubscriptionInfo.TelekomInfo.TariffName)
+            </td>
+            <td></td>
+        </tr>
+        if (User.HasPermission("Modify Clients"))
+        {
+            <tr>
+                <td colspan="3" style="text-align: right;">
+                    @using (Html.BeginForm("SyncronizeTelekomInfo", "Client", new { id = Model.SubscriptionInfo.ArchiveNo }, FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block; margin-bottom: 0.5em;" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Synchronize" class="link-button iconed-button reload-button" />
+                    }
+                </td>
+            </tr>
+        }
+    }
+</table>
+<div class="centered" style="margin: 0.5em;">
+    @*TRANSFER*@
+    @*@if (!string.IsNullOrWhiteSpace(Model.TelekomSubscriberNo))
+        {
+            if (User.HasPermission("Telekom Services") && Model.State == (short)CustomerState.Active)
+            {
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Transfer, "InfrastructureCheckByBBK", "TTServices", new { id = Model.ID }, new { @class = "link-button iconed-button next-button" })
+            }
+        }
+        else
+        {
+            // if want to add simple transfer
+        }*@
+
+    @if (User.HasPermission("SMS"))
+    {
+        <div style="margin-top: 0.5em;">
+            @using (Html.BeginForm("SendCredentials", "Client", new { id = Model.SubscriptionInfo.ArchiveNo }, FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block; margin-bottom: 0.5em;" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.SendCredentials" class="link-button iconed-button send-button" />
+            }
+        </div>
+    }
+</div>
+

@@ -1,0 +1,88 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.RadiusViewModels.AppUserViewModel
+
+@{
+    var name = (Model as RadiusR_Manager.Models.RadiusViewModels.AppUserViewModel).Name;
+    ViewBag.Title = RadiusR.Localization.Pages.Common.UserManagement + "-" + name;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Name)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @maxlength = 500, @autocomplete = "off" } })
+            </td>
+            <td>
+                @Html.LabelFor(model => model.Email)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.Name)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.Email)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.TCKNo)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.TCKNo, new { @htmlAttributes = new { @maxlength = 11, @autocomplete = "off" } })
+            </td>
+            <td>
+                @Html.LabelFor(model => model.Phone)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.TCKNo)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.Phone)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.RoleID)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.RoleID)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.InternalCallCenterNo)
+            </td>
+            <td>
+                @Html.Select(model => model.InternalCallCenterNo, (SelectList)ViewBag.InternalNos, RadiusR.Localization.Pages.Common.Choose)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.RoleID)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.InternalCallCenterNo)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" class="centered">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", routeValues: null, htmlAttributes: new { @class = "link-button iconed-button back-button" })
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.ResetPassword, "ChangePassword", new { id = Model.ID }, new { @class = "link-button iconed-button reload-button" })
+            </td>
+        </tr>
+    </table>
+}

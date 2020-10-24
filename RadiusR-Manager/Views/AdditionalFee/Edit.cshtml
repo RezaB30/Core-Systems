@@ -1,0 +1,39 @@
+﻿@model RadiusR_Manager.Models.RadiusViewModels.AdditionalFeeViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.AdditionalFees + " - " + RadiusR.Localization.Pages.Common.Edit;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.FeeTypeID)
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.FeeTypeID)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.FeeTypeID)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Price)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.Price)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="centered">
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+            </td>
+        </tr>
+    </table>
+}

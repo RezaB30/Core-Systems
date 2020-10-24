@@ -1,0 +1,293 @@
+﻿@using RezaB.Web.Authentication
+@using RezaB.Web.Helpers
+@using RadiusR.DB.Enums
+
+@model RadiusR_Manager.Models.ViewModels.Customer.CustomerDetailsViewModel
+
+@{
+    ViewBag.Title = Model.DisplayName + "-" + RadiusR.Localization.Pages.Common.Details;
+}
+
+@section PageScripts{
+    <script type="text/javascript">
+        SetupAccardeon('#page-contents');
+
+        var page0Loader = new AjaxLoader('#subscription-fees-container');
+        page0Loader.Load('@Url.Action("SubscriptionFees", new { subscriptionId = Model.SubscriptionInfo.ArchiveNo })');
+        var page10Loader = new AjaxLoader('#subscription-recurring-discounts');
+        page10Loader.Load('@Url.Action("RecurringDiscounts", new { id = Model.SubscriptionInfo.ArchiveNo })');
+        var page1Loader = new AjaxLoader('.graph-container');
+        page1Loader.Load('@Url.Action("TrafficUsage", new { ClientID = Model.SubscriptionInfo.ArchiveNo })');
+        var page2Loader = new AjaxLoader('.user-usage-container');
+        page2Loader.Load('@Url.Action("UsageDetails", new { id = Model.SubscriptionInfo.ArchiveNo })');
+        var page3Loader = new AjaxLoader('.payment-page-container');
+        page3Loader.Load('@Url.Action("ClientBills", "Bill", new { id = Model.SubscriptionInfo.ArchiveNo })');
+        var page4Loader = new AjaxLoader('#client-assigned-tasks-container');
+        page4Loader.Load('@Url.Action("WorkOrders", "Client", new { id = Model.SubscriptionInfo.ArchiveNo })');
+        var page8Loader = new AjaxLoader('#client-support-requests-container');
+        page8Loader.Load('@Url.Action("SubscriberSupportRequests", "Client", new { id = Model.SubscriptionInfo.ArchiveNo })');
+        var page5Loader = new AjaxLoader('.connection-history-container');
+        page5Loader.Load('@Url.Action("ConnectionHistory", new { id= Model.SubscriptionInfo.ArchiveNo })');
+        var page6Loader = new AjaxLoader('#client-sms-container');
+        page6Loader.Load('@Url.Action("ClientSMS", "SMS", new { id= Model.SubscriptionInfo.ArchiveNo })');
+        var page7Loader = new AjaxLoader('#client-notes-container', true);
+        page7Loader.Load('@Url.Action("Notes","Client", new { id = Model.SubscriptionInfo.ArchiveNo })');
+
+    </script>
+    @if (User.HasPermission("System Logs"))
+    {
+        <script>
+            var page9Loader = new AjaxLoader('#client-logs-container', false);
+            page9Loader.Load('@Url.Action("SystemLogs","Client", new { id = Model.SubscriptionInfo.ArchiveNo })');
+        </script>
+    }
+    @if (User.HasPermission("Telekom Work Orders"))
+    {
+        <script>
+            var page10Loader = new AjaxLoader("#client-telekom-work-orders");
+            page10Loader.Load('@Url.Action("Index", "TelekomWorkOrder", new { subscriberId = Model.SubscriptionInfo.ArchiveNo })');
+        </script>
+    }
+
+    <script type="text/javascript">
+        LoadClientConnectionStatus(".ajax-username", '.client-details-box', '@Url.Action("GetOnlineUsers")',
+                    '@RadiusR.Localization.Pages.Common.Online', '@RadiusR.Localization.Pages.Common.Offline', '@RadiusR.Localization.Pages.Common.LoadingError', '@RadiusR.Localization.Pages.Common.NASAlert');
+    </script>
+    @if (Model.SubscriptionInfo.TelekomInfo != null)
+    {
+        <script type="text/javascript">
+            var triggerButton = $('#load-line-quality-button');
+            var container = $('#line-quality-results-container');
+            var lineQualityLoader = new AjaxLoader('#line-quality-results-container', false);
+            lineQualityLoader.SetCallback(function () {
+                triggerButton.fadeIn(200);
+
+                $('form.change-speed-profile-form').submit(function () {
+                    $(this).find('input[type=submit]').remove();
+                    $(this).parent().children().hide();
+                    $(this).parent().find('.tt-packet-selection-loading').fadeIn();
+                });
+            });
+            triggerButton.click(function () {
+                container.show();
+                triggerButton.hide();
+                lineQualityLoader.Load('@Url.Action("LineQualityCheck", "TTServices")', { id: '@Model.SubscriptionInfo.ArchiveNo' }, 'POST');
+            });
+        </script>
+    }
+    @if (User.HasPermission("General Fault Query") && Model.SubscriptionInfo.TelekomInfo != null)
+    {
+        <script type="text/javascript">
+            var generalFaultLoader = new AjaxLoader('#client-general-faults-container');
+            generalFaultLoader.Load('@Url.Action("GeneralFaults", "TTServices")', { id : @Model.SubscriptionInfo.ArchiveNo}, 'POST');
+        </script>
+    }
+
+    <script type="text/javascript">
+        SetupRelatedSubscriptionsList('#page-contents');
+    </script>
+}
+<div class="accardeon-title-layer">
+    <div class="accardeon-title-button selected" id="main">
+        @RadiusR.Localization.Pages.Common.Details
+    </div>
+    <div class="accardeon-title-button" id="additional-fees">
+        @RadiusR.Localization.Pages.Common.AdditionalOperations
+    </div>
+    <div class="accardeon-title-button" id="usage">
+        @RadiusR.Localization.Pages.Common.Usage
+    </div>
+    <div class="accardeon-title-button" id="bills">
+        @RadiusR.Localization.Pages.Common.Bills
+    </div>
+    <div class="accardeon-title-button" id="faults">
+        @RadiusR.Localization.Pages.Common.WorkOrders
+    </div>
+    <div class="accardeon-title-button" id="sms">
+        @RadiusR.Localization.Pages.Common.SMS
+    </div>
+    <div class="accardeon-title-button" id="notes">
+        @RadiusR.Localization.Pages.Common.Notes
+    </div>
+    @if (User.HasPermission("System Logs"))
+    {
+        <div class="accardeon-title-button" id="logs">
+            @RadiusR.Localization.Pages.Common.SystemLogs
+        </div>
+    }
+</div>
+
+<div class="accardeon-page">
+    <div class="accardeon-page-title">@Html.DisplayFor(model => model.DisplayName)</div>
+    <table class="client-details-table">
+        <tr>
+            <td class="details-table-cell">
+                @Html.PartialFor(model => model, "DetailsTabs/CustomerDetails")
+            </td>
+            <td class="details-table-cell">
+                <div class="client-details-box-container">
+                    <div class="client-details-box">
+                        <div class="detail-box-title">
+                            @Html.DisplayNameFor(model => model.SubscriptionInfo.State)
+                        </div>
+                        <div class="detail-box-text">
+                            @Html.DisplayFor(model => model.SubscriptionInfo.State)
+                        </div>
+                    </div>
+                    <div class="client-details-box">
+                        @Html.HiddenFor(model => model.SubscriptionInfo.Username, new { @class = "ajax-username" })
+                        <div class="detail-box-title">
+                            @RadiusR.Localization.Pages.Common.Connection
+                        </div>
+                        <div id="client-connection-status" class="detail-box-text online-status-container" style="position: relative;">
+                            <div class="online-status-loading"></div>
+                        </div>
+                    </div>
+                    <div class="client-details-box">
+                        <div class="detail-box-title">
+                            @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo.DaysRemaining)
+                        </div>
+                        <div class="detail-box-text">
+                            @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.DaysRemaining)
+                        </div>
+                    </div>
+                    @if (Model.SubscriptionInfo.TariffInfo.RemainingQuota.HasValue)
+                    {
+                        <a href="@Url.Action("QuotaDetails", new { id = Model.SubscriptionInfo.ArchiveNo })">
+                            <div class="client-details-box">
+                                <div class="detail-box-title">
+                                    @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo.RemainingQuota)
+                                </div>
+                                <div class="detail-box-text">
+                                    @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.RemainingQuota)
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+                @if (Model.SubscriptionInfo.TariffInfo.DaysRemaining == "-")
+                {
+                    <div class="client-cancellation-container">
+                        <div>
+                            <span class="reason-title">@RadiusR.Localization.Pages.Common.Passive</span>
+                        </div>
+                    </div>
+                }
+                @if (Model.SubscriptionInfo.CancellationInfo != null && Model.SubscriptionInfo.State == (short)CustomerState.Cancelled)
+                {
+                    <div class="client-cancellation-container">
+                        <div class="title">
+                            @Html.DisplayNameFor(model => model.SubscriptionInfo.CancellationInfo)
+                        </div>
+                        <div>
+                            <span class="reason-title">@Html.DisplayFor(model => model.SubscriptionInfo.CancellationInfo.ReasonID):&nbsp;</span>
+                            <span class="reason-description">@Html.DisplayFor(model => model.SubscriptionInfo.CancellationInfo.ReasonText)</span>
+                        </div>
+                    </div>
+                }
+                @if (Model.SubscriptionInfo.TariffInfo.ReactivationDate.HasValue)
+                {
+                    <div class="client-cancellation-container">
+                        <div>
+                            <span class="reason-title">@Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo.ReactivationDate):&nbsp;</span>
+                            <span class="reason-description">@Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.ReactivationDate)</span>
+                        </div>
+                    </div>
+                }
+                @if (Model.SubscriptionInfo.TelekomInfo != null)
+                {
+                    if (User.HasPermission("General Fault Query") && Model.SubscriptionInfo.State == (short)CustomerState.Active)
+                    {
+                        <div id="client-general-faults-container"></div>
+                    }
+                    if (User.HasPermission("Line Quality Service"))
+                    {
+                        <div class="line-quality-button-container">
+                            <input id="load-line-quality-button" value="@RadiusR.Localization.Pages.Common.LineQualityCheck" type="button" class="link-button iconed-button reload-button" />
+                        </div>
+                        <div id="line-quality-results-container" style="display: none;"></div>
+                    }
+                }
+                <div class="connection-history-container"></div>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+<div class="accardeon-page" style="display: none;">
+    <div class="accardeon-page-title">@Html.DisplayFor(model => model.DisplayName)</div>
+    <div id="subscription-fees-container"></div>
+    <div id="subscription-recurring-discounts"></div>
+</div>
+
+<div class="accardeon-page" style="display: none;">
+    <div class="accardeon-page-title">@Html.DisplayFor(model => model.DisplayName)</div>
+    <div style="text-align: center;">
+        <div style="display: inline-block;">
+            <div class="graph-container graph-item-container"></div>
+        </div>
+    </div>
+    <div class="user-usage-container"></div>
+</div>
+
+<div class="accardeon-page" style="display: none;">
+    <div class="accardeon-page-title">@Html.DisplayFor(model => model.DisplayName)</div>
+    @if (!string.IsNullOrEmpty(Model.SubscriptionInfo.TariffInfo.RecurringPaymentType))
+    {
+        <div class="centered" style="margin: 1em;">
+            <div class="warning-message" style="display: inline-block;">@RadiusR.Localization.Pages.Common.RecurringClientInfo @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.RecurringPaymentType)</div>
+        </div>
+    }
+    <div class="payment-page-container">
+
+    </div>
+    @if (User.HasPermission("Manage Credit"))
+    {
+        <div class="centered" style="margin: 1em 0;">
+            @Html.ActionLink(RadiusR.Localization.Pages.Common.Credit, "Credit", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @target = "_blank", @class = "link-button iconed-button credit-button" })
+        </div>
+    }
+    @if (User.HasPermission("Quota Sale") && Model.SubscriptionInfo.TariffInfo.CanHaveQuotaSale)
+    {
+        <div class="centered" style="margin: 1em 0;">
+            @Html.ActionLink(RadiusR.Localization.Pages.Common.SellQuota, "AddQuota", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button speed-button" })
+        </div>
+    }
+</div>
+
+<div class="accardeon-page" style="display: none;">
+    <div class="accardeon-page-title">@Html.DisplayFor(model => model.DisplayName)</div>
+    @Html.PartialFor(model => model, "DetailsTabs/Faults")
+</div>
+
+<div class="accardeon-page" style="display: none;">
+    <div class="accardeon-page-title">@Html.DisplayFor(model => model.DisplayName)</div>
+    <div id="client-sms-container">
+
+    </div>
+</div>
+
+<div class="accardeon-page" style="display: none;">
+    <div class="accardeon-page-title">@Html.DisplayFor(model => model.DisplayName)</div>
+    <div id="client-notes-container">
+
+    </div>
+    @if (User.HasPermission("Client Files"))
+    {
+    <div class="centered" style="margin-top: 1em;">
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.AttachedFiles, "Files", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button browse-button" })
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.DownloadContract, "DownloadContract", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button download-button" })
+    </div>
+    }
+</div>
+
+@if (User.HasPermission("System Logs"))
+{
+    <div class="accardeon-page" style="display: none;">
+        <div class="accardeon-page-title">@Html.DisplayFor(model => model.DisplayName)</div>
+        <div id="client-logs-container">
+
+        </div>
+    </div>
+}

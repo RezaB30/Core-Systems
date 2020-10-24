@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.EBillCancellation;
+    var errorList = ViewBag.ErrorList as IEnumerable<RezaB.NetInvoice.RadiusRDBAdapter.CancellationResult>;
+}
+
+<div class="centered" style="margin: 1em;">
+    <div class="warning-message" style="display: inline-block;">
+        @RadiusR.Localization.Pages.Common.EBillCancellationError
+    </div>
+</div>
+
+<table class="data-table">
+    @foreach (var item in errorList)
+    {
+        <tr>
+            <td>
+                @item.ResultType
+            </td>
+            <td>
+                @item.ErrorDescription
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="centered button-row">
+    <a href="@Html.Raw(ViewBag.RedirectUrl)" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+</div>

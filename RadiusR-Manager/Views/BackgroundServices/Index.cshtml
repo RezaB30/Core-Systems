@@ -1,0 +1,61 @@
+﻿@model IEnumerable<RadiusR_Manager.Models.ViewModels.BackgroundServiceViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.BackgroundServices;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DisplayName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.State)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DisplayName)
+            </td>
+            <td>
+                <div class="background-service-state state-@item.State"></div>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("Name", item.Name)
+                    @Html.Hidden("newState")
+                    if (item.State == (short)RadiusR_Manager.Models.ViewModels.BackgroundServiceViewModel.ServiceState.Running)
+                    {
+                        <input type="button" value="@RadiusR.Localization.Pages.Common.Stop" class="link-button iconed-button cancel-button" />
+                    }
+                    <input type="button" value="@RadiusR.Localization.Pages.Common.Restart" class="link-button iconed-button reload-button" />
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+@section PageScripts{
+    <script type="text/javascript">
+        $('table.data-table input.cancel-button').click(function () {
+            var parentForm = $(this).closest('form');
+            var newStateInput = parentForm.find('input[name=newState]');
+            newStateInput.val('@((short)RadiusR_Manager.Models.ViewModels.BackgroundServiceViewModel.ServiceState.Stopped)');
+            parentForm.hide();
+            parentForm.submit();
+        });
+        $('table.data-table input.reload-button').click(function () {
+            var parentForm = $(this).closest('form');
+            var newStateInput = parentForm.find('input[name=newState]');
+            newStateInput.val('@((short)RadiusR_Manager.Models.ViewModels.BackgroundServiceViewModel.ServiceState.Running)');
+            parentForm.hide();
+            parentForm.submit();
+        });
+    </script>
+}

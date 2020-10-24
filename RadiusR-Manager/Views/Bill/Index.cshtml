@@ -1,0 +1,220 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Helpers
+@using RezaB.Web.Authentication
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.BillViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.BillingProcess + "-" + RadiusR.Localization.Pages.Common.Bills;
+    var search = (RadiusR_Manager.Models.ViewModels.BillSearchViewModel)ViewBag.Search;
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Get))
+{
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.CustomerName)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.CustomerName, new { htmlAttributes = new { @maxlength = 300, @autocomplete = "off" } })
+            </td>
+            <td>
+                @Html.LabelFor(model => search.AccountantID)
+            </td>
+            <td>
+                @Html.Select(model => search.AccountantID, (SelectList)ViewBag.Accountants, RadiusR.Localization.Pages.Common.Choose)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.IssueDateStart)
+            </td>
+            <td colspan="3">
+                @Html.EditorFor(model => search.IssueDateStart)
+                -
+                @Html.EditorFor(model => search.IssueDateEnd)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.DueDateStart)
+            </td>
+            <td colspan="3">
+                @Html.EditorFor(model => search.DueDateStart)
+                -
+                @Html.EditorFor(model => search.DueDateEnd)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.PaymentDateStart)
+            </td>
+            <td colspan="3">
+                @Html.EditorFor(model => search.PaymentDateStart)
+                -
+                @Html.EditorFor(model => search.PaymentDateEnd)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.State)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.State)
+            </td>
+            <td>
+                @Html.LabelFor(model => search.PaymentTypeID)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.PaymentTypeID)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.PaymentGateway)
+            </td>
+            <td>
+                @Html.Select(model => search.PaymentGateway, (SelectList)ViewBag.PaymentGateways, RadiusR.Localization.Pages.Common.Choose)
+            </td>
+            <td>
+                @Html.LabelFor(model => search.BillingPeriod)
+            </td>
+            <td>
+                @Html.Select(model => search.BillingPeriod, HelperUtilities.CreateNumericSelectList(1, 29, search.BillingPeriod), RadiusR.Localization.Pages.Common.Choose)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.EBillCode)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.EBillCode, new { htmlAttributes = new { @maxlength = 30, @autocomplete = "off" } })
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td class="centered" colspan="4">
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+            </td>
+        </tr>
+    </table>
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Subscription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Accountant)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IssueDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DueDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PayDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StateID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentTypeDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Source)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalPayableAmount)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        var isCancelled = item.StateID == (short)RadiusR.DB.Enums.BillState.Cancelled ? "highlighted-row" : string.Empty;
+
+        <tr class="@isCancelled">
+            <td>
+                @if (User.HasPermission("Clients"))
+                {
+                    <a href="@Url.Action("Details", "Client", new { id = item.SubscriptionID })" class="details-link">
+                        @Html.DisplayFor(modelItem => item.Subscription.Name)
+                    </a>
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.Subscription.Name)
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Accountant.Name)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.IssueDate)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.PayDate)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.StateID)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.PaymentTypeDescription)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Source)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.TotalPayableAmount)
+            </td>
+            <td>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", new { id = item.ID, redirectUrl = Request.Url.AbsoluteUri }, new { @class = "link-button iconed-button details-button" })
+                @if (item.EBillIsSent)
+                {
+                    <div class="ebill-info-tag" title="@RadiusR.Localization.Model.RadiusR.EBillIsSent"></div>
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+<div style="text-align: right; padding: 0.3em;">
+    <div style="float: left;">
+        @if (User.HasPermission("Batch EBill"))
+        {
+            <form action="@Url.Action("EBillCSV")@Request.Url.Query" method="post" style="display: inline-block;">
+                @Html.AntiForgeryToken()
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.GetPrintableDoc" class="link-button iconed-button download-button" />
+            </form>
+        }
+        @if (User.HasPermission("Download Bills Tax Details"))
+        {
+            <form action="@Url.Action("BillTaxCSV")@Request.Url.Query" method="post" style="display: inline-block;">
+                @Html.AntiForgeryToken()
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.GetTaxDetails" class="link-button iconed-button download-button" />
+            </form>
+        }
+    </div>
+    @RadiusR.Localization.Pages.Common.Total:
+    <div class="bills-total-container">
+        <input type="button" value="@RadiusR.Localization.Pages.Common.Load" class="link-button iconed-button reload-button" />
+    </div>
+</div>
+
+@section PageScripts{
+    <script type="text/javascript">
+        var totalLoader = new AjaxLoader('.bills-total-container');
+        $('.reload-button').click(function () {
+            $('.bills-total-container').html('<div class="online-status-loading"></div>');
+            var searchForm = $('#page-contents').find('form').first();
+            totalLoader.Load('@Url.Action("CalculateTotal", "Bill")', searchForm.serialize(), 'POST');
+        });
+    </script>
+}

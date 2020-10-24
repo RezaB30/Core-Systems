@@ -1,0 +1,26 @@
+﻿<ul class="nav-list-main">
+    <li>
+        <div class="nav-menu-title" tabindex="0">
+            @RadiusR.Localization.Pages.Common.Clients
+        </div>
+        <ul class="nav-list-sub">
+            <li>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.ClientList, "Index", "Client")
+            </li>
+            <li>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.AddClient, "Add", "Client")
+            </li>
+        </ul>
+    </li>
+    <li>
+        <div class="nav-menu-title" tabindex="0">
+            @RadiusR.Localization.Pages.Common.BillingProcess
+        </div>
+        <ul class="nav-list-sub">
+            <li>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Bills, "Index", "Bill")
+            </li>
+        </ul>
+    </li>
+</ul>
+

@@ -1,0 +1,153 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.RadiusViewModels.NASViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.NAS + " - " + RadiusR.Localization.Pages.Common.AddServer;
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, htmlAttributes: new { @novalidate = "novalidate" }))
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.BackboneNASID)
+            </td>
+            <td>
+                @Html.Select(model => model.BackboneNASID, (SelectList)ViewBag.NASes, RadiusR.Localization.Pages.Common.Choose)
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.BackboneNASID)
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Name)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @autocomplete = "off" } })
+            </td>
+            <td>
+                @Html.LabelFor(model => model.IP)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.IP, new { htmlAttributes = new { @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="validation-message">
+                    @Html.ValidationMessageFor(model => model.Name)
+                </div>
+            </td>
+            <td colspan="2">
+                <div class="validation-message">
+                    @Html.ValidationMessageFor(model => model.IP)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.RadiusIncomingPort)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.RadiusIncomingPort, new { htmlAttributes = new { @autocomplete = "off" } })
+            </td>
+            <td>
+                @Html.LabelFor(model => model.Secret)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Secret, new { htmlAttributes = new { @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="validation-message">
+                    @Html.ValidationMessageFor(model => model.RadiusIncomingPort)
+                </div>
+            </td>
+            <td colspan="2">
+                <div class="validation-message">
+                    @Html.ValidationMessageFor(model => model.Secret)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.ApiUsername)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.ApiUsername, new { htmlAttributes = new { @autocomplete = "off" } })
+            </td>
+            <td>
+                @Html.LabelFor(model => model.ApiPassword)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.ApiPassword, new { htmlAttributes = new { @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="validation-message">
+                    @Html.ValidationMessageFor(model => model.ApiUsername)
+                </div>
+            </td>
+            <td colspan="2">
+                <div class="validation-message">
+                    @Html.ValidationMessageFor(model => model.ApiPassword)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.ApiPort)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.ApiPort, new { htmlAttributes = new { @autocomplete = "off" } })
+            </td>
+            <td>
+                @Html.LabelFor(model => model.NASType)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.NASType)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="validation-message">
+                    @Html.ValidationMessageFor(model => model.ApiPort)
+                </div>
+            </td>
+            <td colspan="2">
+                <div class="validation-message">
+                    @Html.ValidationMessageFor(model => model.NASType)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.NATType)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.NATType)
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.NATType)
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td class="centered" colspan="4">
+                <input type="submit" name="" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button new-button" />
+            </td>
+        </tr>
+    </table>
+}

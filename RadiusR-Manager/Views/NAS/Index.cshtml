@@ -1,0 +1,79 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.NASViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.NAS + " - " + RadiusR.Localization.Pages.Common.NasList;
+}
+
+<div>
+    <table class="data-table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BackboneNASName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NASType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NATType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NATInfo)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BackboneNASName)
+                </td>
+                <td class="centered">
+                    @Html.DisplayFor(modelItem => item.IP)
+                </td>
+                <td class="centered">
+                    @Html.DisplayFor(modelItem => item.NASType)
+                </td>
+                <td class="centered">
+                    @Html.DisplayFor(modelItem => item.NATType)
+                </td>
+                <td class="centered" style="white-space: pre-line;">@Html.DisplayFor(modelItem => item.NATInfo)</td>
+                <td>
+                    @using (Html.BeginForm("Toggle", null, FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", item.ID)
+                        if (!item.Disabled)
+                        {
+                            <input type="submit" value="@RadiusR.Localization.Pages.Common.Deactivate" class="link-button iconed-button lock-button" />
+                        }
+                        else
+                        {
+                            <input type="submit" value="@RadiusR.Localization.Pages.Common.Activate" c class="link-button iconed-button unlock-button" />
+                        }
+                    }
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.ManageNAT, "EditNAT", new { id = item.ID }, new { @class = "link-button iconed-button nat-button" })
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.ExpiredPools, "EditExpiredPools", new { id = item.ID }, new { @class = "link-button iconed-button disconnect-button" })
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "Edit", new { id = item.ID }, new { @class = "link-button iconed-button edit-button" })
+                    @using (Html.BeginForm("Remove", null, FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("ID", item.ID)
+                        <input type="submit" name="" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button remove-button" />
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+    @Html.PagedList((int)ViewBag.PageCount)
+</div>

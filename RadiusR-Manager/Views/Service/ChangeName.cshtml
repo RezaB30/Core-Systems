@@ -1,0 +1,42 @@
+﻿
+@model RadiusR_Manager.Models.ViewModels.RenameServiceViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Services + "-" + RadiusR.Localization.Pages.Common.ChangeName;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.OldName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.OldName)
+                @Html.HiddenFor(model => model.OldName)
+            </td>
+            <td>
+                @Html.ValidationMessageFor(model => model.OldName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.NewName)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.NewName, new { htmlAttributes = new { @autocomplete = "off" } })
+            </td>
+            <td>
+                @Html.ValidationMessageFor(model => model.NewName)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="centered">
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+            </td>
+        </tr>
+    </table>
+}
+

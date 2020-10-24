@@ -1,0 +1,92 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.SMSSettingsViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.SMSSettings;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.CachingLength)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.CachingLength)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.CachingLength)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.ServiceUsername)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.ServiceUsername)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.ServiceUsername)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.ServicePassword)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.ServicePassword)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.ServicePassword)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.ServiceTitle)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.ServiceTitle)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.ServiceTitle)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.APIType)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.APIType)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.APIType)
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                @Html.CheckButton(model => model.IsActive, RadiusR.Localization.Model.RadiusR.IsActive)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="centered">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Reset, "Settings", null, new { @class = "link-button iconed-button reload-button" })
+                &nbsp;
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+            </td>
+        </tr>
+    </table>
+}

@@ -1,0 +1,53 @@
+﻿
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.AdditionalFeeViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.AdditionalFees + " - " + RadiusR.Localization.Pages.Common.AdditionalFeesList;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FeeTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaxTypes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FeeTypeID)
+            </td>
+            <td class="centered">
+                @foreach (var taxRate in item.TaxTypes)
+                {
+                    <div>
+                        @Html.DisplayFor(modelItem => taxRate.ID)
+                    </div>
+                }
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @if (item._price.HasValue)
+                {
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "Edit", new { id = item.FeeTypeID }, new { @class = "link-button iconed-button edit-button" })
+                }
+                else
+                {
+                    if (item.HasVariants)
+                    {
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "Index", "FeeTypeVariant", new { id = item.FeeTypeID }, new { @class = "link-button iconed-button edit-button" })
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>

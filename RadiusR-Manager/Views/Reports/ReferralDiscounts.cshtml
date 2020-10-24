@@ -1,0 +1,132 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.ReferralDiscountReportViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.ReferralDiscountReport;
+    var search = ViewBag.Search as RadiusR_Manager.Models.ViewModels.DiscountReportSearchViewModel ?? new RadiusR_Manager.Models.ViewModels.DiscountReportSearchViewModel();
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm(null, null, FormMethod.Get))
+        {
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => search.StartDate)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => search.StartDate)
+                        -
+                        @Html.EditorFor(model => search.EndDate)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                        <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ReferrerSubscriptionNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReferredSubscriptionNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecurringDiscount.CreationTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecurringDiscount.DiscountType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecurringDiscount.ApplicationType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecurringDiscount.FeeTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecurringDiscount.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecurringDiscount.TimesApplied)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecurringDiscount.OnlyFullInvoice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecurringDiscount.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecurringDiscount.CancellationCause)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        var rowClass = string.Empty;
+        if (item.RecurringDiscount.IsFinished)
+        {
+            rowClass = "greenlit-row";
+        }
+        else if (item.RecurringDiscount.IsDisabled)
+        {
+            rowClass = "highlighted-row";
+        }
+        <tr class="@rowClass">
+            <td class="centered">
+                <a href="@Url.Action("Details","Client", new { id = item.ReferrerSubscriptionID })" class="details-link">@Html.DisplayFor(modelItem => item.ReferrerSubscriptionNo)</a>
+            </td>
+            <td class="centered">
+                <a href="@Url.Action("Details","Client", new { id = item.ReferredSubscriptionID })" class="details-link">@Html.DisplayFor(modelItem => item.ReferredSubscriptionNo)</a>
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.RecurringDiscount.CreationTime)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.RecurringDiscount.DiscountType)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.RecurringDiscount.ApplicationType)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.RecurringDiscount.FeeTypeID)
+            </td>
+            <td class="centered">
+                @if (item.RecurringDiscount.DiscountType == (short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountType.Static)
+                {
+                    @Html.DisplayFor(modelItem => item.RecurringDiscount.Amount)
+                }
+                else if (item.RecurringDiscount.DiscountType == (short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountType.Percentage)
+                {
+                    @Html.DisplayFor(modelItem => item.RecurringDiscount.PercentageAmount)
+                }
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.RecurringDiscount.TimesApplied)/@Html.DisplayFor(modelItem => item.RecurringDiscount.ApplicationTimes)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.RecurringDiscount.OnlyFullInvoice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RecurringDiscount.Description)
+            </td>
+            <td class="centered">
+                @if (item.RecurringDiscount.IsDisabled)
+                {
+                    @Html.DisplayFor(modelItem => item.RecurringDiscount.CancellationDate)
+                    @:-
+                    @Html.DisplayFor(modelItem => item.RecurringDiscount.CancellationCause)
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

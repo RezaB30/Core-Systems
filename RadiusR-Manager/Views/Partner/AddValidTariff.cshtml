@@ -1,0 +1,120 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.RadiusViewModels.PartnerAvailableTariffViewModel
+
+@{
+    ViewBag.Title = ViewBag.PartnerGroupName + "-" + RadiusR.Localization.Pages.Common.PartnerValidTariffs + "-" + RadiusR.Localization.Pages.Common.Add;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.DomianID)
+                    </td>
+                    <td>
+                        @Html.Select(model => model.DomianID, (SelectList)ViewBag.DomainList, RadiusR.Localization.Pages.Common.Choose)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.DomianID)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.TariffID)
+                    </td>
+                    <td>
+                        @Html.Select(model => model.TariffID, new SelectList(Enumerable.Empty<object>()), RadiusR.Localization.Pages.Common.Choose)
+                        <div id="tariff-check" class="check-name-invalid"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.TariffID)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Commitment)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.Commitment)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.Commitment)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Allowance)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.Allowance, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 20 } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.Allowance)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.AllowanceThreshold)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.AllowanceThreshold, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 20 } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.AllowanceThreshold)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "ValidTariffs", new { id = Request.RequestContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button back-button" })
+                        &nbsp;
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+@section PageScripts{
+    <script>
+        var domainInput = $('input[name="DomianID"]');
+        var tariffInput = $('input[name="TariffID"]');
+        var tariffWrapper = tariffInput.closest('div.select-list-wrapper');
+        var domainTariffsUrl = '@Url.Action("GetDomainServices", "Service")';
+
+       domainInput.change(function () {
+            UpdateTariffList();
+        });
+
+        UpdateTariffList(tariffInput.val());
+
+        function UpdateTariffList(selectedTariffValue) {
+            $('#tariff-check').attr('class', '').addClass('check-name-loading');
+            if (domainInput.val() != '') {
+                FillSelectListFromUrl(tariffWrapper, domainTariffsUrl, { id: domainInput.val() }, function (status) {
+                    if (status = 'success') {
+                        $('#tariff-check').attr('class', '').addClass('check-name-valid');
+                    }
+                }, selectedTariffValue);
+            }
+            else {
+                ClearSelectListItems(tariffWrapper);
+                $('#tariff-check').attr('class', '').addClass('check-name-invalid');
+            }
+        }
+    </script>    
+}

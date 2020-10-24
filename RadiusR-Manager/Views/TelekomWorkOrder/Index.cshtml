@@ -1,0 +1,158 @@
+﻿@using RadiusR_Manager.Helpers
+@using RadiusR.Helpers
+@using RezaB.Web.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.TelekomWorkOrderViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.TelekomWorkOrders;
+    var search = ViewBag.SearchModel as RadiusR_Manager.Models.ViewModels.TelekomWorkOrderSearchViewModel ?? new RadiusR_Manager.Models.ViewModels.TelekomWorkOrderSearchViewModel();
+}
+
+@if (!Request.QueryString.AllKeys.Contains("subscriberId"))
+{
+    <div class="centered-form-wrapper">
+        <div class="centered-form">
+            @using (Html.BeginForm(null, null, FormMethod.Get))
+            {
+                if (Request.QueryString.AllKeys.Contains("subscriberId"))
+                {
+                    @Html.Hidden("subscriberId", Request.QueryString["subscriberId"])
+                }
+                <table class="input-table">
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => search.AppUserID)
+                        </td>
+                        <td>
+                            @Html.Select(model => search.AppUserID, (SelectList)ViewBag.AppUsers, RadiusR.Localization.Pages.Common.Choose)
+                        </td>
+                        <td>
+                            @Html.LabelFor(model => search.StartDate)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => search.StartDate)
+                            -
+                            @Html.EditorFor(model => search.EndDate)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => search.OperationType)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => search.OperationType)
+                        </td>
+                        <td>
+                            @Html.LabelFor(model => search.OperationSubType)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => search.OperationSubType)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => search.State)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => search.State)
+                        </td>
+                        <td>
+                            @Html.LabelFor(model => search.Address)
+                        </td>
+                        <td>
+                            @Html.AddressSearchFor(model => search.Address)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="text-align: right;">
+                            @Html.EditorFor(model => search.ShowClosed)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                            <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
+}
+
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubscriberName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.XDSLNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OperationType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OperationSubType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppUserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsOpen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.State)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @Html.ActionLink(Html.DisplayTextFor(modelItem => item.Username).ToString(), "Details", "Client", new { id = item.SubscriberID }, new { @class = "details-link" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubscriberName)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.PhoneNo)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.XDSLNo)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.OperationType)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.OperationSubType)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.AppUserName)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.IsOpen)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", new { id = item.ID, returnUrl = Request.Url.PathAndQuery + Request.Url.Fragment }, new { @class = "link-button iconed-button details-button", @target = Request.QueryString.AllKeys.Contains("subscriberId") ? "_blank" : string.Empty })
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

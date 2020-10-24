@@ -1,0 +1,46 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.RoleViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.UserManagement + "-" + RadiusR.Localization.Pages.Common.Roles;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsSystemRole)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item._source)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.IsSystemRole)
+            </td>
+            <td>
+                @if (!item.IsSystemRole)
+                {
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "Edit", new { id = item.ID }, new { @class = "link-button iconed-button edit-button" })
+                    @:&nbsp;
+                    if (!item.HasUsers)
+                    {
+                        using (Html.BeginForm("Remove", null, new { id = item.ID }, FormMethod.Post, new { @confirm = "enabled" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button remove-button" />
+                        }
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

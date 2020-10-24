@@ -1,0 +1,65 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.PartnerAvailableTariffViewModel>
+
+@{
+    ViewBag.Title = ViewBag.PartnerGroupName + "-" + RadiusR.Localization.Pages.Common.PartnerValidTariffs;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TariffName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DomainName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Commitment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Allowance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowanceThreshold)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TariffName)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.DomainName)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Commitment)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Allowance)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.AllowanceThreshold)
+            </td>
+            <td>
+                @using (Html.BeginForm("RemoveValidTariff", null, FormMethod.Post, new { @confirm = "enabled" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("validTariffId", item.ID)
+                    @Html.Hidden("id", Request.RequestContext.RouteData.Values["id"])
+                    @Html.Hidden("returnUrl", ViewBag.ReturnUrl as string)
+                    <input type="submit" name="" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button remove-button" />
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+<div class="button-row centered">
+    <a href="@ViewBag.ReturnUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+    @*@Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Groups", new { id = Request.RequestContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button back-button" })*@
+    &nbsp;
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "AddValidTariff", new { id = Request.RequestContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button new-button" })
+</div>

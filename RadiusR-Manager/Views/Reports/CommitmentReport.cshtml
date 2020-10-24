@@ -1,0 +1,75 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.CommitmentReportViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.CommitmentReport;
+    var search = ViewBag.Search as RadiusR_Manager.Models.ViewModels.CommitmentReportSearchViewModel;
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Get))
+{
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.StartDate)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.StartDate)
+            </td>
+            <td>
+                @Html.LabelFor(model => search.EndDate)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.EndDate)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" style="text-align: right;">
+                @Html.CheckButton(model => search.NoCommitment)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+            </td>
+        </tr>
+    </table>
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SubscriberNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubscriberName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CommitmentLength)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpirationDate)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.SubscriberNo, "Details", "Client", new { id = item.SubscriptionID }, new { @class = "details-link" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubscriberName)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.CommitmentLength)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.ExpirationDate)
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

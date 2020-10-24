@@ -1,0 +1,95 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Helpers
+@using RadiusR.DB.Enums
+
+@model RadiusR_Manager.Models.ViewModels.ExtendPackageViewModel
+
+@{
+    ViewBag.Title = Model.ClientName + "-" + RadiusR.Localization.Pages.Common.ExtendPackage;
+    short paymentType = ViewBag.PaymentType == null ? (short)PaymentType.Cash : (short)ViewBag.PaymentType;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ClientID)
+    @Html.HiddenFor(model => model.ClientName)
+    if (Model._totalFee.HasValue)
+    {
+        @Html.HiddenFor(model => model.TotalFee)
+    }
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.AddedPeriods)
+            </td>
+            <td>
+                @if (Model._totalFee.HasValue)
+                {
+                    @Html.HiddenFor(model => model.AddedPeriods)
+                    @Html.DisplayFor(model => model.AddedPeriods)
+                }
+                else
+                {
+                    @Html.Select(model => model.AddedPeriods, HelperUtilities.CreateNumericSelectList(1, 24, Model.AddedPeriods))
+                }
+            </td>
+        </tr>
+        @if (Model._totalFee.HasValue)
+        {
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.TotalFee)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.TotalFee)
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="2" class="centered">
+                @if (User.IsInRole("cashier"))
+                {
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", "Home", null, new { @class = "link-button iconed-button back-button" })@:&nbsp;
+                }
+                else
+                {
+                    <a href="@Url.Action("Details", new { id = Model.ClientID })#bills" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>@:&nbsp;
+                }
+                @if (!Model._totalFee.HasValue)
+                {
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    @Html.HiddenFor(model => paymentType)
+                }
+
+            </td>
+        </tr>
+    </table>
+    if (Model._totalFee.HasValue)
+    {
+        <div class="centered">
+            @if (User.IsInRole("cashier"))
+            {
+                paymentType = (short)PaymentType.Cash;
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Pay" class="link-button iconed-button payment-button" />
+                @Html.HiddenFor(model => paymentType)
+            }
+            @if (!User.IsInRole("cashier"))
+            {
+                @Html.PaymentButton(model => paymentType)
+            }
+        </div>
+    }
+}
+
+@section PageScripts{
+    <script type="text/javascript">
+        $('.print-button').click(function () {
+            var currentButton = $(this);
+            currentButton.closest('form').append('<input type="hidden" name="HasPrintRequested" value="on" />');
+            currentButton.closest('form').submit();
+        });
+
+        setupPaymentButtons();
+    </script>
+}

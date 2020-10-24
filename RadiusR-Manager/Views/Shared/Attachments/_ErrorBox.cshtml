@@ -1,0 +1,19 @@
+﻿<div class="confirm-box-container remove-results-message">
+    <div class="confirm-cover">
+        <div class="confirm-box">
+            @{
+                var rm = RadiusR.Localization.Pages.ErrorMessages.ResourceManager;
+                @rm.GetString("_"+ Request.QueryString["errorMessage"])
+            }
+                @if (TempData.ContainsKey("ErrorMessageDetails"))
+                {
+                    <div class="confirm-box-details">
+                        @TempData["ErrorMessageDetails"]
+                    </div>
+                }
+            <div style="margin-top: 2em;">
+                <input type="button" name="Ok" value="@RadiusR.Localization.Pages.Common.OK" class="link-button iconed-button accept-button" />
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+﻿@using RadiusR.Helpers
+
+@*@model string*@
+@model RadiusR_Manager.Models.ViewModels.MikrotikRateLimitViewModel
+
+@*@Html.RateLimit(model => model, Model)*@
+@Html.MikrotikRateLimitEditorFor(model => model)

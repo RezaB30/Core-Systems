@@ -1,0 +1,461 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1475B653-8EEF-42D3-AA5F-D811AABCA41C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RadiusR.DB</RootNamespace>
+    <AssemblyName>RadiusR.DB</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.DBUtilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.DBUtilities.1.0.0\lib\net452\RezaB.DBUtilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Address.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppliedRecurringDiscount.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppSetting.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppUser.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Bill.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BillFee.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BTKIPBlock.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BTKSchedulerSetting.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Cashier.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CashierBalance.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChangeServiceTypeTask.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChangeStateTask.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CorporateCustomerInfo.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Customer.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerAdditionalPhoneNo.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerBlackList.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerIDCard.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerSetupStatusUpdate.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerSetupTask.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerSetupUser.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Discount.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EBill.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EBillRegisteredCompany.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Enums\AddressAPIType.cs" />
+    <Compile Include="Enums\AutoPaymentType.cs" />
+    <Compile Include="Enums\BTKLogTypes.cs" />
+    <Compile Include="Enums\BTKOperatorTypes.cs" />
+    <Compile Include="Enums\DomainInfrastructure.cs" />
+    <Compile Include="Enums\IPBlockServiceType.cs" />
+    <Compile Include="Enums\IPBlockType.cs" />
+    <Compile Include="Enums\NASTypes.cs" />
+    <Compile Include="Enums\OfflineGatewayTypes.cs" />
+    <Compile Include="Enums\PartnerPermissions.cs" />
+    <Compile Include="Enums\QuotaType.cs" />
+    <Compile Include="Enums\RecurringDiscount\RecurringDiscountApplicationState.cs" />
+    <Compile Include="Enums\RecurringDiscount\RecurringDiscountApplicationType.cs" />
+    <Compile Include="Enums\RecurringDiscount\RecurringDiscountCancellationCause.cs" />
+    <Compile Include="Enums\RecurringDiscount\RecurringDiscountType.cs" />
+    <Compile Include="Enums\SchedulerWorkPeriods.cs" />
+    <Compile Include="Enums\ServiceBillingType.cs" />
+    <Compile Include="Enums\ServiceInfrastructureTypes.cs" />
+    <Compile Include="Enums\SystemLogInterface.cs" />
+    <Compile Include="Enums\TelekomOperations\TelekomOperationSubType.cs" />
+    <Compile Include="Enums\TelekomOperations\TelekomOperationType.cs" />
+    <Compile Include="Enums\TTWorkOrderType.cs" />
+    <Compile Include="Enums\VPOSTypes.cs" />
+    <Compile Include="ExternalPayment.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Fee.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FeeTypeCost.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FeeTypeVariant.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Group.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MobilExpressAutoPayment.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelExtentions\Customer.cs" />
+    <Compile Include="ModelExtentions\FeeExtentions.cs" />
+    <Compile Include="ModelExtentions\RecurringDiscount.cs" />
+    <Compile Include="ModelExtentions\SMSArchiveSet.cs" />
+    <Compile Include="ModelExtentions\SubscriptionUtilities.cs" />
+    <Compile Include="ModelExtentions\TelekomAccessCredential.cs" />
+    <Compile Include="NAS.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NASExpiredPool.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NASNetmap.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NASVerticalIPMap.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OfflinePaymentGateway.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Partner.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PartnerAvailableTariff.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PartnerBillPayment.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PartnerCredit.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PartnerGroup.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PartnerPermission.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PartnerRegisteredSubscription.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PartnerSubUser.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Passwords\PasswordUtilities.cs" />
+    <Compile Include="PDFFormItemPlacement.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Permission.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QueryExtentions\BillsQuery.cs" />
+    <Compile Include="QueryExtentions\ServicesQuery.cs" />
+    <Compile Include="QueryExtentions\SpecialOffersQuery.cs" />
+    <Compile Include="QuotaPackage.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RadiusAccounting.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RadiusAccountingIPInfo.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RadiusDailyAccounting.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RadiusDefault.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RadiusRBillingService.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RadiusRModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RadiusRModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RadiusRModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RadiusRModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RadiusRModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="RadiusSMS.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RecurringDiscount.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RecurringPaymentSubscription.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Role.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ScheduledSMS.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SchedulerTask.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceBillingPeriod.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceRateTimeTable.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\AddressAPISettings.cs" />
+    <Compile Include="Settings\AppSettings.cs" />
+    <Compile Include="Enums\BillSources.cs" />
+    <Compile Include="Enums\BloodTypes.cs" />
+    <Compile Include="Enums\CommitmentLength.cs" />
+    <Compile Include="Enums\CountryCodes.cs" />
+    <Compile Include="Enums\CustomerSetup\FaultCodes.cs" />
+    <Compile Include="Enums\CustomerSetup\TaskStatuses.cs" />
+    <Compile Include="Enums\CustomerSetup\TaskTypes.cs" />
+    <Compile Include="Enums\CustomerSetup\XDSLTypes.cs" />
+    <Compile Include="Enums\CustomerType.cs" />
+    <Compile Include="Enums\DiscountType.cs" />
+    <Compile Include="Enums\IDCardTypes.cs" />
+    <Compile Include="Enums\MaritalStatuses.cs" />
+    <Compile Include="Enums\PDFFormType.cs" />
+    <Compile Include="Enums\PDFItemIDs.cs" />
+    <Compile Include="Enums\Profession.cs" />
+    <Compile Include="Enums\Sexes.cs" />
+    <Compile Include="Enums\SMSAPITypes.cs" />
+    <Compile Include="Enums\SystemLogTypes.cs" />
+    <Compile Include="Enums\BillState.cs" />
+    <Compile Include="Enums\BillType.cs" />
+    <Compile Include="Enums\CancellationReason.cs" />
+    <Compile Include="Enums\CommonRole.cs" />
+    <Compile Include="Enums\CustomerState.cs" />
+    <Compile Include="Enums\EBillType.cs" />
+    <Compile Include="Enums\FeeType.cs" />
+    <Compile Include="Enums\FiberType.cs" />
+    <Compile Include="Enums\FramedProtocol.cs" />
+    <Compile Include="Enums\IndoorOutdoor.cs" />
+    <Compile Include="Enums\MoneyInputType.cs" />
+    <Compile Include="Enums\NATType.cs" />
+    <Compile Include="Enums\PaymentType.cs" />
+    <Compile Include="Enums\ProblemReasonID.cs" />
+    <Compile Include="Enums\Roles.cs" />
+    <Compile Include="Enums\SMSType.cs" />
+    <Compile Include="Enums\SupportRequestStateID.cs" />
+    <Compile Include="Enums\TaxTypeID.cs" />
+    <Compile Include="Enums\TTLineState.cs" />
+    <Compile Include="ModelExtentions\Subscription.cs" />
+    <Compile Include="ModelExtentions\ClientExtentions.cs" />
+    <Compile Include="ModelExtentions\Service.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\BTKSettings.cs" />
+    <Compile Include="Settings\CallCenterSettings.cs" />
+    <Compile Include="Settings\MobilExpressSettings.cs" />
+    <Compile Include="Settings\PartnerAPISettings.cs" />
+    <Compile Include="Settings\QuotaSettings.cs" />
+    <Compile Include="Settings\SchedulerSettings.cs" />
+    <Compile Include="Settings\SystemSettings.cs" />
+    <Compile Include="Settings\VPOSSettings.cs" />
+    <Compile Include="SMSArchive.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SMSSetting.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SMSText.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpecialOffer.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Subscription.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubscriptionCancellation.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubscriptionCommitment.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubscriptionCredit.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubscriptionGPSCoord.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubscriptionNote.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubscriptionQuota.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubscriptionStateHistory.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubscriptionSupportRequest.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubscriptionTariffChange.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubscriptionTelekomInfo.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SystemLog.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SystemSetting.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TaxRate.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TelekomAccessCredential.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TelekomTariff.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TelekomWorkOrder.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TelekomWorkOrderParameter.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VPOSList.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkArea.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <EntityDeploy Include="RadiusRModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RadiusRModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="RadiusRModel.edmx.diagram">
+      <DependentUpon>RadiusRModel.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="RadiusRModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RadiusRModel.edmx</DependentUpon>
+      <LastGenOutput>RadiusRModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="RadiusRModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RadiusRModel.edmx</DependentUpon>
+      <LastGenOutput>RadiusRModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!--To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

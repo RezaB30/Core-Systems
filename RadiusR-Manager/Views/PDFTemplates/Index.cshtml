@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.PDFTemplates;
+    var PDFFormTypes = ViewBag.PDFFormsList as Dictionary<int, string>;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @foreach (var item in PDFFormTypes)
+        {
+            <div style="margin: 1em 0;" class="centered">
+                @Html.ActionLink(item.Value, "EditTemplate", new { id = item.Key }, new { @class = "link-button iconed-button next-button large-button" })
+            </div>
+        }
+        <div style="margin: 1em 0;" class="centered">
+            @Html.ActionLink(RadiusR.Localization.Pages.Common.ContractAppendix, "ContractClausesPDF", null, new { @class = "link-button iconed-button next-button large-button" })
+        </div>
+    </div>
+</div>
+

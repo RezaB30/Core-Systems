@@ -1,0 +1,33 @@
+﻿table.rate-limit-text {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    table.rate-limit-text tr {
+        background: none !important;
+        color: inherit !important;
+        border: none !important;
+    }
+
+    table.rate-limit-text td {
+        text-align: inherit !important;
+        border: none !important;
+        width: 9em;
+        max-width: 9em;
+    }
+
+span.rate-limit-label {
+    color: #90850c;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+div.mikrotik-rate-limit-wrapper input.rate-input {
+    border-right-width: 0;
+    text-align: right;
+}
+
+div.mikrotik-rate-limit-wrapper div.rate-select input, div.mikrotik-rate-limit-wrapper div.rate-select div.options-container {
+    width: 3.5em;
+    min-width: 3.5em;
+}

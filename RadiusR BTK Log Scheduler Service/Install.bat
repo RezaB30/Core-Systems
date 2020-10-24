@@ -1,0 +1,2 @@
+sc create RadiusRBTKLogScheduler binpath= "%~dp0RadiusR BTK Log Scheduler Service.exe" displayname= "RadiusR BTK Log Scheduler Service" start= auto && sc description RadiusRBTKLogScheduler "Scheduler for sending BTK logs through FTP." && net start RadiusRBTKLogScheduler && sc sdset RadiusRBTKLogScheduler D:(A;;CCLCSWRPWPDTLOCRRC;;;SY)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)(A;;CCLCSWLOCRRC;;;IU)(A;;CCLCSWLOCRRC;;;SU)(A;;CCLCSWLOCRRCRPWPDT;;;AU)
+pause

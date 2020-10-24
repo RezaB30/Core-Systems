@@ -1,0 +1,41 @@
+﻿@model RadiusR_Manager.Models.ViewModels.ExpiredPoolListViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.NAS + "-" + RadiusR.Localization.Pages.Common.ExpiredPools;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table" style="min-width: 34em;">
+                <tr>
+                    <td class="centered" colspan="5">
+                        @Html.LabelFor(model => model.NASName):@Html.DisplayFor(model => model.NASName)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div class="rate-limit-title">
+                            @Html.DisplayNameFor(model => model.ExpiredPools)
+                        </div>
+                    </td>
+                </tr>
+                @Html.EditorFor(model => model.ExpiredPools)
+                <tr>
+                    <td colspan="5" class="centered">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class = "link-button iconed-button back-button" })
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+@section PageScripts{
+    <script>
+        SetupListedEntityEditor('.expired-pools-container', 'ExpiredPools', 'expired-list-sample-item', 'tr.expired-pool-add-row', 'expired-list-item', 'input.remove-button', 'input.add-instance-button');
+    </script>
+}

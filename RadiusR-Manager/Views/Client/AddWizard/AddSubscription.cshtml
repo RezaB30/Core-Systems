@@ -1,0 +1,66 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.Customer.CustomerSubscriptionViewModel
+
+@{
+    ViewBag.Title = ViewBag.CustomerName + "-" + RadiusR.Localization.Pages.Common.AddSubscription;
+    var validationResults = ViewBag.RegistrationValidations as ILookup<string, string>;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.PartialFor(model => model, "Edits/CustomerSubscription")
+
+            <div class="centered text-danger">
+                <span>@ViewBag.TelekomError</span>
+                @if (validationResults != null)
+                {
+                    <table>
+                        @foreach (var item in validationResults)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Key
+                                </td>
+                                <td>
+                                    @string.Join(", ", item.Select(i => i))
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                }
+            </div>
+
+            <div>
+                @Html.Partial("_WaitTimer")
+            </div>
+            <div id="submit-row" class="centered">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Details", "Client", new { id = Request.RequestContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button back-button" })
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button accept-button" />
+            </div>
+        }
+    </div>
+</div>
+
+@section PageScripts{
+    <script type="text/javascript">
+        // form submit loading pane
+        $('#submit-row').closest('form').submit(function () {
+            $('#submit-row').hide();
+            StartWaitingCounter('div.waiting-progress');
+        });
+    </script>
+    @Scripts.Render("~/bundles/views/customer-register.js")
+    <script>
+        SubscriptionViewSetupUsernameTypeToggle();
+        SubscriptionViewSetupDomainChanges('@Url.Action("GetDomainServices", "Service")', '@Url.Action("GetServiceBillingPeriods", "Service")', '@Url.Action("HasDomainCredentials", "Client")', '@Url.Action("GetTelekomPacketSelector", "TTServices")', 'TelekomDetailedInfo.TelekomTariffInfo', '@RadiusR.Localization.Pages.Common.LoadingError');
+        SubscriptionViewSetupInfrastructureCheck('@Url.Action("GetAvailability", "TTServices")');
+        SubscriptionViewSetupTelekomInfoModeToggle();
+        SetupRecurringDiscountEditor('#referral-discount-editor',@((short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountType.Static), @((short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountType.Percentage), @((short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountApplicationType.FeeBased), @((short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountApplicationType.BillBased));
+        SubscriptionViewSetupReferralDiscount();
+    </script>
+}

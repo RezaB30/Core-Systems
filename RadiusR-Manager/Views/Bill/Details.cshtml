@@ -1,0 +1,144 @@
+﻿@using RadiusR.DB.Enums
+@using RadiusR.Helpers
+@using RadiusR_Manager.Helpers
+@using RezaB.Web.Authentication
+
+@model RadiusR_Manager.Models.RadiusViewModels.BillViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.BillingProcess + "-" + RadiusR.Localization.Pages.Common.Details;
+    var uri = new UriBuilder((string)ViewBag.RedirectUrl);
+    RezaB.Web.UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+    var backUrl = uri.Uri.PathAndQuery + uri.Fragment;
+    string credits = ((decimal)ViewBag.Credits).ToString("###,##0.00");
+    string payingAmount = ((decimal)ViewBag.PayingAmount).ToString("###,##0.00");
+    short paymentType = ViewBag.PaymentType == null ? (short)PaymentType.Cash : (short)ViewBag.PaymentType;
+}
+
+<table class="bill-receipt-container">
+    <tr>
+        <td colspan="2">
+            @Html.BillDetailsFor(model => model)
+            <div class="bill-receipt-footer"></div>
+        </td>
+    </tr>
+    @if (Model.CreditPay != null)
+    {
+        <tr class="last-row">
+            <td>
+                @Html.DisplayNameFor(model => model.CreditPay)
+            </td>
+            <td style="text-align: right;">
+                @Html.DisplayFor(model => model.CreditPay.Amount)
+            </td>
+        </tr>
+    }
+    <tr class="last-row">
+        <td>
+            @Html.DisplayNameFor(model => model.TotalCost)
+        </td>
+        <td style="text-align: right;">
+            @Html.DisplayFor(model => model.TotalCost)
+        </td>
+    </tr>
+    @if (Model._totalDiscount > 0m)
+    {
+        <tr class="last-row">
+            <td>
+                @Html.DisplayNameFor(model => model.TotalDiscount)
+            </td>
+            <td style="text-align: right;">
+                @Html.DisplayFor(model => model.TotalDiscount)
+            </td>
+        </tr>
+    }
+    @if (Model.StateID == (short)BillState.Unpaid)
+    {
+        if ((decimal)ViewBag.Credits > 0m)
+        {
+            <tr class="last-row">
+                <td>
+                    @RadiusR.Localization.Pages.Common.Credit
+                </td>
+                <td style="text-align: right;">
+                    @Html.DisplayFor(model => credits, "Currency")
+                </td>
+            </tr>
+        }
+        <tr class="last-row">
+            <td>
+                @RadiusR.Localization.Pages.Common.PayingAmount
+            </td>
+            <td style="text-align: right;">
+                @Html.DisplayFor(model => payingAmount, "Currency")
+            </td>
+        </tr>
+    }
+    <tr>
+        <td style="padding-top: 1em;">
+            <a href="@backUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>&nbsp;
+        </td>
+        <td style="text-align: right; padding-top: 1em;">
+            @if (Model.StateID == (short)BillState.Unpaid && (User.HasPermission("Payment") || User.IsInRole("cashier")))
+            {
+                using (Html.BeginForm("ClientPaymentConfirm", null, new { @confirm = "enabled" }, FormMethod.Post, new { @style = "display: inline-block;" }))
+                {
+                    @Html.Hidden("redirectUrl", (string)ViewBag.RedirectUrl)
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("billIds[0]", Model.ID)
+                    @Html.PaymentButton(model => paymentType)
+                }
+            }
+            else if(Model.StateID == (short)BillState.Paid)
+            {
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Print, "Receipt", new { billId = Model.ID, redirectUrl = Request.Url.Host + backUrl }, new { @class = "link-button iconed-button print-button", @style = "float: right;" })
+                if (User.HasPermission("Cancel Payment") && Model.PaymentTypeID != (short)PaymentType.OnlineBanking)
+                {
+                    using (Html.BeginForm("CancelPayment", null, null, FormMethod.Post, new { @style = "display: inline-block; float: right; margin-right: 0.5em;", @confirm = "enabled" }))
+                    {
+                        @Html.Hidden("redirectUrl", (string)ViewBag.RedirectUrl)
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("billIds[0]", Model.ID)
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.CancelPayment" class="link-button iconed-button cancel-button" />
+                    }
+                }
+            }
+        </td>
+    </tr>
+    @if (Model.StateID == (short)BillState.Unpaid)
+    {
+        <tr>
+            <td style="padding-top: 0.5em;"></td>
+            <td style="text-align: right; padding-top: 0.5em;">
+                @if (User.HasPermission("Discount") && !Model.EBillIsSent)
+                {
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Discount, "Discount", new { id = Model.ID, redirectUrl = uri.Uri.AbsoluteUri }, new { @class = "link-button iconed-button discount-button" })
+                }
+                @if (User.HasPermission("Cancel Bill"))
+                {
+                    using (Html.BeginForm("CancelBill", null, null, FormMethod.Post, new { @style = "display: inline-block;", @confirm = "enabled" }))
+                    {
+                        @Html.Hidden("redirectUrl", (string)ViewBag.RedirectUrl)
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("billIds[0]", Model.ID)
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.CancelBill" class="link-button iconed-button cancel-button" />
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+
+
+@section PageScripts{
+    <script type="text/javascript">
+        $('.print-button').click(function () {
+            var currentButton = $(this);
+            currentButton.closest('form').append('<input type="hidden" name="HasPrintRequested" value="on" />');
+            currentButton.closest('form').submit();
+        });
+
+        setupPaymentButtons();
+    </script>
+}

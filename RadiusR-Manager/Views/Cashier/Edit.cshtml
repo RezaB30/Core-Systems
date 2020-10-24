@@ -1,0 +1,114 @@
+﻿@model RadiusR_Manager.Models.RadiusViewModels.CashierViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Cashiers + "-" + RadiusR.Localization.Pages.Common.Edit;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.CompanyTitle, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.CompanyTitle)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.ProfitCut)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.ProfitCut, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = 19 } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.CompanyTitle)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.ProfitCut)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.FullName)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.User.Name, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = 250 } })
+            </td>
+            <td>
+                @Html.LabelFor(model => model.TaxRegion)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.TaxRegion, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.User.Name)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.TaxRegion)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.TaxNo)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.TaxNo, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = 10 } })
+            </td>
+            <td>
+                @Html.LabelFor(model => model.PhoneNo)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.User.Phone, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = 10 } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.TaxNo)
+            </td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.PhoneNo)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Address)
+            </td>
+            <td>
+                @Html.TextAreaFor(model => model.Address, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = 3000 } })
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.Address)
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.User.Email)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.User.Email, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.User.Email)
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td colspan="4" class="centered">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Details", new { id = Model.ID }, new { @class = "link-button iconed-button back-button" })
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+            </td>
+        </tr>
+    </table>
+}

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.BillFeeDiscountViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Discount;
+
+    var uri = new UriBuilder((string)ViewBag.RedirectUrl);
+    RezaB.Web.UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+    var backUrl = uri.Uri.PathAndQuery + uri.Fragment;
+    var items = Model.ToList();
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("redirectUrl", (string)ViewBag.RedirectUrl)
+            <table>
+                @for(int i = 0; i< items.Count(); i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => items[i].FeeTitle)
+                        </td>
+                        <td style="text-align: right;">
+                            @Html.DisplayFor(modelItem => items[i].FeeCost)
+                        </td>
+                        <td>
+                            @Html.HiddenFor(modelItem => items[i].BillFeeID)
+                            @Html.EditorFor(modelItem => items[i].DiscountAmount)
+                            @Html.ValidationMessageFor(modelItem => items[i].DiscountAmount)
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td>
+                        <a href="@backUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                    </td>
+                    <td colspan="2" style="text-align: right;">
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

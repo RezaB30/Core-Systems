@@ -1,0 +1,36 @@
+﻿@model RadiusR_Manager.Models.ViewModels.ChangeStaticIPViewModel
+
+@{
+    ViewBag.Title = ViewBag.CustomerName + "-" + RadiusR.Localization.Pages.Common.ChangeStaticIP;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.IP)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.IP)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.IP)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Details", new { id = Request.RequestContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button back-button" })
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

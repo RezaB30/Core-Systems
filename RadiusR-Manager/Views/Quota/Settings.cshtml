@@ -1,0 +1,44 @@
+﻿@model RadiusR_Manager.Models.ViewModels.QuotaSettingsViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.QuotaSettings;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.QuotaUnitDisplay)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.QuotaUnitDisplay)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.QuotaUnitDisplay)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.QuotaUnitPriceDisplay)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.QuotaUnitPriceDisplay)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.QuotaUnitPriceDisplay)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="centered">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Reset, "Settings", null, new { @class = "link-button iconed-button reload-button" })
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept"  class="link-button iconed-button accept-button" />
+            </td>
+        </tr>
+    </table>
+}

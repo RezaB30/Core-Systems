@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.EditClient + "-" + RadiusR.Localization.Pages.Common.Transfer;
+    var clientId = (long)ViewBag.ClientID;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        <div class="text-danger">@ViewBag.ErrorMessage</div>
+        <div class="centered" style="margin-top: 1em;">
+            @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Details", "Client", new { id = clientId }, new { @class = "link-button iconed-button back-button" })
+        </div>
+    </div>
+</div>
+

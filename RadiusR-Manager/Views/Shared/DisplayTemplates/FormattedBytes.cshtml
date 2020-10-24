@@ -1,0 +1,6 @@
+﻿@using RadiusR.Helpers
+@using RezaB.Data.Formating
+
+@model decimal
+
+@Html.FormattedBytes(RateLimitFormatter.ToDecimalTrafficStandard(Model))

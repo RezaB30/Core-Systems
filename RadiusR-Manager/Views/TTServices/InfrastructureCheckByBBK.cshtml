@@ -1,0 +1,64 @@
+﻿@using RadiusR.Helpers
+@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.RadiusViewModels.AddressViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.InfrastructureCheck;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            <label>@RadiusR.Localization.Model.RadiusR.DomainName</label>
+                        </td>
+                        <td>
+                            @Html.Select("domainId", (SelectList)ViewBag.TelekomDomains, RadiusR.Localization.Pages.Common.Choose)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            @Html.AddressEditorFor(model => model)
+        }
+    </div>
+</div>
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        <div id="availability-results-container" class="centered">
+        </div>
+    </div>
+</div>
+<div class="centered text-danger">
+    @ViewBag.ErrorMessage
+</div>
+
+@section PageScripts{
+    <script type="text/javascript">
+        //-----------------------------------------
+        var bbkInput = $('input[name=ApartmentID]');
+        var addressNoInput = $('input.address-no-input');
+        //-----------------------------------------
+        addressNoInput.change(function () {
+            $('#availability-results-container').hide();
+            if (bbkInput.val() != '' && addressNoInput.val() != '') {
+                $('#availability-results-container').html('<div class="loading-icon"></div>');
+                $('#availability-results-container').fadeIn(200);
+                var resultsLoader = new AjaxLoader('#availability-results-container');
+                resultsLoader.SetCallback(function () {
+                    $('#availability-results-container').find("td.error-message-value").click(function () { $(this).toggleClass('open'); });
+                });
+                resultsLoader.Load('@Url.Action("GetAvailability")', { BBK: bbkInput.val(), domainId: $('input[name="domainId"]').val() }, 'POST');
+            }
+        });
+
+        addressNoInput.trigger('change');
+    </script>
+}

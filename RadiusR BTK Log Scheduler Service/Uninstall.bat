@@ -1,0 +1,3 @@
+net stop RadiusRBTKLogScheduler
+sc delete RadiusRBTKLogScheduler
+pause

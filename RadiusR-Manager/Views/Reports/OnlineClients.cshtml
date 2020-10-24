@@ -1,0 +1,71 @@
+﻿@using RezaB.Web.Authentication
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.OnlineClientsReportViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.OnlineClients;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientCount)
+        </th>
+        @if (User.HasPermission("Close NAS Connections"))
+        {
+            <th></th>
+        }
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.ClientCount)
+            </td>
+            @if (User.HasPermission("Close NAS Connections"))
+            {
+                <td>
+                    @using (Html.BeginForm("CloseNASConnections", null, FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("IP", item.IP)
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.CloseNASConnections" class="link-button iconed-button cancel-button" />
+                    }
+                </td>
+            }
+        </tr>
+    }
+    @if (Model.Any())
+    {
+        <tr style="background-color: #292929; color: white;">
+            <td colspan="2">
+                @RadiusR.Localization.Pages.Common.Total
+            </td>
+            <td class="centered">
+                @Model.Sum(model => model.ClientCount)
+            </td>
+            @if (User.HasPermission("Close NAS Connections"))
+            {
+                <td>
+                    @using (Html.BeginForm("CloseNASConnections", null, FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.CloseNASConnections" class="link-button iconed-button cancel-button" />
+                    }
+                </td>
+            }
+        </tr>
+    }
+</table>

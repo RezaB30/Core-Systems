@@ -1,0 +1,49 @@
+﻿@using RadiusR.Helpers
+
+@model RadiusR_Manager.Models.RadiusViewModels.AddressViewModel
+
+@{
+    ViewBag.Title = ViewBag.CustomerName + "-" + RadiusR.Localization.Model.RadiusR.InstallationAddress;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.AddressEditorFor(model => model)
+
+            <div id="availability-results-container" class="centered"></div>
+
+            <div class="centered button-row">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "TransportActions", new { id = Request.RequestContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button back-button" })
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+            </div>
+        }
+    </div>
+</div>
+
+
+@section PageScripts{
+    @if (ViewBag.DomainID != null){
+        <script>
+        //-----------------------------------------
+        var bbkInput = $('input[name=ApartmentID]');
+        var addressNoInput = $('input.address-no-input');
+        //-----------------------------------------
+        addressNoInput.change(function () {
+            $('#availability-results-container').hide();
+            if (bbkInput.val() != '' && addressNoInput.val() != '') {
+                $('#availability-results-container').html('<div class="loading-icon"></div>');
+                $('#availability-results-container').fadeIn(200);
+                var resultsLoader = new AjaxLoader('#availability-results-container');
+                resultsLoader.SetCallback(function () {
+                    $('#availability-results-container').find("td.error-message-value").click(function () { $(this).toggleClass('open'); });
+                });
+                resultsLoader.Load('@Url.Action("GetAvailability", "TTServices")', { BBK: bbkInput.val(), domainId: @ViewBag.DomainID }, 'POST');
+            }
+        });
+        </script>
+    }
+    
+}

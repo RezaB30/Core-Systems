@@ -1,0 +1,70 @@
+﻿@model RadiusR_Manager.Models.ViewModels.ChangeDSLNoViewModel
+
+@{
+    ViewBag.Title = ViewBag.CustomerName + "-" + RadiusR.Localization.Pages.Common.ChangeDSLNo;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.DSLNo)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.DSLNo, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+                        <input id="sync-button" type="button" value="@RadiusR.Localization.Pages.Common.Synchronize" class="link-button iconed-button reload-button" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.DSLNo)
+                        <div id="sync-error-container" class="text-danger"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="centered text-danger">
+                            @ViewBag.TelekomError
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Details", new { id = Request.RequestContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button back-button" })
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+@section PageScripts{
+    <script>
+        $('#sync-button').click(function () {
+            $('#sync-error-container').text('');
+            $.ajax('@Url.Action("GetNewDSLNo")', {
+                data: { domainId: @ViewBag.DomainId, oldDSLNo: $('#sync-button').closest('td').find('input[type=text]').first().val() },
+                method: 'POST',
+                complete: function (data, status) {
+                    if (status == "success") {
+                        if(data.responseJSON.Error != null){
+                            $('#sync-error-container').text(data.responseJSON.Error);
+                        }
+                        else {
+                            $('#sync-button').closest('td').find('input[type=text]').first().val(data.responseJSON.Data);
+                        }
+                    }
+                    else {
+                        $('#sync-error-container').html('@RadiusR.Localization.Pages.Common.LoadingError');
+                    }
+                }
+            })
+        });
+    </script>
+}

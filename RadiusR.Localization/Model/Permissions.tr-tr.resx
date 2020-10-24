@@ -1,0 +1,441 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdditionalFees" xml:space="preserve">
+    <value>Ek Ücretler</value>
+  </data>
+  <data name="Bills" xml:space="preserve">
+    <value>Faturalar</value>
+  </data>
+  <data name="CashDeskReport" xml:space="preserve">
+    <value>Kasa Raporu</value>
+  </data>
+  <data name="Cashiers" xml:space="preserve">
+    <value>Veznedarlar</value>
+  </data>
+  <data name="Clients" xml:space="preserve">
+    <value>Müşteriler</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Gruplar</value>
+  </data>
+  <data name="ModifyCashiers" xml:space="preserve">
+    <value>Veznedar Değiştirme</value>
+  </data>
+  <data name="ModifyClients" xml:space="preserve">
+    <value>Müşteri Değiştirme</value>
+  </data>
+  <data name="ModifyGroups" xml:space="preserve">
+    <value>Grup Değiştirme</value>
+  </data>
+  <data name="ModifyServices" xml:space="preserve">
+    <value>Tarife Değiştirme</value>
+  </data>
+  <data name="MonthlyBillReport" xml:space="preserve">
+    <value>Aylık Fatura Raporu</value>
+  </data>
+  <data name="NAS" xml:space="preserve">
+    <value>NAS</value>
+  </data>
+  <data name="RadiusSettings" xml:space="preserve">
+    <value>Radius Ayarları</value>
+  </data>
+  <data name="RoleManagement" xml:space="preserve">
+    <value>Rol Yönetimi</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>Tarifeler</value>
+  </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMSTexts" xml:space="preserve">
+    <value>SMS Metinleri</value>
+  </data>
+  <data name="SupportRequests" xml:space="preserve">
+    <value>Destek İstekleri</value>
+  </data>
+  <data name="SystemSettings" xml:space="preserve">
+    <value>Sistem Ayarları</value>
+  </data>
+  <data name="UserManagement" xml:space="preserve">
+    <value>Kullanıcı Yönetimi</value>
+  </data>
+  <data name="ModifyExpirationDate" xml:space="preserve">
+    <value>Son Kullanım Tarihi Değiştirme</value>
+  </data>
+  <data name="SMSSettings" xml:space="preserve">
+    <value>SMS Ayarları</value>
+  </data>
+  <data name="ForceChangeService" xml:space="preserve">
+    <value>Zorla Tarife Değişme</value>
+  </data>
+  <data name="InfrastructureService" xml:space="preserve">
+    <value>Altyapı Sorgulama</value>
+  </data>
+  <data name="LineQualityService" xml:space="preserve">
+    <value>Hat Kalitesi Sorgulama</value>
+  </data>
+  <data name="Taxes" xml:space="preserve">
+    <value>Vergiler</value>
+  </data>
+  <data name="PaymentServices" xml:space="preserve">
+    <value>Ödeme Hizmetleri</value>
+  </data>
+  <data name="TelekomServices" xml:space="preserve">
+    <value>Telekom Hizmetleri</value>
+  </data>
+  <data name="ChangeSpeedProfile" xml:space="preserve">
+    <value>Hız Profili Değiştir</value>
+  </data>
+  <data name="GeneralFaultQuery" xml:space="preserve">
+    <value>Genel Arıza Sorgulama</value>
+  </data>
+  <data name="BatchSMS" xml:space="preserve">
+    <value>Toplu SMS</value>
+  </data>
+  <data name="CreateBill" xml:space="preserve">
+    <value>Fatura Oluşturma</value>
+  </data>
+  <data name="ManageCredit" xml:space="preserve">
+    <value>Kredi Yönetimi</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Ödeme</value>
+  </data>
+  <data name="CancelPayment" xml:space="preserve">
+    <value>Ödeme İptal Etme</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>İskonto</value>
+  </data>
+  <data name="EBill" xml:space="preserve">
+    <value>E-Fatura</value>
+  </data>
+  <data name="BatchEBill" xml:space="preserve">
+    <value>Toplu E-Fatura</value>
+  </data>
+  <data name="ForceFreeze" xml:space="preserve">
+    <value>Zorla Dondurma</value>
+  </data>
+  <data name="ClientFiles" xml:space="preserve">
+    <value>Müşteri Dosyaları</value>
+  </data>
+  <data name="EditClientFiles" xml:space="preserve">
+    <value>Müşteri Dosyaları Düzenleme</value>
+  </data>
+  <data name="CustomerSetupService" xml:space="preserve">
+    <value>Müşteri Kurulum Servisi</value>
+  </data>
+  <data name="CustomerSetupUsers" xml:space="preserve">
+    <value>Müşteri Kurulumu Kullanıcıları</value>
+  </data>
+  <data name="SetupTaskServiceFee" xml:space="preserve">
+    <value>Kurulum Görevi Hizmet Ücreti</value>
+  </data>
+  <data name="CreateSetupTask" xml:space="preserve">
+    <value>Kurulum Görevi Oluşturma</value>
+  </data>
+  <data name="CreateSupportRequest" xml:space="preserve">
+    <value>Destek İsteği Oluşturma</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Raporlar</value>
+  </data>
+  <data name="ServicesClientCount" xml:space="preserve">
+    <value>Tarifeler Müşteri Sayısı</value>
+  </data>
+  <data name="RiskyClients" xml:space="preserve">
+    <value>Riskli Müşteriler</value>
+  </data>
+  <data name="ClientCount" xml:space="preserve">
+    <value>Müşteri Sayısı</value>
+  </data>
+  <data name="OnlineClients" xml:space="preserve">
+    <value>Online Müşteriler</value>
+  </data>
+  <data name="ClientUsageReport" xml:space="preserve">
+    <value>Müşteri Kullanım Raporu</value>
+  </data>
+  <data name="CancelledClients" xml:space="preserve">
+    <value>İptal Durumunda Olan Müşteriler</value>
+  </data>
+  <data name="CancelledClientsUnpaidBills" xml:space="preserve">
+    <value>İptal Olup Faturası Olan Müşteriler</value>
+  </data>
+  <data name="TotalDownloadUpload" xml:space="preserve">
+    <value>Toplam Download/Upload</value>
+  </data>
+  <data name="BackgroundServices" xml:space="preserve">
+    <value>Servisler</value>
+  </data>
+  <data name="StaticIPReport" xml:space="preserve">
+    <value>Statik IP Raporu</value>
+  </data>
+  <data name="CloseNASConnections" xml:space="preserve">
+    <value>Router Bağlantılarını Kapat</value>
+  </data>
+  <data name="ClientIDs" xml:space="preserve">
+    <value>Müşteri Kimlik Belgeleri</value>
+  </data>
+  <data name="ModifyClientIDs" xml:space="preserve">
+    <value>Kimlik Belgeleri Düzenleme</value>
+  </data>
+  <data name="PDFTemplates" xml:space="preserve">
+    <value>PDF Şablonları</value>
+  </data>
+  <data name="SystemLogs" xml:space="preserve">
+    <value>İşlem Geçmişi</value>
+  </data>
+  <data name="ChangeClientService" xml:space="preserve">
+    <value>Müşterinin Tarifesini Değiştirme</value>
+  </data>
+  <data name="SystemLogsReport" xml:space="preserve">
+    <value>İşlem Geçmişi Raporu</value>
+  </data>
+  <data name="CommitmentReport" xml:space="preserve">
+    <value>Taahhüt Raporu</value>
+  </data>
+  <data name="CallCenterSettings" xml:space="preserve">
+    <value>Çağrı Merkezi Ayarları</value>
+  </data>
+  <data name="BTKSettings" xml:space="preserve">
+    <value>BTK Ayarları</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Değer Ayarlar</value>
+  </data>
+  <data name="VPOSSettings" xml:space="preserve">
+    <value>Sanal POS Ayarları</value>
+  </data>
+  <data name="BTKLogs" xml:space="preserve">
+    <value>BTK Logları</value>
+  </data>
+  <data name="ForceCancellation" xml:space="preserve">
+    <value>Zorla İptal Etme</value>
+  </data>
+  <data name="ForceUnfreeze" xml:space="preserve">
+    <value>Zorla Çözme</value>
+  </data>
+  <data name="QuotaSettings" xml:space="preserve">
+    <value>Kota Ayarları</value>
+  </data>
+  <data name="QuotaSale" xml:space="preserve">
+    <value>Kota Satış</value>
+  </data>
+  <data name="DownloadSubscriberList" xml:space="preserve">
+    <value>Abone Listesini İndirme</value>
+  </data>
+  <data name="MobilExpressSettings" xml:space="preserve">
+    <value>MobilExpress Ayarları</value>
+  </data>
+  <data name="DisconnectUser" xml:space="preserve">
+    <value>Kullanıcının Bağlantısını Kesme</value>
+  </data>
+  <data name="AutomaticPaymentReport" xml:space="preserve">
+    <value>Otomatik Ödeme Talımatlar Raporu</value>
+  </data>
+  <data name="IgnoreTCKValidation" xml:space="preserve">
+    <value>TCK Doğrulamasını Yoksayma</value>
+  </data>
+  <data name="DomainSettings" xml:space="preserve">
+    <value>Domain Ayarları</value>
+  </data>
+  <data name="AddressSettings" xml:space="preserve">
+    <value>Adres API Ayarları</value>
+  </data>
+  <data name="TelekomTariffs" xml:space="preserve">
+    <value>Telekom Tarifeler</value>
+  </data>
+  <data name="SkipTCKValidation" xml:space="preserve">
+    <value>TCK Doğrulamasını Geçmek</value>
+  </data>
+  <data name="EditIDCard" xml:space="preserve">
+    <value>Kimlik Kartı Düzenleme</value>
+  </data>
+  <data name="ChangeUsername" xml:space="preserve">
+    <value>Kullanıcı Adı Değiştirme</value>
+  </data>
+  <data name="TelekomWorkOrders" xml:space="preserve">
+    <value>Telekom İş Emirleri</value>
+  </data>
+  <data name="TelekomWorkOrderEdits" xml:space="preserve">
+    <value>Telekom İş Emri Düzenlemeleri</value>
+  </data>
+  <data name="Commitment" xml:space="preserve">
+    <value>Taahüt</value>
+  </data>
+  <data name="TransportSubscription" xml:space="preserve">
+    <value>Aboneliği Nakletme</value>
+  </data>
+  <data name="ChangeDSLNo" xml:space="preserve">
+    <value>DSL Numara Değiştirme</value>
+  </data>
+  <data name="ChangeStaticIP" xml:space="preserve">
+    <value>Statik IP Değiştirme</value>
+  </data>
+  <data name="CancelBill" xml:space="preserve">
+    <value>Fatura İptal Etme</value>
+  </data>
+  <data name="EditNotes" xml:space="preserve">
+    <value>Notları Düzenlemesi</value>
+  </data>
+  <data name="Partners" xml:space="preserve">
+    <value>Bayiler</value>
+  </data>
+  <data name="SubscriberState" xml:space="preserve">
+    <value>Abone Durumu</value>
+  </data>
+  <data name="IPDRReport" xml:space="preserve">
+    <value>IPDR Raporu</value>
+  </data>
+  <data name="PartnerAPISettings" xml:space="preserve">
+    <value>Bayii API'sı Ayarları</value>
+  </data>
+  <data name="DiscountReport" xml:space="preserve">
+    <value>İndirim Raporu</value>
+  </data>
+  <data name="DownloadBillsTaxDetails" xml:space="preserve">
+    <value>Fatura Vergisi Ayrıntılarını İndirme</value>
+  </data>
+  <data name="SchedulerSettings" xml:space="preserve">
+    <value>Zamanlayıcı Ayarları</value>
+  </data>
+  <data name="SpecialOffers" xml:space="preserve">
+    <value>Kampanyalar</value>
+  </data>
+  <data name="OfflinePaymentGateways" xml:space="preserve">
+    <value>Offline Ödeme Geçitleri</value>
+  </data>
+  <data name="OfflinePayments" xml:space="preserve">
+    <value>Offline Ödemeler</value>
+  </data>
+  <data name="AddReferralDiscount" xml:space="preserve">
+    <value>Referans İndirim Ekleme</value>
+  </data>
+  <data name="BatchExpirationDateUpdate" xml:space="preserve">
+    <value>Toplu Son Kullanım Tarihi Güncelleme</value>
+  </data>
+  <data name="ReferralDiscountReport" xml:space="preserve">
+    <value>Referans İndirim Raporu</value>
+  </data>
+  <data name="SpecialOffersUsage" xml:space="preserve">
+    <value>Kampanya Kullanım</value>
+  </data>
+</root>

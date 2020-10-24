@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BillSMSActTime" xml:space="preserve">
+    <value>Billing SMS Daily Start Time</value>
+  </data>
+  <data name="ChartMaxSteps" xml:space="preserve">
+    <value>Linear Chart Maximum Steps</value>
+  </data>
+  <data name="MailHost" xml:space="preserve">
+    <value>Mail Host</value>
+  </data>
+  <data name="MailHostPort" xml:space="preserve">
+    <value>Mail Host Port</value>
+  </data>
+  <data name="MailPass" xml:space="preserve">
+    <value>Mail Password</value>
+  </data>
+  <data name="MailUser" xml:space="preserve">
+    <value>Mail User</value>
+  </data>
+  <data name="PagesLinkCount" xml:space="preserve">
+    <value>Page Number Count</value>
+  </data>
+  <data name="TableRows" xml:space="preserve">
+    <value>Table Rows Count</value>
+  </data>
+  <data name="TTServicesPassword" xml:space="preserve">
+    <value>Web Service Password</value>
+  </data>
+  <data name="TTServicesUsername" xml:space="preserve">
+    <value>Web Service Username</value>
+  </data>
+  <data name="UsernameSuffix" xml:space="preserve">
+    <value>Username Suffix</value>
+  </data>
+  <data name="TTISPCode" xml:space="preserve">
+    <value>Web Service ISP Code</value>
+  </data>
+  <data name="TTServiceCustomerCode" xml:space="preserve">
+    <value>Web Service Customer Code</value>
+  </data>
+  <data name="TTOLOPassword" xml:space="preserve">
+    <value>OLO Portal Password</value>
+  </data>
+  <data name="TTOLOUsername" xml:space="preserve">
+    <value>OLO Portal Username</value>
+  </data>
+  <data name="EBillApiPassword" xml:space="preserve">
+    <value>Api Password</value>
+  </data>
+  <data name="EBillApiUsername" xml:space="preserve">
+    <value>Api Username</value>
+  </data>
+  <data name="EBillCompanyCode" xml:space="preserve">
+    <value>Company Code</value>
+  </data>
+  <data name="InvoiceArchiveIDPrefix" xml:space="preserve">
+    <value>Archive Prefix</value>
+  </data>
+  <data name="InvoiceBillIDPrefix" xml:space="preserve">
+    <value>Bill Prefix</value>
+  </data>
+  <data name="PastDueFlatPenalty" xml:space="preserve">
+    <value>Past Due Flat Penalty</value>
+  </data>
+  <data name="PastDuePenaltyPercentage" xml:space="preserve">
+    <value>Past Due Penalty Percentage</value>
+  </data>
+  <data name="SenderCentralSystemNo" xml:space="preserve">
+    <value>Sender Central System No</value>
+  </data>
+  <data name="SenderCityName" xml:space="preserve">
+    <value>Sender City Name</value>
+  </data>
+  <data name="SenderCompanyTaxRegion" xml:space="preserve">
+    <value>Sender Tax Region</value>
+  </data>
+  <data name="SenderCompanyTitle" xml:space="preserve">
+    <value>Sender Company Title</value>
+  </data>
+  <data name="SenderCountryName" xml:space="preserve">
+    <value>Sender Country Name</value>
+  </data>
+  <data name="SenderEmail" xml:space="preserve">
+    <value>Sender Email</value>
+  </data>
+  <data name="SenderPhoneNo" xml:space="preserve">
+    <value>Sender Phone No</value>
+  </data>
+  <data name="SenderProvinceName" xml:space="preserve">
+    <value>Sender Province Name</value>
+  </data>
+  <data name="SenderRegistrationNo" xml:space="preserve">
+    <value>Sender Registration No</value>
+  </data>
+  <data name="SenderTaxNo" xml:space="preserve">
+    <value>Sender Tax No</value>
+  </data>
+  <data name="EBillsThreshold" xml:space="preserve">
+    <value>E-Bills Threshold</value>
+  </data>
+  <data name="OnlinePasswordDuration" xml:space="preserve">
+    <value>Service Website Password Life</value>
+  </data>
+  <data name="UsernamePrefix" xml:space="preserve">
+    <value>Username Prefix</value>
+  </data>
+  <data name="SubscriberNoPrefix" xml:space="preserve">
+    <value>Subscriber No. Prefix</value>
+  </data>
+  <data name="EBillIsActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="ExpirationTolerance" xml:space="preserve">
+    <value>Expiration Tolerance (Days)</value>
+  </data>
+  <data name="PaymentTolerance" xml:space="preserve">
+    <value>Payment Tolerance (Days)</value>
+  </data>
+  <data name="SenderFaxNo" xml:space="preserve">
+    <value>Sender Fax No</value>
+  </data>
+  <data name="ReviewDelay" xml:space="preserve">
+    <value>Review Delay</value>
+  </data>
+  <data name="GeocodingAPIKey" xml:space="preserve">
+    <value>Geocoding API Key</value>
+  </data>
+  <data name="CountryPhoneCode" xml:space="preserve">
+    <value>Country Phone Code</value>
+  </data>
+  <data name="BTKOperatorCode" xml:space="preserve">
+    <value>BTK Operator Code</value>
+  </data>
+  <data name="BTKOperatorName" xml:space="preserve">
+    <value>BTK Operator Name</value>
+  </data>
+  <data name="BTKOperatorType" xml:space="preserve">
+    <value>BTK Operator Type</value>
+  </data>
+</root>

@@ -1,0 +1,88 @@
+﻿@using RadiusR_Manager.Helpers
+@using RadiusR.DB.Enums;
+
+@model RadiusR_Manager.Models.ViewModels.ClientAdditionalFeesViewModel
+
+@{
+    ViewBag.Title = ViewBag.FullName + "-" + RadiusR.Localization.Pages.Common.AdditionalFees;
+    bool IsConfirm = ViewBag.IsConfirm ?? false;
+    var style = IsConfirm ? "display: none;" : "";
+    var today = DateTime.Now.Date;
+    short paymentType = ViewBag.PaymentType == null ? (short)PaymentType.Cash : (short)ViewBag.PaymentType;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("isConfirmed", IsConfirm ? "on" : "")
+    if (IsConfirm)
+    {
+        <table class="bill-receipt">
+            <tr>
+                <th style="text-align: left;">
+                    @ViewBag.FullName
+                </th>
+                <th style="text-align: right;">
+                    @Html.DisplayFor(model => today)
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    @RadiusR.Localization.Pages.Common.Description
+                </th>
+                <th>
+                    @RadiusR.Localization.Model.RadiusR.Price
+                </th>
+            </tr>
+            @foreach (var item in Model._virtualBill.Fees)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cost)
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td>
+                    @RadiusR.Localization.Pages.Common.Total
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model._virtualBill.TotalCost)
+                </td>
+            </tr>
+        </table>
+    }
+    <div style="@style">
+        <table class="input-table">
+            @Html.EditorFor(model => model.AdditionalFees)
+            @Html.EditorFor(model => model.CustomFees)
+        </table>
+    </div>
+    <div class="centered" style="margin-top: 0.5em;">
+        <a href="@Url.Action("Details", "Client", new { id = Model.ClientID })#additional-fees" class="link-button iconed-button cancel-button">@RadiusR.Localization.Pages.Common.Cancel</a>&nbsp;&nbsp;
+        @if (IsConfirm)
+        {
+            @Html.PaymentButton(model => paymentType)
+        }
+        else
+        {
+            @Html.HiddenFor(model=> paymentType)
+            <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+        }
+    </div>
+}
+
+@section PageScripts{
+    <script type="text/javascript">
+        SetupCustomFeeList('table.input-table');
+        setupPaymentButtons();
+        $('.print-button').click(function () {
+            var currentButton = $(this);
+            currentButton.closest('form').append('<input type="hidden" name="HasPrintRequested" value="on" />');
+            currentButton.closest('form').submit();
+        });
+    </script>
+}

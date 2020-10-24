@@ -1,0 +1,22 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.CreateBillViewModel
+
+@{
+    ViewBag.Title = Model.ClientName + "-" + RadiusR.Localization.Pages.Common.CreateBill;
+    var dataStructure = Model.Fees.Select(fee => new { ID = fee.ID, Name = string.IsNullOrEmpty(fee.Description) ? Html.DisplayFor(modelItem => fee.FeeTypeID) : Html.DisplayFor(modelItem => fee.Description) });
+    var selectList = new MultiSelectList(dataStructure, "ID", "Name", Model.Fees.Where(fee => fee.IsSelected).Select(fee => fee.ID));
+}
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.MultiSelect("fees", selectList, RadiusR.Localization.Pages.Common.Choose)
+            <div class="centered" style="margin-top: 0.5em;">
+                <a href="@Url.Action("Details", new { id = Model.ClientID })#additional-fees" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,79 @@
+﻿@using RezaB.Web.Authentication
+@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.CustomerSetupServiceTaskViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Clients + "-" + RadiusR.Localization.Pages.Common.WorkOrders;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IssueDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompletionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsCharged)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.IssueDate)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.TaskType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User)
+            </td>
+            <td style="white-space: pre-line;">@Html.DisplayFor(modelItem => item.Details)</td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.CompletionDate)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.IsCharged)
+            </td>
+            <td>
+                @if (User.HasPermission("Create Setup Task") && item.Status == (short)RadiusR.DB.Enums.CustomerSetup.TaskStatuses.New)
+                {
+                    using (Html.BeginForm("RemoveWorkOrder", "Client", new { id = item.ID }, FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button delete-button" />
+                    }
+                }
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", "CustomerSetupService", new { id = item.ID, redirectUrl = Url.Action("Details", "Client", new { id = ViewBag.ClientID }, Request.Url.Scheme) + "#faults" }, new { @class = "link-button iconed-button details-button" })
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+<div class="centered" style="line-height: 2em;">
+    <div class="text-danger">
+        @ViewBag.ErrorMessage
+    </div>
+    <div style="color: seagreen;">
+        @ViewBag.SuccessMessage
+    </div>
+</div>

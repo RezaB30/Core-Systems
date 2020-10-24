@@ -1,0 +1,116 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.SystemLogsReportViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.SystemLogsReport;
+    var search = ViewBag.Search as RadiusR_Manager.Models.ViewModels.SystemLogsReportSearchViewModel;
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Get))
+{
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.LogType)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.LogType)
+            </td>
+            <td>
+                @Html.LabelFor(model => search.UserID)
+            </td>
+            <td>
+                @Html.Select(model => search.UserID, (SelectList)ViewBag.Users, RadiusR.Localization.Pages.Common.Choose)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.StartDate)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.StartDate)
+            </td>
+            <td>
+                @Html.LabelFor(model => search.EndDate)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.EndDate)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+            </td>
+        </tr>
+    </table>
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Subscribers)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LogType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LogInterfaceType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LogInterfaceUsername)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProcessedLog)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (item.Subscribers != null)
+                {
+                    foreach (var subscriber in item.Subscribers)
+                    {
+                        <div style="margin: 0.2em 0;">
+                            @Html.ActionLink(subscriber.SubscriberNo, "Details", "Client", new { id = subscriber.ID }, new { @class = "details-link" })
+                        </div>
+                    }
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.LogType)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.LogInterfaceType)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.LogInterfaceUsername)
+            </td>
+            <td class="system-log-display" style="text-align: left;">
+                @Html.DisplayFor(modelItem => item.ProcessedLog)
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

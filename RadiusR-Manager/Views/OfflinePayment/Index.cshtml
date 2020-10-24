@@ -1,0 +1,100 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.OfflinePaymentGatewayViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.OfflinePaymentGateways;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FTPAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FTPUsername)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FTPPassword)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastOperationTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastProcessedFileName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FTPAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FTPUsername)
+            </td>
+            <td>
+                <div class="invisible-text">
+                    @Html.DisplayFor(modelItem => item.FTPPassword)
+                </div>
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.LastOperationTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastProcessedFileName)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "Edit", new { id = item.ID }, new { @class = "link-button iconed-button edit-button" })
+                
+                @if (item.CanBeRemoved)
+                {
+                    @:&nbsp;
+                    using (Html.BeginForm("Remove", null, FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", item.ID)
+                        <input type="submit" name="" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button remove-button" />
+                    }
+                }
+                &nbsp;
+                @using (Html.BeginForm("ToggleState", null, FormMethod.Post, new { @confirm = "enabled" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("id", item.ID)
+                    if (item.IsActive)
+                    {
+                        <input type="submit" name="" value="@RadiusR.Localization.Pages.Common.Deactivate" class="link-button iconed-button lock-button" />
+                    }
+                    else
+                    {
+                        <input type="submit" name="" value="@RadiusR.Localization.Pages.Common.Activate" class="link-button iconed-button unlock-button" />
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+<div class="button-row centered">
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "Add", null, new { @class = "link-button iconed-button new-button" })
+</div>

@@ -1,0 +1,86 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.BTKIPBlockViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.BTKIPBlocks;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OperatorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartingIP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndingIP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UsesNAT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllocationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeallocationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BlockType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UseLocation)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperatorName)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.StartingIP)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.EndingIP)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.ServiceType)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.UsesNAT)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.AllocationDate)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.DeallocationDate)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.BlockType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UseLocation)
+            </td>
+            <td>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "EditIPBlock", new { id = item.ID }, new { @class = "link-button iconed-button edit-button" })
+                @using (Html.BeginForm("RemoveIPBlock", null, FormMethod.Post, new { @confirm = "enabled" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("ID", item.ID)
+                    <input type="submit" name="" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button remove-button" />
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+
+<div class="centered" style="margin: 1em 0;">
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "AddIPBlock", null, new { @class = "link-button iconed-button new-button" })
+</div>

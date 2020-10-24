@@ -1,0 +1,69 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Authentication
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.NoteViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Clients + "-" + RadiusR.Localization.Pages.Common.Notes;
+    var addedNote = ViewBag.Note as RadiusR_Manager.Models.RadiusViewModels.NoteViewModel;
+    addedNote = addedNote ?? new RadiusR_Manager.Models.RadiusViewModels.NoteViewModel() { Message = null };
+}
+
+<div class="centered">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.LabelFor(model => addedNote.Message)
+        </div>
+        <div>
+            @Html.TextAreaFor(model => addedNote.Message, new { @maxlength = 3000, @cols = 60 })
+        </div>
+        <div>
+            @Html.ValidationMessageFor(model => addedNote.Message)
+        </div>
+        <div class="centered" style="margin: 0.5em 0;">
+            <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+        </div>
+    }
+</div>
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.WriterName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Message)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WriterName)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td style="white-space: pre-line;">@Html.DisplayFor(modelItem => item.Message)</td>
+            <td>
+                @if (User.HasPermission("Edit notes"))
+                {
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "EditNote", new { id = item.ID }, new { @class = "link-button iconed-button edit-button" })
+                    @:&nbsp;
+                    using (Html.BeginForm("RemoveNote", "Client", new { id = item.ID }, FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button remove-button" />
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)

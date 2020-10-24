@@ -1,0 +1,37 @@
+﻿@using RadiusR.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.EditableRoleViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Roles + "-" + RadiusR.Localization.Pages.Common.AddRole;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div>
+                @Html.LabelFor(model => model.Name)
+                @Html.EditorFor(model => model.Name, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = 50 } })
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null  ,new { @class = "link-button iconed-button back-button" })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.Permissions)
+            </div>
+            <div style="font-size: 1.3em;">
+                @Html.TreeChecker(model => model.Permissions)
+            </div>
+        }
+    </div>
+</div>
+
+@section PageScripts{
+    <script type="text/javascript">
+        SetupTreeChecker('form');
+    </script>
+}

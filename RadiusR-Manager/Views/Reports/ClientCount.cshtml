@@ -1,0 +1,51 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.ClientCountReportViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.ClientCount;
+
+    LinearDiagramTags tags = new LinearDiagramTags();
+    tags.HorizontalBarTitle = RadiusR.Localization.Model.RadiusR.Date;
+    tags.VerticalBarTitle = RadiusR.Localization.Pages.Common.Clients;
+}
+
+<div class="centered">
+    <div style="margin: 1em 0;">
+        <div class="client-count-item total">
+            @Html.DisplayNameFor(model => model.TotalCount)
+            <div class="client-count-item-value">
+                @Html.DisplayFor(model => model.TotalCount)
+            </div>
+        </div>
+        <div class="client-count-item cancelled">
+            @Html.DisplayNameFor(model => model.CancelledCount)
+            <div class="client-count-item-value">
+                @Html.DisplayFor(model => model.CancelledCount)
+            </div>
+        </div>
+        <div class="client-count-item active">
+            @Html.DisplayNameFor(model => model.ActiveCount)
+            <div class="client-count-item-value">
+                @Html.DisplayFor(model => model.ActiveCount)
+            </div>
+        </div>
+        <div class="client-count-item passive">
+            @Html.DisplayNameFor(model => model.PassiveCount)
+            <div class="client-count-item-value">
+                @Html.DisplayFor(model => model.PassiveCount)
+            </div>
+        </div>
+        <div class="client-count-item freezed">
+            @Html.DisplayNameFor(model => model.FreezedCount)
+            <div class="client-count-item-value">
+                @Html.DisplayFor(model => model.FreezedCount)
+            </div>
+        </div>
+    </div>
+
+    <div class="centered-form">
+        <div class="rate-limit-title" style="font-family: 'Racing Sans One', cursive;">@RadiusR.Localization.Pages.Common.Last12Months</div>
+        @Html.LinearDiagram(600, 300, Model.DiagramData.Select(data => (LinearDiagramDataArray)data).ToList(), tags)
+    </div>
+</div>

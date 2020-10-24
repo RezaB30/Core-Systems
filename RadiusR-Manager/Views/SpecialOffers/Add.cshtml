@@ -1,0 +1,90 @@
+﻿@using RadiusR_Manager.Helpers;
+
+@model RadiusR_Manager.Models.RadiusViewModels.SpecialOfferViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.SpecialOffers + "-" + RadiusR.Localization.Pages.Common.Add;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Name)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @maxlength = 300, @autocomplete = "off" } })
+                    </td>
+                    <td colspan="2">
+                        @Html.EditorFor(model => model.IsReferral)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </td>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.IsReferral)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.StartDate)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.StartDate)
+                    </td>
+                    <td>
+                        @Html.LabelFor(model => model.EndDate)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.EndDate)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.StartDate)
+                    </td>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.EndDate)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="input-table-row-group-separator"></td>
+                </tr>
+                <tr>
+                    <td style="border-right: 1px solid grey;">
+                        @Html.LabelFor(model => model.DiscountInfo)
+                    </td>
+                    <td colspan="3" id="discount-editor">
+                        @Html.RecurringDiscountEditorFor(model => model.DiscountInfo, (SelectList)ViewBag.FeeTypeList, false)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        @Html.ValidationMessageFor(model => model.DiscountInfo)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="input-table-row-group-separator"></td>
+                </tr>
+                <tr>
+                    <td class="centered" colspan="4">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class = "link-button iconed-button back-button" })
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+@section PageScripts{
+    <script>
+        SetupRecurringDiscountEditor('#discount-editor',@((short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountType.Static), @((short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountType.Percentage), @((short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountApplicationType.FeeBased), @((short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountApplicationType.BillBased));
+    </script>
+}

@@ -1,0 +1,137 @@
+﻿@using RezaB.Web.Helpers
+@using RadiusR_Manager.Helpers
+@using RezaB.Web.Authentication
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.ServiceViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Services + "-" + RadiusR.Localization.Pages.Common.ServiceList;
+    var search = ViewBag.Search as RadiusR_Manager.Models.ViewModels.ServiceSearchViewModel;
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Get))
+{
+    <table class="input-table">
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.Name)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.Name, new { @htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+            </td>
+            <td>
+                @Html.LabelFor(model => search.DomianID)
+            </td>
+            <td>
+                @Html.Select(model => search.DomianID, (SelectList)ViewBag.AllDomains, RadiusR.Localization.Pages.Common.Choose)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => search.BillingType)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.BillingType)
+            </td>
+            <td>
+                @Html.LabelFor(model => search.QuotaType)
+            </td>
+            <td>
+                @Html.EditorFor(model => search.QuotaType)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+            </td>
+        </tr>
+    </table>
+}
+
+<div>
+    <table class="data-table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RateLimitView)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillingType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuotaType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceDomains)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillingPeriods)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RateLimitView)
+                </td>
+                <td class="centered">
+                    @Html.DisplayFor(modelItem => item.BillingType)
+                </td>
+                <td class="centered">
+                    @Html.DisplayFor(modelItem => item.QuotaType)
+                </td>
+                <td class="centered">
+                    @Html.ServiceDomainDisplayFor(modelItem => item.ServiceDomains)
+                </td>
+                <td class="centered">
+                    @foreach (var dayOfMonth in item.BillingPeriods)
+                    {
+                        <div>@dayOfMonth</div>
+                    }
+                </td>
+                <td>
+                    @if (User.HasPermission("Modify Services"))
+                    {
+                        using (Html.BeginForm("ChangeActiveState", null, FormMethod.Post, new { @confirm = "enabled" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("id", item.ID)
+                            if (item.IsActive)
+                            {
+                                <input type="submit" value="@RadiusR.Localization.Pages.Common.Deactivate" class="link-button iconed-button lock-button" />
+                            }
+                            else
+                            {
+                                <input type="submit" value="@RadiusR.Localization.Pages.Common.Activate" c class="link-button iconed-button unlock-button" />
+                            }
+                        }
+                        @:&nbsp;
+                        using (Html.BeginForm("Remove", null, FormMethod.Post, new { @confirm = "enabled" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("id", item.ID)
+                            <input type="submit" name="" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button remove-button" />
+                        }
+                        @:&nbsp;
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "Edit", new { id = item.ID }, htmlAttributes: new { @class = "link-button iconed-button edit-button" })
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+    @Html.PagedList((int)ViewBag.PageCount)
+</div>
+@ViewBag.RemoveError

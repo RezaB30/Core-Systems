@@ -1,0 +1,43 @@
+﻿<table>
+    <tr>
+        <th colspan="100%">
+            <div style="text-align: center;">
+                <div>
+                    <div class="calendar-year" tabindex="0">@ViewBag.Year</div><input class="calendar-year-input" type="text" value="@ViewBag.Year" maxlength="4" />
+                </div>
+                <input type="button" class="calendar-previous-button" value="<" />
+                <div class="calendar-month" tabindex="0" value="@ViewBag.MonthNo">@ViewBag.Month</div>
+                <input type="button" class="calendar-next-button" value=">" />
+            </div>
+        </th>
+    </tr>
+    <tr>
+        @foreach (var dayofweek in ViewBag.DayNames)
+        {
+            <td>@dayofweek</td>
+        }
+    </tr>
+    <tr>
+        @for (int j = 0; j < (int)ViewBag.StartingDay; j++)
+        {
+            <td style="visibility: hidden;"></td>
+        }
+
+        @for (int i = 0; i < ViewBag.TotalDays; i++)
+        {
+            var dayNo = i + 1;
+            if ((i + (int)ViewBag.StartingDay) % 7 == 0)
+            {
+                @:</tr><tr>
+            }
+
+            var selected = "";
+            if (dayNo == ViewBag.Day)
+            {
+                selected = "selected";
+            }
+            <td class="@selected" tabindex="0">@dayNo</td>
+        }
+    </tr>
+</table>
+

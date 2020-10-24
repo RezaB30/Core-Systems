@@ -1,0 +1,43 @@
+﻿@using RadiusR.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.BillViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.ChangeState + "-" + ViewBag.FullName;
+    var total = (string)ViewBag.Total;
+    var index = 0;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="bill-receipt-container">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td colspan="2">
+                    @Html.Hidden("billIds[" + index + "]", item.ID)
+                    @Html.BillDetailsFor(model => item)
+                    <div class="bill-receipt-footer"></div>
+                </td>
+            </tr>
+            index++;
+        }
+        <tr class="last-row">
+            <td>
+                @RadiusR.Localization.Pages.Common.Total
+            </td>
+            <td style="text-align: right;">
+                @Html.Display("total", "Currency")
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: left; padding: 0.3em;">
+                <a href="@ViewBag.BackUrl" class="link-button iconed-button cancel-button">@RadiusR.Localization.Pages.Common.Cancel</a>
+            </td>
+            <td style="text-align: right; padding: 0.3em;">
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Pay" class="link-button iconed-button payment-button" />
+            </td>
+        </tr>
+    </table>
+}
