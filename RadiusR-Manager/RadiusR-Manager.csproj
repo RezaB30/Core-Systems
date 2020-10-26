@@ -915,6 +915,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RadiusR.Localization.Lists\RadiusR.Localization.Lists.csproj">
+      <Project>{e1bae2fa-ae42-447b-8087-eae20e6e697c}</Project>
+      <Name>RadiusR.Localization.Lists</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RadiusR.OfflinePayment\RadiusR.OfflinePayment.csproj">
       <Project>{20554ebc-26fa-44fe-88cc-af1a9545ae8e}</Project>
       <Name>RadiusR.OfflinePayment</Name>

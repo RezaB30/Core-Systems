@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>1.0.0</version>
+    <title>RadiusR.Scheduler.SMS</title>
+    <authors>Reza Barzegaran</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <description>SMS methods for the scheduler.</description>
+    <releaseNotes>First release.</releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>MasterISS Scheduler SMS</tags>
+	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />
+	<dependencies>
+		<dependency id="RadiusR.DB" version="1.0.0"/>
+	</dependencies>
+  </metadata>
+</package>

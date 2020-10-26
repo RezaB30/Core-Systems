@@ -11,6 +11,9 @@
     <AssemblyName>RadiusR.DB.Utilities</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+	<PackageDescription>MasterISS data base utilities.</PackageDescription>
+    <RepositoryUrl>https://github.com/masteriss/Core-Systems</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <SccProjectName>
     </SccProjectName>
     <SccLocalPath>

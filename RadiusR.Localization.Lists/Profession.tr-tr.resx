@@ -1,0 +1,504 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Code_011" xml:space="preserve">
+    <value>Subay</value>
+  </data>
+  <data name="Code_021" xml:space="preserve">
+    <value>Subay olmayan silahlı kuvvetlerin daimi mensupları</value>
+  </data>
+  <data name="Code_031" xml:space="preserve">
+    <value>Silahlı kuvvetlerde diğer rütbelerdeki meslekler</value>
+  </data>
+  <data name="Code_111" xml:space="preserve">
+    <value>Kanun yapıcılar ve üst düzey yöneticiler</value>
+  </data>
+  <data name="Code_112" xml:space="preserve">
+    <value>genel müdürler ve başkanlar (özel sektör)</value>
+  </data>
+  <data name="Code_121" xml:space="preserve">
+    <value>iş hizmetleri ve idaresi ile ilgili müdürler</value>
+  </data>
+  <data name="Code_122" xml:space="preserve">
+    <value>satış, pazarlama ve iş geliştirme ile ilgili müdürler</value>
+  </data>
+  <data name="Code_131" xml:space="preserve">
+    <value>tarım, ormancılık ve balıkçılık ile ilgili üretim müdürleri</value>
+  </data>
+  <data name="Code_132" xml:space="preserve">
+    <value>imalat, madencilik, inşaat ve dağıtım müdürleri</value>
+  </data>
+  <data name="Code_133" xml:space="preserve">
+    <value>bilgi ve iletişim teknolojisi hizmet müdürleri</value>
+  </data>
+  <data name="Code_134" xml:space="preserve">
+    <value>profesyonel hizmet müdürleri</value>
+  </data>
+  <data name="Code_141" xml:space="preserve">
+    <value>otel, lokanta ve restoran müdürleri</value>
+  </data>
+  <data name="Code_142" xml:space="preserve">
+    <value>perakende ve toptan ticaret müdürleri</value>
+  </data>
+  <data name="Code_143" xml:space="preserve">
+    <value>diğer hizmet müdürleri</value>
+  </data>
+  <data name="Code_211" xml:space="preserve">
+    <value>fizik ve yer bilimleri ile ilgili profesyonel meslek grupları</value>
+  </data>
+  <data name="Code_212" xml:space="preserve">
+    <value>matematikçiler, istatikçiler ve aktüerler</value>
+  </data>
+  <data name="Code_213" xml:space="preserve">
+    <value>yaşam bilimleri ile ilgili profesyonel meslek mensupları</value>
+  </data>
+  <data name="Code_214" xml:space="preserve">
+    <value>mühendislik ile ilgili profesyonel meslek grupları (elektroteknoloji mühendisleri hariç)</value>
+  </data>
+  <data name="Code_215" xml:space="preserve">
+    <value>elektroteknoloji mühendisi</value>
+  </data>
+  <data name="Code_216" xml:space="preserve">
+    <value>mimarlar, planlamacılar, harita mühendisleri ve tasarımcılar</value>
+  </data>
+  <data name="Code_221" xml:space="preserve">
+    <value>tıp doktorları</value>
+  </data>
+  <data name="Code_222" xml:space="preserve">
+    <value>hemşirelik ve ebelik professyonelleri</value>
+  </data>
+  <data name="Code_223" xml:space="preserve">
+    <value>geleneksel ve tamamlayıcı tıp profesyonelleri</value>
+  </data>
+  <data name="Code_224" xml:space="preserve">
+    <value>paramedikal uygulayıcılar</value>
+  </data>
+  <data name="Code_225" xml:space="preserve">
+    <value>veterinerler</value>
+  </data>
+  <data name="Code_226" xml:space="preserve">
+    <value>diğer sağlık personelleri</value>
+  </data>
+  <data name="Code_231" xml:space="preserve">
+    <value>ünivertise ve yükseköğretim öğretim elemanları</value>
+  </data>
+  <data name="Code_232" xml:space="preserve">
+    <value>mesleki eğitim öğretmenleri</value>
+  </data>
+  <data name="Code_233" xml:space="preserve">
+    <value>ortaöğretim (ortaokul ve lise) öğretmenleri</value>
+  </data>
+  <data name="Code_234" xml:space="preserve">
+    <value>ilkokul ve okul öncesi öğretmenleri</value>
+  </data>
+  <data name="Code_235" xml:space="preserve">
+    <value>eğitim ile ilgili diğer profesyonel meslek mensupları</value>
+  </data>
+  <data name="Code_241" xml:space="preserve">
+    <value>finans ile ilgili profesyonel meslek mensupları</value>
+  </data>
+  <data name="Code_242" xml:space="preserve">
+    <value>yönetim ile ilgili profesyonel meslek mensupları</value>
+  </data>
+  <data name="Code_243" xml:space="preserve">
+    <value>satış, pazarlama ve halkla ilişkiler ile ilgili profesyonel meslek mensupları</value>
+  </data>
+  <data name="Code_251" xml:space="preserve">
+    <value>yazılım ve uygulama geliştiricileri ve analistleri</value>
+  </data>
+  <data name="Code_252" xml:space="preserve">
+    <value>veri tabanı ve bilgisayar ağları ile ilgili profesyonel meslek mensupları</value>
+  </data>
+  <data name="Code_261" xml:space="preserve">
+    <value>hukuk ile ilgili profesyonel meslek mensupları</value>
+  </data>
+  <data name="Code_262" xml:space="preserve">
+    <value>kütüphaneciler, arşivciler ve kuratörler</value>
+  </data>
+  <data name="Code_263" xml:space="preserve">
+    <value>sosyal ve din ile ilgili profesyonel meslek mensupları</value>
+  </data>
+  <data name="Code_264" xml:space="preserve">
+    <value>yazarlar, gazeteciler ve dilbilimciler</value>
+  </data>
+  <data name="Code_265" xml:space="preserve">
+    <value>yaratıcı sanatçılar ve sahne sanatçıları</value>
+  </data>
+  <data name="Code_311" xml:space="preserve">
+    <value>fizik ve mühendislik bilimleri teknisyenleri</value>
+  </data>
+  <data name="Code_312" xml:space="preserve">
+    <value>maden, imalat ve inşaat süpervizörleri</value>
+  </data>
+  <data name="Code_313" xml:space="preserve">
+    <value>işlem kontrol teknisyenleri</value>
+  </data>
+  <data name="Code_314" xml:space="preserve">
+    <value>yaşam bilimleri ve teknisyenleri ve ilgili yardımcı profesyonel meslek mensupları</value>
+  </data>
+  <data name="Code_315" xml:space="preserve">
+    <value>gemi ve hava taşıtı kontrolörleri ve teknisyenleri</value>
+  </data>
+  <data name="Code_321" xml:space="preserve">
+    <value>tıp teknisyenleri ve eczacılık teknisyenleri</value>
+  </data>
+  <data name="Code_322" xml:space="preserve">
+    <value>hemşirelik ve ebelik yardımcı profesyonelleri</value>
+  </data>
+  <data name="Code_323" xml:space="preserve">
+    <value>geleneksel ve tamamlayıcı tıp yardımcı profesyonelleri</value>
+  </data>
+  <data name="Code_324" xml:space="preserve">
+    <value>veteriner teknisyenleri ve yardımcıları</value>
+  </data>
+  <data name="Code_325" xml:space="preserve">
+    <value>diğer yardımcı sağlık personelleri</value>
+  </data>
+  <data name="Code_331" xml:space="preserve">
+    <value>finans ve matematiksel işler ile ilgili yardımcı profesyonel meslek mensupları</value>
+  </data>
+  <data name="Code_332" xml:space="preserve">
+    <value>satış ve satın alma temsilcileri ve aracıları (brokerler)</value>
+  </data>
+  <data name="Code_333" xml:space="preserve">
+    <value>iş hizmetleri aracıları</value>
+  </data>
+  <data name="Code_334" xml:space="preserve">
+    <value>idari ve belli bir alanda uzmanlaşmış sekreterler</value>
+  </data>
+  <data name="Code_335" xml:space="preserve">
+    <value>düzenleyici devlet ile ilgili alanlardaki yardımcı profesyonel meslek mensupları</value>
+  </data>
+  <data name="Code_341" xml:space="preserve">
+    <value>hukuk, sosyal ve dim ile ilgili yardımcı profesyonel meslek mensupları</value>
+  </data>
+  <data name="Code_342" xml:space="preserve">
+    <value>spor ve fitness çalışanları</value>
+  </data>
+  <data name="Code_343" xml:space="preserve">
+    <value>sanat, kültür ve mutfak ile ilgili yardımcı profesyonel meslek mensupları</value>
+  </data>
+  <data name="Code_351" xml:space="preserve">
+    <value>bilgi ve iletişim teknolojileri işletim ve kullanıcı destek teknisyenleri</value>
+  </data>
+  <data name="Code_352" xml:space="preserve">
+    <value>telekomünikasyon ve yayın teknisyenleri</value>
+  </data>
+  <data name="Code_411" xml:space="preserve">
+    <value>genel büro elemanları</value>
+  </data>
+  <data name="Code_412" xml:space="preserve">
+    <value>sekreterler (genel)</value>
+  </data>
+  <data name="Code_413" xml:space="preserve">
+    <value>klavye kullanan operatörler</value>
+  </data>
+  <data name="Code_421" xml:space="preserve">
+    <value>veznedarlar, tahsilatçılar ve benzer elemanlar</value>
+  </data>
+  <data name="Code_422" xml:space="preserve">
+    <value>müşteri danışma elemanları</value>
+  </data>
+  <data name="Code_431" xml:space="preserve">
+    <value>sayısal işlemler yapan büro elemanları</value>
+  </data>
+  <data name="Code_432" xml:space="preserve">
+    <value>malzeme kayıtları ve taşımcılık ile ilgili büro elemanları</value>
+  </data>
+  <data name="Code_441" xml:space="preserve">
+    <value>diğer büro hizmetlerinde çalışan elemanlar</value>
+  </data>
+  <data name="Code_511" xml:space="preserve">
+    <value>seyahatlerde hizmet veren elemanlar, kondüktörler ve otobüs muavinleri ile rehberler</value>
+  </data>
+  <data name="Code_512" xml:space="preserve">
+    <value>aşçılar</value>
+  </data>
+  <data name="Code_513" xml:space="preserve">
+    <value>garsonlar ve barmenler</value>
+  </data>
+  <data name="Code_514" xml:space="preserve">
+    <value>kuaförler, güzellik uzmanları ve ilgili çalışanlar</value>
+  </data>
+  <data name="Code_515" xml:space="preserve">
+    <value>bina sorumluları ile temizlik ve bakım işleri sorumluları</value>
+  </data>
+  <data name="Code_516" xml:space="preserve">
+    <value>diğer kişisel hizmetlerde çalışanlar</value>
+  </data>
+  <data name="Code_521" xml:space="preserve">
+    <value>sokak, tezgah ve Pazar satış elemanları</value>
+  </data>
+  <data name="Code_522" xml:space="preserve">
+    <value>mağaza, dükkan vb. satış elemanları</value>
+  </data>
+  <data name="Code_523" xml:space="preserve">
+    <value>kasiyerler ve bilet satıcıları</value>
+  </data>
+  <data name="Code_524" xml:space="preserve">
+    <value>diğer satış elemanları</value>
+  </data>
+  <data name="Code_531" xml:space="preserve">
+    <value>çocuk bakım hizmetleri veren elemanlar ve öğretmen yardımcıları</value>
+  </data>
+  <data name="Code_532" xml:space="preserve">
+    <value>sağlık hizmetlerinde kişisel bakım çalışanları</value>
+  </data>
+  <data name="Code_541" xml:space="preserve">
+    <value>koruma hizmetleri veren elemanlar</value>
+  </data>
+  <data name="Code_611" xml:space="preserve">
+    <value>bahçıvanlar ve bitkisel ürün yetiştiricileri</value>
+  </data>
+  <data name="Code_612" xml:space="preserve">
+    <value>hayvan yetiştiricileri</value>
+  </data>
+  <data name="Code_621" xml:space="preserve">
+    <value>ormancılık ve ormancılık ile ilgili işlerde çalışanlar</value>
+  </data>
+  <data name="Code_622" xml:space="preserve">
+    <value>su ürünleri çalışanları, avcılar ve tuzakçılar</value>
+  </data>
+  <data name="Code_631" xml:space="preserve">
+    <value>kendi geçimine yönelik bitkisel ürün yetiştiricileri</value>
+  </data>
+  <data name="Code_632" xml:space="preserve">
+    <value>kendi geçimine yönelik çiftlik hayvanları yetiştiricileri</value>
+  </data>
+  <data name="Code_633" xml:space="preserve">
+    <value>kendi geçimine yönelik karma bitkisel ürün ve çiftlik hayvanları yetiştiricileri</value>
+  </data>
+  <data name="Code_634" xml:space="preserve">
+    <value>kendi geçimine yönelik balıkçılar, avcılar, tuzakçılar ve toplayıcılar</value>
+  </data>
+  <data name="Code_711" xml:space="preserve">
+    <value>kaba inşaat ile ilgili işlerde çalışan sanatkarlar</value>
+  </data>
+  <data name="Code_712" xml:space="preserve">
+    <value>inşaatı tamamlayıcı işler ve ilgili işlerde çalışan sanatkarlar</value>
+  </data>
+  <data name="Code_713" xml:space="preserve">
+    <value>badana, boya ve bina dış yüzey temizliği ve ilgili işlerde çalışanlar</value>
+  </data>
+  <data name="Code_721" xml:space="preserve">
+    <value>metal levha ve inşaat malzemesi, metal kalıpçılar ve kaynakçılar ve ilgili işlerde çalışanlar</value>
+  </data>
+  <data name="Code_722" xml:space="preserve">
+    <value>demirciler, alet yapımcıları ve ilgili işlerde çalışanlar</value>
+  </data>
+  <data name="Code_723" xml:space="preserve">
+    <value>makine bakım ve onarım işlerinde çalışanlar</value>
+  </data>
+  <data name="Code_731" xml:space="preserve">
+    <value>el sanatları çalışanları</value>
+  </data>
+  <data name="Code_732" xml:space="preserve">
+    <value>basım ile ilgili işlerde çalışanlar</value>
+  </data>
+  <data name="Code_741" xml:space="preserve">
+    <value>elektrikli ekipman kurumcuları ve tamircileri</value>
+  </data>
+  <data name="Code_742" xml:space="preserve">
+    <value>elektronik ve telekomünikasyon kurumcuları ve tamircileri</value>
+  </data>
+  <data name="Code_751" xml:space="preserve">
+    <value>gıda işleme ve ilgili işlerde çalışanlar</value>
+  </data>
+  <data name="Code_752" xml:space="preserve">
+    <value>ağaç işleyiciler, ahşap mobilya imalatçıları ve ilgili işlerde çalışanlar</value>
+  </data>
+  <data name="Code_753" xml:space="preserve">
+    <value>tekstil ve giyim eşyası ile ilgili işlerde çalışanlar</value>
+  </data>
+  <data name="Code_754" xml:space="preserve">
+    <value>diğer sanatkarlar ve ilgili işlerde çalışanlar</value>
+  </data>
+  <data name="Code_811" xml:space="preserve">
+    <value>madencilik ve mineral işleme tesisi operatörleri</value>
+  </data>
+  <data name="Code_813" xml:space="preserve">
+    <value>kimyasal ve fotoğrafik ürünler tesis ve makine operratörleri</value>
+  </data>
+  <data name="Code_814" xml:space="preserve">
+    <value>kauçuk, plastik ve kağıt ürünleri makine operatörleri</value>
+  </data>
+  <data name="Code_815" xml:space="preserve">
+    <value>tekstil, kürk ve deri ürünleri makine operatörleri</value>
+  </data>
+  <data name="Code_816" xml:space="preserve">
+    <value>gıda ile ilgili ürünlerin makine operatörleri</value>
+  </data>
+  <data name="Code_817" xml:space="preserve">
+    <value>ağaç işleme ve kağt imalat tesisi operatörleri</value>
+  </data>
+  <data name="Code_818" xml:space="preserve">
+    <value>diğer sabit tesis ve makine operatörleri</value>
+  </data>
+  <data name="Code_821" xml:space="preserve">
+    <value>montajcılar</value>
+  </data>
+  <data name="Code_831" xml:space="preserve">
+    <value>lokomotif motoru sürücüleri ve ilgili çalışanlar</value>
+  </data>
+  <data name="Code_832" xml:space="preserve">
+    <value>otomobil, kamyonet ve motosiklet sürücüeri</value>
+  </data>
+  <data name="Code_833" xml:space="preserve">
+    <value>ağır yük kamyonu ve otobüs sürücüleri</value>
+  </data>
+  <data name="Code_834" xml:space="preserve">
+    <value>hareketli makine ve teçhizat operatörleri</value>
+  </data>
+  <data name="Code_835" xml:space="preserve">
+    <value>gemi güverte tayfaları ve ilgili çalışanlar</value>
+  </data>
+  <data name="Code_911" xml:space="preserve">
+    <value>ev, otel  ve bürolarda çalışan temizlikçiler ve ev işleri yardımcıları</value>
+  </data>
+  <data name="Code_912" xml:space="preserve">
+    <value>taşıt ve pencere temizleme ile çamaşır yıkama ve diğer elle yapılan temizlik işlerinde çalışanlar</value>
+  </data>
+  <data name="Code_921" xml:space="preserve">
+    <value>tarım, ormancılık ve balıkçılık sektörlerinde nitelik gerektirmeyen işlerde çalışanlar</value>
+  </data>
+  <data name="Code_931" xml:space="preserve">
+    <value>madencilik ve inşaat sektörlerinde nitelik gerektirmeyen işlerde çalışanlar</value>
+  </data>
+  <data name="Code_932" xml:space="preserve">
+    <value>imalat sektöründe nitelik gerektirmeyen işlerde çalışanlar</value>
+  </data>
+  <data name="Code_933" xml:space="preserve">
+    <value>ulaştırma ve depolama sektörlerinde nitelik gerektirmeyen işlerde çalışanlar</value>
+  </data>
+  <data name="Code_941" xml:space="preserve">
+    <value>yiyecek hazırlama yardımcıları</value>
+  </data>
+  <data name="Code_951" xml:space="preserve">
+    <value>cadde ve sokaklarda hizmet işlerinde çalışanlar</value>
+  </data>
+  <data name="Code_952" xml:space="preserve">
+    <value>sokak satıcıları (gıda hariç)</value>
+  </data>
+  <data name="Code_961" xml:space="preserve">
+    <value>çöpçüler ve atık toplayıcılar</value>
+  </data>
+  <data name="Code_962" xml:space="preserve">
+    <value>diğer nitelik gerektirmeyen işlerde çalışanlar</value>
+  </data>
+</root>

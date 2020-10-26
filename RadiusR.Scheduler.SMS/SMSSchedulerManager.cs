@@ -25,14 +25,6 @@ namespace RadiusR.Scheduler.SMS
         {
             var oldScheduledSMS = dbBill.Subscription.ScheduledSMSes.FirstOrDefault(ss => ss.SMSType == (short)SMSType.PaymentReminder);
 
-            //dbBill.Subscription.ScheduledSMSes.Add(new ScheduledSMS()
-            //{
-            //    BillID = dbBill.ID,
-            //    CreationDate = DateTime.Now,
-            //    SMSType = (short)SMSType.PaymentReminder,
-            //    ExpirationDate = dbBill.DueDate
-            //});
-
             return new ScheduledSMSResult()
             {
                 ToRemove = oldScheduledSMS,
@@ -61,13 +53,6 @@ namespace RadiusR.Scheduler.SMS
         {
             var oldScheduledSMS = dbSubscription.ScheduledSMSes.FirstOrDefault(ss => ss.SMSType == (short)SMSType.PrePaidExpiration);
 
-            //dbSubscription.ScheduledSMSes.Add(new ScheduledSMS()
-            //{
-            //    CreationDate = DateTime.Now,
-            //    ExpirationDate = dbSubscription.ExpirationDate,
-            //    SMSType = (short)SMSType.PrePaidExpiration
-            //});
-
             return new ScheduledSMSResult()
             {
                 ToRemove = oldScheduledSMS,
@@ -83,14 +68,6 @@ namespace RadiusR.Scheduler.SMS
 
         public static ScheduledSMSResult AddFailedAutoPaymentSMS(this Bill dbBill, string errorMessage)
         {
-            //dbBill.ScheduledSMSes.Add(new ScheduledSMS()
-            //{
-            //    SubscriptionID = dbBill.SubscriptionID,
-            //    CreationDate = DateTime.Now,
-            //    SMSType = (short)SMSType.FailedAutomaticPayment,
-            //    CalculatedParameters = errorMessage
-            //});
-
             return new ScheduledSMSResult()
             {
                 ToAdd = new ScheduledSMS()
