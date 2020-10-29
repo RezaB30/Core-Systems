@@ -11,7 +11,7 @@ namespace RadiusR_Manager.Models.ViewModels
     public class SupportRequestSearchViewModel
     {
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "State")]
-        [EnumType(typeof(RadiusR.DB.Enums.SupportRequestStateID), typeof(RadiusR.Localization.Lists.SupportRequestStateID))]
+        [EnumType(typeof(RadiusR.DB.Enums.SubscriptionSupportRequestStateID), typeof(RadiusR.Localization.Lists.SubscriptionSupportRequestStateID))]
         [UIHint("LocalizedList")]
         public short? StateID { get; set; }
 

@@ -972,6 +972,7 @@
           <Property Name="SupportRequestID" Type="bigint" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="IsVisibleToCustomer" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="SupportRequestSubType">
           <Key>
@@ -4363,7 +4364,6 @@
           <EntitySet Name="SupportGroups" EntityType="RadiusRModel.SupportGroup" />
           <EntitySet Name="SupportGroupUsers" EntityType="RadiusRModel.SupportGroupUser" />
           <EntitySet Name="SupportRequests" EntityType="RadiusRModel.SupportRequest" />
-          <EntitySet Name="SupportRequestProgresses" EntityType="RadiusRModel.SupportRequestProgress" />
           <AssociationSet Name="FK_SupportGroup_AppUser" Association="RadiusRModel.FK_SupportGroup_AppUser">
             <End Role="AppUser" EntitySet="AppUsers" />
             <End Role="SupportGroup" EntitySet="SupportGroups" />
@@ -4388,10 +4388,6 @@
             <End Role="SupportGroup" EntitySet="SupportGroups" />
             <End Role="SupportRequest" EntitySet="SupportRequests" />
           </AssociationSet>
-          <AssociationSet Name="FK_SupportRequestProgress_SupportRequest" Association="RadiusRModel.FK_SupportRequestProgress_SupportRequest">
-            <End Role="SupportRequest" EntitySet="SupportRequests" />
-            <End Role="SupportRequestProgress" EntitySet="SupportRequestProgresses" />
-          </AssociationSet>
           <EntitySet Name="SupportRequestSubTypes" EntityType="RadiusRModel.SupportRequestSubType" />
           <EntitySet Name="SupportRequestTypes" EntityType="RadiusRModel.SupportRequestType" />
           <AssociationSet Name="FK_SupportRequest_SupportRequestSubType" Association="RadiusRModel.FK_SupportRequest_SupportRequestSubType">
@@ -4409,6 +4405,11 @@
           <AssociationSet Name="SupportGroupRequestType" Association="RadiusRModel.SupportGroupRequestType">
             <End Role="SupportGroup" EntitySet="SupportGroups" />
             <End Role="SupportRequestType" EntitySet="SupportRequestTypes" />
+          </AssociationSet>
+          <EntitySet Name="SupportRequestProgresses" EntityType="RadiusRModel.SupportRequestProgress" />
+          <AssociationSet Name="FK_SupportRequestProgress_SupportRequest" Association="RadiusRModel.FK_SupportRequestProgress_SupportRequest">
+            <End Role="SupportRequest" EntitySet="SupportRequests" />
+            <End Role="SupportRequestProgress" EntitySet="SupportRequestProgresses" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
@@ -6147,19 +6148,9 @@
           <NavigationProperty Name="AppUser" Relationship="RadiusRModel.FK_SupportRequest_AppUser" FromRole="SupportRequest" ToRole="AppUser" />
           <NavigationProperty Name="Subscription" Relationship="RadiusRModel.FK_SupportRequest_Subscription" FromRole="SupportRequest" ToRole="Subscription" />
           <NavigationProperty Name="SupportGroup" Relationship="RadiusRModel.FK_SupportRequest_SupportGroup" FromRole="SupportRequest" ToRole="SupportGroup" />
-          <NavigationProperty Name="SupportRequestProgresses" Relationship="RadiusRModel.FK_SupportRequestProgress_SupportRequest" FromRole="SupportRequest" ToRole="SupportRequestProgress" />
           <NavigationProperty Name="SupportRequestSubType" Relationship="RadiusRModel.FK_SupportRequest_SupportRequestSubType" FromRole="SupportRequest" ToRole="SupportRequestSubType" />
           <NavigationProperty Name="SupportRequestType" Relationship="RadiusRModel.FK_SupportRequest_SupportRequestType" FromRole="SupportRequest" ToRole="SupportRequestType" />
-        </EntityType>
-        <EntityType Name="SupportRequestProgress">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
-          <Property Name="SupportRequestID" Type="Int64" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="SupportRequest" Relationship="RadiusRModel.FK_SupportRequestProgress_SupportRequest" FromRole="SupportRequestProgress" ToRole="SupportRequest" />
+          <NavigationProperty Name="SupportRequestProgresses" Relationship="RadiusRModel.FK_SupportRequestProgress_SupportRequest" FromRole="SupportRequest" ToRole="SupportRequestProgress" />
         </EntityType>
         <Association Name="FK_SupportGroup_AppUser">
           <End Type="RadiusRModel.AppUser" Role="AppUser" Multiplicity="1" />
@@ -6233,18 +6224,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SupportRequestProgress_SupportRequest">
-          <End Type="RadiusRModel.SupportRequest" Role="SupportRequest" Multiplicity="1" />
-          <End Type="RadiusRModel.SupportRequestProgress" Role="SupportRequestProgress" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SupportRequest">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SupportRequestProgress">
-              <PropertyRef Name="SupportRequestID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="SupportRequestSubType">
           <Key>
             <PropertyRef Name="ID" />
@@ -6305,6 +6284,29 @@
         <Association Name="SupportGroupRequestType">
           <End Type="RadiusRModel.SupportGroup" Role="SupportGroup" Multiplicity="*" />
           <End Type="RadiusRModel.SupportRequestType" Role="SupportRequestType" Multiplicity="*" />
+        </Association>
+        <EntityType Name="SupportRequestProgress">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="SupportRequestID" Type="Int64" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsVisibleToCustomer" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SupportRequest" Relationship="RadiusRModel.FK_SupportRequestProgress_SupportRequest" FromRole="SupportRequestProgress" ToRole="SupportRequest" />
+        </EntityType>
+        <Association Name="FK_SupportRequestProgress_SupportRequest">
+          <End Type="RadiusRModel.SupportRequest" Role="SupportRequest" Multiplicity="1" />
+          <End Type="RadiusRModel.SupportRequestProgress" Role="SupportRequestProgress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupportRequest">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupportRequestProgress">
+              <PropertyRef Name="SupportRequestID" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -7442,16 +7444,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SupportRequestProgresses">
-            <EntityTypeMapping TypeName="RadiusRModel.SupportRequestProgress">
-              <MappingFragment StoreEntitySet="SupportRequestProgress">
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="SupportRequestID" ColumnName="SupportRequestID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SupportRequestSubTypes">
             <EntityTypeMapping TypeName="RadiusRModel.SupportRequestSubType">
               <MappingFragment StoreEntitySet="SupportRequestSubType">
@@ -7478,6 +7470,17 @@
               <ScalarProperty Name="ID" ColumnName="SupportGroupID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="SupportRequestProgresses">
+            <EntityTypeMapping TypeName="RadiusRModel.SupportRequestProgress">
+              <MappingFragment StoreEntitySet="SupportRequestProgress">
+                <ScalarProperty Name="IsVisibleToCustomer" ColumnName="IsVisibleToCustomer" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="SupportRequestID" ColumnName="SupportRequestID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

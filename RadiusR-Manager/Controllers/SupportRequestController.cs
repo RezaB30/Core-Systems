@@ -80,7 +80,7 @@ namespace RadiusR_Manager.Controllers
             {
                 return RedirectToAction("Index", "Client", new { errorMessage = 4 });
             }
-            if (dbSubscription.SubscriptionSupportRequests.Any(r => r.StateID == (short)SupportRequestStateID.Sent || r.StateID == (short)SupportRequestStateID.Assigned))
+            if (dbSubscription.SubscriptionSupportRequests.Any(r => r.StateID == (short)SubscriptionSupportRequestStateID.Sent || r.StateID == (short)SubscriptionSupportRequestStateID.Assigned))
             {
                 return Redirect(Url.Action("Details", "Client", new { errorMessage = 36, id = id }) + "#faults");
             }
@@ -107,7 +107,7 @@ namespace RadiusR_Manager.Controllers
             {
                 return RedirectToAction("Index", "Client", new { errorMessage = 4 });
             }
-            if (dbSubscription.SubscriptionSupportRequests.Any(r => r.StateID == (short)SupportRequestStateID.Sent || r.StateID == (short)SupportRequestStateID.Assigned))
+            if (dbSubscription.SubscriptionSupportRequests.Any(r => r.StateID == (short)SubscriptionSupportRequestStateID.Sent || r.StateID == (short)SubscriptionSupportRequestStateID.Assigned))
             {
                 return RedirectToAction("Index", "Client", new { errorMessage = 36 });
             }
@@ -118,7 +118,7 @@ namespace RadiusR_Manager.Controllers
                     Date = DateTime.Now,
                     Message = request.Message,
                     IssuerID = User.GiveUserId(),
-                    StateID = (short)SupportRequestStateID.Sent
+                    StateID = (short)SubscriptionSupportRequestStateID.Sent
                 });
 
                 db.SaveChanges();
@@ -228,14 +228,14 @@ namespace RadiusR_Manager.Controllers
                     return Redirect(Uri.Uri.PathAndQuery + Uri.Fragment);
                     //return RedirectToAction("Index", new { errorMessage = 15 });
                 }
-                if (dbSupportRequest.StateID != (short)SupportRequestStateID.Sent)
+                if (dbSupportRequest.StateID != (short)SubscriptionSupportRequestStateID.Sent)
                 {
                     //UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", Uri);
                     //return Redirect(Uri.Uri.PathAndQuery + Uri.Fragment);
                     return RedirectToAction("Details", new { id = id, errorMessage = 9, returnUrl = returnUrl });
                 }
 
-                dbSupportRequest.StateID = (short)SupportRequestStateID.Done;
+                dbSupportRequest.StateID = (short)SubscriptionSupportRequestStateID.Done;
                 dbSupportRequest.SupportResponse = requestMessage.Message;
 
                 db.SaveChanges();
@@ -261,7 +261,7 @@ namespace RadiusR_Manager.Controllers
             ViewBag.ReturnUrl = Uri.Uri.PathAndQuery + Uri.Fragment;
 
             var supportRequest = db.SubscriptionSupportRequests.Find(id);
-            if (supportRequest == null || supportRequest.StateID != (short)SupportRequestStateID.Sent)
+            if (supportRequest == null || supportRequest.StateID != (short)SubscriptionSupportRequestStateID.Sent)
             {
                 UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", Uri);
                 return Redirect(Uri.Uri.PathAndQuery + Uri.Fragment);
@@ -293,7 +293,7 @@ namespace RadiusR_Manager.Controllers
             ViewBag.ReturnUrl = Uri.Uri.PathAndQuery + Uri.Fragment;
 
             var supportRequest = db.SubscriptionSupportRequests.Find(id);
-            if (supportRequest == null || supportRequest.StateID != (short)SupportRequestStateID.Sent)
+            if (supportRequest == null || supportRequest.StateID != (short)SubscriptionSupportRequestStateID.Sent)
             {
                 UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", Uri);
                 return Redirect(Uri.Uri.PathAndQuery + Uri.Fragment);
@@ -318,7 +318,7 @@ namespace RadiusR_Manager.Controllers
                     TaskType = task.TaskType,
                     XDSLType = task.XDSLType
                 };
-                supportRequest.StateID = (short)SupportRequestStateID.Assigned;
+                supportRequest.StateID = (short)SubscriptionSupportRequestStateID.Assigned;
 
                 db.SaveChanges();
                 return RedirectToAction("Details", "SupportRequest", new { id = id, errorMessage = 0, returnUrl = Uri.Uri.PathAndQuery + Uri.Fragment });

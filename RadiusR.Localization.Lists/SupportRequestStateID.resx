@@ -117,16 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Assigned" xml:space="preserve">
-    <value>Task Assigned</value>
-  </data>
-  <data name="Cancelled" xml:space="preserve">
-    <value>Cancelled</value>
-  </data>
   <data name="Done" xml:space="preserve">
     <value>Done</value>
   </data>
-  <data name="Sent" xml:space="preserve">
-    <value>Sent</value>
+  <data name="InProgress" xml:space="preserve">
+    <value>In Progress</value>
   </data>
 </root>

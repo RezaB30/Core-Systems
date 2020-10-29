@@ -21,7 +21,7 @@ namespace RadiusR_Manager.Controllers
             {
                 return View("Cashier");
             }
-            ViewBag.UnfinishedSupportRequestCount = db.SubscriptionSupportRequests.Count(request => request.StateID == (short)SupportRequestStateID.Sent);
+            ViewBag.UnfinishedSupportRequestCount = db.SubscriptionSupportRequests.Count(request => request.StateID == (short)SubscriptionSupportRequestStateID.Sent);
             ViewBag.UnfinishedWorkOrderCount = db.CustomerSetupTasks.Count(task => !task.CompletionDate.HasValue);
             return View();
         }

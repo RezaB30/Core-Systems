@@ -34,9 +34,9 @@ namespace RadiusR.DB
         public virtual AppUser AppUser { get; set; }
         public virtual Subscription Subscription { get; set; }
         public virtual SupportGroup SupportGroup { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SupportRequestProgress> SupportRequestProgresses { get; set; }
         public virtual SupportRequestSubType SupportRequestSubType { get; set; }
         public virtual SupportRequestType SupportRequestType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SupportRequestProgress> SupportRequestProgresses { get; set; }
     }
 }

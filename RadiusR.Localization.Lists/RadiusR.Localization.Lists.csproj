@@ -11,7 +11,7 @@
     <AssemblyName>RadiusR.Localization.Lists</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-	<PackageDescription>Localization for MasterISS Database Enums.</PackageDescription>
+    <PackageDescription>Localization for MasterISS Database Enums.</PackageDescription>
     <RepositoryUrl>https://github.com/masteriss/Core-Systems</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
@@ -578,8 +578,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="SupportRequestStateID.Designer.cs">
-      <DependentUpon>SupportRequestStateID.resx</DependentUpon>
+    <Compile Include="SubscriptionSupportRequestStateID.Designer.cs">
+      <DependentUpon>SubscriptionSupportRequestStateID.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="SubscriptionSupportRequestStateID.tr-tr.Designer.cs">
+      <DependentUpon>SubscriptionSupportRequestStateID.tr-tr.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -587,6 +592,11 @@
       <DependentUpon>SupportRequestStateID.tr-tr.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="SupportRequestStateID.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SupportRequestStateID.resx</DependentUpon>
     </Compile>
     <Compile Include="SystemLogInterface.Designer.cs">
       <DependentUpon>SystemLogInterface.resx</DependentUpon>
@@ -1130,13 +1140,21 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SupportRequestIssuerType.tr-tr.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="SupportRequestStateID.resx">
+    <EmbeddedResource Include="SubscriptionSupportRequestStateID.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>SupportRequestStateID.Designer.cs</LastGenOutput>
+      <LastGenOutput>SubscriptionSupportRequestStateID.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubscriptionSupportRequestStateID.tr-tr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SubscriptionSupportRequestStateID.tr-tr.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="SupportRequestStateID.tr-tr.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SupportRequestStateID.tr-tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SupportRequestStateID.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SupportRequestStateID.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="SystemLogInterface.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

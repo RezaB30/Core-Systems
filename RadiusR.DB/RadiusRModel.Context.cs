@@ -112,8 +112,8 @@ namespace RadiusR.DB
         public virtual DbSet<SupportGroup> SupportGroups { get; set; }
         public virtual DbSet<SupportGroupUser> SupportGroupUsers { get; set; }
         public virtual DbSet<SupportRequest> SupportRequests { get; set; }
-        public virtual DbSet<SupportRequestProgress> SupportRequestProgresses { get; set; }
         public virtual DbSet<SupportRequestSubType> SupportRequestSubTypes { get; set; }
         public virtual DbSet<SupportRequestType> SupportRequestTypes { get; set; }
+        public virtual DbSet<SupportRequestProgress> SupportRequestProgresses { get; set; }
     }
 }

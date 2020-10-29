@@ -61,24 +61,6 @@ namespace RadiusR.Localization.Lists {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Task Assigned.
-        /// </summary>
-        public static string Assigned {
-            get {
-                return ResourceManager.GetString("Assigned", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancelled.
-        /// </summary>
-        public static string Cancelled {
-            get {
-                return ResourceManager.GetString("Cancelled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Done.
         /// </summary>
         public static string Done {
@@ -88,11 +70,11 @@ namespace RadiusR.Localization.Lists {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sent.
+        ///   Looks up a localized string similar to In Progress.
         /// </summary>
-        public static string Sent {
+        public static string InProgress {
             get {
-                return ResourceManager.GetString("Sent", resourceCulture);
+                return ResourceManager.GetString("InProgress", resourceCulture);
             }
         }
     }

@@ -197,20 +197,20 @@
         <EntityTypeShape EntityType="RadiusRModel.SupportGroup" Width="1.5" PointX="14.25" PointY="94.375" />
         <EntityTypeShape EntityType="RadiusRModel.SupportGroupUser" Width="1.5" PointX="24.5" PointY="78.5" />
         <EntityTypeShape EntityType="RadiusRModel.SupportRequest" Width="1.75" PointX="16.5" PointY="83" />
-        <EntityTypeShape EntityType="RadiusRModel.SupportRequestProgress" Width="1.5" PointX="19" PointY="84" />
         <AssociationConnector Association="RadiusRModel.FK_SupportGroup_AppUser" />
         <AssociationConnector Association="RadiusRModel.FK_SupportGroupUser_AppUser" />
         <AssociationConnector Association="RadiusRModel.FK_SupportRequest_AppUser" />
         <AssociationConnector Association="RadiusRModel.FK_SupportRequest_Subscription" />
         <AssociationConnector Association="RadiusRModel.FK_SupportGroupUser_SupportGroup" />
         <AssociationConnector Association="RadiusRModel.FK_SupportRequest_SupportGroup" />
-        <AssociationConnector Association="RadiusRModel.FK_SupportRequestProgress_SupportRequest" />
         <EntityTypeShape EntityType="RadiusRModel.SupportRequestSubType" Width="1.5" PointX="14.25" PointY="97.625" />
         <EntityTypeShape EntityType="RadiusRModel.SupportRequestType" Width="1.5" PointX="12" PointY="97.5" />
         <AssociationConnector Association="RadiusRModel.FK_SupportRequest_SupportRequestSubType" />
         <AssociationConnector Association="RadiusRModel.FK_SupportRequest_SupportRequestType" />
         <AssociationConnector Association="RadiusRModel.FK_SupportRequestSubType_SupportRequestType" />
         <AssociationConnector Association="RadiusRModel.SupportGroupRequestType" />
+        <EntityTypeShape EntityType="RadiusRModel.SupportRequestProgress" Width="1.5" PointX="19" PointY="84" />
+        <AssociationConnector Association="RadiusRModel.FK_SupportRequestProgress_SupportRequest" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

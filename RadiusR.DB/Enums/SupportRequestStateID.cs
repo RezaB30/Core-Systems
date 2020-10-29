@@ -8,9 +8,7 @@ namespace RadiusR.DB.Enums
 {
     public enum SupportRequestStateID
     {
-        Sent = 1,
-        Assigned = 2,
-        Cancelled = 3,
-        Done = 4
+        InProgress = 1,
+        Done = 2
     }
 }

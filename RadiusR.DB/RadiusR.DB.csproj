@@ -163,6 +163,7 @@
     <Compile Include="Enums\SchedulerWorkPeriods.cs" />
     <Compile Include="Enums\ServiceBillingType.cs" />
     <Compile Include="Enums\ServiceInfrastructureTypes.cs" />
+    <Compile Include="Enums\SupportRequestStateID.cs" />
     <Compile Include="Enums\SystemLogInterface.cs" />
     <Compile Include="Enums\TelekomOperations\TelekomOperationSubType.cs" />
     <Compile Include="Enums\TelekomOperations\TelekomOperationType.cs" />
@@ -337,7 +338,7 @@
     <Compile Include="Enums\ProblemReasonID.cs" />
     <Compile Include="Enums\Roles.cs" />
     <Compile Include="Enums\SMSType.cs" />
-    <Compile Include="Enums\SupportRequestStateID.cs" />
+    <Compile Include="Enums\SubscriptionSupportRequestStateID.cs" />
     <Compile Include="Enums\TaxTypeID.cs" />
     <Compile Include="Enums\TTLineState.cs" />
     <Compile Include="ModelExtentions\Subscription.cs" />
