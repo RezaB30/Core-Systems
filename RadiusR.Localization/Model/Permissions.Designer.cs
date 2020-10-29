@@ -88,6 +88,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Special Offer.
+        /// </summary>
+        public static string AddSpecialOffer {
+            get {
+                return ResourceManager.GetString("AddSpecialOffer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Automatic Payment Report.
         /// </summary>
         public static string AutomaticPaymentReport {
@@ -772,6 +781,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Referral Special Offer Usage.
+        /// </summary>
+        public static string ReferralSpecialOfferUsage {
+            get {
+                return ResourceManager.GetString("ReferralSpecialOfferUsage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reports.
         /// </summary>
         public static string Reports {
@@ -876,15 +894,6 @@ namespace RadiusR.Localization.Model {
         public static string SpecialOffers {
             get {
                 return ResourceManager.GetString("SpecialOffers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Special Offers Usage.
-        /// </summary>
-        public static string SpecialOffersUsage {
-            get {
-                return ResourceManager.GetString("SpecialOffersUsage", resourceCulture);
             }
         }
         

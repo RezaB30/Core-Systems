@@ -435,7 +435,10 @@
   <data name="ReferralDiscountReport" xml:space="preserve">
     <value>Referans İndirim Raporu</value>
   </data>
-  <data name="SpecialOffersUsage" xml:space="preserve">
-    <value>Kampanya Kullanım</value>
+  <data name="ReferralSpecialOfferUsage" xml:space="preserve">
+    <value>Referans Kampanya Kullanım</value>
+  </data>
+  <data name="AddSpecialOffer" xml:space="preserve">
+    <value>Kampanya Ekleme</value>
   </data>
 </root>

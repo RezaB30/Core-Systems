@@ -253,3 +253,5 @@ v 5.05.05 '2020-10-20'
 - added address to TT work orders search.
 v 5.05.06 '2020-10-22'
 - added details to TT work order system log.
+v 5.05.07 '2020-10-29'
+- added the ability to add normal special offers for subscriptions.

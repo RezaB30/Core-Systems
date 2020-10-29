@@ -1147,5 +1147,79 @@ namespace RadiusR_Manager.Controllers
             ViewBag.SubscriberName = dbSubscription.ValidDisplayName;
             return View(viewName: "Edits/AddReferralDiscount", model: referralDiscount);
         }
+
+        [AuthorizePermission(Permissions = "Add Special Offer")]
+        [HttpGet]
+        // GET: Client/AddSpecialOffer
+        public ActionResult AddSpecialOffer(long id)
+        {
+            var dbSubscription = db.Subscriptions.Find(id);
+            if (dbSubscription == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 4 });
+            }
+
+            ViewBag.CustomerName = dbSubscription.ValidDisplayName;
+            ViewBag.SpecialOffers = new SelectList(db.SpecialOffers.Where(so => !so.IsReferral).Select(so => new
+            {
+                Value = so.ID,
+                Name = so.Name
+            }).ToArray(), "Value", "Name");
+
+            return View(viewName: "Edits/AddSpecialOffer");
+        }
+
+        [AuthorizePermission(Permissions = "Add Special Offer")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST: Client/AddSpecialOffer
+        public ActionResult AddSpecialOffer(long id, AddSubscriptionSpecialOfferViewModel specialOffer)
+        {
+            var dbSubscription = db.Subscriptions.Find(id);
+            if (dbSubscription == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 4 });
+            }
+
+            if (ModelState.IsValid)
+            {
+                var dbSpecialOffer = db.SpecialOffers.Find(specialOffer.SpecialOfferID.Value);
+                if (dbSpecialOffer == null)
+                {
+                    return RedirectToAction("Index", new { errorMessage = 9 });
+                }
+
+                var dbRecurringDiscount = new RecurringDiscount()
+                {
+                    Amount = dbSpecialOffer.Amount,
+                    ApplicationTimes = dbSpecialOffer.ApplicationTimes,
+                    ApplicationType = dbSpecialOffer.ApplicationType,
+                    CreationTime = DateTime.Now,
+                    DiscountType = dbSpecialOffer.DiscountType,
+                    FeeTypeID = dbSpecialOffer.FeeTypeID,
+                    IsDisabled = false,
+                    OnlyFullInvoice = dbSpecialOffer.OnlyFullInvoice,
+                    Description = dbSpecialOffer.Name
+                };
+
+                dbSubscription.RecurringDiscounts.Add(dbRecurringDiscount);
+
+                db.SaveChanges();
+
+                db.SystemLogs.Add(SystemLogProcessor.AddRecurringDiscount(dbRecurringDiscount.ID, User.GiveUserId(), dbSubscription.ID, SystemLogInterface.MasterISS, null));
+                db.SaveChanges();
+
+                return Redirect(Url.Action("Details", new { id = dbSubscription.ID, errorMessage = 0 }) + "#additional-fees");
+            }
+
+            ViewBag.CustomerName = dbSubscription.ValidDisplayName;
+            ViewBag.SpecialOffers = new SelectList(db.SpecialOffers.Where(so => !so.IsReferral).Select(so => new
+            {
+                Value = so.ID,
+                Name = so.Name
+            }).ToArray(), "Value", "Name", specialOffer.SpecialOfferID);
+
+            return View(viewName: "Edits/AddSpecialOffer", model: specialOffer);
+        }
     }
 }

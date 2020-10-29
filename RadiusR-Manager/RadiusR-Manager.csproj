@@ -902,6 +902,7 @@
     <Content Include="Views\Client\Edits\AddReferralDiscount.cshtml" />
     <Content Include="Views\OfflinePayment\BatchExpDateUpdate.cshtml" />
     <Content Include="Views\Reports\ReferralDiscounts.cshtml" />
+    <Content Include="Views\Client\Edits\AddSpecialOffer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
