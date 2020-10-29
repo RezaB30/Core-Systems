@@ -11,7 +11,7 @@
     <AssemblyName>RadiusR.DB</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-	<PackageDescription>MasterISS core data base.</PackageDescription>
+    <PackageDescription>MasterISS core data base.</PackageDescription>
     <RepositoryUrl>https://github.com/masteriss/Core-Systems</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <SccProjectName>
@@ -395,6 +395,24 @@
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SubscriptionTelekomInfo.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SupportGroup.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SupportGroupUser.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SupportRequest.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SupportRequestProgress.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SupportRequestSubType.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SupportRequestType.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SystemLog.cs">
