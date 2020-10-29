@@ -69,7 +69,7 @@ namespace RadiusR.Scheduler
                             foreach (var automaticPayment in currentBatch)
                             {
                                 // get unpaid bills
-                                var unpaidBills = automaticPayment.Subscription.Bills.Where(b => b.PaymentTypeID == (short)PaymentType.None).ToArray();
+                                var unpaidBills = automaticPayment.Subscription.Bills.Where(b => b.BillStatusID == (short)BillState.Unpaid).ToArray();
                                 // skip if has an unsuccessful tried unpaid bill
                                 if (automaticPayment.LastOperationTime.HasValue && unpaidBills.Any(b => b.IssueDate < automaticPayment.LastOperationTime))
                                     continue;

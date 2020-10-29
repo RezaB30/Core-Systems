@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RadiusR.Files")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("File Management Module for MasteISS.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Reza Barzegaran")]
 [assembly: AssemblyProduct("RadiusR.Files")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]

@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RadiusR.DB.DomainsCache")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("MasterISS User Domain Caching Utility")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Reza Barzegaran")]
 [assembly: AssemblyProduct("RadiusR.DB.DomainsCache")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]

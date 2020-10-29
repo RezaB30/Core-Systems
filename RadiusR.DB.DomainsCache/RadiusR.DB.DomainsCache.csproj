@@ -11,6 +11,9 @@
     <AssemblyName>RadiusR.DB.DomainsCache</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+	<PackageDescription>MasterISS User Domain Caching Utility.</PackageDescription>
+    <RepositoryUrl>https://github.com/masteriss/Core-Systems</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
