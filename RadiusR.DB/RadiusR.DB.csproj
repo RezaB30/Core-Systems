@@ -163,7 +163,8 @@
     <Compile Include="Enums\SchedulerWorkPeriods.cs" />
     <Compile Include="Enums\ServiceBillingType.cs" />
     <Compile Include="Enums\ServiceInfrastructureTypes.cs" />
-    <Compile Include="Enums\SupportRequestStateID.cs" />
+    <Compile Include="Enums\SupportRequests\SupportRequestActionTypes.cs" />
+    <Compile Include="Enums\SupportRequests\SupportRequestStateID.cs" />
     <Compile Include="Enums\SystemLogInterface.cs" />
     <Compile Include="Enums\TelekomOperations\TelekomOperationSubType.cs" />
     <Compile Include="Enums\TelekomOperations\TelekomOperationType.cs" />

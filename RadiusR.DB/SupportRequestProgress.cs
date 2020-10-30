@@ -17,9 +17,16 @@ namespace RadiusR.DB
         public long ID { get; set; }
         public long SupportRequestID { get; set; }
         public System.DateTime Date { get; set; }
+        public short ActionType { get; set; }
+        public Nullable<short> NewState { get; set; }
+        public Nullable<short> OldState { get; set; }
+        public Nullable<int> SetGroupID { get; set; }
         public string Message { get; set; }
         public bool IsVisibleToCustomer { get; set; }
+        public Nullable<int> AppUserID { get; set; }
     
+        public virtual AppUser AppUser { get; set; }
+        public virtual SupportGroup SupportGroup { get; set; }
         public virtual SupportRequest SupportRequest { get; set; }
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RadiusR.Localization.Lists {
+namespace RadiusR.Localization.Lists.SupportRequests {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace RadiusR.Localization.Lists {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RadiusR.Localization.Lists.SupportRequestStateID", typeof(SupportRequestStateID).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RadiusR.Localization.Lists.SupportRequests.SupportRequestStateID", typeof(SupportRequestStateID).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

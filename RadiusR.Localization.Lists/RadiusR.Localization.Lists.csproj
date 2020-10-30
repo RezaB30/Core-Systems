@@ -588,12 +588,22 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="SupportRequestStateID.tr-tr.Designer.cs">
+    <Compile Include="SupportRequests\SupportRequestActionTypes.tr-tr.Designer.cs">
+      <DependentUpon>SupportRequestActionTypes.tr-tr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="SupportRequests\SupportRequestActionTypes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SupportRequestActionTypes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SupportRequests\SupportRequestStateID.tr-tr.Designer.cs">
       <DependentUpon>SupportRequestStateID.tr-tr.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="SupportRequestStateID.Designer.cs">
+    <Compile Include="SupportRequests\SupportRequestStateID.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SupportRequestStateID.resx</DependentUpon>
@@ -1148,11 +1158,19 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SubscriptionSupportRequestStateID.tr-tr.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="SupportRequestStateID.tr-tr.resx">
+    <EmbeddedResource Include="SupportRequests\SupportRequestActionTypes.tr-tr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SupportRequestActionTypes.tr-tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SupportRequests\SupportRequestActionTypes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SupportRequestActionTypes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SupportRequests\SupportRequestStateID.tr-tr.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SupportRequestStateID.tr-tr.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="SupportRequestStateID.resx">
+    <EmbeddedResource Include="SupportRequests\SupportRequestStateID.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SupportRequestStateID.Designer.cs</LastGenOutput>
     </EmbeddedResource>

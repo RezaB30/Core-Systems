@@ -20,6 +20,7 @@ namespace RadiusR.DB
             this.SupportGroupUsers = new HashSet<SupportGroupUser>();
             this.SupportRequests = new HashSet<SupportRequest>();
             this.SupportRequestTypes = new HashSet<SupportRequestType>();
+            this.SupportRequestProgresses = new HashSet<SupportRequestProgress>();
         }
     
         public int ID { get; set; }
@@ -33,5 +34,7 @@ namespace RadiusR.DB
         public virtual ICollection<SupportRequest> SupportRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupportRequestType> SupportRequestTypes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SupportRequestProgress> SupportRequestProgresses { get; set; }
     }
 }

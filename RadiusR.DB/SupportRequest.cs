@@ -21,6 +21,7 @@ namespace RadiusR.DB
         }
     
         public long ID { get; set; }
+        public string SupportPin { get; set; }
         public System.DateTime Date { get; set; }
         public Nullable<long> SubscriptionID { get; set; }
         public short StateID { get; set; }
