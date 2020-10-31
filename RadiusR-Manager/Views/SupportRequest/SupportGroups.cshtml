@@ -1,0 +1,84 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.SupportGroupViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.SupportRequestSettings + "-" + RadiusR.Localization.Pages.Common.SupportGroups;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeaderName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActiveUsers)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RelevantTypes)
+        </th>
+        <th>
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        var rowClass = item.IsActive == true ? string.Empty : "highlighted-row";
+        <tr class="@rowClass">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaderName)
+                &nbsp;
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "ChangeSupportGroupLeader", new { id = item.ID, redirectUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button edit-button" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActiveUsers)
+                &nbsp;
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Manage, "SupportGroupUsers", new { id = item.ID }, new { @class = "link-button iconed-button view-list-button" })
+            </td>
+            <td>
+                @foreach (var requestType in item.RelevantTypes)
+                {
+                    <div>
+                        @Html.DisplayFor(modelItem => requestType.Name)
+                        &nbsp;
+                        @using (Html.BeginForm("RemoveSupportGroupRequestType", null, new { id = item.ID }, FormMethod.Post, new { @confirm = "enabled" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("requestTypeId", requestType.ID)
+                            <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button delete-button" />
+                        }
+                    </div>
+                }
+                <div>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "AddSupportGroupRequestType", new { id = item.ID }, new { @class = "link-button iconed-button new-button" })
+                </div>
+            </td>
+            <td>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Rename, "RenameSupportGroup", new { id = item.ID, redirectUrl = Request.Url }, new { @class = "link-button iconed-button edit-button" })
+                &nbsp;
+                @using (Html.BeginForm("ToggleSupportGroupState", null, new { id = item.ID, redirectUrl = Request.Url.PathAndQuery }, FormMethod.Post, new { @confirm = "enabled" }))
+                {
+                    @Html.AntiForgeryToken()
+                    if (item.IsActive == true)
+                    {
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Deactivate" class="link-button iconed-button lock-button" />
+                    }
+                    else
+                    {
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Activate" class="link-button iconed-button unlock-button" />
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+
+<div class="button-row centered">
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "AddSupportGroup", new { redirectUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button new-button" })
+</div>

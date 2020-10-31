@@ -438,4 +438,13 @@
   <data name="SpecialOffersUsage" xml:space="preserve">
     <value>Kampanya Kullanım</value>
   </data>
+  <data name="GlobalSupportRequestChange" xml:space="preserve">
+    <value>Bütün Destek İsteklerini Değişitirme</value>
+  </data>
+  <data name="GlobalSupportRequestRead" xml:space="preserve">
+    <value>Bütün Destek İsteklerini Okuma</value>
+  </data>
+  <data name="SupportRequestSettings" xml:space="preserve">
+    <value>Destek İsteklerin Ayarları</value>
+  </data>
 </root>

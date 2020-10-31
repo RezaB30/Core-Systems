@@ -1095,4 +1095,16 @@
   <data name="ReferralDiscountReport" xml:space="preserve">
     <value>Referral Discount Report</value>
   </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="SupportGroups" xml:space="preserve">
+    <value>Support Groups</value>
+  </data>
+  <data name="SupportRequestSettings" xml:space="preserve">
+    <value>Support Request Settings</value>
+  </data>
+  <data name="SupportRequestTypes" xml:space="preserve">
+    <value>Support Request Types</value>
+  </data>
 </root>

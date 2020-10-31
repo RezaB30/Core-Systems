@@ -675,8 +675,6 @@
     <Content Include="Views\Shared\DisplayTemplates\ClientFee.cshtml" />
     <Content Include="Views\Client\Credit.cshtml" />
     <Content Include="Views\Client\ExtendPackage.cshtml" />
-    <Content Include="Views\SupportRequest\Index.cshtml" />
-    <Content Include="Views\SupportRequest\Details.cshtml" />
     <Content Include="Views\Auth\Manage.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\FormattedBytes.cshtml" />
     <Content Include="Views\Client\UsageDetails.cshtml" />
@@ -706,7 +704,6 @@
     <Content Include="Views\Bill\Receipt.cshtml" />
     <Content Include="Views\Shared\_PrintLayout.cshtml" />
     <Content Include="Views\Bill\CalculateTotal.cshtml" />
-    <Content Include="Views\SupportRequest\FinishRequest.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\PaymentTypeDescription.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Role.cshtml" />
     <Content Include="Views\UserManagement\Index.cshtml" />
@@ -776,9 +773,7 @@
     <Content Include="Views\CustomerSetupService\AddUser.cshtml" />
     <Content Include="Views\CustomerSetupService\AddNewTask.cshtml" />
     <Content Include="Views\Client\AddWorkOrder.cshtml" />
-    <Content Include="Views\SupportRequest\AddWorkOrder.cshtml" />
     <Content Include="Views\CustomerSetupService\Details.cshtml" />
-    <Content Include="Views\SupportRequest\Add.cshtml" />
     <Content Include="Views\VPOSSettings\Index.cshtml" />
     <Content Include="Views\Client\TransferActions.cshtml" />
     <Content Include="Views\Reports\ServicesClientCount.cshtml" />
@@ -902,6 +897,11 @@
     <Content Include="Views\Client\Edits\AddReferralDiscount.cshtml" />
     <Content Include="Views\OfflinePayment\BatchExpDateUpdate.cshtml" />
     <Content Include="Views\Reports\ReferralDiscounts.cshtml" />
+    <Content Include="Views\SupportRequest\SupportGroups.cshtml" />
+    <Content Include="Views\SupportRequest\AddSupportGroup.cshtml" />
+    <Content Include="Views\SupportRequest\RenameSupportGroup.cshtml" />
+    <Content Include="Views\SupportRequest\ChangeSupportGroupLeader.cshtml" />
+    <Content Include="Views\SupportRequest\SupportRequestTypes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

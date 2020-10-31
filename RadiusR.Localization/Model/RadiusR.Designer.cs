@@ -106,6 +106,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active Users.
+        /// </summary>
+        public static string ActiveUsers {
+            get {
+                return ResourceManager.GetString("ActiveUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Issue Date.
         /// </summary>
         public static string AddDate {
@@ -1915,6 +1924,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Leader.
+        /// </summary>
+        public static string Leader {
+            get {
+                return ResourceManager.GetString("Leader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Line State.
         /// </summary>
         public static string LineState {
@@ -2973,6 +2991,15 @@ namespace RadiusR.Localization.Model {
         public static string RegistrationNo {
             get {
                 return ResourceManager.GetString("RegistrationNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Relevant Types.
+        /// </summary>
+        public static string RelevantTypes {
+            get {
+                return ResourceManager.GetString("RelevantTypes", resourceCulture);
             }
         }
         

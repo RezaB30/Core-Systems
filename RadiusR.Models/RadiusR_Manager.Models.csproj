@@ -176,6 +176,9 @@
     <Compile Include="RadiusViewModels\SMSViewModel.cs" />
     <Compile Include="RadiusViewModels\SpecialOfferViewModel.cs" />
     <Compile Include="RadiusViewModels\SubscriptionCommitmentViewModel.cs" />
+    <Compile Include="RadiusViewModels\SupportGroupViewModel.cs" />
+    <Compile Include="RadiusViewModels\SupportRequestSubTypeViewModel.cs" />
+    <Compile Include="RadiusViewModels\SupportRequestTypeViewModel.cs" />
     <Compile Include="RadiusViewModels\SystemLogViewModel.cs" />
     <Compile Include="RadiusViewModels\TelekomAccessCredentialViewModel.cs" />
     <Compile Include="RadiusViewModels\TelekomTariffViewModel.cs" />
@@ -189,6 +192,7 @@
     <Compile Include="ViewModels\ChangeDSLNoViewModel.cs" />
     <Compile Include="ViewModels\ChangeServiceViewModel.cs" />
     <Compile Include="ViewModels\ChangeStaticIPViewModel.cs" />
+    <Compile Include="ViewModels\ChangeSupportGroupLeaderViewModel.cs" />
     <Compile Include="ViewModels\ClientStates\SubscriptionCancelOptionsViewModel.cs" />
     <Compile Include="ViewModels\CommitmentReportSearchViewModel.cs" />
     <Compile Include="ViewModels\CommitmentReportViewModel.cs" />
@@ -290,6 +294,7 @@
     <Compile Include="ViewModels\ClientStates\SubscriptionFreezeOptionsViewModel.cs" />
     <Compile Include="ViewModels\SubscriberFeesAddViewModel.cs" />
     <Compile Include="ViewModels\SubscriptionRelatedSubscriptionViewModel.cs" />
+    <Compile Include="ViewModels\SupportGroupRenameViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestSearchViewModel.cs" />
     <Compile Include="ViewModels\SystemLogsReportSearchViewModel.cs" />
     <Compile Include="ViewModels\SystemLogsReportViewModel.cs" />

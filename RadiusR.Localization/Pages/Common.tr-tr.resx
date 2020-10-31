@@ -1092,4 +1092,16 @@
   <data name="ReferralDiscountReport" xml:space="preserve">
     <value>Referans İndirim Raporu</value>
   </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Adını Değiştir</value>
+  </data>
+  <data name="SupportGroups" xml:space="preserve">
+    <value>Destek Grupları</value>
+  </data>
+  <data name="SupportRequestSettings" xml:space="preserve">
+    <value>Destek İsteklerin Ayarları</value>
+  </data>
+  <data name="SupportRequestTypes" xml:space="preserve">
+    <value>Destek İstek Türleri</value>
+  </data>
 </root>

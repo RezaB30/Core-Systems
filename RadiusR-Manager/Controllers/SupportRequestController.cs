@@ -15,318 +15,229 @@ using RezaB.Web.Authentication;
 
 namespace RadiusR_Manager.Controllers
 {
-    [AuthorizePermission(Permissions = "Support Requests")]
+    //[AuthorizePermission(Permissions = "Support Requests")]
     public class SupportRequestController : BaseController
     {
         RadiusREntities db = new RadiusREntities();
 
-        // GET: SupportRequest
-        public ActionResult Index(int? page, SupportRequestSearchViewModel search)
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        public ActionResult SupportGroups(int? page)
         {
-            var viewResults = db.SubscriptionSupportRequests.OrderByDescending(request => request.Date).Select(request => new SupportRequestViewModel()
+            var viewResults = db.SupportGroups.OrderBy(sg => sg.ID).Select(sg => new SupportGroupViewModel()
             {
-                SubscriptionID = request.SubscriptionID,
-                Date = request.Date,
-                ID = request.ID,
-                Message = request.Message,
-                StateID = request.StateID,
-                CustomerSetupTaskID = request.CustomerSetupTaskID,
-                IssuerID = request.IssuerID,
-                IssuerName = request.IssuerID.HasValue ? request.AppUser.Name : RadiusR.Localization.Model.RadiusR.Customer,
-                Subscription = new SubscriptionListDisplayViewModel()
+                ID = sg.ID,
+                Name = sg.Name,
+                LeaderName = sg.AppUser.Name,
+                ActiveUsers = sg.SupportGroupUsers.Where(u => u.AppUser.IsEnabled).Count(),
+                RelevantTypes = sg.SupportRequestTypes.Select(srt => new SupportRequestTypeViewModel()
                 {
-                    ID = request.SubscriptionID,
-                    Name = request.Subscription.Customer.CorporateCustomerInfo != null ? request.Subscription.Customer.CorporateCustomerInfo.Title : request.Subscription.Customer.FirstName + " " + request.Subscription.Customer.LastName
-                }
-            }).AsQueryable();
-
-            if (search.DateStart.HasValue)
-            {
-                viewResults = viewResults.Where(sr => DbFunctions.TruncateTime(sr.Date) >= search.DateStart);
-            }
-            if (search.DateEnd.HasValue)
-            {
-                viewResults = viewResults.Where(sr => DbFunctions.TruncateTime(sr.Date) <= search.DateEnd);
-            }
-            if (search.Issuer.HasValue)
-            {
-                if (search.Issuer == (short)SupportRequestSearchViewModel.IssuerType.Customer)
-                {
-                    viewResults = viewResults.Where(sr => !sr.IssuerID.HasValue);
-                }
-                if (search.Issuer == (short)SupportRequestSearchViewModel.IssuerType.Operator)
-                {
-                    viewResults = viewResults.Where(sr => sr.IssuerID.HasValue);
-                }
-            }
-            if (search.StateID.HasValue)
-            {
-                viewResults = viewResults.Where(sr => sr.StateID == search.StateID);
-            }
+                    ID = srt.ID,
+                    IsActive = !srt.IsDisabled,
+                    IsStaffOnly = srt.IsStaffOnly,
+                    Name = srt.Name
+                }),
+                IsActive = !sg.IsDisabled
+            });
 
             SetupPages(page, ref viewResults);
-
-            ViewBag.Search = search;
-            return View(viewResults.ToList());
+            return View(viewResults);
         }
 
-        [AuthorizePermission(Permissions = "Create Support Request")]
+        [AuthorizePermission(Permissions = "Support Request Settings")]
         [HttpGet]
-        // GET: SupportRequest/Add
-        public ActionResult Add(long id)
+        // GET: SupportRequest/AddSupportGroup
+        public ActionResult AddSupportGroup(string redirectUrl)
         {
-            var dbSubscription = db.Subscriptions.Find(id);
-            if (dbSubscription == null)
-            {
-                return RedirectToAction("Index", "Client", new { errorMessage = 4 });
-            }
-            if (dbSubscription.SubscriptionSupportRequests.Any(r => r.StateID == (short)SubscriptionSupportRequestStateID.Sent || r.StateID == (short)SubscriptionSupportRequestStateID.Assigned))
-            {
-                return Redirect(Url.Action("Details", "Client", new { errorMessage = 36, id = id }) + "#faults");
-            }
-            var request = new SupportRequestViewModel()
-            {
-                SubscriptionID = dbSubscription.ID,
-                Subscription = new SubscriptionListDisplayViewModel()
-                {
-                    ID = dbSubscription.ID,
-                    Name = dbSubscription.Customer.CorporateCustomerInfo != null ? dbSubscription.Customer.CorporateCustomerInfo.Title : dbSubscription.Customer.FirstName + " " + dbSubscription.Customer.LastName
-                }
-            };
-            return View(request);
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl);
+            ViewBag.ValidUsers = new SelectList(db.AppUsers.Where(user => user.IsEnabled).OrderBy(user => user.Name).Select(user => new { Name = user.Name, Value = user.ID }).ToArray(), "Value", "Name");
+            ViewBag.RedirectUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            return View();
         }
 
-        [AuthorizePermission(Permissions = "Create Support Request")]
+        [AuthorizePermission(Permissions = "Support Request Settings")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // POST: SupportRequest/Add
-        public ActionResult Add(long id, [Bind(Include = "Message")]SupportRequestViewModel request)
+        // GET: SupportRequest/AddSupportGroup
+        public ActionResult AddSupportGroup(string redirectUrl, SupportGroupViewModel supportGroup)
         {
-            var dbSubscription = db.Subscriptions.Find(id);
-            if (dbSubscription == null)
-            {
-                return RedirectToAction("Index", "Client", new { errorMessage = 4 });
-            }
-            if (dbSubscription.SubscriptionSupportRequests.Any(r => r.StateID == (short)SubscriptionSupportRequestStateID.Sent || r.StateID == (short)SubscriptionSupportRequestStateID.Assigned))
-            {
-                return RedirectToAction("Index", "Client", new { errorMessage = 36 });
-            }
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl);
+
             if (ModelState.IsValid)
             {
-                dbSubscription.SubscriptionSupportRequests.Add(new SubscriptionSupportRequest()
+                db.SupportGroups.Add(new SupportGroup()
                 {
-                    Date = DateTime.Now,
-                    Message = request.Message,
-                    IssuerID = User.GiveUserId(),
-                    StateID = (short)SubscriptionSupportRequestStateID.Sent
+                    Name = supportGroup.Name,
+                    LeaderID = supportGroup.LeaderID.Value,
+                    IsDisabled = false
                 });
 
                 db.SaveChanges();
 
-                return RedirectToAction("Index", "SupportRequest", new { errorMessage = 0 });
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
             }
 
-            request = new SupportRequestViewModel()
-            {
-                SubscriptionID = dbSubscription.ID,
-                Subscription = new SubscriptionListDisplayViewModel()
-                {
-                    ID = dbSubscription.ID,
-                    Name = dbSubscription.Customer.CorporateCustomerInfo != null ? dbSubscription.Customer.CorporateCustomerInfo.Title : dbSubscription.Customer.FirstName + " " + dbSubscription.Customer.LastName
-                },
-                Message = request.Message
-            };
-            return View(request);
+            ViewBag.ValidUsers = new SelectList(db.AppUsers.Where(user => user.IsEnabled).OrderBy(user => user.Name).Select(user => new { Name = user.Name, Value = user.ID }).ToArray(), "Value", "Name", supportGroup.LeaderID);
+            ViewBag.RedirectUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            return View(supportGroup);
         }
 
-        // GET: SupportRequest/Details
-        public ActionResult Details(long id, string returnUrl)
-        {
-            // return URL
-            var Uri = new UriBuilder(Url.Action("Index", null, null, Request.Url.Scheme));
-            if (!string.IsNullOrEmpty(returnUrl))
-                Uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
-            UrlUtilities.RemoveQueryStringParameter("errorMessage", Uri);
-            ViewBag.ReturnUrl = Uri.Uri.PathAndQuery + Uri.Fragment;
-
-            var dbSupportRequest = db.SubscriptionSupportRequests.FirstOrDefault(request => request.ID == id);
-            if (dbSupportRequest == null)
-            {
-                return RedirectToAction("Index", new { errorMessage = 15 });
-            }
-
-            var supportRequest = new SupportRequestViewModel()
-            {
-                ID = dbSupportRequest.ID,
-                SubscriptionID = dbSupportRequest.SubscriptionID,
-                Date = dbSupportRequest.Date,
-                Message = dbSupportRequest.Message,
-                StateID = dbSupportRequest.StateID,
-                CustomerSetupTaskID = dbSupportRequest.CustomerSetupTaskID,
-                AdminMessage = dbSupportRequest.SupportResponse,
-                IssuerID = dbSupportRequest.IssuerID,
-                IssuerName = dbSupportRequest.IssuerID.HasValue ? dbSupportRequest.AppUser.Name : null,
-                Subscription = new SubscriptionListDisplayViewModel()
-                {
-                    ID = dbSupportRequest.SubscriptionID,
-                    Name = dbSupportRequest.Subscription.Customer.CorporateCustomerInfo != null ? dbSupportRequest.Subscription.Customer.CorporateCustomerInfo.Title : dbSupportRequest.Subscription.Customer.FirstName + " " + dbSupportRequest.Subscription.Customer.LastName,
-                    InstallationAddress = new AddressViewModel(dbSupportRequest.Subscription.Address),
-                    Username = dbSupportRequest.Subscription.Username,
-                    State = dbSupportRequest.Subscription.State,
-                    TariffName = dbSupportRequest.Subscription.Service.Name,
-                    ContactPhoneNo = dbSupportRequest.Subscription.Customer.ContactPhoneNo
-                },
-                SetupServiceTask = (dbSupportRequest.CustomerSetupTaskID.HasValue) ? new CustomerSetupServiceTaskViewModel()
-                {
-                    Details = dbSupportRequest.CustomerSetupTask.Details,
-                    ID = dbSupportRequest.ID,
-                    TaskType = dbSupportRequest.CustomerSetupTask.TaskType,
-                    IssueDate = dbSupportRequest.CustomerSetupTask.TaskIssueDate,
-                    CompletionDate = dbSupportRequest.CustomerSetupTask.CompletionDate,
-                    User = dbSupportRequest.CustomerSetupTask.CustomerSetupUser.Name,
-                    Status = dbSupportRequest.CustomerSetupTask.TaskStatus
-                } : null
-            };
-
-            return View(supportRequest);
-        }
-
-        [HttpGet]
-        // GET: SupportRequest/FinishRequest
-        public ActionResult FinishRequest(long id, string returnUrl)
-        {
-            // return URL
-            var Uri = new UriBuilder(Url.Action("Index", null, null, Request.Url.Scheme));
-            if (!string.IsNullOrEmpty(returnUrl))
-                Uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
-            UrlUtilities.RemoveQueryStringParameter("errorMessage", Uri);
-            ViewBag.ReturnUrl = Uri.Uri.PathAndQuery + Uri.Fragment;
-
-            var requestMessage = new SupportRequestMessageViewModel();
-            requestMessage.RequestID = id;
-            return View(requestMessage);
-        }
-
+        [AuthorizePermission(Permissions = "Support Request Settings")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // POST: SupportRequest/FinishRequest
-        public ActionResult FinishRequest(long id, [Bind(Include = "RequestID,Message")]SupportRequestMessageViewModel requestMessage, string returnUrl)
+        // GET: SupportRequest/ToggleSupportGroupState
+        public ActionResult ToggleSupportGroupState(int id, string redirectUrl)
         {
-            // return URL
-            var Uri = new UriBuilder(Url.Action("Index", null, null, Request.Url.Scheme));
-            if (!string.IsNullOrEmpty(returnUrl))
-                Uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
-            UrlUtilities.RemoveQueryStringParameter("errorMessage", Uri);
-            ViewBag.ReturnUrl = Uri.Uri.PathAndQuery + Uri.Fragment;
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl);
+
+            var dbSupportGroup = db.SupportGroups.Find(id);
+            if (dbSupportGroup == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            dbSupportGroup.IsDisabled = !dbSupportGroup.IsDisabled;
+            db.SaveChanges();
+
+            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [HttpGet]
+        // GET: SupportRequest/RenameSupportGroup
+        public ActionResult RenameSupportGroup(int id, string redirectUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl);
+
+            var dbSupportGroup = db.SupportGroups.Find(id);
+            if (dbSupportGroup == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            var supportGroupName = new SupportGroupRenameViewModel()
+            {
+                Name = dbSupportGroup.Name
+            };
+
+            ViewBag.RedirectUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            ViewBag.GroupName = dbSupportGroup.Name;
+            return View(supportGroupName);
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        // POST: SupportRequest/RenameSupportGroup
+        public ActionResult RenameSupportGroup(int id, string redirectUrl, SupportGroupRenameViewModel supportGroupName)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl);
+
+            var dbSupportGroup = db.SupportGroups.Find(id);
+            if (dbSupportGroup == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
 
             if (ModelState.IsValid)
             {
-                var dbSupportRequest = db.SubscriptionSupportRequests.Find(id);
-                if (dbSupportRequest == null)
-                {
-                    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "15", Uri);
-                    return Redirect(Uri.Uri.PathAndQuery + Uri.Fragment);
-                    //return RedirectToAction("Index", new { errorMessage = 15 });
-                }
-                if (dbSupportRequest.StateID != (short)SubscriptionSupportRequestStateID.Sent)
-                {
-                    //UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", Uri);
-                    //return Redirect(Uri.Uri.PathAndQuery + Uri.Fragment);
-                    return RedirectToAction("Details", new { id = id, errorMessage = 9, returnUrl = returnUrl });
-                }
-
-                dbSupportRequest.StateID = (short)SubscriptionSupportRequestStateID.Done;
-                dbSupportRequest.SupportResponse = requestMessage.Message;
+                dbSupportGroup.Name = supportGroupName.Name;
 
                 db.SaveChanges();
 
-                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", Uri);
-                return Redirect(Uri.Uri.PathAndQuery + Uri.Fragment);
-                //return RedirectToAction("Details", new { id = id, errorMessage = 0 });
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
             }
 
-            return View(requestMessage);
+            ViewBag.RedirectUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            ViewBag.GroupName = dbSupportGroup.Name;
+            return View(supportGroupName);
         }
 
-        [AuthorizePermission(Permissions = "Create Setup Task")]
+        [AuthorizePermission(Permissions = "Support Request Settings")]
         [HttpGet]
-        // GET: SupportRequest/AddWorkOrder
-        public ActionResult AddWorkOrder(long id, string returnUrl)
+        // GET: SupportRequest/ChangeSupportGroupLeader
+        public ActionResult ChangeSupportGroupLeader(int id, string redirectUrl)
         {
-            // return URL
-            var Uri = new UriBuilder(Url.Action("Index", null, null, Request.Url.Scheme));
-            if (!string.IsNullOrEmpty(returnUrl))
-                Uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
-            UrlUtilities.RemoveQueryStringParameter("errorMessage", Uri);
-            ViewBag.ReturnUrl = Uri.Uri.PathAndQuery + Uri.Fragment;
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl);
 
-            var supportRequest = db.SubscriptionSupportRequests.Find(id);
-            if (supportRequest == null || supportRequest.StateID != (short)SubscriptionSupportRequestStateID.Sent)
+            var dbSupportGroup = db.SupportGroups.Find(id);
+            if (dbSupportGroup == null)
             {
-                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", Uri);
-                return Redirect(Uri.Uri.PathAndQuery + Uri.Fragment);
-                //return RedirectToAction("Index", "SupportRequest", new { errorMessage = 9 });
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
             }
 
-            var task = new EditSetupServiceTaskViewModel()
+            var changeSupportGroupLeader = new ChangeSupportGroupLeaderViewModel()
             {
-                ClientName = supportRequest.Subscription.ValidDisplayName,
-                TaskType = (short)RadiusR.DB.Enums.CustomerSetup.TaskTypes.Fault
+                LeaderID = dbSupportGroup.LeaderID
             };
 
-            ViewBag.SetupServiceOperators = new SelectList(db.CustomerSetupUsers.Where(user => user.IsEnabled).OrderBy(user => user.Name).Select(user => new { ID = user.ID, Name = user.Name }), "ID", "Name");
-            ViewBag.RequestID = id;
-            return View(task);
+            ViewBag.RedirectUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            ViewBag.GroupName = dbSupportGroup.Name;
+            ViewBag.ValidUsers = new SelectList(db.AppUsers.Where(user => user.IsEnabled).OrderBy(user => user.Name).Select(user => new { Name = user.Name, Value = user.ID }).ToArray(), "Value", "Name", changeSupportGroupLeader.LeaderID);
+
+            return View(changeSupportGroupLeader);
         }
 
-        [AuthorizePermission(Permissions = "Create Setup Task")]
-        [HttpPost]
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
         [ValidateAntiForgeryToken]
-        // POST: SupportRequest/AddWorkOrder
-        public ActionResult AddWorkOrder(long id, [Bind(Include = "SetupUserID,XDSLType,HasModem,ModemName,TaskDescription")]EditSetupServiceTaskViewModel task, string returnUrl)
+        [HttpPost]
+        // POST: SupportRequest/ChangeSupportGroupLeader
+        public ActionResult ChangeSupportGroupLeader(int id, string redirectUrl, ChangeSupportGroupLeaderViewModel changeSupportGroupLeader)
         {
-            // return URL
-            var Uri = new UriBuilder(Url.Action("Index", null, null, Request.Url.Scheme));
-            if (!string.IsNullOrEmpty(returnUrl))
-                Uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
-            UrlUtilities.RemoveQueryStringParameter("errorMessage", Uri);
-            ViewBag.ReturnUrl = Uri.Uri.PathAndQuery + Uri.Fragment;
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl);
 
-            var supportRequest = db.SubscriptionSupportRequests.Find(id);
-            if (supportRequest == null || supportRequest.StateID != (short)SubscriptionSupportRequestStateID.Sent)
+            var dbSupportGroup = db.SupportGroups.Find(id);
+            if (dbSupportGroup == null)
             {
-                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", Uri);
-                return Redirect(Uri.Uri.PathAndQuery + Uri.Fragment);
-                //return RedirectToAction("Index", "SupportRequest", new { errorMessage = 9 });
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
             }
-
-            task.ClientName = supportRequest.Subscription.ValidDisplayName;
-            task.TaskType = (short)RadiusR.DB.Enums.CustomerSetup.TaskTypes.Fault;
 
             if (ModelState.IsValid)
             {
-                supportRequest.CustomerSetupTask = new CustomerSetupTask()
-                {
-                    SubscriptionID = supportRequest.SubscriptionID,
-                    Details = task.TaskDescription,
-                    HasModem = task.HasModem,
-                    IsCharged = false,
-                    ModemName = task.ModemName,
-                    SetupUserID = task.SetupUserID.Value,
-                    TaskIssueDate = DateTime.Now,
-                    TaskStatus = (short)RadiusR.DB.Enums.CustomerSetup.TaskStatuses.New,
-                    TaskType = task.TaskType,
-                    XDSLType = task.XDSLType
-                };
-                supportRequest.StateID = (short)SubscriptionSupportRequestStateID.Assigned;
+                dbSupportGroup.LeaderID = changeSupportGroupLeader.LeaderID.Value;
 
                 db.SaveChanges();
-                return RedirectToAction("Details", "SupportRequest", new { id = id, errorMessage = 0, returnUrl = Uri.Uri.PathAndQuery + Uri.Fragment });
+
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
             }
 
-            ViewBag.SetupServiceOperators = new SelectList(db.CustomerSetupUsers.Where(user => user.IsEnabled).OrderBy(user => user.Name).Select(user => new { ID = user.ID, Name = user.Name }), "ID", "Name", task.SetupUserID);
-            ViewBag.RequestID = id;
-            return View(task);
+            ViewBag.RedirectUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            ViewBag.GroupName = dbSupportGroup.Name;
+            ViewBag.ValidUsers = new SelectList(db.AppUsers.Where(user => user.IsEnabled).OrderBy(user => user.Name).Select(user => new { Name = user.Name, Value = user.ID }).ToArray(), "Value", "Name", changeSupportGroupLeader.LeaderID);
+
+            return View(changeSupportGroupLeader);
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        // GET: SupportRequest/SupportRequestTypes
+        public ActionResult SupportRequestTypes(int? page)
+        {
+            var viewResults = db.SupportRequestTypes.OrderBy(srt => srt.ID).Select(srt => new SupportRequestTypeViewModel()
+            {
+                ID = srt.ID,
+                Name = srt.Name,
+                IsStaffOnly = srt.IsStaffOnly,
+                IsActive = !srt.IsDisabled,
+                SubTypes = srt.SupportRequestSubTypes.Select(srst => new SupportRequestSubTypeViewModel()
+                {
+                    ID = srst.ID,
+                    IsActive = !srst.IsDisabled,
+                    Name = srst.Name
+                })
+            });
+
+            SetupPages(page, ref viewResults);
+
+            return View(viewResults);
         }
     }
 }

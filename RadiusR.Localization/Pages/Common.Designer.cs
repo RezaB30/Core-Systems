@@ -2329,6 +2329,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rename.
+        /// </summary>
+        public static string Rename {
+            get {
+                return ResourceManager.GetString("Rename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reports.
         /// </summary>
         public static string Reports {
@@ -2662,11 +2671,38 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Support Groups.
+        /// </summary>
+        public static string SupportGroups {
+            get {
+                return ResourceManager.GetString("SupportGroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Support Requests.
         /// </summary>
         public static string SupportRequests {
             get {
                 return ResourceManager.GetString("SupportRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support Request Settings.
+        /// </summary>
+        public static string SupportRequestSettings {
+            get {
+                return ResourceManager.GetString("SupportRequestSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support Request Types.
+        /// </summary>
+        public static string SupportRequestTypes {
+            get {
+                return ResourceManager.GetString("SupportRequestTypes", resourceCulture);
             }
         }
         

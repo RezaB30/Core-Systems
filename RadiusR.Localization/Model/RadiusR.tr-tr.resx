@@ -1428,4 +1428,13 @@
   <data name="NASType" xml:space="preserve">
     <value>NAS Türü</value>
   </data>
+  <data name="Leader" xml:space="preserve">
+    <value>Lider</value>
+  </data>
+  <data name="ActiveUsers" xml:space="preserve">
+    <value>Aktif Kullanıcılar</value>
+  </data>
+  <data name="RelevantTypes" xml:space="preserve">
+    <value>İlgili Türler</value>
+  </data>
 </root>

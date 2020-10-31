@@ -438,4 +438,13 @@
   <data name="SpecialOffersUsage" xml:space="preserve">
     <value>Special Offers Usage</value>
   </data>
+  <data name="GlobalSupportRequestChange" xml:space="preserve">
+    <value>Global Support Request Change</value>
+  </data>
+  <data name="GlobalSupportRequestRead" xml:space="preserve">
+    <value>Global Support Request Read</value>
+  </data>
+  <data name="SupportRequestSettings" xml:space="preserve">
+    <value>Support Request Settings</value>
+  </data>
 </root>

@@ -520,6 +520,24 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Global Support Request Change.
+        /// </summary>
+        public static string GlobalSupportRequestChange {
+            get {
+                return ResourceManager.GetString("GlobalSupportRequestChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global Support Request Read.
+        /// </summary>
+        public static string GlobalSupportRequestRead {
+            get {
+                return ResourceManager.GetString("GlobalSupportRequestRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Groups.
         /// </summary>
         public static string Groups {
@@ -912,6 +930,15 @@ namespace RadiusR.Localization.Model {
         public static string SupportRequests {
             get {
                 return ResourceManager.GetString("SupportRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support Request Settings.
+        /// </summary>
+        public static string SupportRequestSettings {
+            get {
+                return ResourceManager.GetString("SupportRequestSettings", resourceCulture);
             }
         }
         

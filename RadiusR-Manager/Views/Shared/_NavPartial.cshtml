@@ -31,22 +31,27 @@
             </ul>
         </li>
     }
-    @if (User.HasPermission("Support Requests"))
-    {
-        <li>
-            <div class="nav-menu-title" tabindex="0">
-                @RadiusR.Localization.Pages.Common.SupportRequests
-            </div>
-            <ul class="nav-list-sub">
+
+    <li>
+        <div class="nav-menu-title" tabindex="0">
+            @RadiusR.Localization.Pages.Common.SupportRequests
+        </div>
+        <ul class="nav-list-sub">
+            <li>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.SupportRequests, "Index", "SupportRequest")
+            </li>
+            @if (User.HasPermission("Support Request Settings"))
+            {
                 <li>
-                    @Html.ActionLink(RadiusR.Localization.Pages.Common.SupportRequests, "Index", "SupportRequest")
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.SupportGroups, "SupportGroups", "SupportRequest")
                 </li>
                 <li>
-                    @Html.ActionLink(RadiusR.Localization.Pages.Common.NewSupportRequests, "Index", "SupportRequest", new { state = (short)RadiusR.DB.Enums.SupportRequestStateID.Sent }, null)
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.SupportRequestTypes, "SupportRequestTypes", "SupportRequest")
                 </li>
-            </ul>
-        </li>
-    }
+            }
+        </ul>
+    </li>
+
     @if (User.HasPermission("Telekom Work Orders") && RadiusR.DB.DomainsCache.DomainsCache.HasAnyTelekomDomains)
     {
         <li>

@@ -1428,4 +1428,13 @@
   <data name="NASType" xml:space="preserve">
     <value>NAS Type</value>
   </data>
+  <data name="Leader" xml:space="preserve">
+    <value>Leader</value>
+  </data>
+  <data name="ActiveUsers" xml:space="preserve">
+    <value>Active Users</value>
+  </data>
+  <data name="RelevantTypes" xml:space="preserve">
+    <value>Relevant Types</value>
+  </data>
 </root>
