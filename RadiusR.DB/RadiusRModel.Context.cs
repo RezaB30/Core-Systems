@@ -15,6 +15,11 @@ namespace RadiusR.DB
     
     public partial class RadiusREntities : DbContext
     {
+    	public RadiusREntities(System.Data.Common.DbConnection connection)
+            : base(connection, false)
+    	{	
+    	}
+    
         public RadiusREntities()
             : base("name=RadiusREntities")
         {
