@@ -47,7 +47,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.5.11\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.7.5\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RezaB.API.MobilExpress, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -60,6 +60,10 @@
     </Reference>
     <Reference Include="RezaB.NetInvoice.Wrapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RezaB.NetInvoice.Wrapper.1.0.0\lib\net452\RezaB.NetInvoice.Wrapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.Scheduling, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Scheduling.1.0.2\lib\net452\RezaB.Scheduling.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -81,17 +85,29 @@
     <Compile Include="AutomaticPayments.cs" />
     <Compile Include="IssueBills.cs" />
     <Compile Include="IssueEBills.cs" />
+    <Compile Include="SchedulerInitializer.cs" />
     <Compile Include="Scheduler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScheduledTasks.cs" />
     <Compile Include="ScheduleSMSes.cs" />
     <Compile Include="SendSMSes.cs" />
     <Compile Include="SMSLogs.cs" />
+    <Compile Include="Tasks\AutomaticPaymentTasks.cs" />
+    <Compile Include="Tasks\ChangeStateTasks.cs" />
+    <Compile Include="Tasks\ChangeTariffTasks.cs" />
+    <Compile Include="Tasks\IssueBillTasks.cs" />
+    <Compile Include="Tasks\IssueEBillTasks.cs" />
+    <Compile Include="Tasks\ScheduledSMSTasks.cs" />
+    <Compile Include="Tasks\SMSGenerationTasks.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RadiusR.API.MobilExpress.DBAdapter\RadiusR.API.MobilExpress.DBAdapter.csproj">
       <Project>{5547b2c6-bef3-4fc2-a383-9a302c1f458b}</Project>
       <Name>RadiusR.API.MobilExpress.DBAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.DB.Utilities.ComplexOperations\RadiusR.DB.Utilities.ComplexOperations.csproj">
+      <Project>{686baf19-a0b2-4dc3-9ac5-9c995c127968}</Project>
+      <Name>RadiusR.DB.Utilities.ComplexOperations</Name>
     </ProjectReference>
     <ProjectReference Include="..\RadiusR.DB.Utilities\RadiusR.DB.Utilities.csproj">
       <Project>{67fe460b-c88f-466c-86c4-8d8ec860d777}</Project>
