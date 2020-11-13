@@ -66,6 +66,14 @@ namespace RadiusR.DB
             }
         }
 
+        public static short SchedulerBillingType
+        {
+            get
+            {
+                return DBSetting<RadiusREntities, AppSetting>.Retrieve<short>(MethodBase.GetCurrentMethod().Name.Substring(4));
+            }
+        }
+
         #region METHODS
         /// <summary>
         /// Clears settings cache.

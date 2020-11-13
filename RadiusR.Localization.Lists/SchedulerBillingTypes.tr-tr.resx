@@ -117,76 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Activation" xml:space="preserve">
-    <value>Aktivasyon Yapılınca</value>
+  <data name="PostInvoicing" xml:space="preserve">
+    <value>Sonradan Faturalandırma</value>
   </data>
-  <data name="CreditAck" xml:space="preserve">
-    <value>Kredi Yüklenince</value>
-  </data>
-  <data name="DebtDisconnection" xml:space="preserve">
-    <value>Borcdan Kapanınca</value>
-  </data>
-  <data name="ExtendPackage" xml:space="preserve">
-    <value>Paket Uzatma</value>
-  </data>
-  <data name="ForgotPassword" xml:space="preserve">
-    <value>Şifremi Unuttum</value>
-  </data>
-  <data name="NewBill" xml:space="preserve">
-    <value>Fatura Kesilince</value>
-  </data>
-  <data name="PaymentDone" xml:space="preserve">
-    <value>Fatura Ödenince</value>
-  </data>
-  <data name="PaymentReminder" xml:space="preserve">
-    <value>Ödeme Hatırlama</value>
-  </data>
-  <data name="PrePaidExpiration" xml:space="preserve">
-    <value>Ön Ödemeli Bitiş</value>
-  </data>
-  <data name="UserCredentials" xml:space="preserve">
-    <value>Modem Kimlik Bilgileri</value>
-  </data>
-  <data name="WebsiteCredentials" xml:space="preserve">
-    <value>OİM Kimlik Bilgileri</value>
-  </data>
-  <data name="HardQuota100" xml:space="preserve">
-    <value>Duran Kota %100</value>
-  </data>
-  <data name="Quota80" xml:space="preserve">
-    <value>Kota %80</value>
-  </data>
-  <data name="SellQuota" xml:space="preserve">
-    <value>Kota Satış</value>
-  </data>
-  <data name="SmartQuota100" xml:space="preserve">
-    <value>Akıllı Kota %100</value>
-  </data>
-  <data name="SmartQuotaMax" xml:space="preserve">
-    <value>Akıllı Kota Maks</value>
-  </data>
-  <data name="SoftQuota100" xml:space="preserve">
-    <value>Hızı Düşan Kota %100</value>
-  </data>
-  <data name="CancelPayment" xml:space="preserve">
-    <value>Ödeme İptal</value>
-  </data>
-  <data name="MobilExpressActivation" xml:space="preserve">
-    <value>MobilExpress Otomatik Ödeme Etkinleştirme</value>
-  </data>
-  <data name="MobilExpressAddRemoveCard" xml:space="preserve">
-    <value>MobilExpress Kart Ekleme/Kaldırma</value>
-  </data>
-  <data name="MobilExpressDeactivation" xml:space="preserve">
-    <value>MobilExpress Otomatik Ödeme Devre Dışı Bırakma</value>
-  </data>
-  <data name="FailedAutomaticPayment" xml:space="preserve">
-    <value>Başarısız Otomatik Ödeme</value>
-  </data>
-  <data name="OperationCode" xml:space="preserve">
-    <value>İşlem Kodu</value>
-  </data>
-  <data name="FreezeDurationEnd" xml:space="preserve">
-    <value>Dondurma Süresi Btirince</value>
+  <data name="PreInvoicing" xml:space="preserve">
+    <value>Ön Faturalandırma</value>
   </data>
 </root>

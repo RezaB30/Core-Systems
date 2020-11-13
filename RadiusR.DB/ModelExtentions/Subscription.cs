@@ -34,7 +34,7 @@ namespace RadiusR.DB
         {
             get
             {
-                if (Service.BillingType == (short)Enums.ServiceBillingType.Invoiced || Service.BillingType == (short)Enums.ServiceBillingType.PreInvoiced)
+                if (Service.BillingType == (short)Enums.ServiceBillingType.Invoiced)
                 {
                     return true;
                 }
@@ -55,7 +55,7 @@ namespace RadiusR.DB
         {
             get
             {
-                return State == 3 || State == 2;
+                return State == (short)Enums.CustomerState.Active || State == (short)Enums.CustomerState.Reserved;
             }
         }
 
@@ -63,7 +63,7 @@ namespace RadiusR.DB
         {
             get
             {
-                return State == 3 || State == 4;
+                return State == (short)Enums.CustomerState.Active || State == (short)Enums.CustomerState.Disabled;
             }
         }
 
@@ -71,7 +71,7 @@ namespace RadiusR.DB
         {
             get
             {
-                return State == 5;
+                return State == (short)Enums.CustomerState.Cancelled;
             }
         }
 

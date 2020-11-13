@@ -46,11 +46,12 @@ namespace RadiusR.DB.Utilities.Billing
             // get lower boundry to start issuing bills
             var lowerBoundry = currentSubscription.Subscription.Bills.Where(b => b.Source == (short)BillSources.System && b.PeriodEnd.HasValue).Select(b => b.PeriodEnd).DefaultIfEmpty(currentSubscription.Subscription.ActivationDate).Max().Value;
             lowerBoundry = lowerBoundry < currentSubscription.Subscription.ActivationDate ? currentSubscription.Subscription.ActivationDate.Value : lowerBoundry;
+            lowerBoundry = lowerBoundry < currentSubscription.Subscription.LastTariffChangeDate ? currentSubscription.Subscription.LastTariffChangeDate.Value : lowerBoundry;
             lowerBoundry = lowerBoundry.Date;
             // count added bills for installments
             var addedBillsCount = 0;
             // find relevant period
-            var currentPeriod = currentSubscription.Subscription.GetCurrentBillingPeriod(lowerBoundry);
+            var currentPeriod = currentSubscription.Subscription.GetCurrentBillingPeriod(lowerBoundry, ignorePreviousBills: true);
             while (true)
             {
                 var isLastBillWithNoTariff = false;
@@ -58,7 +59,7 @@ namespace RadiusR.DB.Utilities.Billing
                 if (currentPeriod.StartDate > issueToDate)
                 {
                     // if it is pre-invoiced and has force bill on
-                    if (forceLastBill && currentSubscription.Subscription.Service.BillingType == (short)ServiceBillingType.PreInvoiced)
+                    if (forceLastBill && SchedulerSettings.SchedulerBillingType == (short)SchedulerBillingTypes.PreInvoicing)
                         isLastBillWithNoTariff = true;
                     else
                         return;
@@ -68,17 +69,17 @@ namespace RadiusR.DB.Utilities.Billing
                 // invalid partiality
                 if (partiality == null)
                     return;
-                // tariff change for pre-invoiced
-                if (currentSubscription.Subscription.Service.BillingType == (short)ServiceBillingType.PreInvoiced && currentSubscription.Subscription.SubscriptionTariffChange != null)
-                {
-                    currentSubscription.Subscription.Service = currentSubscription.Subscription.SubscriptionTariffChange.Service;
-                    currentSubscription.Subscription.PaymentDay = currentSubscription.Subscription.SubscriptionTariffChange.NewBillingPeriod;
-                    currentSubscription.Subscription.SubscriptionTariffChange = null;
-                }
+                //// tariff change for pre-invoiced
+                //if (SchedulerSettings.SchedulerBillingType == (short)SchedulerBillingTypes.PreInvoicing && currentSubscription.Subscription.SubscriptionTariffChange != null)
+                //{
+                //    currentSubscription.Subscription.Service = currentSubscription.Subscription.SubscriptionTariffChange.Service;
+                //    currentSubscription.Subscription.PaymentDay = currentSubscription.Subscription.SubscriptionTariffChange.NewBillingPeriod;
+                //    currentSubscription.Subscription.SubscriptionTariffChange = null;
+                //}
                 // is last bill for invoiced subscription
                 bool isLastPartialBill = false;
                 // no more bills for post paid if we are currently in the period
-                if (currentSubscription.Subscription.Service.BillingType == (short)ServiceBillingType.Invoiced && currentPeriod.EndDate > issueToDate)
+                if (SchedulerSettings.SchedulerBillingType == (short)SchedulerBillingTypes.PostInvoicing && currentPeriod.EndDate > issueToDate)
                 {
                     // it is last bill before cancellation
                     if (forceLastBill)
@@ -95,7 +96,7 @@ namespace RadiusR.DB.Utilities.Billing
                     return;
                 //-------------- CALCULATE OTHER FEES -----------------
                 // query signiture for retrieving fees
-                var clientValidFees = currentSubscription.ValidFees.ValidBillFees(addedBillsCount, isLastPartialBill, settleAllInstallments).ToList();
+                var clientValidFees = currentSubscription.ValidFees.ValidBillFees(addedBillsCount, (isLastPartialBill || isLastBillWithNoTariff) && settleAllInstallments).ToList();
                 // partiality for all time fees
                 foreach (var billFee in clientValidFees.Where(bf => bf.FeeID == null))
                 {
@@ -109,9 +110,7 @@ namespace RadiusR.DB.Utilities.Billing
                         CurrentCost = tariffFee.Value,
                         FeeTypeID = (short)FeeType.Tariff,
                         InstallmentCount = 1,
-                        Description = currentSubscription.Subscription.Service.Name,
-                        StartDate = currentPeriod.TariffChangeDate,
-                        EndDate = currentPeriod.TariffChangeDate.HasValue ? (isLastPartialBill ? issueToDate : currentPeriod.EndDate) : (DateTime?)null
+                        Description = currentSubscription.Subscription.Service.Name
                     });
                 }
                 //-------------- ADD EXTRA FEES IN LAST BILL -----------------------
@@ -372,15 +371,15 @@ namespace RadiusR.DB.Utilities.Billing
         /// </summary>
         /// <param name="fees"></param>
         /// <returns>Active fees</returns>
-        public static IEnumerable<BillFee> ValidBillFees(this IEnumerable<BillingReadySubscriptionFee> fees, int addedBillCount = 0, bool isLastBill = false, bool settleAllInstallments = true)
+        public static IEnumerable<BillFee> ValidBillFees(this IEnumerable<BillingReadySubscriptionFee> fees, int addedBillCount = 0, bool settleAllInstallments = true)
         {
             return fees.Where(fee => fee.CountedInstallments + addedBillCount < fee.TotalInstallments)
                 .Select(fee => new BillFee()
                 {
-                    CurrentCost = Math.Round(fee.Cost / ((decimal)fee.TotalInstallments / (decimal)((isLastBill && !fee.IsAllTime && settleAllInstallments) ? (fee.TotalInstallments - fee.CountedInstallments - addedBillCount) : 1)), 2),
+                    CurrentCost = Math.Round(fee.Cost / ((decimal)fee.TotalInstallments / (decimal)((!fee.IsAllTime && settleAllInstallments) ? (fee.TotalInstallments - fee.CountedInstallments - addedBillCount) : 1)), 2),
                     FeeID = fee.IsAllTime ? (long?)null : fee.ID,
                     FeeTypeID = fee.IsAllTime ? fee.FeeTypeID : (short?)null,
-                    InstallmentCount = (isLastBill && !fee.IsAllTime && settleAllInstallments) ? fee.TotalInstallments - fee.CountedInstallments - addedBillCount : 1
+                    InstallmentCount = (!fee.IsAllTime && settleAllInstallments) ? fee.TotalInstallments - fee.CountedInstallments - addedBillCount : 1
                 });
         }
     }

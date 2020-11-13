@@ -14,7 +14,7 @@ namespace RadiusR.DB.Utilities.Billing
         {
             if (!dbSubscription.IsActive || !dbSubscription.ActivationDate.HasValue || dbSubscription.Service.BillingType == (short)ServiceBillingType.PrePaid)
                 return;
-            var currentValue = dbSubscription.LastAllowedDate;
+
             var queryBase = dbSubscription.Bills.Concat(newlyAddedBill != null ? new[] { newlyAddedBill } : Enumerable.Empty<Bill>());
             var firstUnpaidBill = queryBase.Where(b => b.Source == (short)BillSources.System && b.BillStatusID == (short)BillState.Unpaid).OrderBy(b => b.DueDate).FirstOrDefault();
             var billsQuery = queryBase.OrderByDescending(b => b.DueDate).Where(b => b.Source == (short)BillSources.System && b.BillStatusID != (short)BillState.Unpaid);
@@ -23,8 +23,11 @@ namespace RadiusR.DB.Utilities.Billing
 
             var lastContinuousPaidBill = billsQuery.FirstOrDefault();
             var periodCheckDate = (lastContinuousPaidBill == null || lastContinuousPaidBill.PeriodEnd < dbSubscription.ActivationDate) ? dbSubscription.ActivationDate : lastContinuousPaidBill.PeriodEnd;
+            if (dbSubscription.LastTariffChangeDate.HasValue && periodCheckDate < dbSubscription.LastTariffChangeDate)
+                periodCheckDate = dbSubscription.LastTariffChangeDate;
+
             var lastUnpaidBillingPeriod = dbSubscription.GetCurrentBillingPeriod(periodCheckDate, true);
-            var newLastAllowedDate = (dbSubscription.Service.BillingType == (short)ServiceBillingType.Invoiced) ? lastUnpaidBillingPeriod.EndDate.AddDays(dbSubscription.Service.PaymentTolerance + dbSubscription.Service.ExpirationTolerance) : lastUnpaidBillingPeriod.StartDate.AddDays(dbSubscription.Service.PaymentTolerance + dbSubscription.Service.ExpirationTolerance);
+            var newLastAllowedDate = (SchedulerSettings.SchedulerBillingType == (short)SchedulerBillingTypes.PostInvoicing) ? lastUnpaidBillingPeriod.EndDate.AddDays(dbSubscription.Service.PaymentTolerance + dbSubscription.Service.ExpirationTolerance) : lastUnpaidBillingPeriod.StartDate.AddDays(dbSubscription.Service.PaymentTolerance + dbSubscription.Service.ExpirationTolerance);
 
             if (newLastAllowedDate <= dbSubscription.LastAllowedDate && !forceChange)
                 return;

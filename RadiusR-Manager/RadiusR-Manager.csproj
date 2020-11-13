@@ -801,7 +801,7 @@
     <Content Include="Views\Client\AddWizard\AddSubscription.cshtml" />
     <Content Include="Views\PDFTemplates\Index.cshtml" />
     <Content Include="Views\PDFTemplates\EditTemplate.cshtml" />
-    <Content Include="Views\Client\SystemLogs.cshtml" />
+    <Content Include="Views\Client\DetailsTabs\SystemLogs.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\RawHtml.cshtml" />
     <Content Include="Views\Client\Edits\ChangeService.cshtml" />
     <Content Include="Views\Reports\SystemLogsReport.cshtml" />
@@ -903,6 +903,7 @@
     <Content Include="Views\OfflinePayment\BatchExpDateUpdate.cshtml" />
     <Content Include="Views\Reports\ReferralDiscounts.cshtml" />
     <Content Include="Views\Client\Edits\AddSpecialOffer.cshtml" />
+    <Content Include="Views\Client\DetailsTabs\TariffChangeHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

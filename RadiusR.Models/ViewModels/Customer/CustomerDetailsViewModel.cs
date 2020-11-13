@@ -145,10 +145,11 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
                     CurrentBillingPeriodStartDate = currentQoutaAndUsage != null ? currentQoutaAndUsage.PeriodStart : (DateTime?)null,
                     CurrentBillingPeriodEndDate = currentQoutaAndUsage != null ? currentQoutaAndUsage.PeriodEnd : (DateTime?)null,
                     HasBilling = dbSubscription.HasBilling,
-                    TariffChange = (dbSubscription.SubscriptionTariffChange != null && currentQoutaAndUsage != null) ? new SubscriptionScheduledTariffChangeViewModel()
+                    LastTariffChangeDate = dbSubscription.LastTariffChangeDate,
+                    TariffChange = (dbSubscription.ChangeServiceTypeTasks.Any()) ? new SubscriptionScheduledTariffChangeViewModel()
                     {
-                        NewScheduledTariffName = dbSubscription.SubscriptionTariffChange.Service.Name,
-                        NewScheduledTariffActivationDate = currentQoutaAndUsage.PeriodEnd
+                        NewScheduledTariffName = dbSubscription.ChangeServiceTypeTasks.LastOrDefault().Service.Name,
+                        NewScheduledTariffActivationDate = dbSubscription.ChangeServiceTypeTasks.LastOrDefault().SchedulerTask.ExecuteDate
                     } : null
                 },
                 TelekomInfo = dbSubscription.SubscriptionTelekomInfo != null ? new SubscriptionTelekomInfoViewModel()

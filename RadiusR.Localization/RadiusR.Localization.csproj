@@ -11,7 +11,7 @@
     <AssemblyName>RadiusR.Localization</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-	<PackageDescription>Localization for MasteISS.</PackageDescription>
+    <PackageDescription>Localization for MasteISS.</PackageDescription>
     <RepositoryUrl>https://github.com/masteriss/Core-Systems</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <SccProjectName>
@@ -328,6 +328,12 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Common.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RadiusR.Localization.Lists\RadiusR.Localization.Lists.csproj">
+      <Project>{e1bae2fa-ae42-447b-8087-eae20e6e697c}</Project>
+      <Name>RadiusR.Localization.Lists</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

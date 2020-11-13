@@ -37,7 +37,6 @@ namespace RadiusR.DB
         public virtual DbSet<BTKSchedulerSetting> BTKSchedulerSettings { get; set; }
         public virtual DbSet<Cashier> Cashiers { get; set; }
         public virtual DbSet<CashierBalance> CashierBalances { get; set; }
-        public virtual DbSet<ChangeServiceTypeTask> ChangeServiceTypeTasks { get; set; }
         public virtual DbSet<ChangeStateTask> ChangeStateTasks { get; set; }
         public virtual DbSet<CustomerBlackList> CustomerBlackLists { get; set; }
         public virtual DbSet<CustomerSetupStatusUpdate> CustomerSetupStatusUpdates { get; set; }
@@ -89,8 +88,6 @@ namespace RadiusR.DB
         public virtual DbSet<TelekomWorkOrder> TelekomWorkOrders { get; set; }
         public virtual DbSet<BillFee> BillFees { get; set; }
         public virtual DbSet<Bill> Bills { get; set; }
-        public virtual DbSet<Subscription> Subscriptions { get; set; }
-        public virtual DbSet<SubscriptionTariffChange> SubscriptionTariffChanges { get; set; }
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<VPOSList> VPOSLists { get; set; }
         public virtual DbSet<Fee> Fees { get; set; }
@@ -114,5 +111,8 @@ namespace RadiusR.DB
         public virtual DbSet<OfflinePaymentGateway> OfflinePaymentGateways { get; set; }
         public virtual DbSet<ExternalPayment> ExternalPayments { get; set; }
         public virtual DbSet<NAS> NAS { get; set; }
+        public virtual DbSet<SubscriptionTariffHistory> SubscriptionTariffHistories { get; set; }
+        public virtual DbSet<Subscription> Subscriptions { get; set; }
+        public virtual DbSet<ChangeServiceTypeTask> ChangeServiceTypeTasks { get; set; }
     }
 }

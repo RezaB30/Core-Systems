@@ -1095,4 +1095,7 @@
   <data name="ReferralDiscountReport" xml:space="preserve">
     <value>Referral Discount Report</value>
   </data>
+  <data name="History" xml:space="preserve">
+    <value>History</value>
+  </data>
 </root>

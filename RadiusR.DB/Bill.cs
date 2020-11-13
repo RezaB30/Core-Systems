@@ -47,12 +47,12 @@ namespace RadiusR.DB
         public virtual ICollection<SMSArchive> SMSArchives { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubscriptionCredit> SubscriptionCredits { get; set; }
-        public virtual Subscription Subscription { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerCredit> PartnerCredits { get; set; }
         public virtual PartnerBillPayment PartnerBillPayment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppliedRecurringDiscount> AppliedRecurringDiscounts { get; set; }
         public virtual ExternalPayment ExternalPayment { get; set; }
+        public virtual Subscription Subscription { get; set; }
     }
 }

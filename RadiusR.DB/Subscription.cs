@@ -18,12 +18,13 @@ namespace RadiusR.DB
         public Subscription()
         {
             this.Bills = new HashSet<Bill>();
-            this.ChangeServiceTypeTasks = new HashSet<ChangeServiceTypeTask>();
             this.ChangeStateTasks = new HashSet<ChangeStateTask>();
             this.CustomerSetupTasks = new HashSet<CustomerSetupTask>();
+            this.Fees = new HashSet<Fee>();
             this.RadiusAccountings = new HashSet<RadiusAccounting>();
             this.RadiusDailyAccountings = new HashSet<RadiusDailyAccounting>();
             this.RadiusSMS = new HashSet<RadiusSMS>();
+            this.RecurringDiscounts = new HashSet<RecurringDiscount>();
             this.ScheduledSMSes = new HashSet<ScheduledSMS>();
             this.SMSArchives = new HashSet<SMSArchive>();
             this.SubscriptionCredits = new HashSet<SubscriptionCredit>();
@@ -31,11 +32,11 @@ namespace RadiusR.DB
             this.SubscriptionQuotas = new HashSet<SubscriptionQuota>();
             this.SubscriptionStateHistories = new HashSet<SubscriptionStateHistory>();
             this.SubscriptionSupportRequests = new HashSet<SubscriptionSupportRequest>();
+            this.SubscriptionTariffHistories = new HashSet<SubscriptionTariffHistory>();
+            this.SystemLogs = new HashSet<SystemLog>();
             this.TelekomWorkOrders = new HashSet<TelekomWorkOrder>();
             this.Groups = new HashSet<Group>();
-            this.Fees = new HashSet<Fee>();
-            this.SystemLogs = new HashSet<SystemLog>();
-            this.RecurringDiscounts = new HashSet<RecurringDiscount>();
+            this.ChangeServiceTypeTasks = new HashSet<ChangeServiceTypeTask>();
         }
     
         public long ID { get; set; }
@@ -58,27 +59,33 @@ namespace RadiusR.DB
         public bool ArchiveScanned { get; set; }
         public int DomainID { get; set; }
         public string ReferenceNo { get; set; }
+        public Nullable<System.DateTime> LastTariffChangeDate { get; set; }
     
         public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bill> Bills { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChangeServiceTypeTask> ChangeServiceTypeTasks { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChangeStateTask> ChangeStateTasks { get; set; }
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerSetupTask> CustomerSetupTasks { get; set; }
+        public virtual Domain Domain { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Fee> Fees { get; set; }
         public virtual MobilExpressAutoPayment MobilExpressAutoPayment { get; set; }
+        public virtual PartnerRegisteredSubscription PartnerRegisteredSubscription { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RadiusAccounting> RadiusAccountings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RadiusDailyAccounting> RadiusDailyAccountings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RadiusSMS> RadiusSMS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RecurringDiscount> RecurringDiscounts { get; set; }
         public virtual RecurringPaymentSubscription RecurringPaymentSubscription { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScheduledSMS> ScheduledSMSes { get; set; }
+        public virtual Service Service { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SMSArchive> SMSArchives { get; set; }
         public virtual SubscriptionCancellation SubscriptionCancellation { get; set; }
@@ -94,20 +101,16 @@ namespace RadiusR.DB
         public virtual ICollection<SubscriptionStateHistory> SubscriptionStateHistories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubscriptionSupportRequest> SubscriptionSupportRequests { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubscriptionTariffHistory> SubscriptionTariffHistories { get; set; }
         public virtual SubscriptionTelekomInfo SubscriptionTelekomInfo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SystemLog> SystemLogs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TelekomWorkOrder> TelekomWorkOrders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Group> Groups { get; set; }
-        public virtual SubscriptionTariffChange SubscriptionTariffChange { get; set; }
-        public virtual Service Service { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Fee> Fees { get; set; }
-        public virtual Domain Domain { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SystemLog> SystemLogs { get; set; }
-        public virtual PartnerRegisteredSubscription PartnerRegisteredSubscription { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RecurringDiscount> RecurringDiscounts { get; set; }
+        public virtual ICollection<ChangeServiceTypeTask> ChangeServiceTypeTasks { get; set; }
     }
 }

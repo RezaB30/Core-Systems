@@ -40,8 +40,8 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RecurringDiscount> ReferringRecurringDiscounts { get; set; }
         public virtual RecurringDiscount ReferrerRecurringDiscount { get; set; }
-        public virtual Subscription Subscription { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppliedRecurringDiscount> AppliedRecurringDiscounts { get; set; }
+        public virtual Subscription Subscription { get; set; }
     }
 }

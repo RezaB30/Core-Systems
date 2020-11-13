@@ -186,4 +186,7 @@
   <data name="OperationCode" xml:space="preserve">
     <value>Operation Code</value>
   </data>
+  <data name="FreezeDurationEnd" xml:space="preserve">
+    <value>Freeze Duration End</value>
+  </data>
 </root>

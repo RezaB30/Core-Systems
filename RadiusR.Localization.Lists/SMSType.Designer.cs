@@ -124,6 +124,15 @@ namespace RadiusR.Localization.Lists {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Freeze Duration End.
+        /// </summary>
+        public static string FreezeDurationEnd {
+            get {
+                return ResourceManager.GetString("FreezeDurationEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hard Quota 100%.
         /// </summary>
         public static string HardQuota100 {

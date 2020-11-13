@@ -18,6 +18,7 @@ namespace RadiusR.DB.Enums
         Others = 8,
         Transfer = 9,
         Quota = 10,
-        ModemRent = 11
+        ModemRent = 11,
+        TariffDebt = 12,
     }
 }

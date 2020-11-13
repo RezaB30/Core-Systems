@@ -30,6 +30,7 @@ namespace RadiusR.DB.Enums
         MobilExpressActivation = 20,
         MobilExpressDeactivation = 21,
         FailedAutomaticPayment = 22,
-        OperationCode = 23
+        OperationCode = 23,
+        FreezeDurationEnd = 24,
     }
 }

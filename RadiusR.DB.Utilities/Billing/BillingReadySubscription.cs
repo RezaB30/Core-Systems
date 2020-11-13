@@ -82,7 +82,7 @@ namespace RadiusR.DB.Utilities.Billing
             return query
                 .Include(s => s.Bills)
                 .Include(s => s.Service)
-                .Include(s => s.SubscriptionTariffChange.Service)
+                //.Include(s => s.SubscriptionTariffChange.Service)
                 .Select(subscription => new BillingReadySubscription()
                 {
                     Subscription = subscription,

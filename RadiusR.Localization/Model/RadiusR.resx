@@ -1428,4 +1428,13 @@
   <data name="NASType" xml:space="preserve">
     <value>NAS Type</value>
   </data>
+  <data name="LastTariffChangeDate" xml:space="preserve">
+    <value>Last Tariff Change Date</value>
+  </data>
+  <data name="NewTariff" xml:space="preserve">
+    <value>New Tariff</value>
+  </data>
+  <data name="OldTariff" xml:space="preserve">
+    <value>Old Tariff</value>
+  </data>
 </root>

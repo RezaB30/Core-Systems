@@ -183,11 +183,11 @@ namespace RadiusR_Manager.Controllers
             }
             if (search.StartDate.HasValue)
             {
-                creditPart = creditPart.Where(credit => credit.Date >= search.StartDate);
+                creditPart = creditPart.Where(credit => DbFunctions.TruncateTime(credit.Date) >= search.StartDate);
             }
             if (search.EndDate.HasValue)
             {
-                creditPart = creditPart.Where(credit => credit.Date <= search.EndDate);
+                creditPart = creditPart.Where(credit => DbFunctions.TruncateTime(credit.Date) <= search.EndDate);
             }
 
             var viewResults = billsPart.ToList().Select(bill => new CashDeskViewModel()

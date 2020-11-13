@@ -21,7 +21,7 @@ namespace RadiusR.Scheduler
             {
                 using (RadiusREntities db = new RadiusREntities())
                 {
-                    db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+                    //db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
                     var tasks = db.SchedulerTasks.Where(task => task.ExecuteDate <= DateTime.Now).ToList();
                     foreach (var task in tasks)
                     {
@@ -56,7 +56,7 @@ namespace RadiusR.Scheduler
             catch (Exception ex)
             {
                 // log exceptions
-                scheduledSMSLogger.Error(ex, "Error running scheduled tasks.");
+                scheduledTasksLogger.Error(ex, "Error running scheduled tasks.");
                 return;
             }
             finally

@@ -156,8 +156,9 @@
     <Compile Include="Enums\RecurringDiscount\RecurringDiscountApplicationType.cs" />
     <Compile Include="Enums\RecurringDiscount\RecurringDiscountCancellationCause.cs" />
     <Compile Include="Enums\RecurringDiscount\RecurringDiscountType.cs" />
+    <Compile Include="Enums\SchedulerBillingTypes.cs" />
     <Compile Include="Enums\SchedulerWorkPeriods.cs" />
-    <Compile Include="Enums\ServiceBillingType.cs" />
+    <Compile Include="Enums\ServiceBillingTypes.cs" />
     <Compile Include="Enums\ServiceInfrastructureTypes.cs" />
     <Compile Include="Enums\SystemLogInterface.cs" />
     <Compile Include="Enums\TelekomOperations\TelekomOperationSubType.cs" />
@@ -387,7 +388,7 @@
     <Compile Include="SubscriptionSupportRequest.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="SubscriptionTariffChange.cs">
+    <Compile Include="SubscriptionTariffHistory.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SubscriptionTelekomInfo.cs">

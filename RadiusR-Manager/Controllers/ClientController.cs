@@ -1051,35 +1051,6 @@ namespace RadiusR_Manager.Controllers
             return RedirectToAction("WorkOrders", "Client", new { id = subscriptionId, errorMessage = 0 });
         }
 
-        [AuthorizePermission(Permissions = "System Logs")]
-        [HttpGet]
-        // GET: Client/SystemLogs
-        public ActionResult SystemLogs(long id, int? page)
-        {
-            var subscription = db.Subscriptions.Find(id);
-            var logs = db.SystemLogs.Include(log => log.AppUser).Where(log => log.CustomerID == subscription.CustomerID || log.SubscriptionID == subscription.ID).OrderByDescending(log => log.Date).AsQueryable();
-
-            SetupPages(page, ref logs);
-
-            var processor = new SystemLogProcessor(Url);
-            var results = logs.ToArray().Select(log => new SystemLogViewModel()
-            {
-                ID = log.ID,
-                Date = log.Date,
-                LogType = log.LogType,
-                LogInterfaceType = log.Interface,
-                LogInterfaceUsername = log.InterfaceUsername ?? "-",
-                CustomerID = log.CustomerID,
-                SubscriptionID = log.SubscriptionID,
-                UserName = log.AppUser != null ? log.AppUser.Name : "-",
-                ProcessedLog = processor.TranslateLog(log, log.Parameters)
-            });
-
-            return View(results);
-        }
-
-        
-
         [AuthorizePermission(Permissions = "Client Files")]
         // GET: Client/DownloadContract
         public ActionResult DownloadContract(long id)

@@ -34,8 +34,7 @@ namespace RadiusR.Scheduler
                     IP = GetIPAddress(),
                     UserAgent = "RadiusR Scheduler/Windows Service"
                 });
-                // create sms client
-                var smsClient = new SMSService();
+                
                 var today = DateTime.Today;
 
                 // on issue date automatic payments
@@ -47,7 +46,7 @@ namespace RadiusR.Scheduler
                     {
                         using (RadiusREntities db = new RadiusREntities())
                         {
-                            db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+                            //db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
                             // base query
                             var baseQuery = db.MobilExpressAutoPayments
                                 .OrderBy(ap => ap.SubscriptionID)

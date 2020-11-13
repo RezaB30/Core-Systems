@@ -1915,6 +1915,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last Tariff Change Date.
+        /// </summary>
+        public static string LastTariffChangeDate {
+            get {
+                return ResourceManager.GetString("LastTariffChangeDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Line State.
         /// </summary>
         public static string LineState {
@@ -2221,6 +2230,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Tariff.
+        /// </summary>
+        public static string NewTariff {
+            get {
+                return ResourceManager.GetString("NewTariff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Tariff Activation Date.
         /// </summary>
         public static string NewTariffActivationDate {
@@ -2280,6 +2298,15 @@ namespace RadiusR.Localization.Model {
         public static string OldPassword {
             get {
                 return ResourceManager.GetString("OldPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old Tariff.
+        /// </summary>
+        public static string OldTariff {
+            get {
+                return ResourceManager.GetString("OldTariff", resourceCulture);
             }
         }
         

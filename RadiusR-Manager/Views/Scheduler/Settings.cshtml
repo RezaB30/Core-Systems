@@ -80,7 +80,7 @@
                 @Html.LabelFor(model => model.SMSSchedulerPaymentReminderThreshold)
             </td>
             <td>
-                @Html.Select(model => model.SMSSchedulerPaymentReminderThreshold, HelperUtilities.CreateNumericSelectList(1,10, Model.SMSSchedulerPaymentReminderThreshold))
+                @Html.Select(model => model.SMSSchedulerPaymentReminderThreshold, HelperUtilities.CreateNumericSelectList(1, 10, Model.SMSSchedulerPaymentReminderThreshold))
             </td>
         </tr>
         <tr>
@@ -99,6 +99,19 @@
         <tr>
             <td colspan="2">
                 @Html.ValidationMessageFor(model => model.SMSSchedulerPrepaidReminderThreshold)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.SchedulerBillingType)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.SchedulerBillingType)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.SchedulerBillingType)
             </td>
         </tr>
         <tr>

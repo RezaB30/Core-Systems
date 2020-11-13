@@ -177,6 +177,7 @@
     <Compile Include="RadiusViewModels\SpecialOfferViewModel.cs" />
     <Compile Include="RadiusViewModels\SubscriptionCommitmentViewModel.cs" />
     <Compile Include="RadiusViewModels\SystemLogViewModel.cs" />
+    <Compile Include="RadiusViewModels\TariffChangeHistoryViewModel.cs" />
     <Compile Include="RadiusViewModels\TelekomAccessCredentialViewModel.cs" />
     <Compile Include="RadiusViewModels\TelekomTariffViewModel.cs" />
     <Compile Include="RadiusViewModels\TelekomWorkOrderViewModel.cs" />

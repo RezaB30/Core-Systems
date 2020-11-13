@@ -17,14 +17,15 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Service()
         {
-            this.ChangeServiceTypeTasks = new HashSet<ChangeServiceTypeTask>();
             this.ServiceBillingPeriods = new HashSet<ServiceBillingPeriod>();
             this.ServiceRateTimeTables = new HashSet<ServiceRateTimeTable>();
-            this.Subscriptions = new HashSet<Subscription>();
-            this.SubscriptionTariffChanges = new HashSet<SubscriptionTariffChange>();
             this.Domains = new HashSet<Domain>();
             this.PartnerAvailableTariffs = new HashSet<PartnerAvailableTariff>();
             this.PartnerRegisteredSubscriptions = new HashSet<PartnerRegisteredSubscription>();
+            this.SubscriptionTariffHistories = new HashSet<SubscriptionTariffHistory>();
+            this.SubscriptionTariffHistories1 = new HashSet<SubscriptionTariffHistory>();
+            this.Subscriptions = new HashSet<Subscription>();
+            this.ChangeServiceTypeTasks = new HashSet<ChangeServiceTypeTask>();
         }
     
         public int ID { get; set; }
@@ -43,20 +44,22 @@ namespace RadiusR.DB
         public bool NoQueue { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChangeServiceTypeTask> ChangeServiceTypeTasks { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceBillingPeriod> ServiceBillingPeriods { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceRateTimeTable> ServiceRateTimeTables { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Subscription> Subscriptions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubscriptionTariffChange> SubscriptionTariffChanges { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Domain> Domains { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerAvailableTariff> PartnerAvailableTariffs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerRegisteredSubscription> PartnerRegisteredSubscriptions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubscriptionTariffHistory> SubscriptionTariffHistories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubscriptionTariffHistory> SubscriptionTariffHistories1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Subscription> Subscriptions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChangeServiceTypeTask> ChangeServiceTypeTasks { get; set; }
     }
 }
