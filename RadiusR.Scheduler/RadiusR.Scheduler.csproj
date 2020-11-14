@@ -62,8 +62,8 @@
       <HintPath>..\packages\RezaB.NetInvoice.Wrapper.1.0.0\lib\net452\RezaB.NetInvoice.Wrapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RezaB.Scheduling, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.Scheduling.1.0.2\lib\net452\RezaB.Scheduling.dll</HintPath>
+    <Reference Include="RezaB.Scheduling, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Scheduling.1.0.3\lib\net452\RezaB.Scheduling.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -82,16 +82,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutomaticPayments.cs" />
-    <Compile Include="IssueBills.cs" />
-    <Compile Include="IssueEBills.cs" />
     <Compile Include="SchedulerInitializer.cs" />
-    <Compile Include="Scheduler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScheduledTasks.cs" />
-    <Compile Include="ScheduleSMSes.cs" />
-    <Compile Include="SendSMSes.cs" />
-    <Compile Include="SMSLogs.cs" />
     <Compile Include="Tasks\AutomaticPaymentTasks.cs" />
     <Compile Include="Tasks\ChangeStateTasks.cs" />
     <Compile Include="Tasks\ChangeTariffTasks.cs" />

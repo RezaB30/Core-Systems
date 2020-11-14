@@ -72,8 +72,8 @@
       <HintPath>..\packages\NLog.4.7.5\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RezaB.Scheduling, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.Scheduling.1.0.2\lib\net452\RezaB.Scheduling.dll</HintPath>
+    <Reference Include="RezaB.Scheduling, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Scheduling.1.0.3\lib\net452\RezaB.Scheduling.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -109,6 +109,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="version history.txt" />
     <None Include="packages.config" />
     <None Include="Uninstall.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

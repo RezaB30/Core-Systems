@@ -16,7 +16,7 @@ namespace RadiusR.Scheduler
         {
             return new RezaB.Scheduling.Scheduler(new SchedulerOperation[]
             {
-                new SchedulerOperation("change-state", new ChangeStateTasks(), new SchedulerTimingOptions(new SchedulerWorkingTimeSpan(SchedulerSettings.SchedulerStartTime, SchedulerSettings.SchedulerStopTime)), 2, new RezaB.Scheduling.SchedulerTask[]
+                new SchedulerOperation("change-state", new ChangeStateTasks(), new SchedulerTimingOptions(new DynamicSchedulerWorkingTimeSpan(() => SchedulerSettings.SchedulerStartTime, () => SchedulerSettings.SchedulerStopTime)), 2, new RezaB.Scheduling.SchedulerTask[]
                 {
                     new RezaB.Scheduling.SchedulerTask("change-tarif", new ChangeTariffTasks(), 2, new RezaB.Scheduling.SchedulerTask[]
                     {
@@ -30,7 +30,7 @@ namespace RadiusR.Scheduler
                         })
                     }, true)
                 }, true),
-                new SchedulerOperation("scheduled-smses", new ScheduledSMSTasks(), new SchedulerTimingOptions(new SchedulerWorkingTimeSpan(SchedulerSettings.SMSSchedulerStartTime, SchedulerSettings.SMSSchedulerStopTime)), 0)
+                new SchedulerOperation("scheduled-smses", new ScheduledSMSTasks(), new SchedulerTimingOptions(new DynamicSchedulerWorkingTimeSpan(() => SchedulerSettings.SMSSchedulerStartTime, () => SchedulerSettings.SMSSchedulerStopTime)), 0)
             }
             , checkIntervals, name);
         }
