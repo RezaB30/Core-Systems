@@ -170,8 +170,8 @@
       <HintPath>..\packages\RezaB.Web.1.0.0\lib\net452\RezaB.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RezaB.Web.Helpers, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.Web.Helpers.1.0.1\lib\net452\RezaB.Web.Helpers.dll</HintPath>
+    <Reference Include="RezaB.Web.Helpers, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Web.Helpers.1.0.2\lib\net452\RezaB.Web.Helpers.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RezaB.Web.VPOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
