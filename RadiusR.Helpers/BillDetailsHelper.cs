@@ -84,7 +84,7 @@ namespace RadiusR.Helpers
                     head.MergeAttribute("colspan", "2");
                     head.MergeAttribute("style", "text-align: left;");
                     head.InnerHtml = helper.DisplayNameFor(model => Model.PeriodStart).ToHtmlString();
-                    head.InnerHtml += " (" + helper.DisplayFor(model => Model.PeriodStart).ToHtmlString() + "-" + helper.DisplayFor(model => Model.PeriodEnd) + ")";
+                    head.InnerHtml += $" ({helper.DisplayFor(model => Model.PeriodStart).ToHtmlString()}-{helper.DisplayFor(model => Model.PeriodEnd)})";
                     row.InnerHtml += head.ToString(TagRenderMode.Normal);
                 }
                 mainTable.InnerHtml += row.ToString(TagRenderMode.Normal);
@@ -99,7 +99,7 @@ namespace RadiusR.Helpers
                 }
                 {
                     TagBuilder head = new TagBuilder("th");
-                    head.InnerHtml = new HtmlString(Localization.Model.RadiusR.Price + "/" + Localization.Pages.Common.Discount).ToHtmlString();
+                    head.InnerHtml = new HtmlString($"{Localization.Model.RadiusR.Price}/{Localization.Pages.Common.Discount}").ToHtmlString();
                     row.InnerHtml += head.ToString(TagRenderMode.Normal);
                 }
                 mainTable.InnerHtml += row.ToString(TagRenderMode.Normal);
@@ -115,8 +115,8 @@ namespace RadiusR.Helpers
                     {
                         TagBuilder span = new TagBuilder("span");
                         span.AddCssClass("fee-time-span");
-                        span.InnerHtml = "(" + helper.DisplayFor(model => billFee.StartDate).ToHtmlString() + "-" + helper.DisplayFor(model => billFee.EndDate).ToHtmlString() + ")";
-                        cell.InnerHtml += " " + span.ToString(TagRenderMode.Normal);
+                        span.InnerHtml = $"({helper.DisplayFor(model => billFee.StartDate).ToHtmlString()}-{helper.DisplayFor(model => billFee.EndDate).ToHtmlString()})";
+                        cell.InnerHtml += $" {span.ToString(TagRenderMode.Normal)}";
                     }
                     row.InnerHtml += cell.ToString(TagRenderMode.Normal);
                 }
@@ -124,7 +124,7 @@ namespace RadiusR.Helpers
                     TagBuilder cell = new TagBuilder("td");
                     cell.InnerHtml = helper.DisplayFor(model => billFee.CurrentCost).ToHtmlString();
                     if (billFee._discountAmount.HasValue)
-                        cell.InnerHtml += " - " + helper.DisplayFor(model => billFee.DiscountAmount).ToHtmlString();
+                        cell.InnerHtml += $" - {helper.DisplayFor(model => billFee.DiscountAmount).ToHtmlString()}";
                     row.InnerHtml += cell.ToString(TagRenderMode.Normal);
                 }
                 mainTable.InnerHtml += row.ToString(TagRenderMode.Normal);

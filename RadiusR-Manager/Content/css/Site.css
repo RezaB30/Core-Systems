@@ -478,3 +478,7 @@ div.popup-data-container {
     border-radius: 1em;
     padding: 1em;
 }
+
+span.fee-time-span {
+    color: #2bb427;
+}

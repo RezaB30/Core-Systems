@@ -228,7 +228,7 @@ namespace RadiusR.DB.ModelExtentions
                     results.StartDate = subscription.ActivationDate.Value.Date;
             }
             // check last tariff change date for changed billing periods
-            if (subscription.LastTariffChangeDate.HasValue && results.StartDate < subscription.LastTariffChangeDate && results.EndDate > subscription.LastTariffChangeDate)
+            if (subscription.LastTariffChangeDate.HasValue && results.StartDate <= subscription.LastTariffChangeDate.Value.Date && results.EndDate > subscription.LastTariffChangeDate.Value.Date)
             {
                 if (currentDate >= subscription.LastTariffChangeDate.Value.Date)
                     results.StartDate = subscription.LastTariffChangeDate.Value.Date;
@@ -257,7 +257,14 @@ namespace RadiusR.DB.ModelExtentions
             /// </summary>
             public bool IsBilled { get; internal set; }
 
-            //public DateTime? TariffChangeDate { get; internal set; }
+            public BillingPeriod() { }
+
+            public BillingPeriod(DateTime startDate, DateTime endDate, bool isBilled)
+            {
+                StartDate = startDate;
+                EndDate = endDate;
+                IsBilled = isBilled;
+            }
         }
 
         public class UsageInfo

@@ -255,3 +255,7 @@ v 5.05.06 '2020-10-22'
 - added details to TT work order system log.
 v 5.05.07 '2020-10-29'
 - added the ability to add normal special offers for subscriptions.
+v 5.05.08 '2020-11-14'
+- changed tariff change logic.
+- changed tariff change schedule table.
+- removed multiple billing types per tariff and added as system billing type instead.

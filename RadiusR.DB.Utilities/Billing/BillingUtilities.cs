@@ -76,9 +76,9 @@ namespace RadiusR.DB.Utilities.Billing
                 //    currentSubscription.Subscription.PaymentDay = currentSubscription.Subscription.SubscriptionTariffChange.NewBillingPeriod;
                 //    currentSubscription.Subscription.SubscriptionTariffChange = null;
                 //}
-                // is last bill for invoiced subscription
+                // is last bill for post-invoiced subscription
                 bool isLastPartialBill = false;
-                // no more bills for post paid if we are currently in the period
+                // no more bills for post-invoiced if we are currently in the period
                 if (SchedulerSettings.SchedulerBillingType == (short)SchedulerBillingTypes.PostInvoicing && currentPeriod.EndDate > issueToDate)
                 {
                     // it is last bill before cancellation
@@ -110,7 +110,9 @@ namespace RadiusR.DB.Utilities.Billing
                         CurrentCost = tariffFee.Value,
                         FeeTypeID = (short)FeeType.Tariff,
                         InstallmentCount = 1,
-                        Description = currentSubscription.Subscription.Service.Name
+                        Description = currentSubscription.Subscription.Service.Name,
+                        StartDate = currentPeriod.StartDate,
+                        EndDate = currentPeriod.EndDate
                     });
                 }
                 //-------------- ADD EXTRA FEES IN LAST BILL -----------------------
@@ -360,7 +362,9 @@ namespace RadiusR.DB.Utilities.Billing
                 {
                     CurrentCost = f.Cost ?? f.FeeTypeCost.Cost ?? f.FeeTypeVariant.Price,
                     FeeID = f.ID,
-                    InstallmentCount = 1
+                    InstallmentCount = 1,
+                    StartDate = f.StartDate,
+                    EndDate = f.EndDate
                 }).ToList(),
                 Source = (short)BillSources.Manual
             });
@@ -379,7 +383,9 @@ namespace RadiusR.DB.Utilities.Billing
                     CurrentCost = Math.Round(fee.Cost / ((decimal)fee.TotalInstallments / (decimal)((!fee.IsAllTime && settleAllInstallments) ? (fee.TotalInstallments - fee.CountedInstallments - addedBillCount) : 1)), 2),
                     FeeID = fee.IsAllTime ? (long?)null : fee.ID,
                     FeeTypeID = fee.IsAllTime ? fee.FeeTypeID : (short?)null,
-                    InstallmentCount = (!fee.IsAllTime && settleAllInstallments) ? fee.TotalInstallments - fee.CountedInstallments - addedBillCount : 1
+                    InstallmentCount = (!fee.IsAllTime && settleAllInstallments) ? fee.TotalInstallments - fee.CountedInstallments - addedBillCount : 1,
+                    StartDate = fee.StartDate,
+                    EndDate = fee.EndDate
                 });
         }
     }

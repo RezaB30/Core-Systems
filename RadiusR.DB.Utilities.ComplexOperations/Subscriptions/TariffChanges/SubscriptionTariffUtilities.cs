@@ -156,20 +156,12 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TariffChanges
                     var billReadySubscription = db.PrepareForBilling(db.Subscriptions.Where(s => s.ID == dbSubscription.ID)).FirstOrDefault();
                     billReadySubscription.Subscription = dbSubscription;
                     billReadySubscription.IssueBill();
-                    // add to history and update last tariff change date
-                    dbSubscription.LastTariffChangeDate = DateTime.Now;
-                    dbSubscription.SubscriptionTariffHistories.Add(new SubscriptionTariffHistory()
-                    {
-                        Date = DateTime.Now,
-                        NewTariffID = newTariff.ID,
-                        OldTariffID = dbSubscription.ServiceID,
-                        SubscriptionID = dbSubscription.ID
-                    });
                     // add previous usage
-                    var beforeChangePeriod = dbSubscription.GetCurrentBillingPeriod(DateTime.Today.AddDays(-1));
-                    if (!beforeChangePeriod.IsBilled)
+                    var beforeChangePeriod = dbSubscription.GetCurrentBillingPeriod(DateTime.Today);
+                    if (!beforeChangePeriod.IsBilled && beforeChangePeriod.StartDate < DateTime.Today)
                     {
-                        var addingFeeCost = dbSubscription.GetCurrentTariffCost(db.RadiusDailyAccountings.Where(rda => rda.SubscriptionID == dbSubscription.ID && rda.Date >= beforeChangePeriod.StartDate && rda.Date < beforeChangePeriod.EndDate).Select(rda => new SubscriptionUtilities.DailyUsageInfo() { Date = rda.Date, DownloadBytes = rda.DownloadBytes, UploadBytes = rda.UploadBytes }).ToArray(), beforeChangePeriod);
+                        var unbilledPeriod = new SubscriptionUtilities.BillingPeriod(beforeChangePeriod.StartDate, DateTime.Today, false);
+                        var addingFeeCost = dbSubscription.GetCurrentTariffCost(db.RadiusDailyAccountings.Where(rda => rda.SubscriptionID == dbSubscription.ID && rda.Date >= unbilledPeriod.StartDate && rda.Date < unbilledPeriod.EndDate).Select(rda => new SubscriptionUtilities.DailyUsageInfo() { Date = rda.Date, DownloadBytes = rda.DownloadBytes, UploadBytes = rda.UploadBytes }).ToArray(), unbilledPeriod);
                         if (addingFeeCost.HasValue && addingFeeCost > 0m)
                         {
                             dbSubscription.Fees.Add(new Fee()
@@ -180,11 +172,20 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TariffChanges
                                 Description = dbSubscription.Service.Name,
                                 InstallmentBillCount = 1,
                                 IsCancelled = false,
-                                StartDate = beforeChangePeriod.StartDate,
-                                EndDate = beforeChangePeriod.EndDate
+                                StartDate = unbilledPeriod.StartDate,
+                                EndDate = unbilledPeriod.EndDate
                             });
                         }
                     }
+                    // add to history and update last tariff change date
+                    dbSubscription.LastTariffChangeDate = DateTime.Now;
+                    dbSubscription.SubscriptionTariffHistories.Add(new SubscriptionTariffHistory()
+                    {
+                        Date = DateTime.Now,
+                        NewTariffID = newTariff.ID,
+                        OldTariffID = dbSubscription.ServiceID,
+                        SubscriptionID = dbSubscription.ID
+                    });
                     // change tariff
                     dbSubscription.ServiceID = newTariff.ID;
                     dbSubscription.PaymentDay = options.NewBillingPeriod;

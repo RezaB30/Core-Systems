@@ -62,15 +62,9 @@ namespace RadiusR_Manager.Controllers
                 },
                 CanBeCancelled = fee.CanBeCancelled,
                 IsCancelled = fee.IsCancelled,
-                //BillFees = fee.BillFees.Select(bf => new BillFeeViewModel()
-                //{
-                //    BillID = bf.BillID,
-                //    _currentCost = bf.CurrentCost,
-                //    DisplayName = bf.GetDisplayName(),
-                //    ID = bf.ID,
-                //    InstallmentCount = bf.InstallmentCount,
-                //}),
-                Description = fee.Description
+                Description = fee.Description,
+                StartDate = fee.StartDate,
+                EndDate = fee.EndDate
             }).OrderBy(f => f.Date).AsQueryable();
 
             SetupPages(page, ref viewResults);
