@@ -26,7 +26,7 @@ namespace RadiusR.DB
             this.RadiusDailyAccountings = new HashSet<RadiusDailyAccounting>();
             this.RadiusSMS = new HashSet<RadiusSMS>();
             this.RecurringDiscounts = new HashSet<RecurringDiscount>();
-            this.ScheduledSMS = new HashSet<ScheduledSMS>();
+            this.ScheduledSMSes = new HashSet<ScheduledSMS>();
             this.SMSArchives = new HashSet<SMSArchive>();
             this.SubscriptionCredits = new HashSet<SubscriptionCredit>();
             this.SubscriptionNotes = new HashSet<SubscriptionNote>();
@@ -87,7 +87,7 @@ namespace RadiusR.DB
         public virtual ICollection<RecurringDiscount> RecurringDiscounts { get; set; }
         public virtual RecurringPaymentSubscription RecurringPaymentSubscription { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ScheduledSMS> ScheduledSMS { get; set; }
+        public virtual ICollection<ScheduledSMS> ScheduledSMSes { get; set; }
         public virtual Service Service { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SMSArchive> SMSArchives { get; set; }

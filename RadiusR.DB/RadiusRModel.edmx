@@ -5974,8 +5974,8 @@
           <Property Name="OldTariffID" Type="Int32" Nullable="false" />
           <Property Name="NewTariffID" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Service" Relationship="RadiusRModel.FK_SubscriptionTariffHistory_NewTariff" FromRole="SubscriptionTariffHistory" ToRole="Service" />
-          <NavigationProperty Name="Service1" Relationship="RadiusRModel.FK_SubscriptionTariffHistory_OldTariff" FromRole="SubscriptionTariffHistory" ToRole="Service" />
+          <NavigationProperty Name="NewTariff" Relationship="RadiusRModel.FK_SubscriptionTariffHistory_NewTariff" FromRole="SubscriptionTariffHistory" ToRole="Service" />
+          <NavigationProperty Name="OldTariff" Relationship="RadiusRModel.FK_SubscriptionTariffHistory_OldTariff" FromRole="SubscriptionTariffHistory" ToRole="Service" />
           <NavigationProperty Name="Subscription" Relationship="RadiusRModel.FK_SubscriptionTariffHistory_Subscription" FromRole="SubscriptionTariffHistory" ToRole="Subscription" />
         </EntityType>
         <Association Name="FK_SubscriptionTariffHistory_NewTariff">
@@ -6042,7 +6042,7 @@
           <NavigationProperty Name="RadiusSMS" Relationship="RadiusRModel.FK_RadiusSMS_Subscription" FromRole="Subscription" ToRole="RadiusSMS" />
           <NavigationProperty Name="RecurringDiscounts" Relationship="RadiusRModel.FK_RecurringDiscount_Subscription" FromRole="Subscription" ToRole="RecurringDiscount" />
           <NavigationProperty Name="RecurringPaymentSubscription" Relationship="RadiusRModel.FK_RecurringPaymentSubscription_Subscription" FromRole="Subscription" ToRole="RecurringPaymentSubscription" />
-          <NavigationProperty Name="ScheduledSMS" Relationship="RadiusRModel.FK_ScheduledSMS_Subscription" FromRole="Subscription" ToRole="ScheduledSMS" />
+          <NavigationProperty Name="ScheduledSMSes" Relationship="RadiusRModel.FK_ScheduledSMS_Subscription" FromRole="Subscription" ToRole="ScheduledSMS" />
           <NavigationProperty Name="Service" Relationship="RadiusRModel.FK_Subscription_Service" FromRole="Subscription" ToRole="Service" />
           <NavigationProperty Name="SMSArchives" Relationship="RadiusRModel.FK_SMSArchive_Subscription" FromRole="Subscription" ToRole="SMSArchive" />
           <NavigationProperty Name="SubscriptionCancellation" Relationship="RadiusRModel.FK_SubscriptionCancellation_Subscription" FromRole="Subscription" ToRole="SubscriptionCancellation" />

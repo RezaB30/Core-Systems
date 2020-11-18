@@ -17,16 +17,16 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SchedulerTask()
         {
-            this.ChangeStateTasks = new HashSet<ChangeStateTask>();
             this.ChangeServiceTypeTasks = new HashSet<ChangeServiceTypeTask>();
+            this.ChangeStateTasks = new HashSet<ChangeStateTask>();
         }
     
         public long ID { get; set; }
         public System.DateTime ExecuteDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChangeStateTask> ChangeStateTasks { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChangeServiceTypeTask> ChangeServiceTypeTasks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChangeStateTask> ChangeStateTasks { get; set; }
     }
 }
