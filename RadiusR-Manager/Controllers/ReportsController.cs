@@ -31,7 +31,7 @@ namespace RadiusR_Manager.Controllers
         {
             using (RadiusREntities db = new RadiusREntities())
             {
-                return Content(db.RadiusAccountings.Where(ra => !ra.StopTime.HasValue).Count().ToString());
+                return Content(Convert.ToString(db.OnlineSubscriptionCount));
             }
         }
 
@@ -319,11 +319,11 @@ namespace RadiusR_Manager.Controllers
         public ActionResult OnlineClients()
         {
             var NASNames = db.NAS.Select(nas => new { IP = nas.IP, Name = nas.Name }).ToDictionary(item => item.IP, item => item.Name);
-            var onlineClients = db.RadiusAccountings.Where(ra => !ra.StopTime.HasValue).GroupBy(ra => ra.NASIP).Select(group => new OnlineClientsReportViewModel()
+            var onlineClients = db.RadiusAccountings.Where(ra => !ra.StopTime.HasValue).Select(ra => new { NASIP = ra.NASIP }).ToArray().GroupBy( ra => ra.NASIP).Select(group => new OnlineClientsReportViewModel()
             {
                 ClientCount = group.LongCount(),
                 IP = group.Key
-            }).ToList().OrderByDescending(nasClients => nasClients.ClientCount);
+            }).OrderByDescending(nasClients => nasClients.ClientCount).ToArray();
             foreach (var clientGroup in onlineClients)
             {
                 clientGroup.Name = NASNames.ContainsKey(clientGroup.IP) ? NASNames[clientGroup.IP] : null;

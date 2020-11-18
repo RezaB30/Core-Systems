@@ -105,6 +105,7 @@
     <Compile Include="ChangeStateTask.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ContextExtentions\RadiusREntities.cs" />
     <Compile Include="CorporateCustomerInfo.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>

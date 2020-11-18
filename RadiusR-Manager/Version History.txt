@@ -259,3 +259,6 @@ v 5.05.08 '2020-11-14'
 - changed tariff change logic.
 - changed tariff change schedule table.
 - removed multiple billing types per tariff and added as system billing type instead.
+v 5.05.09
+- used cached online subscription count in the context instead of calculating it every time.
+- updated online subscriptions report to prevent database deadlock caused by the new radius accounting index.
