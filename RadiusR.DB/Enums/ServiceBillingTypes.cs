@@ -9,7 +9,7 @@ namespace RadiusR.DB.Enums
     public enum ServiceBillingType
     {
         Invoiced = 1,
-        PreInvoiced = 2,
+        //PreInvoiced = 2,
         PrePaid = 3
     }
 }

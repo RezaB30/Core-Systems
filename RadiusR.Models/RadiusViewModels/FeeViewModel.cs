@@ -40,6 +40,10 @@ namespace RadiusR_Manager.Models.RadiusViewModels
 
         public bool IsCancelled { get; set; }
 
+        public DateTime? StartDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
+
         public IEnumerable<BillFeeViewModel> BillFees { get; set; }
 
         public AdditionalFeeViewModel FeeType { get; set; }

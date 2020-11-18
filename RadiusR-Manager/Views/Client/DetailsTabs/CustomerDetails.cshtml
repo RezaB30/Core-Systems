@@ -682,6 +682,17 @@
             }
         </td>
     </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo.LastTariffChangeDate)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.LastTariffChangeDate)
+        </td>
+        <td>
+            @Html.ActionLink(RadiusR.Localization.Pages.Common.History, "TariffChangeHistory", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button history-button" })
+        </td>
+    </tr>
     @if (Model.SubscriptionInfo.TariffInfo.TariffChange != null)
     {
         <tr style="border-color: red; border-style: solid; border-width: 1px 0 0 0;background-color: #ffe8e8;">
@@ -709,7 +720,13 @@
             <td>
                 @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.TariffChange.NewScheduledTariffActivationDate)
             </td>
-            <td></td>
+            <td>
+                @using (Html.BeginForm("ForceChangeTariff", null, new { id = ViewContext.RouteData.Values["id"] }, FormMethod.Post, new { @confirm = "enabled" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.ChangeNow" class="link-button iconed-button reload-button" />
+                }
+            </td>
         </tr>
     }
     <tr>

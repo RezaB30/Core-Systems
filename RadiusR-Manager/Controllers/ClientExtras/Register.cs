@@ -82,7 +82,7 @@ namespace RadiusR_Manager.Controllers
                 }
             }
 
-            if (!User.HasPermission("Special Offers Usage"))
+            if (!User.HasPermission("Referral Special Offer Usage"))
             {
                 registeredCustomer.SubscriptionInfo.ReferralDiscount = null;
             }

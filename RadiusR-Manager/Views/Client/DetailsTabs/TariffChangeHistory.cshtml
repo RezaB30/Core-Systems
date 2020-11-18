@@ -1,0 +1,40 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.TariffChangeHistoryViewModel>
+
+@{
+    ViewBag.Title = ViewBag.CustomerName + "-" + RadiusR.Localization.Pages.Common.History;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OldTariffName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NewTariffName)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.OldTariffName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewTariffName)
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+
+<div class="button-row centered">
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Details", new { id = ViewContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button back-button" })
+</div>

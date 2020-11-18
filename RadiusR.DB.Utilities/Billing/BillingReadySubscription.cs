@@ -64,6 +64,10 @@ namespace RadiusR.DB.Utilities.Billing
         public int CountedInstallments { get; set; }
 
         public int TotalInstallments { get; set; }
+
+        public DateTime? StartDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
     }
 
     public class BillingReadySubscriptionUsage
@@ -82,7 +86,7 @@ namespace RadiusR.DB.Utilities.Billing
             return query
                 .Include(s => s.Bills)
                 .Include(s => s.Service)
-                .Include(s => s.SubscriptionTariffChange.Service)
+                //.Include(s => s.SubscriptionTariffChange.Service)
                 .Select(subscription => new BillingReadySubscription()
                 {
                     Subscription = subscription,
@@ -117,7 +121,9 @@ namespace RadiusR.DB.Utilities.Billing
                         Cost = f.Cost ?? f.FeeTypeCost.Cost ?? f.FeeTypeVariant.Price,
                         ID = f.ID,
                         CountedInstallments = f.BillFees.Where(bf => bf.Bill.BillStatusID != (short)BillState.Cancelled).Select(bf => bf.InstallmentCount).DefaultIfEmpty(0).Sum(),
-                        TotalInstallments = f.InstallmentBillCount
+                        TotalInstallments = f.InstallmentBillCount,
+                        StartDate = f.StartDate,
+                        EndDate = f.EndDate
                     }).Where(f => f.IsAllTime || f.CountedInstallments < f.TotalInstallments).Select(f => f),
                     Usage = subscription.RadiusDailyAccountings.Where(rda => rda.Date >= subscription.Bills.Where(b => b.Source == (short)BillSources.System).Select(b => b.PeriodEnd).OrderByDescending(pe => pe).DefaultIfEmpty(subscription.ActivationDate).Max()).Where(rda => rda.Subscription.Service.QuotaType == (short)QuotaType.SmartQuota)
                     .Select(rda => new BillingReadySubscriptionUsage()

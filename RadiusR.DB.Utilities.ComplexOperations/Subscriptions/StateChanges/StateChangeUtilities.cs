@@ -86,7 +86,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                 billingreadySubscription.Subscription.State = (short)reserveOptions.NewState;
                 // -------last allowed date--------
                 // issue bill for pre-invoiced
-                if (billingreadySubscription.Subscription.Service.BillingType == (short)ServiceBillingType.PreInvoiced)
+                if (SchedulerSettings.SchedulerBillingType == (short)SchedulerBillingTypes.PreInvoicing)
                 {
                     billingreadySubscription.IssueBill();
                 }
@@ -117,7 +117,12 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                         InstallmentBillCount = 1
                     });
                 }
-
+                // issue bill for pre-invoiced
+                if (SchedulerSettings.SchedulerBillingType == (short)SchedulerBillingTypes.PreInvoicing)
+                {
+                    billingreadySubscription.IssueBill();
+                }
+                // telekom only
                 if (billingreadySubscription.Subscription.SubscriptionTelekomInfo != null)
                 {
                     // close telekom work order
@@ -178,14 +183,11 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                     billingReadySubscription.Subscription.ActivationDate = DateTime.Now.Date;
                     // -------last allowed date--------
                     // issue bill for pre-invoiced
-                    if (billingReadySubscription.Subscription.Service.BillingType == (short)ServiceBillingType.PreInvoiced)
+                    if (SchedulerSettings.SchedulerBillingType == (short)SchedulerBillingTypes.PostInvoicing)
                     {
                         billingReadySubscription.IssueBill();
                     }
-                    //billingReadySubscription.Subscription.ActivationDate = billingReadySubscription.Subscription.MembershipDate;
-                    billingReadySubscription.Subscription.ActivationDate = DateTime.Now.Date;
                     billingReadySubscription.Subscription.UpdateLastAllowedDate();
-                    //billingReadySubscription.Subscription.ActivationDate = DateTime.Now.Date;
                     // --------------------------------
 
                     // check for Telekom unfreeze
@@ -202,6 +204,8 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                             }
                         }
                     }
+
+
                 }
                 // set state history
                 billingReadySubscription.Subscription.AddStateHistory(activateOptions.NewState, activateOptions.AppUserID);
@@ -210,9 +214,48 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
 
                 // save
                 db.SaveChanges();
-                // send activation sms
-                SMSService SMSAsync = new SMSService();
-                db.SMSArchives.AddSafely(SMSAsync.SendSubscriberSMS(billingReadySubscription.Subscription, SMSType.Activation));
+
+                if (oldState == (short)CustomerState.Disabled)
+                {
+                    if(activateOptions.ScheduleSMSes)
+                    {
+                        // schedule SMS
+                        db.ScheduledSMS.Add(new ScheduledSMS()
+                        {
+                            CreationDate = DateTime.Now,
+                            ExpirationDate = DateTime.Now.Date.AddDays(5),
+                            SMSType = (short)SMSType.FreezeDurationEnd,
+                            SubscriptionID = billingReadySubscription.Subscription.ID
+                        });
+                    }
+                    else
+                    {
+                        // send reactivation SMS
+                        SMSService smsClient = new SMSService();
+                        db.SMSArchives.AddSafely(smsClient.SendSubscriberSMS(billingReadySubscription.Subscription, SMSType.FreezeDurationEnd));
+                    }
+                }
+                else
+                {
+                    if (activateOptions.ScheduleSMSes)
+                    {
+                        // schedule SMS
+                        db.ScheduledSMS.Add(new ScheduledSMS()
+                        {
+                            CreationDate = DateTime.Now,
+                            ExpirationDate = DateTime.Now.Date.AddDays(5),
+                            SMSType = (short)SMSType.Activation,
+                            SubscriptionID = billingReadySubscription.Subscription.ID
+                        });
+                    }
+                    else
+                    {
+                        // send activation sms
+                        SMSService smsClient = new SMSService();
+                        db.SMSArchives.AddSafely(smsClient.SendSubscriberSMS(billingReadySubscription.Subscription, SMSType.Activation));
+                    }
+                }
+
                 db.SaveChanges();
             }
         }
@@ -314,7 +357,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                 // force issue last bill
                 if (billingReadySubscription.Subscription.IsActive)
                 {
-                    billingReadySubscription.ForceIssueBill(ignoreReferralDiscounts: true);
+                    billingReadySubscription.ForceIssueBill(ignoreReferralDiscounts: true, settleAllInstallments: true);
                 }
                 // set cancellation reason
                 db.AddOrUpdateClientCancellation(subscriptionId, cancelOptions.CancellationReason, cancelOptions.CancellationReasonDescription);

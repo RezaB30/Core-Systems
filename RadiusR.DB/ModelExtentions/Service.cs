@@ -12,7 +12,7 @@ namespace RadiusR.DB
         {
             get
             {
-                if (BillingType == (short)Enums.ServiceBillingType.Invoiced || BillingType == (short)Enums.ServiceBillingType.PreInvoiced)
+                if (BillingType == (short)Enums.ServiceBillingType.Invoiced)
                     return true;
                 return false;
             }

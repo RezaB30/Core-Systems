@@ -1,29 +1,26 @@
-﻿using NLog;
-using RadiusR.DB;
-using RadiusR.DB.Enums;
-using RadiusR.SMS;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RezaB.Scheduling;
+using NLog;
+using RadiusR.SMS;
+using RadiusR.DB;
 using System.Data.Entity;
+using RadiusR.DB.Enums;
 using RadiusR.DB.Utilities.Billing;
-using RadiusR.Scheduler.SMS;
-using System.Data.SqlClient;
-using System.Linq.Expressions;
 using RadiusR.DB.ModelExtentions;
+using System.Data.SqlClient;
 
-namespace RadiusR.Scheduler
+namespace RadiusR.Scheduler.Tasks
 {
-    public static partial class Scheduler
+    class ScheduledSMSTasks : AbortableTask
     {
-        private static bool _isScheduledSMSSenderRunning = false;
-        private static DateTime _lastSuccessfulScheduledSMSSending = DateTime.MinValue;
+        private static Logger logger = LogManager.GetLogger("scheduled-sms-tasks");
+        private const int batchSize = 250;
 
-        private static Logger scheduledSMSLogger = LogManager.GetLogger("scheduled_sms");
-
-        public static void SendSMSes()
+        public override bool Run()
         {
             try
             {
@@ -34,6 +31,12 @@ namespace RadiusR.Scheduler
                 long minID = 0;
                 while (true)
                 {
+                    // abort by flag
+                    if (_isAborted)
+                    {
+                        logger.Debug("Aborted by the scheduler.");
+                        return false;
+                    }
                     using (RadiusREntities db = new RadiusREntities())
                     {
                         db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
@@ -54,9 +57,16 @@ namespace RadiusR.Scheduler
                         minID = currentBatch.Max(ss => ss.ID);
                         // for fast saving save in batch
                         var sentSMSArchives = new List<SMSArchive>();
+                        var sentBatchIDs = new List<long>();
                         // iterate scheduled SMSes
                         foreach (var scheduledSMS in currentBatch)
                         {
+                            // abort flag check
+                            if (_isAborted)
+                            {
+                                logger.Info("Abort flag detected...Preparing to wrap up.");
+                                break;
+                            }
                             try
                             {
                                 Dictionary<string, object> extraParameters;
@@ -99,11 +109,11 @@ namespace RadiusR.Scheduler
                                 }
 
                                 sentSMSArchives.Add(smsClient.SendSubscriberSMS(scheduledSMS.Subscription, (SMSType)scheduledSMS.SMSType, extraParameters));
-                                
+                                sentBatchIDs.Add(scheduledSMS.ID);
                             }
                             catch (Exception ex)
                             {
-                                scheduledSMSLogger.Error(ex, "Error sending scheduled SMS with id [{0}]", scheduledSMS.ID);
+                                logger.Error(ex, $"Error sending scheduled SMS with id [{scheduledSMS.ID}]");
                             }
                         }
 
@@ -114,11 +124,11 @@ namespace RadiusR.Scheduler
                                 // this is here to notify of any changes in the table in database---------------------
                                 var toPreventChangesGoUnnoticed = new object[] { new ScheduledSMS(), new ScheduledSMS().SendTime, new ScheduledSMS().ID };
                                 // CHANGE THIS ON ERROR---------------------------------------------------------------
-                                var sqlCommand = string.Format(@"UPDATE {0} SET {1} = @now WHERE {2} in ({3});", "ScheduledSMS", "SendTime", "ID", string.Join(",", currentBatch.Select(ss => ss.ID).ToArray()));
+                                var sqlCommand = string.Format(@"UPDATE {0} SET {1} = @now WHERE {2} in ({3});", "ScheduledSMS", "SendTime", "ID", string.Join(",", sentBatchIDs.ToArray()));
                                 // -----------------------------------------------------------------------------------
                                 var now = DateTime.Now;
-                                db.Database.ExecuteSqlCommand(sqlCommand, new[] { new SqlParameter("@now", now)});
-                                
+                                db.Database.ExecuteSqlCommand(sqlCommand, new[] { new SqlParameter("@now", now) });
+
                                 db.SMSArchives.AddRangeSafely(sentSMSArchives);
 
                                 db.SaveChanges();
@@ -132,29 +142,26 @@ namespace RadiusR.Scheduler
                         }
                     }
                 }
-                _lastSuccessfulScheduledSMSSending = DateTime.Now;
-                logger.Trace("Scheduled SMS sending done!");
+                logger.Info("Scheduled SMS sending done!");
                 try
                 {
                     using (RadiusREntities db = new RadiusREntities())
                     {
                         db.ScheduledSMS.RemoveRange(db.ScheduledSMS.Where(ss => (ss.SMSType == (short)SMSType.FailedAutomaticPayment) && (ss.SendTime.HasValue || ss.ExpirationDate <= DateTime.Today)));
                         db.SaveChanges();
-                        logger.Trace("Removed expired & sent scheduled SMSes.");
+                        logger.Info("Removed expired & sent scheduled SMSes.");
                     }
                 }
                 catch (Exception ex)
                 {
-                    scheduledSMSLogger.Error(ex, "Error removing expired & sent SMSes.");
+                    logger.Error(ex, "Error removing expired & sent SMSes.");
                 }
+                return true;
             }
             catch (Exception ex)
             {
-                scheduledSMSLogger.Fatal(ex, "Error sending scheduled SMSes.");
-            }
-            finally
-            {
-                _isScheduledSMSSenderRunning = false;
+                logger.Fatal(ex, "Error sending scheduled SMSes.");
+                return false;
             }
         }
     }

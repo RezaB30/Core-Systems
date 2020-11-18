@@ -20,8 +20,8 @@ namespace RadiusR.DB
         public int NewTariffID { get; set; }
         public System.DateTime Date { get; set; }
     
-        public virtual Service Service { get; set; }
-        public virtual Service Service1 { get; set; }
+        public virtual Service NewTariff { get; set; }
+        public virtual Service OldTariff { get; set; }
         public virtual Subscription Subscription { get; set; }
     }
 }

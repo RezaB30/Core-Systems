@@ -24,7 +24,8 @@ namespace RadiusR_Manager.Controllers
                 _smsSchedulerStartTime = SchedulerSettings.SMSSchedulerStartTime,
                 _smsSchedulerStopTime = SchedulerSettings.SMSSchedulerStopTime,
                 SMSSchedulerPaymentReminderThreshold = SchedulerSettings.SMSSchedulerPaymentReminderThreshold,
-                SMSSchedulerPrepaidReminderThreshold = SchedulerSettings.SMSSchedulerPrepaidReminderThreshold
+                SMSSchedulerPrepaidReminderThreshold = SchedulerSettings.SMSSchedulerPrepaidReminderThreshold,
+                SchedulerBillingType = SchedulerSettings.SchedulerBillingType
             };
             return View(settings);
         }

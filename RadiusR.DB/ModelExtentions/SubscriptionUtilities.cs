@@ -31,7 +31,7 @@ namespace RadiusR.DB.ModelExtentions
             // for smart quota
             if (subscription.Service.QuotaType == (short)QuotaType.SmartQuota)
             {
-                var periodUsage = usage.Where(u => u.Date >= (currentPeriod.TariffChangeDate ?? currentPeriod.StartDate) && u.Date < currentPeriod.EndDate).Select(u => u.DownloadBytes + u.UploadBytes).DefaultIfEmpty(0).Sum();
+                var periodUsage = usage.Where(u => u.Date >= currentPeriod.StartDate && u.Date < currentPeriod.EndDate).Select(u => u.DownloadBytes + u.UploadBytes).DefaultIfEmpty(0).Sum();
                 if (periodUsage > subscription.Service.BaseQuota)
                 {
                     var proportionalAddedPrice = (periodUsage - (subscription.Service.BaseQuota ?? 0)) * (DB.Settings.QuotaSettings.QuotaUnitPrice / (decimal)DB.Settings.QuotaSettings.QuotaUnit);
@@ -159,7 +159,7 @@ namespace RadiusR.DB.ModelExtentions
                 var startDate = currentPeriod.StartDate;
                 var endDate = currentPeriod.EndDate;
 
-                var usageInfo = db.Subscriptions.Where(s=>s.ID == subscription.ID).Select(sub => new
+                var usageInfo = db.Subscriptions.Where(s => s.ID == subscription.ID).Select(sub => new
                 {
                     SubID = sub.ID,
                     Quota = sub.SubscriptionQuotas.Where(q => DbFunctions.TruncateTime(q.AddDate) >= startDate && DbFunctions.TruncateTime(q.AddDate) < endDate).Select(q => q.Amount).DefaultIfEmpty(0).Sum(),
@@ -185,20 +185,24 @@ namespace RadiusR.DB.ModelExtentions
         /// <param name="subscription"></param>
         /// <param name="baseDate">The day that billing period will contain. (null = today)</param>
         /// <param name="ignoreActivationDate">Ignore activation date for updating last allowed date only.</param>
+        /// <param name="ignorePreviousBills">Does not check if is currently in an issued bill period so it is faster; use when you know this is the last/current billing period.</param>
         /// <returns></returns>
-        public static BillingPeriod GetCurrentBillingPeriod(this Subscription subscription, DateTime? baseDate = null, bool ignoreActivationDate = false)
+        public static BillingPeriod GetCurrentBillingPeriod(this Subscription subscription, DateTime? baseDate = null, bool ignoreActivationDate = false, bool ignorePreviousBills = false)
         {
-            var currentDate = baseDate ?? DateTime.Today;
+            var currentDate = (baseDate ?? DateTime.Today).Date;
             // if currently have a bill for this period
+            if (!ignorePreviousBills)
             {
-                var currentBill = subscription.Bills.FirstOrDefault(b => b.PeriodStart <= currentDate && b.PeriodEnd > currentDate);
+                var currentBill = subscription.Bills.OrderByDescending(b => b.IssueDate).FirstOrDefault(b => b.PeriodStart <= currentDate && b.PeriodEnd > currentDate);
                 if (currentBill != null)
                     return new BillingPeriod()
                     {
                         StartDate = currentBill.PeriodStart.Value,
-                        EndDate = currentBill.PeriodEnd.Value
+                        EndDate = currentBill.PeriodEnd.Value,
+                        IsBilled = true
                     };
             }
+
             var results = new BillingPeriod();
             if (subscription.PaymentDay == currentDate.Day)
             {
@@ -223,21 +227,13 @@ namespace RadiusR.DB.ModelExtentions
                 if (subscription.ActivationDate.Value.Date > results.StartDate)
                     results.StartDate = subscription.ActivationDate.Value.Date;
             }
-            var lastBillPeriodEnd = subscription.Bills.Max(b => b.PeriodEnd);
-            if (results.StartDate < lastBillPeriodEnd && results.EndDate > lastBillPeriodEnd)
-                results.StartDate = lastBillPeriodEnd.Value;
-
-            // pre-invoiced pending "tariff/billing period" change
-            if (subscription.Service.BillingType == (short)ServiceBillingType.PreInvoiced && subscription.SubscriptionTariffChange != null)
+            // check last tariff change date for changed billing periods
+            if (subscription.LastTariffChangeDate.HasValue && results.StartDate <= subscription.LastTariffChangeDate.Value.Date && results.EndDate > subscription.LastTariffChangeDate.Value.Date)
             {
-                if (results.EndDate.Day > subscription.SubscriptionTariffChange.NewBillingPeriod)
-                {
-                    results.EndDate = new DateTime(results.EndDate.Year, results.EndDate.Month, subscription.SubscriptionTariffChange.NewBillingPeriod);
-                }
-                else if (results.EndDate.Day < subscription.SubscriptionTariffChange.NewBillingPeriod)
-                {
-                    results.EndDate = new DateTime(results.StartDate.Year, results.StartDate.Month, subscription.SubscriptionTariffChange.NewBillingPeriod);
-                }
+                if (currentDate >= subscription.LastTariffChangeDate.Value.Date)
+                    results.StartDate = subscription.LastTariffChangeDate.Value.Date;
+                else
+                    results.EndDate = subscription.LastTariffChangeDate.Value.Date;
             }
 
             return results;
@@ -256,8 +252,19 @@ namespace RadiusR.DB.ModelExtentions
             /// Billing period end date. (exclusive)
             /// </summary>
             public DateTime EndDate { get; internal set; }
+            /// <summary>
+            /// Is this period already billed.
+            /// </summary>
+            public bool IsBilled { get; internal set; }
 
-            public DateTime? TariffChangeDate { get; internal set; }
+            public BillingPeriod() { }
+
+            public BillingPeriod(DateTime startDate, DateTime endDate, bool isBilled)
+            {
+                StartDate = startDate;
+                EndDate = endDate;
+                IsBilled = isBilled;
+            }
         }
 
         public class UsageInfo

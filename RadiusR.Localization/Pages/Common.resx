@@ -1107,4 +1107,7 @@
   <data name="SupportRequestTypes" xml:space="preserve">
     <value>Support Request Types</value>
   </data>
+  <data name="History" xml:space="preserve">
+    <value>History</value>
+  </data>
 </root>

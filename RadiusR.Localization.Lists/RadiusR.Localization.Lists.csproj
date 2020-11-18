@@ -338,6 +338,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="MasterResourceManager.cs" />
     <Compile Include="MoneyInputType.Designer.cs">
       <DependentUpon>MoneyInputType.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -497,6 +498,16 @@
       <DependentUpon>RegistrationState.tr-tr.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="SchedulerBillingTypes.tr-tr.Designer.cs">
+      <DependentUpon>SchedulerBillingTypes.tr-tr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="SchedulerBillingTypes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchedulerBillingTypes.resx</DependentUpon>
     </Compile>
     <Compile Include="SchedulerWorkPeriods.Designer.cs">
       <DependentUpon>SchedulerWorkPeriods.resx</DependentUpon>
@@ -1085,6 +1096,14 @@
     <EmbeddedResource Include="RegistrationState.tr-tr.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>RegistrationState.tr-tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SchedulerBillingTypes.tr-tr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SchedulerBillingTypes.tr-tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SchedulerBillingTypes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SchedulerBillingTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="SchedulerWorkPeriods.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -18,6 +18,7 @@ using RadiusR.DB.DomainsCache;
 using RadiusR_Manager.Models.ViewModels;
 using RezaB.TurkTelekom.WebServices.SubscriberInfo;
 using RadiusR.DB.Utilities.ComplexOperations.Discounts;
+using RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TariffChanges;
 using RadiusR.DB.QueryExtentions;
 using RezaB.Data.Localization;
 using RezaB.Web.Authentication;
@@ -589,8 +590,8 @@ namespace RadiusR_Manager.Controllers
         // POST: Client/ChangeService
         public ActionResult ChangeService(long id, ChangeServiceViewModel tariffChange)
         {
-            var billingReadySubscription = db.PrepareForBilling(db.Subscriptions.Where(s => s.ID == id)).FirstOrDefault();
-            if (billingReadySubscription == null)
+            var dbSubscription = db.Subscriptions.Find(id);
+            if (dbSubscription == null)
             {
                 return RedirectToAction("Index", new { errorMessage = 4 });
             }
@@ -604,54 +605,77 @@ namespace RadiusR_Manager.Controllers
 
             if (ModelState.IsValid)
             {
-                if (dbTariff == null || !dbTariff.Domains.Contains(billingReadySubscription.Subscription.Domain))
+                if (dbTariff == null || !dbTariff.Domains.Contains(dbSubscription.Domain))
                 {
                     return RedirectToAction("Index", new { errorMessage = 2 });
                 }
 
-                //var checkDate = billingReadySubscription.Subscription.Bills.Max(b => b.PeriodEnd) ?? billingReadySubscription.Subscription.ActivationDate;
-                var oldServiceName = billingReadySubscription.Subscription.Service.Name;
-                var newServiceName = db.Services.Find(tariffChange.ServiceID.Value).Name;
-
-                if (billingReadySubscription.Subscription.Service.BillingType == (short)ServiceBillingType.PreInvoiced)
+                var results = db.ChangeSubscriptionTariff(new TariffChangeOptions()
                 {
-                    billingReadySubscription.IssueBill();
-                    billingReadySubscription.Subscription.SubscriptionTariffChange = new SubscriptionTariffChange()
+                    ForceNow = false,
+                    TariffID = tariffChange.ServiceID.Value,
+                    SubscriptionID = dbSubscription.ID,
+                    NewBillingPeriod = (short)tariffChange.BillingPeriod.Value,
+                    Gateway = new GatewayOptions()
                     {
-                        NewTariffID = tariffChange.ServiceID.Value,
-                        NewBillingPeriod = (short)tariffChange.BillingPeriod.Value
-                    };
+                        UserID = User.GiveUserId(),
+                        InterfaceType = SystemLogInterface.MasterISS
+                    }
+                });
 
-                    db.SystemLogs.Add(SystemLogProcessor.ChangeServiceSchedule(User.GiveUserId(), billingReadySubscription.Subscription.ID, SystemLogInterface.MasterISS, null, oldServiceName, newServiceName));
-                }
-                if (billingReadySubscription.Subscription.Service.BillingType == (short)ServiceBillingType.Invoiced)
+                if (results != TariffChangeResult.TariffChanged && results != TariffChangeResult.TariffChangeScheduled)
                 {
-                    billingReadySubscription.ForceIssueBill(settleAllInstallments: false);
-                    billingReadySubscription.Subscription.ServiceID = tariffChange.ServiceID.Value;
-                    billingReadySubscription.Subscription.PaymentDay = tariffChange.BillingPeriod.Value;
-
-                    db.SystemLogs.Add(SystemLogProcessor.ChangeService(User.GiveUserId(), billingReadySubscription.Subscription.ID, SystemLogInterface.MasterISS, null, oldServiceName, newServiceName));
-                }
-                if (billingReadySubscription.Subscription.Service.BillingType == (short)ServiceBillingType.PrePaid)
-                {
-                    billingReadySubscription.Subscription.ServiceID = tariffChange.ServiceID.Value;
-                    billingReadySubscription.Subscription.PaymentDay = tariffChange.BillingPeriod.Value;
-
-                    db.SystemLogs.Add(SystemLogProcessor.ChangeService(User.GiveUserId(), billingReadySubscription.Subscription.ID, SystemLogInterface.MasterISS, null, oldServiceName, newServiceName));
+                    return RedirectToAction("Details", new { id = dbSubscription.ID, errorMessage = 9 });
                 }
 
-                db.SaveChanges();
-
-                return RedirectToAction("Details", new { id = billingReadySubscription.Subscription.ID, errorMessage = 0 });
+                return RedirectToAction("Details", new { id = dbSubscription.ID, errorMessage = 0 });
             }
 
-            ViewBag.ServiceList = new SelectList(db.Services.Where(s => s.Domains.Select(d => d.ID).Contains(billingReadySubscription.Subscription.DomainID)).FilterActiveServices(tariffChange.ServiceID).Select(s => new { Name = s.Name, Value = s.ID }), "Value", "Name", tariffChange.ServiceID);
-            ViewBag.CustomerName = billingReadySubscription.Subscription.ValidDisplayName;
+            ViewBag.ServiceList = new SelectList(db.Services.Where(s => s.Domains.Select(d => d.ID).Contains(dbSubscription.DomainID)).FilterActiveServices(tariffChange.ServiceID).Select(s => new { Name = s.Name, Value = s.ID }), "Value", "Name", tariffChange.ServiceID);
+            ViewBag.CustomerName = dbSubscription.ValidDisplayName;
             return View(viewName: "Edits/ChangeService", model: new ChangeServiceViewModel()
             {
                 ServiceID = tariffChange.ServiceID,
                 BillingPeriod = tariffChange.BillingPeriod
             });
+        }
+
+        [AuthorizePermission(Permissions = "Change Client Service")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        // POST: Client/ForceChangeTariff
+        public ActionResult ForceChangeTariff(long id)
+        {
+            var dbSubscription = db.Subscriptions.Find(id);
+            if (dbSubscription == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 4 });
+            }
+            if (!dbSubscription.ChangeServiceTypeTasks.Any())
+            {
+                return RedirectToAction("Details", new { id = id, errorMessage = 9 });
+            }
+            var tariffChange = dbSubscription.ChangeServiceTypeTasks.LastOrDefault();
+
+            var results = db.ChangeSubscriptionTariff(new TariffChangeOptions()
+            {
+                ForceNow = true,
+                TariffID = tariffChange.NewServiceID,
+                SubscriptionID = dbSubscription.ID,
+                NewBillingPeriod = tariffChange.NewBillingPeriod,
+                Gateway = new GatewayOptions()
+                {
+                    UserID = User.GiveUserId(),
+                    InterfaceType = SystemLogInterface.MasterISS
+                }
+            });
+
+            if (results != TariffChangeResult.TariffChanged)
+            {
+                return RedirectToAction("Details", new { id = id, errorMessage = 9 });
+            }
+
+            return RedirectToAction("Details", new { id = id, errorMessage = 0 });
         }
 
         [AuthorizePermission(Permissions = "Change Client Service")]
@@ -667,8 +691,16 @@ namespace RadiusR_Manager.Controllers
             }
 
             //subscription.SubscriptionTariffChange = null;
-            db.Entry(subscription.SubscriptionTariffChange).State = System.Data.Entity.EntityState.Deleted;
-            db.SystemLogs.Add(SystemLogProcessor.CancelScheduledChangeService(User.GiveUserId(), subscription.ID, SystemLogInterface.MasterISS, null));
+            foreach (var scheduledTask in subscription.ChangeServiceTypeTasks)
+            {
+                var task = scheduledTask.SchedulerTask;
+                db.ChangeServiceTypeTasks.Remove(scheduledTask);
+                db.SchedulerTasks.Remove(task);
+
+                db.SystemLogs.Add(SystemLogProcessor.CancelScheduledChangeService(User.GiveUserId(), subscription.ID, SystemLogInterface.MasterISS, null));
+
+            }
+
             db.SaveChanges();
 
             return RedirectToAction("Details", new { id = subscription.ID, errorMessage = 0 });
@@ -1146,6 +1178,80 @@ namespace RadiusR_Manager.Controllers
             ViewBag.SpecialOfferList = new SelectList(validSpecialOffers, "Key", "Value", referralDiscount.SpecialOfferID);
             ViewBag.SubscriberName = dbSubscription.ValidDisplayName;
             return View(viewName: "Edits/AddReferralDiscount", model: referralDiscount);
+        }
+
+        [AuthorizePermission(Permissions = "Add Special Offer")]
+        [HttpGet]
+        // GET: Client/AddSpecialOffer
+        public ActionResult AddSpecialOffer(long id)
+        {
+            var dbSubscription = db.Subscriptions.Find(id);
+            if (dbSubscription == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 4 });
+            }
+
+            ViewBag.CustomerName = dbSubscription.ValidDisplayName;
+            ViewBag.SpecialOffers = new SelectList(db.SpecialOffers.Where(so => !so.IsReferral).Select(so => new
+            {
+                Value = so.ID,
+                Name = so.Name
+            }).ToArray(), "Value", "Name");
+
+            return View(viewName: "Edits/AddSpecialOffer");
+        }
+
+        [AuthorizePermission(Permissions = "Add Special Offer")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST: Client/AddSpecialOffer
+        public ActionResult AddSpecialOffer(long id, AddSubscriptionSpecialOfferViewModel specialOffer)
+        {
+            var dbSubscription = db.Subscriptions.Find(id);
+            if (dbSubscription == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 4 });
+            }
+
+            if (ModelState.IsValid)
+            {
+                var dbSpecialOffer = db.SpecialOffers.Find(specialOffer.SpecialOfferID.Value);
+                if (dbSpecialOffer == null)
+                {
+                    return RedirectToAction("Index", new { errorMessage = 9 });
+                }
+
+                var dbRecurringDiscount = new RecurringDiscount()
+                {
+                    Amount = dbSpecialOffer.Amount,
+                    ApplicationTimes = dbSpecialOffer.ApplicationTimes,
+                    ApplicationType = dbSpecialOffer.ApplicationType,
+                    CreationTime = DateTime.Now,
+                    DiscountType = dbSpecialOffer.DiscountType,
+                    FeeTypeID = dbSpecialOffer.FeeTypeID,
+                    IsDisabled = false,
+                    OnlyFullInvoice = dbSpecialOffer.OnlyFullInvoice,
+                    Description = dbSpecialOffer.Name
+                };
+
+                dbSubscription.RecurringDiscounts.Add(dbRecurringDiscount);
+
+                db.SaveChanges();
+
+                db.SystemLogs.Add(SystemLogProcessor.AddRecurringDiscount(dbRecurringDiscount.ID, User.GiveUserId(), dbSubscription.ID, SystemLogInterface.MasterISS, null));
+                db.SaveChanges();
+
+                return Redirect(Url.Action("Details", new { id = dbSubscription.ID, errorMessage = 0 }) + "#additional-fees");
+            }
+
+            ViewBag.CustomerName = dbSubscription.ValidDisplayName;
+            ViewBag.SpecialOffers = new SelectList(db.SpecialOffers.Where(so => !so.IsReferral).Select(so => new
+            {
+                Value = so.ID,
+                Name = so.Name
+            }).ToArray(), "Value", "Name", specialOffer.SpecialOfferID);
+
+            return View(viewName: "Edits/AddSpecialOffer", model: specialOffer);
         }
     }
 }

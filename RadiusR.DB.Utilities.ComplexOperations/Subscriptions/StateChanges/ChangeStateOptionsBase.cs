@@ -28,6 +28,8 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
 
         public string LogInterfaceUsername { get; set; }
 
+        public bool ScheduleSMSes { get; set; } = false;
+
         public virtual CustomerState NewState { get; }
 
         internal bool IsValidChange(CustomerState oldState)

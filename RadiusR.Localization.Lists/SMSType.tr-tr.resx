@@ -186,4 +186,7 @@
   <data name="OperationCode" xml:space="preserve">
     <value>İşlem Kodu</value>
   </data>
+  <data name="FreezeDurationEnd" xml:space="preserve">
+    <value>Dondurma Süresi Btirince</value>
+  </data>
 </root>

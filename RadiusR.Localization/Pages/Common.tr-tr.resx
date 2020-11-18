@@ -1092,6 +1092,9 @@
   <data name="ReferralDiscountReport" xml:space="preserve">
     <value>Referans İndirim Raporu</value>
   </data>
+  <data name="History" xml:space="preserve">
+    <value>Geçmiş</value>
+  </data>
   <data name="Rename" xml:space="preserve">
     <value>Adını Değiştir</value>
   </data>

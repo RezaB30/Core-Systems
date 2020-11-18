@@ -62,15 +62,9 @@ namespace RadiusR_Manager.Controllers
                 },
                 CanBeCancelled = fee.CanBeCancelled,
                 IsCancelled = fee.IsCancelled,
-                //BillFees = fee.BillFees.Select(bf => new BillFeeViewModel()
-                //{
-                //    BillID = bf.BillID,
-                //    _currentCost = bf.CurrentCost,
-                //    DisplayName = bf.GetDisplayName(),
-                //    ID = bf.ID,
-                //    InstallmentCount = bf.InstallmentCount,
-                //}),
-                Description = fee.Description
+                Description = fee.Description,
+                StartDate = fee.StartDate,
+                EndDate = fee.EndDate
             }).OrderBy(f => f.Date).AsQueryable();
 
             SetupPages(page, ref viewResults);
@@ -431,6 +425,57 @@ namespace RadiusR_Manager.Controllers
             }
 
             return RedirectToAction("Notes", "Client", new { id = dbSubscription.ID });
+        }
+
+        [AuthorizePermission(Permissions = "System Logs")]
+        [HttpGet]
+        // GET: Client/SystemLogs
+        public ActionResult SystemLogs(long id, int? page)
+        {
+            var subscription = db.Subscriptions.Find(id);
+            var logs = db.SystemLogs.Include(log => log.AppUser).Where(log => log.CustomerID == subscription.CustomerID || log.SubscriptionID == subscription.ID).OrderByDescending(log => log.Date).AsQueryable();
+
+            SetupPages(page, ref logs);
+
+            var processor = new SystemLogProcessor(Url);
+            var results = logs.ToArray().Select(log => new SystemLogViewModel()
+            {
+                ID = log.ID,
+                Date = log.Date,
+                LogType = log.LogType,
+                LogInterfaceType = log.Interface,
+                LogInterfaceUsername = log.InterfaceUsername ?? "-",
+                CustomerID = log.CustomerID,
+                SubscriptionID = log.SubscriptionID,
+                UserName = log.AppUser != null ? log.AppUser.Name : "-",
+                ProcessedLog = processor.TranslateLog(log, log.Parameters)
+            });
+
+            return View(viewName: "DetailsTabs/SystemLogs", model: results);
+        }
+
+        [AuthorizePermission(Permissions = "Clients")]
+        [HttpGet]
+        // GET: Client/TariffChangeHistory
+        public ActionResult TariffChangeHistory(long id, int? page)
+        {
+            var dbSubscription = db.Subscriptions.Find(id);
+            if (dbSubscription == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            }
+
+            var viewResults = db.SubscriptionTariffHistories.OrderByDescending(sth => sth.Date).Where(sth => sth.SubscriptionID == id).Select(sth => new TariffChangeHistoryViewModel()
+            {
+                Date = sth.Date,
+                OldTariffName = sth.OldTariff.Name,
+                NewTariffName = sth.NewTariff.Name,
+            });
+
+            SetupPages(page, ref viewResults);
+
+            ViewBag.CustomerName = dbSubscription.ValidDisplayName;
+            return View(viewName: "DetailsTabs/TariffChangeHistory", model: viewResults.ToArray());
         }
     }
 }

@@ -51,6 +51,13 @@ namespace RadiusR_Manager.Models.ViewModels
         [SettingElement]
         public int SMSSchedulerPrepaidReminderThreshold { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "BillingType")]
+        [EnumType(typeof(RadiusR.DB.Enums.SchedulerBillingTypes), typeof(RadiusR.Localization.Lists.SchedulerBillingTypes))]
+        [UIHint("LocalizedList")]
+        [SettingElement]
+        public short SchedulerBillingType { get; set; }
+
         public TimeSpan? _schedulerStartTime
         {
             get

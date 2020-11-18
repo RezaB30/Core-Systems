@@ -180,10 +180,12 @@
     <Compile Include="RadiusViewModels\SupportRequestSubTypeViewModel.cs" />
     <Compile Include="RadiusViewModels\SupportRequestTypeViewModel.cs" />
     <Compile Include="RadiusViewModels\SystemLogViewModel.cs" />
+    <Compile Include="RadiusViewModels\TariffChangeHistoryViewModel.cs" />
     <Compile Include="RadiusViewModels\TelekomAccessCredentialViewModel.cs" />
     <Compile Include="RadiusViewModels\TelekomTariffViewModel.cs" />
     <Compile Include="RadiusViewModels\TelekomWorkOrderViewModel.cs" />
     <Compile Include="ViewModels\AddressSettingsViewModel.cs" />
+    <Compile Include="ViewModels\AddSubscriptionSpecialOfferViewModel.cs" />
     <Compile Include="ViewModels\AppUserSearchViewModel.cs" />
     <Compile Include="ViewModels\AutomaticPaymentReportSearchViewModel.cs" />
     <Compile Include="ViewModels\AutomaticPaymentReportViewModel.cs" />

@@ -60,6 +60,10 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "CurrentBillingPeriod")]
         public DateTime? CurrentBillingPeriodEndDate { get; set; }
 
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "LastTariffChangeDate")]
+        [UIHint("ExactTime")]
+        public DateTime? LastTariffChangeDate { get; set; }
+
         public SubscriptionScheduledTariffChangeViewModel TariffChange { get; set; }
 
         public bool HasBilling { get; set; }

@@ -1,21 +1,23 @@
-﻿using RadiusR.DB;
-using RadiusR.DB.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RadiusR.Scheduler.SMS;
+using RezaB.Scheduling;
+using NLog;
+using RadiusR.DB;
+using RadiusR.DB.Enums;
 using System.Data.Entity;
+using RadiusR.Scheduler.SMS;
 
-namespace RadiusR.Scheduler
+namespace RadiusR.Scheduler.Tasks
 {
-    public static partial class Scheduler
+    class SMSGenerationTasks : AbortableTask
     {
-        private static bool _isSMSSchedulerRunning = false;
-        private static DateTime _lastSuccessfulSMSSchedulerRun = DateTime.MinValue;
+        private static Logger logger = LogManager.GetLogger("sms-generation-tasks");
+        private const int batchSize = 1000;
 
-        public static void ScheduleSMSes()
+        public override bool Run()
         {
             var wasSuccessful = false;
             // bill payment reminders
@@ -25,13 +27,13 @@ namespace RadiusR.Scheduler
 
             if (wasSuccessful)
             {
-                _lastSuccessfulScheduledSMSRun = DateTime.Now;
                 logger.Trace("Scheduled SMS creator done.");
             }
-            _isSMSSchedulerRunning = false;
+
+            return wasSuccessful;
         }
 
-        private static bool ScheduleBillReminderSMSes()
+        private bool ScheduleBillReminderSMSes()
         {
             try
             {
@@ -42,6 +44,12 @@ namespace RadiusR.Scheduler
 
                 while (true)
                 {
+                    // abort by flag
+                    if (_isAborted)
+                    {
+                        logger.Debug("Aborted by the scheduler.");
+                        return false;
+                    }
                     using (RadiusREntities db = new RadiusREntities())
                     {
                         db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
@@ -68,6 +76,12 @@ namespace RadiusR.Scheduler
                         // iterate
                         foreach (var bill in currentBatch)
                         {
+                            // abort by flag
+                            if (_isAborted)
+                            {
+                                logger.Debug("Aborted by the scheduler.");
+                                return false;
+                            }
                             // add scheduled SMS
                             var results = bill.AddPaymentReminderSMS();
                             if (results.ToRemove != null)
@@ -87,12 +101,12 @@ namespace RadiusR.Scheduler
             }
             catch (Exception ex)
             {
-                scheduledSMSLogger.Fatal(ex, "Error creating scheduled SMSes.");
+                logger.Fatal(ex, "Error creating scheduled SMSes.");
                 return false;
             }
         }
 
-        private static bool SchedulePrepaidReminderSMSes()
+        private bool SchedulePrepaidReminderSMSes()
         {
             try
             {
@@ -102,6 +116,12 @@ namespace RadiusR.Scheduler
 
                 while (true)
                 {
+                    // abort by flag
+                    if (_isAborted)
+                    {
+                        logger.Debug("Aborted by the scheduler.");
+                        return false;
+                    }
                     using (RadiusREntities db = new RadiusREntities())
                     {
                         db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
@@ -125,6 +145,12 @@ namespace RadiusR.Scheduler
                         // iterate
                         foreach (var subscription in currentBatch)
                         {
+                            // abort by flag
+                            if (_isAborted)
+                            {
+                                logger.Debug("Aborted by the scheduler.");
+                                return false;
+                            }
                             // add scheduled SMS
                             var results = subscription.AddPrepaidReminderSMS();
                             if (results.ToRemove != null)
@@ -145,7 +171,7 @@ namespace RadiusR.Scheduler
             }
             catch (Exception ex)
             {
-                scheduledSMSLogger.Fatal(ex, "Error creating scheduled SMSes.");
+                logger.Fatal(ex, "Error creating scheduled SMSes.");
                 return false;
             }
         }

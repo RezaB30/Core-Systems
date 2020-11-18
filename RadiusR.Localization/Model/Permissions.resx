@@ -435,8 +435,11 @@
   <data name="ReferralDiscountReport" xml:space="preserve">
     <value>Referral Discount Report</value>
   </data>
-  <data name="SpecialOffersUsage" xml:space="preserve">
-    <value>Special Offers Usage</value>
+  <data name="ReferralSpecialOfferUsage" xml:space="preserve">
+    <value>Referral Special Offer Usage</value>
+  </data>
+  <data name="AddSpecialOffer" xml:space="preserve">
+    <value>Add Special Offer</value>
   </data>
   <data name="GlobalSupportRequestChange" xml:space="preserve">
     <value>Global Support Request Change</value>

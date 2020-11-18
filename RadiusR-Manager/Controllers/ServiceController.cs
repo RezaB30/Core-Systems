@@ -107,7 +107,7 @@ namespace RadiusR_Manager.Controllers
 
             if (service.DomainIDs.Count() == 0)
                 ModelState.AddModelError("ServiceDomains", RadiusR.Localization.Validation.Common.NoDomainsSelected);
-            if ((service.BillingType == (short)ServiceBillingType.Invoiced || service.BillingType == (short)ServiceBillingType.PreInvoiced) && service.BillingPeriods != null && service.BillingPeriods.Count() == 0)
+            if (service.BillingType == (short)ServiceBillingType.Invoiced && service.BillingPeriods != null && service.BillingPeriods.Count() == 0)
                 ModelState.AddModelError("BillingPeriods", RadiusR.Localization.Validation.Common.NoBillingPeriodSelected);
 
             if (ModelState.IsValid)
@@ -270,7 +270,7 @@ namespace RadiusR_Manager.Controllers
 
             if (service.DomainIDs.Count() == 0)
                 ModelState.AddModelError("ServiceDomains", RadiusR.Localization.Validation.Common.NoDomainsSelected);
-            if ((service.BillingType == (short)ServiceBillingType.Invoiced || service.BillingType == (short)ServiceBillingType.PreInvoiced) && service.BillingPeriods != null && service.BillingPeriods.Count() == 0)
+            if (service.BillingType == (short)ServiceBillingType.Invoiced && service.BillingPeriods != null && service.BillingPeriods.Count() == 0)
                 ModelState.AddModelError("BillingPeriods", RadiusR.Localization.Validation.Common.NoBillingPeriodSelected);
 
             if (ModelState.IsValid)

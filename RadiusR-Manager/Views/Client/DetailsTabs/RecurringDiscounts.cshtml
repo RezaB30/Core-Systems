@@ -134,14 +134,20 @@
 </table>
 @Html.PagedList((int)ViewBag.PageCount)
 
-@if (User.HasPermission("Discount"))
-{
-    <div class="button-row centered">
+
+<div class="button-row centered">
+    @if (User.HasPermission("Discount"))
+    {
         @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "AddRecurringDiscount", new { id = ViewContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button new-button" })
-        @if (User.HasPermission("Add Referral Discount") && ViewBag.IsValidForReferralDiscount as bool? == true)
+        if (User.HasPermission("Add Referral Discount") && ViewBag.IsValidForReferralDiscount as bool? == true)
         {
             @: &nbsp;
             @Html.ActionLink(RadiusR.Localization.Pages.Common.AddReferralDiscount, "AddReferralDiscount", new { id = ViewContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button discount-button" })
         }
-    </div>
-}
+    }
+    @if (User.HasPermission("Add Special Offer"))
+    {
+        @: &nbsp;
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.AddSpecialOffer, "AddSpecialOffer", new { id = ViewContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button discount-button" })
+    }
+</div>

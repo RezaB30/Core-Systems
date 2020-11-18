@@ -33,6 +33,10 @@
                 {
                     @Html.DisplayFor(modelItem => item.FeeTypeID)
                 }
+                @if (item.StartDate.HasValue && item.EndDate.HasValue)
+                {
+                    <span class="fee-time-span">(@Html.DisplayFor(modelItem => item.StartDate)-@Html.DisplayFor(modelItem => item.EndDate))</span>
+                }
             </td>
             <td class="centered">
                 @Html.DisplayFor(modelItem => item.InstallmentBillCount)

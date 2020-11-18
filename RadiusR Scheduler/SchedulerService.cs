@@ -1,4 +1,5 @@
 ﻿using RadiusR.Scheduler;
+using RezaB.Scheduling;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,7 @@ namespace RadiusR_Scheduler
 {
     public partial class SchedulerService : ServiceBase
     {
+        Scheduler _scheduler;
         public SchedulerService()
         {
             InitializeComponent();
@@ -22,12 +24,13 @@ namespace RadiusR_Scheduler
 
         protected override void OnStart(string[] args)
         {
-            Scheduler.Start();
+            _scheduler = RadiusR.Scheduler.SchedulerInitializer.GetScheduler(TimeSpan.FromMinutes(1), "radiusr-scheduler");
+            _scheduler.Start();
         }
 
         protected override void OnStop()
         {
-            Scheduler.Stop();
+            _scheduler.Stop();
         }
     }
 }

@@ -170,8 +170,8 @@
       <HintPath>..\packages\RezaB.Web.1.0.0\lib\net452\RezaB.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RezaB.Web.Helpers, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.Web.Helpers.1.0.1\lib\net452\RezaB.Web.Helpers.dll</HintPath>
+    <Reference Include="RezaB.Web.Helpers, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Web.Helpers.1.0.2\lib\net452\RezaB.Web.Helpers.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RezaB.Web.VPOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -796,7 +796,7 @@
     <Content Include="Views\Client\AddWizard\AddSubscription.cshtml" />
     <Content Include="Views\PDFTemplates\Index.cshtml" />
     <Content Include="Views\PDFTemplates\EditTemplate.cshtml" />
-    <Content Include="Views\Client\SystemLogs.cshtml" />
+    <Content Include="Views\Client\DetailsTabs\SystemLogs.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\RawHtml.cshtml" />
     <Content Include="Views\Client\Edits\ChangeService.cshtml" />
     <Content Include="Views\Reports\SystemLogsReport.cshtml" />
@@ -902,6 +902,8 @@
     <Content Include="Views\SupportRequest\RenameSupportGroup.cshtml" />
     <Content Include="Views\SupportRequest\ChangeSupportGroupLeader.cshtml" />
     <Content Include="Views\SupportRequest\SupportRequestTypes.cshtml" />
+    <Content Include="Views\Client\Edits\AddSpecialOffer.cshtml" />
+    <Content Include="Views\Client\DetailsTabs\TariffChangeHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

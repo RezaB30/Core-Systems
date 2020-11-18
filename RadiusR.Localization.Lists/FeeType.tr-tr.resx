@@ -147,6 +147,9 @@
   <data name="Tariff" xml:space="preserve">
     <value>Tarife</value>
   </data>
+  <data name="TariffDebt" xml:space="preserve">
+    <value>Eski Tarife Ücreti</value>
+  </data>
   <data name="Transfer" xml:space="preserve">
     <value>Nakil</value>
   </data>

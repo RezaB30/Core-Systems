@@ -151,6 +151,15 @@ namespace RadiusR.Localization.Lists {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tariff Debt.
+        /// </summary>
+        public static string TariffDebt {
+            get {
+                return ResourceManager.GetString("TariffDebt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transfer.
         /// </summary>
         public static string Transfer {

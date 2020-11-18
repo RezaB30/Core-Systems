@@ -1,0 +1,36 @@
+﻿@using RezaB.Web.Helpers
+@model RadiusR_Manager.Models.ViewModels.AddSubscriptionSpecialOfferViewModel
+
+@{
+    ViewBag.Title = ViewBag.CustomerName + "-" + RadiusR.Localization.Pages.Common.AddSpecialOffer;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.SpecialOfferID)
+                    </td>
+                    <td>
+                        @Html.Select(model => model.SpecialOfferID, (SelectList)ViewBag.SpecialOffers, RadiusR.Localization.Pages.Common.Choose)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.SpecialOfferID)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        <a href="@Url.Action("Details", new { id = ViewContext.RouteData.Values["id"] })#additional-fees" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
