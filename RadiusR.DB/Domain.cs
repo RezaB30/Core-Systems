@@ -17,9 +17,9 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Domain()
         {
-            this.Subscriptions = new HashSet<Subscription>();
             this.Services = new HashSet<Service>();
             this.PartnerAvailableTariffs = new HashSet<PartnerAvailableTariff>();
+            this.Subscriptions = new HashSet<Subscription>();
         }
     
         public int ID { get; set; }
@@ -30,12 +30,12 @@ namespace RadiusR.DB
         public int MaxFreezeDuration { get; set; }
         public short MaxFreezesPerYear { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Subscription> Subscriptions { get; set; }
         public virtual TelekomAccessCredential TelekomAccessCredential { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Service> Services { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerAvailableTariff> PartnerAvailableTariffs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Subscription> Subscriptions { get; set; }
     }
 }

@@ -389,7 +389,7 @@
     <Compile Include="SubscriptionSupportRequest.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="SubscriptionTariffChange.cs">
+    <Compile Include="SubscriptionTariffHistory.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SubscriptionTelekomInfo.cs">

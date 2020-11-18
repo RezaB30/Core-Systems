@@ -18,9 +18,10 @@ namespace RadiusR.DB
         public long SubscriptionID { get; set; }
         public int NewServiceID { get; set; }
         public long SchedulerTaskID { get; set; }
+        public short NewBillingPeriod { get; set; }
     
         public virtual SchedulerTask SchedulerTask { get; set; }
-        public virtual Subscription Subscription { get; set; }
         public virtual Service Service { get; set; }
+        public virtual Subscription Subscription { get; set; }
     }
 }

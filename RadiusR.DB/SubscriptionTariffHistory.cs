@@ -12,13 +12,16 @@ namespace RadiusR.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class SubscriptionTariffChange
+    public partial class SubscriptionTariffHistory
     {
+        public long ID { get; set; }
         public long SubscriptionID { get; set; }
+        public int OldTariffID { get; set; }
         public int NewTariffID { get; set; }
-        public short NewBillingPeriod { get; set; }
+        public System.DateTime Date { get; set; }
     
-        public virtual Subscription Subscription { get; set; }
         public virtual Service Service { get; set; }
+        public virtual Service Service1 { get; set; }
+        public virtual Subscription Subscription { get; set; }
     }
 }
