@@ -4,57 +4,57 @@
     font-size: 0.8em;
 }
 
-    .data-table tr {
+    .data-table > tbody > tr {
         border-bottom: 1px solid #f0ebeb;
     }
 
-        .data-table tr:first-child,
+        .data-table > tbody > tr:first-child,
         tr.table-head {
             background-color: #292929;
             color: white;
         }
 
-        .data-table tr.interactable-data-row {
+        .data-table > tbody > tr.interactable-data-row {
             cursor: pointer;
         }
 
-    .data-table td:not(:last-child), .data-table th:not(:last-child) {
-        border-right: 1px dashed gray;
-    }
-
-    .data-table td {
-        padding: 4px;
-    }
-
-        .data-table td:last-of-type {
-            text-align: center;
-            white-space: nowrap;
+        .data-table > tbody > tr > td:not(:last-child), .data-table > tbody > tr > th:not(:last-child) {
+            border-right: 1px dashed gray;
         }
 
-            .data-table td:last-of-type > *:not(:last-child) {
-                /*margin-right: 1em;*/
-            }
-
-        .data-table td[title] {
-            text-align: center;
-            transition: 0.3s all ease;
+        .data-table > tbody > tr > td {
+            padding: 4px;
         }
 
-            .data-table td[title]:hover {
-                cursor: default;
-                background-color: rgb(155, 222, 113);
+            .data-table > tbody > tr > td:last-of-type {
+                text-align: center;
+                white-space: nowrap;
             }
+
+                .data-table > tbody > tr > td:last-of-type > *:not(:last-child) {
+                    /*margin-right: 1em;*/
+                }
+
+    .data-table td[title] {
+        text-align: center;
+        transition: 0.3s all ease;
+    }
+
+        .data-table td[title]:hover {
+            cursor: default;
+            background-color: rgb(155, 222, 113);
+        }
 
     .data-table form {
         display: inline-block;
         vertical-align: top;
     }
 
-    .data-table tr:nth-of-type(odd):not(:first-child) {
+    .data-table > tbody > tr:nth-of-type(odd):not(:first-child) {
         background-color: #ececec;
     }
 
-    .data-table tr.interactable-data-row:hover, .data-table tr.selected {
+    .data-table > tbody > tr.interactable-data-row:hover, .data-table > tbody > tr.selected {
         background-color: #4bbf75 !important;
     }
 
@@ -123,10 +123,10 @@ table.data-table td.system-log-display {
         color: #f05a35;
     }
 
-table.data-table tr.highlighted-row {
+table.data-table > tbody > tr.highlighted-row {
     background-color: #ffcf76 !important;
 }
 
-table.data-table tr.greenlit-row {
+table.data-table > tbody > tr.greenlit-row {
     background-color: #d1eaa5 !important;
 }

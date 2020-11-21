@@ -1,0 +1,6 @@
+﻿table.inner-table {
+}
+
+    table.inner-table > tbody > tr.highlighted-row {
+        color: #a09b8b;
+    }

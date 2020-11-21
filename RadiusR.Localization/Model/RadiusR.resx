@@ -1446,4 +1446,22 @@
   <data name="RelevantTypes" xml:space="preserve">
     <value>Relevant Types</value>
   </data>
+  <data name="AssignedUsers" xml:space="preserve">
+    <value>Assigned Users</value>
+  </data>
+  <data name="CanChangeState" xml:space="preserve">
+    <value>Can Change State</value>
+  </data>
+  <data name="CanCreate" xml:space="preserve">
+    <value>Can Create</value>
+  </data>
+  <data name="StaffOnly" xml:space="preserve">
+    <value>Staff Only</value>
+  </data>
+  <data name="SubTypes" xml:space="preserve">
+    <value>Sub Types</value>
+  </data>
+  <data name="SupportRequestType" xml:space="preserve">
+    <value>Support Request Type</value>
+  </data>
 </root>

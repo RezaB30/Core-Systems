@@ -1110,4 +1110,10 @@
   <data name="History" xml:space="preserve">
     <value>History</value>
   </data>
+  <data name="SupportGroupUsers" xml:space="preserve">
+    <value>Support Group Users</value>
+  </data>
+  <data name="SupportRequestSubTypes" xml:space="preserve">
+    <value>Support Request Sub Types</value>
+  </data>
 </root>

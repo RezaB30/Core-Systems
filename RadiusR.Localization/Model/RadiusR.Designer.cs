@@ -19,7 +19,7 @@ namespace RadiusR.Localization.Model {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class RadiusR {
@@ -273,6 +273,15 @@ namespace RadiusR.Localization.Model {
         public static string ArchiveNo {
             get {
                 return ResourceManager.GetString("ArchiveNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assigned Users.
+        /// </summary>
+        public static string AssignedUsers {
+            get {
+                return ResourceManager.GetString("AssignedUsers", resourceCulture);
             }
         }
         
@@ -588,6 +597,24 @@ namespace RadiusR.Localization.Model {
         public static string CancelledCount {
             get {
                 return ResourceManager.GetString("CancelledCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can Change State.
+        /// </summary>
+        public static string CanChangeState {
+            get {
+                return ResourceManager.GetString("CanChangeState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can Create.
+        /// </summary>
+        public static string CanCreate {
+            get {
+                return ResourceManager.GetString("CanCreate", resourceCulture);
             }
         }
         
@@ -1924,6 +1951,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last Tariff Change Date.
+        /// </summary>
+        public static string LastTariffChangeDate {
+            get {
+                return ResourceManager.GetString("LastTariffChangeDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Leader.
         /// </summary>
         public static string Leader {
@@ -2239,6 +2275,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Tariff.
+        /// </summary>
+        public static string NewTariff {
+            get {
+                return ResourceManager.GetString("NewTariff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Tariff Activation Date.
         /// </summary>
         public static string NewTariffActivationDate {
@@ -2298,6 +2343,15 @@ namespace RadiusR.Localization.Model {
         public static string OldPassword {
             get {
                 return ResourceManager.GetString("OldPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old Tariff.
+        /// </summary>
+        public static string OldTariff {
+            get {
+                return ResourceManager.GetString("OldTariff", resourceCulture);
             }
         }
         
@@ -3445,6 +3499,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Staff Only.
+        /// </summary>
+        public static string StaffOnly {
+            get {
+                return ResourceManager.GetString("StaffOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stage.
         /// </summary>
         public static string Stage {
@@ -3580,6 +3643,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sub Types.
+        /// </summary>
+        public static string SubTypes {
+            get {
+                return ResourceManager.GetString("SubTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
         public static string Success {
@@ -3594,6 +3666,15 @@ namespace RadiusR.Localization.Model {
         public static string SuccessfulCount {
             get {
                 return ResourceManager.GetString("SuccessfulCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support Request Type.
+        /// </summary>
+        public static string SupportRequestType {
+            get {
+                return ResourceManager.GetString("SupportRequestType", resourceCulture);
             }
         }
         

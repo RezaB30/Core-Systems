@@ -1,0 +1,52 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.SupportGroupUserViewModel>
+
+@{
+    ViewBag.Title = $"{RadiusR.Localization.Pages.Common.SupportGroupUsers}-{ViewBag.GroupName}";
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CanChangeState)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CanCreate)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.CanChangeState)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.CanCreate)
+            </td>
+            <td>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "GroupUserPermissions", new { userId = item.UserID, groupId = ViewContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button edit-button" })
+                &nbsp;
+                @using (Html.BeginForm("RemoveGroupUser", null, new { userId = item.UserID, groupId = ViewContext.RouteData.Values["id"] }, FormMethod.Post, new { confirm = "enabled" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button delete-button" />
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList((int)ViewBag.PageCount)
+
+<div class="button-row centered">
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "SupportGroups", null, new { @class = "link-button iconed-button back-button" })
+    &nbsp;
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "AddGroupUser", new { id = ViewContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button new-button" })
+</div>

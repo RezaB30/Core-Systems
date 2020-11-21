@@ -26,7 +26,7 @@ namespace RadiusR_Manager.Controllers
 
             var routeData = RouteData.Values;
             var routeCulture = routeData.Where(r => r.Key == "lang").FirstOrDefault();
-            if (string.IsNullOrEmpty((string)routeCulture.Value) || routeCulture.Value.ToString() != lang)
+            if (string.IsNullOrEmpty((string)routeCulture.Value))
             {
                 routeData.Remove("lang");
                 routeData.Add("lang", lang);

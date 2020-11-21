@@ -34,6 +34,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -391,6 +392,7 @@
     <Content Include="Content\css\fee-type-variant-list.css" />
     <Content Include="Content\css\file-upload.css" />
     <Content Include="Content\css\file-view.css" />
+    <Content Include="Content\css\inner-table.css" />
     <Content Include="Content\css\loading-pins.css" />
     <Content Include="Content\css\payment-button.css" />
     <Content Include="Content\css\pdf-templates.css" />
@@ -904,6 +906,13 @@
     <Content Include="Views\SupportRequest\SupportRequestTypes.cshtml" />
     <Content Include="Views\Client\Edits\AddSpecialOffer.cshtml" />
     <Content Include="Views\Client\DetailsTabs\TariffChangeHistory.cshtml" />
+    <Content Include="Views\SupportRequest\SupportGroupUsers.cshtml" />
+    <Content Include="Views\SupportRequest\AddGroupUser.cshtml" />
+    <Content Include="Views\SupportRequest\AddSupportRequestType.cshtml" />
+    <Content Include="Views\SupportRequest\GroupUserPermissions.cshtml" />
+    <Content Include="Views\SupportRequest\RenameSupportRequestType.cshtml" />
+    <Content Include="Views\SupportRequest\AddSupportRequestSubType.cshtml" />
+    <Content Include="Views\SupportRequest\RenameSupportRequestSubType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -256,7 +256,7 @@ namespace RadiusR.DB.BTKLogging
 
         public static IQueryable<RadiusAccounting> GetActiveInTimeSpan(this IQueryable<RadiusAccounting> query, DateTime from, DateTime to)
         {
-            return query.Where(acc => acc.StartTime < to && (acc.StopTime >= from || acc.StopTime == null));
+            return query.Where(acc => acc.StartTime < to && (acc.StopTime >= from || acc.StopTime == null) && acc.RadiusAccountingIPInfo != null);
         }
 
         private static string ClearAddressText(string addressText)

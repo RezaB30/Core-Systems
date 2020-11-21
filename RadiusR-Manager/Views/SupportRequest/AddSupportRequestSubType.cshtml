@@ -1,0 +1,36 @@
+﻿@model RadiusR_Manager.Models.RadiusViewModels.SupportRequestSubTypeViewModel
+
+@{
+    ViewBag.Title = $"{ViewBag.RequestTypeName}-{RadiusR.Localization.Pages.Common.SupportRequestSubTypes}";
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Name)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        <a href="@ViewBag.RedirectUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                        &nbsp;
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

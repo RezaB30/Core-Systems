@@ -1107,4 +1107,10 @@
   <data name="SupportRequestTypes" xml:space="preserve">
     <value>Destek İstek Türleri</value>
   </data>
+  <data name="SupportGroupUsers" xml:space="preserve">
+    <value>Destek Grubunun Kullanıcıları</value>
+  </data>
+  <data name="SupportRequestSubTypes" xml:space="preserve">
+    <value>Destek İsteği Alt Türleri</value>
+  </data>
 </root>

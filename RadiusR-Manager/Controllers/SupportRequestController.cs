@@ -227,7 +227,7 @@ namespace RadiusR_Manager.Controllers
                 Name = srt.Name,
                 IsStaffOnly = srt.IsStaffOnly,
                 IsActive = !srt.IsDisabled,
-                SubTypes = srt.SupportRequestSubTypes.Select(srst => new SupportRequestSubTypeViewModel()
+                SubTypes = srt.SupportRequestSubTypes.OrderBy(srst => srst.IsDisabled).ThenByDescending(srst => srst.ID).Select(srst => new SupportRequestSubTypeViewModel()
                 {
                     ID = srst.ID,
                     IsActive = !srst.IsDisabled,
@@ -238,6 +238,401 @@ namespace RadiusR_Manager.Controllers
             SetupPages(page, ref viewResults);
 
             return View(viewResults);
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [HttpGet]
+        // GET: SupportRequest/AddSupportRequestType
+        public ActionResult AddSupportRequestType(string redirectUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl);
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+            ViewBag.RedirectUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            return View();
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST: SupportRequest/AddSupportRequestType
+        public ActionResult AddSupportRequestType(string redirectUrl, SupportRequestTypeViewModel addedType)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl);
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            if (ModelState.IsValid)
+            {
+                db.SupportRequestTypes.Add(new SupportRequestType()
+                {
+                    IsDisabled = false,
+                    IsStaffOnly = addedType.IsStaffOnly,
+                    Name = addedType.Name
+                });
+
+                db.SaveChanges();
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            ViewBag.RedirectUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            return View(addedType);
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        // POST: SupportRequest/ToggleSupportRequestTypeState
+        public ActionResult ToggleSupportRequestTypeState(int id, string redirectUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl);
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            var currentSupportRequestType = db.SupportRequestTypes.Find(id);
+            if (currentSupportRequestType == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            currentSupportRequestType.IsDisabled = !currentSupportRequestType.IsDisabled;
+            db.SaveChanges();
+
+            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [HttpGet]
+        // GET: SupportRequest/RenameSupportRequestType
+        public ActionResult RenameSupportRequestType(int id, string redirectUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl);
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            var currentSupportRequestType = db.SupportRequestTypes.Find(id);
+            if (currentSupportRequestType == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            var viewResults = new SupportRequestTypeViewModel()
+            {
+                ID = currentSupportRequestType.ID,
+                Name = currentSupportRequestType.Name
+            };
+
+            ViewBag.RequestTypeName = currentSupportRequestType.Name;
+            ViewBag.RedirectUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            return View(viewResults);
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST: SupportRequest/RenameSupportRequestType
+        public ActionResult RenameSupportRequestType(int id, string redirectUrl, SupportRequestTypeViewModel supportRequestType)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl);
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            var currentSupportRequestType = db.SupportRequestTypes.Find(id);
+            if (currentSupportRequestType == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            if (ModelState.IsValid)
+            {
+                currentSupportRequestType.Name = supportRequestType.Name;
+                db.SaveChanges();
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            ViewBag.RequestTypeName = currentSupportRequestType.Name;
+            ViewBag.RedirectUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            return View(supportRequestType);
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [HttpGet]
+        // GET: SupportRequest/AddSupportRequestSubType
+        public ActionResult AddSupportRequestSubType(int id, string redirectUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl);
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            var currentSupportRequestType = db.SupportRequestTypes.Find(id);
+            if (currentSupportRequestType == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            ViewBag.RequestTypeName = currentSupportRequestType.Name;
+            ViewBag.RedirectUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            return View();
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST: SupportRequest/AddSupportRequestSubType
+        public ActionResult AddSupportRequestSubType(int id, string redirectUrl, SupportRequestSubTypeViewModel supportRequestSubType)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl);
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            var currentSupportRequestType = db.SupportRequestTypes.Find(id);
+            if (currentSupportRequestType == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            if (ModelState.IsValid)
+            {
+                currentSupportRequestType.SupportRequestSubTypes.Add(new SupportRequestSubType()
+                {
+                    IsDisabled = false,
+                    Name = supportRequestSubType.Name
+                });
+                db.SaveChanges();
+
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            ViewBag.RequestTypeName = currentSupportRequestType.Name;
+            ViewBag.RedirectUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            return View();
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [HttpGet]
+        // GET: SupportRequest/RenameSupportRequestSubType
+        public ActionResult RenameSupportRequestSubType(int id, string redirectUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl);
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            var currentSupportRequestSubType = db.SupportRequestSubTypes.Find(id);
+            if (currentSupportRequestSubType == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            var viewResults = new SupportRequestSubTypeViewModel()
+            {
+                ID = currentSupportRequestSubType.ID,
+                Name = currentSupportRequestSubType.Name
+            };
+
+            ViewBag.RequestSubTypeName = currentSupportRequestSubType.Name;
+            ViewBag.RedirectUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            return View(viewResults);
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        // POST: SupportRequest/RenameSupportRequestSubType
+        public ActionResult RenameSupportRequestSubType(int id, string redirectUrl, SupportRequestSubTypeViewModel supportRequestSubType)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl);
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            var currentSupportRequestSubType = db.SupportRequestSubTypes.Find(id);
+            if (currentSupportRequestSubType == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            if (ModelState.IsValid)
+            {
+                currentSupportRequestSubType.Name = supportRequestSubType.Name;
+                db.SaveChanges();
+
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            ViewBag.RequestSubTypeName = currentSupportRequestSubType.Name;
+            ViewBag.RedirectUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            return View(supportRequestSubType);
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST: SupportRequest/ToggleSupportRequestSubType
+        public ActionResult ToggleSupportRequestSubType(int id, string redirectUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl);
+
+            var currentSupportRequestSubType = db.SupportRequestSubTypes.Find(id);
+            if (currentSupportRequestSubType == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            // has relative data or is disabled (gets disabled/enabled)
+            if (currentSupportRequestSubType.IsDisabled || db.SupportRequests.Any(request => request.SubTypeID == currentSupportRequestSubType.ID))
+            {
+                currentSupportRequestSubType.IsDisabled = !currentSupportRequestSubType.IsDisabled;
+            }
+            // has no relative data (gets removed)
+            else
+            {
+                db.SupportRequestSubTypes.Remove(currentSupportRequestSubType);
+            }
+
+            db.SaveChanges();
+            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [HttpGet]
+        // GET: SupportRequest/SupportGroupUsers
+        public ActionResult SupportGroupUsers(int id, int? page)
+        {
+            var currentSupportGroup = db.SupportGroups.Find(id);
+            if (currentSupportGroup == null)
+            {
+                return RedirectToAction("SupportGroups", new { errorMessage = 0 });
+            }
+            var viewResults = db.SupportGroupUsers.Where(sgu => sgu.SupportGroupID == currentSupportGroup.ID).OrderBy(sgu => sgu.AppUser.Name).Select(sgu => new SupportGroupUserViewModel()
+            {
+                UserName = sgu.AppUser.Name,
+                UserID = sgu.AppUserID,
+                CanChangeState = sgu.CanChangeState,
+                CanCreate = sgu.CanCreate
+            });
+
+            SetupPages(page, ref viewResults);
+            ViewBag.GroupName = currentSupportGroup.Name;
+            return View(viewResults);
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [HttpGet]
+        // GET: SupportRequest/AddGroupUser
+        public ActionResult AddGroupUser(int id)
+        {
+            var currentSupportGroup = db.SupportGroups.Find(id);
+            if (currentSupportGroup == null)
+            {
+                return RedirectToAction("SupportGroups", new { errorMessage = 0 });
+            }
+
+            ViewBag.ValidUsers = new SelectList(db.AppUsers.Where(user => user.IsEnabled && !user.SupportGroupUsers.Any(sgu => sgu.SupportGroupID == currentSupportGroup.ID)).Select(user => new { Name = user.Name, Value = user.ID }).ToArray(), "Value", "Name");
+            ViewBag.GroupName = currentSupportGroup.Name;
+            return View();
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST: SupportRequest/AddGroupUser
+        public ActionResult AddGroupUser(int id, SupportGroupUserViewModel addedUser)
+        {
+            var currentSupportGroup = db.SupportGroups.Find(id);
+            if (currentSupportGroup == null)
+            {
+                return RedirectToAction("SupportGroups", new { errorMessage = 0 });
+            }
+
+            if (ModelState.IsValid)
+            {
+                if (db.AppUsers.FirstOrDefault(user => user.IsEnabled && user.ID == addedUser.UserID) == null)
+                {
+                    ModelState.AddModelError("UserID", RadiusR.Localization.Validation.Common.InvalidInput);
+                }
+                else
+                {
+                    db.SupportGroupUsers.Add(new SupportGroupUser()
+                    {
+                        AppUserID = addedUser.UserID.Value,
+                        CanChangeState = addedUser.CanChangeState,
+                        CanCreate = addedUser.CanCreate,
+                        SupportGroupID = currentSupportGroup.ID
+                    });
+
+                    db.SaveChanges();
+                    return RedirectToAction("SupportGroupUsers", new { id = currentSupportGroup.ID, errorMessage = 0 });
+                }
+            }
+
+            ViewBag.ValidUsers = new SelectList(db.AppUsers.Where(user => user.IsEnabled && !user.SupportGroupUsers.Any(sgu => sgu.SupportGroupID == currentSupportGroup.ID)).Select(user => new { Name = user.Name, Value = user.ID }).ToArray(), "Value", "Name", addedUser.UserID);
+            ViewBag.GroupName = currentSupportGroup.Name;
+            return View(addedUser);
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST: SupportRequest/RemoveGroupUser
+        public ActionResult RemoveGroupUser(int userId, int groupId)
+        {
+            var currentGroupUser = db.SupportGroupUsers.FirstOrDefault(sgu => sgu.AppUserID == userId && sgu.SupportGroupID == groupId);
+            if (currentGroupUser != null)
+            {
+                db.SupportGroupUsers.Remove(currentGroupUser);
+                db.SaveChanges();
+            }
+            return RedirectToAction("SupportGroupUsers", new { id = groupId, errorMessage = 0 });
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [HttpGet]
+        // GET: SupportRequest/GroupUserPermissions
+        public ActionResult GroupUserPermissions(int userId, int groupId)
+        {
+            var currentGroupUser = db.SupportGroupUsers.FirstOrDefault(sgu => sgu.AppUserID == userId && sgu.SupportGroupID == groupId);
+            if (currentGroupUser == null)
+            {
+                return RedirectToAction("SupportGroupUsers", new { errorMessage = 9 });
+            }
+
+            var viewResults = new SupportGroupUserViewModel()
+            {
+                UserID = currentGroupUser.AppUserID,
+                CanCreate = currentGroupUser.CanCreate,
+                CanChangeState = currentGroupUser.CanChangeState,
+                UserName = currentGroupUser.AppUser.Name
+            };
+
+            return View(viewResults);
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST: SupportRequest/GroupUserPermissions
+        public ActionResult GroupUserPermissions(int userId, int groupId, SupportGroupUserViewModel groupUser)
+        {
+            var currentGroupUser = db.SupportGroupUsers.FirstOrDefault(sgu => sgu.AppUserID == userId && sgu.SupportGroupID == groupId);
+            if (currentGroupUser == null)
+            {
+                return RedirectToAction("SupportGroupUsers", new { errorMessage = 9 });
+            }
+
+            if (ModelState.IsValid)
+            {
+                currentGroupUser.CanChangeState = groupUser.CanChangeState;
+                currentGroupUser.CanCreate = groupUser.CanCreate;
+
+                db.SaveChanges();
+                return RedirectToAction("SupportGroupUsers", new { id = currentGroupUser.SupportGroupID, errorMessage = 0 });
+            }
+
+            return View(groupUser);
         }
     }
 }

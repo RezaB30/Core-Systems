@@ -19,7 +19,7 @@ namespace RadiusR.Localization.Pages {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Common {
@@ -2689,6 +2689,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Support Group Users.
+        /// </summary>
+        public static string SupportGroupUsers {
+            get {
+                return ResourceManager.GetString("SupportGroupUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Support Requests.
         /// </summary>
         public static string SupportRequests {
@@ -2703,6 +2712,15 @@ namespace RadiusR.Localization.Pages {
         public static string SupportRequestSettings {
             get {
                 return ResourceManager.GetString("SupportRequestSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support Request Sub Types.
+        /// </summary>
+        public static string SupportRequestSubTypes {
+            get {
+                return ResourceManager.GetString("SupportRequestSubTypes", resourceCulture);
             }
         }
         

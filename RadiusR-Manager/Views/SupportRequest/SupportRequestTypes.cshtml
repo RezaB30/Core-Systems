@@ -26,25 +26,43 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
+            <td class="centered">
                 @Html.DisplayFor(modelItem => item.IsStaffOnly)
             </td>
             <td>
-                @foreach (var subItem in item.SubTypes)
-                {
-                    <div>
-                        @Html.DisplayFor(modelItem => subItem.Name)
-                        &nbsp;
-                        @using (Html.BeginForm("RemoveSupportRequestSubType", null, new { id = subItem.ID }, FormMethod.Post, new { @confirm = "enabled" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button delete-button" />
-                        }
-                    </div>
-                }
-                <div>
-                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "AddSupportRequestSubType", new { id = item.ID }, new { @class = "link-button iconed-button new-button" })
-                </div>
+                <table class="inner-table">
+                    @foreach (var subItem in item.SubTypes)
+                    {
+                        var subRowClass = subItem.IsActive == true ? string.Empty : "highlighted-row";
+                        <tr class="@subRowClass">
+                            <td>
+                                @Html.DisplayFor(modelItem => subItem.Name)
+                            </td>
+                            <td>
+                                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "RenameSupportRequestSubType", new { id = subItem.ID, redirectUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button edit-button" })
+                            </td>
+                            <td>
+                                @using (Html.BeginForm("ToggleSupportRequestSubType", null, new { id = subItem.ID, redirectUrl = Request.Url.PathAndQuery }, FormMethod.Post, new { @confirm = "enabled" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    if (subItem.IsActive == true)
+                                    {
+                                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button delete-button" />
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Activate" class="link-button iconed-button unlock-button" />
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td>
+                            @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "AddSupportRequestSubType", new { id = item.ID, redirectUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button new-button" })
+                        </td>
+                    </tr>
+                </table>
             </td>
             <td>
                 @Html.ActionLink(RadiusR.Localization.Pages.Common.Rename, "RenameSupportRequestType", new { id = item.ID, redirectUrl = Request.Url }, new { @class = "link-button iconed-button edit-button" })

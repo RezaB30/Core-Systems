@@ -36,6 +36,7 @@
                 @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "ChangeSupportGroupLeader", new { id = item.ID, redirectUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button edit-button" })
             </td>
             <td>
+                @RadiusR.Localization.Pages.Common.TotalCount:&nbsp;
                 @Html.DisplayFor(modelItem => item.ActiveUsers)
                 &nbsp;
                 @Html.ActionLink(RadiusR.Localization.Pages.Common.Manage, "SupportGroupUsers", new { id = item.ID }, new { @class = "link-button iconed-button view-list-button" })

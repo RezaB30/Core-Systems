@@ -1446,4 +1446,22 @@
   <data name="RelevantTypes" xml:space="preserve">
     <value>İlgili Türler</value>
   </data>
+  <data name="AssignedUsers" xml:space="preserve">
+    <value>Devredilen Kullanıcılar</value>
+  </data>
+  <data name="CanChangeState" xml:space="preserve">
+    <value>Durumu Değiştirebilir mi?</value>
+  </data>
+  <data name="CanCreate" xml:space="preserve">
+    <value>Oluşturabilir mi?</value>
+  </data>
+  <data name="StaffOnly" xml:space="preserve">
+    <value>Personellere Ait</value>
+  </data>
+  <data name="SubTypes" xml:space="preserve">
+    <value>Alt Türleri</value>
+  </data>
+  <data name="SupportRequestType" xml:space="preserve">
+    <value>Destek İsteğinin Türü</value>
+  </data>
 </root>
