@@ -187,6 +187,7 @@
     <Compile Include="RadiusViewModels\TelekomWorkOrderViewModel.cs" />
     <Compile Include="ViewModels\AddressSettingsViewModel.cs" />
     <Compile Include="ViewModels\AddSubscriptionSpecialOfferViewModel.cs" />
+    <Compile Include="ViewModels\AddSupportGroupRequestTypeViewModel.cs" />
     <Compile Include="ViewModels\AppUserSearchViewModel.cs" />
     <Compile Include="ViewModels\AutomaticPaymentReportSearchViewModel.cs" />
     <Compile Include="ViewModels\AutomaticPaymentReportViewModel.cs" />

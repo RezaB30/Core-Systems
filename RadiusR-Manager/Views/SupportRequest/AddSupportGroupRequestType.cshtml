@@ -1,0 +1,38 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.AddSupportGroupRequestTypeViewModel
+
+@{
+    ViewBag.Title = $"{ViewBag.GroupName}-{RadiusR.Localization.Pages.Common.SupportRequestTypes}";
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.RequestTypeID)
+                    </td>
+                    <td>
+                        @Html.Select(model => model.RequestTypeID, (SelectList)ViewBag.ValidTypes, RadiusR.Localization.Pages.Common.Choose)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.RequestTypeID)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "SupportGroups", null, new { @class = "link-button iconed-button back-button" })
+                        &nbsp;
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

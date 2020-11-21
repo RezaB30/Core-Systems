@@ -42,22 +42,29 @@
                 @Html.ActionLink(RadiusR.Localization.Pages.Common.Manage, "SupportGroupUsers", new { id = item.ID }, new { @class = "link-button iconed-button view-list-button" })
             </td>
             <td>
-                @foreach (var requestType in item.RelevantTypes)
-                {
-                    <div>
-                        @Html.DisplayFor(modelItem => requestType.Name)
-                        &nbsp;
-                        @using (Html.BeginForm("RemoveSupportGroupRequestType", null, new { id = item.ID }, FormMethod.Post, new { @confirm = "enabled" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            @Html.Hidden("requestTypeId", requestType.ID)
-                            <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button delete-button" />
-                        }
-                    </div>
-                }
-                <div>
-                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "AddSupportGroupRequestType", new { id = item.ID }, new { @class = "link-button iconed-button new-button" })
-                </div>
+                <table class="inner-table">
+                    @foreach (var requestType in item.RelevantTypes)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => requestType.Name)
+                            </td>
+                            <td>
+                                @using (Html.BeginForm("RemoveSupportGroupRequestType", null, new { id = item.ID, requestTypeId = requestType.ID }, FormMethod.Post, new { @confirm = "enabled" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("requestTypeId", requestType.ID)
+                                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button delete-button" />
+                                }
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td>
+                            @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "AddSupportGroupRequestType", new { id = item.ID }, new { @class = "link-button iconed-button new-button" })
+                        </td>
+                    </tr>
+                </table>
             </td>
             <td>
                 @Html.ActionLink(RadiusR.Localization.Pages.Common.Rename, "RenameSupportGroup", new { id = item.ID, redirectUrl = Request.Url }, new { @class = "link-button iconed-button edit-button" })

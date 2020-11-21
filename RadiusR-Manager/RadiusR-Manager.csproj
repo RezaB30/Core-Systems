@@ -913,6 +913,7 @@
     <Content Include="Views\SupportRequest\RenameSupportRequestType.cshtml" />
     <Content Include="Views\SupportRequest\AddSupportRequestSubType.cshtml" />
     <Content Include="Views\SupportRequest\RenameSupportRequestSubType.cshtml" />
+    <Content Include="Views\SupportRequest\AddSupportGroupRequestType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

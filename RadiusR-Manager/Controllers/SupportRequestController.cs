@@ -505,7 +505,7 @@ namespace RadiusR_Manager.Controllers
             var currentSupportGroup = db.SupportGroups.Find(id);
             if (currentSupportGroup == null)
             {
-                return RedirectToAction("SupportGroups", new { errorMessage = 0 });
+                return RedirectToAction("SupportGroups", new { errorMessage = 9 });
             }
             var viewResults = db.SupportGroupUsers.Where(sgu => sgu.SupportGroupID == currentSupportGroup.ID).OrderBy(sgu => sgu.AppUser.Name).Select(sgu => new SupportGroupUserViewModel()
             {
@@ -528,7 +528,7 @@ namespace RadiusR_Manager.Controllers
             var currentSupportGroup = db.SupportGroups.Find(id);
             if (currentSupportGroup == null)
             {
-                return RedirectToAction("SupportGroups", new { errorMessage = 0 });
+                return RedirectToAction("SupportGroups", new { errorMessage = 9 });
             }
 
             ViewBag.ValidUsers = new SelectList(db.AppUsers.Where(user => user.IsEnabled && !user.SupportGroupUsers.Any(sgu => sgu.SupportGroupID == currentSupportGroup.ID)).Select(user => new { Name = user.Name, Value = user.ID }).ToArray(), "Value", "Name");
@@ -545,7 +545,7 @@ namespace RadiusR_Manager.Controllers
             var currentSupportGroup = db.SupportGroups.Find(id);
             if (currentSupportGroup == null)
             {
-                return RedirectToAction("SupportGroups", new { errorMessage = 0 });
+                return RedirectToAction("SupportGroups", new { errorMessage = 9 });
             }
 
             if (ModelState.IsValid)
@@ -633,6 +633,78 @@ namespace RadiusR_Manager.Controllers
             }
 
             return View(groupUser);
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [HttpGet]
+        // GET: SupportRequest/AddSupportGroupRequestType
+        public ActionResult AddSupportGroupRequestType(int id)
+        {
+            var currentSupportGroup = db.SupportGroups.Find(id);
+            if (currentSupportGroup == null)
+            {
+                return RedirectToAction("SupportGroups", new { errorMessage = 9 });
+            }
+
+            ViewBag.GroupName = currentSupportGroup.Name;
+            var currentlyAddedIds = currentSupportGroup.SupportRequestTypes.Select(srt2 => srt2.ID).ToArray();
+            ViewBag.ValidTypes = new SelectList(db.SupportRequestTypes.Where(srt => !srt.IsDisabled && !currentlyAddedIds.Contains(srt.ID)).Select(srt => new { Value = srt.ID, Name = srt.Name }).ToArray(), "Value", "Name");
+            return View();
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST: SupportRequest/AddSupportGroupRequestType
+        public ActionResult AddSupportGroupRequestType(int id, AddSupportGroupRequestTypeViewModel addedRequestType)
+        {
+            var currentSupportGroup = db.SupportGroups.Find(id);
+            if (currentSupportGroup == null)
+            {
+                return RedirectToAction("SupportGroups", new { errorMessage = 9 });
+            }
+
+            if (ModelState.IsValid)
+            {
+                var selectedSupportRequestType = db.SupportRequestTypes.Find(addedRequestType.RequestTypeID.Value);
+                if (selectedSupportRequestType == null || selectedSupportRequestType.IsDisabled)
+                {
+                    ModelState.AddModelError("RequestTypeID", RadiusR.Localization.Validation.Common.InvalidInput);
+                }
+                else
+                {
+                    currentSupportGroup.SupportRequestTypes.Add(selectedSupportRequestType);
+                    db.SaveChanges();
+                    return RedirectToAction("SupportGroups", new { errorMessage = 0 });
+                }
+            }
+
+            ViewBag.GroupName = currentSupportGroup.Name;
+            ViewBag.ValidTypes = new SelectList(db.SupportRequestTypes.Where(srt => !srt.IsDisabled && !currentSupportGroup.SupportRequestTypes.Select(srt2 => srt2.ID).Contains(srt.ID)).Select(srt => new { Value = srt.ID, Name = srt.Name }).ToArray(), "Value", "Name", addedRequestType.RequestTypeID);
+            return View(addedRequestType);
+        }
+
+        [AuthorizePermission(Permissions = "Support Request Settings")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST: SupportRequest/RemoveSupportGroupRequestType
+        public ActionResult RemoveSupportGroupRequestType(int id, int requestTypeId)
+        {
+            var currentSupportGroup = db.SupportGroups.Find(id);
+            if (currentSupportGroup == null)
+            {
+                return RedirectToAction("SupportGroups", new { errorMessage = 9 });
+            }
+
+            var currentRequestType = db.SupportRequestTypes.Find(requestTypeId);
+            if (currentRequestType == null)
+            {
+                return RedirectToAction("SupportGroups", new { errorMessage = 9 });
+            }
+
+            currentSupportGroup.SupportRequestTypes.Remove(currentRequestType);
+            db.SaveChanges();
+            return RedirectToAction("SupportGroups", new { errorMessage = 0 });
         }
     }
 }
