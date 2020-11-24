@@ -299,6 +299,7 @@
     <Compile Include="ViewModels\SubscriberFeesAddViewModel.cs" />
     <Compile Include="ViewModels\SubscriptionRelatedSubscriptionViewModel.cs" />
     <Compile Include="ViewModels\SupportGroupRenameViewModel.cs" />
+    <Compile Include="ViewModels\SupportGroupRequestListViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestSearchViewModel.cs" />
     <Compile Include="ViewModels\SystemLogsReportSearchViewModel.cs" />
     <Compile Include="ViewModels\SystemLogsReportViewModel.cs" />

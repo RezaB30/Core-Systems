@@ -1464,4 +1464,19 @@
   <data name="SupportRequestType" xml:space="preserve">
     <value>Destek İsteğinin Türü</value>
   </data>
+  <data name="GroupInbox" xml:space="preserve">
+    <value>Grubun Gelen Kutusu</value>
+  </data>
+  <data name="GroupInProgress" xml:space="preserve">
+    <value>Grubun İşlemdeleri</value>
+  </data>
+  <data name="PersonalInbox" xml:space="preserve">
+    <value>Kişisel Gelen Kutusu</value>
+  </data>
+  <data name="SupportGroup" xml:space="preserve">
+    <value>Destek Grubu</value>
+  </data>
+  <data name="GroupRedirectedInbox" xml:space="preserve">
+    <value>Gruba Yönlendirilmiş Gelen Kutusu</value>
+  </data>
 </root>

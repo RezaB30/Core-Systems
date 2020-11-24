@@ -1,24 +1,24 @@
-﻿::placeholder{
+﻿::placeholder {
     color: green;
     opacity: 0.2;
 }
 
-:-ms-input-placeholder{
+:-ms-input-placeholder {
     color: green;
     opacity: 0.2;
 }
 
-:-ms-input-placeholder{
+:-ms-input-placeholder {
     color: green;
     opacity: 0.2;
 }
 
-::-ms-input-placeholder{
+::-ms-input-placeholder {
     color: green;
     opacity: 0.2;
 }
 
-::-webkit-input-placeholder{
+::-webkit-input-placeholder {
     color: green;
     opacity: 0.2;
 }
@@ -295,12 +295,16 @@ a.disconnect-button, input.disconnect-button {
     background-image: url('../Images/Buttons/disconnect.svg');
 }
 
-a.location-button, input.location-button{
+a.location-button, input.location-button {
     background-image: url('../Images/Buttons/location-on-map.svg');
 }
 
-a.settings2-button, input.settings2-button{
+a.settings2-button, input.settings2-button {
     background-image: url('../Images/Buttons/wrench.svg');
+}
+
+a.comment-button, input.comment-button {
+    background-image: url('../Images/Buttons/comment.svg');
 }
 
 a.search-button, input.search-button {

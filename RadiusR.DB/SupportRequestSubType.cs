@@ -25,8 +25,8 @@ namespace RadiusR.DB
         public string Name { get; set; }
         public bool IsDisabled { get; set; }
     
+        public virtual SupportRequestType SupportRequestType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupportRequest> SupportRequests { get; set; }
-        public virtual SupportRequestType SupportRequestType { get; set; }
     }
 }

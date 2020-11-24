@@ -1600,11 +1600,38 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group Inbox.
+        /// </summary>
+        public static string GroupInbox {
+            get {
+                return ResourceManager.GetString("GroupInbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group In Progress.
+        /// </summary>
+        public static string GroupInProgress {
+            get {
+                return ResourceManager.GetString("GroupInProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Group Name.
         /// </summary>
         public static string GroupName {
             get {
                 return ResourceManager.GetString("GroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group Redirected Inbox.
+        /// </summary>
+        public static string GroupRedirectedInbox {
+            get {
+                return ResourceManager.GetString("GroupRedirectedInbox", resourceCulture);
             }
         }
         
@@ -2631,6 +2658,15 @@ namespace RadiusR.Localization.Model {
         public static string PermitValidFrom {
             get {
                 return ResourceManager.GetString("PermitValidFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Personal Inbox.
+        /// </summary>
+        public static string PersonalInbox {
+            get {
+                return ResourceManager.GetString("PersonalInbox", resourceCulture);
             }
         }
         
@@ -3666,6 +3702,15 @@ namespace RadiusR.Localization.Model {
         public static string SuccessfulCount {
             get {
                 return ResourceManager.GetString("SuccessfulCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support Group.
+        /// </summary>
+        public static string SupportGroup {
+            get {
+                return ResourceManager.GetString("SupportGroup", resourceCulture);
             }
         }
         

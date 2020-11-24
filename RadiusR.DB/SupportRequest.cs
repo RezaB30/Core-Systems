@@ -31,13 +31,15 @@ namespace RadiusR.DB
         public Nullable<int> AssignedGroupID { get; set; }
         public Nullable<int> AssignedUserID { get; set; }
         public Nullable<System.DateTime> CustomerApprovalDate { get; set; }
+        public Nullable<int> RedirectedGroupID { get; set; }
     
         public virtual AppUser AppUser { get; set; }
+        public virtual Subscription Subscription { get; set; }
+        public virtual SupportGroup RedirectedSupportGroup { get; set; }
+        public virtual SupportGroup AssignedSupportGroup { get; set; }
         public virtual SupportRequestSubType SupportRequestSubType { get; set; }
         public virtual SupportRequestType SupportRequestType { get; set; }
-        public virtual SupportGroup SupportGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupportRequestProgress> SupportRequestProgresses { get; set; }
-        public virtual Subscription Subscription { get; set; }
     }
 }

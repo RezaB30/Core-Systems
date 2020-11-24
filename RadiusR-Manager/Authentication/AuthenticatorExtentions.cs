@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace RadiusR_Manager
@@ -44,6 +45,7 @@ namespace RadiusR_Manager
             {
                 var dbUser = db.AppUsers.Find(userId);
                 var internalCallCenterNo = dbUser.InternalCallCenterNo;
+
                 // --------------- DELETE THIS AFTER PARTNER UPDATE -------------
                 var cashier = dbUser.Cashiers.FirstOrDefault();
                 if (cashier != null && !cashier.IsEnabled)
@@ -51,8 +53,15 @@ namespace RadiusR_Manager
                 if (cashier != null)
                     extraClaims.Add(new Claim("cashierId", cashier.ID.ToString()));
                 // --------------------------------------------------------------
+                // internal call center no
                 if (!string.IsNullOrEmpty(internalCallCenterNo))
                     extraClaims.Add(new Claim("internalNo", internalCallCenterNo));
+                // support groups
+                var supportGroups = dbUser.SupportGroupUsers.Select(sgu => sgu.SupportGroupID).ToArray();
+                var leaderInGroups = dbUser.LeaderInGroups.Select(sg => sg.ID).ToArray();
+                supportGroups = supportGroups.Concat(leaderInGroups).Distinct().ToArray();
+                var supportGroupsClaim = string.Join(",", supportGroups.Select(sg => new { GroupID = sg, IsLeader = leaderInGroups.Contains(sg) }).Select(results => $"{{{results.GroupID},{results.IsLeader}}}").ToArray());
+                extraClaims.Add(new Claim("supportGroups", supportGroupsClaim));
             }
             // authorize
             var authenticator = new MasterISSAuthenticator();
@@ -87,6 +96,32 @@ namespace RadiusR_Manager
         {
             var identity = (ClaimsIdentity)User.Identity;
             return identity.Claims.Any(c => c.Type == "internalNo");
+        }
+
+        public static SupportGroupClaim[] GiveSupportGroups(this IPrincipal User)
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            var currentClaim = identity.Claims.FirstOrDefault(c => c.Type == "supportGroups");
+            if (currentClaim == null)
+                return new SupportGroupClaim[0];
+            var supportGroupRegex = new Regex(@"\{(?<idGroup>(?<id>\d)\,(?<isLeader>True|False))\}", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            var matches = supportGroupRegex.Matches(currentClaim.Value);
+            var results = new List<SupportGroupClaim>();
+            try
+            {
+                foreach (Match item in matches)
+                {
+                    var groupId = Convert.ToInt32(item.Groups["id"].Value);
+                    var isLeader = Convert.ToBoolean(item.Groups["isLeader"].Value);
+                    results.Add(new SupportGroupClaim(groupId, isLeader));
+                }
+            }
+            catch 
+            {
+                results.Clear();
+            }
+
+            return results.ToArray();
         }
 
         /// <summary>

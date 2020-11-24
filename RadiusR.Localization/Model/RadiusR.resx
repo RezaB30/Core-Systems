@@ -1464,4 +1464,19 @@
   <data name="SupportRequestType" xml:space="preserve">
     <value>Support Request Type</value>
   </data>
+  <data name="GroupInbox" xml:space="preserve">
+    <value>Group Inbox</value>
+  </data>
+  <data name="GroupInProgress" xml:space="preserve">
+    <value>Group In Progress</value>
+  </data>
+  <data name="PersonalInbox" xml:space="preserve">
+    <value>Personal Inbox</value>
+  </data>
+  <data name="SupportGroup" xml:space="preserve">
+    <value>Support Group</value>
+  </data>
+  <data name="GroupRedirectedInbox" xml:space="preserve">
+    <value>Group Redirected Inbox</value>
+  </data>
 </root>

@@ -12,6 +12,8 @@ using System.Data.Entity;
 using RezaB.Web.CustomAttributes;
 using RezaB.Web;
 using RezaB.Web.Authentication;
+using RadiusR.DB.Enums.SupportRequests;
+
 
 namespace RadiusR_Manager.Controllers
 {
@@ -19,6 +21,32 @@ namespace RadiusR_Manager.Controllers
     public class SupportRequestController : BaseController
     {
         RadiusREntities db = new RadiusREntities();
+
+        // GET: SupportRequest/Index
+        public ActionResult Index()
+        {
+            var userSupportGroups = User.GiveSupportGroups();
+            var currentUserId = User.GiveUserId();
+            if (!currentUserId.HasValue)
+            {
+                return RedirectToAction("Index", "Home", new { errorMessage = 0 });
+            }
+
+            var userIsLeaderInGroups = userSupportGroups.Where(item => item.IsLeader).Select(item => item.GroupId).ToArray();
+            var userIsInGroups = userSupportGroups.Select(item => item.GroupId).ToArray();
+            var viewResults = db.SupportGroups.Where(sg => userIsInGroups.Contains(sg.ID)).Select(sg => new SupportGroupRequestListViewModel()
+            {
+                GroupID = sg.ID,
+                GroupName = sg.Name,
+                IsLeader = sg.LeaderID == currentUserId,
+                GroupInbox = userIsLeaderInGroups.Contains(sg.ID) ? sg.SupportRequestTypes.Select(srt => srt.SupportRequests.Where(sr => sr.StateID != (short)SupportRequestStateID.Done).Count()).DefaultIfEmpty(0).Sum() : 0,
+                GroupRedirectedInbox = userIsLeaderInGroups.Contains(sg.ID) ? sg.RedirectedSupportRequests.Where(sr => sr.StateID != (short)SupportRequestStateID.Done).Count() : 0,
+                GroupInProgress = userIsLeaderInGroups.Contains(sg.ID) ? sg.AssignedSupportRequests.Where(sr => sr.StateID != (short)SupportRequestStateID.Done).Count() : 0,
+                PersonalInbox = sg.AssignedSupportRequests.Where(sr => sr.StateID != (short)SupportRequestStateID.Done && sr.AssignedUserID == currentUserId).Count()
+            }).ToArray();
+            
+            return View(viewResults);
+        }
 
         [AuthorizePermission(Permissions = "Support Request Settings")]
         public ActionResult SupportGroups(int? page)

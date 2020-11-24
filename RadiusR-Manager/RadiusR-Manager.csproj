@@ -272,8 +272,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Authenticator.cs" />
-    <Compile Include="AuthenticatorExtentions.cs" />
+    <Compile Include="Authentication\Authenticator.cs" />
+    <Compile Include="Authentication\AuthenticatorExtentions.cs" />
+    <Compile Include="Authentication\SupportGroupClaim.cs" />
     <Compile Include="Binders\BooleanBinder.cs" />
     <Compile Include="Binders\DateBinder.cs" />
     <Compile Include="Binders\DateWithTimeBinder.cs" />
@@ -418,6 +419,7 @@
     <Content Include="Content\css\views\line-quality.css" />
     <Content Include="Content\css\views\manage-cities.css" />
     <Content Include="Content\css\views\receipt.css" />
+    <Content Include="Content\css\views\support-request-inbox.css" />
     <Content Include="Content\css\views\work-order-details.css" />
     <Content Include="Content\css-m\_media-related.css" />
     <Content Include="Content\css\multi-button.css" />
@@ -430,6 +432,7 @@
     <Content Include="Content\css\views\settings-page.css" />
     <Content Include="Content\css\views\task-feed.css" />
     <Content Include="Content\css\waiting-progress.css" />
+    <Content Include="Content\Images\Buttons\comment.svg" />
     <Content Include="Content\Images\Buttons\disconnect.svg" />
     <Content Include="Content\Images\Buttons\discount.svg" />
     <Content Include="Content\Images\Buttons\download.svg" />
@@ -914,6 +917,7 @@
     <Content Include="Views\SupportRequest\AddSupportRequestSubType.cshtml" />
     <Content Include="Views\SupportRequest\RenameSupportRequestSubType.cshtml" />
     <Content Include="Views\SupportRequest\AddSupportGroupRequestType.cshtml" />
+    <Content Include="Views\SupportRequest\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

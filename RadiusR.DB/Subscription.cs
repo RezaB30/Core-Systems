@@ -34,10 +34,10 @@ namespace RadiusR.DB
             this.SubscriptionStateHistories = new HashSet<SubscriptionStateHistory>();
             this.SubscriptionSupportRequests = new HashSet<SubscriptionSupportRequest>();
             this.SubscriptionTariffHistories = new HashSet<SubscriptionTariffHistory>();
-            this.SupportRequests = new HashSet<SupportRequest>();
             this.SystemLogs = new HashSet<SystemLog>();
             this.TelekomWorkOrders = new HashSet<TelekomWorkOrder>();
             this.Groups = new HashSet<Group>();
+            this.SupportRequests = new HashSet<SupportRequest>();
         }
     
         public long ID { get; set; }
@@ -108,12 +108,12 @@ namespace RadiusR.DB
         public virtual ICollection<SubscriptionTariffHistory> SubscriptionTariffHistories { get; set; }
         public virtual SubscriptionTelekomInfo SubscriptionTelekomInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SupportRequest> SupportRequests { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SystemLog> SystemLogs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TelekomWorkOrder> TelekomWorkOrders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Group> Groups { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SupportRequest> SupportRequests { get; set; }
     }
 }

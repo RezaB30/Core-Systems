@@ -17,9 +17,9 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SupportRequestType()
         {
-            this.SupportRequests = new HashSet<SupportRequest>();
             this.SupportRequestSubTypes = new HashSet<SupportRequestSubType>();
             this.SupportGroups = new HashSet<SupportGroup>();
+            this.SupportRequests = new HashSet<SupportRequest>();
         }
     
         public int ID { get; set; }
@@ -28,10 +28,10 @@ namespace RadiusR.DB
         public bool IsDisabled { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SupportRequest> SupportRequests { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupportRequestSubType> SupportRequestSubTypes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupportGroup> SupportGroups { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SupportRequest> SupportRequests { get; set; }
     }
 }
