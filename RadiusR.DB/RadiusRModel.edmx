@@ -6380,7 +6380,7 @@
           <Property Name="AssignedUserID" Type="Int32" />
           <Property Name="CustomerApprovalDate" Type="DateTime" Precision="3" />
           <Property Name="RedirectedGroupID" Type="Int32" />
-          <NavigationProperty Name="AppUser" Relationship="RadiusRModel.FK_SupportRequest_AppUser" FromRole="SupportRequest" ToRole="AppUser" />
+          <NavigationProperty Name="AssignedUser" Relationship="RadiusRModel.FK_SupportRequest_AppUser" FromRole="SupportRequest" ToRole="AppUser" />
           <NavigationProperty Name="Subscription" Relationship="RadiusRModel.FK_SupportRequest_Subscription" FromRole="SupportRequest" ToRole="Subscription" />
           <NavigationProperty Name="RedirectedSupportGroup" Relationship="RadiusRModel.FK_SupportRequest_RedirectedGroupID" FromRole="SupportRequest" ToRole="SupportGroup" />
           <NavigationProperty Name="AssignedSupportGroup" Relationship="RadiusRModel.FK_SupportRequest_SupportGroup" FromRole="SupportRequest" ToRole="SupportGroup" />

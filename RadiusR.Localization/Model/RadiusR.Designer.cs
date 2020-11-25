@@ -277,6 +277,24 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assigned Group.
+        /// </summary>
+        public static string AssignedGroup {
+            get {
+                return ResourceManager.GetString("AssignedGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assigned Staff.
+        /// </summary>
+        public static string AssignedStaff {
+            get {
+                return ResourceManager.GetString("AssignedStaff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assigned Users.
         /// </summary>
         public static string AssignedUsers {
@@ -3004,6 +3022,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Redirected to Group.
+        /// </summary>
+        public static string RedirectedToGroup {
+            get {
+                return ResourceManager.GetString("RedirectedToGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reference No.
         /// </summary>
         public static string ReferenceNo {
@@ -3108,6 +3135,24 @@ namespace RadiusR.Localization.Model {
         public static string RemainingQuota {
             get {
                 return ResourceManager.GetString("RemainingQuota", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request Sub Type.
+        /// </summary>
+        public static string RequestSubType {
+            get {
+                return ResourceManager.GetString("RequestSubType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request Type.
+        /// </summary>
+        public static string RequestType {
+            get {
+                return ResourceManager.GetString("RequestType", resourceCulture);
             }
         }
         
@@ -3711,6 +3756,15 @@ namespace RadiusR.Localization.Model {
         public static string SupportGroup {
             get {
                 return ResourceManager.GetString("SupportGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support Pin.
+        /// </summary>
+        public static string SupportPin {
+            get {
+                return ResourceManager.GetString("SupportPin", resourceCulture);
             }
         }
         

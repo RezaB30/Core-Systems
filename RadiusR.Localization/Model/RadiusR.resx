@@ -1479,4 +1479,22 @@
   <data name="GroupRedirectedInbox" xml:space="preserve">
     <value>Group Redirected Inbox</value>
   </data>
+  <data name="AssignedGroup" xml:space="preserve">
+    <value>Assigned Group</value>
+  </data>
+  <data name="AssignedStaff" xml:space="preserve">
+    <value>Assigned Staff</value>
+  </data>
+  <data name="RedirectedToGroup" xml:space="preserve">
+    <value>Redirected to Group</value>
+  </data>
+  <data name="RequestSubType" xml:space="preserve">
+    <value>Request Sub Type</value>
+  </data>
+  <data name="RequestType" xml:space="preserve">
+    <value>Request Type</value>
+  </data>
+  <data name="SupportPin" xml:space="preserve">
+    <value>Support Pin</value>
+  </data>
 </root>

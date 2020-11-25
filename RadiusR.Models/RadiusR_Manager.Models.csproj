@@ -300,7 +300,7 @@
     <Compile Include="ViewModels\SubscriptionRelatedSubscriptionViewModel.cs" />
     <Compile Include="ViewModels\SupportGroupRenameViewModel.cs" />
     <Compile Include="ViewModels\SupportGroupRequestListViewModel.cs" />
-    <Compile Include="ViewModels\SupportRequestSearchViewModel.cs" />
+    <Compile Include="ViewModels\SupportRequestModels\SupportRequestListViewModel.cs" />
     <Compile Include="ViewModels\SystemLogsReportSearchViewModel.cs" />
     <Compile Include="ViewModels\SystemLogsReportViewModel.cs" />
     <Compile Include="ViewModels\TelekomTariffViewModel.cs" />
@@ -349,6 +349,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -33,7 +33,7 @@ namespace RadiusR.DB
         public Nullable<System.DateTime> CustomerApprovalDate { get; set; }
         public Nullable<int> RedirectedGroupID { get; set; }
     
-        public virtual AppUser AppUser { get; set; }
+        public virtual AppUser AssignedUser { get; set; }
         public virtual Subscription Subscription { get; set; }
         public virtual SupportGroup RedirectedSupportGroup { get; set; }
         public virtual SupportGroup AssignedSupportGroup { get; set; }

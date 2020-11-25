@@ -13,7 +13,7 @@ using RezaB.Web.CustomAttributes;
 using RezaB.Web;
 using RezaB.Web.Authentication;
 using RadiusR.DB.Enums.SupportRequests;
-
+using RadiusR_Manager.Models.ViewModels.SupportRequestModels;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -44,7 +44,29 @@ namespace RadiusR_Manager.Controllers
                 GroupInProgress = userIsLeaderInGroups.Contains(sg.ID) ? sg.AssignedSupportRequests.Where(sr => sr.StateID != (short)SupportRequestStateID.Done).Count() : 0,
                 PersonalInbox = sg.AssignedSupportRequests.Where(sr => sr.StateID != (short)SupportRequestStateID.Done && sr.AssignedUserID == currentUserId).Count()
             }).ToArray();
-            
+
+            return View(viewResults);
+        }
+
+        [HttpGet]
+        // GET: SupportRequest/GroupInbox
+        public ActionResult GroupInbox(int id, int? page)
+        {
+            var currentGroup = db.SupportGroups.Find(id);
+            if (currentGroup == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            }
+            var userGroups = User.GiveSupportGroups();
+            if (!userGroups.Any(item => item.GroupId == currentGroup.ID && item.IsLeader))
+            {
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            }
+
+            var viewResults = db.SupportRequests.Where(sr => sr.SupportRequestType.SupportGroups.Select(sg => sg.ID).Contains(currentGroup.ID) && sr.StateID != (short)SupportRequestStateID.Done).OrderByDescending(sr => sr.Date).GetViewModels();
+
+            SetupPages(page, ref viewResults);
+            ViewBag.GroupName = currentGroup.Name;
             return View(viewResults);
         }
 

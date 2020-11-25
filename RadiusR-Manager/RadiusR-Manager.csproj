@@ -918,6 +918,7 @@
     <Content Include="Views\SupportRequest\RenameSupportRequestSubType.cshtml" />
     <Content Include="Views\SupportRequest\AddSupportGroupRequestType.cshtml" />
     <Content Include="Views\SupportRequest\Index.cshtml" />
+    <Content Include="Views\SupportRequest\GroupInbox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
