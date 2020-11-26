@@ -57,11 +57,22 @@ namespace RadiusR_Manager
                 if (!string.IsNullOrEmpty(internalCallCenterNo))
                     extraClaims.Add(new Claim("internalNo", internalCallCenterNo));
                 // support groups
-                var supportGroups = dbUser.SupportGroupUsers.Select(sgu => sgu.SupportGroupID).ToArray();
-                var leaderInGroups = dbUser.LeaderInGroups.Select(sg => sg.ID).ToArray();
-                supportGroups = supportGroups.Concat(leaderInGroups).Distinct().ToArray();
-                var supportGroupsClaim = string.Join(",", supportGroups.Select(sg => new { GroupID = sg, IsLeader = leaderInGroups.Contains(sg) }).Select(results => $"{{{results.GroupID},{results.IsLeader}}}").ToArray());
-                extraClaims.Add(new Claim("supportGroups", supportGroupsClaim));
+                var supportGroups = dbUser.SupportGroupUsers.Where(sgu => !dbUser.LeaderInGroups.Select(group => group.ID).Contains(sgu.SupportGroupID)).Select(sgu => new SupportGroupClaim(sgu.SupportGroupID, false, sgu.CanCreate, sgu.CanChangeState)).ToArray();
+                var leaderInGroups = dbUser.LeaderInGroups.Where(sg => !supportGroups.Select(group => group.GroupId).Contains(sg.ID)).Select(sg => new SupportGroupClaim(sg.ID, true, true, true)).ToArray();
+                supportGroups = supportGroups.Concat(leaderInGroups).ToArray();
+                // serialize
+                var serializer = new System.Xml.Serialization.XmlSerializer(typeof(SupportGroupClaim));
+                foreach (var supportClaim in supportGroups)
+                {
+                    var serializedString = new System.Text.StringBuilder();
+                    using (var writer = new System.IO.StringWriter(serializedString))
+                    {
+                        serializer.Serialize(writer, supportClaim);
+                        writer.Flush();
+                        // add to claims
+                        extraClaims.Add(new Claim("supportGroups", serializedString.ToString()));
+                    }
+                }
             }
             // authorize
             var authenticator = new MasterISSAuthenticator();
@@ -100,25 +111,23 @@ namespace RadiusR_Manager
 
         public static SupportGroupClaim[] GiveSupportGroups(this IPrincipal User)
         {
-            var identity = (ClaimsIdentity)User.Identity;
-            var currentClaim = identity.Claims.FirstOrDefault(c => c.Type == "supportGroups");
-            if (currentClaim == null)
-                return new SupportGroupClaim[0];
-            var supportGroupRegex = new Regex(@"\{(?<idGroup>(?<id>\d)\,(?<isLeader>True|False))\}", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-            var matches = supportGroupRegex.Matches(currentClaim.Value);
             var results = new List<SupportGroupClaim>();
+            var identity = (ClaimsIdentity)User.Identity;
+            var groupClaims = identity.Claims.Where(c => c.Type == "supportGroups").ToArray();
             try
             {
-                foreach (Match item in matches)
+                var serializer = new System.Xml.Serialization.XmlSerializer(typeof(SupportGroupClaim));
+                foreach (var claim in groupClaims)
                 {
-                    var groupId = Convert.ToInt32(item.Groups["id"].Value);
-                    var isLeader = Convert.ToBoolean(item.Groups["isLeader"].Value);
-                    results.Add(new SupportGroupClaim(groupId, isLeader));
+                    using (var reader = new System.IO.StringReader(claim.Value))
+                    {
+                        results.Add((SupportGroupClaim)serializer.Deserialize(reader));
+                    }
                 }
             }
-            catch 
+            catch
             {
-                results.Clear();
+                return new SupportGroupClaim[0];
             }
 
             return results.ToArray();

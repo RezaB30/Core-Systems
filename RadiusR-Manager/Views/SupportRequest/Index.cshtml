@@ -23,24 +23,30 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td class="support-group-name">
                 @Html.DisplayFor(modelItem => item.GroupName)
             </td>
             <td class="centered">
                 @if (item.IsLeader)
                 {
+                <div style="margin-bottom: 0.1em;">
                     @Html.DisplayNameFor(model => model.GroupInbox)
-                    @: :
-                    <div class="support-request-count-indicator" title="@Html.Raw(Html.DisplayNameFor(model => model.GroupInbox))">
+                    :
+                    <div class="support-request-count-indicator">
                         @Html.DisplayFor(modelItem => item.GroupInbox)
+                        &nbsp;
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Show, "GroupInbox", new { id = item.GroupID }, new { @class = "link-button iconed-button comment-button" })
                     </div>
-                    @:&nbsp;
+                </div>
+                <div>
                     @Html.DisplayNameFor(model => model.GroupRedirectedInbox)
-                    @: :
-                    <div class="support-request-count-indicator" title="@Html.Raw(Html.DisplayNameFor(model => model.GroupRedirectedInbox))">
+                    :
+                    <div class="support-request-count-indicator">
                         @Html.DisplayFor(modelItem => item.GroupRedirectedInbox)
+                        &nbsp;
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Show, "GroupRedirectInbox", new { id = item.GroupID }, new { @class = "link-button iconed-button comment-button" })
                     </div>
-                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Show, "GroupInbox", new { id = item.GroupID }, new { @class = "link-button iconed-button comment-button" })
+                </div>
                 }
                 else
                 {
@@ -52,8 +58,9 @@
                 {
                     <div class="support-request-count-indicator">
                         @Html.DisplayFor(modelItem => item.GroupInProgress)
+                        &nbsp;
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Show, "GroupInProgress", new { id = item.GroupID }, new { @class = "link-button iconed-button comment-button" })
                     </div>
-                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Show, "GroupInProgress", new { id = item.GroupID }, new { @class = "link-button iconed-button comment-button" })
                 }
                 else
                 {
@@ -63,8 +70,9 @@
             <td>
                 <div class="support-request-count-indicator">
                     @Html.DisplayFor(modelItem => item.PersonalInbox)
+                    &nbsp;
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Show, "Inbox", new { id = item.GroupID }, new { @class = "link-button iconed-button comment-button" })
                 </div>
-                @Html.ActionLink(RadiusR.Localization.Pages.Common.Show, "Inbox", new { id = item.GroupID }, new { @class = "link-button iconed-button comment-button" })
             </td>
         </tr>
     }

@@ -7,14 +7,22 @@ namespace RadiusR_Manager
 {
     public class SupportGroupClaim
     {
-        public int GroupId { get; private set; }
+        public int GroupId { get; set; }
 
-        public bool IsLeader { get; private set; }
+        public bool IsLeader { get; set; }
 
-        public SupportGroupClaim(int groupId, bool isLeader)
+        public bool CanCreate { get; set; }
+
+        public bool CanChangeState { get; set; }
+
+        public SupportGroupClaim(int groupId, bool isLeader, bool canCreate, bool canChangeState )
         {
             GroupId = groupId;
             IsLeader = isLeader;
+            CanCreate = canCreate;
+            CanChangeState = canChangeState;
         }
+
+        protected SupportGroupClaim() { }
     }
 }

@@ -1,16 +1,30 @@
 ﻿div.support-request-count-indicator {
     display: inline-block;
     vertical-align: middle;
-    border-radius: 100%;
-    background-color: #d5c08e;
-    padding: 0.3em;
+    border-radius: 0.3em;
+    background-color: #c5d7cc;
+    padding-left: 0.3em;
     min-width: 1em;
     text-align: center;
     cursor: default;
+    margin-left: 0.4em;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+    transition: all ease 0.2s;
+}
+
+    div.support-request-count-indicator:hover {
+        padding-left: 0.7em;
+        margin-left: 0;
+        background-color: #b8ccdd;
+    }
+
+td.support-group-name {
+    font-size: 2em;
+    font-weight: bold;
+    background-color: #c5d7cc;
 }

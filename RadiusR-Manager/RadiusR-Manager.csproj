@@ -419,7 +419,7 @@
     <Content Include="Content\css\views\line-quality.css" />
     <Content Include="Content\css\views\manage-cities.css" />
     <Content Include="Content\css\views\receipt.css" />
-    <Content Include="Content\css\views\support-request-inbox.css" />
+    <Content Include="Content\css\views\support-request.css" />
     <Content Include="Content\css\views\work-order-details.css" />
     <Content Include="Content\css-m\_media-related.css" />
     <Content Include="Content\css\multi-button.css" />
