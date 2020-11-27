@@ -295,6 +295,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assign To Member.
+        /// </summary>
+        public static string AssignToMember {
+            get {
+                return ResourceManager.GetString("AssignToMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assign Work Order.
         /// </summary>
         public static string AssignWorkOrder {
@@ -930,6 +939,15 @@ namespace RadiusR.Localization.Pages {
         public static string Credits {
             get {
                 return ResourceManager.GetString("Credits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer.
+        /// </summary>
+        public static string Customer {
+            get {
+                return ResourceManager.GetString("Customer", resourceCulture);
             }
         }
         

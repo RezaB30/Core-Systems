@@ -1468,7 +1468,7 @@
     <value>Grubun Gelen Kutusu</value>
   </data>
   <data name="GroupInProgress" xml:space="preserve">
-    <value>Grubun İşlemdeleri</value>
+    <value>Grubun Aktif İşlemleri</value>
   </data>
   <data name="PersonalInbox" xml:space="preserve">
     <value>Kişisel Gelen Kutusu</value>

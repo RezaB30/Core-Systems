@@ -127,7 +127,7 @@
     <value>Changed State</value>
   </data>
   <data name="Create" xml:space="preserve">
-    <value>Created</value>
+    <value>Added Message</value>
   </data>
   <data name="RedirectToGroup" xml:space="preserve">
     <value>Redirected To Group</value>

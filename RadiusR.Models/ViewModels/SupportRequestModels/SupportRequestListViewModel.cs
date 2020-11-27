@@ -38,6 +38,22 @@ namespace RadiusR_Manager.Models.ViewModels.SupportRequestModels
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "RedirectedToGroup")]
         public string RedirectedToGroup { get; set; }
+
+        public SupportRequestListViewModel() { }
+
+        public SupportRequestListViewModel(SupportRequest dbRequest)
+        {
+            AssignedGroup = dbRequest.AssignedGroupID.HasValue ? dbRequest.AssignedSupportGroup.Name : null;
+            AssignedUser = dbRequest.AssignedUserID.HasValue ? dbRequest.AssignedUser.Name : null;
+            Date = dbRequest.Date;
+            ID = dbRequest.ID;
+            RedirectedToGroup = dbRequest.RedirectedGroupID.HasValue ? dbRequest.RedirectedSupportGroup.Name : null;
+            RequestSubType = dbRequest.SubTypeID.HasValue ? dbRequest.SupportRequestSubType.Name : null;
+            RequestType = dbRequest.TypeID.HasValue ? dbRequest.SupportRequestType.Name : null;
+            SubscriberNo = dbRequest.SubscriptionID.HasValue ? dbRequest.Subscription.SubscriberNo : null;
+            SubscriptionID = dbRequest.SubscriptionID;
+            SupportPin = dbRequest.SupportPin;
+        }
     }
 
     public static class SupportRequestListExtentions

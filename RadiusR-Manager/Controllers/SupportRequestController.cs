@@ -22,6 +22,7 @@ namespace RadiusR_Manager.Controllers
     {
         RadiusREntities db = new RadiusREntities();
 
+        [HttpGet]
         // GET: SupportRequest/Index
         public ActionResult Index()
         {
@@ -39,9 +40,9 @@ namespace RadiusR_Manager.Controllers
                 GroupID = sg.ID,
                 GroupName = sg.Name,
                 IsLeader = sg.LeaderID == currentUserId,
-                GroupInbox = userIsLeaderInGroups.Contains(sg.ID) ? sg.SupportRequestTypes.Select(srt => srt.SupportRequests.Where(sr => sr.StateID != (short)SupportRequestStateID.Done).Count()).DefaultIfEmpty(0).Sum() : 0,
-                GroupRedirectedInbox = userIsLeaderInGroups.Contains(sg.ID) ? sg.RedirectedSupportRequests.Where(sr => sr.StateID != (short)SupportRequestStateID.Done).Count() : 0,
-                GroupInProgress = userIsLeaderInGroups.Contains(sg.ID) ? sg.AssignedSupportRequests.Where(sr => sr.StateID != (short)SupportRequestStateID.Done).Count() : 0,
+                GroupInbox = userIsLeaderInGroups.Contains(sg.ID) ? sg.SupportRequestTypes.Select(srt => srt.SupportRequests.Where(sr => sr.StateID != (short)SupportRequestStateID.Done && !sr.AssignedGroupID.HasValue).Count()).DefaultIfEmpty(0).Sum() : 0,
+                GroupRedirectedInbox = userIsLeaderInGroups.Contains(sg.ID) ? sg.RedirectedSupportRequests.Where(sr => sr.StateID != (short)SupportRequestStateID.Done && sr.RedirectedGroupID == sg.ID).Count() : 0,
+                GroupInProgress = userIsLeaderInGroups.Contains(sg.ID) ? sg.AssignedSupportRequests.Where(sr => sr.StateID != (short)SupportRequestStateID.Done && sr.AssignedGroupID == sg.ID).Count() : 0,
                 PersonalInbox = sg.AssignedSupportRequests.Where(sr => sr.StateID != (short)SupportRequestStateID.Done && sr.AssignedUserID == currentUserId).Count()
             }).ToArray();
 
@@ -63,10 +64,56 @@ namespace RadiusR_Manager.Controllers
                 return RedirectToAction("Index", new { errorMessage = 9 });
             }
 
-            var viewResults = db.SupportRequests.Where(sr => sr.SupportRequestType.SupportGroups.Select(sg => sg.ID).Contains(currentGroup.ID) && sr.StateID != (short)SupportRequestStateID.Done).OrderByDescending(sr => sr.Date).GetViewModels();
+            var viewResults = db.SupportRequests.Where(sr => sr.SupportRequestType.SupportGroups.Select(sg => sg.ID).Contains(currentGroup.ID) && sr.StateID != (short)SupportRequestStateID.Done && !sr.AssignedGroupID.HasValue).OrderByDescending(sr => sr.Date).GetViewModels();
 
             SetupPages(page, ref viewResults);
             ViewBag.GroupName = currentGroup.Name;
+            ViewBag.GroupId = currentGroup.ID;
+            ViewBag.InboxTitle = $"{ViewBag.GroupName}-{RadiusR.Localization.Model.RadiusR.GroupInbox}";
+            return View(viewName: "Inbox", model: viewResults);
+        }
+
+        [HttpGet]
+        // GET: SupportRequest/Details
+        public ActionResult Details(long id, int? groupId, string returnUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            var currentSupportRequest = db.SupportRequests.Find(id);
+            if (currentSupportRequest == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+            var userGroupPermissions = GetSupportRequestPermissions(currentSupportRequest, groupId);
+            if (userGroupPermissions == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+            ViewBag.GroupPermissions = userGroupPermissions;
+
+            var viewResults = new SupportRequestDetailsViewModel()
+            {
+                RequestInfo = new SupportRequestListViewModel(currentSupportRequest),
+                Stages = currentSupportRequest.SupportRequestProgresses.Select(srp => new SupportRequestStageViewModel()
+                {
+                    ActionType = srp.ActionType,
+                    CommittingUser = srp.AppUserID.HasValue ? srp.AppUser.Name : null,
+                    Date = srp.Date,
+                    GroupName = srp.SetGroupID.HasValue ? srp.SupportGroup.Name : null,
+                    ID = srp.ID,
+                    IsVisibleToCustomer = srp.IsVisibleToCustomer,
+                    Message = srp.Message,
+                    NewState = srp.NewState,
+                    OldState = srp.OldState
+                }).ToArray()
+            };
+
+            ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            ViewBag.GroupId = groupId;
+            ViewBag.GroupUsers = new SelectList(db.SupportGroupUsers.Where(sgu => sgu.SupportGroupID == groupId).Select(sgu => new { Value = sgu.AppUserID, Name = sgu.AppUser.Name }).ToArray(), "Value", "Name"); 
             return View(viewResults);
         }
 
@@ -755,6 +802,28 @@ namespace RadiusR_Manager.Controllers
             currentSupportGroup.SupportRequestTypes.Remove(currentRequestType);
             db.SaveChanges();
             return RedirectToAction("SupportGroups", new { errorMessage = 0 });
+        }
+
+        private SupportGroupClaim GetSupportRequestPermissions(SupportRequest supportRequest, int? currentGroupId)
+        {
+            var userGroupClaims = User.GiveSupportGroups();
+            if (currentGroupId.HasValue)
+            {
+                var leaderClaim = userGroupClaims.FirstOrDefault(claim => claim.GroupId == currentGroupId);
+                var isValid = ((supportRequest.AssignedGroupID == leaderClaim.GroupId || supportRequest.SupportRequestType.SupportGroups.Any(sg => sg.ID == leaderClaim.GroupId)) && leaderClaim.IsLeader);
+                if (isValid)
+                    return leaderClaim;
+            }
+            else
+            {
+                var standardClaim = userGroupClaims.FirstOrDefault(claim => claim.GroupId == supportRequest.AssignedGroupID);
+                if (standardClaim == null)
+                    return null;
+                var isValid = (supportRequest.AssignedUserID == User.GiveUserId() && supportRequest.AssignedGroupID == standardClaim.GroupId);
+                if (isValid)
+                    return standardClaim;
+            }
+                return null;
         }
     }
 }

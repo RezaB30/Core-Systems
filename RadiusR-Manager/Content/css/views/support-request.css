@@ -28,3 +28,53 @@ td.support-group-name {
     font-weight: bold;
     background-color: #c5d7cc;
 }
+
+.support-request-sub-type-view {
+    color: green;
+}
+
+.support-request-message {
+    white-space: pre-line;
+    background-color: #fffdef;
+    word-break: break-word;
+    max-width: 25em;
+    padding: 0.2em;
+    border-radius: 0.2em;
+}
+
+span.support-request-stage-user {
+    background-color: #6d456f;
+}
+
+span.support-request-stage-customer {
+    background-color: #006c16;
+}
+
+span.support-request-stage-action {
+    background-color: #030da6;
+}
+
+.support-request-tag {
+    border-radius: 0.2em;
+    padding: 0 0.3em;
+    color: white;
+}
+
+td.support-request-stage {
+    background-color: #d3e1d5;
+    border-radius: 0.3em;
+    border: 1px solid lightgray;
+    overflow: hidden;
+}
+
+div.support-request-stage-head {
+    color: #639cce;
+}
+
+div.support-request-stage-row {
+    margin: 0.2em;
+}
+
+td.support-request-stage-separator {
+    border-bottom: 2px dashed gray;
+}

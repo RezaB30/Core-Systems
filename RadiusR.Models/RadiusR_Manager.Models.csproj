@@ -178,6 +178,7 @@
     <Compile Include="RadiusViewModels\SubscriptionCommitmentViewModel.cs" />
     <Compile Include="RadiusViewModels\SupportGroupUserViewModel.cs" />
     <Compile Include="RadiusViewModels\SupportGroupViewModel.cs" />
+    <Compile Include="ViewModels\SupportRequestModels\SupportRequestDetailsViewModel.cs" />
     <Compile Include="RadiusViewModels\SupportRequestSubTypeViewModel.cs" />
     <Compile Include="RadiusViewModels\SupportRequestTypeViewModel.cs" />
     <Compile Include="RadiusViewModels\SystemLogViewModel.cs" />
@@ -301,6 +302,7 @@
     <Compile Include="ViewModels\SupportGroupRenameViewModel.cs" />
     <Compile Include="ViewModels\SupportGroupRequestListViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestModels\SupportRequestListViewModel.cs" />
+    <Compile Include="ViewModels\SupportRequestModels\SupportRequestStageViewModel.cs" />
     <Compile Include="ViewModels\SystemLogsReportSearchViewModel.cs" />
     <Compile Include="ViewModels\SystemLogsReportViewModel.cs" />
     <Compile Include="ViewModels\TelekomTariffViewModel.cs" />

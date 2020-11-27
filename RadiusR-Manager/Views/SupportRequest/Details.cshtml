@@ -1,0 +1,133 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.SupportRequestModels.SupportRequestDetailsViewModel
+
+@{
+    ViewBag.Title = $"{Model.RequestInfo.SupportPin}-{RadiusR.Localization.Pages.Common.Details}";
+    int? groupId = ViewBag.GroupId as int?;
+    SupportGroupClaim supportPermissions = ViewBag.GroupPermissions as SupportGroupClaim;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        <table class="input-table">
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.RequestInfo.SupportPin)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.RequestInfo.SupportPin)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.RequestInfo.SubscriberNo)
+                </td>
+                <td>
+                    <a href="@Url.Action("Details", "Client", new { id = Model.RequestInfo.SubscriptionID })" class="details-link">@Html.DisplayFor(model => model.RequestInfo.SubscriberNo)</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.RequestInfo.RequestType)/@Html.LabelFor(model => model.RequestInfo.RequestSubType)
+                </td>
+                <td>
+                    <div>
+                        @Html.DisplayFor(model => model.RequestInfo.RequestType)
+                    </div>
+                    <div class="support-request-sub-type-view">
+                        @Html.DisplayFor(model => model.RequestInfo.RequestSubType)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.RequestInfo.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.RequestInfo.Date)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.RequestInfo.AssignedGroup)
+                </td>
+                <td>
+                    @if (Model.RequestInfo.AssignedGroup != null)
+                    {
+                        <div class="support-request-tag support-request-assigned-group">
+                            @Html.DisplayNameFor(model => model.RequestInfo.AssignedGroup):
+                            @Html.DisplayFor(model => model.RequestInfo.AssignedGroup)
+                        </div>
+                    }
+                    @if (Model.RequestInfo.AssignedUser != null)
+                    {
+                        <div class="support-request-tag support-request-assigned-user">
+                            @Html.DisplayNameFor(model => model.RequestInfo.AssignedUser):
+                            @Html.DisplayFor(model => model.RequestInfo.AssignedUser)
+                        </div>
+                    }
+                    @if (Model.RequestInfo.RedirectedToGroup != null)
+                    {
+                        <div class="support-request-tag support-request-redirected-to-group">
+                            @Html.DisplayNameFor(model => model.RequestInfo.RedirectedToGroup):
+                            @Html.DisplayFor(model => model.RequestInfo.RedirectedToGroup)
+                        </div>
+                    }
+                </td>
+            </tr>
+            @foreach (var item in Model.Stages)
+            {
+                <tr>
+                    <td colspan="2" class="support-request-stage-separator"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="support-request-stage">
+                        <div class="support-request-stage-row support-request-stage-head">
+                            @Html.DisplayFor(modelItem => item.Date)
+                            -
+                            @if (item.CommittingUser != null)
+                            {
+                                <span class="support-request-tag support-request-stage-user">@Html.DisplayFor(modelItem => item.CommittingUser) &#40;@Html.DisplayFor(modelItem => item.GroupName)&#41;</span>
+                            }
+                            else
+                            {
+                                <span class="support-request-tag support-request-stage-customer">@RadiusR.Localization.Pages.Common.Customer</span>
+                            }
+                            -
+                            <span class="support-request-tag support-request-stage-action">@Html.DisplayFor(modelItem => item.ActionType)</span>
+                        </div>
+                        <div class="support-request-stage-row">
+                            <div class="support-request-message">@Html.DisplayFor(modelItem => item.Message)</div>
+                        </div>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="2">
+
+                    <div>
+                        @if (supportPermissions != null && supportPermissions.IsLeader)
+                        {
+                            //assign to a member
+                            using (Html.BeginForm("AssignMember", null, null, FormMethod.Post, new { confirm = "enabled" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Select("userId", (SelectList)ViewBag.GroupUsers, RadiusR.Localization.Pages.Common.Choose)
+                                @:&nbsp;
+                                <input type="submit" value="@RadiusR.Localization.Pages.Common.AssignToMember" class="link-button iconed-button next-button" />
+                            }
+                            //finish
+                            //redirect to another group
+                        }
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="centered">
+                    <a href="@ViewBag.ReturnUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

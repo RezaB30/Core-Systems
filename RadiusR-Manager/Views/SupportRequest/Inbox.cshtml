@@ -3,7 +3,7 @@
 @model IEnumerable<RadiusR_Manager.Models.ViewModels.SupportRequestModels.SupportRequestListViewModel>
 
 @{
-    ViewBag.Title = $"{ViewBag.GroupName}-{RadiusR.Localization.Model.RadiusR.GroupInbox}";
+    ViewBag.Title = ViewBag.InboxTitle;
 }
 
 <table class="data-table">
@@ -34,10 +34,10 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td class="centered">
                 <a href="@Url.Action("Details", "Client", new { id = item.SubscriptionID })#faults" class="details-link">@Html.DisplayFor(modelItem => item.SubscriberNo)</a>
             </td>
-            <td>
+            <td class="centered">
                 @Html.DisplayFor(modelItem => item.SupportPin)
             </td>
             <td class="centered">
@@ -54,28 +54,33 @@
             <td class="centered">
                 @if (item.AssignedGroup != null)
                 {
-                    <div class="support-request-assigned-group">
+                    <div class="support-request-tag support-request-assigned-group">
                         @Html.DisplayNameFor(model => model.AssignedGroup):
                         @Html.DisplayFor(modelItem => item.AssignedGroup)
                     </div>
                 }
                 @if (item.AssignedUser != null)
                 {
-                    <div class="support-request-assigned-user">
+                    <div class="support-request-tag support-request-assigned-user">
                         @Html.DisplayNameFor(model => model.AssignedUser):
                         @Html.DisplayFor(modelItem => item.AssignedUser)
                     </div>
                 }
                 @if (item.RedirectedToGroup != null)
                 {
-                    <div class="support-request-redirected-to-group">
+                    <div class="support-request-tag support-request-redirected-to-group">
                         @Html.DisplayNameFor(model => model.RedirectedToGroup):
                         @Html.DisplayFor(modelItem => item.RedirectedToGroup)
                     </div>
                 }
             </td>
-            <td></td>
+            <td>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", new { id = item.ID, groupId = ViewBag.GroupId, returnUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button details-button" })
+            </td>
         </tr>
     }
 </table>
 @Html.PagedList((int)ViewBag.PageCount)
+<div class="button-row centered">
+    @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class = "link-button iconed-button back-button" })
+</div>

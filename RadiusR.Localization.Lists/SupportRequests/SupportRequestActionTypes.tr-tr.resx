@@ -127,7 +127,7 @@
     <value>Durum Değiştirildi</value>
   </data>
   <data name="Create" xml:space="preserve">
-    <value>Oluşturuldu</value>
+    <value>Not Oluşturuldu</value>
   </data>
   <data name="RedirectToGroup" xml:space="preserve">
     <value>Gruba Yönlendirildi</value>

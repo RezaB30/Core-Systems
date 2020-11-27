@@ -1116,4 +1116,10 @@
   <data name="SupportRequestSubTypes" xml:space="preserve">
     <value>Support Request Sub Types</value>
   </data>
+  <data name="AssignToMember" xml:space="preserve">
+    <value>Assign To Member</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
 </root>

@@ -1113,4 +1113,10 @@
   <data name="SupportRequestSubTypes" xml:space="preserve">
     <value>Destek İsteği Alt Türleri</value>
   </data>
+  <data name="AssignToMember" xml:space="preserve">
+    <value>Personele Devret</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Müşteri</value>
+  </data>
 </root>
