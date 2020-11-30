@@ -302,6 +302,7 @@
     <Compile Include="ViewModels\SupportGroupRenameViewModel.cs" />
     <Compile Include="ViewModels\SupportGroupRequestListViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestModels\SupportRequestListViewModel.cs" />
+    <Compile Include="ViewModels\SupportRequestModels\SupportRequestProcessViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestModels\SupportRequestStageViewModel.cs" />
     <Compile Include="ViewModels\SystemLogsReportSearchViewModel.cs" />
     <Compile Include="ViewModels\SystemLogsReportViewModel.cs" />

@@ -29,24 +29,32 @@
             <td class="centered">
                 @if (item.IsLeader)
                 {
-                <div style="margin-bottom: 0.1em;">
-                    @Html.DisplayNameFor(model => model.GroupInbox)
-                    :
-                    <div class="support-request-count-indicator">
-                        @Html.DisplayFor(modelItem => item.GroupInbox)
-                        &nbsp;
-                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Show, "GroupInbox", new { id = item.GroupID }, new { @class = "link-button iconed-button comment-button" })
-                    </div>
-                </div>
-                <div>
-                    @Html.DisplayNameFor(model => model.GroupRedirectedInbox)
-                    :
-                    <div class="support-request-count-indicator">
-                        @Html.DisplayFor(modelItem => item.GroupRedirectedInbox)
-                        &nbsp;
-                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Show, "GroupRedirectInbox", new { id = item.GroupID }, new { @class = "link-button iconed-button comment-button" })
-                    </div>
-                </div>
+                    <table class="inline-table" style="margin: auto;">
+                        <tr>
+                            <td style="text-align: left">
+                                @Html.DisplayNameFor(model => model.GroupInbox)
+                            </td>
+                            <td>
+                                <div class="support-request-count-indicator">
+                                    @Html.DisplayFor(modelItem => item.GroupInbox)
+                                    &nbsp;
+                                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Show, "GroupInbox", new { id = item.GroupID }, new { @class = "link-button iconed-button comment-button" })
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left;">
+                                @Html.DisplayNameFor(model => model.GroupRedirectedInbox)
+                            </td>
+                            <td>
+                                <div class="support-request-count-indicator">
+                                    @Html.DisplayFor(modelItem => item.GroupRedirectedInbox)
+                                    &nbsp;
+                                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Show, "GroupRedirectInbox", new { id = item.GroupID }, new { @class = "link-button iconed-button comment-button" })
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 }
                 else
                 {

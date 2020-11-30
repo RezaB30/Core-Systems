@@ -393,6 +393,7 @@
     <Content Include="Content\css\fee-type-variant-list.css" />
     <Content Include="Content\css\file-upload.css" />
     <Content Include="Content\css\file-view.css" />
+    <Content Include="Content\css\important-ordered-list.css" />
     <Content Include="Content\css\inner-table.css" />
     <Content Include="Content\css\loading-pins.css" />
     <Content Include="Content\css\payment-button.css" />

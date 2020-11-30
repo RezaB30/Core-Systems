@@ -88,6 +88,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action Type.
+        /// </summary>
+        public static string ActionType {
+            get {
+                return ResourceManager.GetString("ActionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Activation Date.
         /// </summary>
         public static string ActivationDate {
@@ -1618,6 +1627,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group.
+        /// </summary>
+        public static string Group {
+            get {
+                return ResourceManager.GetString("Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Group Inbox.
         /// </summary>
         public static string GroupInbox {
@@ -2163,6 +2181,15 @@ namespace RadiusR.Localization.Model {
         public static string MaxSmartQuotaPrice {
             get {
                 return ResourceManager.GetString("MaxSmartQuotaPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member.
+        /// </summary>
+        public static string Member {
+            get {
+                return ResourceManager.GetString("Member", resourceCulture);
             }
         }
         
@@ -4152,6 +4179,15 @@ namespace RadiusR.Localization.Model {
         public static string VerticalIPMapList {
             get {
                 return ResourceManager.GetString("VerticalIPMapList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visible To Customer.
+        /// </summary>
+        public static string VisibleToCustomer {
+            get {
+                return ResourceManager.GetString("VisibleToCustomer", resourceCulture);
             }
         }
         

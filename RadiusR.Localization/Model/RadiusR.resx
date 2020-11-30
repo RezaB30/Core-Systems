@@ -1497,4 +1497,16 @@
   <data name="SupportPin" xml:space="preserve">
     <value>Support Pin</value>
   </data>
+  <data name="ActionType" xml:space="preserve">
+    <value>Action Type</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>Member</value>
+  </data>
+  <data name="VisibleToCustomer" xml:space="preserve">
+    <value>Visible To Customer</value>
+  </data>
 </root>

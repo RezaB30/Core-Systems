@@ -169,6 +169,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Note.
+        /// </summary>
+        public static string AddNote {
+            get {
+                return ResourceManager.GetString("AddNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Operator.
         /// </summary>
         public static string AddOperator {
@@ -2307,6 +2316,15 @@ namespace RadiusR.Localization.Pages {
         public static string RecurringDiscounts {
             get {
                 return ResourceManager.GetString("RecurringDiscounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redirect to Group.
+        /// </summary>
+        public static string RedirectToGroup {
+            get {
+                return ResourceManager.GetString("RedirectToGroup", resourceCulture);
             }
         }
         

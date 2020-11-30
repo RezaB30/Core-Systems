@@ -1,0 +1,28 @@
+﻿ol.important-ordered-list {
+    counter-reset: custom-counter-increment;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    ol.important-ordered-list li {
+        counter-increment: custom-counter-increment;
+        padding: 0.2em 0;
+        border-width: 1px 0 0;
+        border-style: solid;
+        border-color: gray;
+    }
+
+        ol.important-ordered-list li::before {
+            content: counter(custom-counter-increment);
+            display: inline-block;
+            margin: 0 0.5em;
+            min-width: 1.3em;
+            text-align: center;
+            font-family: 'Racing Sans One', cursive;
+            border: 0.3em double;
+            border-radius: 100%;
+            font-size: 1.2em;
+            vertical-align: middle;
+            color: #400a0a;
+        }

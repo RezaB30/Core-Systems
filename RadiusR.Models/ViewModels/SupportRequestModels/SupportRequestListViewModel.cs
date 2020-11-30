@@ -1,4 +1,5 @@
 ﻿using RadiusR.DB;
+using RezaB.Web.CustomAttributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -39,6 +40,11 @@ namespace RadiusR_Manager.Models.ViewModels.SupportRequestModels
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "RedirectedToGroup")]
         public string RedirectedToGroup { get; set; }
 
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "State")]
+        [EnumType(typeof(RadiusR.DB.Enums.SupportRequests.SupportRequestStateID), typeof(RadiusR.Localization.Lists.SupportRequests.SupportRequestStateID))]
+        [UIHint("LocalizedList")]
+        public short StateID { get; set; }
+
         public SupportRequestListViewModel() { }
 
         public SupportRequestListViewModel(SupportRequest dbRequest)
@@ -53,6 +59,7 @@ namespace RadiusR_Manager.Models.ViewModels.SupportRequestModels
             SubscriberNo = dbRequest.SubscriptionID.HasValue ? dbRequest.Subscription.SubscriberNo : null;
             SubscriptionID = dbRequest.SubscriptionID;
             SupportPin = dbRequest.SupportPin;
+            StateID = dbRequest.StateID;
         }
     }
 

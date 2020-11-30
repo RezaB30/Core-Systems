@@ -6,6 +6,7 @@
     ViewBag.Title = $"{Model.RequestInfo.SupportPin}-{RadiusR.Localization.Pages.Common.Details}";
     int? groupId = ViewBag.GroupId as int?;
     SupportGroupClaim supportPermissions = ViewBag.GroupPermissions as SupportGroupClaim;
+    var processParameters = ViewBag.ProcessParameters as RadiusR_Manager.Models.ViewModels.SupportRequestModels.SupportRequestProcessViewModel ?? new RadiusR_Manager.Models.ViewModels.SupportRequestModels.SupportRequestProcessViewModel();
 }
 
 <div class="centered-form-wrapper">
@@ -106,28 +107,107 @@
             <tr>
                 <td colspan="2">
 
-                    <div>
-                        @if (supportPermissions != null && supportPermissions.IsLeader)
+                    <div class="submit-row support-request-action-box">
+                        @if (supportPermissions != null && Model.RequestInfo.StateID != (short)RadiusR.DB.Enums.SupportRequests.SupportRequestStateID.Done)
                         {
-                            //assign to a member
-                            using (Html.BeginForm("AssignMember", null, null, FormMethod.Post, new { confirm = "enabled" }))
+                            using (Html.BeginForm())
                             {
+                                @Html.HiddenFor(model => processParameters.ActionType, new { @class = "action-type-input" })
                                 @Html.AntiForgeryToken()
-                                @Html.Select("userId", (SelectList)ViewBag.GroupUsers, RadiusR.Localization.Pages.Common.Choose)
-                                @:&nbsp;
-                                <input type="submit" value="@RadiusR.Localization.Pages.Common.AssignToMember" class="link-button iconed-button next-button" />
+                                //message
+                                <div class="support-request-action-row">
+                                    @Html.LabelFor(model => processParameters.AddedMessage)
+                                </div>
+                                <div class="support-request-action-row">
+                                    @Html.EditorFor(model => processParameters.AddedMessage, new { htmlAttributes = new { @class = "support-request-note", maxlength = 1000, autocomplete = "off" } })
+                                </div>
+                                <div class="support-request-action-row">
+                                    @Html.ValidationMessageFor(model => processParameters.AddedMessage)
+                                </div>
+                                if (Model.RequestInfo.SubscriptionID.HasValue)
+                                {
+                                    <div class="support-request-action-row">
+                                        @Html.EditorFor(model => processParameters.IsVisibleToCustomer)
+                                    </div>
+                                }
+                                <ol class="important-ordered-list">
+                                    @if (supportPermissions.IsLeader)
+                                    {
+                                        <li>
+                                            @*assign to a member*@
+                                            <div class="submit-group-row support-request-action-row support-request-action-list-item">
+                                                @Html.Select(model => processParameters.SelectedUserID, (SelectList)ViewBag.GroupUsers, RadiusR.Localization.Pages.Common.Choose)
+                                                &nbsp;
+                                                <input type="button" value="@RadiusR.Localization.Pages.Common.AssignToMember" class="link-button iconed-button next-button submit-group-button" addition-data="@((short)RadiusR.DB.Enums.SupportRequests.SupportRequestActionTypes.AssignToMember)" />
+                                            </div>
+                                            <div class="text-danger submit-group-row support-request-action-row">
+                                                @Html.ValidationMessageFor(model => processParameters.SelectedUserID)
+                                            </div>
+                                        </li>
+                                        <li>
+                                            @*redirect to another group*@
+                                            <div class="submit-group-row support-request-action-row support-request-action-list-item">
+                                                @Html.Select(model => processParameters.SelectedGroupID, (SelectList)ViewBag.RedirectGroups, RadiusR.Localization.Pages.Common.Choose)
+                                                &nbsp;
+                                                <input type="button" value="@RadiusR.Localization.Pages.Common.RedirectToGroup" class="link-button iconed-button next-button submit-group-button" addition-data="@((short)RadiusR.DB.Enums.SupportRequests.SupportRequestActionTypes.RedirectToGroup)" />
+                                            </div>
+                                            <div class="text-danger submit-group-row support-request-action-row">
+                                                @Html.ValidationMessageFor(model => processParameters.SelectedGroupID)
+                                            </div>
+                                        </li>
+                                    }
+                                    <li>
+                                        @*add note*@
+                                        <div class="submit-group-row support-request-action-row support-request-action-list-item">
+                                            <input type="button" value="@RadiusR.Localization.Pages.Common.AddNote" class="link-button iconed-button save-button submit-group-button" addition-data="@((short)RadiusR.DB.Enums.SupportRequests.SupportRequestActionTypes.Create)" />
+                                        </div>
+                                    </li>
+                                    @if (supportPermissions.IsLeader || supportPermissions.CanChangeState)
+                                    {
+                                        <li>
+                                            @*finish*@
+                                            <div class="submit-group-row support-request-action-row support-request-action-list-item">
+                                                <input type="button" value="@RadiusR.Localization.Pages.Common.Finish" class="link-button iconed-button accept-button submit-group-button" addition-data="@((short)RadiusR.DB.Enums.SupportRequests.SupportRequestActionTypes.ChangeState)" />
+                                            </div>
+                                        </li>
+                                    }
+                                </ol>
                             }
-                            //finish
-                            //redirect to another group
                         }
                     </div>
                 </td>
             </tr>
             <tr>
-                <td colspan="2" class="centered">
+                <td colspan="2" class="centered submit-row">
                     <a href="@ViewBag.ReturnUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="centered">
+                    @Html.Partial("_WaitTimer")
                 </td>
             </tr>
         </table>
     </div>
 </div>
+
+@section PageScripts{
+    <script>
+        $('input.submit-group-button').click(function () {
+            var currentButton = $(this);
+            var currentRow = currentButton.closest('div.submit-group-row');
+            currentRow.addClass('action-selected-row');
+            var currentForm = currentButton.closest('form');
+            var invalidRows = currentForm.find('div.submit-group-row:not(.action-selected-row)');
+            invalidRows.remove();
+
+            currentForm.find('input.action-type-input').val(currentButton.attr('addition-data'));
+            currentForm.submit();
+        });
+        $('.submit-row').find('form').submit(function () {
+            $('.submit-row').hide();
+
+            StartWaitingCounter('div.waiting-progress');
+        });
+    </script>
+}

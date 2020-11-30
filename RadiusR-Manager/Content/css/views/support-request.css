@@ -24,9 +24,11 @@
     }
 
 td.support-group-name {
-    font-size: 2em;
-    font-weight: bold;
-    background-color: #c5d7cc;
+    font-size: 1.5em;
+    background-color: #292929;
+    font-family: 'Racing Sans One', cursive;
+    color: white;
+    text-align: center;
 }
 
 .support-request-sub-type-view {
@@ -37,9 +39,10 @@ td.support-group-name {
     white-space: pre-line;
     background-color: #fffdef;
     word-break: break-word;
-    max-width: 25em;
+    max-width: 100%;
     padding: 0.2em;
     border-radius: 0.2em;
+    box-sizing: border-box;
 }
 
 span.support-request-stage-user {
@@ -58,14 +61,29 @@ span.support-request-stage-action {
     border-radius: 0.2em;
     padding: 0 0.3em;
     color: white;
+    display: inline-block;
+    margin: 0.1em 0;
 }
 
-td.support-request-stage {
-    background-color: #d3e1d5;
-    border-radius: 0.3em;
-    border: 1px solid lightgray;
-    overflow: hidden;
-}
+    .support-request-tag.support-request-assigned-group {
+        background-color: #065b06;
+    }
+
+    .support-request-tag.support-request-assigned-user {
+        background-color: #101075;
+    }
+
+    .support-request-tag.support-request-redirected-to-group {
+        background-color: #64641d;
+    }
+
+    td.support-request-stage {
+        background-color: #d3e1d5;
+        border-radius: 0.3em;
+        border: 1px solid lightgray;
+        overflow: hidden;
+        max-width: 40em;
+    }
 
 div.support-request-stage-head {
     color: #639cce;
@@ -77,4 +95,24 @@ div.support-request-stage-row {
 
 td.support-request-stage-separator {
     border-bottom: 2px dashed gray;
+}
+
+.support-request-action-box {
+    background-color: #fff1e6;
+    padding: 0.3em;
+    border-radius: 0.3em;
+    border: 1px solid lightgray;
+}
+
+div.support-request-action-row {
+    margin: 0.2em 0;
+}
+
+textarea.support-request-note {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+div.support-request-action-list-item {
+    display: inline-block;
 }

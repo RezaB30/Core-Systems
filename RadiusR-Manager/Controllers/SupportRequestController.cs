@@ -21,7 +21,7 @@ namespace RadiusR_Manager.Controllers
     public class SupportRequestController : BaseController
     {
         RadiusREntities db = new RadiusREntities();
-
+        #region Inbox
         [HttpGet]
         // GET: SupportRequest/Index
         public ActionResult Index()
@@ -40,7 +40,7 @@ namespace RadiusR_Manager.Controllers
                 GroupID = sg.ID,
                 GroupName = sg.Name,
                 IsLeader = sg.LeaderID == currentUserId,
-                GroupInbox = userIsLeaderInGroups.Contains(sg.ID) ? sg.SupportRequestTypes.Select(srt => srt.SupportRequests.Where(sr => sr.StateID != (short)SupportRequestStateID.Done && !sr.AssignedGroupID.HasValue).Count()).DefaultIfEmpty(0).Sum() : 0,
+                GroupInbox = userIsLeaderInGroups.Contains(sg.ID) ? sg.SupportRequestTypes.Select(srt => srt.SupportRequests.Where(sr => sr.StateID != (short)SupportRequestStateID.Done && !sr.AssignedGroupID.HasValue && !sr.RedirectedGroupID.HasValue).Count()).DefaultIfEmpty(0).Sum() : 0,
                 GroupRedirectedInbox = userIsLeaderInGroups.Contains(sg.ID) ? sg.RedirectedSupportRequests.Where(sr => sr.StateID != (short)SupportRequestStateID.Done && sr.RedirectedGroupID == sg.ID).Count() : 0,
                 GroupInProgress = userIsLeaderInGroups.Contains(sg.ID) ? sg.AssignedSupportRequests.Where(sr => sr.StateID != (short)SupportRequestStateID.Done && sr.AssignedGroupID == sg.ID).Count() : 0,
                 PersonalInbox = sg.AssignedSupportRequests.Where(sr => sr.StateID != (short)SupportRequestStateID.Done && sr.AssignedUserID == currentUserId).Count()
@@ -64,12 +64,85 @@ namespace RadiusR_Manager.Controllers
                 return RedirectToAction("Index", new { errorMessage = 9 });
             }
 
-            var viewResults = db.SupportRequests.Where(sr => sr.SupportRequestType.SupportGroups.Select(sg => sg.ID).Contains(currentGroup.ID) && sr.StateID != (short)SupportRequestStateID.Done && !sr.AssignedGroupID.HasValue).OrderByDescending(sr => sr.Date).GetViewModels();
+            var viewResults = db.SupportRequests.Where(sr => sr.SupportRequestType.SupportGroups.Select(sg => sg.ID).Contains(currentGroup.ID) && sr.StateID != (short)SupportRequestStateID.Done && !sr.AssignedGroupID.HasValue && !sr.RedirectedGroupID.HasValue).OrderByDescending(sr => sr.Date).GetViewModels();
 
             SetupPages(page, ref viewResults);
             ViewBag.GroupName = currentGroup.Name;
             ViewBag.GroupId = currentGroup.ID;
             ViewBag.InboxTitle = $"{ViewBag.GroupName}-{RadiusR.Localization.Model.RadiusR.GroupInbox}";
+            return View(viewName: "Inbox", model: viewResults);
+        }
+
+        [HttpGet]
+        // GET: SupportRequest/GroupRedirectInbox
+        public ActionResult GroupRedirectInbox(int id, int? page)
+        {
+            var currentGroup = db.SupportGroups.Find(id);
+            if (currentGroup == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            }
+            var userGroups = User.GiveSupportGroups();
+            if (!userGroups.Any(item => item.GroupId == currentGroup.ID && item.IsLeader))
+            {
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            }
+
+            var viewResults = db.SupportRequests.Where(sr => sr.RedirectedGroupID == currentGroup.ID && sr.StateID != (short)SupportRequestStateID.Done).OrderByDescending(sr => sr.Date).GetViewModels();
+
+            SetupPages(page, ref viewResults);
+            ViewBag.GroupName = currentGroup.Name;
+            ViewBag.GroupId = currentGroup.ID;
+            ViewBag.InboxTitle = $"{ViewBag.GroupName}-{RadiusR.Localization.Model.RadiusR.GroupRedirectedInbox}";
+            return View(viewName: "Inbox", model: viewResults);
+        }
+
+        [HttpGet]
+        // GET: SupportRequest/GroupInProgress
+        public ActionResult GroupInProgress(int id, int? page)
+        {
+            var currentGroup = db.SupportGroups.Find(id);
+            if (currentGroup == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            }
+            var userGroups = User.GiveSupportGroups();
+            if (!userGroups.Any(item => item.GroupId == currentGroup.ID && item.IsLeader))
+            {
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            }
+
+            var viewResults = db.SupportRequests.Where(sr => sr.AssignedGroupID == currentGroup.ID && sr.StateID != (short)SupportRequestStateID.Done).OrderByDescending(sr => sr.Date).GetViewModels();
+
+            SetupPages(page, ref viewResults);
+            ViewBag.GroupName = currentGroup.Name;
+            ViewBag.GroupId = currentGroup.ID;
+            ViewBag.InboxTitle = $"{ViewBag.GroupName}-{RadiusR.Localization.Model.RadiusR.GroupInProgress}";
+            return View(viewName: "Inbox", model: viewResults);
+        }
+
+        [HttpGet]
+        // GET: SupportRequest/Inbox
+        public ActionResult Inbox(int id, int? page)
+        {
+            var currentGroup = db.SupportGroups.Find(id);
+            if (currentGroup == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            }
+            var userGroups = User.GiveSupportGroups();
+            if (!userGroups.Any(item => item.GroupId == currentGroup.ID))
+            {
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            }
+
+            var currentUserId = User.GiveUserId();
+            var viewResults = db.SupportRequests.Where(sr => sr.AssignedUserID == currentUserId && sr.AssignedGroupID == currentGroup.ID && sr.StateID != (short)SupportRequestStateID.Done).OrderByDescending(sr => sr.Date).GetViewModels();
+
+            SetupPages(page, ref viewResults);
+            ViewBag.GroupName = currentGroup.Name;
+            //ViewBag.GroupId = currentGroup.ID;
+            ViewBag.InboxTitle = $"{ViewBag.GroupName}-{RadiusR.Localization.Model.RadiusR.PersonalInbox}";
             return View(viewName: "Inbox", model: viewResults);
         }
 
@@ -113,10 +186,186 @@ namespace RadiusR_Manager.Controllers
 
             ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
             ViewBag.GroupId = groupId;
-            ViewBag.GroupUsers = new SelectList(db.SupportGroupUsers.Where(sgu => sgu.SupportGroupID == groupId).Select(sgu => new { Value = sgu.AppUserID, Name = sgu.AppUser.Name }).ToArray(), "Value", "Name"); 
+            ViewBag.GroupUsers = new SelectList(db.SupportGroupUsers.Where(sgu => sgu.SupportGroupID == groupId).Select(sgu => new { Value = sgu.AppUserID, Name = sgu.AppUser.Name }).ToArray(), "Value", "Name");
+            ViewBag.RedirectGroups = new SelectList(db.SupportGroups.Where(sg => !sg.IsDisabled && sg.ID != groupId).Select(sg => new { Value = sg.ID, Name = sg.Name }).ToArray(), "Value", "Name");
             return View(viewResults);
         }
 
+        [ActionName("Details")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST: SupportRequest/Details
+        public ActionResult ProcessRequest(long id, int? groupId, string returnUrl, [Bind(Prefix = "processParameters")] SupportRequestProcessViewModel processParameters)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            var currentSupportRequest = db.SupportRequests.Find(id);
+            if (currentSupportRequest == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            var currentGroupPermissions = GetSupportRequestPermissions(currentSupportRequest, groupId);
+            //var currentGroupPermissions = User.GiveSupportGroups().FirstOrDefault(item => item.GroupId == (groupId ?? currentSupportRequest.AssignedGroupID));
+            if (currentGroupPermissions == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            if (processParameters.ActionType.HasValue)
+            {
+                if (processParameters.AddedMessage != null)
+                    processParameters.AddedMessage = processParameters.AddedMessage.Trim(new[] { ' ', '\r', '\n' });
+                switch ((SupportRequestActionTypes)processParameters.ActionType)
+                {
+                    case SupportRequestActionTypes.Create:
+                        {
+                            ModelState.Remove("processParameters.SelectedUserID");
+                            ModelState.Remove("processParameters.SelectedGroupID");
+                            if (ModelState.IsValid)
+                            {
+                                var newSupportRequestPrgress = new SupportRequestProgress()
+                                {
+                                    ActionType = processParameters.ActionType.Value,
+                                    AppUserID = User.GiveUserId(),
+                                    Date = DateTime.Now,
+                                    Message = processParameters.AddedMessage,
+                                    IsVisibleToCustomer = processParameters.IsVisibleToCustomer,
+                                    SetGroupID = currentGroupPermissions.GroupId,
+                                    SupportRequestID = currentSupportRequest.ID
+                                };
+                                db.SupportRequestProgresses.Add(newSupportRequestPrgress);
+                                db.SaveChanges();
+                                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                            }
+                        }
+                        break;
+                    case SupportRequestActionTypes.RedirectToGroup:
+                        {
+                            if (!currentGroupPermissions.IsLeader)
+                            {
+                                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                            }
+                            ModelState.Remove("processParameters.SelectedUserID");
+                            if (ModelState.IsValid)
+                            {
+                                var newSupportRequestPrgress = new SupportRequestProgress()
+                                {
+                                    ActionType = processParameters.ActionType.Value,
+                                    AppUserID = User.GiveUserId(),
+                                    Date = DateTime.Now,
+                                    Message = processParameters.AddedMessage,
+                                    IsVisibleToCustomer = processParameters.IsVisibleToCustomer,
+                                    SetGroupID = currentGroupPermissions.GroupId,
+                                    SupportRequestID = currentSupportRequest.ID
+                                };
+                                var selectedGroup = db.SupportGroups.Where(g => !g.IsDisabled).FirstOrDefault(g => g.ID == processParameters.SelectedGroupID);
+                                if (selectedGroup == null)
+                                {
+                                    ModelState.AddModelError("processParameters.SelectedGroupID", RadiusR.Localization.Validation.Common.InvalidInput);
+                                    break;
+                                }
+                                currentSupportRequest.RedirectedGroupID = selectedGroup.ID;
+                                db.SaveChanges();
+                                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                            }
+                        }
+                        break;
+                    case SupportRequestActionTypes.AssignToMember:
+                        {
+                            if (!currentGroupPermissions.IsLeader)
+                            {
+                                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                            }
+                            ModelState.Remove("processParameters.SelectedGroupID");
+                            ModelState.Remove("processParameters.Message");
+                            if (ModelState.IsValid)
+                            {
+                                var newSupportRequestPrgress = new SupportRequestProgress()
+                                {
+                                    ActionType = processParameters.ActionType.Value,
+                                    AppUserID = User.GiveUserId(),
+                                    Date = DateTime.Now,
+                                    Message = processParameters.AddedMessage,
+                                    IsVisibleToCustomer = processParameters.IsVisibleToCustomer,
+                                    SetGroupID = currentGroupPermissions.GroupId,
+                                    SupportRequestID = currentSupportRequest.ID
+                                };
+                                currentSupportRequest.AssignedGroupID = currentGroupPermissions.GroupId;
+                                var selectedUser = db.SupportGroups.Find(currentGroupPermissions.GroupId).SupportGroupUsers.FirstOrDefault(sgu => sgu.AppUserID == processParameters.SelectedUserID);
+                                if (selectedUser == null)
+                                {
+                                    ModelState.AddModelError("processParameters.SelectedUserID", RadiusR.Localization.Validation.Common.InvalidInput);
+                                    break;
+                                }
+                                currentSupportRequest.AssignedUserID = processParameters.SelectedUserID;
+                                db.SaveChanges();
+                                // send SMS
+
+                                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                            }
+                        }
+                        break;
+                    case SupportRequestActionTypes.ChangeState:
+                        {
+                            if (!currentGroupPermissions.IsLeader && !currentGroupPermissions.CanChangeState)
+                            {
+                                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                            }
+                            ModelState.Remove("processParameters.SelectedUserID");
+                            ModelState.Remove("processParameters.SelectedGroupID");
+                            if (ModelState.IsValid)
+                            {
+                                var newSupportRequestPrgress = new SupportRequestProgress()
+                                {
+                                    ActionType = processParameters.ActionType.Value,
+                                    AppUserID = User.GiveUserId(),
+                                    Date = DateTime.Now,
+                                    Message = processParameters.AddedMessage,
+                                    IsVisibleToCustomer = true,
+                                    SetGroupID = currentGroupPermissions.GroupId,
+                                    SupportRequestID = currentSupportRequest.ID,
+                                    OldState = currentSupportRequest.StateID,
+                                    NewState = (short)SupportRequestStateID.Done
+                                };
+                                db.SupportRequestProgresses.Add(newSupportRequestPrgress);
+                                currentSupportRequest.StateID = (short)SupportRequestStateID.Done;
+                                currentSupportRequest.AssignedGroupID = null;
+                                currentSupportRequest.RedirectedGroupID = null;
+                                currentSupportRequest.AssignedUserID = null;
+                                db.SaveChanges();
+
+                                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                            }
+                        }
+                        break;
+                    default:
+                        {
+                            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                        }
+                }
+                ViewBag.ProcessParameters = processParameters;
+                return Details(id, groupId, returnUrl);
+            }
+            else
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+        }
+        #endregion
+        #region Management
         [AuthorizePermission(Permissions = "Support Request Settings")]
         public ActionResult SupportGroups(int? page)
         {
@@ -803,14 +1052,15 @@ namespace RadiusR_Manager.Controllers
             db.SaveChanges();
             return RedirectToAction("SupportGroups", new { errorMessage = 0 });
         }
-
+        #endregion
+        #region Private Methods
         private SupportGroupClaim GetSupportRequestPermissions(SupportRequest supportRequest, int? currentGroupId)
         {
             var userGroupClaims = User.GiveSupportGroups();
             if (currentGroupId.HasValue)
             {
                 var leaderClaim = userGroupClaims.FirstOrDefault(claim => claim.GroupId == currentGroupId);
-                var isValid = ((supportRequest.AssignedGroupID == leaderClaim.GroupId || supportRequest.SupportRequestType.SupportGroups.Any(sg => sg.ID == leaderClaim.GroupId)) && leaderClaim.IsLeader);
+                var isValid = ((supportRequest.AssignedGroupID == leaderClaim.GroupId || supportRequest.RedirectedGroupID == leaderClaim.GroupId || supportRequest.SupportRequestType.SupportGroups.Any(sg => sg.ID == leaderClaim.GroupId)) && leaderClaim.IsLeader);
                 if (isValid)
                     return leaderClaim;
             }
@@ -823,7 +1073,8 @@ namespace RadiusR_Manager.Controllers
                 if (isValid)
                     return standardClaim;
             }
-                return null;
+            return null;
         }
+        #endregion
     }
 }
