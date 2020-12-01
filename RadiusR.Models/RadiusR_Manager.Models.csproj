@@ -178,6 +178,7 @@
     <Compile Include="RadiusViewModels\SubscriptionCommitmentViewModel.cs" />
     <Compile Include="RadiusViewModels\SupportGroupUserViewModel.cs" />
     <Compile Include="RadiusViewModels\SupportGroupViewModel.cs" />
+    <Compile Include="ViewModels\ClientStates\UpdateTelekomInfoBeforeSendViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestModels\SupportRequestDetailsViewModel.cs" />
     <Compile Include="RadiusViewModels\SupportRequestSubTypeViewModel.cs" />
     <Compile Include="RadiusViewModels\SupportRequestTypeViewModel.cs" />

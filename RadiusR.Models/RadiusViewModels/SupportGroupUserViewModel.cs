@@ -21,5 +21,11 @@ namespace RadiusR_Manager.Models.RadiusViewModels
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "CanCreate")]
         public bool CanCreate { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "CanRedirect")]
+        public bool CanRedirect { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "CanWriteToCustomer")]
+        public bool CanWriteToCustomer { get; set; }
     }
 }

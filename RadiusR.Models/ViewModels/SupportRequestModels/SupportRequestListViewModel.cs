@@ -45,6 +45,9 @@ namespace RadiusR_Manager.Models.ViewModels.SupportRequestModels
         [UIHint("LocalizedList")]
         public short StateID { get; set; }
 
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "VisibleToCustomer")]
+        public bool IsVisibleToCustomer { get; set; }
+
         public SupportRequestListViewModel() { }
 
         public SupportRequestListViewModel(SupportRequest dbRequest)
@@ -60,6 +63,7 @@ namespace RadiusR_Manager.Models.ViewModels.SupportRequestModels
             SubscriptionID = dbRequest.SubscriptionID;
             SupportPin = dbRequest.SupportPin;
             StateID = dbRequest.StateID;
+            IsVisibleToCustomer = dbRequest.IsVisibleToCustomer;
         }
     }
 
@@ -78,7 +82,9 @@ namespace RadiusR_Manager.Models.ViewModels.SupportRequestModels
                 RequestType = sr.TypeID.HasValue ? sr.SupportRequestType.Name : null,
                 SubscriberNo = sr.SubscriptionID.HasValue ? sr.Subscription.SubscriberNo : null,
                 SubscriptionID = sr.SubscriptionID,
-                SupportPin = sr.SupportPin
+                SupportPin = sr.SupportPin,
+                StateID = sr.StateID,
+                IsVisibleToCustomer = sr.IsVisibleToCustomer
             });
         }
     }

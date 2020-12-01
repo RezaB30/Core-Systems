@@ -15,14 +15,8 @@ namespace RadiusR_Manager
 
         public bool CanChangeState { get; set; }
 
-        public SupportGroupClaim(int groupId, bool isLeader, bool canCreate, bool canChangeState )
-        {
-            GroupId = groupId;
-            IsLeader = isLeader;
-            CanCreate = canCreate;
-            CanChangeState = canChangeState;
-        }
+        public bool CanRedirect { get; set; }
 
-        protected SupportGroupClaim() { }
+        public bool CanWriteToCustomer { get; set; }
     }
 }

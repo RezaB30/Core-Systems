@@ -482,3 +482,13 @@ div.popup-data-container {
 span.fee-time-span {
     color: #2bb427;
 }
+
+span.warning-message-hint {
+    font-size: 0.8em;
+    color: #621d02;
+    background-image: url('../Images/Shared/warning.svg');
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding-left: 1.5em;
+    background-size: 1.2em;
+}

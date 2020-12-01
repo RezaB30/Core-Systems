@@ -42,6 +42,22 @@
                 </td>
             </tr>
             <tr>
+                <td colspan="2">
+                    @Html.EditorFor(model => model.CanRedirect)
+                </td>
+                <td colspan="2">
+                    @Html.EditorFor(model => model.CanWriteToCustomer)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.CanRedirect)
+                </td>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.CanWriteToCustomer)
+                </td>
+            </tr>
+            <tr>
                 <td colspan="4" class="centered">
                     @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "SupportGroupUsers", new { id = ViewContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button back-button" })
                     &nbsp;

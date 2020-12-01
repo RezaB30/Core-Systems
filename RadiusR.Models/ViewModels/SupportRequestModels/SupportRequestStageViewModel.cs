@@ -16,8 +16,10 @@ namespace RadiusR_Manager.Models.ViewModels.SupportRequestModels
         [UIHint("ExactTime")]
         public DateTime Date { get; set; }
 
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "Message")]
         public string Message { get; set; }
 
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "VisibleToCustomer")]
         public bool IsVisibleToCustomer { get; set; }
 
         public string CommittingUser { get; set; }

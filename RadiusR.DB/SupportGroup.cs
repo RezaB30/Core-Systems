@@ -17,11 +17,11 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SupportGroup()
         {
-            this.SupportGroupUsers = new HashSet<SupportGroupUser>();
             this.SupportRequestTypes = new HashSet<SupportRequestType>();
             this.SupportRequestProgresses = new HashSet<SupportRequestProgress>();
             this.RedirectedSupportRequests = new HashSet<SupportRequest>();
             this.AssignedSupportRequests = new HashSet<SupportRequest>();
+            this.SupportGroupUsers = new HashSet<SupportGroupUser>();
         }
     
         public int ID { get; set; }
@@ -31,8 +31,6 @@ namespace RadiusR.DB
     
         public virtual AppUser AppUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SupportGroupUser> SupportGroupUsers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupportRequestType> SupportRequestTypes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupportRequestProgress> SupportRequestProgresses { get; set; }
@@ -40,5 +38,7 @@ namespace RadiusR.DB
         public virtual ICollection<SupportRequest> RedirectedSupportRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupportRequest> AssignedSupportRequests { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SupportGroupUser> SupportGroupUsers { get; set; }
     }
 }

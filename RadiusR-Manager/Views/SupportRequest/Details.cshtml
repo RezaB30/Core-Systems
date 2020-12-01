@@ -80,9 +80,6 @@
             @foreach (var item in Model.Stages)
             {
                 <tr>
-                    <td colspan="2" class="support-request-stage-separator"></td>
-                </tr>
-                <tr>
                     <td colspan="2" class="support-request-stage">
                         <div class="support-request-stage-row support-request-stage-head">
                             @Html.DisplayFor(modelItem => item.Date)
@@ -124,7 +121,7 @@
                                 <div class="support-request-action-row">
                                     @Html.ValidationMessageFor(model => processParameters.AddedMessage)
                                 </div>
-                                if (Model.RequestInfo.SubscriptionID.HasValue)
+                                if (Model.RequestInfo.SubscriptionID.HasValue && Model.RequestInfo.IsVisibleToCustomer && supportPermissions.CanWriteToCustomer)
                                 {
                                     <div class="support-request-action-row">
                                         @Html.EditorFor(model => processParameters.IsVisibleToCustomer)
@@ -144,6 +141,9 @@
                                                 @Html.ValidationMessageFor(model => processParameters.SelectedUserID)
                                             </div>
                                         </li>
+                                    }
+                                    @if (supportPermissions.IsLeader || supportPermissions.CanRedirect) 
+                                    { 
                                         <li>
                                             @*redirect to another group*@
                                             <div class="submit-group-row support-request-action-row support-request-action-list-item">
@@ -168,6 +168,7 @@
                                             @*finish*@
                                             <div class="submit-group-row support-request-action-row support-request-action-list-item">
                                                 <input type="button" value="@RadiusR.Localization.Pages.Common.Finish" class="link-button iconed-button accept-button submit-group-button" addition-data="@((short)RadiusR.DB.Enums.SupportRequests.SupportRequestActionTypes.ChangeState)" />
+                                                <span class="warning-message-hint">@RadiusR.Localization.Pages.WarningMessages.SupportRequestFinishWarning</span>
                                             </div>
                                         </li>
                                     }

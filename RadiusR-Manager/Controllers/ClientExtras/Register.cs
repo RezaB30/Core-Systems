@@ -21,6 +21,7 @@ using RadiusR.DB.QueryExtentions;
 using RezaB.Web;
 using RezaB.Data.Localization;
 using RezaB.Web.Authentication;
+using RadiusR_Manager.Models.ViewModels.ClientStates;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -121,7 +122,7 @@ namespace RadiusR_Manager.Controllers
                             db.Customers.Add(dbCustomer);
                         // save db
                         db.SaveChanges();
-                        
+
                         // logs
                         var dbSubscription = dbCustomer.Subscriptions.OrderByDescending(s => s.MembershipDate).FirstOrDefault();
                         db.SystemLogs.Add(SystemLogProcessor.AddSubscription(User.GiveUserId(), dbSubscription.ID, dbCustomer.ID, SystemLogInterface.MasterISS, null, dbSubscription.SubscriberNo));
@@ -522,7 +523,11 @@ namespace RadiusR_Manager.Controllers
                 }
                 else
                 {
-                    var telekomTariffViewModel = new TelekomTariffHelperViewModel(telekomTariff);
+                    var telekomTariffViewModel = new UpdateTelekomInfoBeforeSendViewModel()
+                    {
+                        TelekomTariffInfo = new TelekomTariffHelperViewModel(telekomTariff),
+                        PSTN = dbSubscription.SubscriptionTelekomInfo.PSTN
+                    };
                     return View(viewName: "AddWizard/SendTelekomRegistration", model: telekomTariffViewModel);
                 }
 
@@ -533,7 +538,7 @@ namespace RadiusR_Manager.Controllers
         [ValidateAntiForgeryToken]
         [HttpPost]
         // POST: Client/SendTelekomRegistration
-        public ActionResult SendTelekomRegistration(long id, string returnUrl, TelekomTariffHelperViewModel TTPacket)
+        public ActionResult SendTelekomRegistration(long id, string returnUrl, UpdateTelekomInfoBeforeSendViewModel TTPacket)
         {
             var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
             ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
@@ -561,7 +566,7 @@ namespace RadiusR_Manager.Controllers
             }
             else if (ModelState.IsValid)
             {
-                var telekomTariff = TelekomTariffsCache.GetSpecificTariff(domain, TTPacket.PacketCode.Value, TTPacket.TariffCode.Value);
+                var telekomTariff = TelekomTariffsCache.GetSpecificTariff(domain, TTPacket.TelekomTariffInfo.PacketCode.Value, TTPacket.TelekomTariffInfo.TariffCode.Value);
                 if (telekomTariff == null)
                 {
                     ViewBag.ErrorMessage = RadiusR.Localization.Validation.Common.InvalidTelekomPacket;
@@ -573,9 +578,10 @@ namespace RadiusR_Manager.Controllers
                         dbSubscription.SubscriptionTelekomInfo = new SubscriptionTelekomInfo();
                     dbSubscription.SubscriptionTelekomInfo.SubscriptionNo = dbSubscription.SubscriptionTelekomInfo.SubscriptionNo ?? " ";
                     dbSubscription.SubscriptionTelekomInfo.TTCustomerCode = dbSubscription.SubscriptionTelekomInfo.TTCustomerCode > 0 ? dbSubscription.SubscriptionTelekomInfo.TTCustomerCode : domain.TelekomCredential.XDSLWebServiceCustomerCodeInt;
-                    dbSubscription.SubscriptionTelekomInfo.TariffCode = TTPacket.TariffCode.Value;
-                    dbSubscription.SubscriptionTelekomInfo.PacketCode = TTPacket.PacketCode.Value;
-                    dbSubscription.SubscriptionTelekomInfo.XDSLType = TTPacket.XDSLType.Value;
+                    dbSubscription.SubscriptionTelekomInfo.TariffCode = TTPacket.TelekomTariffInfo.TariffCode.Value;
+                    dbSubscription.SubscriptionTelekomInfo.PacketCode = TTPacket.TelekomTariffInfo.PacketCode.Value;
+                    dbSubscription.SubscriptionTelekomInfo.XDSLType = TTPacket.TelekomTariffInfo.XDSLType.Value;
+                    dbSubscription.SubscriptionTelekomInfo.PSTN = TTPacket.PSTN;
 
                     // save TT packet change
                     db.SaveChanges();

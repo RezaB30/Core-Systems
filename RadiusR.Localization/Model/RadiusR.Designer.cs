@@ -646,6 +646,24 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Can Redirect.
+        /// </summary>
+        public static string CanRedirect {
+            get {
+                return ResourceManager.GetString("CanRedirect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can Write to Customer.
+        /// </summary>
+        public static string CanWriteToCustomer {
+            get {
+                return ResourceManager.GetString("CanWriteToCustomer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Card Expiration Date.
         /// </summary>
         public static string CardExpirationMonth {

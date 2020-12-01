@@ -57,8 +57,24 @@ namespace RadiusR_Manager
                 if (!string.IsNullOrEmpty(internalCallCenterNo))
                     extraClaims.Add(new Claim("internalNo", internalCallCenterNo));
                 // support groups
-                var supportGroups = dbUser.SupportGroupUsers.Where(sgu => !dbUser.LeaderInGroups.Select(group => group.ID).Contains(sgu.SupportGroupID)).Select(sgu => new SupportGroupClaim(sgu.SupportGroupID, false, sgu.CanCreate, sgu.CanChangeState)).ToArray();
-                var leaderInGroups = dbUser.LeaderInGroups.Where(sg => !supportGroups.Select(group => group.GroupId).Contains(sg.ID)).Select(sg => new SupportGroupClaim(sg.ID, true, true, true)).ToArray();
+                var supportGroups = dbUser.SupportGroupUsers.Where(sgu => !dbUser.LeaderInGroups.Select(group => group.ID).Contains(sgu.SupportGroupID)).Select(sgu => new SupportGroupClaim()
+                {
+                    GroupId = sgu.SupportGroupID,
+                    IsLeader = false,
+                    CanCreate = sgu.CanCreate,
+                    CanChangeState = sgu.CanChangeState,
+                    CanRedirect = sgu.CanRedirect,
+                    CanWriteToCustomer = sgu.CanWriteToCustomer
+                }).ToArray();
+                var leaderInGroups = dbUser.LeaderInGroups.Where(sg => !supportGroups.Select(group => group.GroupId).Contains(sg.ID)).Select(sg => new SupportGroupClaim()
+                {
+                    GroupId = sg.ID,
+                    CanChangeState = true,
+                    CanCreate = true,
+                    CanRedirect = true,
+                    CanWriteToCustomer = true,
+                    IsLeader = true
+                }).ToArray();
                 supportGroups = supportGroups.Concat(leaderInGroups).ToArray();
                 // serialize
                 var serializer = new System.Xml.Serialization.XmlSerializer(typeof(SupportGroupClaim));

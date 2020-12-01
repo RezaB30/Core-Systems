@@ -26,10 +26,10 @@ namespace RadiusR.DB
             this.Bills = new HashSet<Bill>();
             this.SystemLogs = new HashSet<SystemLog>();
             this.PartnerRegisteredSubscriptions = new HashSet<PartnerRegisteredSubscription>();
-            this.SupportGroupUsers = new HashSet<SupportGroupUser>();
             this.LeaderInGroups = new HashSet<SupportGroup>();
             this.SupportRequestProgresses = new HashSet<SupportRequestProgress>();
             this.SupportRequests = new HashSet<SupportRequest>();
+            this.SupportGroupUsers = new HashSet<SupportGroupUser>();
         }
     
         public int ID { get; set; }
@@ -62,12 +62,12 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerRegisteredSubscription> PartnerRegisteredSubscriptions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SupportGroupUser> SupportGroupUsers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupportGroup> LeaderInGroups { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupportRequestProgress> SupportRequestProgresses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupportRequest> SupportRequests { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SupportGroupUser> SupportGroupUsers { get; set; }
     }
 }

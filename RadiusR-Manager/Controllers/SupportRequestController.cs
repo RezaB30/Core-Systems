@@ -233,7 +233,7 @@ namespace RadiusR_Manager.Controllers
                                     AppUserID = User.GiveUserId(),
                                     Date = DateTime.Now,
                                     Message = processParameters.AddedMessage,
-                                    IsVisibleToCustomer = processParameters.IsVisibleToCustomer,
+                                    IsVisibleToCustomer = processParameters.IsVisibleToCustomer && currentGroupPermissions.CanWriteToCustomer,
                                     SetGroupID = currentGroupPermissions.GroupId,
                                     SupportRequestID = currentSupportRequest.ID
                                 };
@@ -246,7 +246,7 @@ namespace RadiusR_Manager.Controllers
                         break;
                     case SupportRequestActionTypes.RedirectToGroup:
                         {
-                            if (!currentGroupPermissions.IsLeader)
+                            if (!currentGroupPermissions.IsLeader && !currentGroupPermissions.CanRedirect)
                             {
                                 UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
                                 return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
@@ -260,7 +260,7 @@ namespace RadiusR_Manager.Controllers
                                     AppUserID = User.GiveUserId(),
                                     Date = DateTime.Now,
                                     Message = processParameters.AddedMessage,
-                                    IsVisibleToCustomer = processParameters.IsVisibleToCustomer,
+                                    IsVisibleToCustomer = processParameters.IsVisibleToCustomer && currentGroupPermissions.CanWriteToCustomer,
                                     SetGroupID = currentGroupPermissions.GroupId,
                                     SupportRequestID = currentSupportRequest.ID
                                 };
@@ -271,6 +271,7 @@ namespace RadiusR_Manager.Controllers
                                     break;
                                 }
                                 currentSupportRequest.RedirectedGroupID = selectedGroup.ID;
+                                db.SupportRequestProgresses.Add(newSupportRequestPrgress);
                                 db.SaveChanges();
                                 UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
                                 return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
@@ -294,7 +295,7 @@ namespace RadiusR_Manager.Controllers
                                     AppUserID = User.GiveUserId(),
                                     Date = DateTime.Now,
                                     Message = processParameters.AddedMessage,
-                                    IsVisibleToCustomer = processParameters.IsVisibleToCustomer,
+                                    IsVisibleToCustomer = processParameters.IsVisibleToCustomer && currentGroupPermissions.CanWriteToCustomer,
                                     SetGroupID = currentGroupPermissions.GroupId,
                                     SupportRequestID = currentSupportRequest.ID
                                 };
@@ -306,6 +307,7 @@ namespace RadiusR_Manager.Controllers
                                     break;
                                 }
                                 currentSupportRequest.AssignedUserID = processParameters.SelectedUserID;
+                                db.SupportRequestProgresses.Add(newSupportRequestPrgress);
                                 db.SaveChanges();
                                 // send SMS
 
@@ -339,8 +341,8 @@ namespace RadiusR_Manager.Controllers
                                 };
                                 db.SupportRequestProgresses.Add(newSupportRequestPrgress);
                                 currentSupportRequest.StateID = (short)SupportRequestStateID.Done;
-                                currentSupportRequest.AssignedGroupID = null;
-                                currentSupportRequest.RedirectedGroupID = null;
+                                //currentSupportRequest.AssignedGroupID = null;
+                                //currentSupportRequest.RedirectedGroupID = null;
                                 currentSupportRequest.AssignedUserID = null;
                                 db.SaveChanges();
 
@@ -858,7 +860,9 @@ namespace RadiusR_Manager.Controllers
                 UserName = sgu.AppUser.Name,
                 UserID = sgu.AppUserID,
                 CanChangeState = sgu.CanChangeState,
-                CanCreate = sgu.CanCreate
+                CanCreate = sgu.CanCreate,
+                CanRedirect = sgu.CanRedirect,
+                CanWriteToCustomer = sgu.CanWriteToCustomer
             });
 
             SetupPages(page, ref viewResults);
@@ -907,6 +911,8 @@ namespace RadiusR_Manager.Controllers
                         AppUserID = addedUser.UserID.Value,
                         CanChangeState = addedUser.CanChangeState,
                         CanCreate = addedUser.CanCreate,
+                        CanRedirect = addedUser.CanRedirect,
+                        CanWriteToCustomer = addedUser.CanWriteToCustomer,
                         SupportGroupID = currentSupportGroup.ID
                     });
 
@@ -951,6 +957,8 @@ namespace RadiusR_Manager.Controllers
                 UserID = currentGroupUser.AppUserID,
                 CanCreate = currentGroupUser.CanCreate,
                 CanChangeState = currentGroupUser.CanChangeState,
+                CanRedirect = currentGroupUser.CanRedirect,
+                CanWriteToCustomer = currentGroupUser.CanWriteToCustomer,
                 UserName = currentGroupUser.AppUser.Name
             };
 
@@ -973,6 +981,8 @@ namespace RadiusR_Manager.Controllers
             {
                 currentGroupUser.CanChangeState = groupUser.CanChangeState;
                 currentGroupUser.CanCreate = groupUser.CanCreate;
+                currentGroupUser.CanRedirect = groupUser.CanRedirect;
+                currentGroupUser.CanWriteToCustomer = groupUser.CanWriteToCustomer;
 
                 db.SaveChanges();
                 return RedirectToAction("SupportGroupUsers", new { id = currentGroupUser.SupportGroupID, errorMessage = 0 });

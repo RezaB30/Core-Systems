@@ -112,7 +112,6 @@ namespace RadiusR.DB
         public virtual DbSet<OfflinePaymentGateway> OfflinePaymentGateways { get; set; }
         public virtual DbSet<ExternalPayment> ExternalPayments { get; set; }
         public virtual DbSet<NAS> NAS { get; set; }
-        public virtual DbSet<SupportGroupUser> SupportGroupUsers { get; set; }
         public virtual DbSet<SupportRequestSubType> SupportRequestSubTypes { get; set; }
         public virtual DbSet<SupportRequestType> SupportRequestTypes { get; set; }
         public virtual DbSet<SupportGroup> SupportGroups { get; set; }
@@ -120,5 +119,6 @@ namespace RadiusR.DB
         public virtual DbSet<SubscriptionTariffHistory> SubscriptionTariffHistories { get; set; }
         public virtual DbSet<Subscription> Subscriptions { get; set; }
         public virtual DbSet<SupportRequest> SupportRequests { get; set; }
+        public virtual DbSet<SupportGroupUser> SupportGroupUsers { get; set; }
     }
 }

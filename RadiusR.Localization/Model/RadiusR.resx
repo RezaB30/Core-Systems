@@ -1509,4 +1509,10 @@
   <data name="VisibleToCustomer" xml:space="preserve">
     <value>Visible To Customer</value>
   </data>
+  <data name="CanRedirect" xml:space="preserve">
+    <value>Can Redirect</value>
+  </data>
+  <data name="CanWriteToCustomer" xml:space="preserve">
+    <value>Can Write to Customer</value>
+  </data>
 </root>

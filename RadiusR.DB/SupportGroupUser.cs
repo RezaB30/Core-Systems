@@ -18,6 +18,8 @@ namespace RadiusR.DB
         public int AppUserID { get; set; }
         public bool CanCreate { get; set; }
         public bool CanChangeState { get; set; }
+        public bool CanRedirect { get; set; }
+        public bool CanWriteToCustomer { get; set; }
     
         public virtual AppUser AppUser { get; set; }
         public virtual SupportGroup SupportGroup { get; set; }

@@ -953,6 +953,8 @@
           <Property Name="AppUserID" Type="int" Nullable="false" />
           <Property Name="CanCreate" Type="bit" Nullable="false" />
           <Property Name="CanChangeState" Type="bit" Nullable="false" />
+          <Property Name="CanRedirect" Type="bit" Nullable="false" />
+          <Property Name="CanWriteToCustomer" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="SupportRequest">
           <Key>
@@ -3262,10 +3264,10 @@
           <NavigationProperty Name="Bills" Relationship="RadiusRModel.FK_Bill_AppUser" FromRole="AppUser" ToRole="Bill" />
           <NavigationProperty Name="SystemLogs" Relationship="RadiusRModel.FK_SystemLog_AppUser" FromRole="AppUser" ToRole="SystemLog" />
           <NavigationProperty Name="PartnerRegisteredSubscriptions" Relationship="RadiusRModel.FK_PartnerRegisteredSubscription_AppUser" FromRole="AppUser" ToRole="PartnerRegisteredSubscription" />
-          <NavigationProperty Name="SupportGroupUsers" Relationship="RadiusRModel.FK_SupportGroupUser_AppUser" FromRole="AppUser" ToRole="SupportGroupUser" />
           <NavigationProperty Name="LeaderInGroups" Relationship="RadiusRModel.FK_SupportGroup_AppUser" FromRole="AppUser" ToRole="SupportGroup" />
           <NavigationProperty Name="SupportRequestProgresses" Relationship="RadiusRModel.FK_SupportRequestProgress_AppUser" FromRole="AppUser" ToRole="SupportRequestProgress" />
           <NavigationProperty Name="SupportRequests" Relationship="RadiusRModel.FK_SupportRequest_AppUser" FromRole="AppUser" ToRole="SupportRequest" />
+          <NavigationProperty Name="SupportGroupUsers" Relationship="RadiusRModel.FK_SupportGroupUser_AppUser" FromRole="AppUser" ToRole="SupportGroupUser" />
         </EntityType>
         <EntityType Name="BTKIPBlock">
           <Key>
@@ -4311,11 +4313,6 @@
             <End Role="NA" EntitySet="NAS" />
             <End Role="NASVerticalIPMap" EntitySet="NASVerticalIPMaps" />
           </AssociationSet>
-          <EntitySet Name="SupportGroupUsers" EntityType="RadiusRModel.SupportGroupUser" />
-          <AssociationSet Name="FK_SupportGroupUser_AppUser" Association="RadiusRModel.FK_SupportGroupUser_AppUser">
-            <End Role="AppUser" EntitySet="AppUsers" />
-            <End Role="SupportGroupUser" EntitySet="SupportGroupUsers" />
-          </AssociationSet>
           <EntitySet Name="SupportRequestSubTypes" EntityType="RadiusRModel.SupportRequestSubType" />
           <EntitySet Name="SupportRequestTypes" EntityType="RadiusRModel.SupportRequestType" />
           <AssociationSet Name="FK_SupportRequestSubType_SupportRequestType" Association="RadiusRModel.FK_SupportRequestSubType_SupportRequestType">
@@ -4326,10 +4323,6 @@
           <AssociationSet Name="FK_SupportGroup_AppUser" Association="RadiusRModel.FK_SupportGroup_AppUser">
             <End Role="AppUser" EntitySet="AppUsers" />
             <End Role="SupportGroup" EntitySet="SupportGroups" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SupportGroupUser_SupportGroup" Association="RadiusRModel.FK_SupportGroupUser_SupportGroup">
-            <End Role="SupportGroup" EntitySet="SupportGroups" />
-            <End Role="SupportGroupUser" EntitySet="SupportGroupUsers" />
           </AssociationSet>
           <AssociationSet Name="SupportGroupRequestType" Association="RadiusRModel.SupportGroupRequestType">
             <End Role="SupportGroup" EntitySet="SupportGroups" />
@@ -4506,6 +4499,15 @@
           <AssociationSet Name="FK_SupportRequestProgress_SupportRequest" Association="RadiusRModel.FK_SupportRequestProgress_SupportRequest">
             <End Role="SupportRequest" EntitySet="SupportRequests" />
             <End Role="SupportRequestProgress" EntitySet="SupportRequestProgresses" />
+          </AssociationSet>
+          <EntitySet Name="SupportGroupUsers" EntityType="RadiusRModel.SupportGroupUser" />
+          <AssociationSet Name="FK_SupportGroupUser_AppUser" Association="RadiusRModel.FK_SupportGroupUser_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="SupportGroupUser" EntitySet="SupportGroupUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupportGroupUser_SupportGroup" Association="RadiusRModel.FK_SupportGroupUser_SupportGroup">
+            <End Role="SupportGroup" EntitySet="SupportGroups" />
+            <End Role="SupportGroupUser" EntitySet="SupportGroupUsers" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
@@ -5761,30 +5763,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="SupportGroupUser">
-          <Key>
-            <PropertyRef Name="SupportGroupID" />
-            <PropertyRef Name="AppUserID" />
-          </Key>
-          <Property Name="SupportGroupID" Type="Int32" Nullable="false" />
-          <Property Name="AppUserID" Type="Int32" Nullable="false" />
-          <Property Name="CanCreate" Type="Boolean" Nullable="false" />
-          <Property Name="CanChangeState" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AppUser" Relationship="RadiusRModel.FK_SupportGroupUser_AppUser" FromRole="SupportGroupUser" ToRole="AppUser" />
-          <NavigationProperty Name="SupportGroup" Relationship="RadiusRModel.FK_SupportGroupUser_SupportGroup" FromRole="SupportGroupUser" ToRole="SupportGroup" />
-        </EntityType>
-        <Association Name="FK_SupportGroupUser_AppUser">
-          <End Type="RadiusRModel.AppUser" Role="AppUser" Multiplicity="1" />
-          <End Type="RadiusRModel.SupportGroupUser" Role="SupportGroupUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AppUser">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SupportGroupUser">
-              <PropertyRef Name="AppUserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="SupportRequestSubType">
           <Key>
             <PropertyRef Name="ID" />
@@ -5829,11 +5807,11 @@
           <Property Name="LeaderID" Type="Int32" Nullable="false" />
           <Property Name="IsDisabled" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AppUser" Relationship="RadiusRModel.FK_SupportGroup_AppUser" FromRole="SupportGroup" ToRole="AppUser" />
-          <NavigationProperty Name="SupportGroupUsers" Relationship="RadiusRModel.FK_SupportGroupUser_SupportGroup" FromRole="SupportGroup" ToRole="SupportGroupUser" />
           <NavigationProperty Name="SupportRequestTypes" Relationship="RadiusRModel.SupportGroupRequestType" FromRole="SupportGroup" ToRole="SupportRequestType" />
           <NavigationProperty Name="SupportRequestProgresses" Relationship="RadiusRModel.FK_SupportRequestProgress_SupportGroup" FromRole="SupportGroup" ToRole="SupportRequestProgress" />
           <NavigationProperty Name="RedirectedSupportRequests" Relationship="RadiusRModel.FK_SupportRequest_RedirectedGroupID" FromRole="SupportGroup" ToRole="SupportRequest" />
           <NavigationProperty Name="AssignedSupportRequests" Relationship="RadiusRModel.FK_SupportRequest_SupportGroup" FromRole="SupportGroup" ToRole="SupportRequest" />
+          <NavigationProperty Name="SupportGroupUsers" Relationship="RadiusRModel.FK_SupportGroupUser_SupportGroup" FromRole="SupportGroup" ToRole="SupportGroupUser" />
         </EntityType>
         <Association Name="FK_SupportGroup_AppUser">
           <End Type="RadiusRModel.AppUser" Role="AppUser" Multiplicity="1" />
@@ -5844,18 +5822,6 @@
             </Principal>
             <Dependent Role="SupportGroup">
               <PropertyRef Name="LeaderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SupportGroupUser_SupportGroup">
-          <End Type="RadiusRModel.SupportGroup" Role="SupportGroup" Multiplicity="1" />
-          <End Type="RadiusRModel.SupportGroupUser" Role="SupportGroupUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SupportGroup">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SupportGroupUser">
-              <PropertyRef Name="SupportGroupID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6469,6 +6435,44 @@
             </Principal>
             <Dependent Role="SupportRequestProgress">
               <PropertyRef Name="SupportRequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SupportGroupUser">
+          <Key>
+            <PropertyRef Name="SupportGroupID" />
+            <PropertyRef Name="AppUserID" />
+          </Key>
+          <Property Name="SupportGroupID" Type="Int32" Nullable="false" />
+          <Property Name="AppUserID" Type="Int32" Nullable="false" />
+          <Property Name="CanCreate" Type="Boolean" Nullable="false" />
+          <Property Name="CanChangeState" Type="Boolean" Nullable="false" />
+          <Property Name="CanRedirect" Type="Boolean" Nullable="false" />
+          <Property Name="CanWriteToCustomer" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AppUser" Relationship="RadiusRModel.FK_SupportGroupUser_AppUser" FromRole="SupportGroupUser" ToRole="AppUser" />
+          <NavigationProperty Name="SupportGroup" Relationship="RadiusRModel.FK_SupportGroupUser_SupportGroup" FromRole="SupportGroupUser" ToRole="SupportGroup" />
+        </EntityType>
+        <Association Name="FK_SupportGroupUser_AppUser">
+          <End Type="RadiusRModel.AppUser" Role="AppUser" Multiplicity="1" />
+          <End Type="RadiusRModel.SupportGroupUser" Role="SupportGroupUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupportGroupUser">
+              <PropertyRef Name="AppUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupportGroupUser_SupportGroup">
+          <End Type="RadiusRModel.SupportGroup" Role="SupportGroup" Multiplicity="1" />
+          <End Type="RadiusRModel.SupportGroupUser" Role="SupportGroupUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupportGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupportGroupUser">
+              <PropertyRef Name="SupportGroupID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7531,16 +7535,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SupportGroupUsers">
-            <EntityTypeMapping TypeName="RadiusRModel.SupportGroupUser">
-              <MappingFragment StoreEntitySet="SupportGroupUser">
-                <ScalarProperty Name="CanChangeState" ColumnName="CanChangeState" />
-                <ScalarProperty Name="CanCreate" ColumnName="CanCreate" />
-                <ScalarProperty Name="AppUserID" ColumnName="AppUserID" />
-                <ScalarProperty Name="SupportGroupID" ColumnName="SupportGroupID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SupportRequestSubTypes">
             <EntityTypeMapping TypeName="RadiusRModel.SupportRequestSubType">
               <MappingFragment StoreEntitySet="SupportRequestSubType">
@@ -7656,6 +7650,18 @@
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="SupportPin" ColumnName="SupportPin" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupportGroupUsers">
+            <EntityTypeMapping TypeName="RadiusRModel.SupportGroupUser">
+              <MappingFragment StoreEntitySet="SupportGroupUser">
+                <ScalarProperty Name="CanWriteToCustomer" ColumnName="CanWriteToCustomer" />
+                <ScalarProperty Name="CanRedirect" ColumnName="CanRedirect" />
+                <ScalarProperty Name="CanChangeState" ColumnName="CanChangeState" />
+                <ScalarProperty Name="CanCreate" ColumnName="CanCreate" />
+                <ScalarProperty Name="AppUserID" ColumnName="AppUserID" />
+                <ScalarProperty Name="SupportGroupID" ColumnName="SupportGroupID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

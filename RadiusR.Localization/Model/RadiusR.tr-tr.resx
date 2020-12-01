@@ -1509,4 +1509,10 @@
   <data name="VisibleToCustomer" xml:space="preserve">
     <value>Müşteriye Görünür</value>
   </data>
+  <data name="CanRedirect" xml:space="preserve">
+    <value>Yönlendirebilir</value>
+  </data>
+  <data name="CanWriteToCustomer" xml:space="preserve">
+    <value>Müşteriye Yazabilir</value>
+  </data>
 </root>

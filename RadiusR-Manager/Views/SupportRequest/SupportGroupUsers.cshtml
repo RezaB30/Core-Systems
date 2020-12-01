@@ -17,6 +17,12 @@
         <th>
             @Html.DisplayNameFor(model => model.CanCreate)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CanRedirect)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CanWriteToCustomer)
+        </th>
         <th></th>
     </tr>
     @foreach (var item in Model)
@@ -30,6 +36,12 @@
             </td>
             <td class="centered">
                 @Html.DisplayFor(modelItem => item.CanCreate)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.CanRedirect)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.CanWriteToCustomer)
             </td>
             <td>
                 @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "GroupUserPermissions", new { userId = item.UserID, groupId = ViewContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button edit-button" })
