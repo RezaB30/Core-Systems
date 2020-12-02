@@ -19,7 +19,7 @@ namespace RadiusR.Localization.Lists {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class SMSType {
@@ -255,6 +255,24 @@ namespace RadiusR.Localization.Lists {
         public static string SoftQuota100 {
             get {
                 return ResourceManager.GetString("SoftQuota100", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support Request In Progress.
+        /// </summary>
+        public static string SupportRequestInProgress {
+            get {
+                return ResourceManager.GetString("SupportRequestInProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support Request Resolved.
+        /// </summary>
+        public static string SupportRequestResolved {
+            get {
+                return ResourceManager.GetString("SupportRequestResolved", resourceCulture);
             }
         }
         

@@ -44,7 +44,8 @@ namespace RadiusR.SMS
                     new SMSStringParameter(SMSParameterNameCollection.ExtendedMonths, new SMSType[] { SMSType.ExtendPackage }),
                     new SMSStringParameter(SMSParameterNameCollection.SMSCode, new SMSType[] { SMSType.ForgotPassword, SMSType.MobilExpressAddRemoveCard, SMSType.OperationCode}),
                     new SMSStringParameter(SMSParameterNameCollection.CardNo, new SMSType[] { SMSType.MobilExpressActivation }),
-                    new SMSStringParameter(SMSParameterNameCollection.ErrorMessage, new SMSType[] { SMSType.FailedAutomaticPayment })
+                    new SMSStringParameter(SMSParameterNameCollection.ErrorMessage, new SMSType[] { SMSType.FailedAutomaticPayment }),
+                    new SMSStringParameter(SMSParameterNameCollection.SupportPIN, new SMSType[] { SMSType.SupportRequestInProgress, SMSType.SupportRequestResolved })
                 };
             }
         }
@@ -211,6 +212,7 @@ namespace RadiusR.SMS
             public const string SMSCode = "([smsCode])";
             public const string CardNo = "([cardNo])";
             public const string ErrorMessage = "([errorMessage])";
+            public const string SupportPIN = "([supportPIN])";
         }
     }
 }

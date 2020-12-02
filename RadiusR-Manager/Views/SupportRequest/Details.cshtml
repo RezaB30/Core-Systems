@@ -103,15 +103,14 @@
             }
             <tr>
                 <td colspan="2">
-
-                    <div class="submit-row support-request-action-box">
-                        @if (supportPermissions != null && Model.RequestInfo.StateID != (short)RadiusR.DB.Enums.SupportRequests.SupportRequestStateID.Done)
-                        {
-                            using (Html.BeginForm())
+                    @if (supportPermissions != null && Model.RequestInfo.StateID != (short)RadiusR.DB.Enums.SupportRequests.SupportRequestStateID.Done)
+                    {
+                        <div class="submit-row support-request-action-box">
+                            @using (Html.BeginForm())
                             {
                                 @Html.HiddenFor(model => processParameters.ActionType, new { @class = "action-type-input" })
                                 @Html.AntiForgeryToken()
-                                //message
+                                @*message*@
                                 <div class="support-request-action-row">
                                     @Html.LabelFor(model => processParameters.AddedMessage)
                                 </div>
@@ -142,8 +141,8 @@
                                             </div>
                                         </li>
                                     }
-                                    @if (supportPermissions.IsLeader || supportPermissions.CanRedirect) 
-                                    { 
+                                    @if (supportPermissions.IsLeader || supportPermissions.CanRedirect)
+                                    {
                                         <li>
                                             @*redirect to another group*@
                                             <div class="submit-group-row support-request-action-row support-request-action-list-item">
@@ -174,8 +173,8 @@
                                     }
                                 </ol>
                             }
-                        }
-                    </div>
+                        </div>
+                    }
                 </td>
             </tr>
             <tr>

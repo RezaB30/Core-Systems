@@ -32,5 +32,7 @@ namespace RadiusR.DB.Enums
         FailedAutomaticPayment = 22,
         OperationCode = 23,
         FreezeDurationEnd = 24,
+        SupportRequestInProgress = 25,
+        SupportRequestResolved = 26
     }
 }

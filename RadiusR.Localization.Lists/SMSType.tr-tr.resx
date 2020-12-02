@@ -189,4 +189,10 @@
   <data name="FreezeDurationEnd" xml:space="preserve">
     <value>Dondurma Süresi Btirince</value>
   </data>
+  <data name="SupportRequestInProgress" xml:space="preserve">
+    <value>Destek İsteği İşlemde</value>
+  </data>
+  <data name="SupportRequestResolved" xml:space="preserve">
+    <value>Destek İsteği Çözüldü</value>
+  </data>
 </root>

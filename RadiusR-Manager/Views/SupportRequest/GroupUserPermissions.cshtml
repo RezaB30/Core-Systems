@@ -11,31 +11,47 @@
             @Html.AntiForgeryToken()
             @Html.HiddenFor(model => model.UserID)
             @Html.HiddenFor(model => model.UserName)
-            <table class="input-table">
-                <tr>
-                    <td>
-                        @Html.EditorFor(model => model.CanChangeState)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.CanCreate)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.ValidationMessageFor(model => model.CanChangeState)
-                    </td>
-                    <td>
-                        @Html.ValidationMessageFor(model => model.CanCreate)
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="centered">
-                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "SupportGroupUsers", new { id = Request.QueryString["groupId"] }, new { @class = "link-button iconed-button back-button" })
-                        &nbsp;
-                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
-                    </td>
-                </tr>
-            </table>
+        <table class="input-table">
+            <tr>
+                <td>
+                    @Html.EditorFor(model => model.CanChangeState)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.CanCreate)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.ValidationMessageFor(model => model.CanChangeState)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.CanCreate)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.EditorFor(model => model.CanRedirect)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.CanWriteToCustomer)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.ValidationMessageFor(model => model.CanRedirect)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.CanWriteToCustomer)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" class="centered">
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "SupportGroupUsers", new { id = Request.QueryString["groupId"] }, new { @class = "link-button iconed-button back-button" })
+                    &nbsp;
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                </td>
+            </tr>
+        </table>
         }
     </div>
 </div>

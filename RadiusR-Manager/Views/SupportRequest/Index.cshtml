@@ -18,7 +18,9 @@
         <th>
             @Html.DisplayNameFor(model => model.PersonalInbox)
         </th>
-        <th></th>
+        <th>
+            @RadiusR.Localization.Pages.Common.FinishedRequests
+        </th>
     </tr>
     @foreach (var item in Model)
     {
@@ -75,12 +77,18 @@
                     @:-
                 }
             </td>
-            <td>
+            <td class="centered">
                 <div class="support-request-count-indicator">
                     @Html.DisplayFor(modelItem => item.PersonalInbox)
                     &nbsp;
                     @Html.ActionLink(RadiusR.Localization.Pages.Common.Show, "Inbox", new { id = item.GroupID }, new { @class = "link-button iconed-button comment-button" })
                 </div>
+            </td>
+            <td>
+                @if (item.IsLeader)
+                {
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Show, "FinishedRequests", new { id = item.GroupID }, new { @class = "link-button iconed-button comment-button" })
+                }
             </td>
         </tr>
     }

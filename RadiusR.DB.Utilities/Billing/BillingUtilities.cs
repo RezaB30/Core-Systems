@@ -185,7 +185,7 @@ namespace RadiusR.DB.Utilities.Billing
                                 continue;
                             }
                             //
-                            else if (currentSubscriptionLastBill.BillStatusID == (short)BillState.Unpaid || lastPairedBill.State == (short)BillState.Unpaid || currentSubscriptionLastBill.PayDate > currentSubscriptionLastBill.DueDate || lastPairedBill.PayDate > lastPairedBill.DueDate)
+                            else if (currentSubscriptionLastBill.BillStatusID == (short)BillState.Unpaid || lastPairedBill.State == (short)BillState.Unpaid || (currentSubscriptionLastBill.PayDate.HasValue && currentSubscriptionLastBill.PayDate.Value.Date > currentSubscriptionLastBill.DueDate) || lastPairedBill.PayDate > lastPairedBill.DueDate)
                             {
                                 recurringDiscountApplicationState = RecurringDiscountApplicationState.Passed;
                                 discount.HasBeenPenalized = true;

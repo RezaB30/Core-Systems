@@ -1128,4 +1128,7 @@
   <data name="RedirectToGroup" xml:space="preserve">
     <value>Redirect to Group</value>
   </data>
+  <data name="FinishedRequests" xml:space="preserve">
+    <value>Finished Requests</value>
+  </data>
 </root>

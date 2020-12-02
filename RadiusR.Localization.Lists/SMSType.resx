@@ -189,4 +189,10 @@
   <data name="FreezeDurationEnd" xml:space="preserve">
     <value>Freeze Duration End</value>
   </data>
+  <data name="SupportRequestInProgress" xml:space="preserve">
+    <value>Support Request In Progress</value>
+  </data>
+  <data name="SupportRequestResolved" xml:space="preserve">
+    <value>Support Request Resolved</value>
+  </data>
 </root>

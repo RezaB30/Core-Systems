@@ -1125,4 +1125,7 @@
   <data name="RedirectToGroup" xml:space="preserve">
     <value>Gruba Yönlendir</value>
   </data>
+  <data name="FinishedRequests" xml:space="preserve">
+    <value>Tamamlanmış İstekler</value>
+  </data>
 </root>

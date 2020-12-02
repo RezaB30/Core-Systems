@@ -1348,6 +1348,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finished Requests.
+        /// </summary>
+        public static string FinishedRequests {
+            get {
+                return ResourceManager.GetString("FinishedRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Complete The Request.
         /// </summary>
         public static string FinishRequest {
