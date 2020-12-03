@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.4-alpha2</version>
+    <version>1.0.4-alpha4</version>
     <title>RadiusR.DB</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <description>MasterISS core data base.</description>
-    <releaseNotes>Added more columns to support group user table.</releaseNotes>
+    <releaseNotes>Added support pin generator.</releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>MasterISS Database</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />

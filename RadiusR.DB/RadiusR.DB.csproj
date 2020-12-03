@@ -277,6 +277,7 @@
     <Compile Include="RadiusSMS.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="RandomCode\CodeGenerator.cs" />
     <Compile Include="RecurringDiscount.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
