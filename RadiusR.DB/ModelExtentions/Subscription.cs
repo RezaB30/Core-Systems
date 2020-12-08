@@ -42,7 +42,9 @@ namespace RadiusR.DB
                 return false;
             }
         }
-
+        /// <summary>
+        /// Gets the name surname combination. should not be used in a database query!
+        /// </summary>
         public string ValidDisplayName
         {
             get

@@ -1131,4 +1131,7 @@
   <data name="FinishedRequests" xml:space="preserve">
     <value>Finished Requests</value>
   </data>
+  <data name="Direct" xml:space="preserve">
+    <value>Direct</value>
+  </data>
 </root>

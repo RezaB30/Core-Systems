@@ -7,25 +7,21 @@ using System.Threading.Tasks;
 
 namespace RadiusR_Manager.Models.ViewModels.SupportRequestModels
 {
-    public class SupportRequestProcessViewModel
+    public class SupportRequestCreateViewModel
     {
-        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "Member")]
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "RequestType")]
         [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
-        public int? SelectedUserID { get; set; }
+        public int? TypeID { get; set; }
 
-        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "Group")]
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "RequestSubType")]
         [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
-        public int? SelectedGroupID { get; set; }
-
-        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "ActionType")]
-        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
-        public short? ActionType { get; set; }
+        public int? SubTypeID { get; set; }
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "Message")]
         [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
         [DataType(DataType.MultilineText)]
         [MaxLength(500, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
-        public string AddedMessage { get; set; }
+        public string Message { get; set; }
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "VisibleToCustomer")]
         public bool IsVisibleToCustomer { get; set; }

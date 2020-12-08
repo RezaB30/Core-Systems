@@ -951,7 +951,6 @@
           </Key>
           <Property Name="SupportGroupID" Type="int" Nullable="false" />
           <Property Name="AppUserID" Type="int" Nullable="false" />
-          <Property Name="CanCreate" Type="bit" Nullable="false" />
           <Property Name="CanChangeState" Type="bit" Nullable="false" />
           <Property Name="CanRedirect" Type="bit" Nullable="false" />
           <Property Name="CanWriteToCustomer" Type="bit" Nullable="false" />
@@ -6445,7 +6444,6 @@
           </Key>
           <Property Name="SupportGroupID" Type="Int32" Nullable="false" />
           <Property Name="AppUserID" Type="Int32" Nullable="false" />
-          <Property Name="CanCreate" Type="Boolean" Nullable="false" />
           <Property Name="CanChangeState" Type="Boolean" Nullable="false" />
           <Property Name="CanRedirect" Type="Boolean" Nullable="false" />
           <Property Name="CanWriteToCustomer" Type="Boolean" Nullable="false" />
@@ -7659,7 +7657,6 @@
                 <ScalarProperty Name="CanWriteToCustomer" ColumnName="CanWriteToCustomer" />
                 <ScalarProperty Name="CanRedirect" ColumnName="CanRedirect" />
                 <ScalarProperty Name="CanChangeState" ColumnName="CanChangeState" />
-                <ScalarProperty Name="CanCreate" ColumnName="CanCreate" />
                 <ScalarProperty Name="AppUserID" ColumnName="AppUserID" />
                 <ScalarProperty Name="SupportGroupID" ColumnName="SupportGroupID" />
               </MappingFragment>

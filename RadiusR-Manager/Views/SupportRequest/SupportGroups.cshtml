@@ -85,7 +85,7 @@
         </tr>
     }
 </table>
-@Html.PagedList((int)ViewBag.PageCount)
+@Html.PagedList()
 
 <div class="button-row centered">
     @Html.ActionLink(RadiusR.Localization.Pages.Common.Add, "AddSupportGroup", new { redirectUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button new-button" })

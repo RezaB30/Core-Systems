@@ -15,6 +15,7 @@ using RadiusR.DB.Utilities.Billing;
 using RadiusR_Manager.Models.ViewModels.Customer;
 using RezaB.Data.Localization;
 using RezaB.Web.Authentication;
+using RadiusR_Manager.Models.ViewModels.SupportRequestModels;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -401,7 +402,7 @@ namespace RadiusR_Manager.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         // POST: Client/Notes
-        public ActionResult Notes(long id, int? page, [Bind(Include = "Message", Prefix = "addedNote")]NoteViewModel addedNote)
+        public ActionResult Notes(long id, int? page, [Bind(Include = "Message", Prefix = "addedNote")] NoteViewModel addedNote)
         {
             var dbSubscription = db.Subscriptions.Find(id);
             if (dbSubscription == null)
@@ -476,6 +477,23 @@ namespace RadiusR_Manager.Controllers
 
             ViewBag.CustomerName = dbSubscription.ValidDisplayName;
             return View(viewName: "DetailsTabs/TariffChangeHistory", model: viewResults.ToArray());
+        }
+
+        [HttpGet]
+        // GET: Client/SupportRequests
+        public ActionResult SupportRequests(long id, int? page)
+        {
+            var dbSubscription = db.Subscriptions.Find(id);
+            if (dbSubscription == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            }
+
+            var viewResults = db.SupportRequests.Where(sr => sr.SubscriptionID == dbSubscription.ID).OrderByDescending(sr => sr.Date).GetViewModels();
+
+            SetupPages(page, ref viewResults);
+
+            return View(viewName: "DetailsTabs/SupportRequests", model: viewResults);
         }
     }
 }

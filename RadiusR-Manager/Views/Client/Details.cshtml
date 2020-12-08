@@ -25,7 +25,7 @@
         var page4Loader = new AjaxLoader('#client-assigned-tasks-container');
         page4Loader.Load('@Url.Action("WorkOrders", "Client", new { id = Model.SubscriptionInfo.ArchiveNo })');
         var page8Loader = new AjaxLoader('#client-support-requests-container');
-        page8Loader.Load('@Url.Action("SubscriberSupportRequests", "Client", new { id = Model.SubscriptionInfo.ArchiveNo })');
+        page8Loader.Load('@Url.Action("SupportRequests", "Client", new { id = Model.SubscriptionInfo.ArchiveNo })');
         var page5Loader = new AjaxLoader('.connection-history-container');
         page5Loader.Load('@Url.Action("ConnectionHistory", new { id= Model.SubscriptionInfo.ArchiveNo })');
         var page6Loader = new AjaxLoader('#client-sms-container');

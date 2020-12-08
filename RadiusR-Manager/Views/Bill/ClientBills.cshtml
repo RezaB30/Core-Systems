@@ -68,7 +68,7 @@
         </tr>
     }
 </table>
-@Html.PagedList((int)ViewBag.PageCount)
+@Html.PagedList()
 @if (User.HasPermission("Payment") || User.IsInRole("cashier"))
 {
     if (ViewBag.IsValidForPacketExtention)

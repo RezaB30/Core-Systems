@@ -17,7 +17,7 @@ namespace RadiusR_Manager.Helpers
         /// <param name="pageCount">Total number of pages in current table</param>
         /// <param name="pageNumber">Current data page</param>
         /// <returns></returns>
-        public static MvcHtmlString PagedList(this HtmlHelper helper, int pageCount, int? pageNumber = null)
+        public static MvcHtmlString PagedList(this HtmlHelper helper, int? pageCount = null, int? pageNumber = null)
         {
             var urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
             //retrieve page number from query string
@@ -33,6 +33,18 @@ namespace RadiusR_Manager.Helpers
                     routePage = 0;
                 }
                 pageNumber = routePage;
+            }
+            // retrieve page count from view data
+            if (!pageCount.HasValue)
+            {
+                try
+                {
+                    pageCount = helper.ViewBag.PageCount as int? ?? 1;
+                }
+                catch (Exception)
+                {
+                    pageCount = 1;
+                }
             }
             //Makes a div wrapper around the entire element
             var wrapper = new TagBuilder("div");

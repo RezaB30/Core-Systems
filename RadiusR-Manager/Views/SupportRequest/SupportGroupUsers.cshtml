@@ -15,9 +15,6 @@
             @Html.DisplayNameFor(model => model.CanChangeState)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CanCreate)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.CanRedirect)
         </th>
         <th>
@@ -33,9 +30,6 @@
             </td>
             <td class="centered">
                 @Html.DisplayFor(modelItem => item.CanChangeState)
-            </td>
-            <td class="centered">
-                @Html.DisplayFor(modelItem => item.CanCreate)
             </td>
             <td class="centered">
                 @Html.DisplayFor(modelItem => item.CanRedirect)
@@ -55,7 +49,7 @@
         </tr>
     }
 </table>
-@Html.PagedList((int)ViewBag.PageCount)
+@Html.PagedList()
 
 <div class="button-row centered">
     @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "SupportGroups", null, new { @class = "link-button iconed-button back-button" })

@@ -11,12 +11,22 @@ namespace RadiusR_Manager
 
         public bool IsLeader { get; set; }
 
-        public bool CanCreate { get; set; }
-
         public bool CanChangeState { get; set; }
 
         public bool CanRedirect { get; set; }
 
         public bool CanWriteToCustomer { get; set; }
+    }
+
+    public class ExtendedSupportGroupClaim
+    {
+        public SupportGroupClaim BaseClaim { get; private set; }
+        public bool CanRead { get; set; }
+
+        public ExtendedSupportGroupClaim(SupportGroupClaim baseClaim, bool canRead = true)
+        {
+            BaseClaim = baseClaim;
+            CanRead = canRead;
+        }
     }
 }

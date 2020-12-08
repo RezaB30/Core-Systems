@@ -1128,4 +1128,7 @@
   <data name="FinishedRequests" xml:space="preserve">
     <value>Tamamlanmış İstekler</value>
   </data>
+  <data name="Direct" xml:space="preserve">
+    <value>Direkt</value>
+  </data>
 </root>

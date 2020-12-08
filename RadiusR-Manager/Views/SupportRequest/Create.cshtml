@@ -1,0 +1,108 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.SupportRequestModels.SupportRequestCreateViewModel
+
+@{
+    ViewBag.Title = $"{ViewBag.CustomerName}-{RadiusR.Localization.Pages.Common.CreateSupportRequest}";
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.TypeID)
+                    </td>
+                    <td>
+                        @Html.Select(model => model.TypeID, (SelectList)ViewBag.RequestTypes, RadiusR.Localization.Pages.Common.Choose)
+                    </td>
+                    <td>
+                        @Html.LabelFor(model => model.SubTypeID)
+                    </td>
+                    <td>
+                        @Html.Select(model => model.SubTypeID, (SelectList)(ViewBag.RequestSubTypes ?? new SelectList(Enumerable.Empty<object>())), RadiusR.Localization.Pages.Common.Choose)
+                        @if (Model != null && Model.SubTypeID.HasValue)
+                        {
+                            <div class="sub-type-checkmark valid"></div>
+                        }
+                        else
+                        {
+                            <div class="sub-type-checkmark invalid"></div>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.TypeID)
+                    </td>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.SubTypeID)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">@Html.LabelFor(model => model.Message)</td>
+                    <td colspan="2">
+                        @Html.EditorFor(model => model.IsVisibleToCustomer)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">@Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "support-request-note" } })</td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        @Html.ValidationMessageFor(model => model.Message)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="centered">
+                        <a href="@ViewBag.ReturnUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                        &nbsp;
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+@section PageScripts{
+    <script>
+        $('input#TypeID').change(function (e) {
+            var currentChangingInput = $(this);
+            var statusSymbol = $(this).closest('form').find('div.sub-type-checkmark');
+            var changingList = $('input#SubTypeID').parent().find('div.options-container').children();
+            changingList.find('.list-option:not([value=""])').remove();
+            SetupSelectLists(changingList.parent());
+            selectOption('', changingList);
+            if (currentChangingInput.val() != '') {
+                statusSymbol.removeClass('error valid invalid');
+                statusSymbol.addClass('loading');
+                GetJson('@Url.Action("GetSubTypes", "SupportRequest")', { id: $('input#TypeID').val() }, 'POST', function (itemList) {
+                    changingList.find('.list-option:not([value=""])').remove();
+                    if (itemList == null || itemList.ErrorOccured) {
+                        // show error
+                        statusSymbol.removeClass('valid invalid loading');
+                        statusSymbol.addClass('error');
+                        return;
+                    }
+                    for (var i = 0; i < itemList.Data.length; i++) {
+                        changingList.append('<div class="list-option" value="' + itemList.Data[i].Code + '">' + itemList.Data[i].Name + '</div>');
+                    }
+                    SetupSelectLists(changingList.closest('div.select-list-wrapper').parent());
+                    selectOption('', changingList.closest('div.select-list-wrapper').parent());
+                    statusSymbol.removeClass('error invalid loading');
+                    statusSymbol.addClass('valid');
+                });
+            }
+            else {
+                statusSymbol.removeClass('valid error loading');
+                statusSymbol.addClass('invalid');
+            }
+        });
+
+        //$('input#TypeID').trigger('change');
+    </script>
+}

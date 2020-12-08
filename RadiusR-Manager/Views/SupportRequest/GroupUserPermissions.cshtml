@@ -13,19 +13,13 @@
             @Html.HiddenFor(model => model.UserName)
         <table class="input-table">
             <tr>
-                <td>
+                <td colspan="2">
                     @Html.EditorFor(model => model.CanChangeState)
-                </td>
-                <td>
-                    @Html.EditorFor(model => model.CanCreate)
                 </td>
             </tr>
             <tr>
-                <td>
+                <td colspan="2">
                     @Html.ValidationMessageFor(model => model.CanChangeState)
-                </td>
-                <td>
-                    @Html.ValidationMessageFor(model => model.CanCreate)
                 </td>
             </tr>
             <tr>

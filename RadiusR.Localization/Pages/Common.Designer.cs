@@ -1105,6 +1105,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Direct.
+        /// </summary>
+        public static string Direct {
+            get {
+                return ResourceManager.GetString("Direct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Discount.
         /// </summary>
         public static string Discount {

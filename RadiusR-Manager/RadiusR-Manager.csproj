@@ -819,7 +819,6 @@
     <Content Include="Views\Client\StateChanges\FreezeSubscription.cshtml" />
     <Content Include="Views\Client\StateChanges\CancelSubscription.cshtml" />
     <Content Include="Views\Client\StateChanges\UnfreezeError.cshtml" />
-    <Content Include="Views\Client\SubscriberSupportRequests.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\TimeOfDay.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ServiceRateTimeTable.cshtml" />
     <Content Include="Views\Quota\Settings.cshtml" />
@@ -921,6 +920,8 @@
     <Content Include="Views\SupportRequest\Index.cshtml" />
     <Content Include="Views\SupportRequest\Inbox.cshtml" />
     <Content Include="Views\SupportRequest\Details.cshtml" />
+    <Content Include="Views\Client\DetailsTabs\SupportRequests.cshtml" />
+    <Content Include="Views\SupportRequest\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

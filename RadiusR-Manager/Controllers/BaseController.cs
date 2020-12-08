@@ -99,7 +99,7 @@ namespace RadiusR_Manager.Controllers
         protected void SetupPages<T>(int? page, ref IQueryable<T> viewResults)
         {
             var totalCount = viewResults.Count();
-            var pagesCount = Math.Ceiling((float)totalCount / (float)AppSettings.TableRows);
+            var pagesCount = (int)Math.Ceiling((float)totalCount / (float)AppSettings.TableRows);
             ViewBag.PageCount = pagesCount;
             ViewBag.PageTotalCount = totalCount;
 

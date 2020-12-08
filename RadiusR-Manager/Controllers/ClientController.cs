@@ -1061,31 +1061,6 @@ namespace RadiusR_Manager.Controllers
             return File(RadiusR.PDFForms.PDFWriter.GetContractPDF(db, id), "application/pdf", string.Format(RadiusR.Localization.Pages.Common.ContractFileName, subscription.SubscriberNo));
         }
 
-        // GET: Client/SubscriberSupportrequests
-        public ActionResult SubscriberSupportRequests(long id, int? page)
-        {
-            var dbSubsciption = db.Subscriptions.Find(id);
-            if (dbSubsciption == null)
-            {
-                return Content(RadiusR.Localization.Pages.ErrorMessages._4);
-            }
-
-            var viewResults = dbSubsciption.SubscriptionSupportRequests.OrderByDescending(supportRequest => supportRequest.Date).Select(supportRequest => new SupportRequestViewModel()
-            {
-                Date = supportRequest.Date,
-                ID = supportRequest.ID,
-                Message = supportRequest.Message,
-                StateID = supportRequest.StateID,
-                CustomerSetupTaskID = supportRequest.CustomerSetupTaskID,
-                IssuerID = supportRequest.IssuerID,
-                IssuerName = supportRequest.IssuerID.HasValue ? supportRequest.AppUser.Name : RadiusR.Localization.Model.RadiusR.Customer,
-            }).AsQueryable();
-
-            SetupPages(page, ref viewResults);
-
-            return View(viewResults.ToList());
-        }
-
         [AuthorizePermission(Permissions = "Quota Sale")]
         [HttpGet]
         // GET: Client/AddQuota

@@ -1,16 +1,10 @@
-﻿@using RadiusR_Manager.Helpers
+﻿@using RezaB.Web.Authentication
+@using RadiusR_Manager.Helpers
 
 @model IEnumerable<RadiusR_Manager.Models.ViewModels.SupportRequestModels.SupportRequestListViewModel>
 
-@{
-    ViewBag.Title = ViewBag.InboxTitle;
-}
-
 <table class="data-table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.SubscriberNo)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.SupportPin)
         </th>
@@ -23,20 +17,11 @@
         <th>
             @Html.DisplayNameFor(model => model.AssignedGroup)
         </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.RedirectedToGroup)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AssignedUser)
-            </th>*@
         <th></th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
-            <td class="centered">
-                <a href="@Url.Action("Details", "Client", new { id = item.SubscriptionID })#faults" class="details-link">@Html.DisplayFor(modelItem => item.SubscriberNo)</a>
-            </td>
             <td class="centered">
                 @Html.DisplayFor(modelItem => item.SupportPin)
             </td>
@@ -75,12 +60,9 @@
                 }
             </td>
             <td>
-                @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", new { id = item.ID, groupId = ViewBag.GroupId, returnUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button details-button" })
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", "SupportRequest", new { id = item.ID, groupId = ViewBag.GroupId, returnUrl = $"{Url.Action("Details", "Client", new { id = ViewContext.RouteData.Values["id"] })}#faults" }, new { @class = "link-button iconed-button details-button" })
             </td>
         </tr>
     }
 </table>
 @Html.PagedList()
-<div class="button-row centered">
-    @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class = "link-button iconed-button back-button" })
-</div>

@@ -18,12 +18,12 @@
         @RadiusR.Localization.Pages.Common.SupportRequests
     </div>
     <div id="client-support-requests-container"></div>
-    @if (Model.SubscriptionInfo.State == (short)CustomerState.Active && User.HasPermission("Create Support Request"))
-    {
-        <div class="centered" style="padding: 0.5em;">
-            @Html.ActionLink(RadiusR.Localization.Pages.Common.CreateSupportRequest, "Add", "SupportRequest", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button next-button" })
-        </div>
-    }
+    <div class="centered button-row">
+        @if (Model.SubscriptionInfo.State != (short)CustomerState.Cancelled && User.HasPermission("Create Support Request"))
+        {
+            @Html.ActionLink(RadiusR.Localization.Pages.Common.CreateSupportRequest, "Create", "SupportRequest", new { id = ViewContext.RouteData.Values["id"], returnUrl = $"{Url.Action("Details", "Client", new { id = ViewContext.RouteData.Values["id"] })}#faults" }, new { @class = "link-button iconed-button next-button" })
+        }
+    </div>
     @if (Model.SubscriptionInfo.TelekomInfo != null && User.HasPermission("Telekom Work Orders"))
     {
         <div class="rate-limit-title">

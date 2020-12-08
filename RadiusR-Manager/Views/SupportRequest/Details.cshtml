@@ -86,7 +86,19 @@
                             -
                             @if (item.CommittingUser != null)
                             {
-                                <span class="support-request-tag support-request-stage-user">@Html.DisplayFor(modelItem => item.CommittingUser) &#40;@Html.DisplayFor(modelItem => item.GroupName)&#41;</span>
+                                <span class="support-request-tag support-request-stage-user">
+                                    @Html.DisplayFor(modelItem => item.CommittingUser)
+                                    &#40;
+                                    @if (item.GroupName != null)
+                                    {
+                                        @Html.DisplayFor(modelItem => item.GroupName)
+                                    }
+                                    else
+                                    {
+                                        @RadiusR.Localization.Pages.Common.Direct
+                                    }
+                                    &#41;
+                                </span>
                             }
                             else
                             {

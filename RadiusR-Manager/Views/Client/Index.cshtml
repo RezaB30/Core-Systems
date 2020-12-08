@@ -83,7 +83,7 @@
         </tr>
     }
 </table>
-@Html.PagedList((int)ViewBag.PageCount)
+@Html.PagedList(@*(int)ViewBag.PageCount*@)
 
 @if (User.HasPermission("Download Subscriber List"))
 {

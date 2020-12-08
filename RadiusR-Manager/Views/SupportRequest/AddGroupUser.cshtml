@@ -16,29 +16,19 @@
                 <td>
                     @Html.LabelFor(model => model.UserID)
                 </td>
-                <td colspan="3">
+                <td>
                     @Html.Select(model => model.UserID, (SelectList)ViewBag.ValidUsers, RadiusR.Localization.Pages.Common.Choose)
                 </td>
-            </tr>
-            <tr>
-                <td colspan="4">
-                    @Html.ValidationMessageFor(model => model.UserID)
-                </td>
-            </tr>
-            <tr>
                 <td colspan="2">
                     @Html.EditorFor(model => model.CanChangeState)
                 </td>
-                <td colspan="2">
-                    @Html.EditorFor(model => model.CanCreate)
-                </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    @Html.ValidationMessageFor(model => model.CanChangeState)
+                    @Html.ValidationMessageFor(model => model.UserID)
                 </td>
                 <td colspan="2">
-                    @Html.ValidationMessageFor(model => model.CanCreate)
+                    @Html.ValidationMessageFor(model => model.CanChangeState)
                 </td>
             </tr>
             <tr>

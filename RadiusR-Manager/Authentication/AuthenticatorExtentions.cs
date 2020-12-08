@@ -61,7 +61,6 @@ namespace RadiusR_Manager
                 {
                     GroupId = sgu.SupportGroupID,
                     IsLeader = false,
-                    CanCreate = sgu.CanCreate,
                     CanChangeState = sgu.CanChangeState,
                     CanRedirect = sgu.CanRedirect,
                     CanWriteToCustomer = sgu.CanWriteToCustomer
@@ -70,7 +69,6 @@ namespace RadiusR_Manager
                 {
                     GroupId = sg.ID,
                     CanChangeState = true,
-                    CanCreate = true,
                     CanRedirect = true,
                     CanWriteToCustomer = true,
                     IsLeader = true

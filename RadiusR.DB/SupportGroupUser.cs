@@ -16,7 +16,6 @@ namespace RadiusR.DB
     {
         public int SupportGroupID { get; set; }
         public int AppUserID { get; set; }
-        public bool CanCreate { get; set; }
         public bool CanChangeState { get; set; }
         public bool CanRedirect { get; set; }
         public bool CanWriteToCustomer { get; set; }

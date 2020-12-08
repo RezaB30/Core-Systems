@@ -21,7 +21,7 @@
         </tr>
     }
 </table>
-@Html.PagedList((int)ViewBag.PageCount)
+@Html.PagedList()
 
 <div class="button-row centered">
     @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Settings", new { id = Request.RequestContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button back-button" })
