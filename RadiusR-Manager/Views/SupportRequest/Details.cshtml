@@ -7,10 +7,11 @@
     int? groupId = ViewBag.GroupId as int?;
     SupportGroupClaim supportPermissions = ViewBag.GroupPermissions as SupportGroupClaim;
     var processParameters = ViewBag.ProcessParameters as RadiusR_Manager.Models.ViewModels.SupportRequestModels.SupportRequestProcessViewModel ?? new RadiusR_Manager.Models.ViewModels.SupportRequestModels.SupportRequestProcessViewModel();
+    var visibilityClass = Model.RequestInfo.IsVisibleToCustomer ? "support-request-visible" : "support-request-invisible";
 }
 
 <div class="centered-form-wrapper">
-    <div class="centered-form">
+    <div class="centered-form @visibilityClass">
         <table class="input-table">
             <tr>
                 <td>
@@ -79,9 +80,10 @@
             </tr>
             @foreach (var item in Model.Stages)
             {
+                var itemVisibilityClass = (Model.RequestInfo.IsVisibleToCustomer && item.IsVisibleToCustomer) ? "visible" : "invisible"; 
                 <tr>
                     <td colspan="2" class="support-request-stage">
-                        <div class="support-request-stage-row support-request-stage-head">
+                        <div class="support-request-stage-row support-request-stage-head @itemVisibilityClass">
                             @Html.DisplayFor(modelItem => item.Date)
                             -
                             @if (item.CommittingUser != null)

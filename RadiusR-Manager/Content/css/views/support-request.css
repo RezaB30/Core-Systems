@@ -91,6 +91,10 @@ div.support-request-stage-head {
 
 div.support-request-stage-row {
     margin: 0.2em;
+    background-position: top right;
+    background-repeat: no-repeat;
+    padding-right: 2em;
+    background-size: 1.5em;
 }
 
 td.support-request-stage-separator {
@@ -147,3 +151,17 @@ div.sub-type-checkmark {
         animation-iteration-count: infinite;
         animation-timing-function: linear;
     }
+
+div.support-request-invisible, div.support-request-visible {
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 9em;
+}
+
+div.support-request-visible, div.support-request-stage-row.visible {
+    background-image: url('../../Images/Shared/visible.svg');
+}
+
+div.support-request-invisible, div.support-request-stage-row.invisible {
+    background-image: url('../../Images/Shared/invisible.svg');
+}

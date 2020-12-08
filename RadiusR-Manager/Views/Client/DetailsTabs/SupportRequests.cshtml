@@ -15,6 +15,9 @@
             @Html.DisplayNameFor(model => model.RequestType)/@Html.DisplayNameFor(model => model.RequestSubType)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.IsVisibleToCustomer)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.AssignedGroup)
         </th>
         <th></th>
@@ -35,6 +38,9 @@
                 <div class="support-request-sub-type-view">
                     @Html.DisplayFor(modelItem => item.RequestSubType)
                 </div>
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.IsVisibleToCustomer)
             </td>
             <td class="centered">
                 @if (item.AssignedGroup != null)

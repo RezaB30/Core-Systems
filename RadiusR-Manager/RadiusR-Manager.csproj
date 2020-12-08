@@ -458,6 +458,7 @@
     <Content Include="Content\Images\Shared\error-triangle.svg" />
     <Content Include="Content\Images\Shared\eye-close-up.svg" />
     <Content Include="Content\Images\Shared\FTTX.svg" />
+    <Content Include="Content\Images\Shared\invisible.svg" />
     <Content Include="Content\Images\Shared\loading-symbol.svg" />
     <Content Include="Content\Images\Shared\map.svg" />
     <Content Include="Content\Images\Shared\main-logo.svg" />
@@ -472,6 +473,7 @@
     <Content Include="Content\Images\Shared\telephone-white.svg" />
     <Content Include="Content\Images\Shared\tree-minus.svg" />
     <Content Include="Content\Images\Shared\tree-plus.svg" />
+    <Content Include="Content\Images\Shared\visible.svg" />
     <Content Include="Content\Images\Shared\warning.svg" />
     <Content Include="Content\Images\Shared\wifi.svg" />
     <Content Include="Content\Images\Tree\tree-filler.svg" />
