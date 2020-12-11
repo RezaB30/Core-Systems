@@ -2608,6 +2608,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Share Requests.
+        /// </summary>
+        public static string ShareRequests {
+            get {
+                return ResourceManager.GetString("ShareRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show.
         /// </summary>
         public static string Show {

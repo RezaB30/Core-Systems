@@ -1515,4 +1515,7 @@
   <data name="CanWriteToCustomer" xml:space="preserve">
     <value>Can Write to Customer</value>
   </data>
+  <data name="SelectedStaff" xml:space="preserve">
+    <value>Selected Staff</value>
+  </data>
 </root>

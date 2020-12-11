@@ -1515,4 +1515,7 @@
   <data name="CanWriteToCustomer" xml:space="preserve">
     <value>Müşteriye Yazabilir</value>
   </data>
+  <data name="SelectedStaff" xml:space="preserve">
+    <value>Seçilmiş Personel</value>
+  </data>
 </root>

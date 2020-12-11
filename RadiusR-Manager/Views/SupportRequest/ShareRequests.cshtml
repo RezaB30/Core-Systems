@@ -1,0 +1,46 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.SupportRequestModels.ShareSupportRequestsViewModel
+
+@{
+    ViewBag.Title = $"{ViewBag.GroupName}-{RadiusR.Localization.Pages.Common.ShareRequests}";
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        <label>@RadiusR.Localization.Pages.Common.TotalCount</label>
+                    </td>
+                    <td>
+                        @ViewBag.TotalRequestCount
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.SelectedUserIds)
+                    </td>
+                    <td>
+                        @Html.MultiSelectFor(model => model.SelectedUserIds, (MultiSelectList)ViewBag.GroupUserList, RadiusR.Localization.Pages.Common.Choose)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.SelectedUserIds)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        <a href="@ViewBag.ReturnUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                        &nbsp;
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

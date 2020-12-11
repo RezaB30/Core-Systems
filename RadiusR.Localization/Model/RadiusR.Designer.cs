@@ -3337,6 +3337,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selected Staff.
+        /// </summary>
+        public static string SelectedStaff {
+            get {
+                return ResourceManager.GetString("SelectedStaff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send Date.
         /// </summary>
         public static string SendDate {

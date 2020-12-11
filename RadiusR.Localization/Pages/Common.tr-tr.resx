@@ -1131,4 +1131,7 @@
   <data name="Direct" xml:space="preserve">
     <value>Direkt</value>
   </data>
+  <data name="ShareRequests" xml:space="preserve">
+    <value>İstekleri Paylaş</value>
+  </data>
 </root>

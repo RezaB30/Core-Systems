@@ -1134,4 +1134,7 @@
   <data name="Direct" xml:space="preserve">
     <value>Direct</value>
   </data>
+  <data name="ShareRequests" xml:space="preserve">
+    <value>Share Requests</value>
+  </data>
 </root>
