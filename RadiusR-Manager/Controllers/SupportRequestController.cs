@@ -590,6 +590,7 @@ namespace RadiusR_Manager.Controllers
 
             if (ModelState.IsValid)
             {
+                sharedUsers.SelectedUserIds = sharedUsers.SelectedUserIds.Distinct();
                 if (sharedUsers.SelectedUserIds.Except(currentGroup.SupportGroupUsers.Select(sgu => sgu.AppUserID)).Any() || !sharedUsers.SelectedUserIds.Any())
                 {
                     ModelState.AddModelError("SelectedUserIds", RadiusR.Localization.Validation.Common.InvalidInput);

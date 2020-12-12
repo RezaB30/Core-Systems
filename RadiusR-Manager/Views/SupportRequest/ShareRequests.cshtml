@@ -34,6 +34,11 @@
                     </td>
                 </tr>
                 <tr>
+                    <td colspan="2">
+                        @Html.Partial("_WaitTimer")
+                    </td>
+                </tr>
+                <tr id="submit-row">
                     <td colspan="2" class="centered">
                         <a href="@ViewBag.ReturnUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
                         &nbsp;
@@ -44,3 +49,12 @@
         }
     </div>
 </div>
+
+@section PageScripts{
+    <script>
+        $('#submit-row').closest('form').submit(function () {
+            $('#submit-row').hide();
+            StartWaitingCounter('div.waiting-progress');
+        });
+    </script>
+}
