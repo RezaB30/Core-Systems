@@ -25,8 +25,8 @@ namespace RadiusR.DB
         public System.DateTime Date { get; set; }
         public Nullable<long> SubscriptionID { get; set; }
         public short StateID { get; set; }
-        public Nullable<int> TypeID { get; set; }
-        public Nullable<int> SubTypeID { get; set; }
+        public int TypeID { get; set; }
+        public int SubTypeID { get; set; }
         public bool IsVisibleToCustomer { get; set; }
         public Nullable<int> AssignedGroupID { get; set; }
         public Nullable<int> AssignedUserID { get; set; }

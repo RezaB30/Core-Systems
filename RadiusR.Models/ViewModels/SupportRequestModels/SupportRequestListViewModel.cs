@@ -57,8 +57,8 @@ namespace RadiusR_Manager.Models.ViewModels.SupportRequestModels
             Date = dbRequest.Date;
             ID = dbRequest.ID;
             RedirectedToGroup = dbRequest.RedirectedGroupID.HasValue ? dbRequest.RedirectedSupportGroup.Name : null;
-            RequestSubType = dbRequest.SubTypeID.HasValue ? dbRequest.SupportRequestSubType.Name : null;
-            RequestType = dbRequest.TypeID.HasValue ? dbRequest.SupportRequestType.Name : null;
+            RequestSubType = dbRequest.SupportRequestSubType.Name;
+            RequestType = dbRequest.SupportRequestType.Name;
             SubscriberNo = dbRequest.SubscriptionID.HasValue ? dbRequest.Subscription.SubscriberNo : null;
             SubscriptionID = dbRequest.SubscriptionID;
             SupportPin = dbRequest.SupportPin;
@@ -78,8 +78,8 @@ namespace RadiusR_Manager.Models.ViewModels.SupportRequestModels
                 Date = sr.Date,
                 ID = sr.ID,
                 RedirectedToGroup = sr.RedirectedGroupID.HasValue ? sr.RedirectedSupportGroup.Name : null,
-                RequestSubType = sr.SubTypeID.HasValue ? sr.SupportRequestSubType.Name : null,
-                RequestType = sr.TypeID.HasValue ? sr.SupportRequestType.Name : null,
+                RequestSubType = sr.SupportRequestSubType.Name,
+                RequestType = sr.SupportRequestType.Name,
                 SubscriberNo = sr.SubscriptionID.HasValue ? sr.Subscription.SubscriberNo : null,
                 SubscriptionID = sr.SubscriptionID,
                 SupportPin = sr.SupportPin,
