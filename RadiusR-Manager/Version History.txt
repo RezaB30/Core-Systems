@@ -262,9 +262,13 @@ v 5.05.08 '2020-11-14'
 v 5.05.09
 - used cached online subscription count in the context instead of calculating it every time.
 - updated online subscriptions report to prevent database deadlock caused by the new radius accounting index.
-v 5.06.00
+v 5.06.00 '2020-12-14'
 - revamped support requests.
 - added support groups.
 - added support request types.
 - added support request inboxes.
 - added PSTN input when changing subscription state to registered.
+v 5.06.01 '2020-12-15'
+- added customer website settings.
+- fixed some support request bugs.
+- updated database nuget;

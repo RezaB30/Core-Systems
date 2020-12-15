@@ -86,6 +86,6 @@
     @if (ViewBag.CanShare == true)
     {
         @:&nbsp;
-        @Html.ActionLink(RadiusR.Localization.Pages.Common.ShareRequests, "ShareRequests",new { id = ViewBag.GroupId, returnUrl = Request.Url.PathAndQuery, isRedirect = ViewBag.IsRedirect }, new { @class = "link-button iconed-button next-button" })
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.ShareRequests, "ShareRequests",new { id = ViewBag.GroupId, returnUrl = Request.Url.PathAndQuery, isRedirect = (ViewBag.IsRedirect == true) ? "on" : "" }, new { @class = "link-button iconed-button next-button" })
     }
 </div>

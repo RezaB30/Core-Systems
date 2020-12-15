@@ -147,11 +147,7 @@ namespace RadiusR_Manager.Models.ViewModels
         [SettingElement]
         public string ReviewDelay { get; set; }
 
-        [Display(ResourceType = typeof(RadiusR.Localization.AppSettings.Names), Name = "OnlinePasswordDuration")]
-        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
-        [TimeSpan(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "TimeSpan")]
-        [SettingElement]
-        public string OnlinePasswordDuration { get; set; }
+        
 
         //[Display(ResourceType = typeof(RadiusR.Localization.AppSettings.Names), Name = "PaymentTolerance")]
         //[Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
@@ -218,20 +214,7 @@ namespace RadiusR_Manager.Models.ViewModels
             }
         }
 
-        public TimeSpan? _OnlinePasswordDuration
-        {
-            get
-            {
-                TimeSpan result;
-                if (TimeSpan.TryParse(OnlinePasswordDuration, out result))
-                    return result;
-                return null;
-            }
-            set
-            {
-                OnlinePasswordDuration = value.Value.ToString();
-            }
-        }
+        
 
         public AppSettingsViewModel() { }
 
@@ -264,7 +247,6 @@ namespace RadiusR_Manager.Models.ViewModels
                 EBillApiPassword = AppSettings.EBillApiPassword;
                 EBillsThreshold = AppSettings.EBillsThreshold;
                 _ReviewDelay = AppSettings.ReviewDelay;
-                _OnlinePasswordDuration = AppSettings.OnlinePasswordDuration;
                 GeocodingAPIKey = AppSettings.GeocodingAPIKey;
             }
         }

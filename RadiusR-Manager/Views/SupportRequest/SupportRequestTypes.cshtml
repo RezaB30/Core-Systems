@@ -65,7 +65,7 @@
                 </table>
             </td>
             <td>
-                @Html.ActionLink(RadiusR.Localization.Pages.Common.Rename, "RenameSupportRequestType", new { id = item.ID, redirectUrl = Request.Url }, new { @class = "link-button iconed-button edit-button" })
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Rename, "RenameSupportRequestType", new { id = item.ID, redirectUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button edit-button" })
                 &nbsp;
                 @using (Html.BeginForm("ToggleSupportRequestTypeState", null, new { id = item.ID, redirectUrl = Request.Url.PathAndQuery }, FormMethod.Post, new { @confirm = "enabled" }))
                 {

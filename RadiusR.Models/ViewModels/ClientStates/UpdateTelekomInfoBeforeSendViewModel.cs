@@ -16,6 +16,7 @@ namespace RadiusR_Manager.Models.ViewModels.ClientStates
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "PSTN")]
         [PhoneNumber(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "PhoneNumber")]
+        [MaxLength(10, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
         public string PSTN { get; set; }
     }
 }

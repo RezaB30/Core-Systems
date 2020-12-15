@@ -450,4 +450,7 @@
   <data name="SupportRequestSettings" xml:space="preserve">
     <value>Support Request Settings</value>
   </data>
+  <data name="CustomerWebsiteSettings" xml:space="preserve">
+    <value>Customer Website Settings</value>
+  </data>
 </root>

@@ -30,7 +30,7 @@
                     @Html.LabelFor(model => model.PSTN)
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.PSTN)
+                    @Html.EditorFor(model => model.PSTN, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
                 </td>
             </tr>
             <tr>

@@ -179,6 +179,7 @@
     <Compile Include="RadiusViewModels\SupportGroupUserViewModel.cs" />
     <Compile Include="RadiusViewModels\SupportGroupViewModel.cs" />
     <Compile Include="ViewModels\ClientStates\UpdateTelekomInfoBeforeSendViewModel.cs" />
+    <Compile Include="ViewModels\CustomerWebsiteSettingsViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestModels\ShareSupportRequestsViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestModels\SupportRequestCreateViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestModels\SupportRequestDetailsViewModel.cs" />

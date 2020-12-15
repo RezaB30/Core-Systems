@@ -601,15 +601,19 @@ namespace RadiusR_Manager.Controllers
                     SupportRequest[] relevantRequests;
                     if (isRedirect)
                     {
-                        relevantRequests = db.GetSupportGroupRedirectInbox(currentGroup.ID).Include(sr=>sr.Subscription).ToArray();
+                        relevantRequests = db.GetSupportGroupRedirectInbox(currentGroup.ID).Include(sr => sr.Subscription).ToArray();
                     }
                     else
                     {
                         relevantRequests = db.GetSupportGroupInbox(currentGroup.ID).Include(sr => sr.Subscription).ToArray();
                     }
                     // assign all to this group
+                    var assignmentState = new Dictionary<long, bool>();
                     foreach (var item in relevantRequests)
                     {
+                        // status
+                        assignmentState.Add(item.ID, item.AssignedGroupID.HasValue);
+                        // assign group
                         item.AssignedGroupID = currentGroup.ID;
                     }
                     // share requests
@@ -620,13 +624,12 @@ namespace RadiusR_Manager.Controllers
                     var staffIds = sharedUsers.SelectedUserIds.ToArray();
                     var staffIterator = 0;
                     var currentUserID = User.GiveUserId().Value;
-                    var assignmentState = new Dictionary<long, bool>();
                     // assign requests
                     for (int i = 0; i < requestCount; i++)
                     {
-                        // status
-                        assignmentState.Add(relevantRequests[i].ID, relevantRequests[i].AssignedGroupID.HasValue);
+                        
 
+                        relevantRequests[i].AssignedGroupID = currentGroup.ID;
                         relevantRequests[i].AssignedUserID = staffIds[staffIterator];
                         db.SupportRequestProgresses.Add(new SupportRequestProgress()
                         {
@@ -650,7 +653,7 @@ namespace RadiusR_Manager.Controllers
                     foreach (var currentSupportRequest in relevantRequests)
                     {
                         // send SMS
-                        if (!assignmentState[currentSupportRequest.ID] && currentSupportRequest.SubscriptionID.HasValue && currentSupportRequest.IsVisibleToCustomer)
+                        if (currentSupportRequest.SubscriptionID.HasValue && currentSupportRequest.IsVisibleToCustomer && !assignmentState[currentSupportRequest.ID])
                         {
                             var smsClient = new SMSService();
                             db.SMSArchives.AddSafely(smsClient.SendSubscriberSMS(currentSupportRequest.Subscription, SMSType.SupportRequestInProgress, new Dictionary<string, object>() { { SMSParamaterRepository.SMSParameterNameCollection.SupportPIN, currentSupportRequest.SupportPin } }));

@@ -295,6 +295,7 @@
     <Compile Include="Controllers\ClientExtras\StateChanges.cs" />
     <Compile Include="Controllers\ClientExtras\ModelStateFixes.cs" />
     <Compile Include="Controllers\CustomerSetupServiceController.cs" />
+    <Compile Include="Controllers\CustomerWebsiteSettingsController.cs" />
     <Compile Include="Controllers\DomainSettingsController.cs" />
     <Compile Include="Controllers\EBillController.cs" />
     <Compile Include="Controllers\FeeTypeVariantController.cs" />
@@ -927,6 +928,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\CustomerWebsiteSettings\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

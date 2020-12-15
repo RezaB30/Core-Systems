@@ -255,4 +255,7 @@
   <data name="BTKOperatorType" xml:space="preserve">
     <value>BTK Operator Type</value>
   </data>
+  <data name="SupportRequestReopenAllowTime" xml:space="preserve">
+    <value>Support Request Reopen Allow Time</value>
+  </data>
 </root>

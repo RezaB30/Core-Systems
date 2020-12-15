@@ -450,4 +450,7 @@
   <data name="SupportRequestSettings" xml:space="preserve">
     <value>Destek İsteklerin Ayarları</value>
   </data>
+  <data name="CustomerWebsiteSettings" xml:space="preserve">
+    <value>OİM Ayarları</value>
+  </data>
 </root>

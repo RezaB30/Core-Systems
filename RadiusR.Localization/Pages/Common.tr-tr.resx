@@ -1134,4 +1134,7 @@
   <data name="ShareRequests" xml:space="preserve">
     <value>İstekleri Paylaş</value>
   </data>
+  <data name="CustomerWebsiteSettings" xml:space="preserve">
+    <value>OİM Ayarları</value>
+  </data>
 </root>

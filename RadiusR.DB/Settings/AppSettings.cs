@@ -228,14 +228,6 @@ namespace RadiusR.DB
                 return DBSetting<RadiusREntities, AppSetting>.Retrieve<string>(MethodBase.GetCurrentMethod().Name.Substring(4));
             }
         }
-        // customer website settings
-        public static TimeSpan OnlinePasswordDuration
-        {
-            get
-            {
-                return DBSetting<RadiusREntities, AppSetting>.Retrieve<TimeSpan>(MethodBase.GetCurrentMethod().Name.Substring(4));
-            }
-        }
         // bill settings
         public static int PaymentTolerance
         {

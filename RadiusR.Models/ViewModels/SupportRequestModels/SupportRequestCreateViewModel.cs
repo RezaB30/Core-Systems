@@ -20,7 +20,7 @@ namespace RadiusR_Manager.Models.ViewModels.SupportRequestModels
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "Message")]
         [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
         [DataType(DataType.MultilineText)]
-        [MaxLength(500, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
+        [MaxLength(1000, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
         public string Message { get; set; }
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "VisibleToCustomer")]

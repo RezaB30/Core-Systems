@@ -1006,6 +1006,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OİM Ayarları.
+        /// </summary>
+        public static string CustomerWebsiteSettings {
+            get {
+                return ResourceManager.GetString("CustomerWebsiteSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Daily.
         /// </summary>
         public static string Daily {

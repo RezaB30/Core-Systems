@@ -49,7 +49,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4">@Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "support-request-note" } })</td>
+                    <td colspan="4">@Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "support-request-note", @maxlength = 1000 } })</td>
                 </tr>
                 <tr>
                     <td colspan="4">
