@@ -110,7 +110,15 @@ textarea {
     resize: none;
     min-width: 15em;
     border-radius: 0;
-    min-height: 4em;
+    min-height: 8em;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+textarea.wide-input{
+    min-width: 90%;
+    box-sizing: border-box;
 }
 
 input[readonly=readonly] {

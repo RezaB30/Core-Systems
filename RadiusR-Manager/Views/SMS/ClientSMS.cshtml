@@ -19,7 +19,7 @@
                 @Html.LabelFor(model => SendSMSModel.SMSText)
             </div>
             <div>
-                @Html.TextAreaFor(model => SendSMSModel.SMSText)
+                @Html.TextAreaFor(model => SendSMSModel.SMSText, new { @maxlength = 1050, @class = "wide-input sms-input" })
             </div>
             <div class="text-danger">
                 @Html.ValidationMessageFor(model => SendSMSModel.SMSText)

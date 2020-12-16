@@ -1,0 +1,7 @@
+﻿textarea.sms-input{
+    background-image: url('../Images/Shared/sms-bubble.svg');
+}
+
+textarea.note-input {
+    background-image: url('../Images/Shared/clipboard.svg');
+}

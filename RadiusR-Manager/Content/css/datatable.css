@@ -98,11 +98,11 @@ th.partial-table-head {
         cursor: default;
     }
 
-table.data-table td.system-log-display {
+table.data-table > tbody > tr > td.system-log-display {
     white-space: unset;
 }
 
-    table.data-table td.system-log-display a {
+    table.data-table > tbody > tr > td.system-log-display a {
         text-decoration: underline;
         color: #2401d5;
         font-style: italic;
@@ -110,16 +110,16 @@ table.data-table td.system-log-display {
         transition: 0.5s all ease;
     }
 
-        table.data-table td.system-log-display a:hover {
+        table.data-table > tbody > tr > td.system-log-display a:hover {
             color: #8888fd;
             text-decoration: none;
         }
 
-    table.data-table td.system-log-display span.error {
+    table.data-table > tbody > tr > td.system-log-display span.error {
         color: orange;
     }
 
-    table.data-table td.system-log-display span.important {
+    table.data-table > tbody > tr > td.system-log-display span.important {
         color: #f05a35;
     }
 

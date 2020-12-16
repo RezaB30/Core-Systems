@@ -1521,4 +1521,7 @@
   <data name="CanAssignToStaff" xml:space="preserve">
     <value>Can Assign To Staff</value>
   </data>
+  <data name="HasCustomerResponse" xml:space="preserve">
+    <value>Customer Responded</value>
+  </data>
 </root>

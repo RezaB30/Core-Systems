@@ -1521,4 +1521,7 @@
   <data name="CanAssignToStaff" xml:space="preserve">
     <value>Personele Devredebilir</value>
   </data>
+  <data name="HasCustomerResponse" xml:space="preserve">
+    <value>Müşteri Yanıtladı</value>
+  </data>
 </root>

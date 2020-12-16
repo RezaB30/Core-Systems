@@ -40,6 +40,9 @@ namespace RadiusR_Manager.Models.ViewModels.SupportRequestModels
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "RedirectedToGroup")]
         public string RedirectedToGroup { get; set; }
 
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "HasCustomerResponse")]
+        public bool HasCustomerResponse { get; set; }
+
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "State")]
         [EnumType(typeof(RadiusR.DB.Enums.SupportRequests.SupportRequestStateID), typeof(RadiusR.Localization.Lists.SupportRequests.SupportRequestStateID))]
         [UIHint("LocalizedList")]
@@ -64,6 +67,7 @@ namespace RadiusR_Manager.Models.ViewModels.SupportRequestModels
             SupportPin = dbRequest.SupportPin;
             StateID = dbRequest.StateID;
             IsVisibleToCustomer = dbRequest.IsVisibleToCustomer;
+            HasCustomerResponse = dbRequest.SupportRequestProgresses.Any() && !dbRequest.SupportRequestProgresses.OrderByDescending(srp => srp.Date).ThenByDescending(srp => srp.ID).FirstOrDefault().AppUserID.HasValue;
         }
     }
 
@@ -84,7 +88,8 @@ namespace RadiusR_Manager.Models.ViewModels.SupportRequestModels
                 SubscriptionID = sr.SubscriptionID,
                 SupportPin = sr.SupportPin,
                 StateID = sr.StateID,
-                IsVisibleToCustomer = sr.IsVisibleToCustomer
+                IsVisibleToCustomer = sr.IsVisibleToCustomer,
+                HasCustomerResponse = sr.SupportRequestProgresses.Any() && !sr.SupportRequestProgresses.OrderByDescending(srp => srp.Date).ThenByDescending(srp => srp.ID).FirstOrDefault().AppUserID.HasValue
             });
         }
     }

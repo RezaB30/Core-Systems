@@ -275,3 +275,5 @@ v 5.06.01 '2020-12-15'
 v 5.06.02 '2020-12-16'
 - added assign to staff permission to support group users.
 - made edit available from subscription details page for support requests.
+v 5.06.03 '2020-12-16'
+- added alert for customer response in support requests.

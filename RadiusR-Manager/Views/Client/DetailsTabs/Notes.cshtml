@@ -9,7 +9,7 @@
     addedNote = addedNote ?? new RadiusR_Manager.Models.RadiusViewModels.NoteViewModel() { Message = null };
 }
 
-<div class="centered">
+<div class="centered" style="margin: 1em 0;">
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -17,7 +17,7 @@
             @Html.LabelFor(model => addedNote.Message)
         </div>
         <div>
-            @Html.TextAreaFor(model => addedNote.Message, new { @maxlength = 3000, @cols = 60 })
+            @Html.TextAreaFor(model => addedNote.Message, new { @maxlength = 3000, @class = "wide-input note-input" })
         </div>
         <div>
             @Html.ValidationMessageFor(model => addedNote.Message)

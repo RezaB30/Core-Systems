@@ -1708,6 +1708,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Responded.
+        /// </summary>
+        public static string HasCustomerResponse {
+            get {
+                return ResourceManager.GetString("HasCustomerResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Has Modem.
         /// </summary>
         public static string HasModem {

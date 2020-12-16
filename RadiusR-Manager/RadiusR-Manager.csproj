@@ -406,6 +406,7 @@
     <Content Include="Content\css\sliding-box.css" />
     <Content Include="Content\css\sms-parameters.css" />
     <Content Include="Content\css\subscription-add-fee-editor.css" />
+    <Content Include="Content\css\text-area.css" />
     <Content Include="Content\css\tree-checker.css" />
     <Content Include="Content\css\views\background-services.css" />
     <Content Include="Content\css\views\bill-calculate-total.css" />
@@ -454,6 +455,7 @@
     <Content Include="Content\Images\Shared\blank-file.svg" />
     <Content Include="Content\Images\Shared\city-list-accept.svg" />
     <Content Include="Content\Images\Shared\city-list-cancel.svg" />
+    <Content Include="Content\Images\Shared\clipboard.svg" />
     <Content Include="Content\Images\Shared\error-triangle.svg" />
     <Content Include="Content\Images\Shared\eye-close-up.svg" />
     <Content Include="Content\Images\Shared\FTTX.svg" />
@@ -469,6 +471,7 @@
     <Content Include="Content\Images\Shared\main-logo_old.svg" />
     <Content Include="Content\Images\Shared\settings.svg" />
     <Content Include="Content\Images\Shared\slider-lip.svg" />
+    <Content Include="Content\Images\Shared\sms-bubble.svg" />
     <Content Include="Content\Images\Shared\telephone-white.svg" />
     <Content Include="Content\Images\Shared\tree-minus.svg" />
     <Content Include="Content\Images\Shared\tree-plus.svg" />

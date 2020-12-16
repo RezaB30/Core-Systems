@@ -67,6 +67,14 @@
                         @Html.DisplayFor(modelItem => item.RedirectedToGroup)
                     </div>
                 }
+                @if (item.HasCustomerResponse)
+                {
+                    <div class="support-request-tag-alert-wrapper">
+                        <div class="support-request-tag support-request-has-customer-response">
+                            @Html.DisplayNameFor(model => model.HasCustomerResponse)
+                        </div>
+                    </div>
+                }
             </td>
             <td>
                 @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", new { id = item.ID, groupId = ViewBag.GroupId, returnUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button details-button" })
@@ -80,6 +88,6 @@
     @if (ViewBag.CanShare == true)
     {
         @:&nbsp;
-        @Html.ActionLink(RadiusR.Localization.Pages.Common.ShareRequests, "ShareRequests",new { id = ViewBag.GroupId, returnUrl = Request.Url.PathAndQuery, isRedirect = (ViewBag.IsRedirect == true) ? "on" : "" }, new { @class = "link-button iconed-button next-button" })
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.ShareRequests, "ShareRequests", new { id = ViewBag.GroupId, returnUrl = Request.Url.PathAndQuery, isRedirect = (ViewBag.IsRedirect == true) ? "on" : "" }, new { @class = "link-button iconed-button next-button" })
     }
 </div>

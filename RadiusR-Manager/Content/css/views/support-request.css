@@ -1,4 +1,18 @@
-﻿div.support-request-count-indicator {
+﻿@keyframes support-tag-alert {
+    from {
+        padding: 0em;
+        margin: 0.3em;
+        box-shadow: 0 0 0.1em #700 inset, 0 0 0.1em #700;
+    }
+
+    to {
+        padding: 0.3em;
+        margin: 0em;
+        box-shadow: 0 0 0.3em #700 inset, 0 0 0.5em #700;
+    }
+}
+
+div.support-request-count-indicator {
     display: inline-block;
     vertical-align: middle;
     border-radius: 0.3em;
@@ -75,6 +89,25 @@ span.support-request-stage-action {
 
     .support-request-tag.support-request-redirected-to-group {
         background-color: #64641d;
+    }
+
+    .support-request-tag.support-request-has-customer-response {
+        background-color: #700;
+    }
+
+div.support-request-tag-alert-wrapper {
+    display: inline-block;
+    /*box-shadow: 0 0 0.2em #700;*/
+    border-radius: 0.2em;
+    animation-name: support-tag-alert;
+    animation-duration: 0.5s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(.65,.05,.36,1);
+}
+
+    div.support-request-tag-alert-wrapper > * {
+        margin: 0;
     }
 
 td.support-request-stage {
