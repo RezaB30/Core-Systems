@@ -13,29 +13,35 @@
             @Html.HiddenFor(model => model.UserName)
         <table class="input-table">
             <tr>
-                <td colspan="2">
+                <td>
                     @Html.EditorFor(model => model.CanChangeState)
                 </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    @Html.ValidationMessageFor(model => model.CanChangeState)
-                </td>
-            </tr>
-            <tr>
                 <td>
                     @Html.EditorFor(model => model.CanRedirect)
                 </td>
+            </tr>
+            <tr>
                 <td>
-                    @Html.EditorFor(model => model.CanWriteToCustomer)
+                    @Html.ValidationMessageFor(model => model.CanChangeState)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.CanRedirect)
                 </td>
             </tr>
             <tr>
                 <td>
-                    @Html.ValidationMessageFor(model => model.CanRedirect)
+                    @Html.EditorFor(model => model.CanWriteToCustomer)
                 </td>
                 <td>
+                    @Html.EditorFor(model => model.CanAssignToStaff)
+                </td>
+            </tr>
+            <tr>
+                <td>
                     @Html.ValidationMessageFor(model => model.CanWriteToCustomer)
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.CanAssignToStaff)
                 </td>
             </tr>
             <tr>

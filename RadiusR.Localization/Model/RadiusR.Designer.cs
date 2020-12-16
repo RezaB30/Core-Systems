@@ -592,6 +592,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Can Assign To Staff.
+        /// </summary>
+        public static string CanAssignToStaff {
+            get {
+                return ResourceManager.GetString("CanAssignToStaff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancellation Date.
         /// </summary>
         public static string CancellationDate {

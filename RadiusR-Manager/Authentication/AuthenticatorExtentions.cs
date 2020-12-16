@@ -63,7 +63,8 @@ namespace RadiusR_Manager
                     IsLeader = false,
                     CanChangeState = sgu.CanChangeState,
                     CanRedirect = sgu.CanRedirect,
-                    CanWriteToCustomer = sgu.CanWriteToCustomer
+                    CanWriteToCustomer = sgu.CanWriteToCustomer,
+                    CanAssignToStaff = sgu.CanAssignToStaff
                 }).ToArray();
                 var leaderInGroups = dbUser.LeaderInGroups.Where(sg => !supportGroups.Select(group => group.GroupId).Contains(sg.ID)).Select(sg => new SupportGroupClaim()
                 {
@@ -71,6 +72,7 @@ namespace RadiusR_Manager
                     CanChangeState = true,
                     CanRedirect = true,
                     CanWriteToCustomer = true,
+                    CanAssignToStaff = true,
                     IsLeader = true
                 }).ToArray();
                 supportGroups = supportGroups.Concat(leaderInGroups).ToArray();

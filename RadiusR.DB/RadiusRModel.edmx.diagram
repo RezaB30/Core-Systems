@@ -204,9 +204,6 @@
         <AssociationConnector Association="RadiusRModel.FK_SystemLog_Subscription" />
         <AssociationConnector Association="RadiusRModel.FK_TelekomWorkOrder_Subscription" />
         <AssociationConnector Association="RadiusRModel.SubscriptionGroup" />
-        <EntityTypeShape EntityType="RadiusRModel.SupportGroupUser" Width="1.5" PointX="19.5" PointY="62.5" />
-        <AssociationConnector Association="RadiusRModel.FK_SupportGroupUser_AppUser" />
-        <AssociationConnector Association="RadiusRModel.FK_SupportGroupUser_SupportGroup" />
         <EntityTypeShape EntityType="RadiusRModel.SupportRequest" Width="2" PointX="19.5" PointY="71.375" />
         <AssociationConnector Association="RadiusRModel.FK_SupportRequest_AppUser" />
         <AssociationConnector Association="RadiusRModel.FK_SupportRequest_Subscription" />
@@ -215,6 +212,9 @@
         <AssociationConnector Association="RadiusRModel.FK_SupportRequest_SupportRequestSubType" />
         <AssociationConnector Association="RadiusRModel.FK_SupportRequest_SupportRequestType" />
         <AssociationConnector Association="RadiusRModel.FK_SupportRequestProgress_SupportRequest" />
+        <EntityTypeShape EntityType="RadiusRModel.SupportGroupUser" Width="1.5" PointX="19.5" PointY="62.5" />
+        <AssociationConnector Association="RadiusRModel.FK_SupportGroupUser_AppUser" />
+        <AssociationConnector Association="RadiusRModel.FK_SupportGroupUser_SupportGroup" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -16,6 +16,8 @@ namespace RadiusR_Manager
         public bool CanRedirect { get; set; }
 
         public bool CanWriteToCustomer { get; set; }
+
+        public bool CanAssignToStaff { get; set; }
     }
 
     public class ExtendedSupportGroupClaim

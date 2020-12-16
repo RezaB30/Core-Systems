@@ -1518,4 +1518,7 @@
   <data name="SelectedStaff" xml:space="preserve">
     <value>Selected Staff</value>
   </data>
+  <data name="CanAssignToStaff" xml:space="preserve">
+    <value>Can Assign To Staff</value>
+  </data>
 </root>

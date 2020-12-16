@@ -24,5 +24,8 @@ namespace RadiusR_Manager.Models.RadiusViewModels
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "CanWriteToCustomer")]
         public bool CanWriteToCustomer { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "CanAssignToStaff")]
+        public bool CanAssignToStaff { get; set; }
     }
 }

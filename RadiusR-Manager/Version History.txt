@@ -271,4 +271,7 @@ v 5.06.00 '2020-12-14'
 v 5.06.01 '2020-12-15'
 - added customer website settings.
 - fixed some support request bugs.
-- updated database nuget;
+- updated database nuget.
+v 5.06.02 '2020-12-16'
+- added assign to staff permission to support group users.
+- made edit available from subscription details page for support requests.

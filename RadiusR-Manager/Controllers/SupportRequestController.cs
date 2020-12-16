@@ -266,7 +266,7 @@ namespace RadiusR_Manager.Controllers
 
             SetupPages(page, ref viewResults);
             ViewBag.GroupName = currentGroup.Name;
-            //ViewBag.GroupId = currentGroup.ID;
+            ViewBag.GroupId = currentGroup.ID;
             ViewBag.InboxTitle = $"{ViewBag.GroupName}-{RadiusR.Localization.Model.RadiusR.PersonalInbox}";
             return View(viewName: "Inbox", model: viewResults);
         }
@@ -338,6 +338,9 @@ namespace RadiusR_Manager.Controllers
                     OldState = srp.OldState
                 }).ToArray()
             };
+
+            var currentUserId = User.GiveUserId();
+            groupId = groupId ?? ((currentSupportRequest.AssignedGroupID != null && currentSupportRequest.AssignedSupportGroup.SupportGroupUsers.Any(sgu => sgu.AppUserID == currentUserId)) ? currentSupportRequest.AssignedGroupID : null);
 
             ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
             ViewBag.GroupId = groupId;
@@ -437,7 +440,7 @@ namespace RadiusR_Manager.Controllers
                         break;
                     case SupportRequestActionTypes.AssignToMember:
                         {
-                            if (!currentGroupPermissions.IsLeader)
+                            if (!currentGroupPermissions.CanAssignToStaff)
                             {
                                 UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
                                 return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
@@ -627,7 +630,7 @@ namespace RadiusR_Manager.Controllers
                     // assign requests
                     for (int i = 0; i < requestCount; i++)
                     {
-                        
+
 
                         relevantRequests[i].AssignedGroupID = currentGroup.ID;
                         relevantRequests[i].AssignedUserID = staffIds[staffIterator];
@@ -1218,7 +1221,8 @@ namespace RadiusR_Manager.Controllers
                         CanChangeState = addedUser.CanChangeState,
                         CanRedirect = addedUser.CanRedirect,
                         CanWriteToCustomer = addedUser.CanWriteToCustomer,
-                        SupportGroupID = currentSupportGroup.ID
+                        SupportGroupID = currentSupportGroup.ID,
+                        CanAssignToStaff = addedUser.CanAssignToStaff
                     });
 
                     db.SaveChanges();
@@ -1263,6 +1267,7 @@ namespace RadiusR_Manager.Controllers
                 CanChangeState = currentGroupUser.CanChangeState,
                 CanRedirect = currentGroupUser.CanRedirect,
                 CanWriteToCustomer = currentGroupUser.CanWriteToCustomer,
+                CanAssignToStaff = currentGroupUser.CanAssignToStaff,
                 UserName = currentGroupUser.AppUser.Name
             };
 
@@ -1286,6 +1291,7 @@ namespace RadiusR_Manager.Controllers
                 currentGroupUser.CanChangeState = groupUser.CanChangeState;
                 currentGroupUser.CanRedirect = groupUser.CanRedirect;
                 currentGroupUser.CanWriteToCustomer = groupUser.CanWriteToCustomer;
+                currentGroupUser.CanAssignToStaff = groupUser.CanAssignToStaff;
 
                 db.SaveChanges();
                 return RedirectToAction("SupportGroupUsers", new { id = currentGroupUser.SupportGroupID, errorMessage = 0 });
@@ -1375,12 +1381,12 @@ namespace RadiusR_Manager.Controllers
             var userGroupClaims = User.GiveSupportGroups();
             if (currentGroupId.HasValue)
             {
-                var leaderClaim = userGroupClaims.FirstOrDefault(claim => claim.GroupId == currentGroupId);
-                if (leaderClaim != null)
+                var groupClaim = userGroupClaims.FirstOrDefault(claim => claim.GroupId == currentGroupId);
+                if (groupClaim != null)
                 {
-                    var isValid = ((supportRequest.AssignedGroupID == leaderClaim.GroupId || supportRequest.RedirectedGroupID == leaderClaim.GroupId || supportRequest.SupportRequestType.SupportGroups.Any(sg => sg.ID == leaderClaim.GroupId)) && leaderClaim.IsLeader);
+                    var isValid = ((supportRequest.AssignedGroupID == groupClaim.GroupId || supportRequest.RedirectedGroupID == groupClaim.GroupId || supportRequest.SupportRequestType.SupportGroups.Any(sg => sg.ID == groupClaim.GroupId)) && groupClaim.IsLeader) || (supportRequest.AssignedUserID == User.GiveUserId() && supportRequest.AssignedGroupID == groupClaim.GroupId);
                     if (isValid)
-                        results = new ExtendedSupportGroupClaim(leaderClaim);
+                        results = new ExtendedSupportGroupClaim(groupClaim);
                 }
             }
             else
@@ -1388,14 +1394,11 @@ namespace RadiusR_Manager.Controllers
                 var standardClaim = userGroupClaims.FirstOrDefault(claim => claim.GroupId == supportRequest.AssignedGroupID);
                 if (standardClaim != null)
                 {
-                    var isValid = (supportRequest.AssignedUserID == User.GiveUserId() && supportRequest.AssignedGroupID == standardClaim.GroupId);
+                    var isValid = (supportRequest.AssignedUserID == User.GiveUserId() && supportRequest.AssignedGroupID == standardClaim.GroupId) || standardClaim.IsLeader;
                     if (isValid)
                         results = new ExtendedSupportGroupClaim(standardClaim);
                 }
             }
-
-            //return results;
-
 
             // global check
             var userCanGloballyRead = User.HasPermission("Global Support Request Read");
@@ -1410,6 +1413,7 @@ namespace RadiusR_Manager.Controllers
                         CanChangeState = true,
                         CanRedirect = true,
                         CanWriteToCustomer = true,
+                        CanAssignToStaff = true,
                         GroupId = currentGroupID.Value,
                         IsLeader = true
                     });

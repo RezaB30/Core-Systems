@@ -141,7 +141,7 @@
                                     </div>
                                 }
                                 <ol class="important-ordered-list">
-                                    @if (supportPermissions.IsLeader)
+                                    @if (groupId.HasValue && (supportPermissions.IsLeader || supportPermissions.CanAssignToStaff))
                                     {
                                         <li>
                                             @*assign to a member*@

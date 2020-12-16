@@ -118,7 +118,7 @@ namespace RadiusR.DB
         public virtual DbSet<SupportRequestProgress> SupportRequestProgresses { get; set; }
         public virtual DbSet<SubscriptionTariffHistory> SubscriptionTariffHistories { get; set; }
         public virtual DbSet<Subscription> Subscriptions { get; set; }
-        public virtual DbSet<SupportGroupUser> SupportGroupUsers { get; set; }
         public virtual DbSet<SupportRequest> SupportRequests { get; set; }
+        public virtual DbSet<SupportGroupUser> SupportGroupUsers { get; set; }
     }
 }

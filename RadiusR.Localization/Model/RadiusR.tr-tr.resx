@@ -1518,4 +1518,7 @@
   <data name="SelectedStaff" xml:space="preserve">
     <value>Seçilmiş Personel</value>
   </data>
+  <data name="CanAssignToStaff" xml:space="preserve">
+    <value>Personele Devredebilir</value>
+  </data>
 </root>
