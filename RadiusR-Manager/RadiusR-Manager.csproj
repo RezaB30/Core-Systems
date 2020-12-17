@@ -927,11 +927,11 @@
     <Content Include="Views\Client\DetailsTabs\SupportRequests.cshtml" />
     <Content Include="Views\SupportRequest\Create.cshtml" />
     <Content Include="Views\SupportRequest\ShareRequests.cshtml" />
+    <Content Include="Views\CustomerWebsiteSettings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\CustomerWebsiteSettings\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

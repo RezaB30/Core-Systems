@@ -1,0 +1,50 @@
+﻿@model RadiusR_Manager.Models.ViewModels.CustomerWebsiteSettingsViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.CustomerWebsiteSettings;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.OnlinePasswordDuration)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.OnlinePasswordDuration, new { htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.OnlinePasswordDuration)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.SupportRequestPassedTime)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.SupportRequestPassedTime, new { htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.SupportRequestPassedTime)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Reset, null, null, new { @class = "link-button iconed-button reload-button" })
+                        &nbsp;
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
