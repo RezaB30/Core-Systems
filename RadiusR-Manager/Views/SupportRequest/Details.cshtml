@@ -26,7 +26,7 @@
                     @Html.LabelFor(model => model.RequestInfo.SubscriberNo)
                 </td>
                 <td>
-                    <a href="@Url.Action("Details", "Client", new { id = Model.RequestInfo.SubscriptionID })" class="details-link">@Html.DisplayFor(model => model.RequestInfo.SubscriberNo)</a>
+                    <a href="@Url.Action("Details", "Client", new { id = Model.RequestInfo.SubscriptionID })" class="details-link">@Html.DisplayFor(model => model.RequestInfo.SubscriberNo) - @Html.DisplayFor(model => model.RequestInfo.CustomerName)</a>
                 </td>
             </tr>
             <tr>
@@ -80,7 +80,7 @@
             </tr>
             @foreach (var item in Model.Stages)
             {
-                var itemVisibilityClass = (Model.RequestInfo.IsVisibleToCustomer && item.IsVisibleToCustomer) ? "visible" : "invisible"; 
+                var itemVisibilityClass = (Model.RequestInfo.IsVisibleToCustomer && item.IsVisibleToCustomer) ? "visible" : "invisible";
                 <tr>
                     <td colspan="2" class="support-request-stage">
                         <div class="support-request-stage-row support-request-stage-head @itemVisibilityClass">

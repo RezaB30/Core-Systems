@@ -22,6 +22,9 @@ namespace RadiusR_Manager.Models.ViewModels.SupportRequestModels
 
         public long? SubscriptionID { get; set; }
 
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "ClientName")]
+        public string CustomerName { get; set; }
+
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "SupportPin")]
         public string SupportPin { get; set; }
 
@@ -68,6 +71,7 @@ namespace RadiusR_Manager.Models.ViewModels.SupportRequestModels
             StateID = dbRequest.StateID;
             IsVisibleToCustomer = dbRequest.IsVisibleToCustomer;
             HasCustomerResponse = dbRequest.SupportRequestProgresses.Any() && !dbRequest.SupportRequestProgresses.OrderByDescending(srp => srp.Date).ThenByDescending(srp => srp.ID).FirstOrDefault().AppUserID.HasValue;
+            CustomerName = dbRequest.Subscription.ValidDisplayName;
         }
     }
 
