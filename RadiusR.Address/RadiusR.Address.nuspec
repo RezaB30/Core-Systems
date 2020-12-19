@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>1.0.0</version>
+    <title>RadiusR.Address</title>
+    <authors>Reza Barzegaran</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <description>Address service manager for MasterISS core systems.</description>
+    <releaseNotes>First release.</releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>MasterISS Address Manager</tags>
+	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />
+	<dependencies>
+		<dependency id="RadiusR.API.AddressQueryAdapter" version="1.0.0"/>
+		<dependency id="RezaB.TurkTelekom.WebServices" version="1.0.0"/>
+	</dependencies>
+  </metadata>
+</package>

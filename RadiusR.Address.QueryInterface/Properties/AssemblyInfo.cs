@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RadiusR.AddressInterface")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Interface for address query services.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Reza B")]
+[assembly: AssemblyCompany("Reza Barzegaran")]
 [assembly: AssemblyProduct("RadiusR.AddressInterface")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]

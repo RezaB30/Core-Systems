@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>1.0.0</version>
+    <title>RadiusR.API.AddressQueryAdapter</title>
+    <authors>Reza Barzegaran</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <description>Service adapter for address query service.</description>
+    <releaseNotes>First release.</releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>RadiusR Address Service Adapter</tags>
+	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />
+	<dependencies>
+		<dependency id="RadiusR.Address.QueryInterface" version="1.0.0"/>
+		<dependency id="RadiusR.DB" version="1.0.3"/>
+	</dependencies>
+  </metadata>
+</package>
