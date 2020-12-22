@@ -898,6 +898,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Subscription Application Form and Contracts.
+        /// </summary>
+        public static string ContractMailSubject {
+            get {
+                return ResourceManager.GetString("ContractMailSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Corporate Customer.
         /// </summary>
         public static string CorporateCustomer {
@@ -1092,6 +1101,15 @@ namespace RadiusR.Localization.Pages {
         public static string Decrease {
             get {
                 return ResourceManager.GetString("Decrease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        public static string Default {
+            get {
+                return ResourceManager.GetString("Default", resourceCulture);
             }
         }
         
@@ -1294,6 +1312,24 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to E-mail.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email Settings.
+        /// </summary>
+        public static string EmailSettings {
+            get {
+                return ResourceManager.GetString("EmailSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Internal Error.
         /// </summary>
         public static string Error {
@@ -1398,6 +1434,15 @@ namespace RadiusR.Localization.Pages {
         public static string ForgotPassword {
             get {
                 return ResourceManager.GetString("ForgotPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forms.
+        /// </summary>
+        public static string Forms {
+            get {
+                return ResourceManager.GetString("Forms", resourceCulture);
             }
         }
         
@@ -1614,6 +1659,15 @@ namespace RadiusR.Localization.Pages {
         public static string IPSettings {
             get {
                 return ResourceManager.GetString("IPSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
             }
         }
         
@@ -2532,6 +2586,15 @@ namespace RadiusR.Localization.Pages {
         public static string SellQuota {
             get {
                 return ResourceManager.GetString("SellQuota", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send Contract Via Mail.
+        /// </summary>
+        public static string SendContractViaMail {
+            get {
+                return ResourceManager.GetString("SendContractViaMail", resourceCulture);
             }
         }
         

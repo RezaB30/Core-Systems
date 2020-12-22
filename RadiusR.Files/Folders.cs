@@ -27,6 +27,12 @@ namespace RadiusR.Files
         public const string BTKTempLogSessions = BTKTempLogFiles + @"Sessions\";
 
         public const string BTKTempLogClientOld = BTKTempLogFiles + @"Client Old\";
+
+        public const string MailFiles = @"Manager\Mail Files\";
+
+        public const string MailContarctFiles = MailFiles + @"Contract\";
+
+        public const string MailContractFileName = @"ContractMailBody";
     }
 
 }

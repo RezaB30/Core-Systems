@@ -853,6 +853,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send Email To Client.
+        /// </summary>
+        public static string SendEmailToClient {
+            get {
+                return ResourceManager.GetString("SendEmailToClient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Services.
         /// </summary>
         public static string Services {

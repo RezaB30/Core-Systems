@@ -106,6 +106,15 @@ namespace RadiusR.Localization.AppSettings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Company Name.
+        /// </summary>
+        public static string CompanyName {
+            get {
+                return ResourceManager.GetString("CompanyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Country Phone Code.
         /// </summary>
         public static string CountryPhoneCode {
@@ -381,6 +390,42 @@ namespace RadiusR.Localization.AppSettings {
         public static string SenderTaxNo {
             get {
                 return ResourceManager.GetString("SenderTaxNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SMTP Email Address.
+        /// </summary>
+        public static string SMTPEmailAddress {
+            get {
+                return ResourceManager.GetString("SMTPEmailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SMTP Email Host.
+        /// </summary>
+        public static string SMTPEmailHost {
+            get {
+                return ResourceManager.GetString("SMTPEmailHost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SMTP Email Password.
+        /// </summary>
+        public static string SMTPEmailPassword {
+            get {
+                return ResourceManager.GetString("SMTPEmailPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SMTP EMail Port.
+        /// </summary>
+        public static string SMTPEMailPort {
+            get {
+                return ResourceManager.GetString("SMTPEMailPort", resourceCulture);
             }
         }
         

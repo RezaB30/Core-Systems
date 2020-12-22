@@ -16,6 +16,8 @@ using RadiusR_Manager.Models.ViewModels.Customer;
 using RezaB.Data.Localization;
 using RezaB.Web.Authentication;
 using RadiusR_Manager.Models.ViewModels.SupportRequestModels;
+using RadiusR.Files;
+using System.IO;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -494,6 +496,55 @@ namespace RadiusR_Manager.Controllers
             SetupPages(page, ref viewResults);
 
             return View(viewName: "DetailsTabs/SupportRequests", model: viewResults);
+        }
+
+        [AuthorizePermission(Permissions = "Send Email To Client")]
+        [HttpPost]
+        // POST: Client/SendContractViaMail
+        public ActionResult SendContractViaMail(long id)
+        {
+            // checks
+            var subscription = db.Subscriptions.Find(id);
+            if (subscription == null || string.IsNullOrWhiteSpace(subscription.Customer.Email) || !FileManager.PDFTemplateExists((int)PDFFormType.IndividualContract) || !FileManager.PDFTemplateExists((int)PDFFormType.CorporateContract))
+                return RedirectToAction("Details", "Client", new { id = subscription.ID, errorMessage = 9 });
+            // create mail client
+            RezaB.Mailing.IMailClient mailClient = new RezaB.Mailing.Client.MailClient(EmailSettings.SMTPEmailHost, EmailSettings.SMTPEMailPort, false, EmailSettings.SMTPEmailAddress, EmailSettings.SMTPEmailPassword);
+            // get body
+            string bodyText = string.Empty;
+            using (var bodyContent = FileManager.GetContractMailBodyByCulture(subscription.Customer.Culture))
+            {
+                if(bodyContent == null)
+                {
+                    return RedirectToAction("Details", "Client", new { id = subscription.ID, errorMessage = 9 });
+                }
+                using (var reader = new StreamReader(bodyContent))
+                {
+                    bodyText = reader.ReadToEnd();
+                    bodyText = bodyText.Replace("([fullName])", subscription.ValidDisplayName);
+                }
+            }
+            // localized strings
+            var rm = RadiusR.Localization.MasterResourceManager.GetResourceManager("RadiusR.Localization.Pages.Common");
+            var attachmentName = rm.GetString("ContractFileName", System.Globalization.CultureInfo.CreateSpecificCulture(subscription.Customer.Culture));
+            var subject = rm.GetString("ContractMailSubject", System.Globalization.CultureInfo.CreateSpecificCulture(subscription.Customer.Culture));
+            // send mail message
+            mailClient.SendMail(new RezaB.Mailing.StandardMailMessage(
+                EmailSettings.SMTPEmailAddress,
+                new string[] { subscription.Customer.Email },
+                null,
+                null,
+                string.Format(subject, AppSettings.CompanyName),
+                bodyText,
+                RezaB.Mailing.MailBodyType.HTML,
+                new RezaB.Mailing.MailFileAttachment[]{
+                    new RezaB.Mailing.MailFileAttachment()
+                    {
+                        Content = RadiusR.PDFForms.PDFWriter.GetContractPDF(db, id),
+                        FileName = string.Format(attachmentName, subscription.SubscriberNo)
+                    }
+            }));
+
+            return RedirectToAction("Details", "Client", new { id = subscription.ID, errorMessage = 0 });
         }
     }
 }

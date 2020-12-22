@@ -568,6 +568,12 @@
                         @Html.ActionLink(RadiusR.Localization.Pages.Common.CustomerWebsiteSettings, "Index", "CustomerWebsiteSettings")
                     </li>
                 }
+                @if (User.HasPermission("Email Settings"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.EmailSettings, "Settings", "Email")
+                    </li>
+                }
             </ul>
         </li>
     }

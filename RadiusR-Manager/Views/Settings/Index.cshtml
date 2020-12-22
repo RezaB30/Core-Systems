@@ -126,7 +126,7 @@
                             @Html.DisplayNameFor(model => model.EBillsThreshold)
                         </td>
                         <td>
-                            @Html.Select(model => model.EBillsThreshold, HelperUtilities.CreateNumericSelectList(1,30, Model.EBillsThreshold))
+                            @Html.Select(model => model.EBillsThreshold, HelperUtilities.CreateNumericSelectList(1, 30, Model.EBillsThreshold))
                         </td>
                     </tr>
                     <tr>
@@ -391,61 +391,6 @@
                 </table>
             </div>
             <div class="category-list-head" tabindex="0">
-                @RadiusR.Localization.AppSettings.CategoryNames.CustomerWebsite
-            </div>
-            <div class="category-list-contents">
-                <table class="input-table" style="width: 100%">
-                    <tr>
-                        <td>
-                            @Html.DisplayNameFor(model => model.OnlinePasswordDuration)
-                        </td>
-                        <td>
-                            @Html.EditorFor(model => model.OnlinePasswordDuration, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = "8" } })
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            @Html.ValidationMessageFor(model => model.OnlinePasswordDuration)
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            @*<div class="category-list-head" tabindex="0">
-                @RadiusR.Localization.AppSettings.CategoryNames.BillSettings
-            </div>
-            <div class="category-list-contents">
-                <table class="input-table" style="width: 100%">
-                    <tr>
-                        <td>
-                            @Html.DisplayNameFor(model => model.PaymentTolerance)
-                        </td>
-                        <td>
-                            @Html.EditorFor(model => model.PaymentTolerance, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = "2" } })
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            @Html.ValidationMessageFor(model => model.PaymentTolerance)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            @Html.DisplayNameFor(model => model.ExpirationTolerance)
-                        </td>
-                        <td>
-                            @Html.EditorFor(model => model.ExpirationTolerance, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = "2" } })
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            @Html.ValidationMessageFor(model => model.ExpirationTolerance)
-                        </td>
-                    </tr>
-                </table>
-            </div>*@
-
-            <div class="category-list-head" tabindex="0">
                 @RadiusR.Localization.AppSettings.CategoryNames.GoogleAPIs
             </div>
             <div class="category-list-contents">
@@ -465,7 +410,27 @@
                     </tr>
                 </table>
             </div>
-            
+            <div class="category-list-head" tabindex="0">
+                @RadiusR.Localization.AppSettings.CategoryNames.Company
+            </div>
+            <div class="category-list-contents">
+                <table class="input-table" style="width: 100%">
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.CompanyName)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.CompanyName, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = 200 } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.CompanyName)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
             <div class="category-list-contents" style="text-align: center; padding: 0.5em; display: block;">
                 @Html.ActionLink(RadiusR.Localization.Pages.Common.Reset, null, null, new { @class = "link-button iconed-button reload-button" })&nbsp;
                 <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />

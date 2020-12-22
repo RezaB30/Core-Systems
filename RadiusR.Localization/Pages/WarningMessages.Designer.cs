@@ -61,6 +61,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All ([fullName]) texts will be replaced by customer name..
+        /// </summary>
+        public static string EmailBodyParametersWarning {
+            get {
+                return ResourceManager.GetString("EmailBodyParametersWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If this request is visible to customer, this message will be visible to customer..
         /// </summary>
         public static string SupportRequestFinishWarning {

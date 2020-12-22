@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.1-alpha2</version>
+    <version>1.0.1</version>
     <title>RadiusR.Localization.Lists</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

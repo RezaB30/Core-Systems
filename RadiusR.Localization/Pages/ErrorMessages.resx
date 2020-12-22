@@ -213,6 +213,9 @@
   <data name="_37" xml:space="preserve">
     <value>Invalid domain type.</value>
   </data>
+  <data name="_38" xml:space="preserve">
+    <value>File is too large.</value>
+  </data>
   <data name="_4" xml:space="preserve">
     <value>This customer does not exist.</value>
   </data>

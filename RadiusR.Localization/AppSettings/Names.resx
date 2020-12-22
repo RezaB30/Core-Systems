@@ -258,4 +258,19 @@
   <data name="SupportRequestReopenAllowTime" xml:space="preserve">
     <value>Support Request Reopen Allow Time</value>
   </data>
+  <data name="SMTPEmailAddress" xml:space="preserve">
+    <value>SMTP Email Address</value>
+  </data>
+  <data name="SMTPEmailHost" xml:space="preserve">
+    <value>SMTP Email Host</value>
+  </data>
+  <data name="SMTPEmailPassword" xml:space="preserve">
+    <value>SMTP Email Password</value>
+  </data>
+  <data name="SMTPEMailPort" xml:space="preserve">
+    <value>SMTP EMail Port</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Company Name</value>
+  </data>
 </root>

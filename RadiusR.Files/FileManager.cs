@@ -156,6 +156,42 @@ namespace RadiusR.Files
             return targetFile == null ? null : targetFile.Path;
         }
 
+        public static IEnumerable<FileInfo> GetContractMailBodies()
+        {
+            return GetFolderFiles(RadiusRFolders.MailContarctFiles);
+        }
+
+        public static Stream GetContractMailBodyByCulture(string culture = null)
+        {
+            var suffix = string.IsNullOrEmpty(culture) ? ".html" : $".{culture}.html";
+            var fullPath = $"{RadiusRFolders.MailContarctFiles}{RadiusRFolders.MailContractFileName}{suffix}";
+            var results = GetRepositoryFile(fullPath);
+            if (results == null && culture != null)
+            {
+                return GetContractMailBodyByCulture();
+            }
+            return results;
+        }
+
+        public static Stream GetContractMailBodyByFileName(string fileName)
+        {
+            var fullPath = $"{RadiusRFolders.MailContarctFiles}{fileName}";
+            return GetRepositoryFile(fullPath);
+        }
+
+        public static void SaveContractMailBody(Stream htmlFileStream, string culture)
+        {
+            var suffix = string.IsNullOrEmpty(culture) ? ".html" : $".{culture}.html";
+            var fullPath = $"{RadiusRFolders.MailContarctFiles}{RadiusRFolders.MailContractFileName}{suffix}";
+            SaveFile(htmlFileStream, fullPath);
+        }
+
+        public static void DeleteContractMailBody(string fileName)
+        {
+            var fullPath = $"{root}\\{RadiusRFolders.MailContarctFiles}{fileName}";
+            File.Delete(fullPath);
+        }
+
         internal static void ClearRepositoryFolder(string folderPath)
         {
             var fullFolderPath = root + "\\" + folderPath;
@@ -164,19 +200,6 @@ namespace RadiusR.Files
                 return;
             dir.Delete(true);
             Directory.CreateDirectory(fullFolderPath);
-        }
-
-        public class FileInfo
-        {
-            public string Path { get; set; }
-
-            public string Name { get; set; }
-
-            public DateTime CreationDate { get; set; }
-
-            public string FileType { get; set; }
-
-            public string NakedName { get; set; }
         }
     }
 }

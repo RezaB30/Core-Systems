@@ -147,27 +147,17 @@ namespace RadiusR_Manager.Models.ViewModels
         [SettingElement]
         public string ReviewDelay { get; set; }
 
-        
-
-        //[Display(ResourceType = typeof(RadiusR.Localization.AppSettings.Names), Name = "PaymentTolerance")]
-        //[Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
-        //[PositiveInt(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "PositiveInt")]
-        //[MaxLength(2, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
-        //[SettingElement]
-        //public string PaymentTolerance { get; set; }
-
-        //[Display(ResourceType = typeof(RadiusR.Localization.AppSettings.Names), Name = "ExpirationTolerance")]
-        //[Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
-        //[PositiveInt(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "PositiveInt")]
-        //[MaxLength(2, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
-        //[SettingElement]
-        //public string ExpirationTolerance { get; set; }
-
-
         [Display(ResourceType = typeof(RadiusR.Localization.AppSettings.Names), Name = "GeocodingAPIKey")]
+        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
         [MaxLength(50, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
         [SettingElement]
         public string GeocodingAPIKey { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.AppSettings.Names), Name = "CompanyName")]
+        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
+        [MaxLength(200, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
+        [SettingElement]
+        public string CompanyName { get; set; }
 
         public decimal? _PastDueFlatPenalty
         {
@@ -214,8 +204,6 @@ namespace RadiusR_Manager.Models.ViewModels
             }
         }
 
-        
-
         public AppSettingsViewModel() { }
 
         public AppSettingsViewModel(bool loadup)
@@ -248,6 +236,7 @@ namespace RadiusR_Manager.Models.ViewModels
                 EBillsThreshold = AppSettings.EBillsThreshold;
                 _ReviewDelay = AppSettings.ReviewDelay;
                 GeocodingAPIKey = AppSettings.GeocodingAPIKey;
+                CompanyName = AppSettings.CompanyName;
             }
         }
 

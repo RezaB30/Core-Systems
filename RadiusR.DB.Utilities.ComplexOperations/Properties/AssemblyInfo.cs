@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RadiusR.DB.Utilities.ComplexOperations")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("MasterISS complex database operations.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Reza Barzegaran")]
 [assembly: AssemblyProduct("RadiusR.DB.Utilities.ComplexOperations")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]

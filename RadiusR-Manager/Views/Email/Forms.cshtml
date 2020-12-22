@@ -1,0 +1,87 @@
+﻿@using RezaB.Web.Helpers
+
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.Forms;
+    var formFiles = ViewBag.MailBodyFiles as IEnumerable<RadiusR.Files.FileManager.FileInfo>;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        <table class="input-table">
+            <tr>
+                <td colspan="2">
+                    <span class="warning-message-hint">@RadiusR.Localization.Pages.WarningMessages.EmailBodyParametersWarning</span>
+                </td>
+            </tr>
+            @foreach (var item in formFiles)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Download, "DownloadFormFile", new { fileName = item.Name }, new { @class = "link-button iconed-button download-button" })
+                        &nbsp;
+                        @using (Html.BeginForm("RemoveFormFile", null, new { fileName = item.Name }, FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block;" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button delete-button" />
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="input-table-row-group-separator"></td>
+                </tr>
+            }
+            <tr class="submit-row">
+                <td>
+                    <div>
+                        <label>
+                            @RadiusR.Localization.Pages.Common.Add
+                        </label>
+                        &nbsp;
+                    </div>
+                    <div class="button-row">
+                        <label>
+                            @RadiusR.Localization.Pages.Common.Language
+                        </label>
+                        &nbsp;
+                    </div>
+                </td>
+                <td>
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { @enctype = "multipart/form-data", @id = "timer-toggle-form" }))
+                    {
+                        <div>
+                            @Html.AntiForgeryToken()
+                            @Html.FileUpload("htmlFile", "text/html")
+                        </div>
+                        <div class="button-row" style="text-align: right;">
+                            @Html.Select("culture", new SelectList(new[] { "tr-tr", "en-US" }), RadiusR.Localization.Pages.Common.Default)
+                            <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+                        </div>
+                    }
+                </td>
+            </tr>
+            <tr class="submit-row">
+                <td colspan="2" class="centered">
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Settings", null, new { @class = "link-button iconed-button back-button" })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.Partial("_WaitTimer")
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+@section PageScripts{
+    <script>
+        $('#timer-toggle-form').submit(function () {
+            $('.submit-row').hide();
+            StartWaitingCounter('div.waiting-progress');
+        });
+    </script>
+}

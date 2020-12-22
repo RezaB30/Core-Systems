@@ -19,7 +19,7 @@ namespace RadiusR.Localization.AppSettings {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class CategoryNames {
@@ -88,6 +88,15 @@ namespace RadiusR.Localization.AppSettings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Company.
+        /// </summary>
+        public static string Company {
+            get {
+                return ResourceManager.GetString("Company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer Website.
         /// </summary>
         public static string CustomerWebsite {
@@ -129,6 +138,15 @@ namespace RadiusR.Localization.AppSettings {
         public static string MailSettings {
             get {
                 return ResourceManager.GetString("MailSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SMTP Mail.
+        /// </summary>
+        public static string SMTPMail {
+            get {
+                return ResourceManager.GetString("SMTPMail", resourceCulture);
             }
         }
         

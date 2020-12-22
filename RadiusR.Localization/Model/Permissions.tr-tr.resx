@@ -453,4 +453,7 @@
   <data name="CustomerWebsiteSettings" xml:space="preserve">
     <value>OİM Ayarları</value>
   </data>
+  <data name="SendEmailToClient" xml:space="preserve">
+    <value>Aboneye E-posta Gönderme</value>
+  </data>
 </root>

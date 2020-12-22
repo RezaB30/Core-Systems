@@ -252,6 +252,14 @@ namespace RadiusR.DB
                 return DBSetting<RadiusREntities, AppSetting>.Retrieve<string>(MethodBase.GetCurrentMethod().Name.Substring(4));
             }
         }
+        // company
+        public static string CompanyName
+        {
+            get
+            {
+                return DBSetting<RadiusREntities, AppSetting>.Retrieve<string>(MethodBase.GetCurrentMethod().Name.Substring(4));
+            }
+        }
 
         #region METHODS
         /// <summary>

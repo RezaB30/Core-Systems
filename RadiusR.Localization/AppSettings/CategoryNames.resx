@@ -150,4 +150,10 @@
   <data name="BTKSettings" xml:space="preserve">
     <value>BTK Settings</value>
   </data>
+  <data name="SMTPMail" xml:space="preserve">
+    <value>SMTP Mail</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
 </root>

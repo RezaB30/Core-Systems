@@ -213,6 +213,9 @@
   <data name="_37" xml:space="preserve">
     <value>Geçersiz domain tipi.</value>
   </data>
+  <data name="_38" xml:space="preserve">
+    <value>Dosya çok büyük.</value>
+  </data>
   <data name="_4" xml:space="preserve">
     <value>Bu müşteri mevcut değil.</value>
   </data>

@@ -1,0 +1,75 @@
+﻿@model RadiusR_Manager.Models.ViewModels.EmailSettingsViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.EmailSettings;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.SMTPEmailHost)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.SMTPEmailHost, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.SMTPEmailHost)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.SMTPEMailPort)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.SMTPEMailPort, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = 5 } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.SMTPEMailPort)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.SMTPEmailAddress)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.SMTPEmailAddress, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.SMTPEmailAddress)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.SMTPEmailPassword)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.SMTPEmailPassword, new { @htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.SMTPEmailPassword)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Forms, "Forms", null, new { @class = "link-button iconed-button send-button" })&nbsp;
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Reset, null, null, new { @class = "link-button iconed-button reload-button" })&nbsp;
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

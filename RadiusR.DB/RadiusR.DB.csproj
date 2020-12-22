@@ -349,6 +349,7 @@
     <Compile Include="Settings\BTKSettings.cs" />
     <Compile Include="Settings\CallCenterSettings.cs" />
     <Compile Include="Settings\CustomerWebsiteSettings.cs" />
+    <Compile Include="Settings\EmailSettings.cs" />
     <Compile Include="Settings\MobilExpressSettings.cs" />
     <Compile Include="Settings\PartnerAPISettings.cs" />
     <Compile Include="Settings\QuotaSettings.cs" />

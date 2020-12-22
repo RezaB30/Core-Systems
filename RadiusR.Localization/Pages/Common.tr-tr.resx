@@ -1137,4 +1137,25 @@
   <data name="CustomerWebsiteSettings" xml:space="preserve">
     <value>OİM Ayarları</value>
   </data>
+  <data name="SendContractViaMail" xml:space="preserve">
+    <value>Sözleşmeyi E-posta İle Gönder</value>
+  </data>
+  <data name="ContractMailSubject" xml:space="preserve">
+    <value>{0} - Abonelik Basvuru Formu ve Sozlesmeler</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-posta</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Varsayılan</value>
+  </data>
+  <data name="EmailSettings" xml:space="preserve">
+    <value>E-posta Ayarları</value>
+  </data>
+  <data name="Forms" xml:space="preserve">
+    <value>Formlar</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Dil</value>
+  </data>
 </root>

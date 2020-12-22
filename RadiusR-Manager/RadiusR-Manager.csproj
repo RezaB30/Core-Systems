@@ -127,6 +127,9 @@
       <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="OpenPop, Version=2.0.6.1120, Culture=neutral, PublicKeyToken=6bdb97f144b7efc8, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenPop.NET.2.0.6.1120\lib\net40\OpenPop.dll</HintPath>
+    </Reference>
     <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
       <Private>True</Private>
@@ -142,6 +145,9 @@
     <Reference Include="RezaB.FTPUtilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RezaB.FTPUtilities.1.0.0\lib\net452\RezaB.FTPUtilities.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="RezaB.Mailing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Mailing.1.0.0\lib\net452\RezaB.Mailing.dll</HintPath>
     </Reference>
     <Reference Include="RezaB.Mikrotik, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RezaB.Mikrotik.1.0.0\lib\net452\RezaB.Mikrotik.dll</HintPath>
@@ -298,6 +304,7 @@
     <Compile Include="Controllers\CustomerWebsiteSettingsController.cs" />
     <Compile Include="Controllers\DomainSettingsController.cs" />
     <Compile Include="Controllers\EBillController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\FeeTypeVariantController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -928,6 +935,8 @@
     <Content Include="Views\SupportRequest\Create.cshtml" />
     <Content Include="Views\SupportRequest\ShareRequests.cshtml" />
     <Content Include="Views\CustomerWebsiteSettings\Index.cshtml" />
+    <Content Include="Views\Email\Settings.cshtml" />
+    <Content Include="Views\Email\Forms.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -2,22 +2,21 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.1</version>
-    <title>RadiusR.Localization</title>
+    <version>1.0.0</version>
+    <title>RadiusR.DB.Utilities.ComplexOperations</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
-    <description>Localization for MasteISS.</description>
+    <description>MasterISS complex database operations.</description>
     <releaseNotes>First release.</releaseNotes>
     <copyright>$copyright$</copyright>
-    <tags>MasterISS Localization</tags>
+    <tags>MasterISS Complex Database Operations</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />
 	<dependencies>
-		<dependency id="RadiusR.Localization.Lists" version="1.0.1"/>
+		<dependency id="RadiusR.DB.TelekomOperations" version="1.0.0"/>
+		<dependency id="RadiusR.SMS" version="1.0.0"/>
+		<dependency id="RadiusR.SystemLogs" version="1.0.1"/>
+		<dependency id="RezaB.API.TCKValidation" version="1.0.0"/>
 	</dependencies>
   </metadata>
-  <files>
-	<file src="bin\$configuration$\**\RadiusR.Localization.dll" target="lib\net452" />
-	<file src="bin\$configuration$\**\RadiusR.Localization.resources.dll" target="lib\net452" />
-  </files>
 </package>

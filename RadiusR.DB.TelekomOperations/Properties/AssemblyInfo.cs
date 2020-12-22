@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RadiusR.DB.TelekomOperations")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Data base related Telekom operations.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Reza Barzegaran")]
 [assembly: AssemblyProduct("RadiusR.DB.TelekomOperations")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]

@@ -54,6 +54,7 @@
     <Compile Include="BTKLogging\BTKLogFileManager.cs" />
     <Compile Include="BTKLogging\LogFileTypes.cs" />
     <Compile Include="BTKLogging\OperatorInfo.cs" />
+    <Compile Include="FileInfo.cs" />
     <Compile Include="FileManager.cs" />
     <Compile Include="Folders.cs" />
     <Compile Include="MIMETypes.cs" />

@@ -258,4 +258,19 @@
   <data name="SupportRequestReopenAllowTime" xml:space="preserve">
     <value>Destek İsteklerini Yeniden Açma Süresi</value>
   </data>
+  <data name="SMTPEmailAddress" xml:space="preserve">
+    <value>SMTP Email Adresi</value>
+  </data>
+  <data name="SMTPEmailHost" xml:space="preserve">
+    <value>SMTP Email Sonucusu</value>
+  </data>
+  <data name="SMTPEmailPassword" xml:space="preserve">
+    <value>SMTP Email Şifresi</value>
+  </data>
+  <data name="SMTPEMailPort" xml:space="preserve">
+    <value>SMTP EMail Portu</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Şirket Ünvanı</value>
+  </data>
 </root>

@@ -86,6 +86,11 @@
     <script type="text/javascript">
         SetupRelatedSubscriptionsList('#page-contents');
     </script>
+    @*<script>
+        $('#send-contract-mail').click(function () {
+            $('#send-contract-mail').remove();
+        });
+    </script>*@
 }
 <div class="accardeon-title-layer">
     <div class="accardeon-title-button selected" id="main">
@@ -273,13 +278,25 @@
     <div id="client-notes-container">
 
     </div>
-    @if (User.HasPermission("Client Files"))
-    {
+
     <div class="centered" style="margin-top: 1em;">
-        @Html.ActionLink(RadiusR.Localization.Pages.Common.AttachedFiles, "Files", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button browse-button" })
-        @Html.ActionLink(RadiusR.Localization.Pages.Common.DownloadContract, "DownloadContract", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button download-button" })
+        @if (User.HasPermission("Client Files"))
+        {
+            @Html.ActionLink(RadiusR.Localization.Pages.Common.AttachedFiles, "Files", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button browse-button" })
+            @:&nbsp;
+            @Html.ActionLink(RadiusR.Localization.Pages.Common.DownloadContract, "DownloadContract", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button download-button" })
+        }
+        @if (User.HasPermission("Send Email To Client"))
+        {
+            @:&nbsp;
+            using (Html.BeginForm("SendContractViaMail", "Client", FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block;" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("id", @Model.SubscriptionInfo.ArchiveNo)
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.SendContractViaMail" class="link-button iconed-button send-button"/>
+            }
+        }
     </div>
-    }
 </div>
 
 @if (User.HasPermission("System Logs"))
