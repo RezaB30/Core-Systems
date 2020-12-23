@@ -286,7 +286,7 @@
             @:&nbsp;
             @Html.ActionLink(RadiusR.Localization.Pages.Common.DownloadContract, "DownloadContract", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button download-button" })
         }
-        @if (User.HasPermission("Send Email To Client"))
+        @if (User.HasPermission("Send Email To Client") && !string.IsNullOrEmpty(Model.GeneralInfo.Email))
         {
             @:&nbsp;
             using (Html.BeginForm("SendContractViaMail", "Client", FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block;" }))
