@@ -916,6 +916,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application Form and Subscription Agreement.
+        /// </summary>
+        public static string CotractMailAttachmentName {
+            get {
+                return ResourceManager.GetString("CotractMailAttachmentName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Bill.
         /// </summary>
         public static string CreateBill {

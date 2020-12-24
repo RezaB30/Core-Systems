@@ -273,4 +273,10 @@
   <data name="CompanyName" xml:space="preserve">
     <value>Company Name</value>
   </data>
+  <data name="SMTPEmailDisplayEmail" xml:space="preserve">
+    <value>SMTP Email Display Email</value>
+  </data>
+  <data name="SMTPEmailDisplayName" xml:space="preserve">
+    <value>SMTP Email Display Name</value>
+  </data>
 </root>

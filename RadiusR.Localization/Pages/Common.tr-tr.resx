@@ -1141,7 +1141,7 @@
     <value>Sözleşmeyi E-posta İle Gönder</value>
   </data>
   <data name="ContractMailSubject" xml:space="preserve">
-    <value>{0} - Abonelik Basvuru Formu ve Sozlesmeler</value>
+    <value>{0} - Abonelik Başvuru Formu ve Sözleşmeler</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>E-posta</value>
@@ -1157,5 +1157,8 @@
   </data>
   <data name="Language" xml:space="preserve">
     <value>Dil</value>
+  </data>
+  <data name="CotractMailAttachmentName" xml:space="preserve">
+    <value>Başvuru Formu ve Abonelik Sözleşmesi</value>
   </data>
 </root>

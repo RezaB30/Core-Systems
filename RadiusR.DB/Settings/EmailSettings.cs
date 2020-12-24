@@ -41,6 +41,22 @@ namespace RadiusR.DB
                 return DBSetting<RadiusREntities, AppSetting>.Retrieve<int>(MethodBase.GetCurrentMethod().Name.Substring(4));
             }
         }
+
+        public static string SMTPEmailDisplayName
+        {
+            get
+            {
+                return DBSetting<RadiusREntities, AppSetting>.Retrieve<string>(MethodBase.GetCurrentMethod().Name.Substring(4));
+            }
+        }
+
+        public static string SMTPEmailDisplayEmail
+        {
+            get
+            {
+                return DBSetting<RadiusREntities, AppSetting>.Retrieve<string>(MethodBase.GetCurrentMethod().Name.Substring(4));
+            }
+        }
         #region METHODS
         /// <summary>
         /// Clears settings cache.

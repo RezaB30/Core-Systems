@@ -403,6 +403,24 @@ namespace RadiusR.Localization.AppSettings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SMTP Email Display Email.
+        /// </summary>
+        public static string SMTPEmailDisplayEmail {
+            get {
+                return ResourceManager.GetString("SMTPEmailDisplayEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SMTP Email Display Name.
+        /// </summary>
+        public static string SMTPEmailDisplayName {
+            get {
+                return ResourceManager.GetString("SMTPEmailDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SMTP Email Host.
         /// </summary>
         public static string SMTPEmailHost {

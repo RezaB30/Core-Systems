@@ -38,6 +38,19 @@ namespace RadiusR_Manager.Models.ViewModels
         [SettingElement]
         public string SMTPEmailPassword { get; set; }
 
+        [Display(ResourceType = typeof(RadiusR.Localization.AppSettings.Names), Name = "SMTPEmailDisplayName")]
+        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
+        [MaxLength(150, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
+        [SettingElement]
+        public string SMTPEmailDisplayName { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.AppSettings.Names), Name = "SMTPEmailDisplayEmail")]
+        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
+        [Email(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "EmailValidation")]
+        [MaxLength(150, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
+        [SettingElement]
+        public string SMTPEmailDisplayEmail { get; set; }
+
         public int? _SMTPEMailPort
         {
             get
@@ -63,6 +76,8 @@ namespace RadiusR_Manager.Models.ViewModels
                 _SMTPEMailPort = EmailSettings.SMTPEMailPort;
                 SMTPEmailAddress = EmailSettings.SMTPEmailAddress;
                 SMTPEmailPassword = EmailSettings.SMTPEmailPassword;
+                SMTPEmailDisplayEmail = EmailSettings.SMTPEmailDisplayEmail;
+                SMTPEmailDisplayName = EmailSettings.SMTPEmailDisplayName;
             }
         }
     }

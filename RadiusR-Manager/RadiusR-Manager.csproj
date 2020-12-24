@@ -146,8 +146,8 @@
       <HintPath>..\packages\RezaB.FTPUtilities.1.0.0\lib\net452\RezaB.FTPUtilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RezaB.Mailing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.Mailing.1.0.0\lib\net452\RezaB.Mailing.dll</HintPath>
+    <Reference Include="RezaB.Mailing, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Mailing.1.0.1\lib\net452\RezaB.Mailing.dll</HintPath>
     </Reference>
     <Reference Include="RezaB.Mikrotik, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RezaB.Mikrotik.1.0.0\lib\net452\RezaB.Mikrotik.dll</HintPath>

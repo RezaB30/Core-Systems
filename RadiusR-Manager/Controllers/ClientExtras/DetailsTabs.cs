@@ -513,7 +513,7 @@ namespace RadiusR_Manager.Controllers
             string bodyText = string.Empty;
             using (var bodyContent = FileManager.GetContractMailBodyByCulture(subscription.Customer.Culture))
             {
-                if(bodyContent == null)
+                if (bodyContent == null)
                 {
                     return RedirectToAction("Details", "Client", new { id = subscription.ID, errorMessage = 9 });
                 }
@@ -525,22 +525,22 @@ namespace RadiusR_Manager.Controllers
             }
             // localized strings
             var rm = RadiusR.Localization.MasterResourceManager.GetResourceManager("RadiusR.Localization.Pages.Common");
-            var attachmentName = rm.GetString("ContractFileName", System.Globalization.CultureInfo.CreateSpecificCulture(subscription.Customer.Culture));
-            var subject = rm.GetString("ContractMailSubject", System.Globalization.CultureInfo.CreateSpecificCulture(subscription.Customer.Culture));
+            var attachmentName = $"{rm.GetString("CotractMailAttachmentName", System.Globalization.CultureInfo.CreateSpecificCulture(subscription.Customer.Culture))}.pdf";
+            var subject = string.Format( rm.GetString("ContractMailSubject", System.Globalization.CultureInfo.CreateSpecificCulture(subscription.Customer.Culture)), AppSettings.CompanyName);
             // send mail message
             mailClient.SendMail(new RezaB.Mailing.StandardMailMessage(
-                EmailSettings.SMTPEmailAddress,
+                new System.Net.Mail.MailAddress(EmailSettings.SMTPEmailDisplayEmail, EmailSettings.SMTPEmailDisplayName),
                 new string[] { subscription.Customer.Email },
                 null,
                 null,
-                string.Format(subject, AppSettings.CompanyName),
+                subject,
                 bodyText,
                 RezaB.Mailing.MailBodyType.HTML,
                 new RezaB.Mailing.MailFileAttachment[]{
                     new RezaB.Mailing.MailFileAttachment()
                     {
                         Content = RadiusR.PDFForms.PDFWriter.GetContractPDF(db, id),
-                        FileName = string.Format(attachmentName, subscription.SubscriberNo)
+                        FileName = attachmentName
                     }
             }));
 

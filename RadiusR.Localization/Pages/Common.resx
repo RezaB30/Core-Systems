@@ -1161,4 +1161,7 @@
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="CotractMailAttachmentName" xml:space="preserve">
+    <value>Application Form and Subscription Agreement</value>
+  </data>
 </root>
