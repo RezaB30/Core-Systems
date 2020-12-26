@@ -1164,4 +1164,10 @@
   <data name="CotractMailAttachmentName" xml:space="preserve">
     <value>Application Form and Subscription Agreement</value>
   </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>MasterISS website manages ISP customers  and is a CRM.</value>
+  </data>
+  <data name="MetaTitle" xml:space="preserve">
+    <value>MasterISS Customer Management Website</value>
+  </data>
 </root>

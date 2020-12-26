@@ -1161,4 +1161,10 @@
   <data name="CotractMailAttachmentName" xml:space="preserve">
     <value>Başvuru Formu ve Abonelik Sözleşmesi</value>
   </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>MasterISS web sitesi ISP müşterilerini yönetir ve bir CRM'dir.</value>
+  </data>
+  <data name="MetaTitle" xml:space="preserve">
+    <value>MasterISS Müşteri Yönetimi Web Sitesi</value>
+  </data>
 </root>

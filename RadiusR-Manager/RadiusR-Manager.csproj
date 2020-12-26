@@ -479,6 +479,7 @@
     <Content Include="Content\Images\Shared\settings.svg" />
     <Content Include="Content\Images\Shared\slider-lip.svg" />
     <Content Include="Content\Images\Shared\sms-bubble.svg" />
+    <Content Include="Content\Images\Shared\social-logo.png" />
     <Content Include="Content\Images\Shared\telephone-white.svg" />
     <Content Include="Content\Images\Shared\tree-minus.svg" />
     <Content Include="Content\Images\Shared\tree-plus.svg" />
