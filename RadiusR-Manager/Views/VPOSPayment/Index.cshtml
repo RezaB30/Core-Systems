@@ -6,4 +6,4 @@
     ViewBag.Title = RadiusR.Localization.Pages.Common.VPOSPayment;
 }
 
-@Html.VPOS3DHostFormFor(model => model)
+@Html.Raw(Model.GetHtmlForm())

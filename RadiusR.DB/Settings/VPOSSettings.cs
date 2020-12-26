@@ -46,11 +46,19 @@ namespace RadiusR.DB
             }
         }
 
-        public static string Userpassword
+        public static string UserPassword
         {
             get
             {
                 return GetInternalSettings().UserPassword;
+            }
+        }
+
+        public static string MerchantSalt
+        {
+            get
+            {
+                return GetInternalSettings().MerchantSalt;
             }
         }
 
@@ -65,17 +73,30 @@ namespace RadiusR.DB
         #region Caching
         class Settings
         {
-            public Enums.VPOSTypes VPOSType { get; set; }
+            public Enums.VPOSTypes VPOSType { get; private set; }
 
-            public string MerchantID { get; set; }
+            public string MerchantID { get; private set; }
 
-            public string StoreKey { get; set; }
+            public string StoreKey { get; private set; }
 
-            public string UserID { get; set; }
+            public string UserID { get; private set; }
 
-            public string UserPassword { get; set; }
+            public string UserPassword { get; private set; }
 
-            public int CurrentVPOSID { get; set; }
+            public string MerchantSalt { get; private set; }
+
+            public int CurrentVPOSID { get; private set; }
+
+            public Settings(Enums.VPOSTypes vposType, string merchantID, string storeKey, string userID, string userPassword, string merchantSalt, int currentVPOSID)
+            {
+                VPOSType = vposType;
+                MerchantID = merchantID;
+                StoreKey = storeKey;
+                UserID = userID;
+                UserPassword = userPassword;
+                MerchantSalt = merchantSalt;
+                CurrentVPOSID = currentVPOSID;
+            }
         }
 
         private static Settings GetInternalSettings()
@@ -98,15 +119,7 @@ namespace RadiusR.DB
                             {
                                 var selectedVPOSID = Convert.ToInt32(selectedVPOS.Value);
                                 var currentSettings = db.VPOSLists.Find(selectedVPOSID);
-                                results = new Settings()
-                                {
-                                    VPOSType = (Enums.VPOSTypes)currentSettings.VPOSTypeID,
-                                    MerchantID = currentSettings.MerchantID,
-                                    StoreKey = currentSettings.StoreKey,
-                                    UserID = currentSettings.UserID,
-                                    UserPassword = currentSettings.UserPass,
-                                    CurrentVPOSID = selectedVPOSID
-                                };
+                                results = new Settings((Enums.VPOSTypes)currentSettings.VPOSTypeID, currentSettings.MerchantID, currentSettings.StoreKey, currentSettings.UserID, currentSettings.UserPass, currentSettings.MerchantSalt, selectedVPOSID);
                                 internalCache.Set("Settings", results, DateTimeOffset.Now.AddMinutes(5));
 
                                 return results;

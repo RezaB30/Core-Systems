@@ -120,6 +120,9 @@
   <data name="Halk" xml:space="preserve">
     <value>Halk Bank</value>
   </data>
+  <data name="PayTR" xml:space="preserve">
+    <value>PayTR</value>
+  </data>
   <data name="QNBFinans" xml:space="preserve">
     <value>QNB Finans Bank</value>
   </data>

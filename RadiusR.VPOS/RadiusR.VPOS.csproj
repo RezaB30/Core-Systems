@@ -11,7 +11,7 @@
     <AssemblyName>RadiusR.VPOS</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-	<PackageDescription>VPOS Manager for MasterISS.</PackageDescription>
+    <PackageDescription>VPOS Manager for MasterISS.</PackageDescription>
     <RepositoryUrl>https://github.com/masteriss/Core-Systems</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
@@ -37,9 +37,11 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RezaB.Web.VPOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.Web.VPOS.1.0.0\lib\net452\RezaB.Web.VPOS.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RezaB.Web.VPOS, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Web.VPOS.1.0.3\lib\net452\RezaB.Web.VPOS.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

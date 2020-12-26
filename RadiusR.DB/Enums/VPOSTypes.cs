@@ -10,6 +10,7 @@ namespace RadiusR.DB.Enums
     {
         QNBFinans = 1,
         Ziraat = 2,
-        Halk = 3
+        Halk = 3,
+        PayTR = 4,
     }
 }

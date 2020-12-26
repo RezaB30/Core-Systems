@@ -1089,6 +1089,7 @@
           <Property Name="StoreKey" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="UserID" Type="nvarchar" MaxLength="150" />
           <Property Name="UserPass" Type="nvarchar" MaxLength="150" />
+          <Property Name="MerchantSalt" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="WorkArea">
           <Key>
@@ -4147,7 +4148,6 @@
             <End Role="Service" EntitySet="Services" />
             <End Role="ServiceRateTimeTable" EntitySet="ServiceRateTimeTables" />
           </AssociationSet>
-          <EntitySet Name="VPOSLists" EntityType="RadiusRModel.VPOSList" />
           <EntitySet Name="Fees" EntityType="RadiusRModel.Fee" />
           <AssociationSet Name="FK_BillFee_Fee" Association="RadiusRModel.FK_BillFee_Fee">
             <End Role="Fee" EntitySet="Fees" />
@@ -4509,6 +4509,7 @@
             <End Role="SupportGroup" EntitySet="SupportGroups" />
             <End Role="SupportGroupUser" EntitySet="SupportGroupUsers" />
           </AssociationSet>
+          <EntitySet Name="VPOSLists" EntityType="RadiusRModel.VPOSList" />
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
           <Key>
@@ -5004,17 +5005,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="VPOSList">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="VPOSTypeID" Type="Int16" Nullable="false" />
-          <Property Name="MerchantID" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="StoreKey" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="UserID" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="UserPass" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Fee">
           <Key>
             <PropertyRef Name="ID" />
@@ -6476,6 +6466,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="VPOSList">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VPOSTypeID" Type="Int16" Nullable="false" />
+          <Property Name="MerchantID" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="StoreKey" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="UserPass" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="MerchantSalt" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7230,18 +7232,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="VPOSLists">
-            <EntityTypeMapping TypeName="RadiusRModel.VPOSList">
-              <MappingFragment StoreEntitySet="VPOSList">
-                <ScalarProperty Name="UserPass" ColumnName="UserPass" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="StoreKey" ColumnName="StoreKey" />
-                <ScalarProperty Name="MerchantID" ColumnName="MerchantID" />
-                <ScalarProperty Name="VPOSTypeID" ColumnName="VPOSTypeID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Fees">
             <EntityTypeMapping TypeName="RadiusRModel.Fee">
               <MappingFragment StoreEntitySet="Fee">
@@ -7662,6 +7652,19 @@
                 <ScalarProperty Name="CanChangeState" ColumnName="CanChangeState" />
                 <ScalarProperty Name="AppUserID" ColumnName="AppUserID" />
                 <ScalarProperty Name="SupportGroupID" ColumnName="SupportGroupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VPOSLists">
+            <EntityTypeMapping TypeName="RadiusRModel.VPOSList">
+              <MappingFragment StoreEntitySet="VPOSList">
+                <ScalarProperty Name="MerchantSalt" ColumnName="MerchantSalt" />
+                <ScalarProperty Name="UserPass" ColumnName="UserPass" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="StoreKey" ColumnName="StoreKey" />
+                <ScalarProperty Name="MerchantID" ColumnName="MerchantID" />
+                <ScalarProperty Name="VPOSTypeID" ColumnName="VPOSTypeID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

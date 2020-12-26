@@ -123,6 +123,9 @@
   <data name="MerchantID" xml:space="preserve">
     <value>Merchant Code</value>
   </data>
+  <data name="MerchantSalt" xml:space="preserve">
+    <value>Merchant Salt</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>

@@ -37,6 +37,9 @@ namespace RadiusR_Manager.Models.ViewModels
         //[Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
         public string UserID { get; set; }
 
+        [Display(ResourceType = typeof(RadiusR.Localization.VPOSSettings.Common), Name = "MerchantSalt")]
+        public string MerchantSalt { get; set; }
+
         public bool IsSelected { get; set; }
     }
 }

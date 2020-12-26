@@ -20,5 +20,6 @@ namespace RadiusR.DB
         public string StoreKey { get; set; }
         public string UserID { get; set; }
         public string UserPass { get; set; }
+        public string MerchantSalt { get; set; }
     }
 }

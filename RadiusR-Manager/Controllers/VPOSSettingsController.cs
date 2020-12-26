@@ -12,7 +12,7 @@ namespace RadiusR_Manager.Controllers
     [AuthorizePermission(Permissions = "VPOS Settings")]
     public class VPOSSettingsController : BaseController
     {
-        RadiusREntities db = new RadiusREntities();
+        readonly RadiusREntities db = new RadiusREntities();
 
         [HttpGet]
         // GET: VPOSSettings
@@ -28,6 +28,7 @@ namespace RadiusR_Manager.Controllers
                 UserID = vpos.UserID,
                 Password = vpos.UserPass,
                 VPOSType = vpos.VPOSTypeID,
+                MerchantSalt = vpos.MerchantSalt,
                 IsSelected = vpos.ID == selectedVPOSID
             });
             SetupPages(page, ref results);
@@ -55,7 +56,8 @@ namespace RadiusR_Manager.Controllers
                     MerchantID = settings.MerchantID,
                     StoreKey = settings.StoreKey,
                     UserID = settings.UserID,
-                    UserPass = settings.Password
+                    UserPass = settings.Password,
+                    MerchantSalt = settings.MerchantSalt
                 });
 
                 db.SaveChanges();
@@ -83,7 +85,8 @@ namespace RadiusR_Manager.Controllers
                 StoreKey = dbSettings.StoreKey,
                 VPOSType = dbSettings.VPOSTypeID,
                 UserID = dbSettings.UserID,
-                Password = dbSettings.UserPass
+                Password = dbSettings.UserPass,
+                MerchantSalt = dbSettings.MerchantSalt
             };
 
             ViewBag.IsEdit = true;
@@ -108,6 +111,7 @@ namespace RadiusR_Manager.Controllers
                 dbSettings.StoreKey = settings.StoreKey;
                 dbSettings.UserID = settings.UserID;
                 dbSettings.UserPass = settings.Password;
+                dbSettings.MerchantSalt = settings.MerchantSalt;
 
                 db.SaveChanges();
 

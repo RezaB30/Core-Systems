@@ -33,7 +33,8 @@ namespace RadiusR_Manager.Controllers
                 return RedirectToAction("Index", "Bill", new { errorMessage = 30 });
             }
 
-            var VPOSModel = VPOSManager.GetVPOSModel(Url.Action("SuccessfulPay", null, new { id = id }, Request.Url.Scheme), Url.Action("FailedPay", null, new { id = id }, Request.Url.Scheme), token.Amount, token.Language);
+            var VPOSModel = VPOSManager.GetVPOSModel(Url.Action("SuccessfulPay", null, new { id = id }, Request.Url.Scheme), Url.Action("FailedPay", null, new { id = id }, Request.Url.Scheme), token.Amount, token.Language, token.ClientName);
+            //ViewBag.VPOSForm = VPOSModel.GetHtmlForm();
             return View(VPOSModel);
 
             //var uri = new UriBuilder(token.ReturnUrl);

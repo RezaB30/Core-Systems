@@ -90,7 +90,6 @@ namespace RadiusR.DB
         public virtual DbSet<BillFee> BillFees { get; set; }
         public virtual DbSet<Bill> Bills { get; set; }
         public virtual DbSet<Service> Services { get; set; }
-        public virtual DbSet<VPOSList> VPOSLists { get; set; }
         public virtual DbSet<Fee> Fees { get; set; }
         public virtual DbSet<WorkArea> WorkAreas { get; set; }
         public virtual DbSet<PartnerGroup> PartnerGroups { get; set; }
@@ -120,5 +119,6 @@ namespace RadiusR.DB
         public virtual DbSet<Subscription> Subscriptions { get; set; }
         public virtual DbSet<SupportRequest> SupportRequests { get; set; }
         public virtual DbSet<SupportGroupUser> SupportGroupUsers { get; set; }
+        public virtual DbSet<VPOSList> VPOSLists { get; set; }
     }
 }

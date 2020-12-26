@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <title>RadiusR.Localization.Lists</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <description>Localization for MasterISS Database Enums.</description>
-    <releaseNotes>Support request enums added.</releaseNotes>
+    <releaseNotes>New VPOS Types.</releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>MasterISS Database Enums</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />

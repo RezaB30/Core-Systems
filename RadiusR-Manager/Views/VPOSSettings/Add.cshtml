@@ -9,79 +9,92 @@
         @using (Html.BeginForm())
             {
             @Html.AntiForgeryToken()
-            <table class="input-table">
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.VPOSType)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.VPOSType)
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.VPOSType)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.MerchantID)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.MerchantID, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.MerchantID)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.StoreKey)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.StoreKey, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.StoreKey)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.UserID)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.UserID)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.Password)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.Password)
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="centered">
-                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class = "link-button iconed-button back-button" })
-                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
-                    </td>
-                </tr>
-            </table>
+        <table class="input-table">
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.VPOSType)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.VPOSType)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.VPOSType)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.MerchantID)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.MerchantID, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.MerchantID)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.StoreKey)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.StoreKey, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.StoreKey)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.UserID)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.UserID)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Password)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.Password)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.MerchantSalt)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.MerchantSalt, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.MerchantSalt)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="centered">
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class = "link-button iconed-button back-button" })
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+                </td>
+            </tr>
+        </table>
         }
     </div>
 </div>
