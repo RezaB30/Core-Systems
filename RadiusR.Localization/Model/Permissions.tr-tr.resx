@@ -456,4 +456,7 @@
   <data name="SendEmailToClient" xml:space="preserve">
     <value>Aboneye E-posta Gönderme</value>
   </data>
+  <data name="FileManagerSettings" xml:space="preserve">
+    <value>Dosya Yönetici Ayarları</value>
+  </data>
 </root>

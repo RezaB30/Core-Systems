@@ -278,6 +278,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="FileManagerTypes.tr-tr.Designer.cs">
+      <DependentUpon>FileManagerTypes.tr-tr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="FileManagerTypes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FileManagerTypes.resx</DependentUpon>
+    </Compile>
     <Compile Include="IDCardTypes.Designer.cs">
       <DependentUpon>IDCardTypes.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -920,6 +930,14 @@
     <EmbeddedResource Include="FramedProtocol.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>FramedProtocol.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileManagerTypes.tr-tr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>FileManagerTypes.tr-tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileManagerTypes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>FileManagerTypes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="IDCardTypes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -1524,4 +1524,13 @@
   <data name="HasCustomerResponse" xml:space="preserve">
     <value>Müşteri Yanıtladı</value>
   </data>
+  <data name="FileManagerHost" xml:space="preserve">
+    <value>FTP/SFTP Adres</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Kullanıcı Adı</value>
+  </data>
+  <data name="FileManagerType" xml:space="preserve">
+    <value>Dosya Yönetici Türü</value>
+  </data>
 </root>

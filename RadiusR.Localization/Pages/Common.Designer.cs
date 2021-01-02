@@ -1402,6 +1402,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File Manager Settings.
+        /// </summary>
+        public static string FileManagerSettings {
+            get {
+                return ResourceManager.GetString("FileManagerSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finish.
         /// </summary>
         public static string Finish {

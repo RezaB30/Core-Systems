@@ -1524,4 +1524,13 @@
   <data name="HasCustomerResponse" xml:space="preserve">
     <value>Customer Responded</value>
   </data>
+  <data name="FileManagerHost" xml:space="preserve">
+    <value>FTP/SFTP Address</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="FileManagerType" xml:space="preserve">
+    <value>File Manager Type</value>
+  </data>
 </root>

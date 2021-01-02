@@ -1167,4 +1167,7 @@
   <data name="MetaTitle" xml:space="preserve">
     <value>MasterISS Müşteri Yönetimi Web Sitesi</value>
   </data>
+  <data name="FileManagerSettings" xml:space="preserve">
+    <value>Dosya Yönetici Ayarları</value>
+  </data>
 </root>

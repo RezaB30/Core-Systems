@@ -23,7 +23,7 @@ namespace RadiusR_Manager.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         // POST: Settings
-        public ActionResult Index(/*[Bind(Include = "TableRows,PagesLinkCount,ChartMaxSteps,MailHost,MailHostPort,MailUser,MailPass,UsernameSuffix,UsernamePrefix,SubscriberNoPrefix,CountryPhoneCode,SchedulerPeriod,SchedulerActTime,SchedulerSpareActionTime,BillSMSActTime,TTServiceUsername,TTServicePassword,TTServiceCustomerCode,TTISPCode,TTOLOUsername,TTOLOPassword,EBillIsActive,PastDueFlatPenalty,PastDuePenaltyPercentage,InvoiceArchiveIDPrefix,InvoiceBillIDPrefix,SenderCentralSystemNo,SenderCityName,SenderCountryName,SenderProvinceName,SenderCompanyTaxRegion,SenderCompanyTitle,SenderEmail,SenderPhoneNo,SenderFaxNo,SenderRegistrationNo,SenderTaxNo,EBillCompanyCode,EBillApiUsername,EBillApiPassword,EBillsThreshold,ReviewDelay,OnlinePasswordDuration,PaymentTolerance,ExpirationTolerance,GeocodingAPIKey,BTKOperatorName,BTKOperatorCode,BTKOperatorType")]*/AppSettingsViewModel settings)
+        public ActionResult Index(AppSettingsViewModel settings)
         {
             if (ModelState.IsValid)
             {

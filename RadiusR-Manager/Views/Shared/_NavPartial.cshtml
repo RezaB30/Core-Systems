@@ -574,6 +574,12 @@
                         @Html.ActionLink(RadiusR.Localization.Pages.Common.EmailSettings, "Settings", "Email")
                     </li>
                 }
+                @if (User.HasPermission("File Manager Settings"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.FileManagerSettings, "Settings", "FileManager")
+                    </li>
+                }
             </ul>
         </li>
     }

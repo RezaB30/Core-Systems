@@ -305,6 +305,7 @@
     <Compile Include="Controllers\EBillController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\FeeTypeVariantController.cs" />
+    <Compile Include="Controllers\FileManagerController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MobilExpressController.cs" />
@@ -937,6 +938,7 @@
     <Content Include="Views\CustomerWebsiteSettings\Index.cshtml" />
     <Content Include="Views\Email\Settings.cshtml" />
     <Content Include="Views\Email\Forms.cshtml" />
+    <Content Include="Views\FileManager\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

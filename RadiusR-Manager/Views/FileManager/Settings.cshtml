@@ -1,0 +1,91 @@
+﻿@model RadiusR_Manager.Models.ViewModels.FileManagerSettingsViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.FileManagerSettings;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.FileManagerType)
+                    </td>
+                    <td class="file-manager-type">
+                        @Html.EditorFor(model => model.FileManagerType)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.FileManagerType)
+                    </td>
+                </tr>
+                <tbody class="remote-related-part" style="display: none;">
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.FileManagerHost)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.FileManagerHost)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.FileManagerHost)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.FileManagerUsername)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.FileManagerUsername)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.FileManagerUsername)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.FileManagerPassword)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.FileManagerPassword)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.FileManagerPassword)
+                        </td>
+                    </tr>
+                </tbody>
+                <tr>
+                    <td colspan="2" class="centered">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Reset, null, null, new { @class = "link-button iconed-button reload-button" })&nbsp;
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+@section PageScripts{
+    <script>
+        $('td.file-manager-type').find('input[type=hidden][name]').change(function () {
+            var currentValue = $(this).val();
+            if (currentValue == 1) {
+                $('tbody.remote-related-part').hide();
+            }
+            else if (currentValue == 2) {
+                $('tbody.remote-related-part').show();
+            }
+        });
+        $('td.file-manager-type').find('input[type=hidden][name]').trigger('change');
+    </script>
+}

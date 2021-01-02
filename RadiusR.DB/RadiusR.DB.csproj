@@ -148,6 +148,7 @@
     <Compile Include="Enums\BTKLogTypes.cs" />
     <Compile Include="Enums\BTKOperatorTypes.cs" />
     <Compile Include="Enums\DomainInfrastructure.cs" />
+    <Compile Include="Enums\FileManagerTypes.cs" />
     <Compile Include="Enums\IPBlockServiceType.cs" />
     <Compile Include="Enums\IPBlockType.cs" />
     <Compile Include="Enums\NASTypes.cs" />
@@ -350,6 +351,7 @@
     <Compile Include="Settings\CallCenterSettings.cs" />
     <Compile Include="Settings\CustomerWebsiteSettings.cs" />
     <Compile Include="Settings\EmailSettings.cs" />
+    <Compile Include="Settings\FileManagerSettings.cs" />
     <Compile Include="Settings\MobilExpressSettings.cs" />
     <Compile Include="Settings\PartnerAPISettings.cs" />
     <Compile Include="Settings\QuotaSettings.cs" />

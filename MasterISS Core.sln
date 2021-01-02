@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadiusR BTK Log Scheduler Service", "RadiusR BTK Log Scheduler Service\RadiusR BTK Log Scheduler Service.csproj", "{465B8873-4984-4AD5-AABC-EDCA789EC456}"
 EndProject
@@ -64,6 +64,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadiusR Scheduler Test Suit", "RadiusR Scheduler Test Suit\RadiusR Scheduler Test Suit.csproj", "{8D01CA9A-C99A-4F69-8266-D50E0E752FFC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadiusR.Localization.Lists", "RadiusR.Localization.Lists\RadiusR.Localization.Lists.csproj", "{E1BAE2FA-AE42-447B-8087-EAE20E6E697C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadiusR.FileManagement", "RadiusR.FileManagement\RadiusR.FileManagement.csproj", "{E287DFAB-1682-4FB3-BCA3-E689F7F8CB11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadiusR.FileManagement.TestUnit", "RadiusR.FileManagement.TestUnit\RadiusR.FileManagement.TestUnit.csproj", "{FAF31669-7169-41F6-AF4A-9BAE7F631348}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -321,8 +325,27 @@ Global
 		{E1BAE2FA-AE42-447B-8087-EAE20E6E697C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E1BAE2FA-AE42-447B-8087-EAE20E6E697C}.Release|x64.ActiveCfg = Release|Any CPU
 		{E1BAE2FA-AE42-447B-8087-EAE20E6E697C}.Release|x64.Build.0 = Release|Any CPU
+		{E287DFAB-1682-4FB3-BCA3-E689F7F8CB11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E287DFAB-1682-4FB3-BCA3-E689F7F8CB11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E287DFAB-1682-4FB3-BCA3-E689F7F8CB11}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E287DFAB-1682-4FB3-BCA3-E689F7F8CB11}.Debug|x64.Build.0 = Debug|Any CPU
+		{E287DFAB-1682-4FB3-BCA3-E689F7F8CB11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E287DFAB-1682-4FB3-BCA3-E689F7F8CB11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E287DFAB-1682-4FB3-BCA3-E689F7F8CB11}.Release|x64.ActiveCfg = Release|Any CPU
+		{E287DFAB-1682-4FB3-BCA3-E689F7F8CB11}.Release|x64.Build.0 = Release|Any CPU
+		{FAF31669-7169-41F6-AF4A-9BAE7F631348}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAF31669-7169-41F6-AF4A-9BAE7F631348}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAF31669-7169-41F6-AF4A-9BAE7F631348}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FAF31669-7169-41F6-AF4A-9BAE7F631348}.Debug|x64.Build.0 = Debug|Any CPU
+		{FAF31669-7169-41F6-AF4A-9BAE7F631348}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAF31669-7169-41F6-AF4A-9BAE7F631348}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAF31669-7169-41F6-AF4A-9BAE7F631348}.Release|x64.ActiveCfg = Release|Any CPU
+		{FAF31669-7169-41F6-AF4A-9BAE7F631348}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7CFED587-DE8A-4C8C-BF8A-B6CDAE2D006F}
 	EndGlobalSection
 EndGlobal

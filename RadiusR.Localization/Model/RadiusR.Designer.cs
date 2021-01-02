@@ -1555,6 +1555,24 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FTP/SFTP Address.
+        /// </summary>
+        public static string FileManagerHost {
+            get {
+                return ResourceManager.GetString("FileManagerHost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Manager Type.
+        /// </summary>
+        public static string FileManagerType {
+            get {
+                return ResourceManager.GetString("FileManagerType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First Name.
         /// </summary>
         public static string FirstName {
@@ -4170,6 +4188,15 @@ namespace RadiusR.Localization.Model {
         public static string User {
             get {
                 return ResourceManager.GetString("User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string Username {
+            get {
+                return ResourceManager.GetString("Username", resourceCulture);
             }
         }
         

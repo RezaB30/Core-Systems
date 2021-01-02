@@ -456,4 +456,7 @@
   <data name="SendEmailToClient" xml:space="preserve">
     <value>Send Email To Client</value>
   </data>
+  <data name="FileManagerSettings" xml:space="preserve">
+    <value>File Manager Settings</value>
+  </data>
 </root>

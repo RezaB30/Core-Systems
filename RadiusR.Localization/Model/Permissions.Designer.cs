@@ -493,6 +493,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File Manager Settings.
+        /// </summary>
+        public static string FileManagerSettings {
+            get {
+                return ResourceManager.GetString("FileManagerSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Force Cancellation.
         /// </summary>
         public static string ForceCancellation {

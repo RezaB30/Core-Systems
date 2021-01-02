@@ -1170,4 +1170,7 @@
   <data name="MetaTitle" xml:space="preserve">
     <value>MasterISS Customer Management Website</value>
   </data>
+  <data name="FileManagerSettings" xml:space="preserve">
+    <value>File Manager Settings</value>
+  </data>
 </root>
