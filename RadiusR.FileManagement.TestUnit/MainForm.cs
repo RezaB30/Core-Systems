@@ -24,6 +24,9 @@ namespace RadiusR.FileManagement.TestUnit
             // pdf forms
             PDFFormTypeCombobox.Items.AddRange(Enum.GetNames(typeof(RadiusR.DB.Enums.PDFFormType)));
             PDFFormTypeCombobox.SelectedIndex = 0;
+            // btk logs
+            BTKLogTypeCombobox.Items.AddRange(Enum.GetNames(typeof(RadiusR.DB.Enums.BTKLogTypes)));
+            BTKLogTypeCombobox.SelectedIndex = 0;
             // file manager
             try
             {
@@ -360,6 +363,71 @@ namespace RadiusR.FileManagement.TestUnit
                 if (result.InternalException != null)
                 {
                     ShowError(result.InternalException);
+                }
+            }
+        }
+
+        private void BTKLogUploadButton_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.CheckFileExists = dialog.CheckPathExists = true;
+            dialog.Multiselect = false;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                using (var fileStream = File.OpenRead(dialog.FileName))
+                {
+                    var result = FileManager.SaveBTKLogFile((RadiusR.DB.Enums.BTKLogTypes)Enum.Parse(typeof(RadiusR.DB.Enums.BTKLogTypes), BTKLogTypeCombobox.SelectedItem as string), BTKLogDatetimepicker.Value, new FileManagerBasicFile(dialog.SafeFileName, fileStream));
+                    if (result.InternalException != null)
+                    {
+                        ShowError(result.InternalException);
+                    }
+                }
+            }
+        }
+
+        private void BTKLogsListButton_Click(object sender, EventArgs e)
+        {
+            var results = FileManager.ListBTKLogs((RadiusR.DB.Enums.BTKLogTypes)Enum.Parse(typeof(RadiusR.DB.Enums.BTKLogTypes), BTKLogTypeCombobox.SelectedItem as string), BTKLogDatetimepicker.Value);
+            if (results.InternalException != null)
+            {
+                ShowError(results.InternalException);
+            }
+            else if(results.Result != null)
+            {
+                BTKLogsListbox.Items.Clear();
+                BTKLogsListbox.Items.AddRange(results.Result.ToArray());
+            }
+        }
+
+        private void BTKLogsDownloadButton_Click(object sender, EventArgs e)
+        {
+            if (BTKLogsListbox.SelectedItem != null)
+            {
+                var dialog = new FolderBrowserDialog();
+                dialog.RootFolder = Environment.SpecialFolder.MyComputer;
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    var result = FileManager.GetBTKLog((RadiusR.DB.Enums.BTKLogTypes)Enum.Parse(typeof(RadiusR.DB.Enums.BTKLogTypes), BTKLogTypeCombobox.SelectedItem as string), BTKLogDatetimepicker.Value, BTKLogsListbox.SelectedItem as string);
+                    if(result.InternalException != null)
+                    {
+                        ShowError(result.InternalException);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            using (var fileStream = File.Create($"{dialog.SelectedPath}\\{result.Result.FileName}"))
+                            {
+                                result.Result.Content.CopyTo(fileStream);
+                                fileStream.Flush();
+                                fileStream.Close();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowError(ex);
+                        }
+                    }
                 }
             }
         }

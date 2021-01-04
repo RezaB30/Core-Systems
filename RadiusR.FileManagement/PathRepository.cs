@@ -70,5 +70,16 @@ namespace RadiusR.FileManagement
                 return "ContractMailBody.html";
             }
         }
+
+        public static string[] BTKLogs
+        {
+            get
+            {
+                return new string[]
+                {
+                    "BTK Logs"
+                };
+            }
+        }
     }
 }

@@ -69,6 +69,15 @@ namespace RadiusR.FileManagement.TestUnit
             this.ContractMailBodyDownloadButton = new System.Windows.Forms.Button();
             this.ContractMailBodyUploadButton = new System.Windows.Forms.Button();
             this.ContractMailBodyRemoveButton = new System.Windows.Forms.Button();
+            this.BTKLogsTabpage = new System.Windows.Forms.TabPage();
+            this.label10 = new System.Windows.Forms.Label();
+            this.BTKLogTypeCombobox = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.BTKLogDatetimepicker = new System.Windows.Forms.DateTimePicker();
+            this.BTKLogUploadButton = new System.Windows.Forms.Button();
+            this.BTKLogsListButton = new System.Windows.Forms.Button();
+            this.BTKLogsListbox = new System.Windows.Forms.ListBox();
+            this.BTKLogsDownloadButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ArchiveNoNumeric)).BeginInit();
             this.MainTabcontrol.SuspendLayout();
             this.ClientAttachmentsTabpage.SuspendLayout();
@@ -78,6 +87,7 @@ namespace RadiusR.FileManagement.TestUnit
             this.PDFFormsGroupbox.SuspendLayout();
             this.MailFilesTabpage.SuspendLayout();
             this.ContractMailBodyGroupbox.SuspendLayout();
+            this.BTKLogsTabpage.SuspendLayout();
             this.SuspendLayout();
             // 
             // label4
@@ -201,6 +211,7 @@ namespace RadiusR.FileManagement.TestUnit
             this.MainTabcontrol.Controls.Add(this.ClientAttachmentsTabpage);
             this.MainTabcontrol.Controls.Add(this.PDFFormsTabpage);
             this.MainTabcontrol.Controls.Add(this.MailFilesTabpage);
+            this.MainTabcontrol.Controls.Add(this.BTKLogsTabpage);
             this.MainTabcontrol.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainTabcontrol.Location = new System.Drawing.Point(0, 0);
             this.MainTabcontrol.Multiline = true;
@@ -514,6 +525,96 @@ namespace RadiusR.FileManagement.TestUnit
             this.ContractMailBodyRemoveButton.UseVisualStyleBackColor = true;
             this.ContractMailBodyRemoveButton.Click += new System.EventHandler(this.ContractMailBodyRemoveButton_Click);
             // 
+            // BTKLogsTabpage
+            // 
+            this.BTKLogsTabpage.Controls.Add(this.BTKLogsDownloadButton);
+            this.BTKLogsTabpage.Controls.Add(this.BTKLogsListbox);
+            this.BTKLogsTabpage.Controls.Add(this.BTKLogsListButton);
+            this.BTKLogsTabpage.Controls.Add(this.BTKLogUploadButton);
+            this.BTKLogsTabpage.Controls.Add(this.BTKLogDatetimepicker);
+            this.BTKLogsTabpage.Controls.Add(this.label11);
+            this.BTKLogsTabpage.Controls.Add(this.BTKLogTypeCombobox);
+            this.BTKLogsTabpage.Controls.Add(this.label10);
+            this.BTKLogsTabpage.Location = new System.Drawing.Point(4, 22);
+            this.BTKLogsTabpage.Name = "BTKLogsTabpage";
+            this.BTKLogsTabpage.Size = new System.Drawing.Size(1064, 442);
+            this.BTKLogsTabpage.TabIndex = 3;
+            this.BTKLogsTabpage.Text = "BTK Logs";
+            this.BTKLogsTabpage.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(8, 13);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(55, 13);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Log Type:";
+            // 
+            // BTKLogTypeCombobox
+            // 
+            this.BTKLogTypeCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.BTKLogTypeCombobox.FormattingEnabled = true;
+            this.BTKLogTypeCombobox.Location = new System.Drawing.Point(69, 10);
+            this.BTKLogTypeCombobox.Name = "BTKLogTypeCombobox";
+            this.BTKLogTypeCombobox.Size = new System.Drawing.Size(206, 21);
+            this.BTKLogTypeCombobox.TabIndex = 1;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(281, 13);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(54, 13);
+            this.label11.TabIndex = 2;
+            this.label11.Text = "Log Date:";
+            // 
+            // BTKLogDatetimepicker
+            // 
+            this.BTKLogDatetimepicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.BTKLogDatetimepicker.Location = new System.Drawing.Point(341, 10);
+            this.BTKLogDatetimepicker.Name = "BTKLogDatetimepicker";
+            this.BTKLogDatetimepicker.Size = new System.Drawing.Size(112, 20);
+            this.BTKLogDatetimepicker.TabIndex = 3;
+            // 
+            // BTKLogUploadButton
+            // 
+            this.BTKLogUploadButton.Location = new System.Drawing.Point(459, 8);
+            this.BTKLogUploadButton.Name = "BTKLogUploadButton";
+            this.BTKLogUploadButton.Size = new System.Drawing.Size(75, 23);
+            this.BTKLogUploadButton.TabIndex = 4;
+            this.BTKLogUploadButton.Text = "Upload";
+            this.BTKLogUploadButton.UseVisualStyleBackColor = true;
+            this.BTKLogUploadButton.Click += new System.EventHandler(this.BTKLogUploadButton_Click);
+            // 
+            // BTKLogsListButton
+            // 
+            this.BTKLogsListButton.Location = new System.Drawing.Point(540, 8);
+            this.BTKLogsListButton.Name = "BTKLogsListButton";
+            this.BTKLogsListButton.Size = new System.Drawing.Size(75, 23);
+            this.BTKLogsListButton.TabIndex = 5;
+            this.BTKLogsListButton.Text = "List";
+            this.BTKLogsListButton.UseVisualStyleBackColor = true;
+            this.BTKLogsListButton.Click += new System.EventHandler(this.BTKLogsListButton_Click);
+            // 
+            // BTKLogsListbox
+            // 
+            this.BTKLogsListbox.FormattingEnabled = true;
+            this.BTKLogsListbox.Location = new System.Drawing.Point(621, 8);
+            this.BTKLogsListbox.Name = "BTKLogsListbox";
+            this.BTKLogsListbox.Size = new System.Drawing.Size(435, 420);
+            this.BTKLogsListbox.TabIndex = 6;
+            // 
+            // BTKLogsDownloadButton
+            // 
+            this.BTKLogsDownloadButton.Location = new System.Drawing.Point(540, 405);
+            this.BTKLogsDownloadButton.Name = "BTKLogsDownloadButton";
+            this.BTKLogsDownloadButton.Size = new System.Drawing.Size(75, 23);
+            this.BTKLogsDownloadButton.TabIndex = 7;
+            this.BTKLogsDownloadButton.Text = "Download";
+            this.BTKLogsDownloadButton.UseVisualStyleBackColor = true;
+            this.BTKLogsDownloadButton.Click += new System.EventHandler(this.BTKLogsDownloadButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -538,6 +639,8 @@ namespace RadiusR.FileManagement.TestUnit
             this.PDFFormsGroupbox.PerformLayout();
             this.MailFilesTabpage.ResumeLayout(false);
             this.ContractMailBodyGroupbox.ResumeLayout(false);
+            this.BTKLogsTabpage.ResumeLayout(false);
+            this.BTKLogsTabpage.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -583,6 +686,15 @@ namespace RadiusR.FileManagement.TestUnit
         private System.Windows.Forms.Button ContractMailBodyRemoveButton;
         private System.Windows.Forms.Button ContractMailBodyUploadButton;
         private System.Windows.Forms.Button ContractMailBodyDownloadButton;
+        private System.Windows.Forms.TabPage BTKLogsTabpage;
+        private System.Windows.Forms.ComboBox BTKLogTypeCombobox;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.DateTimePicker BTKLogDatetimepicker;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button BTKLogUploadButton;
+        private System.Windows.Forms.Button BTKLogsListButton;
+        private System.Windows.Forms.ListBox BTKLogsListbox;
+        private System.Windows.Forms.Button BTKLogsDownloadButton;
     }
 }
 
