@@ -260,5 +260,37 @@ namespace RadiusR.FileManagement.TestUnit
                 }
             }
         }
+
+        private void ContractAppendixUpload_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.CheckFileExists = dialog.CheckPathExists = true;
+            dialog.Multiselect = false;
+            dialog.Filter = "pdf files (*.pdf)|*.pdf";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                using (var fileStream = File.OpenRead(dialog.FileName))
+                {
+                    var file = new FileManagerBasicFile(dialog.SafeFileName, fileStream);
+                    var result = FileManager.SaveContractAppendix(file);
+                    if (result.InternalException != null)
+                    {
+                        ShowError(result.InternalException);
+                    }
+                }
+            }
+        }
+
+        private void ContractAppendixRemove_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure?", "Delete Contract Appendix", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                var result = FileManager.RemoveContractAppendix();
+                if (result.InternalException != null)
+                {
+                    ShowError(result.InternalException);
+                }
+            }
+        }
     }
 }

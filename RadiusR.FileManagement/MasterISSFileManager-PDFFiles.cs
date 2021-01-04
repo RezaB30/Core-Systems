@@ -92,5 +92,33 @@ namespace RadiusR.FileManagement
             }
             return new FileManagerResult<FileManagerBasicFile>(new FileManagerBasicFile(PathRepository.ContractAppendixFileName, fileResult.Result));
         }
+
+        public FileManagerResult<bool> SaveContractAppendix(FileManagerBasicFile file)
+        {
+            if (file.FileExtention.ToLower() != "pdf")
+                return new FileManagerResult<bool>(false, new InvalidDataException("Only pdf files are acceptable."));
+            InternalFileManager.GoToRootDirectory();
+            var searchPath = string.Join(InternalFileManager.PathSeparator, PathRepository.PDFForms);
+            var result = CreateAndEnterPath(searchPath);
+            if (result.InternalException != null)
+            {
+                return new FileManagerResult<bool>(result.InternalException);
+            }
+            result = InternalFileManager.SaveFile(PathRepository.ContractAppendixFileName, file.Content, true);
+            return result;
+        }
+
+        public FileManagerResult<bool> RemoveContractAppendix()
+        {
+            InternalFileManager.GoToRootDirectory();
+            var searchPath = string.Join(InternalFileManager.PathSeparator, PathRepository.PDFForms);
+            var result = InternalFileManager.EnterDirectoryPath(searchPath);
+            if (result.InternalException != null)
+            {
+                return new FileManagerResult<bool>(result.InternalException);
+            }
+            result = InternalFileManager.RemoveFile(PathRepository.ContractAppendixFileName);
+            return result;
+        }
     }
 }

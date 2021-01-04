@@ -42,35 +42,35 @@ namespace RadiusR.FileManagement.TestUnit
             this.UploadAttachmentTypeCombobox = new System.Windows.Forms.ComboBox();
             this.MainTabcontrol = new System.Windows.Forms.TabControl();
             this.ClientAttachmentsTabpage = new System.Windows.Forms.TabPage();
-            this.SaveClientAttachmentButton = new System.Windows.Forms.Button();
             this.AttachmentDetailsPanel = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.AttachmentTypeLabel = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.AttachmentCreationDateLabel = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.AttachmentExtentionLabel = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.AttachmentFileNameTextbox = new System.Windows.Forms.TextBox();
             this.DeleteClientAttachmentButton = new System.Windows.Forms.Button();
+            this.AttachmentFileNameTextbox = new System.Windows.Forms.TextBox();
+            this.AttachmentExtentionLabel = new System.Windows.Forms.Label();
+            this.AttachmentCreationDateLabel = new System.Windows.Forms.Label();
+            this.AttachmentTypeLabel = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.SaveClientAttachmentButton = new System.Windows.Forms.Button();
             this.PDFFormsTabpage = new System.Windows.Forms.TabPage();
-            this.label9 = new System.Windows.Forms.Label();
-            this.PDFFormTypeCombobox = new System.Windows.Forms.ComboBox();
-            this.UploadPDFFormButton = new System.Windows.Forms.Button();
-            this.DownloadPDFFormButton = new System.Windows.Forms.Button();
-            this.RemovePDFFormButton = new System.Windows.Forms.Button();
-            this.PDFFormsGroupbox = new System.Windows.Forms.GroupBox();
             this.ContractAppendixGroupbox = new System.Windows.Forms.GroupBox();
-            this.ContractAppendixDownload = new System.Windows.Forms.Button();
-            this.ContractAppendixUpload = new System.Windows.Forms.Button();
             this.ContractAppendixRemove = new System.Windows.Forms.Button();
+            this.ContractAppendixUpload = new System.Windows.Forms.Button();
+            this.ContractAppendixDownload = new System.Windows.Forms.Button();
+            this.PDFFormsGroupbox = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.RemovePDFFormButton = new System.Windows.Forms.Button();
+            this.PDFFormTypeCombobox = new System.Windows.Forms.ComboBox();
+            this.DownloadPDFFormButton = new System.Windows.Forms.Button();
+            this.UploadPDFFormButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ArchiveNoNumeric)).BeginInit();
             this.MainTabcontrol.SuspendLayout();
             this.ClientAttachmentsTabpage.SuspendLayout();
             this.AttachmentDetailsPanel.SuspendLayout();
             this.PDFFormsTabpage.SuspendLayout();
-            this.PDFFormsGroupbox.SuspendLayout();
             this.ContractAppendixGroupbox.SuspendLayout();
+            this.PDFFormsGroupbox.SuspendLayout();
             this.SuspendLayout();
             // 
             // label4
@@ -223,16 +223,6 @@ namespace RadiusR.FileManagement.TestUnit
             this.ClientAttachmentsTabpage.TabIndex = 0;
             this.ClientAttachmentsTabpage.Text = "Client Attachments";
             // 
-            // SaveClientAttachmentButton
-            // 
-            this.SaveClientAttachmentButton.Location = new System.Drawing.Point(324, 76);
-            this.SaveClientAttachmentButton.Name = "SaveClientAttachmentButton";
-            this.SaveClientAttachmentButton.Size = new System.Drawing.Size(75, 23);
-            this.SaveClientAttachmentButton.TabIndex = 10;
-            this.SaveClientAttachmentButton.Text = "Download";
-            this.SaveClientAttachmentButton.UseVisualStyleBackColor = true;
-            this.SaveClientAttachmentButton.Click += new System.EventHandler(this.SaveClientAttachmentButton_Click);
-            // 
             // AttachmentDetailsPanel
             // 
             this.AttachmentDetailsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -252,72 +242,15 @@ namespace RadiusR.FileManagement.TestUnit
             this.AttachmentDetailsPanel.TabIndex = 11;
             this.AttachmentDetailsPanel.Visible = false;
             // 
-            // label5
+            // DeleteClientAttachmentButton
             // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label5.Location = new System.Drawing.Point(3, 4);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(34, 13);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "Type:";
-            // 
-            // AttachmentTypeLabel
-            // 
-            this.AttachmentTypeLabel.AutoSize = true;
-            this.AttachmentTypeLabel.Location = new System.Drawing.Point(85, 4);
-            this.AttachmentTypeLabel.Name = "AttachmentTypeLabel";
-            this.AttachmentTypeLabel.Size = new System.Drawing.Size(10, 13);
-            this.AttachmentTypeLabel.TabIndex = 12;
-            this.AttachmentTypeLabel.Text = "-";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label6.Location = new System.Drawing.Point(3, 22);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(75, 13);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "Creation Date:";
-            // 
-            // AttachmentCreationDateLabel
-            // 
-            this.AttachmentCreationDateLabel.AutoSize = true;
-            this.AttachmentCreationDateLabel.Location = new System.Drawing.Point(85, 22);
-            this.AttachmentCreationDateLabel.Name = "AttachmentCreationDateLabel";
-            this.AttachmentCreationDateLabel.Size = new System.Drawing.Size(10, 13);
-            this.AttachmentCreationDateLabel.TabIndex = 13;
-            this.AttachmentCreationDateLabel.Text = "-";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label7.Location = new System.Drawing.Point(3, 40);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(54, 13);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Extention:";
-            // 
-            // AttachmentExtentionLabel
-            // 
-            this.AttachmentExtentionLabel.AutoSize = true;
-            this.AttachmentExtentionLabel.Location = new System.Drawing.Point(85, 40);
-            this.AttachmentExtentionLabel.Name = "AttachmentExtentionLabel";
-            this.AttachmentExtentionLabel.Size = new System.Drawing.Size(10, 13);
-            this.AttachmentExtentionLabel.TabIndex = 14;
-            this.AttachmentExtentionLabel.Text = "-";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label8.Location = new System.Drawing.Point(3, 58);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(57, 13);
-            this.label8.TabIndex = 11;
-            this.label8.Text = "File Name:";
+            this.DeleteClientAttachmentButton.Location = new System.Drawing.Point(3, 76);
+            this.DeleteClientAttachmentButton.Name = "DeleteClientAttachmentButton";
+            this.DeleteClientAttachmentButton.Size = new System.Drawing.Size(75, 23);
+            this.DeleteClientAttachmentButton.TabIndex = 16;
+            this.DeleteClientAttachmentButton.Text = "Delete";
+            this.DeleteClientAttachmentButton.UseVisualStyleBackColor = true;
+            this.DeleteClientAttachmentButton.Click += new System.EventHandler(this.DeleteClientAttachmentButton_Click);
             // 
             // AttachmentFileNameTextbox
             // 
@@ -329,15 +262,82 @@ namespace RadiusR.FileManagement.TestUnit
             this.AttachmentFileNameTextbox.TabIndex = 15;
             this.AttachmentFileNameTextbox.WordWrap = false;
             // 
-            // DeleteClientAttachmentButton
+            // AttachmentExtentionLabel
             // 
-            this.DeleteClientAttachmentButton.Location = new System.Drawing.Point(3, 76);
-            this.DeleteClientAttachmentButton.Name = "DeleteClientAttachmentButton";
-            this.DeleteClientAttachmentButton.Size = new System.Drawing.Size(75, 23);
-            this.DeleteClientAttachmentButton.TabIndex = 16;
-            this.DeleteClientAttachmentButton.Text = "Delete";
-            this.DeleteClientAttachmentButton.UseVisualStyleBackColor = true;
-            this.DeleteClientAttachmentButton.Click += new System.EventHandler(this.DeleteClientAttachmentButton_Click);
+            this.AttachmentExtentionLabel.AutoSize = true;
+            this.AttachmentExtentionLabel.Location = new System.Drawing.Point(85, 40);
+            this.AttachmentExtentionLabel.Name = "AttachmentExtentionLabel";
+            this.AttachmentExtentionLabel.Size = new System.Drawing.Size(10, 13);
+            this.AttachmentExtentionLabel.TabIndex = 14;
+            this.AttachmentExtentionLabel.Text = "-";
+            // 
+            // AttachmentCreationDateLabel
+            // 
+            this.AttachmentCreationDateLabel.AutoSize = true;
+            this.AttachmentCreationDateLabel.Location = new System.Drawing.Point(85, 22);
+            this.AttachmentCreationDateLabel.Name = "AttachmentCreationDateLabel";
+            this.AttachmentCreationDateLabel.Size = new System.Drawing.Size(10, 13);
+            this.AttachmentCreationDateLabel.TabIndex = 13;
+            this.AttachmentCreationDateLabel.Text = "-";
+            // 
+            // AttachmentTypeLabel
+            // 
+            this.AttachmentTypeLabel.AutoSize = true;
+            this.AttachmentTypeLabel.Location = new System.Drawing.Point(85, 4);
+            this.AttachmentTypeLabel.Name = "AttachmentTypeLabel";
+            this.AttachmentTypeLabel.Size = new System.Drawing.Size(10, 13);
+            this.AttachmentTypeLabel.TabIndex = 12;
+            this.AttachmentTypeLabel.Text = "-";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label8.Location = new System.Drawing.Point(3, 58);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(57, 13);
+            this.label8.TabIndex = 11;
+            this.label8.Text = "File Name:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label7.Location = new System.Drawing.Point(3, 40);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(54, 13);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Extention:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label6.Location = new System.Drawing.Point(3, 22);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(75, 13);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Creation Date:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label5.Location = new System.Drawing.Point(3, 4);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(34, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Type:";
+            // 
+            // SaveClientAttachmentButton
+            // 
+            this.SaveClientAttachmentButton.Location = new System.Drawing.Point(324, 76);
+            this.SaveClientAttachmentButton.Name = "SaveClientAttachmentButton";
+            this.SaveClientAttachmentButton.Size = new System.Drawing.Size(75, 23);
+            this.SaveClientAttachmentButton.TabIndex = 10;
+            this.SaveClientAttachmentButton.Text = "Download";
+            this.SaveClientAttachmentButton.UseVisualStyleBackColor = true;
+            this.SaveClientAttachmentButton.Click += new System.EventHandler(this.SaveClientAttachmentButton_Click);
             // 
             // PDFFormsTabpage
             // 
@@ -350,53 +350,47 @@ namespace RadiusR.FileManagement.TestUnit
             this.PDFFormsTabpage.Text = "PDF Forms";
             this.PDFFormsTabpage.UseVisualStyleBackColor = true;
             // 
-            // label9
+            // ContractAppendixGroupbox
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 22);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(60, 13);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Form Type:";
+            this.ContractAppendixGroupbox.Controls.Add(this.ContractAppendixRemove);
+            this.ContractAppendixGroupbox.Controls.Add(this.ContractAppendixUpload);
+            this.ContractAppendixGroupbox.Controls.Add(this.ContractAppendixDownload);
+            this.ContractAppendixGroupbox.Location = new System.Drawing.Point(9, 66);
+            this.ContractAppendixGroupbox.Name = "ContractAppendixGroupbox";
+            this.ContractAppendixGroupbox.Size = new System.Drawing.Size(1047, 56);
+            this.ContractAppendixGroupbox.TabIndex = 5;
+            this.ContractAppendixGroupbox.TabStop = false;
+            this.ContractAppendixGroupbox.Text = "Contract Appendix PDF";
             // 
-            // PDFFormTypeCombobox
+            // ContractAppendixRemove
             // 
-            this.PDFFormTypeCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.PDFFormTypeCombobox.FormattingEnabled = true;
-            this.PDFFormTypeCombobox.Location = new System.Drawing.Point(72, 19);
-            this.PDFFormTypeCombobox.Name = "PDFFormTypeCombobox";
-            this.PDFFormTypeCombobox.Size = new System.Drawing.Size(168, 21);
-            this.PDFFormTypeCombobox.TabIndex = 1;
+            this.ContractAppendixRemove.Location = new System.Drawing.Point(168, 19);
+            this.ContractAppendixRemove.Name = "ContractAppendixRemove";
+            this.ContractAppendixRemove.Size = new System.Drawing.Size(75, 23);
+            this.ContractAppendixRemove.TabIndex = 0;
+            this.ContractAppendixRemove.Text = "Remove";
+            this.ContractAppendixRemove.UseVisualStyleBackColor = true;
+            this.ContractAppendixRemove.Click += new System.EventHandler(this.ContractAppendixRemove_Click);
             // 
-            // UploadPDFFormButton
+            // ContractAppendixUpload
             // 
-            this.UploadPDFFormButton.Location = new System.Drawing.Point(246, 17);
-            this.UploadPDFFormButton.Name = "UploadPDFFormButton";
-            this.UploadPDFFormButton.Size = new System.Drawing.Size(75, 23);
-            this.UploadPDFFormButton.TabIndex = 2;
-            this.UploadPDFFormButton.Text = "Upload";
-            this.UploadPDFFormButton.UseVisualStyleBackColor = true;
-            this.UploadPDFFormButton.Click += new System.EventHandler(this.UploadPDFFormButton_Click);
+            this.ContractAppendixUpload.Location = new System.Drawing.Point(87, 19);
+            this.ContractAppendixUpload.Name = "ContractAppendixUpload";
+            this.ContractAppendixUpload.Size = new System.Drawing.Size(75, 23);
+            this.ContractAppendixUpload.TabIndex = 0;
+            this.ContractAppendixUpload.Text = "Upload";
+            this.ContractAppendixUpload.UseVisualStyleBackColor = true;
+            this.ContractAppendixUpload.Click += new System.EventHandler(this.ContractAppendixUpload_Click);
             // 
-            // DownloadPDFFormButton
+            // ContractAppendixDownload
             // 
-            this.DownloadPDFFormButton.Location = new System.Drawing.Point(327, 17);
-            this.DownloadPDFFormButton.Name = "DownloadPDFFormButton";
-            this.DownloadPDFFormButton.Size = new System.Drawing.Size(75, 23);
-            this.DownloadPDFFormButton.TabIndex = 2;
-            this.DownloadPDFFormButton.Text = "Download";
-            this.DownloadPDFFormButton.UseVisualStyleBackColor = true;
-            this.DownloadPDFFormButton.Click += new System.EventHandler(this.DownloadPDFFormButton_Click);
-            // 
-            // RemovePDFFormButton
-            // 
-            this.RemovePDFFormButton.Location = new System.Drawing.Point(408, 17);
-            this.RemovePDFFormButton.Name = "RemovePDFFormButton";
-            this.RemovePDFFormButton.Size = new System.Drawing.Size(75, 23);
-            this.RemovePDFFormButton.TabIndex = 3;
-            this.RemovePDFFormButton.Text = "Remove";
-            this.RemovePDFFormButton.UseVisualStyleBackColor = true;
-            this.RemovePDFFormButton.Click += new System.EventHandler(this.RemovePDFFormButton_Click);
+            this.ContractAppendixDownload.Location = new System.Drawing.Point(6, 19);
+            this.ContractAppendixDownload.Name = "ContractAppendixDownload";
+            this.ContractAppendixDownload.Size = new System.Drawing.Size(75, 23);
+            this.ContractAppendixDownload.TabIndex = 0;
+            this.ContractAppendixDownload.Text = "Download";
+            this.ContractAppendixDownload.UseVisualStyleBackColor = true;
+            this.ContractAppendixDownload.Click += new System.EventHandler(this.ContractAppendixDownload_Click);
             // 
             // PDFFormsGroupbox
             // 
@@ -412,45 +406,53 @@ namespace RadiusR.FileManagement.TestUnit
             this.PDFFormsGroupbox.TabStop = false;
             this.PDFFormsGroupbox.Text = "PDF Forms";
             // 
-            // ContractAppendixGroupbox
+            // label9
             // 
-            this.ContractAppendixGroupbox.Controls.Add(this.ContractAppendixRemove);
-            this.ContractAppendixGroupbox.Controls.Add(this.ContractAppendixUpload);
-            this.ContractAppendixGroupbox.Controls.Add(this.ContractAppendixDownload);
-            this.ContractAppendixGroupbox.Location = new System.Drawing.Point(9, 66);
-            this.ContractAppendixGroupbox.Name = "ContractAppendixGroupbox";
-            this.ContractAppendixGroupbox.Size = new System.Drawing.Size(1047, 56);
-            this.ContractAppendixGroupbox.TabIndex = 5;
-            this.ContractAppendixGroupbox.TabStop = false;
-            this.ContractAppendixGroupbox.Text = "Contract Appendix PDF";
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 22);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(60, 13);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Form Type:";
             // 
-            // ContractAppendixDownload
+            // RemovePDFFormButton
             // 
-            this.ContractAppendixDownload.Location = new System.Drawing.Point(6, 19);
-            this.ContractAppendixDownload.Name = "ContractAppendixDownload";
-            this.ContractAppendixDownload.Size = new System.Drawing.Size(75, 23);
-            this.ContractAppendixDownload.TabIndex = 0;
-            this.ContractAppendixDownload.Text = "Download";
-            this.ContractAppendixDownload.UseVisualStyleBackColor = true;
-            this.ContractAppendixDownload.Click += new System.EventHandler(this.ContractAppendixDownload_Click);
+            this.RemovePDFFormButton.Location = new System.Drawing.Point(408, 17);
+            this.RemovePDFFormButton.Name = "RemovePDFFormButton";
+            this.RemovePDFFormButton.Size = new System.Drawing.Size(75, 23);
+            this.RemovePDFFormButton.TabIndex = 3;
+            this.RemovePDFFormButton.Text = "Remove";
+            this.RemovePDFFormButton.UseVisualStyleBackColor = true;
+            this.RemovePDFFormButton.Click += new System.EventHandler(this.RemovePDFFormButton_Click);
             // 
-            // ContractAppendixUpload
+            // PDFFormTypeCombobox
             // 
-            this.ContractAppendixUpload.Location = new System.Drawing.Point(87, 19);
-            this.ContractAppendixUpload.Name = "ContractAppendixUpload";
-            this.ContractAppendixUpload.Size = new System.Drawing.Size(75, 23);
-            this.ContractAppendixUpload.TabIndex = 0;
-            this.ContractAppendixUpload.Text = "Upload";
-            this.ContractAppendixUpload.UseVisualStyleBackColor = true;
+            this.PDFFormTypeCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PDFFormTypeCombobox.FormattingEnabled = true;
+            this.PDFFormTypeCombobox.Location = new System.Drawing.Point(72, 19);
+            this.PDFFormTypeCombobox.Name = "PDFFormTypeCombobox";
+            this.PDFFormTypeCombobox.Size = new System.Drawing.Size(168, 21);
+            this.PDFFormTypeCombobox.TabIndex = 1;
             // 
-            // ContractAppendixRemove
+            // DownloadPDFFormButton
             // 
-            this.ContractAppendixRemove.Location = new System.Drawing.Point(168, 19);
-            this.ContractAppendixRemove.Name = "ContractAppendixRemove";
-            this.ContractAppendixRemove.Size = new System.Drawing.Size(75, 23);
-            this.ContractAppendixRemove.TabIndex = 0;
-            this.ContractAppendixRemove.Text = "Remove";
-            this.ContractAppendixRemove.UseVisualStyleBackColor = true;
+            this.DownloadPDFFormButton.Location = new System.Drawing.Point(327, 17);
+            this.DownloadPDFFormButton.Name = "DownloadPDFFormButton";
+            this.DownloadPDFFormButton.Size = new System.Drawing.Size(75, 23);
+            this.DownloadPDFFormButton.TabIndex = 2;
+            this.DownloadPDFFormButton.Text = "Download";
+            this.DownloadPDFFormButton.UseVisualStyleBackColor = true;
+            this.DownloadPDFFormButton.Click += new System.EventHandler(this.DownloadPDFFormButton_Click);
+            // 
+            // UploadPDFFormButton
+            // 
+            this.UploadPDFFormButton.Location = new System.Drawing.Point(246, 17);
+            this.UploadPDFFormButton.Name = "UploadPDFFormButton";
+            this.UploadPDFFormButton.Size = new System.Drawing.Size(75, 23);
+            this.UploadPDFFormButton.TabIndex = 2;
+            this.UploadPDFFormButton.Text = "Upload";
+            this.UploadPDFFormButton.UseVisualStyleBackColor = true;
+            this.UploadPDFFormButton.Click += new System.EventHandler(this.UploadPDFFormButton_Click);
             // 
             // MainForm
             // 
@@ -471,9 +473,9 @@ namespace RadiusR.FileManagement.TestUnit
             this.AttachmentDetailsPanel.ResumeLayout(false);
             this.AttachmentDetailsPanel.PerformLayout();
             this.PDFFormsTabpage.ResumeLayout(false);
+            this.ContractAppendixGroupbox.ResumeLayout(false);
             this.PDFFormsGroupbox.ResumeLayout(false);
             this.PDFFormsGroupbox.PerformLayout();
-            this.ContractAppendixGroupbox.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
