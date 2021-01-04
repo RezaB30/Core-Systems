@@ -31,14 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
-      <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
+    <Reference Include="Renci.SshNet, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <HintPath>..\packages\SSH.NET.2020.0.0\lib\net40\Renci.SshNet.dll</HintPath>
     </Reference>
     <Reference Include="RezaB.Files, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RezaB.Files.1.0.1\lib\net472\RezaB.Files.dll</HintPath>
     </Reference>
-    <Reference Include="RezaB.Files.FTP, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.Files.FTP.1.0.1\lib\net472\RezaB.Files.FTP.dll</HintPath>
+    <Reference Include="RezaB.Files.FTP, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Files.FTP.1.0.2\lib\net472\RezaB.Files.FTP.dll</HintPath>
     </Reference>
     <Reference Include="RezaB.Files.Local, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RezaB.Files.Local.1.0.1\lib\net472\RezaB.Files.Local.dll</HintPath>

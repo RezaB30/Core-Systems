@@ -57,6 +57,20 @@ namespace RadiusR.FileManagement.TestUnit
             }
         }
 
+        private void ListBTKLogs()
+        {
+            var results = FileManager.ListBTKLogs((RadiusR.DB.Enums.BTKLogTypes)Enum.Parse(typeof(RadiusR.DB.Enums.BTKLogTypes), BTKLogTypeCombobox.SelectedItem as string), BTKLogDatetimepicker.Value);
+            if (results.InternalException != null)
+            {
+                ShowError(results.InternalException);
+            }
+            else if (results.Result != null)
+            {
+                BTKLogsListbox.Items.Clear();
+                BTKLogsListbox.Items.AddRange(results.Result.ToArray());
+            }
+        }
+
         private void GetAttachmentsButton_Click(object sender, EventArgs e)
         {
             GetClientAttachments();
@@ -381,22 +395,17 @@ namespace RadiusR.FileManagement.TestUnit
                     {
                         ShowError(result.InternalException);
                     }
+                    else
+                    {
+                        ListBTKLogs();
+                    }
                 }
             }
         }
 
         private void BTKLogsListButton_Click(object sender, EventArgs e)
         {
-            var results = FileManager.ListBTKLogs((RadiusR.DB.Enums.BTKLogTypes)Enum.Parse(typeof(RadiusR.DB.Enums.BTKLogTypes), BTKLogTypeCombobox.SelectedItem as string), BTKLogDatetimepicker.Value);
-            if (results.InternalException != null)
-            {
-                ShowError(results.InternalException);
-            }
-            else if(results.Result != null)
-            {
-                BTKLogsListbox.Items.Clear();
-                BTKLogsListbox.Items.AddRange(results.Result.ToArray());
-            }
+            ListBTKLogs();
         }
 
         private void BTKLogsDownloadButton_Click(object sender, EventArgs e)
@@ -408,7 +417,7 @@ namespace RadiusR.FileManagement.TestUnit
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     var result = FileManager.GetBTKLog((RadiusR.DB.Enums.BTKLogTypes)Enum.Parse(typeof(RadiusR.DB.Enums.BTKLogTypes), BTKLogTypeCombobox.SelectedItem as string), BTKLogDatetimepicker.Value, BTKLogsListbox.SelectedItem as string);
-                    if(result.InternalException != null)
+                    if (result.InternalException != null)
                     {
                         ShowError(result.InternalException);
                     }
