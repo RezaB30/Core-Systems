@@ -57,6 +57,8 @@
     <Compile Include="FileManagerBasicFile.cs" />
     <Compile Include="FileManagerClientAttachment.cs" />
     <Compile Include="FileManagerClientAttachmentWithContent.cs" />
+    <Compile Include="MasterISSFileManager-ClientAttachments.cs" />
+    <Compile Include="MasterISSFileManager-MailFiles.cs" />
     <Compile Include="MasterISSFileManager-PDFFiles.cs" />
     <Compile Include="MasterISSFileManager.cs" />
     <Compile Include="PathRepository.cs" />

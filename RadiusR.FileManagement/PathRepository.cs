@@ -39,5 +39,36 @@ namespace RadiusR.FileManagement
                 return "ContractAppendix.pdf";
             }
         }
+
+        public static string[] MailFiles
+        {
+            get
+            {
+                return new string[]
+                {
+                    "MasterISS",
+                    "Mail Files"
+                };
+            }
+        }
+
+        public static string[] MailContractFiles
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Contract"
+                };
+            }
+        }
+
+        public static string MailContractBodyFile
+        {
+            get
+            {
+                return "ContractMailBody.html";
+            }
+        }
     }
 }

@@ -251,11 +251,18 @@ namespace RadiusR.FileManagement.TestUnit
                         return;
                     }
 
-                    using (var fileStream = File.Create($"{dialog.SelectedPath}\\{result.Result.FileName}"))
+                    try
                     {
-                        result.Result.Content.CopyTo(fileStream);
-                        fileStream.Flush();
-                        fileStream.Close();
+                        using (var fileStream = File.Create($"{dialog.SelectedPath}\\{result.Result.FileName}"))
+                        {
+                            result.Result.Content.CopyTo(fileStream);
+                            fileStream.Flush();
+                            fileStream.Close();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ShowError(ex);
                     }
                 }
             }
@@ -286,6 +293,70 @@ namespace RadiusR.FileManagement.TestUnit
             if (MessageBox.Show("Are you sure?", "Delete Contract Appendix", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 var result = FileManager.RemoveContractAppendix();
+                if (result.InternalException != null)
+                {
+                    ShowError(result.InternalException);
+                }
+            }
+        }
+
+        private void ContractMailBodyDownloadButton_Click(object sender, EventArgs e)
+        {
+            var dialog = new FolderBrowserDialog();
+            dialog.RootFolder = Environment.SpecialFolder.MyComputer;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                var result = FileManager.GetContractMailBody();
+                if (result.InternalException != null)
+                {
+                    ShowError(result.InternalException);
+                }
+                else
+                {
+                    try
+                    {
+                        using (var fileStream = File.Create($"{dialog.SelectedPath}\\{result.Result.FileName}"))
+                        {
+                            result.Result.Content.CopyTo(fileStream);
+                            fileStream.Flush();
+                            fileStream.Close();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ShowError(ex);
+                    }
+                }
+            }
+        }
+
+        private void ContractMailBodyUploadButton_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.CheckFileExists = dialog.CheckPathExists = true;
+            dialog.Multiselect = false;
+            dialog.Filter = "html files (*.html)|*.html";
+            dialog.DefaultExt = "html";
+            dialog.AddExtension = true;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                using (var fileStream = File.OpenRead(dialog.FileName))
+                {
+                    var file = new FileManagerBasicFile(dialog.SafeFileName, fileStream);
+                    var result = FileManager.SaveContractMailBody(file);
+                    if (result.InternalException != null)
+                    {
+                        ShowError(result.InternalException);
+                    }
+                }
+            }
+        }
+
+        private void ContractMailBodyRemoveButton_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure?", "Delete Contract Mail Body", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                var result = FileManager.RemoveContractMailBody();
                 if (result.InternalException != null)
                 {
                     ShowError(result.InternalException);

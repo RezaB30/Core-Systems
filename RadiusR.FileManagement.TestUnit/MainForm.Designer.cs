@@ -64,6 +64,11 @@ namespace RadiusR.FileManagement.TestUnit
             this.PDFFormTypeCombobox = new System.Windows.Forms.ComboBox();
             this.DownloadPDFFormButton = new System.Windows.Forms.Button();
             this.UploadPDFFormButton = new System.Windows.Forms.Button();
+            this.MailFilesTabpage = new System.Windows.Forms.TabPage();
+            this.ContractMailBodyGroupbox = new System.Windows.Forms.GroupBox();
+            this.ContractMailBodyDownloadButton = new System.Windows.Forms.Button();
+            this.ContractMailBodyUploadButton = new System.Windows.Forms.Button();
+            this.ContractMailBodyRemoveButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ArchiveNoNumeric)).BeginInit();
             this.MainTabcontrol.SuspendLayout();
             this.ClientAttachmentsTabpage.SuspendLayout();
@@ -71,6 +76,8 @@ namespace RadiusR.FileManagement.TestUnit
             this.PDFFormsTabpage.SuspendLayout();
             this.ContractAppendixGroupbox.SuspendLayout();
             this.PDFFormsGroupbox.SuspendLayout();
+            this.MailFilesTabpage.SuspendLayout();
+            this.ContractMailBodyGroupbox.SuspendLayout();
             this.SuspendLayout();
             // 
             // label4
@@ -193,6 +200,7 @@ namespace RadiusR.FileManagement.TestUnit
             // 
             this.MainTabcontrol.Controls.Add(this.ClientAttachmentsTabpage);
             this.MainTabcontrol.Controls.Add(this.PDFFormsTabpage);
+            this.MainTabcontrol.Controls.Add(this.MailFilesTabpage);
             this.MainTabcontrol.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainTabcontrol.Location = new System.Drawing.Point(0, 0);
             this.MainTabcontrol.Multiline = true;
@@ -454,6 +462,58 @@ namespace RadiusR.FileManagement.TestUnit
             this.UploadPDFFormButton.UseVisualStyleBackColor = true;
             this.UploadPDFFormButton.Click += new System.EventHandler(this.UploadPDFFormButton_Click);
             // 
+            // MailFilesTabpage
+            // 
+            this.MailFilesTabpage.Controls.Add(this.ContractMailBodyGroupbox);
+            this.MailFilesTabpage.Location = new System.Drawing.Point(4, 22);
+            this.MailFilesTabpage.Name = "MailFilesTabpage";
+            this.MailFilesTabpage.Size = new System.Drawing.Size(1064, 442);
+            this.MailFilesTabpage.TabIndex = 2;
+            this.MailFilesTabpage.Text = "Mail Files";
+            this.MailFilesTabpage.UseVisualStyleBackColor = true;
+            // 
+            // ContractMailBodyGroupbox
+            // 
+            this.ContractMailBodyGroupbox.Controls.Add(this.ContractMailBodyRemoveButton);
+            this.ContractMailBodyGroupbox.Controls.Add(this.ContractMailBodyUploadButton);
+            this.ContractMailBodyGroupbox.Controls.Add(this.ContractMailBodyDownloadButton);
+            this.ContractMailBodyGroupbox.Location = new System.Drawing.Point(8, 3);
+            this.ContractMailBodyGroupbox.Name = "ContractMailBodyGroupbox";
+            this.ContractMailBodyGroupbox.Size = new System.Drawing.Size(1048, 56);
+            this.ContractMailBodyGroupbox.TabIndex = 0;
+            this.ContractMailBodyGroupbox.TabStop = false;
+            this.ContractMailBodyGroupbox.Text = "Contract Mail Body";
+            // 
+            // ContractMailBodyDownloadButton
+            // 
+            this.ContractMailBodyDownloadButton.Location = new System.Drawing.Point(6, 19);
+            this.ContractMailBodyDownloadButton.Name = "ContractMailBodyDownloadButton";
+            this.ContractMailBodyDownloadButton.Size = new System.Drawing.Size(75, 23);
+            this.ContractMailBodyDownloadButton.TabIndex = 0;
+            this.ContractMailBodyDownloadButton.Text = "Download";
+            this.ContractMailBodyDownloadButton.UseVisualStyleBackColor = true;
+            this.ContractMailBodyDownloadButton.Click += new System.EventHandler(this.ContractMailBodyDownloadButton_Click);
+            // 
+            // ContractMailBodyUploadButton
+            // 
+            this.ContractMailBodyUploadButton.Location = new System.Drawing.Point(87, 19);
+            this.ContractMailBodyUploadButton.Name = "ContractMailBodyUploadButton";
+            this.ContractMailBodyUploadButton.Size = new System.Drawing.Size(75, 23);
+            this.ContractMailBodyUploadButton.TabIndex = 0;
+            this.ContractMailBodyUploadButton.Text = "Upload";
+            this.ContractMailBodyUploadButton.UseVisualStyleBackColor = true;
+            this.ContractMailBodyUploadButton.Click += new System.EventHandler(this.ContractMailBodyUploadButton_Click);
+            // 
+            // ContractMailBodyRemoveButton
+            // 
+            this.ContractMailBodyRemoveButton.Location = new System.Drawing.Point(168, 19);
+            this.ContractMailBodyRemoveButton.Name = "ContractMailBodyRemoveButton";
+            this.ContractMailBodyRemoveButton.Size = new System.Drawing.Size(75, 23);
+            this.ContractMailBodyRemoveButton.TabIndex = 0;
+            this.ContractMailBodyRemoveButton.Text = "Remove";
+            this.ContractMailBodyRemoveButton.UseVisualStyleBackColor = true;
+            this.ContractMailBodyRemoveButton.Click += new System.EventHandler(this.ContractMailBodyRemoveButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -476,6 +536,8 @@ namespace RadiusR.FileManagement.TestUnit
             this.ContractAppendixGroupbox.ResumeLayout(false);
             this.PDFFormsGroupbox.ResumeLayout(false);
             this.PDFFormsGroupbox.PerformLayout();
+            this.MailFilesTabpage.ResumeLayout(false);
+            this.ContractMailBodyGroupbox.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -516,6 +578,11 @@ namespace RadiusR.FileManagement.TestUnit
         private System.Windows.Forms.Button ContractAppendixRemove;
         private System.Windows.Forms.Button ContractAppendixUpload;
         private System.Windows.Forms.Button ContractAppendixDownload;
+        private System.Windows.Forms.TabPage MailFilesTabpage;
+        private System.Windows.Forms.GroupBox ContractMailBodyGroupbox;
+        private System.Windows.Forms.Button ContractMailBodyRemoveButton;
+        private System.Windows.Forms.Button ContractMailBodyUploadButton;
+        private System.Windows.Forms.Button ContractMailBodyDownloadButton;
     }
 }
 
