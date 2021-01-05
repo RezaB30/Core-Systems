@@ -1170,4 +1170,7 @@
   <data name="FileManagerSettings" xml:space="preserve">
     <value>Dosya Yönetici Ayarları</value>
   </data>
+  <data name="FileManagerError" xml:space="preserve">
+    <value>Dosya Yöneticisi Hatası</value>
+  </data>
 </root>

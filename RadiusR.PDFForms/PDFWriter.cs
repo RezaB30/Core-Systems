@@ -1,6 +1,4 @@
-﻿//using PdfSharp.Drawing;
-//using PdfSharp.Pdf;
-using iText.IO.Font;
+﻿using iText.IO.Font;
 using iText.IO.Font.Constants;
 using iText.IO.Image;
 using iText.Kernel.Font;
@@ -9,8 +7,9 @@ using iText.Layout;
 using iText.Layout.Element;
 using RadiusR.DB;
 using RadiusR.DB.Enums;
-using RadiusR.Files;
+using RadiusR.FileManagement;
 using RezaB.Data.Localization;
+using RezaB.Files;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -90,7 +89,7 @@ namespace RadiusR.PDFForms
             }
         }
 
-        public static Stream GetContractPDF(RadiusREntities db, long SubscriptionID, CultureInfo culture = null)
+        public static FileManagerResult<Stream> GetContractPDF(RadiusREntities db, long SubscriptionID, CultureInfo culture = null)
         {
             List<PDFElement> ElementList = new List<PDFElement>();
             var Subscription = db.Subscriptions.Find(SubscriptionID);
@@ -289,7 +288,16 @@ namespace RadiusR.PDFForms
 
             }
 
-            return CreatePDF(FileManager.GetPDFTemplate((int)formType), FileManager.GetContractAppendix(), ElementList);
+            var fileManager = new MasterISSFileManager();
+            using (var pdfFormResult = fileManager.GetPDFForm(formType))
+            using (var formAppendixResult = fileManager.GetContractAppendix())
+            {
+                if (pdfFormResult.InternalException != null || formAppendixResult.InternalException != null)
+                {
+                    return new FileManagerResult<Stream>(pdfFormResult.InternalException ?? formAppendixResult.InternalException);
+                }
+                return new FileManagerResult<Stream>(CreatePDF(pdfFormResult.Result.Content, formAppendixResult.Result.Content, ElementList));
+            }
         }
     }
 }

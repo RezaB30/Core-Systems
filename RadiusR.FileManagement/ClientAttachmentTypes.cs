@@ -9,9 +9,13 @@ namespace RadiusR.FileManagement
     public enum ClientAttachmentTypes
     {
         Contract = 1,
-        PSTNForm = 2,
-        CHURNForm = 3,
-        SetupForm = 4,
-        CancellationForm = 5,
+        IDCard = 2,
+        PSTN = 3,
+        CHURN = 4,
+        Setup = 5,
+        Transport = 6,
+        Transfer = 7,
+        Cancellation = 8,
+        Others = 199
     }
 }

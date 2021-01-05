@@ -76,6 +76,28 @@ namespace RadiusR.FileManagement
             return result;
         }
 
+        public FileManagerResult<bool> PDFFormExists(RadiusR.DB.Enums.PDFFormType pdfFormType)
+        {
+            InternalFileManager.GoToRootDirectory();
+            var searchPath = string.Join(InternalFileManager.PathSeparator, PathRepository.PDFForms);
+            var result = InternalFileManager.EnterDirectoryPath(searchPath);
+            if (result.InternalException != null)
+            {
+                return new FileManagerResult<bool>(false, result.InternalException);
+            }
+            var fileName = Enum.GetName(typeof(RadiusR.DB.Enums.PDFFormType), pdfFormType);
+            var listResult = InternalFileManager.GetFileList();
+            if (listResult.InternalException != null)
+            {
+                return new FileManagerResult<bool>(listResult.InternalException);
+            }
+            else if (listResult.Result == null || listResult.Result.Where(fileNameOnServer => fileNameOnServer.StartsWith($"{fileName}.")).Count() != 1)
+            {
+                return new FileManagerResult<bool>(false, new NotSupportedException("File not found!"));
+            }
+            return new FileManagerResult<bool>(true);
+        }
+
         public FileManagerResult<FileManagerBasicFile> GetContractAppendix()
         {
             InternalFileManager.GoToRootDirectory();
@@ -118,6 +140,19 @@ namespace RadiusR.FileManagement
                 return new FileManagerResult<bool>(result.InternalException);
             }
             result = InternalFileManager.RemoveFile(PathRepository.ContractAppendixFileName);
+            return result;
+        }
+
+        public FileManagerResult<bool> ContractAppendixExists()
+        {
+            InternalFileManager.GoToRootDirectory();
+            var searchPath = string.Join(InternalFileManager.PathSeparator, PathRepository.PDFForms);
+            var result = InternalFileManager.EnterDirectoryPath(searchPath);
+            if (result.InternalException != null)
+            {
+                return new FileManagerResult<bool>(result.InternalException);
+            }
+            result = InternalFileManager.FileExists(PathRepository.ContractAppendixFileName);
             return result;
         }
     }

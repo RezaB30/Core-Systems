@@ -341,6 +341,10 @@
       <Project>{1475b653-8eef-42d3-aa5f-d811aabca41c}</Project>
       <Name>RadiusR.DB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RadiusR.FileManagement\RadiusR.FileManagement.csproj">
+      <Project>{e287dfab-1682-4fb3-bca3-e689f7f8cb11}</Project>
+      <Name>RadiusR.FileManagement</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RadiusR.Localization.Lists\RadiusR.Localization.Lists.csproj">
       <Project>{e1bae2fa-ae42-447b-8087-eae20e6e697c}</Project>
       <Name>RadiusR.Localization.Lists</Name>

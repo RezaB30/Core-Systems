@@ -1173,4 +1173,7 @@
   <data name="FileManagerSettings" xml:space="preserve">
     <value>File Manager Settings</value>
   </data>
+  <data name="FileManagerError" xml:space="preserve">
+    <value>File Manager Error</value>
+  </data>
 </root>

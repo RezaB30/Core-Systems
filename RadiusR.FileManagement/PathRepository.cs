@@ -67,7 +67,7 @@ namespace RadiusR.FileManagement
         {
             get
             {
-                return "ContractMailBody.html";
+                return "ContractMailBody";
             }
         }
 

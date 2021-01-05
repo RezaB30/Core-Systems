@@ -3,7 +3,7 @@
 
 @{
     ViewBag.Title = RadiusR.Localization.Pages.Common.Forms;
-    var formFiles = ViewBag.MailBodyFiles as IEnumerable<RadiusR.Files.FileManager.FileInfo>;
+    var formFiles = ViewBag.MailBodyFiles as IEnumerable<string>;
 }
 
 <div class="centered-form-wrapper">
@@ -18,16 +18,21 @@
             {
                 <tr>
                     <td>
-                        @item.Name
+                        @item
                     </td>
                     <td>
-                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Download, "DownloadFormFile", new { fileName = item.Name }, new { @class = "link-button iconed-button download-button" })
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Download, "DownloadFormFile", new { fileName = item }, new { @class = "link-button iconed-button download-button" })
                         &nbsp;
-                        @using (Html.BeginForm("RemoveFormFile", null, new { fileName = item.Name }, FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block;" }))
+                        @using (Html.BeginForm("RemoveFormFile", null, new { fileName = item }, FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block;" }))
                         {
                             @Html.AntiForgeryToken()
                             <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button delete-button" />
                         }
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-danger">
+                        @ViewBag.FileErrorMessage
                     </td>
                 </tr>
                 <tr>

@@ -62,6 +62,7 @@
     <Compile Include="MasterISSFileManager-MailFiles.cs" />
     <Compile Include="MasterISSFileManager-PDFFiles.cs" />
     <Compile Include="MasterISSFileManager.cs" />
+    <Compile Include="MIMEUtility.cs" />
     <Compile Include="PathRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

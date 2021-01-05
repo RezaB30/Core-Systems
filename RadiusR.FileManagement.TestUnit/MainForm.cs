@@ -24,6 +24,9 @@ namespace RadiusR.FileManagement.TestUnit
             // pdf forms
             PDFFormTypeCombobox.Items.AddRange(Enum.GetNames(typeof(RadiusR.DB.Enums.PDFFormType)));
             PDFFormTypeCombobox.SelectedIndex = 0;
+            // contract mail body culture
+            ContractMailBodyCultureCombobox.Items.AddRange(new[] { string.Empty, "tr-tr", "en-US" });
+            ContractMailBodyCultureCombobox.SelectedIndex = 0;
             // btk logs
             BTKLogTypeCombobox.Items.AddRange(Enum.GetNames(typeof(RadiusR.DB.Enums.BTKLogTypes)));
             BTKLogTypeCombobox.SelectedIndex = 0;
@@ -68,6 +71,20 @@ namespace RadiusR.FileManagement.TestUnit
             {
                 BTKLogsListbox.Items.Clear();
                 BTKLogsListbox.Items.AddRange(results.Result.ToArray());
+            }
+        }
+
+        private void ListContractMailBodies()
+        {
+            var result = FileManager.ListContractMailBodies();
+            if (result.InternalException != null)
+            {
+                ShowError(result.InternalException);
+            }
+            else
+            {
+                ContractMailBodiesListbox.Items.Clear();
+                ContractMailBodiesListbox.Items.AddRange(result.Result.ToArray());
             }
         }
 
@@ -323,7 +340,7 @@ namespace RadiusR.FileManagement.TestUnit
             dialog.RootFolder = Environment.SpecialFolder.MyComputer;
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                var result = FileManager.GetContractMailBody();
+                var result = FileManager.GetContractMailBody(ContractMailBodyCultureCombobox.SelectedItem as string);
                 if (result.InternalException != null)
                 {
                     ShowError(result.InternalException);
@@ -360,10 +377,14 @@ namespace RadiusR.FileManagement.TestUnit
                 using (var fileStream = File.OpenRead(dialog.FileName))
                 {
                     var file = new FileManagerBasicFile(dialog.SafeFileName, fileStream);
-                    var result = FileManager.SaveContractMailBody(file);
+                    var result = FileManager.SaveContractMailBody(file, ContractMailBodyCultureCombobox.SelectedItem as string);
                     if (result.InternalException != null)
                     {
                         ShowError(result.InternalException);
+                    }
+                    else
+                    {
+                        ListContractMailBodies();
                     }
                 }
             }
@@ -373,10 +394,14 @@ namespace RadiusR.FileManagement.TestUnit
         {
             if (MessageBox.Show("Are you sure?", "Delete Contract Mail Body", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                var result = FileManager.RemoveContractMailBody();
+                var result = FileManager.RemoveContractMailBody(ContractMailBodyCultureCombobox.SelectedItem as string);
                 if (result.InternalException != null)
                 {
                     ShowError(result.InternalException);
+                }
+                else
+                {
+                    ListContractMailBodies();
                 }
             }
         }
@@ -438,6 +463,45 @@ namespace RadiusR.FileManagement.TestUnit
                         }
                     }
                 }
+            }
+        }
+
+        private void PDFFormExistsButton_Click(object sender, EventArgs e)
+        {
+            var result = FileManager.PDFFormExists((DB.Enums.PDFFormType)Enum.Parse(typeof(RadiusR.DB.Enums.PDFFormType), PDFFormTypeCombobox.SelectedItem as string));
+            if (result.Result)
+            {
+                MessageBox.Show("Exists", "Check PDF Form Exists", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if(result.InternalException != null)
+            {
+                MessageBox.Show(result.InternalException.Message, "Check PDF Form Exists", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Does not exist", "Check PDF Form Exists", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void ListContractMailBodiesButton_Click(object sender, EventArgs e)
+        {
+            ListContractMailBodies();
+        }
+
+        private void ContractAppendixExistsButton_Click(object sender, EventArgs e)
+        {
+            var result = FileManager.ContractAppendixExists();
+            if (result.Result)
+            {
+                MessageBox.Show("Exists", "Contract Appendix Exists", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (result.InternalException != null)
+            {
+                MessageBox.Show(result.InternalException.Message, "Check Contract Appendix Exists", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Does not exist", "Check Contract Appendix Exists", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

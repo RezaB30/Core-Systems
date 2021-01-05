@@ -47,7 +47,7 @@ namespace RadiusR_Manager
                 CookieName = "RadiusR",
                 ExpireTimeSpan = Properties.Settings.Default.CookieExpiration,
                 CookieSecure = CookieSecureOption.SameAsRequest,
-                CookieSameSite = SameSiteMode.None,
+                CookieSameSite = Microsoft.Owin.SameSiteMode.None,
                 CookieHttpOnly = true
             });
         }

@@ -8,8 +8,8 @@ using System.Web.Mvc;
 using RadiusR.DB;
 using RadiusR_Manager.Models.ViewModels.PDFTemplates;
 using System.IO;
-using RadiusR.Files;
 using RezaB.Data.Localization;
+using RadiusR.FileManagement;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -31,8 +31,19 @@ namespace RadiusR_Manager.Controllers
         // GET: PDFTemplates/EditTemplate
         public ActionResult EditTemplate(int id)
         {
+            var fileManager = new MasterISSFileManager();
+            var result = fileManager.GetPDFForm((PDFFormType)id);
+            if (result.InternalException != null)
+            {
+                ViewBag.FileErrorMessage = RadiusR.Localization.Pages.Common.FileManagerError;
+                ViewBag.HasBackground = false;
+            }
+            else
+            {
+                ViewBag.HasBackground = true;
+            }
             ViewBag.TemplateName = new LocalizedList<PDFFormType, RadiusR.Localization.Lists.PDFFormType>().GetDisplayText(id);
-            ViewBag.HasBackground = RadiusR.Files.FileManager.PDFTemplateExists(id);
+            
             return View(new PDFParametersViewModel(db, id));
         }
 
@@ -53,7 +64,12 @@ namespace RadiusR_Manager.Controllers
         {
             if (background != null && background.ContentLength > 0)
             {
-                RadiusR.Files.FileManager.SavePDFFormTemplate(background.InputStream, id, background.FileName.Split('.').LastOrDefault());
+                var fileManager = new MasterISSFileManager();
+                var result = fileManager.SavePDFForm((PDFFormType)id, new FileManagerBasicFile(background.FileName, background.InputStream));
+                if (result.InternalException != null)
+                {
+                    return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+                }
             }
 
             return RedirectToAction("EditTemplate", new { id = id });
@@ -64,7 +80,12 @@ namespace RadiusR_Manager.Controllers
         // POST: PDFTemplates/RemoveTemplateBackground
         public ActionResult RemoveTemplateBackground(int id)
         {
-            RadiusR.Files.FileManager.DeletePDFTemplate(id);
+            var fileManager = new MasterISSFileManager();
+            var result = fileManager.RemovePDFForm((PDFFormType)id);
+            if(result.InternalException != null)
+            {
+                return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+            }
 
             return RedirectToAction("EditTemplate", new { id = id });
         }
@@ -73,16 +94,24 @@ namespace RadiusR_Manager.Controllers
         // GET: PDFTemplates/GetPDFBackground
         public ActionResult GetPDFBackground(int id)
         {
-            var file = RadiusR.Files.FileManager.GetPDFTemplate(id);
+            var fileManager = new MasterISSFileManager();
+            var result = fileManager.GetPDFForm((PDFFormType)id);
+            if (result.InternalException != null)
+            {
+                return new HttpStatusCodeResult(500);
+                return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+            }
 
-            return File(file ?? new MemoryStream(), "image");
+            return File(result.Result.Content, result.Result.MIMEType);
         }
 
         [HttpGet]
         // GET: PDFTemplates/ContractClausesPDF
         public ActionResult ContractClausesPDF()
         {
-            ViewBag.FileExists = FileManager.ContractAppendixExists();
+            var fileManager = new MasterISSFileManager();
+            var result = fileManager.ContractAppendixExists();
+            ViewBag.FileExists = result.Result;
             return View();
         }
 
@@ -90,7 +119,14 @@ namespace RadiusR_Manager.Controllers
         // GET: PDFTemplates/DownloadContractClauses
         public ActionResult DownloadContractClauses()
         {
-            return File(FileManager.GetContractAppendix(), "application/pdf", RadiusR.Localization.Pages.Common.ContractAppendix + ".pdf");
+            var fileManager = new MasterISSFileManager();
+            var result = fileManager.GetContractAppendix();
+            if (result.InternalException != null)
+            {
+                return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+            }
+
+            return File(result.Result.Content, result.Result.MIMEType, RadiusR.Localization.Pages.Common.ContractAppendix + ".pdf");
         }
 
         [HttpPost]
@@ -98,7 +134,13 @@ namespace RadiusR_Manager.Controllers
         // POST: PDFTemplates/RemoveContractClauses
         public ActionResult RemoveContractClauses()
         {
-            FileManager.RemoveContractAppendix();
+            var fileManager = new MasterISSFileManager();
+            var result = fileManager.RemoveContractAppendix();
+            if (result.InternalException != null)
+            {
+                return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+            }
+
             return RedirectToAction("ContractClausesPDF", new { errorMessage = 0 });
         }
 
@@ -107,7 +149,13 @@ namespace RadiusR_Manager.Controllers
         // POST: PDFTemplates/ContractClausesPDF
         public ActionResult ContractClausesPDF(HttpPostedFileBase AppendixFile)
         {
-            FileManager.SaveContractAppendix(AppendixFile.InputStream);
+            var fileManager = new MasterISSFileManager();
+            var result = fileManager.SaveContractAppendix(new FileManagerBasicFile(AppendixFile.FileName, AppendixFile.InputStream));
+            if (result.InternalException != null)
+            {
+                return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+            }
+
             return RedirectToAction("ContractClausesPDF", new { errorMessage = 0 });
         }
     }

@@ -18,12 +18,8 @@ using RadiusR.SMS;
 using RadiusR.DB.ModelExtentions;
 using RadiusR_Manager.Models.Extentions;
 using RadiusR_Manager.Models;
-using RezaB.TurkTelekom.WebServices.TTApplication;
-using System.Threading;
-using System.Collections.Concurrent;
-using RadiusR.DB.Utilities.Scheduler;
-using RezaB.TurkTelekom.WebServices.TTOYS;
-using RadiusR.Files;
+using RadiusR.FileManagement;
+using RezaB.Files;
 using RadiusR.DB.Utilities.Extentions;
 using System.Web;
 using RadiusR.SystemLogs;
@@ -31,8 +27,6 @@ using RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges;
 using RezaB.TurkTelekom.WebServices.Exceptions;
 using RezaB.Data.Files;
 using RadiusR_Manager.Models.ViewModels.Customer;
-using RezaB.API.TCKValidation;
-using RadiusR.DB.DomainsCache;
 using RezaB.Web.CustomAttributes;
 using RezaB.Web;
 using RezaB.Data.Localization;
@@ -69,7 +63,7 @@ namespace RadiusR_Manager.Controllers
             // page data
             SetupPages(page, ref dbSubscriptions);
 
-            var viewResults = dbSubscriptions.Select(s=> new SubscriptionListDisplayViewModel()
+            var viewResults = dbSubscriptions.Select(s => new SubscriptionListDisplayViewModel()
             {
                 Name = s.Customer.CorporateCustomerInfo != null ? s.Customer.CorporateCustomerInfo.Title : s.Customer.FirstName + " " + s.Customer.LastName,
                 Username = s.Username,
@@ -395,7 +389,7 @@ namespace RadiusR_Manager.Controllers
         [AuthorizePermission(Permissions = "Modify Clients")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SetupBySetupService(long id, string redirectUrl, [Bind(Include = "SetupUserID,HasModem,ModemName,XDSLType,TaskDescription")]NewSetupServiceTaskViewModel task)
+        public ActionResult SetupBySetupService(long id, string redirectUrl, [Bind(Include = "SetupUserID,HasModem,ModemName,XDSLType,TaskDescription")] NewSetupServiceTaskViewModel task)
         {
             var uri = new UriBuilder(redirectUrl);
             var dbSubscription = db.Subscriptions.Find(id);
@@ -470,14 +464,14 @@ namespace RadiusR_Manager.Controllers
             {
                 return RedirectToAction("Index", new { errorMessage = 2 });
             }
-            
+
             var customer = new CustomerDetailsViewModel(dbSubscription, db);
             return View(customer);
         }
 
         [AuthorizePermission(Permissions = "Clients")]
         // GET,POST: Client/TrafficUsage
-        public ActionResult TrafficUsage([Bind(Include = "StartDate,EndDate,ClientID")]TrafficUsageViewModel trafficUsage)
+        public ActionResult TrafficUsage([Bind(Include = "StartDate,EndDate,ClientID")] TrafficUsageViewModel trafficUsage)
         {
             var dbSubscription = db.Subscriptions.Find(trafficUsage.ClientID);
             if (dbSubscription == null)
@@ -573,7 +567,7 @@ namespace RadiusR_Manager.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         // POST: Client/AddCredit
-        public ActionResult AddCredit(long id, [Bind(Prefix = "editCreditModel", Include = "AddingAmount")]EditCreditViewModel editCredit)
+        public ActionResult AddCredit(long id, [Bind(Prefix = "editCreditModel", Include = "AddingAmount")] EditCreditViewModel editCredit)
         {
             ModelState.Remove("editCreditModel.SubtractingAmount");
             ModelState.Remove("editCreditModel.Details");
@@ -608,7 +602,7 @@ namespace RadiusR_Manager.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         // POST: Client/SubtractCredit
-        public ActionResult SubtractCredit(long id, [Bind(Prefix = "editCreditModel", Include = "SubtractingAmount")]EditCreditViewModel editCredit)
+        public ActionResult SubtractCredit(long id, [Bind(Prefix = "editCreditModel", Include = "SubtractingAmount")] EditCreditViewModel editCredit)
         {
             ModelState.Remove("editCreditModel.AddingAmount");
             ModelState.Remove("editCreditModel.Details");
@@ -655,7 +649,7 @@ namespace RadiusR_Manager.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         // POST: Client/ExtendPackage
-        public ActionResult ExtendPackage([Bind(Include = "AddedPeriods,ClientID,TotalFee,ClientName")]ExtendPackageViewModel extendPackage, PaymentType? paymentType = PaymentType.None, bool HasPrintRequested = false)
+        public ActionResult ExtendPackage([Bind(Include = "AddedPeriods,ClientID,TotalFee,ClientName")] ExtendPackageViewModel extendPackage, PaymentType? paymentType = PaymentType.None, bool HasPrintRequested = false)
         {
             var dbSubscription = db.Subscriptions.Find(extendPackage.ClientID);
             if (dbSubscription == null)
@@ -883,13 +877,18 @@ namespace RadiusR_Manager.Controllers
             }
             ViewBag.ClientName = dbSubscription.ValidDisplayName;
             ViewBag.ClientID = id;
-            var files = FileManager.GetClientFilePaths(id);
-            var viewResults = files.Select(file => new SavedFileViewModel()
+            var fileManager = new MasterISSFileManager();
+            var result = fileManager.GetClientAttachmentsList(id);
+            if (result.InternalException != null)
             {
-                FileName = file.Name,
-                FilePath = file.Path,
+                return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+            }
+            
+            var viewResults = result.Result.Select(file => new SavedFileViewModel()
+            {
+                FileName = file.ServerSideName,
                 CreationDate = file.CreationDate,
-                FileExtention = file.FileType
+                FileExtention = file.FileExtention,
             });
 
             return View(viewResults.OrderBy(r => r.CreationDate).ToList());
@@ -898,15 +897,25 @@ namespace RadiusR_Manager.Controllers
         [AuthorizePermission(Permissions = "Client Files")]
         public ActionResult DownloadFile(long id, string fileName)
         {
-            var stream = FileManager.GetClientAttachment(id, fileName);
-            return File(stream, "application/octet-stream", fileName);
+            var fileManager = new MasterISSFileManager();
+            var result = fileManager.GetClientAttachment(id, fileName);
+            if (result.InternalException != null)
+            {
+                return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+            }
+            return File(result.Result.Content, "application/octet-stream", result.Result.ServerSideName);
         }
 
         [AuthorizePermission(Permissions = "Client Files")]
         public ActionResult ViewFile(long id, string fileName)
         {
-            var stream = FileManager.GetClientAttachment(id, fileName);
-            return File(stream, FileManager.GetMIMETypeFromFileName(fileName));
+            var fileManager = new MasterISSFileManager();
+            var result = fileManager.GetClientAttachment(id, fileName);
+            if (result.InternalException != null)
+            {
+                return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+            }
+            return File(result.Result.Content, result.Result.MIMEType);
         }
 
         [AuthorizePermission(Permissions = "Edit Client Files")]
@@ -919,8 +928,14 @@ namespace RadiusR_Manager.Controllers
             var fileType = newAttachment.FileName.Split('.').LastOrDefault();
             if (!IsValidAttachmentFileType(fileType))
                 return RedirectToAction("Files", new { id = id, errorMessage = 9 });
-            var fileName = FileManager.SaveClientAttachment(newAttachment.InputStream, id, fileType);
-            db.SystemLogs.Add(SystemLogProcessor.AddFile(fileName, User.GiveUserId(), id, SystemLogInterface.MasterISS, null));
+            var fileManager = new MasterISSFileManager();
+            var newFile = new FileManagerClientAttachmentWithContent(newAttachment.InputStream, ClientAttachmentTypes.Others, fileType);
+            var result = fileManager.SaveClientAttachment(id, newFile);
+            if (result.InternalException != null)
+            {
+                return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+            }
+            db.SystemLogs.Add(SystemLogProcessor.AddFile(newFile.ServerSideName, User.GiveUserId(), id, SystemLogInterface.MasterISS, null));
             db.SaveChanges();
             return RedirectToAction("Files", new { id = id, errorMessage = 0 });
         }
@@ -930,7 +945,12 @@ namespace RadiusR_Manager.Controllers
         [HttpPost]
         public ActionResult RemoveAttachment(long id, string fileName)
         {
-            FileManager.DeleteClientAttachment(id, fileName);
+            var fileManager = new MasterISSFileManager();
+            var result = fileManager.RemoveClientAttachment(id, fileName);
+            if (result.InternalException != null)
+            {
+                return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+            }
             db.SystemLogs.Add(SystemLogProcessor.RemoveFile(fileName, User.GiveUserId(), id, SystemLogInterface.MasterISS, null));
             db.SaveChanges();
             return RedirectToAction("Files", new { id = id, errorMessage = 0 });
@@ -1056,9 +1076,14 @@ namespace RadiusR_Manager.Controllers
         public ActionResult DownloadContract(long id)
         {
             var subscription = db.Subscriptions.Find(id);
-            if (subscription == null || !FileManager.PDFTemplateExists((int)PDFFormType.IndividualContract) || !FileManager.PDFTemplateExists((int)PDFFormType.CorporateContract))
+            if (subscription == null)
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            return File(RadiusR.PDFForms.PDFWriter.GetContractPDF(db, id), "application/pdf", string.Format(RadiusR.Localization.Pages.Common.ContractFileName, subscription.SubscriberNo));
+            var createdPDF = RadiusR.PDFForms.PDFWriter.GetContractPDF(db, id);
+            if (createdPDF.InternalException != null)
+            {
+                return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+            }
+            return File(createdPDF.Result, "application/pdf", string.Format(RadiusR.Localization.Pages.Common.ContractFileName, subscription.SubscriberNo));
         }
 
         [AuthorizePermission(Permissions = "Quota Sale")]
@@ -1186,7 +1211,7 @@ namespace RadiusR_Manager.Controllers
             return View(viewResults);
         }
 
-        
+
 
         private string FixCasing(string input)
         {

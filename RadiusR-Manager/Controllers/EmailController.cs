@@ -1,5 +1,5 @@
 ﻿using RadiusR.DB;
-using RadiusR.Files;
+using RadiusR.FileManagement;
 using RadiusR_Manager.Models.ViewModels;
 using RezaB.Web.CustomAttributes;
 using System;
@@ -41,7 +41,17 @@ namespace RadiusR_Manager.Controllers
         // GET: Email/Forms
         public ActionResult Forms()
         {
-            ViewBag.MailBodyFiles = FileManager.GetContractMailBodies().ToArray();
+            var fileManager = new MasterISSFileManager();
+            var results = fileManager.ListContractMailBodies();
+            if (results.InternalException != null)
+            {
+                ViewBag.FileErrorMessage = RadiusR.Localization.Pages.Common.FileManagerError;
+                ViewBag.MailBodyFiles = new string[0];
+            }
+            else
+            {
+                ViewBag.MailBodyFiles = results.Result.ToArray();
+            }
             return View();
         }
 
@@ -57,8 +67,16 @@ namespace RadiusR_Manager.Controllers
                 {
                     return RedirectToAction("Forms", new { errorMessage = 38 });
                 }
-                FileManager.SaveContractMailBody(htmlFile.InputStream, culture);
-                return RedirectToAction("Forms", new { errorMessage = 0 });
+                var fileManager = new MasterISSFileManager();
+                var result = fileManager.SaveContractMailBody(new FileManagerBasicFile(htmlFile.FileName, htmlFile.InputStream), culture);
+                if (result.InternalException != null)
+                {
+                    return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+                }
+                else
+                {
+                    return RedirectToAction("Forms", new { errorMessage = 0 });
+                }
             }
             return RedirectToAction("Forms", new { errorMessage = 9 });
         }
@@ -68,7 +86,13 @@ namespace RadiusR_Manager.Controllers
         // GET: Email/DownloadFormFile
         public ActionResult DownloadFormFile(string fileName)
         {
-            return File(FileManager.GetContractMailBodyByFileName(fileName), FileManager.GetMIMETypeFromFileName(fileName), fileName);
+            var fileManager = new MasterISSFileManager();
+            var result = fileManager.GetContractMailBodyByName(fileName);
+            if (result.InternalException != null)
+            {
+                return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+            }
+            return File(result.Result.Content, result.Result.MIMEType, result.Result.FileName);
         }
 
         [AuthorizePermission(Permissions = "Email Settings")]
@@ -77,7 +101,12 @@ namespace RadiusR_Manager.Controllers
         // POST: Email/RemoveFormFile
         public ActionResult RemoveFormFile(string fileName)
         {
-            FileManager.DeleteContractMailBody(fileName);
+            var fileManager = new MasterISSFileManager();
+            var result = fileManager.RemoveContractMailBodyByName(fileName);
+            if (result.InternalException != null)
+            {
+                return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+            }
             return RedirectToAction("Forms", new { errorMessage = 0 });
         }
     }

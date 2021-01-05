@@ -28,7 +28,7 @@ namespace RadiusR.FileManagement
             var result = InternalFileManager.EnterDirectoryPath(searchPath);
             if (!result.Result)
             {
-                return new FileManagerResult<IEnumerable<FileManagerClientAttachment>>(null, result.InternalException);
+                return new FileManagerResult<IEnumerable<FileManagerClientAttachment>>(Enumerable.Empty<FileManagerClientAttachment>(), result.InternalException);
             }
             var fileListResult = InternalFileManager.GetFileList();
             if (fileListResult.InternalException != null)

@@ -1402,6 +1402,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File Manager Error.
+        /// </summary>
+        public static string FileManagerError {
+            get {
+                return ResourceManager.GetString("FileManagerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File Manager Settings.
         /// </summary>
         public static string FileManagerSettings {

@@ -26,6 +26,14 @@ namespace RadiusR.FileManagement
 
         public string RandomSegment { get; private set; }
 
+        public string MIMEType
+        {
+            get
+            {
+                return MIMEUtility.GetMIMETypeFromFileExtention(FileExtention);
+            }
+        }
+
         public FileManagerClientAttachment(ClientAttachmentTypes attachmentType, string fileExtention)
         {
             CreationDate = DateTime.Now;
@@ -45,7 +53,15 @@ namespace RadiusR.FileManagement
         internal FileManagerClientAttachment(string serverSideName)
         {
             var parts = serverSideName.Split('.');
-            AttachmentType = (ClientAttachmentTypes)Enum.Parse(typeof(ClientAttachmentTypes), parts[0]);
+            ClientAttachmentTypes attachmentType;
+            if (Enum.TryParse(parts[0], false, out attachmentType))
+            {
+                AttachmentType = attachmentType;
+            }
+            else
+            {
+                AttachmentType = ClientAttachmentTypes.Others;
+            }
             CreationDate = new DateTime(Convert.ToInt64(parts[1]));
             RandomSegment = parts[2];
             FileExtention = string.Join(".", parts.Where((item, index) => index > 2));

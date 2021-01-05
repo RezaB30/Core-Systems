@@ -23,6 +23,14 @@ namespace RadiusR.FileManagement
 
         public Stream Content { get; set; }
 
+        public string MIMEType
+        {
+            get
+            {
+                return MIMEUtility.GetMIMETypeFromFileExtention(FileExtention);
+            }
+        }
+
         public FileManagerBasicFile(string fileName, Stream content)
         {
             FileName = fileName;
