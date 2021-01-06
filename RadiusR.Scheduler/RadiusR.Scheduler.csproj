@@ -63,9 +63,8 @@
       <HintPath>..\packages\RezaB.NetInvoice.Wrapper.1.0.0\lib\net452\RezaB.NetInvoice.Wrapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RezaB.Scheduling, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.Scheduling.1.0.3\lib\net452\RezaB.Scheduling.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="RezaB.Scheduling, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Scheduling.1.0.4\lib\net452\RezaB.Scheduling.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
