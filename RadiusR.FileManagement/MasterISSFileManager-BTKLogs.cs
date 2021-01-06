@@ -20,16 +20,16 @@ namespace RadiusR.FileManagement
             }));
         }
 
-        public FileManagerResult<bool> SaveBTKLogFile(RadiusR.DB.Enums.BTKLogTypes logType, DateTime date, FileManagerBasicFile file)
+        public FileManagerResult<bool> SaveBTKLogFile(BTKLogFile file)
         {
-            var searchPath = GetBTKLogPath(logType, date);
+            var searchPath = GetBTKLogPath(file.LogType, file.FileDate);
             InternalFileManager.GoToRootDirectory();
             var result = CreateAndEnterPath(searchPath);
             if (result.InternalException != null)
             {
                 return result;
             }
-            result = InternalFileManager.SaveFile(file.FileName, file.Content, true);
+            result = InternalFileManager.SaveFile(file.ServerSideName, BTKLogging.BTKLogUtilities.CreateZipStream(file.Content, Encoding.GetEncoding("ISO-8859-9")), true);
             return result;
         }
 

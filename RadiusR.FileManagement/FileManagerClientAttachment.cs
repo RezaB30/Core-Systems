@@ -14,7 +14,7 @@ namespace RadiusR.FileManagement
         {
             get
             {
-                return $"{Enum.GetName(typeof(ClientAttachmentTypes), AttachmentType)}.{CreationDate.Ticks}.{RandomSegment}.{FileExtention}";
+                return $"{Enum.GetName(typeof(ClientAttachmentTypes), AttachmentType)}.{CreationDate.Ticks}.{MD5}.{FileExtention}";
             }
         }
 
@@ -24,7 +24,7 @@ namespace RadiusR.FileManagement
 
         public string FileExtention { get; private set; }
 
-        public string RandomSegment { get; private set; }
+        public string MD5 { get; protected set; }
 
         public string MIMEType
         {
@@ -37,15 +37,15 @@ namespace RadiusR.FileManagement
         public FileManagerClientAttachment(ClientAttachmentTypes attachmentType, string fileExtention)
         {
             CreationDate = DateTime.Now;
-            RandomSegment = Guid.NewGuid().ToString("N");
+            MD5 = string.Empty;//Guid.NewGuid().ToString("N");
             AttachmentType = attachmentType;
             FileExtention = fileExtention;
         }
 
-        internal FileManagerClientAttachment(DateTime creationDate, string randomSegment, ClientAttachmentTypes attachmentType, string fileExtention)
+        internal FileManagerClientAttachment(DateTime creationDate, string md5, ClientAttachmentTypes attachmentType, string fileExtention)
         {
             CreationDate = creationDate;
-            RandomSegment = randomSegment;
+            MD5 = md5;
             AttachmentType = attachmentType;
             FileExtention = fileExtention;
         }
@@ -63,7 +63,7 @@ namespace RadiusR.FileManagement
                 AttachmentType = ClientAttachmentTypes.Others;
             }
             CreationDate = new DateTime(Convert.ToInt64(parts[1]));
-            RandomSegment = parts[2];
+            MD5 = parts[2];
             FileExtention = string.Join(".", parts.Where((item, index) => index > 2));
         }
 

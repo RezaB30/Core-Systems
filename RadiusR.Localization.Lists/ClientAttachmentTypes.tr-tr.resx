@@ -118,30 +118,30 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Cancellation" xml:space="preserve">
-    <value>Cancellation Form</value>
+    <value>İptal Formu</value>
   </data>
   <data name="CHURN" xml:space="preserve">
-    <value>CHURN Form</value>
+    <value>CHURN Formu</value>
   </data>
   <data name="Contract" xml:space="preserve">
-    <value>Subscription Contract</value>
+    <value>Abonelik Sözleşmesi</value>
   </data>
   <data name="IDCard" xml:space="preserve">
-    <value>ID Card</value>
+    <value>Kimlik Kartı</value>
   </data>
   <data name="Others" xml:space="preserve">
-    <value>Others</value>
+    <value>Diğer</value>
   </data>
   <data name="PSTN" xml:space="preserve">
-    <value>PSTN Form</value>
+    <value>PSTN Formu</value>
   </data>
   <data name="Setup" xml:space="preserve">
-    <value>Setup Form</value>
+    <value>Kurulum Formu</value>
   </data>
   <data name="Transfer" xml:space="preserve">
-    <value>Transfer Form</value>
+    <value>Devir Formu</value>
   </data>
   <data name="Transport" xml:space="preserve">
-    <value>Transport Form</value>
+    <value>Nakil Formu</value>
   </data>
 </root>

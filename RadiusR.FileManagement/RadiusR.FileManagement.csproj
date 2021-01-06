@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BTKLogFile.cs" />
+    <Compile Include="BTKLogging\BTKLogUtilities.cs" />
     <Compile Include="ClientAttachmentTypes.cs" />
     <Compile Include="FileManagerBasicFile.cs" />
     <Compile Include="FileManagerClientAttachment.cs" />

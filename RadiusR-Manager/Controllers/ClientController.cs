@@ -889,7 +889,10 @@ namespace RadiusR_Manager.Controllers
                 FileName = file.ServerSideName,
                 CreationDate = file.CreationDate,
                 FileExtention = file.FileExtention,
+                AttachmentType = (short)file.AttachmentType
             });
+
+            ViewBag.AttachmentTypes = new SelectList(new LocalizedList<ClientAttachmentTypes, RadiusR.Localization.Lists.ClientAttachmentTypes>().GetList(), "Key", "Value");
 
             return View(viewResults.OrderBy(r => r.CreationDate).ToList());
         }
@@ -921,15 +924,20 @@ namespace RadiusR_Manager.Controllers
         [AuthorizePermission(Permissions = "Edit Client Files")]
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult UploadAttachment(long id, HttpPostedFileBase newAttachment)
+        public ActionResult UploadAttachment(long id, HttpPostedFileBase newAttachment, short? typeId)
         {
+            if (!typeId.HasValue || !Enum.IsDefined(typeof(ClientAttachmentTypes), (int)typeId))
+            {
+                return RedirectToAction("Files", new { id = id, errorMessage = 9 });
+            }
+            var attachmentType = (ClientAttachmentTypes)typeId.Value;
             if (newAttachment == null)
                 return RedirectToAction("Files", new { id = id, errorMessage = 9 });
             var fileType = newAttachment.FileName.Split('.').LastOrDefault();
             if (!IsValidAttachmentFileType(fileType))
                 return RedirectToAction("Files", new { id = id, errorMessage = 9 });
             var fileManager = new MasterISSFileManager();
-            var newFile = new FileManagerClientAttachmentWithContent(newAttachment.InputStream, ClientAttachmentTypes.Others, fileType);
+            var newFile = new FileManagerClientAttachmentWithContent(newAttachment.InputStream, attachmentType, fileType);
             var result = fileManager.SaveClientAttachment(id, newFile);
             if (result.InternalException != null)
             {

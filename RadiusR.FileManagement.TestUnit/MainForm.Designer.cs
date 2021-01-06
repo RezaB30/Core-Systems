@@ -55,6 +55,7 @@ namespace RadiusR.FileManagement.TestUnit
             this.SaveClientAttachmentButton = new System.Windows.Forms.Button();
             this.PDFFormsTabpage = new System.Windows.Forms.TabPage();
             this.ContractAppendixGroupbox = new System.Windows.Forms.GroupBox();
+            this.ContractAppendixExistsButton = new System.Windows.Forms.Button();
             this.ContractAppendixRemove = new System.Windows.Forms.Button();
             this.ContractAppendixUpload = new System.Windows.Forms.Button();
             this.ContractAppendixDownload = new System.Windows.Forms.Button();
@@ -67,6 +68,8 @@ namespace RadiusR.FileManagement.TestUnit
             this.UploadPDFFormButton = new System.Windows.Forms.Button();
             this.MailFilesTabpage = new System.Windows.Forms.TabPage();
             this.ContractMailBodyGroupbox = new System.Windows.Forms.GroupBox();
+            this.ContractMailBodiesListbox = new System.Windows.Forms.ListBox();
+            this.ListContractMailBodiesButton = new System.Windows.Forms.Button();
             this.ContractMailBodyCultureCombobox = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.ContractMailBodyRemoveButton = new System.Windows.Forms.Button();
@@ -81,9 +84,6 @@ namespace RadiusR.FileManagement.TestUnit
             this.label11 = new System.Windows.Forms.Label();
             this.BTKLogTypeCombobox = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.ListContractMailBodiesButton = new System.Windows.Forms.Button();
-            this.ContractMailBodiesListbox = new System.Windows.Forms.ListBox();
-            this.ContractAppendixExistsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ArchiveNoNumeric)).BeginInit();
             this.MainTabcontrol.SuspendLayout();
             this.ClientAttachmentsTabpage.SuspendLayout();
@@ -388,6 +388,16 @@ namespace RadiusR.FileManagement.TestUnit
             this.ContractAppendixGroupbox.TabStop = false;
             this.ContractAppendixGroupbox.Text = "Contract Appendix PDF";
             // 
+            // ContractAppendixExistsButton
+            // 
+            this.ContractAppendixExistsButton.Location = new System.Drawing.Point(249, 19);
+            this.ContractAppendixExistsButton.Name = "ContractAppendixExistsButton";
+            this.ContractAppendixExistsButton.Size = new System.Drawing.Size(75, 23);
+            this.ContractAppendixExistsButton.TabIndex = 1;
+            this.ContractAppendixExistsButton.Text = "Exists";
+            this.ContractAppendixExistsButton.UseVisualStyleBackColor = true;
+            this.ContractAppendixExistsButton.Click += new System.EventHandler(this.ContractAppendixExistsButton_Click);
+            // 
             // ContractAppendixRemove
             // 
             this.ContractAppendixRemove.Location = new System.Drawing.Point(168, 19);
@@ -517,6 +527,25 @@ namespace RadiusR.FileManagement.TestUnit
             this.ContractMailBodyGroupbox.TabStop = false;
             this.ContractMailBodyGroupbox.Text = "Contract Mail Body";
             // 
+            // ContractMailBodiesListbox
+            // 
+            this.ContractMailBodiesListbox.FormattingEnabled = true;
+            this.ContractMailBodiesListbox.Location = new System.Drawing.Point(9, 78);
+            this.ContractMailBodiesListbox.Name = "ContractMailBodiesListbox";
+            this.ContractMailBodiesListbox.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.ContractMailBodiesListbox.Size = new System.Drawing.Size(410, 173);
+            this.ContractMailBodiesListbox.TabIndex = 4;
+            // 
+            // ListContractMailBodiesButton
+            // 
+            this.ListContractMailBodiesButton.Location = new System.Drawing.Point(55, 49);
+            this.ListContractMailBodiesButton.Name = "ListContractMailBodiesButton";
+            this.ListContractMailBodiesButton.Size = new System.Drawing.Size(121, 23);
+            this.ListContractMailBodiesButton.TabIndex = 3;
+            this.ListContractMailBodiesButton.Text = "List All Files";
+            this.ListContractMailBodiesButton.UseVisualStyleBackColor = true;
+            this.ListContractMailBodiesButton.Click += new System.EventHandler(this.ListContractMailBodiesButton_Click);
+            // 
             // ContractMailBodyCultureCombobox
             // 
             this.ContractMailBodyCultureCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -584,7 +613,7 @@ namespace RadiusR.FileManagement.TestUnit
             // 
             // BTKLogsDownloadButton
             // 
-            this.BTKLogsDownloadButton.Location = new System.Drawing.Point(540, 405);
+            this.BTKLogsDownloadButton.Location = new System.Drawing.Point(566, 405);
             this.BTKLogsDownloadButton.Name = "BTKLogsDownloadButton";
             this.BTKLogsDownloadButton.Size = new System.Drawing.Size(75, 23);
             this.BTKLogsDownloadButton.TabIndex = 7;
@@ -595,14 +624,14 @@ namespace RadiusR.FileManagement.TestUnit
             // BTKLogsListbox
             // 
             this.BTKLogsListbox.FormattingEnabled = true;
-            this.BTKLogsListbox.Location = new System.Drawing.Point(621, 8);
+            this.BTKLogsListbox.Location = new System.Drawing.Point(647, 8);
             this.BTKLogsListbox.Name = "BTKLogsListbox";
-            this.BTKLogsListbox.Size = new System.Drawing.Size(435, 420);
+            this.BTKLogsListbox.Size = new System.Drawing.Size(409, 420);
             this.BTKLogsListbox.TabIndex = 6;
             // 
             // BTKLogsListButton
             // 
-            this.BTKLogsListButton.Location = new System.Drawing.Point(540, 8);
+            this.BTKLogsListButton.Location = new System.Drawing.Point(566, 8);
             this.BTKLogsListButton.Name = "BTKLogsListButton";
             this.BTKLogsListButton.Size = new System.Drawing.Size(75, 23);
             this.BTKLogsListButton.TabIndex = 5;
@@ -612,7 +641,7 @@ namespace RadiusR.FileManagement.TestUnit
             // 
             // BTKLogUploadButton
             // 
-            this.BTKLogUploadButton.Location = new System.Drawing.Point(459, 8);
+            this.BTKLogUploadButton.Location = new System.Drawing.Point(485, 8);
             this.BTKLogUploadButton.Name = "BTKLogUploadButton";
             this.BTKLogUploadButton.Size = new System.Drawing.Size(75, 23);
             this.BTKLogUploadButton.TabIndex = 4;
@@ -622,10 +651,11 @@ namespace RadiusR.FileManagement.TestUnit
             // 
             // BTKLogDatetimepicker
             // 
-            this.BTKLogDatetimepicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.BTKLogDatetimepicker.CustomFormat = "yyyy-MM-dd HH:mm";
+            this.BTKLogDatetimepicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.BTKLogDatetimepicker.Location = new System.Drawing.Point(341, 10);
             this.BTKLogDatetimepicker.Name = "BTKLogDatetimepicker";
-            this.BTKLogDatetimepicker.Size = new System.Drawing.Size(112, 20);
+            this.BTKLogDatetimepicker.Size = new System.Drawing.Size(138, 20);
             this.BTKLogDatetimepicker.TabIndex = 3;
             // 
             // label11
@@ -654,35 +684,6 @@ namespace RadiusR.FileManagement.TestUnit
             this.label10.Size = new System.Drawing.Size(55, 13);
             this.label10.TabIndex = 0;
             this.label10.Text = "Log Type:";
-            // 
-            // ListContractMailBodiesButton
-            // 
-            this.ListContractMailBodiesButton.Location = new System.Drawing.Point(55, 49);
-            this.ListContractMailBodiesButton.Name = "ListContractMailBodiesButton";
-            this.ListContractMailBodiesButton.Size = new System.Drawing.Size(121, 23);
-            this.ListContractMailBodiesButton.TabIndex = 3;
-            this.ListContractMailBodiesButton.Text = "List All Files";
-            this.ListContractMailBodiesButton.UseVisualStyleBackColor = true;
-            this.ListContractMailBodiesButton.Click += new System.EventHandler(this.ListContractMailBodiesButton_Click);
-            // 
-            // ContractMailBodiesListbox
-            // 
-            this.ContractMailBodiesListbox.FormattingEnabled = true;
-            this.ContractMailBodiesListbox.Location = new System.Drawing.Point(9, 78);
-            this.ContractMailBodiesListbox.Name = "ContractMailBodiesListbox";
-            this.ContractMailBodiesListbox.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.ContractMailBodiesListbox.Size = new System.Drawing.Size(410, 173);
-            this.ContractMailBodiesListbox.TabIndex = 4;
-            // 
-            // ContractAppendixExistsButton
-            // 
-            this.ContractAppendixExistsButton.Location = new System.Drawing.Point(249, 19);
-            this.ContractAppendixExistsButton.Name = "ContractAppendixExistsButton";
-            this.ContractAppendixExistsButton.Size = new System.Drawing.Size(75, 23);
-            this.ContractAppendixExistsButton.TabIndex = 1;
-            this.ContractAppendixExistsButton.Text = "Exists";
-            this.ContractAppendixExistsButton.UseVisualStyleBackColor = true;
-            this.ContractAppendixExistsButton.Click += new System.EventHandler(this.ContractAppendixExistsButton_Click);
             // 
             // MainForm
             // 

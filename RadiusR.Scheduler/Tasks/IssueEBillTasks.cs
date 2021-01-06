@@ -56,8 +56,8 @@ namespace RadiusR.Scheduler.Tasks
                     var validYears = new int[0];
                     using (RadiusREntities db = new RadiusREntities())
                     {
-                        var afterThresholdBillsWithoutEBill = db.Bills.Where(bill => bill.EBill == null).Where(bill => bill.IssueDate >= hardThreshold).Where(bill => bill.IssueDate <= softThreshold);
-                        validYears = afterThresholdBillsWithoutEBill.GroupBy(bill => bill.IssueDate.Year).Select(yg => yg.Key).OrderBy(y => y).ToArray();
+                        var afterThresholdBillsWithoutEBill = db.Bills.Where(bill => bill.EBill == null).Select(bill => bill.IssueDate).Where(issueDate => issueDate >= hardThreshold).Where(issueDate => issueDate <= softThreshold);
+                        validYears = afterThresholdBillsWithoutEBill.GroupBy(issueDate => issueDate.Year).Select(yg => yg.Key).OrderBy(y => y).ToArray();
                     }
 
                     foreach (var currentYear in validYears)

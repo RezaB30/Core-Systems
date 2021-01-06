@@ -23,7 +23,7 @@
                         <div class="file-icon">@Html.DisplayFor(modelItem => item.FileExtention)</div>
                     </div>
                     <div>
-                        @Html.DisplayFor(modelItem => item.FileName)
+                        @Html.DisplayFor(modelItem => item.AttachmentType)
                     </div>
                     <div class="creation-date">
                         @Html.DisplayFor(modelItem => item.CreationDate)
@@ -56,6 +56,9 @@
             @Html.AntiForgeryToken()
             @Html.Hidden("id", (long)ViewBag.ClientID)
             @Html.FileUpload("newAttachment", ".jpg,.png,.pdf")
+            @:&nbsp;
+            @Html.Select("typeId", (SelectList)ViewBag.AttachmentTypes, RadiusR.Localization.Pages.Common.Choose)
+            @:&nbsp;
             <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
         }
         @Html.Partial("_WaitTimer")

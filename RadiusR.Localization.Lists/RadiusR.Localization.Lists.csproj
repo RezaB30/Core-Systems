@@ -133,6 +133,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="ClientAttachmentTypes.tr-tr.Designer.cs">
+      <DependentUpon>ClientAttachmentTypes.tr-tr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="ClientAttachmentTypes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -818,6 +823,10 @@
     <EmbeddedResource Include="CancellationReason.tr-tr.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CancellationReason.tr-tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClientAttachmentTypes.tr-tr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ClientAttachmentTypes.tr-tr.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ClientAttachmentTypes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

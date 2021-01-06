@@ -48,6 +48,7 @@ namespace RadiusR.BTKLogging
                                 try
                                 {
                                     BTKLogManager.CreateLogs(settings[i]);
+                                    BTKLogManager.UploadCreatedFiles(settings[i]);
                                     using (RadiusREntities db = new RadiusREntities())
                                     {
                                         var dbSettings = db.BTKSchedulerSettings.Find((short)settings[i].LogType);

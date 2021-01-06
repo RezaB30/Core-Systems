@@ -31,8 +31,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadiusR.DB.Utilities", "Rad
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadiusR.DB.Utilities.ComplexOperations", "RadiusR.DB.Utilities.ComplexOperations\RadiusR.DB.Utilities.ComplexOperations.csproj", "{686BAF19-A0B2-4DC3-9AC5-9C995C127968}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadiusR.Files", "RadiusR.Files\RadiusR.Files.csproj", "{540063C2-C62D-4411-AFDD-11AD68CA36F9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadiusR.Helpers", "RadiusR.Helpers\RadiusR.Helpers.csproj", "{47584A90-C40A-40AC-BD9E-1A2C6EEEA082}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadiusR.Localization", "RadiusR.Localization\RadiusR.Localization.csproj", "{C11AB331-2AC5-4F7E-8FD2-94715F266EC7}"
@@ -189,14 +187,6 @@ Global
 		{686BAF19-A0B2-4DC3-9AC5-9C995C127968}.Release|Any CPU.Build.0 = Release|Any CPU
 		{686BAF19-A0B2-4DC3-9AC5-9C995C127968}.Release|x64.ActiveCfg = Release|Any CPU
 		{686BAF19-A0B2-4DC3-9AC5-9C995C127968}.Release|x64.Build.0 = Release|Any CPU
-		{540063C2-C62D-4411-AFDD-11AD68CA36F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{540063C2-C62D-4411-AFDD-11AD68CA36F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{540063C2-C62D-4411-AFDD-11AD68CA36F9}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{540063C2-C62D-4411-AFDD-11AD68CA36F9}.Debug|x64.Build.0 = Debug|Any CPU
-		{540063C2-C62D-4411-AFDD-11AD68CA36F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{540063C2-C62D-4411-AFDD-11AD68CA36F9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{540063C2-C62D-4411-AFDD-11AD68CA36F9}.Release|x64.ActiveCfg = Release|Any CPU
-		{540063C2-C62D-4411-AFDD-11AD68CA36F9}.Release|x64.Build.0 = Release|Any CPU
 		{47584A90-C40A-40AC-BD9E-1A2C6EEEA082}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{47584A90-C40A-40AC-BD9E-1A2C6EEEA082}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47584A90-C40A-40AC-BD9E-1A2C6EEEA082}.Debug|x64.ActiveCfg = Debug|Any CPU

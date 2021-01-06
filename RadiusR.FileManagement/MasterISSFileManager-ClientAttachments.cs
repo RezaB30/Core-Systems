@@ -51,6 +51,17 @@ namespace RadiusR.FileManagement
             {
                 return result;
             }
+            // check file hash to prevent dupes
+            var listResult = InternalFileManager.GetFileList();
+            if (listResult.InternalException != null)
+            {
+                return new FileManagerResult<bool>(listResult.InternalException);
+            }
+            if (listResult.Result != null && listResult.Result.Any(fileName => fileName.Contains($".{attachment.MD5}")))
+            {
+                return new FileManagerResult<bool>(true);
+            }
+            // save file
             result = InternalFileManager.SaveFile(attachment.ServerSideName, attachment.Content);
             return result;
         }

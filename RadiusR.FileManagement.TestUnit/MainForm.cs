@@ -411,19 +411,19 @@ namespace RadiusR.FileManagement.TestUnit
             var dialog = new OpenFileDialog();
             dialog.CheckFileExists = dialog.CheckPathExists = true;
             dialog.Multiselect = false;
+            dialog.Filter = "Text Files (*.txt)|*.txt";
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                using (var fileStream = File.OpenRead(dialog.FileName))
+                var fileContents = File.ReadAllText(dialog.FileName);
+                var logFile = new BTKLogFile(fileContents, (RadiusR.DB.Enums.BTKLogTypes)Enum.Parse(typeof(RadiusR.DB.Enums.BTKLogTypes), BTKLogTypeCombobox.SelectedItem as string), BTKLogDatetimepicker.Value);
+                var result = FileManager.SaveBTKLogFile(logFile);
+                if (result.InternalException != null)
                 {
-                    var result = FileManager.SaveBTKLogFile((RadiusR.DB.Enums.BTKLogTypes)Enum.Parse(typeof(RadiusR.DB.Enums.BTKLogTypes), BTKLogTypeCombobox.SelectedItem as string), BTKLogDatetimepicker.Value, new FileManagerBasicFile(dialog.SafeFileName, fileStream));
-                    if (result.InternalException != null)
-                    {
-                        ShowError(result.InternalException);
-                    }
-                    else
-                    {
-                        ListBTKLogs();
-                    }
+                    ShowError(result.InternalException);
+                }
+                else
+                {
+                    ListBTKLogs();
                 }
             }
         }
@@ -473,7 +473,7 @@ namespace RadiusR.FileManagement.TestUnit
             {
                 MessageBox.Show("Exists", "Check PDF Form Exists", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else if(result.InternalException != null)
+            else if (result.InternalException != null)
             {
                 MessageBox.Show(result.InternalException.Message, "Check PDF Form Exists", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

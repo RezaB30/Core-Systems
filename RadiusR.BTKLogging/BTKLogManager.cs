@@ -5,11 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using RadiusR.Files.BTKLogging;
-using RezaB.FTPUtilities;
-using RadiusR.Files;
 using System.Data.Entity;
+using RadiusR.FileManagement;
+using RadiusR.FileManagement.BTKLogging;
+using RezaB.Files.FTP;
 
 namespace RadiusR.BTKLogging
 {
@@ -17,9 +16,7 @@ namespace RadiusR.BTKLogging
     {
         public static void CreateLogs(SchedulerSettings schedulerSettings)
         {
-            // clear temp folder
-            BTKLogFileManager.ClearTempFolder((LogFileTypes)schedulerSettings.LogType);
-            // create temp files
+            // create log files
             switch (schedulerSettings.LogType)
             {
                 case BTKLogTypes.ClientCatalog:
@@ -43,14 +40,35 @@ namespace RadiusR.BTKLogging
                 default:
                     break;
             }
-            // ftp upload
-            var files = BTKLogFileManager.GetRecentLogFiles((LogFileTypes)schedulerSettings.LogType);
-            var ftpClient = FTPClientFactory.CreateFTPClient(schedulerSettings.FTPFolder, schedulerSettings.FTPUsername, schedulerSettings.FTPPassword);
-            foreach (var file in files)
+        }
+
+        public static void UploadCreatedFiles(SchedulerSettings schedulerSettings)
+        {
+            var fileManager = new MasterISSFileManager();
+            var result = fileManager.ListBTKLogs(schedulerSettings.LogType, schedulerSettings.CurrentOperationTime);
+            if (result.InternalException != null)
             {
-                using (var fileStream = FileManager.GetRepositoryFile(file.PathWithName))
+
+            }
+            var validLogFiles = result.Result.Select(fileName => new { Name = fileName, Date = BTKLogUtilities.GetDateTimeFromFileName(fileName) }).Where(item => item.Date.HasValue && item.Date >= schedulerSettings.CurrentOperationTime).Select(item => item.Name).ToArray();
+            var ftpClient = FTPClientFactory.CreateFTPClient(schedulerSettings.FTPFolder, schedulerSettings.FTPUsername, schedulerSettings.FTPPassword);
+            foreach (var logFileName in validLogFiles)
+            {
+                using (var fileResult = fileManager.GetBTKLog(schedulerSettings.LogType, schedulerSettings.CurrentOperationTime, logFileName))
                 {
-                    ftpClient.Upload(file.FileName, fileStream);
+                    if(fileResult.InternalException != null)
+                    {
+                        throw fileResult.InternalException;
+                    }
+                    var uploadResult = ftpClient.SaveFile(fileResult.Result.FileName, fileResult.Result.Content);
+                    if(uploadResult.InternalException != null)
+                    {
+                        throw uploadResult.InternalException;
+                    }
+                    else if (!uploadResult.Result)
+                    {
+                        throw new Exception($"error uploading [{logFileName}].");
+                    }
                 }
             }
         }
@@ -80,13 +98,8 @@ namespace RadiusR.BTKLogging
 
                     if (schedulerSettings.PartitionFiles)
                     {
-                        BTKLogFileManager.CreateLogFile(LogFileTypes.ClientCatalog, contents.ToString(), new OperatorInfo()
-                        {
-                            OperatorName = BTKSettings.BTKOperatorName,
-                            OperatorCode = BTKSettings.BTKOperatorCode,
-                            OperatorType = BTKSettings.BTKOperatorType,
-                            Department = BTKSettings.BTKOperatorDepartment
-                        }, schedulerSettings.NextOperationTime.Value, fileNo);
+                        SaveLogFile(new BTKLogFile(contents.ToString(), BTKLogTypes.ClientCatalog, schedulerSettings.NextOperationTime.Value, fileNo));
+                        
                         fileNo++;
                         contents.Clear();
                     }
@@ -96,13 +109,7 @@ namespace RadiusR.BTKLogging
 
             if (!schedulerSettings.PartitionFiles && contents.Length > 0)
             {
-                BTKLogFileManager.CreateLogFile(LogFileTypes.ClientCatalog, contents.ToString(), new OperatorInfo()
-                {
-                    OperatorName = BTKSettings.BTKOperatorName,
-                    OperatorCode = BTKSettings.BTKOperatorCode,
-                    OperatorType = BTKSettings.BTKOperatorType,
-                    Department = BTKSettings.BTKOperatorDepartment
-                }, schedulerSettings.NextOperationTime.Value, fileNo);
+                SaveLogFile(new BTKLogFile(contents.ToString(), BTKLogTypes.ClientCatalog, schedulerSettings.NextOperationTime.Value, fileNo));
             }
         }
 
@@ -131,13 +138,8 @@ namespace RadiusR.BTKLogging
 
                     if (schedulerSettings.PartitionFiles)
                     {
-                        BTKLogFileManager.CreateLogFile(LogFileTypes.ClientChanges, contents.ToString(), new OperatorInfo()
-                        {
-                            OperatorName = BTKSettings.BTKOperatorName,
-                            OperatorCode = BTKSettings.BTKOperatorCode,
-                            OperatorType = BTKSettings.BTKOperatorType,
-                            Department = BTKSettings.BTKOperatorDepartment
-                        }, schedulerSettings.NextOperationTime.Value, fileNo);
+                        SaveLogFile(new BTKLogFile(contents.ToString(), BTKLogTypes.ClientChanges, schedulerSettings.NextOperationTime.Value, fileNo));
+                        
                         fileNo++;
                         contents.Clear();
                     }
@@ -147,13 +149,7 @@ namespace RadiusR.BTKLogging
 
             if (!schedulerSettings.PartitionFiles && contents.Length > 0)
             {
-                BTKLogFileManager.CreateLogFile(LogFileTypes.ClientChanges, contents.ToString(), new OperatorInfo()
-                {
-                    OperatorName = BTKSettings.BTKOperatorName,
-                    OperatorCode = BTKSettings.BTKOperatorCode,
-                    OperatorType = BTKSettings.BTKOperatorType,
-                    Department = BTKSettings.BTKOperatorDepartment
-                }, schedulerSettings.NextOperationTime.Value, fileNo);
+                SaveLogFile(new BTKLogFile(contents.ToString(), BTKLogTypes.ClientChanges, schedulerSettings.NextOperationTime.Value, fileNo));
             }
         }
 
@@ -184,13 +180,8 @@ namespace RadiusR.BTKLogging
 
                     if (schedulerSettings.PartitionFiles)
                     {
-                        BTKLogFileManager.CreateLogFile(LogFileTypes.IPDR, contents.ToString(), new OperatorInfo()
-                        {
-                            OperatorName = BTKSettings.BTKOperatorName,
-                            OperatorCode = BTKSettings.BTKOperatorCode,
-                            OperatorType = BTKSettings.BTKOperatorType,
-                            Department = BTKSettings.BTKOperatorDepartment
-                        }, schedulerSettings.NextOperationTime.Value, fileNo);
+                        SaveLogFile(new BTKLogFile(contents.ToString(), BTKLogTypes.IPDR, schedulerSettings.NextOperationTime.Value, fileNo));
+                        
                         fileNo++;
                         contents.Clear();
                     }
@@ -204,13 +195,7 @@ namespace RadiusR.BTKLogging
 
             if (!schedulerSettings.PartitionFiles && contents.Length > 0)
             {
-                BTKLogFileManager.CreateLogFile(LogFileTypes.IPDR, contents.ToString(), new OperatorInfo()
-                {
-                    OperatorName = BTKSettings.BTKOperatorName,
-                    OperatorCode = BTKSettings.BTKOperatorCode,
-                    OperatorType = BTKSettings.BTKOperatorType,
-                    Department = BTKSettings.BTKOperatorDepartment
-                }, schedulerSettings.NextOperationTime.Value, fileNo);
+                SaveLogFile(new BTKLogFile(contents.ToString(), BTKLogTypes.IPDR, schedulerSettings.NextOperationTime.Value, fileNo));
             }
         }
 
@@ -241,13 +226,8 @@ namespace RadiusR.BTKLogging
                     if (schedulerSettings.PartitionFiles)
                     {
                         contents.Append(Environment.NewLine);
-                        BTKLogFileManager.CreateLogFile(LogFileTypes.IPBlock, contents.ToString(), new OperatorInfo()
-                        {
-                            OperatorName = BTKSettings.BTKOperatorName,
-                            OperatorCode = BTKSettings.BTKOperatorCode,
-                            OperatorType = BTKSettings.BTKOperatorType,
-                            Department = BTKSettings.BTKOperatorDepartment
-                        }, schedulerSettings.NextOperationTime.Value, fileNo);
+                        SaveLogFile(new BTKLogFile(contents.ToString(), BTKLogTypes.IPBlock, schedulerSettings.NextOperationTime.Value, fileNo));
+                        
                         fileNo++;
                         contents.Clear();
                     }
@@ -258,13 +238,7 @@ namespace RadiusR.BTKLogging
             if (!schedulerSettings.PartitionFiles && contents.Length > 0)
             {
                 contents.Append(Environment.NewLine);
-                BTKLogFileManager.CreateLogFile(LogFileTypes.IPBlock, contents.ToString(), new OperatorInfo()
-                {
-                    OperatorName = BTKSettings.BTKOperatorName,
-                    OperatorCode = BTKSettings.BTKOperatorCode,
-                    OperatorType = BTKSettings.BTKOperatorType,
-                    Department = BTKSettings.BTKOperatorDepartment
-                }, schedulerSettings.NextOperationTime.Value, fileNo);
+                SaveLogFile(new BTKLogFile(contents.ToString(), BTKLogTypes.IPBlock, schedulerSettings.NextOperationTime.Value, fileNo));
             }
         }
 
@@ -303,13 +277,8 @@ namespace RadiusR.BTKLogging
 
                         if (schedulerSettings.PartitionFiles)
                         {
-                            BTKLogFileManager.CreateLogFile(LogFileTypes.Sessions, contents.ToString(), new OperatorInfo()
-                            {
-                                OperatorName = BTKSettings.BTKOperatorName,
-                                OperatorCode = BTKSettings.BTKOperatorCode,
-                                OperatorType = BTKSettings.BTKOperatorType,
-                                Department = BTKSettings.BTKOperatorDepartment
-                            }, schedulerSettings.NextOperationTime.Value, fileNo, Enum.GetName(typeof(ServiceInfrastructureTypes), infrastructureType).Replace("_", " "));
+                            SaveLogFile(new BTKLogFile(contents.ToString(), BTKLogTypes.Sessions, schedulerSettings.NextOperationTime.Value, fileNo, Enum.GetName(typeof(ServiceInfrastructureTypes), infrastructureType).Replace("_", " ")));
+                            
                             fileNo++;
                             contents.Clear();
                         }
@@ -319,13 +288,7 @@ namespace RadiusR.BTKLogging
 
                 if (!schedulerSettings.PartitionFiles && contents.Length > 0)
                 {
-                    BTKLogFileManager.CreateLogFile(LogFileTypes.Sessions, contents.ToString(), new OperatorInfo()
-                    {
-                        OperatorName = BTKSettings.BTKOperatorName,
-                        OperatorCode = BTKSettings.BTKOperatorCode,
-                        OperatorType = BTKSettings.BTKOperatorType,
-                        Department = BTKSettings.BTKOperatorDepartment
-                    }, schedulerSettings.NextOperationTime.Value, fileNo, Enum.GetName(typeof(ServiceInfrastructureTypes), infrastructureType).Replace("_", " "));
+                    SaveLogFile(new BTKLogFile(contents.ToString(), BTKLogTypes.Sessions, schedulerSettings.NextOperationTime.Value, fileNo, Enum.GetName(typeof(ServiceInfrastructureTypes), infrastructureType).Replace("_", " ")));
                 }
             }
         }
@@ -359,13 +322,8 @@ namespace RadiusR.BTKLogging
 
                     if (schedulerSettings.PartitionFiles)
                     {
-                        BTKLogFileManager.CreateLogFile(LogFileTypes.ClientOld, contents.ToString(), new OperatorInfo()
-                        {
-                            OperatorName = BTKSettings.BTKOperatorName,
-                            OperatorCode = BTKSettings.BTKOperatorCode,
-                            OperatorType = BTKSettings.BTKOperatorType,
-                            Department = BTKSettings.BTKOperatorDepartment
-                        }, schedulerSettings.NextOperationTime.Value, fileNo);
+                        SaveLogFile(new BTKLogFile(contents.ToString(), BTKLogTypes.ClientOld, schedulerSettings.NextOperationTime.Value, fileNo));
+                        
                         fileNo++;
                         contents.Clear();
                     }
@@ -375,13 +333,21 @@ namespace RadiusR.BTKLogging
 
             if (!schedulerSettings.PartitionFiles && contents.Length > 0)
             {
-                BTKLogFileManager.CreateLogFile(LogFileTypes.ClientOld, contents.ToString(), new OperatorInfo()
-                {
-                    OperatorName = BTKSettings.BTKOperatorName,
-                    OperatorCode = BTKSettings.BTKOperatorCode,
-                    OperatorType = BTKSettings.BTKOperatorType,
-                    Department = BTKSettings.BTKOperatorDepartment
-                }, schedulerSettings.NextOperationTime.Value, fileNo);
+                SaveLogFile(new BTKLogFile(contents.ToString(), BTKLogTypes.ClientOld, schedulerSettings.NextOperationTime.Value, fileNo));
+            }
+        }
+
+        private static void SaveLogFile(BTKLogFile logFile)
+        {
+            var fileManager = new MasterISSFileManager();
+            var result = fileManager.SaveBTKLogFile(logFile);
+            if (result.InternalException != null)
+            {
+                throw result.InternalException;
+            }
+            else if (!result.Result)
+            {
+                throw new Exception($"Saving {logFile.LogType} log file was not successful.");
             }
         }
     }
