@@ -2,18 +2,18 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <title>RadiusR.Localization</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <description>Localization for MasteISS.</description>
-    <releaseNotes>First release.</releaseNotes>
+    <releaseNotes>More items.</releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>MasterISS Localization</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />
 	<dependencies>
-		<dependency id="RadiusR.Localization.Lists" version="1.0.1"/>
+		<dependency id="RadiusR.Localization.Lists" version="1.0.3"/>
 	</dependencies>
   </metadata>
   <files>
