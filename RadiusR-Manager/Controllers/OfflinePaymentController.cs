@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using RezaB.FTPUtilities;
+using RezaB.Files.FTP;
 using RadiusR_Manager.Models.ViewModels;
 using System.IO;
 using RadiusR.OfflinePayment;
@@ -258,14 +258,14 @@ namespace RadiusR_Manager.Controllers
                         });
                         // access files
                         var ftpClient = FTPClientFactory.CreateFTPClient(currentGateway.FTPAddress, currentGateway.FTPUsername, currentGateway.FTPPassword);
-                        var response = ftpClient.EnterDirectory(currentGateway.ReceiveFolder);
-                        if (response.Exception != null)
+                        var response = ftpClient.EnterDirectoryPath(currentGateway.ReceiveFolder);
+                        if (response.InternalException != null)
                         {
                             results.Add(new OfflinePaymentStatusReportViewModel()
                             {
                                 Gateway = currentGateway.Name,
                                 Stage = RadiusR.Localization.Pages.OfflinePaymentReportStages.LoadPaymentFiles,
-                                Results = response.Exception.Message,
+                                Results = response.InternalException.Message,
                                 IsSuccess = false
                             });
                         }
@@ -286,15 +286,15 @@ namespace RadiusR_Manager.Controllers
                                     });
                                     break;
                                 }
-                                using (var fileResponse = ftpClient.DownloadFile(fileName))
+                                using (var fileResponse = ftpClient.GetFile(fileName))
                                 {
-                                    if (fileResponse.Exception != null)
+                                    if (fileResponse.InternalException != null)
                                     {
                                         results.Add(new OfflinePaymentStatusReportViewModel()
                                         {
                                             Gateway = currentGateway.Name,
                                             Stage = RadiusR.Localization.Pages.OfflinePaymentReportStages.LoadPaymentFiles,
-                                            Results = fileResponse.Exception.Message,
+                                            Results = fileResponse.InternalException.Message,
                                             IsSuccess = false,
                                             DetailedList = new[] { fileName }
                                         });
@@ -421,29 +421,29 @@ namespace RadiusR_Manager.Controllers
                                 using (var uploadStream = CreateUploadFileFromDB(format))
                                 {
                                     var client = FTPClientFactory.CreateFTPClient(currentGateway.FTPAddress, currentGateway.FTPUsername, currentGateway.FTPPassword);
-                                    var uploadError = client.EnterDirectory(currentGateway.SendFolder);
-                                    if (uploadError.Exception != null)
+                                    var uploadError = client.EnterDirectoryPath(currentGateway.SendFolder);
+                                    if (uploadError.InternalException != null)
                                     {
                                         results.Add(new OfflinePaymentStatusReportViewModel()
                                         {
                                             Gateway = currentGateway.Name,
                                             Stage = RadiusR.Localization.Pages.OfflinePaymentReportStages.UploadBillLists,
                                             IsSuccess = false,
-                                            Results = uploadError.Exception.Message
+                                            Results = uploadError.InternalException.Message
                                         });
                                         shouldSkip = true;
                                         continue;
                                     }
                                     var uploadFileName = BatchProcessor.GetUploadFileName(DateTime.Now, format);
-                                    var uploadResults = client.Upload(uploadFileName, uploadStream);
-                                    if (uploadResults.Exception != null)
+                                    var uploadResults = client.SaveFile(uploadFileName, uploadStream);
+                                    if (uploadResults.InternalException != null)
                                     {
                                         results.Add(new OfflinePaymentStatusReportViewModel()
                                         {
                                             Gateway = currentGateway.Name,
                                             Stage = RadiusR.Localization.Pages.OfflinePaymentReportStages.UploadBillLists,
                                             IsSuccess = false,
-                                            Results = uploadError.Exception.Message,
+                                            Results = uploadError.InternalException.Message,
                                             DetailedList = new[] { uploadFileName }
                                         });
                                         shouldSkip = true;
@@ -556,18 +556,18 @@ namespace RadiusR_Manager.Controllers
             {
                 var client = FTPClientFactory.CreateFTPClient(gateway.FTPAddress, gateway.FTPUsername, gateway.FTPPassword);
                 {
-                    var currentResult = client.EnterDirectory(gateway.ReceiveFolder);
-                    if (currentResult.Exception != null)
+                    var currentResult = client.EnterDirectoryPath(gateway.ReceiveFolder);
+                    if (currentResult.InternalException != null)
                     {
-                        statusReport.Add(new PaymentFileList() { ID = gateway.ID, Name = gateway.Name, FileNames = new[] { currentResult.Exception.Message }, IsSuccess = false });
+                        statusReport.Add(new PaymentFileList() { ID = gateway.ID, Name = gateway.Name, FileNames = new[] { currentResult.InternalException.Message }, IsSuccess = false });
                         continue;
                     }
                 }
                 {
-                    var currentResult = client.ListFiles();
-                    if (currentResult.Exception != null)
+                    var currentResult = client.GetFileList();
+                    if (currentResult.InternalException != null)
                     {
-                        statusReport.Add(new PaymentFileList() { ID = gateway.ID, Name = gateway.Name, FileNames = new[] { currentResult.Exception.Message }, IsSuccess = false });
+                        statusReport.Add(new PaymentFileList() { ID = gateway.ID, Name = gateway.Name, FileNames = new[] { currentResult.InternalException.Message }, IsSuccess = false });
                         continue;
                     }
 
