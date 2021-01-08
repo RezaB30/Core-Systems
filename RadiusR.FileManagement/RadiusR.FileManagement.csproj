@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-	<PackageDescription>MasterISS File Manager.</PackageDescription>
+    <PackageDescription>MasterISS File Manager.</PackageDescription>
     <RepositoryUrl>https://github.com/masteriss/Core-Systems</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
