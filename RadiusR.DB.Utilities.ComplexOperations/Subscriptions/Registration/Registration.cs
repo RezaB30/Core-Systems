@@ -84,8 +84,10 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
             }
             // create db object for customer + id card
             registeredCustomer = db.Customers.FirstOrDefault(c => c.CustomerType == (short)customerType && c.CustomerIDCard.TCKNo == registrationInfo.IDCard.TCKNo);
+            var customerExists = true;
             if (registeredCustomer == null)
             {
+                customerExists = false;
                 registeredCustomer = new Customer()
                 {
                     BillingAddress = registrationInfo.GeneralInfo.BillingAddress.GetDbObject(),
@@ -157,6 +159,10 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                 return validationResults.SelectMany(vr => vr.Select(vr2 => new { Key = "SubscriptionInfo." + vr.Key, Value = vr2 })).ToLookup(kvp => kvp.Key, kvp => kvp.Value);
             }
             // success
+            if (customerExists)
+            {
+                registeredCustomer = null;
+            }
             return null;
         }
 
@@ -197,31 +203,6 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                 var results = ValidateReferralDiscount(db, registrationInfo.ReferralDiscount, selectedTariff, out referrerSubscription, out specialOffer, "ReferralDiscount");
                 if (results != null)
                     return results;
-                //// check reference no validity
-                //referrerSubscription = db.Subscriptions.FirstOrDefault(s => s.ReferenceNo == registrationInfo.ReferralDiscount.ReferenceNo);
-                //if (referrerSubscription == null || referrerSubscription.IsCancelled)
-                //{
-                //    // invalid reference no
-                //    return new[] { new { Key = "ReferenceNo", ErrorMessage = Resources.RegistrationValidationMessages.InvalidReferenceNo } }.ToLookup(item => item.Key, item => item.ErrorMessage);
-                //}
-                //if (!registrationInfo.ReferralDiscount.SpecialOfferID.HasValue)
-                //{
-                //    // should have special offer
-                //    return new[] { new { Key = "SpecialOfferID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidSpecialOffer } }.ToLookup(item => item.Key, item => item.ErrorMessage);
-                //}
-                //if (!selectedTariff.HasBilling || !referrerSubscription.Service.HasBilling)
-                //{
-                //    // not valid for pre-paid tariffs (both sides)
-                //    return new[] { new { Key = "ReferenceNo", ErrorMessage = Resources.RegistrationValidationMessages.InvalidTariffTypeForReferralDiscount } }.ToLookup(item => item.Key, item => item.ErrorMessage);
-                //}
-
-                //specialOffer = db.SpecialOffers.Find(registrationInfo.ReferralDiscount.SpecialOfferID.Value);
-
-                //if (!specialOffer.IsReferral || specialOffer.StartDate > DateTime.Now.Date || specialOffer.EndDate < DateTime.Now.Date)
-                //{
-                //    // non referral special offer
-                //    return new[] { new { Key = "SpecialOfferID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidSpecialOffer } }.ToLookup(item => item.Key, item => item.ErrorMessage);
-                //}
             }
 
             // validate partner info
