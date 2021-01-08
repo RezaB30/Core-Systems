@@ -252,38 +252,55 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
 
         public class AddressInfo
         {
+            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public long? ProvinceID { get; set; }
 
+            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public long? DistrictID { get; set; }
 
+            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public long? RuralCode { get; set; }
 
+            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public long? NeighbourhoodID { get; set; }
 
+            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public long? StreetID { get; set; }
 
+            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public long? DoorID { get; set; }
 
+            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public long? ApartmentID { get; set; }
 
+            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public string AddressText { get; set; }
 
+            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public int? PostalCode { get; set; }
 
+            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public string Floor { get; set; }
 
+            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public long? AddressNo { get; set; }
 
+            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public string ProvinceName { get; set; }
 
+            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public string DistrictName { get; set; }
 
+            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public string NeighbourhoodName { get; set; }
 
+            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public string StreetName { get; set; }
 
+            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public string DoorNo { get; set; }
 
+            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public string ApartmentNo { get; set; }
 
             public Address GetDbObject()
