@@ -13,6 +13,7 @@ namespace RadiusR.DB.Enums
         RadiusRServer = 3,
         BankPaymentWebService = 4,
         PartnerWebService = 5,
-        RadiusRScheduler = 6
+        RadiusRScheduler = 6,
+        MainSiteService = 7
     }
 }

@@ -123,6 +123,9 @@
   <data name="CustomerWebsite" xml:space="preserve">
     <value>OİM</value>
   </data>
+  <data name="MainSiteService" xml:space="preserve">
+    <value>Ana Site Servisi</value>
+  </data>
   <data name="MasterISS" xml:space="preserve">
     <value>MasterISS</value>
   </data>

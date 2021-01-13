@@ -123,6 +123,9 @@
   <data name="CustomerWebsite" xml:space="preserve">
     <value>Customer Website</value>
   </data>
+  <data name="MainSiteService" xml:space="preserve">
+    <value>Main Site Service</value>
+  </data>
   <data name="MasterISS" xml:space="preserve">
     <value>MasterISS</value>
   </data>
