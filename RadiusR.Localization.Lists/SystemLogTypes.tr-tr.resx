@@ -255,4 +255,7 @@
   <data name="DisableRecurringDiscount" xml:space="preserve">
     <value>Tekrarlayan İndirim Devre Dişi Birakma</value>
   </data>
+  <data name="CloseWorkOrder" xml:space="preserve">
+    <value>İş Emri Kapatma</value>
+  </data>
 </root>

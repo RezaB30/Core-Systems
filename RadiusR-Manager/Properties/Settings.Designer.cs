@@ -25,7 +25,7 @@ namespace RadiusR_Manager.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5.07.00")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5.07.01")]
         public string Version {
             get {
                 return ((string)(this["Version"]));

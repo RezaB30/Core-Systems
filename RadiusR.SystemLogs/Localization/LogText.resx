@@ -255,4 +255,7 @@
   <data name="DisableRecurringDiscount" xml:space="preserve">
     <value>Disabled recurring discount with {0} cause: {1}</value>
   </data>
+  <data name="CloseWorkOrder" xml:space="preserve">
+    <value>Closed work order: {0}</value>
+  </data>
 </root>

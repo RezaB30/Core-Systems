@@ -1,19 +1,16 @@
 ﻿using RadiusR.DB;
 using RadiusR_Manager.Models.RadiusViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
-using System.Text;
-using System.Security.Cryptography;
 using RadiusR.DB.Enums;
 using RadiusR.DB.Enums.CustomerSetup;
 using RadiusR_Manager.Models.ViewModels;
 using RadiusR_Manager.Models.ViewModels.Customer;
 using RezaB.Web.CustomAttributes;
 using RezaB.Web;
+using RadiusR.SystemLogs;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -329,6 +326,7 @@ namespace RadiusR_Manager.Controllers
 
             var viewResults = new SetupServiceTaskDetailsViewModel()
             {
+                ID = task.ID,
                 ClientName = task.Subscription.ValidDisplayName,
                 HasModem = task.HasModem,
                 IssueDate = task.TaskIssueDate,
@@ -338,6 +336,7 @@ namespace RadiusR_Manager.Controllers
                 Details = task.Details,
                 TaskType = task.TaskType,
                 XDSLType = task.XDSLType,
+                Status = task.TaskStatus,
                 Stages = task.CustomerSetupStatusUpdates.Select(update => new SetupServiceTaskDetailsViewModel.Stage()
                 {
                     Date = update.Date,
@@ -350,6 +349,28 @@ namespace RadiusR_Manager.Controllers
             ViewBag.BackLink = uri.Uri.PathAndQuery + uri.Fragment;
 
             return View(viewResults);
+        }
+
+        [AuthorizePermission(Permissions = "Close Setup Task")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST: CustomerSetupService/CloseWorkOrder
+        public ActionResult CloseWorkOrder(long id, string returnUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+            var task = db.CustomerSetupTasks.Find(id);
+            if (task == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            task.TaskStatus = (short)TaskStatuses.Completed;
+            db.SystemLogs.Add(SystemLogProcessor.CloseWorkOrder(task.ID, User.GiveUserId(), task.SubscriptionID, SystemLogInterface.MasterISS, null));
+            db.SaveChanges();
+
+            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
         }
     }
 }

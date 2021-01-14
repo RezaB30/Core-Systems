@@ -65,6 +65,10 @@ namespace RadiusR_Manager.Controllers
             {
                 baseQuery = baseQuery.FilterBySetupAddress(search.Address);
             }
+            if (search.GroupID.HasValue)
+            {
+                baseQuery = baseQuery.Where(two => two.Subscription.Groups.Select(g => g.ID).Contains(search.GroupID.Value));
+            }
             // state from cache
             var cachedStateList = TelekomWorkOrderCache.GetCachedList();
             // search state
@@ -114,6 +118,7 @@ namespace RadiusR_Manager.Controllers
 
             ViewBag.SearchModel = search;
             ViewBag.AppUsers = new SelectList(db.AppUsers.Select(user => new { Value = user.ID, Name = user.Name }).OrderBy(user => user.Name), "Value", "Name", search.AppUserID);
+            ViewBag.SubscriptionGroups = new SelectList(db.Groups.OrderBy(g => g.Name).Select(g => new { Name = g.Name, Value = g.ID }).ToArray(), "Value", "Name", search.GroupID);
             return View(results);
         }
 

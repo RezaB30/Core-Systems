@@ -55,5 +55,6 @@ namespace RadiusR.DB.Enums
         AddRecurringDiscount = 45,
         RemoveRecurringDiscount = 46,
         DisableRecurringDiscount = 47,
+        CloseWorkOrder = 48,
     }
 }

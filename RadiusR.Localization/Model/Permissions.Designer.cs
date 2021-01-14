@@ -331,6 +331,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close Setup Task.
+        /// </summary>
+        public static string CloseSetupTask {
+            get {
+                return ResourceManager.GetString("CloseSetupTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Commitment.
         /// </summary>
         public static string Commitment {

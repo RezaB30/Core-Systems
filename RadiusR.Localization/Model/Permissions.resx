@@ -459,4 +459,7 @@
   <data name="FileManagerSettings" xml:space="preserve">
     <value>File Manager Settings</value>
   </data>
+  <data name="CloseSetupTask" xml:space="preserve">
+    <value>Close Setup Task</value>
+  </data>
 </root>

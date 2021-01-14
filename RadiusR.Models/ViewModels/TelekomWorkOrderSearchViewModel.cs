@@ -40,5 +40,8 @@ namespace RadiusR_Manager.Models.ViewModels
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "Address")]
         public AddressViewModel Address { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "Group")]
+        public int? GroupID { get; set; }
     }
 }

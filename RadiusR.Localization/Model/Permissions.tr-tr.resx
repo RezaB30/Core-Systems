@@ -459,4 +459,7 @@
   <data name="FileManagerSettings" xml:space="preserve">
     <value>Dosya Yönetici Ayarları</value>
   </data>
+  <data name="CloseSetupTask" xml:space="preserve">
+    <value>Kurulum Görevi Kapatma</value>
+  </data>
 </root>

@@ -57,5 +57,13 @@ namespace RadiusR_Manager.Models.RadiusViewModels
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "IsChargeable")]
         public bool IsCharged { get; set; }
+
+        public bool IsActive
+        {
+            get
+            {
+                return Status != (short)TaskStatuses.Cancelled && Status != (short)TaskStatuses.Completed;
+            }
+        }
     }
 }

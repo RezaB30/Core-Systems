@@ -65,6 +65,15 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>
+                            @Html.LabelFor(model => search.GroupID)
+                        </td>
+                        <td>
+                            @Html.Select(model => search.GroupID, (SelectList)ViewBag.SubscriptionGroups, RadiusR.Localization.Pages.Common.Choose)
+                        </td>
+                        <td colspan="2"></td>
+                    </tr>
+                    <tr>
                         <td colspan="4" style="text-align: right;">
                             @Html.EditorFor(model => search.ShowClosed)
                         </td>

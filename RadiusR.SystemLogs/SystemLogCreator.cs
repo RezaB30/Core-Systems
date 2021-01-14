@@ -715,6 +715,20 @@ namespace RadiusR.SystemLogs
             };
         }
 
+        public static SystemLog CloseWorkOrder(long customerSetupTaskID, int? userID, long subscriptionID, SystemLogInterface interfaceType, string interfaceUsername)
+        {
+            return new SystemLog()
+            {
+                Date = DateTime.Now,
+                LogType = (int)SystemLogTypes.CloseWorkOrder,
+                Interface = (short)interfaceType,
+                InterfaceUsername = interfaceUsername,
+                AppUserID = userID,
+                SubscriptionID = subscriptionID,
+                Parameters = HttpUtility.HtmlEncode("<a href='" + InsertLink("Details", "CustomerSetupService", new { id = customerSetupTaskID.ToString() }) + "'>" + customerSetupTaskID.ToString() + "</a>")
+            };
+        }
+
         private static string ClearString(string input)
         {
             return input.Replace(ParameterSeparator, " ").Trim();

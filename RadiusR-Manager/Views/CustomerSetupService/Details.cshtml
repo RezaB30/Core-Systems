@@ -1,4 +1,6 @@
-﻿@model RadiusR_Manager.Models.ViewModels.SetupServiceTaskDetailsViewModel
+﻿@using RezaB.Web.Authentication
+
+@model RadiusR_Manager.Models.ViewModels.SetupServiceTaskDetailsViewModel
 
 @{
     ViewBag.Title = RadiusR.Localization.Pages.Common.CustomerSetupTasks + "-" + RadiusR.Localization.Pages.Common.Details;
@@ -119,4 +121,14 @@
 </table>
 <div class="centered" style="margin: 1em 0;">
     <a class="link-button iconed-button back-button" href="@ViewBag.BackLink">@RadiusR.Localization.Pages.Common.Back</a>
+    @if (Model.IsActive && User.HasPermission("Close Setup Task"))
+    {
+        using (Html.BeginForm("CloseWorkOrder", null, null, FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block;" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("returnUrl", ViewBag.BackLink as string)
+            @Html.Hidden("id", ViewContext.RouteData.Values["id"])
+            <input type="submit" value="@RadiusR.Localization.Pages.Common.Close" class="link-button iconed-button cancel-button" />
+        }
+    }
 </div>
