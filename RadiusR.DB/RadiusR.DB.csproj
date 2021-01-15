@@ -172,6 +172,9 @@
     <Compile Include="ExternalPayment.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExternalTariff.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Fee.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>

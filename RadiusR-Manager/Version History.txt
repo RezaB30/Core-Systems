@@ -287,3 +287,6 @@ v 5.07.00 '2021-01-04'
 - revamped file management.
 - added file manager settings.
 - can now use FTP/SFTP + local file management.
+v 5.07.01 '2021-01-03'
+- added close work order.
+- added group in telekom work order search.

@@ -61,7 +61,8 @@ namespace RadiusR_Manager.Controllers
                     DomainName = d.Name,
                     CanBeChanged = !d.Subscriptions.Any()
                 }),
-                BillingPeriods = service.ServiceBillingPeriods.Select(sbp => sbp.DayOfMonth)
+                BillingPeriods = service.ServiceBillingPeriods.Select(sbp => sbp.DayOfMonth),
+                HasExternality = service.ExternalTariff != null
             });
 
             ViewBag.Search = search ?? new ServiceSearchViewModel();
@@ -200,6 +201,8 @@ namespace RadiusR_Manager.Controllers
 
             db.ServiceRateTimeTables.RemoveRange(service.ServiceRateTimeTables);
             db.ServiceBillingPeriods.RemoveRange(service.ServiceBillingPeriods);
+            if (service.ExternalTariff != null)
+                db.ExternalTariffs.Remove(service.ExternalTariff);
             db.Services.Remove(service);
             db.SaveChanges();
 
@@ -251,7 +254,7 @@ namespace RadiusR_Manager.Controllers
         [ValidateAntiForgeryToken]
         [AuthorizePermission(Permissions = "Modify Services")]
         // POST: Service/Edit
-        public ActionResult Edit(long id, [Bind(Include = "Name,RateLimitView,Price,BillingType,InfrastructureType,MaxSmartQuotaPrice,BaseQuota,SoftQuotaRateLimitView,QuotaType,ServiceRateTimeTable,DomainIDs,BillingPeriods,PaymentTolerance,ExpirationTolerance,NoQueue")]ServiceViewModel service)
+        public ActionResult Edit(long id, [Bind(Include = "Name,RateLimitView,Price,BillingType,InfrastructureType,MaxSmartQuotaPrice,BaseQuota,SoftQuotaRateLimitView,QuotaType,ServiceRateTimeTable,DomainIDs,BillingPeriods,PaymentTolerance,ExpirationTolerance,NoQueue")] ServiceViewModel service)
         {
             var dbService = PrepareService(db.Services.Include(s => s.ServiceBillingPeriods).Include(s => s.ServiceRateTimeTables).AsQueryable()).FirstOrDefault(s => s.DbService.ID == id);
             if (dbService == null)
@@ -319,6 +322,8 @@ namespace RadiusR_Manager.Controllers
                     if (!service.DomainIDs.Contains(domainId))
                     {
                         var newDomain = db.Domains.Find(domainId);
+                        var externalTariffs = db.ExternalTariffs.Where(et => et.TariffID == dbService.DbService.ID && et.DomainID == domainId).ToArray();
+                        db.ExternalTariffs.RemoveRange(externalTariffs);
                         dbService.DbService.Domains.Remove(newDomain);
                     }
                 }
@@ -357,7 +362,7 @@ namespace RadiusR_Manager.Controllers
         [ValidateAntiForgeryToken]
         [AuthorizePermission(Permissions = "Modify Services")]
         // POST: Service/ChangeName
-        public ActionResult ChangeName([Bind(Include = "OldName,NewName")]RenameServiceViewModel service)
+        public ActionResult ChangeName([Bind(Include = "OldName,NewName")] RenameServiceViewModel service)
         {
             if (ModelState.IsValid)
             {
@@ -395,6 +400,150 @@ namespace RadiusR_Manager.Controllers
             return Redirect(returnUrl.Uri.PathAndQuery);
         }
 
+        [HttpGet]
+        [AuthorizePermission(Permissions = "Externally Available Tariffs")]
+        // GET: Service/AddExternality
+        public ActionResult AddExternality(int id)
+        {
+            var dbTariff = db.Services.Find(id);
+            if (dbTariff == null || dbTariff.ExternalTariff != null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            }
+
+            ViewBag.Domains = new SelectList(dbTariff.Domains.OrderBy(d => d.Name).Select(d => new { Name = d.Name, Value = d.ID }), "Value", "Name");
+            ViewBag.TariffName = dbTariff.Name;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Externally Available Tariffs")]
+        // POST: Service/AddExternality
+        public ActionResult AddExternality(int id, ExternalTariffViewModel externalTariff)
+        {
+            var dbTariff = db.Services.Find(id);
+            if (dbTariff == null || dbTariff.ExternalTariff != null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            }
+
+            if (ModelState.IsValid)
+            {
+                if (!(externalTariff.XDSL || externalTariff.Fiber))
+                {
+                    ModelState.AddModelError("XDSL", RadiusR.Localization.Validation.ModelSpecific.XDSLandFiberNotSelected);
+                    ModelState.AddModelError("Fiber", RadiusR.Localization.Validation.ModelSpecific.XDSLandFiberNotSelected);
+                }
+                if (!dbTariff.Domains.Select(d => d.ID).Contains(externalTariff.DomainID))
+                {
+                    ModelState.AddModelError("DomainID", RadiusR.Localization.Validation.ModelSpecific.InvalidDomain);
+                }
+                if (ModelState.IsValid)
+                {
+                    dbTariff.ExternalTariff = new ExternalTariff()
+                    {
+                        DisplayName = externalTariff.DisplayName,
+                        DomainID = externalTariff.DomainID,
+                        HasFiber = externalTariff.Fiber,
+                        HasXDSL = externalTariff.XDSL,
+                    };
+
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index", new { errorMessage = 0 });
+                }
+            }
+
+            ViewBag.Domains = new SelectList(dbTariff.Domains.OrderBy(d => d.Name).Select(d => new { Name = d.Name, Value = d.ID }), "Value", "Name", externalTariff.DomainID);
+            ViewBag.TariffName = dbTariff.Name;
+            return View(externalTariff);
+        }
+
+        [HttpGet]
+        [AuthorizePermission(Permissions = "Externally Available Tariffs")]
+        // GET: Service/EditExternality
+        public ActionResult EditExternality(int id)
+        {
+            var dbTariff = db.Services.Find(id);
+            if (dbTariff == null || dbTariff.ExternalTariff == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            }
+
+            var externalTariff = new ExternalTariffViewModel()
+            {
+                DisplayName = dbTariff.ExternalTariff.DisplayName,
+                DomainID = dbTariff.ExternalTariff.DomainID,
+                Fiber = dbTariff.ExternalTariff.HasFiber,
+                XDSL = dbTariff.ExternalTariff.HasXDSL,
+                TariffID = dbTariff.ID
+            };
+
+            ViewBag.IsEdit = true;
+            ViewBag.Domains = new SelectList(dbTariff.Domains.OrderBy(d => d.Name).Select(d => new { Name = d.Name, Value = d.ID }), "Value", "Name", externalTariff.DomainID);
+            ViewBag.TariffName = dbTariff.Name;
+            return View(viewName: "AddExternality", model: externalTariff);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Externally Available Tariffs")]
+        // Post: Service/EditExternality
+        public ActionResult EditExternality(int id, ExternalTariffViewModel externalTariff)
+        {
+            var dbTariff = db.Services.Find(id);
+            if (dbTariff == null || dbTariff.ExternalTariff == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            }
+
+            if (ModelState.IsValid)
+            {
+                if (!(externalTariff.XDSL || externalTariff.Fiber))
+                {
+                    ModelState.AddModelError("XDSL", RadiusR.Localization.Validation.ModelSpecific.XDSLandFiberNotSelected);
+                    ModelState.AddModelError("Fiber", RadiusR.Localization.Validation.ModelSpecific.XDSLandFiberNotSelected);
+                }
+                if (!dbTariff.Domains.Select(d => d.ID).Contains(externalTariff.DomainID))
+                {
+                    ModelState.AddModelError("DomainID", RadiusR.Localization.Validation.ModelSpecific.InvalidDomain);
+                }
+                if (ModelState.IsValid)
+                {
+                    dbTariff.ExternalTariff.DomainID = externalTariff.DomainID;
+                    dbTariff.ExternalTariff.DisplayName = externalTariff.DisplayName;
+                    dbTariff.ExternalTariff.HasFiber = externalTariff.Fiber;
+                    dbTariff.ExternalTariff.HasXDSL = externalTariff.XDSL;
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index", new { errorMessage = 0 });
+                }
+            }
+
+            ViewBag.IsEdit = true;
+            ViewBag.Domains = new SelectList(dbTariff.Domains.OrderBy(d => d.Name).Select(d => new { Name = d.Name, Value = d.ID }), "Value", "Name", externalTariff.DomainID);
+            ViewBag.TariffName = dbTariff.Name;
+            return View(viewName: "AddExternality", model: externalTariff);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Externally Available Tariffs")]
+        // POST: Service/RemoveExternality
+        public ActionResult RemoveExternality(int id)
+        {
+            var dbTariff = db.Services.Find(id);
+            if (dbTariff == null || dbTariff.ExternalTariff == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            }
+
+            db.ExternalTariffs.Remove(dbTariff.ExternalTariff);
+            db.SaveChanges();
+            return RedirectToAction("Index", new { errorMessage = 0 });
+        }
+
         [HttpPost]
         [AuthorizePermission(Permissions = "Clients")]
         public JsonResult GetDomainServices(int id)
@@ -406,9 +555,9 @@ namespace RadiusR_Manager.Controllers
         [AuthorizePermission(Permissions = "Clients")]
         public JsonResult GetServiceBillingPeriods(int id)
         {
-            var items = db.Services.Find(id).ServiceBillingPeriods.OrderBy(sbp => sbp.DayOfMonth).Select(sbp => new SelectListJSON.SelectListItem() { Name = sbp.DayOfMonth.ToString(), Value = sbp.DayOfMonth });
-            var selectedItem = items.Where(d => d.Value <= DateTime.Now.Day).LastOrDefault() ?? items.FirstOrDefault();
-            var selectedValue = selectedItem != null ? selectedItem.Value : (long?)null;
+            var currentTariff = db.Services.Find(id);
+            var items = currentTariff.ServiceBillingPeriods.OrderBy(sbp => sbp.DayOfMonth).Select(sbp => new SelectListJSON.SelectListItem() { Name = sbp.DayOfMonth.ToString(), Value = sbp.DayOfMonth });
+            var selectedValue = currentTariff.GetBestBillingPeriod(DateTime.Now.Day);
             return Json(new SelectListJSON() { Items = items, selectedValue = selectedValue });
         }
 

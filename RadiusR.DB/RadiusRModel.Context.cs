@@ -120,5 +120,6 @@ namespace RadiusR.DB
         public virtual DbSet<SupportRequest> SupportRequests { get; set; }
         public virtual DbSet<SupportGroupUser> SupportGroupUsers { get; set; }
         public virtual DbSet<VPOSList> VPOSLists { get; set; }
+        public virtual DbSet<ExternalTariff> ExternalTariffs { get; set; }
     }
 }

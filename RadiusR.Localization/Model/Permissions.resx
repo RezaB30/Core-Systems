@@ -462,4 +462,7 @@
   <data name="CloseSetupTask" xml:space="preserve">
     <value>Close Setup Task</value>
   </data>
+  <data name="ExternallyAvailableTariffs" xml:space="preserve">
+    <value>Externally Available Tariffs</value>
+  </data>
 </root>

@@ -462,4 +462,7 @@
   <data name="CloseSetupTask" xml:space="preserve">
     <value>Kurulum Görevi Kapatma</value>
   </data>
+  <data name="ExternallyAvailableTariffs" xml:space="preserve">
+    <value>Dışarıdan Mevcut Tarifeler</value>
+  </data>
 </root>

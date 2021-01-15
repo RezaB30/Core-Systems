@@ -4273,6 +4273,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to XDSL.
+        /// </summary>
+        public static string XDSL {
+            get {
+                return ResourceManager.GetString("XDSL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to XDSL Type.
         /// </summary>
         public static string XDSLType {

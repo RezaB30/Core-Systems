@@ -1176,4 +1176,10 @@
   <data name="FileManagerError" xml:space="preserve">
     <value>File Manager Error</value>
   </data>
+  <data name="AddExternalUsage" xml:space="preserve">
+    <value>Add External Usage</value>
+  </data>
+  <data name="EditExternalUsage" xml:space="preserve">
+    <value>Edit External Usage</value>
+  </data>
 </root>

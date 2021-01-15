@@ -103,6 +103,17 @@
                     }
                 </td>
                 <td>
+                    @if (User.HasPermission("Externally Available Tariffs"))
+                    {
+                        if (item.HasExternality)
+                        {
+                            @Html.ActionLink(RadiusR.Localization.Pages.Common.EditExternalUsage, "EditExternality", null, new { id = item.ID }, new { @class = "link-button iconed-button edit-button" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink(RadiusR.Localization.Pages.Common.AddExternalUsage, "AddExternality", null, new { id = item.ID }, new { @class = "link-button iconed-button new-button" })
+                        }
+                    }
                     @if (User.HasPermission("Modify Services"))
                     {
                         using (Html.BeginForm("ChangeActiveState", null, FormMethod.Post, new { @confirm = "enabled" }))

@@ -120,6 +120,9 @@
   <data name="AllowanceGreaterThanTariffFee" xml:space="preserve">
     <value>Allowance can not be greater than tariff fee ({0}).</value>
   </data>
+  <data name="InvalidDomain" xml:space="preserve">
+    <value>Invalid Domain.</value>
+  </data>
   <data name="InvalidFTPAddress" xml:space="preserve">
     <value>FTP Address should start with ftp:// or sftp://.</value>
   </data>
@@ -140,5 +143,8 @@
   </data>
   <data name="TariffAlreadyAdded" xml:space="preserve">
     <value>This tariff already added.</value>
+  </data>
+  <data name="XDSLandFiberNotSelected" xml:space="preserve">
+    <value>At least one item must be set.</value>
   </data>
 </root>

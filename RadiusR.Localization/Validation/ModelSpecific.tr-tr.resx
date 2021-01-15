@@ -120,6 +120,9 @@
   <data name="AllowanceGreaterThanTariffFee" xml:space="preserve">
     <value>Hakediş, tarife ücretinden ({0}) fazla olamaz.</value>
   </data>
+  <data name="InvalidDomain" xml:space="preserve">
+    <value>Geçersiz Domain.</value>
+  </data>
   <data name="InvalidFTPAddress" xml:space="preserve">
     <value>FTP Adresi ftp: // veya sftp: // ile başlamalıdır.</value>
   </data>
@@ -140,5 +143,8 @@
   </data>
   <data name="TariffAlreadyAdded" xml:space="preserve">
     <value>Bu tarife zaten eklendi.</value>
+  </data>
+  <data name="XDSLandFiberNotSelected" xml:space="preserve">
+    <value>En az bir öğe ayarlanmalıdır.</value>
   </data>
 </root>

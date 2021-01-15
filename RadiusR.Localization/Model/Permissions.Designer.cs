@@ -502,6 +502,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Externally Available Tariffs.
+        /// </summary>
+        public static string ExternallyAvailableTariffs {
+            get {
+                return ResourceManager.GetString("ExternallyAvailableTariffs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File Manager Settings.
         /// </summary>
         public static string FileManagerSettings {

@@ -148,6 +148,7 @@
     <Compile Include="RadiusViewModels\CustomerSetupUserViewModel.cs" />
     <Compile Include="RadiusViewModels\DomainViewModel.cs" />
     <Compile Include="RadiusViewModels\EBillViewModel.cs" />
+    <Compile Include="RadiusViewModels\ExternalTariffViewModel.cs" />
     <Compile Include="RadiusViewModels\FeeTypeVariantViewModel.cs" />
     <Compile Include="RadiusViewModels\FeeViewModel.cs" />
     <Compile Include="RadiusViewModels\GroupViewModel.cs" />

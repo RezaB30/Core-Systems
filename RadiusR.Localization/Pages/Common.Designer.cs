@@ -133,6 +133,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add External Usage.
+        /// </summary>
+        public static string AddExternalUsage {
+            get {
+                return ResourceManager.GetString("AddExternalUsage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Group.
         /// </summary>
         public static string AddGroup {
@@ -1254,6 +1263,15 @@ namespace RadiusR.Localization.Pages {
         public static string EditDealer {
             get {
                 return ResourceManager.GetString("EditDealer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit External Usage.
+        /// </summary>
+        public static string EditExternalUsage {
+            get {
+                return ResourceManager.GetString("EditExternalUsage", resourceCulture);
             }
         }
         

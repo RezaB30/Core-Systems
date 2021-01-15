@@ -19,7 +19,7 @@ namespace RadiusR.Localization.Validation {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ModelSpecific {
@@ -66,6 +66,15 @@ namespace RadiusR.Localization.Validation {
         public static string AllowanceGreaterThanTariffFee {
             get {
                 return ResourceManager.GetString("AllowanceGreaterThanTariffFee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Domain..
+        /// </summary>
+        public static string InvalidDomain {
+            get {
+                return ResourceManager.GetString("InvalidDomain", resourceCulture);
             }
         }
         
@@ -129,6 +138,15 @@ namespace RadiusR.Localization.Validation {
         public static string TariffAlreadyAdded {
             get {
                 return ResourceManager.GetString("TariffAlreadyAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to At least one item must be set..
+        /// </summary>
+        public static string XDSLandFiberNotSelected {
+            get {
+                return ResourceManager.GetString("XDSLandFiberNotSelected", resourceCulture);
             }
         }
     }

@@ -61,5 +61,6 @@ namespace RadiusR.DB
         public virtual ICollection<SubscriptionTariffHistory> SubscriptionTariffHistories1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Subscription> Subscriptions { get; set; }
+        public virtual ExternalTariff ExternalTariff { get; set; }
     }
 }

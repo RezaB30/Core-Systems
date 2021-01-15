@@ -1533,4 +1533,7 @@
   <data name="FileManagerType" xml:space="preserve">
     <value>File Manager Type</value>
   </data>
+  <data name="XDSL" xml:space="preserve">
+    <value>XDSL</value>
+  </data>
 </root>

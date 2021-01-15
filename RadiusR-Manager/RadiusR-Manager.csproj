@@ -962,6 +962,7 @@
     <Content Include="Views\Email\Settings.cshtml" />
     <Content Include="Views\Email\Forms.cshtml" />
     <Content Include="Views\FileManager\Settings.cshtml" />
+    <Content Include="Views\Service\AddExternality.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

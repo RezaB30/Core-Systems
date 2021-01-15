@@ -1173,4 +1173,10 @@
   <data name="FileManagerError" xml:space="preserve">
     <value>Dosya Yöneticisi Hatası</value>
   </data>
+  <data name="AddExternalUsage" xml:space="preserve">
+    <value>Harici Kullanım Ekle</value>
+  </data>
+  <data name="EditExternalUsage" xml:space="preserve">
+    <value>Harici Kullanımını Düzenle</value>
+  </data>
 </root>

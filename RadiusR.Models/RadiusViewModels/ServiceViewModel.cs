@@ -210,6 +210,8 @@ namespace RadiusR_Manager.Models.RadiusViewModels
             }
         }
 
+        public bool HasExternality { get; set; }
+
         public bool HasConflictingTimeTable()
         {
             if (ServiceRateTimeTable == null)

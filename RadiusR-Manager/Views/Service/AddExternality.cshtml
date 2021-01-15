@@ -1,0 +1,81 @@
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.RadiusViewModels.ExternalTariffViewModel
+
+@{
+    ViewBag.Title = $"{ViewBag.TariffName}-{RadiusR.Localization.Pages.Common.AddExternalUsage}";
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.DomainID)
+                    </td>
+                    <td>
+                        @Html.Select(model => model.DomainID, (SelectList)ViewBag.Domains, RadiusR.Localization.Pages.Common.Choose)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.DomainID)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.DisplayName)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.DisplayName, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 300 } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.DisplayName)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.EditorFor(model => model.XDSL)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.XDSL)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.EditorFor(model => model.Fiber)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.Fiber)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class = "link-button iconed-button back-button" })
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+        @if (ViewBag.IsEdit == true)
+        {
+            <div class="button-row centered">
+                @using (Html.BeginForm("RemoveExternality", null))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("id", ViewContext.RouteData.Values["id"])
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button delete-button" />
+                }
+            </div>
+        }
+    </div>
+</div>

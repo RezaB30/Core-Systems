@@ -47,5 +47,25 @@ namespace RadiusR.DB
                 return QuotaType == (short)Enums.QuotaType.HardQuota || QuotaType == (short)Enums.QuotaType.SoftQuota;
             }
         }
+        /// <summary>
+        /// Gets the best day of month for this tariff based on given day of month.
+        /// </summary>
+        /// <param name="currentDayOfMonth">The day of month to calculate for.</param>
+        /// <returns></returns>
+        public int? GetBestBillingPeriod(int currentDayOfMonth)
+        {
+            var availableOptions = ServiceBillingPeriods.OrderBy(sbp => sbp.DayOfMonth).Select(sbp => sbp.DayOfMonth).ToArray();
+            if (!availableOptions.Any())
+            {
+                return null;
+            }
+            var result = availableOptions.Where(d => d <= currentDayOfMonth).LastOrDefault();
+            if(result == default(short))
+            {
+                result = availableOptions.FirstOrDefault();
+            }
+
+            return result;
+        }
     }
 }

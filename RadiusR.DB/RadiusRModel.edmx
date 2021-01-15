@@ -267,7 +267,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="64" Nullable="false" />
           <Property Name="IsEnabled" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Discount">
@@ -319,6 +319,16 @@
           <Property Name="BillID" Type="bigint" Nullable="false" />
           <Property Name="ExternalUserID" Type="int" />
           <Property Name="OfflineUserID" Type="int" />
+        </EntityType>
+        <EntityType Name="ExternalTariff">
+          <Key>
+            <PropertyRef Name="TariffID" />
+          </Key>
+          <Property Name="TariffID" Type="int" Nullable="false" />
+          <Property Name="DomainID" Type="int" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="HasXDSL" Type="bit" Nullable="false" />
+          <Property Name="HasFiber" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Fee">
           <Key>
@@ -1450,6 +1460,30 @@
             </Principal>
             <Dependent Role="ExternalPayments">
               <PropertyRef Name="OfflineUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExternalTariff_Domain">
+          <End Role="Domain" Type="Self.Domain" Multiplicity="1" />
+          <End Role="ExternalTariff" Type="Self.ExternalTariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domain">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ExternalTariff">
+              <PropertyRef Name="DomainID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExternalTariff_Service">
+          <End Role="Service" Type="Self.Service" Multiplicity="1" />
+          <End Role="ExternalTariff" Type="Self.ExternalTariff" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ExternalTariff">
+              <PropertyRef Name="TariffID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2631,6 +2665,7 @@
           <EntitySet Name="EBill" EntityType="Self.EBill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EBillRegisteredCompany" EntityType="Self.EBillRegisteredCompany" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExternalPayments" EntityType="Self.ExternalPayments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExternalTariff" EntityType="Self.ExternalTariff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fee" EntityType="Self.Fee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FeeTypeCost" EntityType="Self.FeeTypeCost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FeeTypeTax" EntityType="Self.FeeTypeTax" Schema="dbo" store:Type="Tables" />
@@ -2816,6 +2851,14 @@
           <AssociationSet Name="FK_ExternalPayments_OfflinePaymentGateway" Association="Self.FK_ExternalPayments_OfflinePaymentGateway">
             <End Role="OfflinePaymentGateway" EntitySet="OfflinePaymentGateway" />
             <End Role="ExternalPayments" EntitySet="ExternalPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExternalTariff_Domain" Association="Self.FK_ExternalTariff_Domain">
+            <End Role="Domain" EntitySet="Domain" />
+            <End Role="ExternalTariff" EntitySet="ExternalTariff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExternalTariff_Service" Association="Self.FK_ExternalTariff_Service">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="ExternalTariff" EntitySet="ExternalTariff" />
           </AssociationSet>
           <AssociationSet Name="FK_Fee_FeeTypeCost" Association="Self.FK_Fee_FeeTypeCost">
             <End Role="FeeTypeCost" EntitySet="FeeTypeCost" />
@@ -3400,7 +3443,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="CustomerSetupTasks" Relationship="Self.FK_CustomerSetupTask_CustomerSetupUser" FromRole="CustomerSetupUser" ToRole="CustomerSetupTask" />
           <NavigationProperty Name="Partners" Relationship="RadiusRModel.FK_Partner_CustomerSetupUser" FromRole="CustomerSetupUser" ToRole="Partner" />
@@ -4510,6 +4553,15 @@
             <End Role="SupportGroupUser" EntitySet="SupportGroupUsers" />
           </AssociationSet>
           <EntitySet Name="VPOSLists" EntityType="RadiusRModel.VPOSList" />
+          <EntitySet Name="ExternalTariffs" EntityType="RadiusRModel.ExternalTariff" />
+          <AssociationSet Name="FK_ExternalTariff_Domain" Association="RadiusRModel.FK_ExternalTariff_Domain">
+            <End Role="Domain" EntitySet="Domains" />
+            <End Role="ExternalTariff" EntitySet="ExternalTariffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExternalTariff_Service" Association="RadiusRModel.FK_ExternalTariff_Service">
+            <End Role="Service" EntitySet="Services" />
+            <End Role="ExternalTariff" EntitySet="ExternalTariffs" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
           <Key>
@@ -4968,6 +5020,7 @@
           <NavigationProperty Name="SubscriptionTariffHistories" Relationship="RadiusRModel.FK_SubscriptionTariffHistory_NewTariff" FromRole="Service" ToRole="SubscriptionTariffHistory" />
           <NavigationProperty Name="SubscriptionTariffHistories1" Relationship="RadiusRModel.FK_SubscriptionTariffHistory_OldTariff" FromRole="Service" ToRole="SubscriptionTariffHistory" />
           <NavigationProperty Name="Subscriptions" Relationship="RadiusRModel.FK_Subscription_Service" FromRole="Service" ToRole="Subscription" />
+          <NavigationProperty Name="ExternalTariff" Relationship="RadiusRModel.FK_ExternalTariff_Service" FromRole="Service" ToRole="ExternalTariff" />
         </EntityType>
         <Association Name="FK_ChangeServiceTypeTask_Service">
           <End Type="RadiusRModel.Service" Role="Service" Multiplicity="1" />
@@ -5147,6 +5200,7 @@
           <NavigationProperty Name="Services" Relationship="RadiusRModel.ServiceDomain" FromRole="Domain" ToRole="Service" />
           <NavigationProperty Name="PartnerAvailableTariffs" Relationship="RadiusRModel.FK_PartnerAvailableTariff_DomainID" FromRole="Domain" ToRole="PartnerAvailableTariff" />
           <NavigationProperty Name="Subscriptions" Relationship="RadiusRModel.FK_Subscription_Domain" FromRole="Domain" ToRole="Subscription" />
+          <NavigationProperty Name="ExternalTariffs" Relationship="RadiusRModel.FK_ExternalTariff_Domain" FromRole="Domain" ToRole="ExternalTariff" />
         </EntityType>
         <Association Name="FK_TelekomAccessCredential_Domain">
           <End Type="RadiusRModel.Domain" Role="Domain" Multiplicity="1" />
@@ -6478,6 +6532,42 @@
           <Property Name="UserPass" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="MerchantSalt" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="ExternalTariff">
+          <Key>
+            <PropertyRef Name="TariffID" />
+          </Key>
+          <Property Name="TariffID" Type="Int32" Nullable="false" />
+          <Property Name="DomainID" Type="Int32" Nullable="false" />
+          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="HasXDSL" Type="Boolean" Nullable="false" />
+          <Property Name="HasFiber" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Domain" Relationship="RadiusRModel.FK_ExternalTariff_Domain" FromRole="ExternalTariff" ToRole="Domain" />
+          <NavigationProperty Name="Service" Relationship="RadiusRModel.FK_ExternalTariff_Service" FromRole="ExternalTariff" ToRole="Service" />
+        </EntityType>
+        <Association Name="FK_ExternalTariff_Domain">
+          <End Type="RadiusRModel.Domain" Role="Domain" Multiplicity="1" />
+          <End Type="RadiusRModel.ExternalTariff" Role="ExternalTariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domain">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ExternalTariff">
+              <PropertyRef Name="DomainID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExternalTariff_Service">
+          <End Type="RadiusRModel.Service" Role="Service" Multiplicity="1" />
+          <End Type="RadiusRModel.ExternalTariff" Role="ExternalTariff" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ExternalTariff">
+              <PropertyRef Name="TariffID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7665,6 +7755,17 @@
                 <ScalarProperty Name="MerchantID" ColumnName="MerchantID" />
                 <ScalarProperty Name="VPOSTypeID" ColumnName="VPOSTypeID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExternalTariffs">
+            <EntityTypeMapping TypeName="RadiusRModel.ExternalTariff">
+              <MappingFragment StoreEntitySet="ExternalTariff">
+                <ScalarProperty Name="HasFiber" ColumnName="HasFiber" />
+                <ScalarProperty Name="HasXDSL" ColumnName="HasXDSL" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="DomainID" ColumnName="DomainID" />
+                <ScalarProperty Name="TariffID" ColumnName="TariffID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
