@@ -279,4 +279,13 @@
   <data name="SMTPEmailDisplayName" xml:space="preserve">
     <value>SMTP Email Display Name</value>
   </data>
+  <data name="WebsiteServicesInfrastructureDomain" xml:space="preserve">
+    <value>Website Services Infrastructure Domain</value>
+  </data>
+  <data name="WebsiteServicesPassword" xml:space="preserve">
+    <value>Website Services Password</value>
+  </data>
+  <data name="WebsiteServicesUsername" xml:space="preserve">
+    <value>Website Services Username</value>
+  </data>
 </root>

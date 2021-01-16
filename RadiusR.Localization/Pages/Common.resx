@@ -1138,7 +1138,7 @@
     <value>Share Requests</value>
   </data>
   <data name="CustomerWebsiteSettings" xml:space="preserve">
-    <value>OİM Ayarları</value>
+    <value>Customer Website Settings</value>
   </data>
   <data name="SendContractViaMail" xml:space="preserve">
     <value>Send Contract Via Mail</value>

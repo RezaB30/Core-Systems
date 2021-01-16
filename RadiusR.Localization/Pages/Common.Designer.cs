@@ -1033,7 +1033,7 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OİM Ayarları.
+        ///   Looks up a localized string similar to Customer Website Settings.
         /// </summary>
         public static string CustomerWebsiteSettings {
             get {

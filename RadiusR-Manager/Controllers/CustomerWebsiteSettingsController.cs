@@ -1,4 +1,5 @@
-﻿using RadiusR.DB.Settings;
+﻿using RadiusR.DB.DomainsCache;
+using RadiusR.DB.Settings;
 using RadiusR_Manager.Models.ViewModels;
 using RezaB.Web.CustomAttributes;
 using System;
@@ -17,6 +18,7 @@ namespace RadiusR_Manager.Controllers
         public ActionResult Index()
         {
             var results = new CustomerWebsiteSettingsViewModel(true);
+            ViewBag.Domains = new SelectList(DomainsCache.GetTelekomDomains(), "ID", "Name", results.WebsiteServicesInfrastructureDomainID);
             return View(results);
         }
 
@@ -25,10 +27,12 @@ namespace RadiusR_Manager.Controllers
         {
             if (ModelState.IsValid)
             {
+                settings.WebsiteServicesInfrastructureDomainID = settings.WebsiteServicesInfrastructureDomainID ?? 0;
                 CustomerWebsiteSettings.Update(settings);
                 return RedirectToAction(null, new { errorMessage = 0 });
             }
 
+            ViewBag.Domains = new SelectList(DomainsCache.GetTelekomDomains(), "ID", "Name", settings.WebsiteServicesInfrastructureDomainID);
             return View(settings);
         }
     }

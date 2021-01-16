@@ -1,4 +1,6 @@
-﻿@model RadiusR_Manager.Models.ViewModels.CustomerWebsiteSettingsViewModel
+﻿@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.CustomerWebsiteSettingsViewModel
 
 @{
     ViewBag.Title = RadiusR.Localization.Pages.Common.CustomerWebsiteSettings;
@@ -9,41 +11,80 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-            <table>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.OnlinePasswordDuration)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.OnlinePasswordDuration, new { htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.OnlinePasswordDuration)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.SupportRequestPassedTime)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.SupportRequestPassedTime, new { htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.SupportRequestPassedTime)
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="centered">
-                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Reset, null, null, new { @class = "link-button iconed-button reload-button" })
-                        &nbsp;
-                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
-                    </td>
-                </tr>
-            </table>
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.OnlinePasswordDuration)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.OnlinePasswordDuration, new { htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.OnlinePasswordDuration)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.SupportRequestPassedTime)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.SupportRequestPassedTime, new { htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.SupportRequestPassedTime)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.WebsiteServicesInfrastructureDomainID)
+                </td>
+                <td>
+                    @Html.Select(model => model.WebsiteServicesInfrastructureDomainID, (SelectList)ViewBag.Domains, RadiusR.Localization.Pages.Common.Choose)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.WebsiteServicesInfrastructureDomainID)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.WebsiteServicesUsername)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.WebsiteServicesUsername, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.WebsiteServicesUsername)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.WebsiteServicesPassword)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.WebsiteServicesPassword, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.WebsiteServicesPassword)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="centered">
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Reset, null, null, new { @class = "link-button iconed-button reload-button" })
+                    &nbsp;
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+                </td>
+            </tr>
+        </table>
         }
     </div>
 </div>

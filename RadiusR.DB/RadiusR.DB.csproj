@@ -243,6 +243,7 @@
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="QueryExtentions\BillsQuery.cs" />
+    <Compile Include="QueryExtentions\ExternalTariffsExtention.cs" />
     <Compile Include="QueryExtentions\ServicesQuery.cs" />
     <Compile Include="QueryExtentions\SpecialOffersQuery.cs" />
     <Compile Include="QuotaPackage.cs">

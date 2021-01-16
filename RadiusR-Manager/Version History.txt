@@ -290,3 +290,6 @@ v 5.07.00 '2021-01-04'
 v 5.07.01 '2021-01-03'
 - added close work order.
 - added group in telekom work order search.
+v 5.07.02 '2021-01-16'
+- added website services settings to customer website settings.
+- added externality to tariffs.

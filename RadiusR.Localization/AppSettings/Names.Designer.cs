@@ -545,5 +545,32 @@ namespace RadiusR.Localization.AppSettings {
                 return ResourceManager.GetString("UsernameSuffix", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Website Services Infrastructure Domain.
+        /// </summary>
+        public static string WebsiteServicesInfrastructureDomain {
+            get {
+                return ResourceManager.GetString("WebsiteServicesInfrastructureDomain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Website Services Password.
+        /// </summary>
+        public static string WebsiteServicesPassword {
+            get {
+                return ResourceManager.GetString("WebsiteServicesPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Website Services Username.
+        /// </summary>
+        public static string WebsiteServicesUsername {
+            get {
+                return ResourceManager.GetString("WebsiteServicesUsername", resourceCulture);
+            }
+        }
     }
 }

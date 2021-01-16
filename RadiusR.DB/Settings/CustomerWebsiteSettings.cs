@@ -26,6 +26,30 @@ namespace RadiusR.DB.Settings
             }
         }
 
+        public static int WebsiteServicesInfrastructureDomainID
+        {
+            get
+            {
+                return DBSetting<RadiusREntities, AppSetting>.Retrieve<int>(MethodBase.GetCurrentMethod().Name.Substring(4));
+            }
+        }
+
+        public static string WebsiteServicesUsername
+        {
+            get
+            {
+                return DBSetting<RadiusREntities, AppSetting>.Retrieve<string>(MethodBase.GetCurrentMethod().Name.Substring(4));
+            }
+        }
+
+        public static string WebsiteServicesPassword
+        {
+            get
+            {
+                return DBSetting<RadiusREntities, AppSetting>.Retrieve<string>(MethodBase.GetCurrentMethod().Name.Substring(4));
+            }
+        }
+
         #region METHODS
         /// <summary>
         /// Clears settings cache.

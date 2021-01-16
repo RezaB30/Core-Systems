@@ -279,4 +279,13 @@
   <data name="SMTPEmailDisplayName" xml:space="preserve">
     <value>SMTP Email Görünen Adı</value>
   </data>
+  <data name="WebsiteServicesInfrastructureDomain" xml:space="preserve">
+    <value>Web Site Servislerinin Altyapı Domain'i</value>
+  </data>
+  <data name="WebsiteServicesPassword" xml:space="preserve">
+    <value>Web Site Servislerinin Şifre</value>
+  </data>
+  <data name="WebsiteServicesUsername" xml:space="preserve">
+    <value>Web Site Servislerinin Kullanıcı Adı</value>
+  </data>
 </root>
