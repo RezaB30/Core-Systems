@@ -1,5 +1,5 @@
 ﻿using RadiusR.DB.DomainsCache;
-using RadiusR.DB.Settings;
+using RadiusR.DB;
 using RadiusR_Manager.Models.ViewModels;
 using RezaB.Web.CustomAttributes;
 using System;

@@ -1,4 +1,4 @@
-﻿using RadiusR.DB.Settings;
+﻿using RadiusR.DB;
 using RezaB.DBUtilities;
 using RezaB.Web.CustomAttributes;
 using System;

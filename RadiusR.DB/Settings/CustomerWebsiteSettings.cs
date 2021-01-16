@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RadiusR.DB.Settings
+namespace RadiusR.DB
 {
     public static class CustomerWebsiteSettings
     {
