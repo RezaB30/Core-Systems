@@ -92,7 +92,7 @@ namespace RadiusR_Manager
             }
             // authorize
             var authenticator = new MasterISSAuthenticator();
-            authenticator.SignIn<Role, Permission>(owinContext, userId, extraClaims);
+            authenticator.SignIn(owinContext, userId, extraClaims);
         }
 
         public static int? GiveUserId(this IPrincipal User)
