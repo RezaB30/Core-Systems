@@ -24,7 +24,7 @@ namespace RadiusR.FileManagement.SpecialFiles
             }
         }
 
-        public FileManagerSupportRequestAttachment(string serverSideName) : base(serverSideName) { }
+        internal FileManagerSupportRequestAttachment(string serverSideName) : base(serverSideName) { }
 
         public FileManagerSupportRequestAttachment(long stageId, string fileName, string fileExtention) : base(null, fileExtention)
         {
@@ -32,7 +32,7 @@ namespace RadiusR.FileManagement.SpecialFiles
             Name = $"{fileName}-{stageId}";
         }
 
-        public FileManagerSupportRequestAttachment(long stageId, string fileName, DateTime creationDate, string md5, string fileExtention) : base(null, creationDate, md5, fileExtention)
+        internal FileManagerSupportRequestAttachment(long stageId, string fileName, DateTime creationDate, string md5, string fileExtention) : base(null, creationDate, md5, fileExtention)
         {
             fileName = new string(fileName.ToCharArray().Where(c => c != '-').ToArray());
             Name = $"{fileName}-{stageId}";
