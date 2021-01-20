@@ -680,9 +680,9 @@ namespace RadiusR.FileManagement
 
         public static string GetMIMETypeFromFileExtention(string fileExtention)
         {
-            var from = fileExtention;
+            var from = $".{fileExtention.ToLower()}";
 
-            return from != null ? FileExtentionMIMETypeMap[$".{from}"] : "application/unknown";
+            return (from != null && FileExtentionMIMETypeMap.ContainsKey(from)) ? FileExtentionMIMETypeMap[from] : "application/unknown";
         }
     }
 }

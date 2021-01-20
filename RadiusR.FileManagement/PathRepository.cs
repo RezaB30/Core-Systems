@@ -81,5 +81,17 @@ namespace RadiusR.FileManagement
                 };
             }
         }
+
+        public static string[] SupportRequestAttachments
+        {
+            get
+            {
+                return new string[]
+                {
+                    "MasterISS",
+                    "Support Request Attachments"
+                };
+            }
+        }
     }
 }

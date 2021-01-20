@@ -51,5 +51,13 @@ namespace RadiusR.FileManagement
             results = InternalFileManager.EnterDirectoryPath(path);
             return results;
         }
+
+        private IEnumerable<string> GetIdPathPartition(long id)
+        {
+            var upperStage = id / 1000;
+            var upperPath = $"{((upperStage * 1000) + 1):0000000}-{((upperStage + 1) * 1000):0000000}";
+            var lowerPath = $"{id:#0000}";
+            return new string[] { upperPath, lowerPath };
+        }
     }
 }

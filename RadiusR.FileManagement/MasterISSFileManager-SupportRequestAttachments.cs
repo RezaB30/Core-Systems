@@ -10,41 +10,38 @@ namespace RadiusR.FileManagement
 {
     public partial class MasterISSFileManager
     {
-        private string GetClientAttachmentsPath(long subscriberId)
+        private string GetSupportRequestAttachmentsPath(long supportRequestId)
         {
-            //var upperStage = subscriberId / 1000;
-            //var upperPath = $"{((upperStage * 1000) + 1):0000000}-{((upperStage + 1) * 1000):0000000}";
-            //var lowerPath = $"{subscriberId:#0000}";
-            var resultPathParts = PathRepository.ClientAttachments.Concat(GetIdPathPartition(subscriberId));
+            var resultPathParts = PathRepository.SupportRequestAttachments.Concat(GetIdPathPartition(supportRequestId));
             var resulPath = string.Join(InternalFileManager.PathSeparator, resultPathParts);
 
             return resulPath;
         }
 
-        public FileManagerResult<IEnumerable<FileManagerClientAttachment>> GetClientAttachmentsList(long subscriberId)
+        public FileManagerResult<IEnumerable<FileManagerSupportRequestAttachment>> GetSupportRequestAttachmentList(long supportRequestId)
         {
-            var searchPath = GetClientAttachmentsPath(subscriberId);
+            var searchPath = GetSupportRequestAttachmentsPath(supportRequestId);
             InternalFileManager.GoToRootDirectory();
             var result = InternalFileManager.EnterDirectoryPath(searchPath);
             if (!result.Result)
             {
-                return new FileManagerResult<IEnumerable<FileManagerClientAttachment>>(Enumerable.Empty<FileManagerClientAttachment>(), result.InternalException);
+                return new FileManagerResult<IEnumerable<FileManagerSupportRequestAttachment>>(Enumerable.Empty<FileManagerSupportRequestAttachment>(), result.InternalException);
             }
             var fileListResult = InternalFileManager.GetFileList();
             if (fileListResult.InternalException != null)
             {
-                return new FileManagerResult<IEnumerable<FileManagerClientAttachment>>(null, fileListResult.InternalException);
+                return new FileManagerResult<IEnumerable<FileManagerSupportRequestAttachment>>(null, fileListResult.InternalException);
             }
             else if (fileListResult.Result != null)
             {
-                return new FileManagerResult<IEnumerable<FileManagerClientAttachment>>(fileListResult.Result.Select(fileName => new FileManagerClientAttachment(fileName)));
+                return new FileManagerResult<IEnumerable<FileManagerSupportRequestAttachment>>(fileListResult.Result.Select(fileName => new FileManagerSupportRequestAttachment(fileName)));
             }
-            return new FileManagerResult<IEnumerable<FileManagerClientAttachment>>(Enumerable.Empty<FileManagerClientAttachment>());
+            return new FileManagerResult<IEnumerable<FileManagerSupportRequestAttachment>>(Enumerable.Empty<FileManagerSupportRequestAttachment>());
         }
 
-        public FileManagerResult<bool> SaveClientAttachment(long subscriberId, FileManagerClientAttachmentWithContent attachment)
+        public FileManagerResult<bool> SaveSupportRequestAttachment(long supportRequestId, FileManagerSupportRequestAttachmentWithContent attachment)
         {
-            var destinationPath = GetClientAttachmentsPath(subscriberId);
+            var destinationPath = GetSupportRequestAttachmentsPath(supportRequestId);
             InternalFileManager.GoToRootDirectory();
             var result = CreateAndEnterPath(destinationPath);
             if (!result.Result)
@@ -66,32 +63,32 @@ namespace RadiusR.FileManagement
             return result;
         }
 
-        public FileManagerResult<FileManagerClientAttachmentWithContent> GetClientAttachment(long subscriberId, string fileName)
+        public FileManagerResult<FileManagerSupportRequestAttachmentWithContent> GetSupportRequestAttachment(long supportRequestId, string fileName)
         {
-            var destinationPath = GetClientAttachmentsPath(subscriberId);
+            var destinationPath = GetSupportRequestAttachmentsPath(supportRequestId);
             InternalFileManager.GoToRootDirectory();
             var result = InternalFileManager.EnterDirectoryPath(destinationPath);
             if (result.InternalException != null)
             {
-                return new FileManagerResult<FileManagerClientAttachmentWithContent>(result.InternalException);
+                return new FileManagerResult<FileManagerSupportRequestAttachmentWithContent>(result.InternalException);
             }
             else if (!result.Result)
             {
-                return new FileManagerResult<FileManagerClientAttachmentWithContent>(new InvalidOperationException("File not found!"));
+                return new FileManagerResult<FileManagerSupportRequestAttachmentWithContent>(new InvalidOperationException("File not found!"));
             }
 
             var fileResult = InternalFileManager.GetFile(fileName);
             if (fileResult.InternalException != null)
             {
-                return new FileManagerResult<FileManagerClientAttachmentWithContent>(fileResult.InternalException);
+                return new FileManagerResult<FileManagerSupportRequestAttachmentWithContent>(fileResult.InternalException);
             }
 
-            return new FileManagerResult<FileManagerClientAttachmentWithContent>(new FileManagerClientAttachmentWithContent(fileResult.Result, new FileManagerClientAttachment(fileName)));
+            return new FileManagerResult<FileManagerSupportRequestAttachmentWithContent>(new FileManagerSupportRequestAttachmentWithContent(fileResult.Result, new FileManagerSupportRequestAttachment(fileName)));
         }
 
-        public FileManagerResult<bool> RemoveClientAttachment(long subscriberId, string fileName)
+        public FileManagerResult<bool> RemoveSupportRequestAttachment(long supportRequestId, string fileName)
         {
-            var destinationPath = GetClientAttachmentsPath(subscriberId);
+            var destinationPath = GetSupportRequestAttachmentsPath(supportRequestId);
             InternalFileManager.GoToRootDirectory();
             var result = InternalFileManager.EnterDirectoryPath(destinationPath);
             if (result.InternalException != null)

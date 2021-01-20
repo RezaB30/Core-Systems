@@ -84,6 +84,31 @@ namespace RadiusR.FileManagement.TestUnit
             this.label11 = new System.Windows.Forms.Label();
             this.BTKLogTypeCombobox = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.SupportRequestAttachmentsTabpage = new System.Windows.Forms.TabPage();
+            this.label13 = new System.Windows.Forms.Label();
+            this.SupportRequestIDNumeric = new System.Windows.Forms.NumericUpDown();
+            this.LocalSupportAttachmentListbox = new System.Windows.Forms.ListBox();
+            this.ServerSupportAttachmentListbox = new System.Windows.Forms.ListBox();
+            this.GetSupportAttachmentsButton = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.AddLocalSupportAttachmentButton = new System.Windows.Forms.Button();
+            this.UploadSupportAttachmentButton = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
+            this.SupportAttachmentStageIDNumeric = new System.Windows.Forms.NumericUpDown();
+            this.SupportAttachmentDetailPanel = new System.Windows.Forms.Panel();
+            this.DeleteSupportAttachmentButton = new System.Windows.Forms.Button();
+            this.SupportAttachmentFileNameTextbox = new System.Windows.Forms.TextBox();
+            this.SupportAttachmentExtentionLabel = new System.Windows.Forms.Label();
+            this.SupportAttachmentCreationDateLabel = new System.Windows.Forms.Label();
+            this.SupportAttachmentStageIDLabel = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.SaveSupportAttachmentButton = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.SupportAttachmentSentNameLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ArchiveNoNumeric)).BeginInit();
             this.MainTabcontrol.SuspendLayout();
             this.ClientAttachmentsTabpage.SuspendLayout();
@@ -94,6 +119,10 @@ namespace RadiusR.FileManagement.TestUnit
             this.MailFilesTabpage.SuspendLayout();
             this.ContractMailBodyGroupbox.SuspendLayout();
             this.BTKLogsTabpage.SuspendLayout();
+            this.SupportRequestAttachmentsTabpage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SupportRequestIDNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SupportAttachmentStageIDNumeric)).BeginInit();
+            this.SupportAttachmentDetailPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // label4
@@ -218,6 +247,7 @@ namespace RadiusR.FileManagement.TestUnit
             this.MainTabcontrol.Controls.Add(this.PDFFormsTabpage);
             this.MainTabcontrol.Controls.Add(this.MailFilesTabpage);
             this.MainTabcontrol.Controls.Add(this.BTKLogsTabpage);
+            this.MainTabcontrol.Controls.Add(this.SupportRequestAttachmentsTabpage);
             this.MainTabcontrol.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainTabcontrol.Location = new System.Drawing.Point(0, 0);
             this.MainTabcontrol.Multiline = true;
@@ -685,6 +715,292 @@ namespace RadiusR.FileManagement.TestUnit
             this.label10.TabIndex = 0;
             this.label10.Text = "Log Type:";
             // 
+            // SupportRequestAttachmentsTabpage
+            // 
+            this.SupportRequestAttachmentsTabpage.BackColor = System.Drawing.SystemColors.Control;
+            this.SupportRequestAttachmentsTabpage.Controls.Add(this.SupportAttachmentDetailPanel);
+            this.SupportRequestAttachmentsTabpage.Controls.Add(this.SupportAttachmentStageIDNumeric);
+            this.SupportRequestAttachmentsTabpage.Controls.Add(this.label16);
+            this.SupportRequestAttachmentsTabpage.Controls.Add(this.UploadSupportAttachmentButton);
+            this.SupportRequestAttachmentsTabpage.Controls.Add(this.AddLocalSupportAttachmentButton);
+            this.SupportRequestAttachmentsTabpage.Controls.Add(this.label15);
+            this.SupportRequestAttachmentsTabpage.Controls.Add(this.label14);
+            this.SupportRequestAttachmentsTabpage.Controls.Add(this.GetSupportAttachmentsButton);
+            this.SupportRequestAttachmentsTabpage.Controls.Add(this.ServerSupportAttachmentListbox);
+            this.SupportRequestAttachmentsTabpage.Controls.Add(this.LocalSupportAttachmentListbox);
+            this.SupportRequestAttachmentsTabpage.Controls.Add(this.SupportRequestIDNumeric);
+            this.SupportRequestAttachmentsTabpage.Controls.Add(this.label13);
+            this.SupportRequestAttachmentsTabpage.Location = new System.Drawing.Point(4, 22);
+            this.SupportRequestAttachmentsTabpage.Name = "SupportRequestAttachmentsTabpage";
+            this.SupportRequestAttachmentsTabpage.Size = new System.Drawing.Size(1064, 442);
+            this.SupportRequestAttachmentsTabpage.TabIndex = 4;
+            this.SupportRequestAttachmentsTabpage.Text = "Support Request Attachments";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(650, 12);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(104, 13);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Support Request ID:";
+            // 
+            // SupportRequestIDNumeric
+            // 
+            this.SupportRequestIDNumeric.Location = new System.Drawing.Point(760, 10);
+            this.SupportRequestIDNumeric.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.SupportRequestIDNumeric.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.SupportRequestIDNumeric.Name = "SupportRequestIDNumeric";
+            this.SupportRequestIDNumeric.Size = new System.Drawing.Size(120, 20);
+            this.SupportRequestIDNumeric.TabIndex = 1;
+            this.SupportRequestIDNumeric.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // LocalSupportAttachmentListbox
+            // 
+            this.LocalSupportAttachmentListbox.FormattingEnabled = true;
+            this.LocalSupportAttachmentListbox.Location = new System.Drawing.Point(8, 66);
+            this.LocalSupportAttachmentListbox.Name = "LocalSupportAttachmentListbox";
+            this.LocalSupportAttachmentListbox.Size = new System.Drawing.Size(404, 251);
+            this.LocalSupportAttachmentListbox.TabIndex = 2;
+            this.LocalSupportAttachmentListbox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.LocalSupportAttachmentListbox_KeyUp);
+            // 
+            // ServerSupportAttachmentListbox
+            // 
+            this.ServerSupportAttachmentListbox.FormattingEnabled = true;
+            this.ServerSupportAttachmentListbox.Location = new System.Drawing.Point(653, 66);
+            this.ServerSupportAttachmentListbox.Name = "ServerSupportAttachmentListbox";
+            this.ServerSupportAttachmentListbox.Size = new System.Drawing.Size(403, 251);
+            this.ServerSupportAttachmentListbox.TabIndex = 3;
+            this.ServerSupportAttachmentListbox.SelectedIndexChanged += new System.EventHandler(this.ServerSupportAttachmentListbox_SelectedIndexChanged);
+            // 
+            // GetSupportAttachmentsButton
+            // 
+            this.GetSupportAttachmentsButton.Location = new System.Drawing.Point(886, 7);
+            this.GetSupportAttachmentsButton.Name = "GetSupportAttachmentsButton";
+            this.GetSupportAttachmentsButton.Size = new System.Drawing.Size(113, 23);
+            this.GetSupportAttachmentsButton.TabIndex = 4;
+            this.GetSupportAttachmentsButton.Text = "Get Attachments";
+            this.GetSupportAttachmentsButton.UseVisualStyleBackColor = true;
+            this.GetSupportAttachmentsButton.Click += new System.EventHandler(this.GetSupportAttachmentsButton_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(9, 47);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(36, 13);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "Local:";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(650, 47);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(41, 13);
+            this.label15.TabIndex = 5;
+            this.label15.Text = "Server:";
+            // 
+            // AddLocalSupportAttachmentButton
+            // 
+            this.AddLocalSupportAttachmentButton.Location = new System.Drawing.Point(8, 324);
+            this.AddLocalSupportAttachmentButton.Name = "AddLocalSupportAttachmentButton";
+            this.AddLocalSupportAttachmentButton.Size = new System.Drawing.Size(75, 23);
+            this.AddLocalSupportAttachmentButton.TabIndex = 6;
+            this.AddLocalSupportAttachmentButton.Text = "Add File";
+            this.AddLocalSupportAttachmentButton.UseVisualStyleBackColor = true;
+            this.AddLocalSupportAttachmentButton.Click += new System.EventHandler(this.AddLocalSupportAttachmentButton_Click);
+            // 
+            // UploadSupportAttachmentButton
+            // 
+            this.UploadSupportAttachmentButton.Location = new System.Drawing.Point(419, 293);
+            this.UploadSupportAttachmentButton.Name = "UploadSupportAttachmentButton";
+            this.UploadSupportAttachmentButton.Size = new System.Drawing.Size(75, 23);
+            this.UploadSupportAttachmentButton.TabIndex = 7;
+            this.UploadSupportAttachmentButton.Text = "Upload >";
+            this.UploadSupportAttachmentButton.UseVisualStyleBackColor = true;
+            this.UploadSupportAttachmentButton.Click += new System.EventHandler(this.UploadSupportAttachmentButton_Click);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(497, 278);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(77, 13);
+            this.label16.TabIndex = 8;
+            this.label16.Text = "With Stage ID:";
+            // 
+            // SupportAttachmentStageIDNumeric
+            // 
+            this.SupportAttachmentStageIDNumeric.Location = new System.Drawing.Point(500, 294);
+            this.SupportAttachmentStageIDNumeric.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.SupportAttachmentStageIDNumeric.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.SupportAttachmentStageIDNumeric.Name = "SupportAttachmentStageIDNumeric";
+            this.SupportAttachmentStageIDNumeric.Size = new System.Drawing.Size(147, 20);
+            this.SupportAttachmentStageIDNumeric.TabIndex = 9;
+            this.SupportAttachmentStageIDNumeric.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // SupportAttachmentDetailPanel
+            // 
+            this.SupportAttachmentDetailPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SupportAttachmentDetailPanel.Controls.Add(this.SupportAttachmentSentNameLabel);
+            this.SupportAttachmentDetailPanel.Controls.Add(this.DeleteSupportAttachmentButton);
+            this.SupportAttachmentDetailPanel.Controls.Add(this.SupportAttachmentFileNameTextbox);
+            this.SupportAttachmentDetailPanel.Controls.Add(this.SupportAttachmentExtentionLabel);
+            this.SupportAttachmentDetailPanel.Controls.Add(this.SupportAttachmentCreationDateLabel);
+            this.SupportAttachmentDetailPanel.Controls.Add(this.SupportAttachmentStageIDLabel);
+            this.SupportAttachmentDetailPanel.Controls.Add(this.label20);
+            this.SupportAttachmentDetailPanel.Controls.Add(this.label21);
+            this.SupportAttachmentDetailPanel.Controls.Add(this.label22);
+            this.SupportAttachmentDetailPanel.Controls.Add(this.label17);
+            this.SupportAttachmentDetailPanel.Controls.Add(this.label23);
+            this.SupportAttachmentDetailPanel.Controls.Add(this.SaveSupportAttachmentButton);
+            this.SupportAttachmentDetailPanel.Location = new System.Drawing.Point(653, 330);
+            this.SupportAttachmentDetailPanel.Name = "SupportAttachmentDetailPanel";
+            this.SupportAttachmentDetailPanel.Size = new System.Drawing.Size(404, 104);
+            this.SupportAttachmentDetailPanel.TabIndex = 12;
+            this.SupportAttachmentDetailPanel.Visible = false;
+            // 
+            // DeleteSupportAttachmentButton
+            // 
+            this.DeleteSupportAttachmentButton.Location = new System.Drawing.Point(3, 76);
+            this.DeleteSupportAttachmentButton.Name = "DeleteSupportAttachmentButton";
+            this.DeleteSupportAttachmentButton.Size = new System.Drawing.Size(75, 23);
+            this.DeleteSupportAttachmentButton.TabIndex = 16;
+            this.DeleteSupportAttachmentButton.Text = "Delete";
+            this.DeleteSupportAttachmentButton.UseVisualStyleBackColor = true;
+            this.DeleteSupportAttachmentButton.Click += new System.EventHandler(this.DeleteSupportAttachmentButton_Click);
+            // 
+            // SupportAttachmentFileNameTextbox
+            // 
+            this.SupportAttachmentFileNameTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.SupportAttachmentFileNameTextbox.Location = new System.Drawing.Point(88, 58);
+            this.SupportAttachmentFileNameTextbox.Name = "SupportAttachmentFileNameTextbox";
+            this.SupportAttachmentFileNameTextbox.ReadOnly = true;
+            this.SupportAttachmentFileNameTextbox.Size = new System.Drawing.Size(311, 13);
+            this.SupportAttachmentFileNameTextbox.TabIndex = 15;
+            this.SupportAttachmentFileNameTextbox.WordWrap = false;
+            // 
+            // SupportAttachmentExtentionLabel
+            // 
+            this.SupportAttachmentExtentionLabel.AutoSize = true;
+            this.SupportAttachmentExtentionLabel.Location = new System.Drawing.Point(85, 40);
+            this.SupportAttachmentExtentionLabel.Name = "SupportAttachmentExtentionLabel";
+            this.SupportAttachmentExtentionLabel.Size = new System.Drawing.Size(10, 13);
+            this.SupportAttachmentExtentionLabel.TabIndex = 14;
+            this.SupportAttachmentExtentionLabel.Text = "-";
+            // 
+            // SupportAttachmentCreationDateLabel
+            // 
+            this.SupportAttachmentCreationDateLabel.AutoSize = true;
+            this.SupportAttachmentCreationDateLabel.Location = new System.Drawing.Point(85, 22);
+            this.SupportAttachmentCreationDateLabel.Name = "SupportAttachmentCreationDateLabel";
+            this.SupportAttachmentCreationDateLabel.Size = new System.Drawing.Size(10, 13);
+            this.SupportAttachmentCreationDateLabel.TabIndex = 13;
+            this.SupportAttachmentCreationDateLabel.Text = "-";
+            // 
+            // SupportAttachmentStageIDLabel
+            // 
+            this.SupportAttachmentStageIDLabel.AutoSize = true;
+            this.SupportAttachmentStageIDLabel.Location = new System.Drawing.Point(85, 4);
+            this.SupportAttachmentStageIDLabel.Name = "SupportAttachmentStageIDLabel";
+            this.SupportAttachmentStageIDLabel.Size = new System.Drawing.Size(10, 13);
+            this.SupportAttachmentStageIDLabel.TabIndex = 12;
+            this.SupportAttachmentStageIDLabel.Text = "-";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label20.Location = new System.Drawing.Point(3, 58);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(57, 13);
+            this.label20.TabIndex = 11;
+            this.label20.Text = "File Name:";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label21.Location = new System.Drawing.Point(3, 40);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(54, 13);
+            this.label21.TabIndex = 11;
+            this.label21.Text = "Extention:";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label22.Location = new System.Drawing.Point(3, 22);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(75, 13);
+            this.label22.TabIndex = 11;
+            this.label22.Text = "Creation Date:";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label23.Location = new System.Drawing.Point(3, 4);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(52, 13);
+            this.label23.TabIndex = 11;
+            this.label23.Text = "Stage ID:";
+            // 
+            // SaveSupportAttachmentButton
+            // 
+            this.SaveSupportAttachmentButton.Location = new System.Drawing.Point(324, 76);
+            this.SaveSupportAttachmentButton.Name = "SaveSupportAttachmentButton";
+            this.SaveSupportAttachmentButton.Size = new System.Drawing.Size(75, 23);
+            this.SaveSupportAttachmentButton.TabIndex = 10;
+            this.SaveSupportAttachmentButton.Text = "Download";
+            this.SaveSupportAttachmentButton.UseVisualStyleBackColor = true;
+            this.SaveSupportAttachmentButton.Click += new System.EventHandler(this.SaveSupportAttachmentButton_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label17.Location = new System.Drawing.Point(84, 81);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(63, 13);
+            this.label17.TabIndex = 11;
+            this.label17.Text = "Sent Name:";
+            // 
+            // SupportAttachmentSentNameLabel
+            // 
+            this.SupportAttachmentSentNameLabel.AutoSize = true;
+            this.SupportAttachmentSentNameLabel.Location = new System.Drawing.Point(153, 81);
+            this.SupportAttachmentSentNameLabel.Name = "SupportAttachmentSentNameLabel";
+            this.SupportAttachmentSentNameLabel.Size = new System.Drawing.Size(10, 13);
+            this.SupportAttachmentSentNameLabel.TabIndex = 17;
+            this.SupportAttachmentSentNameLabel.Text = "-";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -712,6 +1028,12 @@ namespace RadiusR.FileManagement.TestUnit
             this.ContractMailBodyGroupbox.PerformLayout();
             this.BTKLogsTabpage.ResumeLayout(false);
             this.BTKLogsTabpage.PerformLayout();
+            this.SupportRequestAttachmentsTabpage.ResumeLayout(false);
+            this.SupportRequestAttachmentsTabpage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SupportRequestIDNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SupportAttachmentStageIDNumeric)).EndInit();
+            this.SupportAttachmentDetailPanel.ResumeLayout(false);
+            this.SupportAttachmentDetailPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -772,6 +1094,31 @@ namespace RadiusR.FileManagement.TestUnit
         private System.Windows.Forms.Button ListContractMailBodiesButton;
         private System.Windows.Forms.ListBox ContractMailBodiesListbox;
         private System.Windows.Forms.Button ContractAppendixExistsButton;
+        private System.Windows.Forms.TabPage SupportRequestAttachmentsTabpage;
+        private System.Windows.Forms.NumericUpDown SupportRequestIDNumeric;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ListBox LocalSupportAttachmentListbox;
+        private System.Windows.Forms.ListBox ServerSupportAttachmentListbox;
+        private System.Windows.Forms.Button GetSupportAttachmentsButton;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button AddLocalSupportAttachmentButton;
+        private System.Windows.Forms.Button UploadSupportAttachmentButton;
+        private System.Windows.Forms.NumericUpDown SupportAttachmentStageIDNumeric;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Panel SupportAttachmentDetailPanel;
+        private System.Windows.Forms.Button DeleteSupportAttachmentButton;
+        private System.Windows.Forms.TextBox SupportAttachmentFileNameTextbox;
+        private System.Windows.Forms.Label SupportAttachmentExtentionLabel;
+        private System.Windows.Forms.Label SupportAttachmentCreationDateLabel;
+        private System.Windows.Forms.Label SupportAttachmentStageIDLabel;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Button SaveSupportAttachmentButton;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label SupportAttachmentSentNameLabel;
     }
 }
 

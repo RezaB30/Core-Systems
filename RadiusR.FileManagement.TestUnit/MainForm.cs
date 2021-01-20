@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RadiusR.FileManagement.SpecialFiles;
 
 namespace RadiusR.FileManagement.TestUnit
 {
@@ -57,6 +58,20 @@ namespace RadiusR.FileManagement.TestUnit
             else if (result.Result != null)
             {
                 ClientAttachmentsListbox.Items.AddRange(result.Result.ToArray());
+            }
+        }
+
+        private void GetSupportAttachments()
+        {
+            ServerSupportAttachmentListbox.Items.Clear();
+            var result = FileManager.GetSupportRequestAttachmentList((long)SupportRequestIDNumeric.Value);
+            if (result.InternalException != null)
+            {
+                ShowError(result.InternalException);
+            }
+            else if (result.Result != null)
+            {
+                ServerSupportAttachmentListbox.Items.AddRange(result.Result.ToArray());
             }
         }
 
@@ -118,11 +133,11 @@ namespace RadiusR.FileManagement.TestUnit
         private void UploadAttachmentsButton_Click(object sender, EventArgs e)
         {
             var attachmentType = (ClientAttachmentTypes)Enum.Parse(typeof(ClientAttachmentTypes), UploadAttachmentTypeCombobox.SelectedItem as string);
-            foreach (string item in LocalAttachmentsListbox.SelectedItems)
+            foreach (string item in LocalAttachmentsListbox.Items)
             {
                 using (var fileStream = File.OpenRead(item))
                 {
-                    var attachment = new FileManagerClientAttachmentWithContent(fileStream, attachmentType, item.Substring(item.LastIndexOf('.') + 1));
+                    var attachment = new FileManagerClientAttachmentWithContent(fileStream, new FileManagerClientAttachment(attachmentType, item.Substring(item.LastIndexOf('.') + 1)));
                     var result = FileManager.SaveClientAttachment((long)ArchiveNoNumeric.Value, attachment);
                     if (result.InternalException != null)
                     {
@@ -502,6 +517,137 @@ namespace RadiusR.FileManagement.TestUnit
             else
             {
                 MessageBox.Show("Does not exist", "Check Contract Appendix Exists", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void GetSupportAttachmentsButton_Click(object sender, EventArgs e)
+        {
+            GetSupportAttachments();
+        }
+
+        private void AddLocalSupportAttachmentButton_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.CheckFileExists = dialog.CheckFileExists = dialog.Multiselect = true;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                LocalSupportAttachmentListbox.Items.AddRange(dialog.FileNames);
+            }
+        }
+
+        private void LocalSupportAttachmentListbox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                var toRemove = LocalSupportAttachmentListbox.SelectedItems.Cast<string>().ToArray();
+                foreach (var item in toRemove)
+                {
+                    LocalSupportAttachmentListbox.Items.Remove(item);
+                }
+            }
+        }
+
+        private void ServerSupportAttachmentListbox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ServerSupportAttachmentListbox.SelectedItem != null)
+            {
+                var currentAttachment = ServerSupportAttachmentListbox.SelectedItem as FileManagerSupportRequestAttachment;
+                if (currentAttachment == null)
+                {
+                    AttachmentDetailsPanel.Visible = false;
+                    return;
+                }
+                SupportAttachmentStageIDLabel.Text = currentAttachment.StageId.ToString();
+                SupportAttachmentCreationDateLabel.Text = currentAttachment.CreationDate.ToString("yyyy-MM-dd HH:mm:ss.fff");
+                SupportAttachmentExtentionLabel.Text = currentAttachment.FileExtention;
+                SupportAttachmentFileNameTextbox.Text = currentAttachment.ServerSideName;
+                SupportAttachmentSentNameLabel.Text = currentAttachment.FileName;
+                SupportAttachmentDetailPanel.Visible = true;
+            }
+            else
+            {
+                AttachmentDetailsPanel.Visible = false;
+            }
+        }
+
+        private void UploadSupportAttachmentButton_Click(object sender, EventArgs e)
+        {
+            var supportRequestId = (long)SupportRequestIDNumeric.Value;
+            var stageId = (long)SupportAttachmentStageIDNumeric.Value;
+            foreach (string item in LocalSupportAttachmentListbox.Items)
+            {
+                var fileInfo = new FileInfo(item);
+                using (var fileStream = File.OpenRead(item))
+                {
+                    var attachment = new FileManagerSupportRequestAttachmentWithContent(fileStream, new FileManagerSupportRequestAttachment(stageId, Path.GetFileNameWithoutExtension(item), item.Substring(item.LastIndexOf('.') + 1)));
+                    var result = FileManager.SaveSupportRequestAttachment(supportRequestId, attachment);
+                    if (result.InternalException != null)
+                    {
+                        ShowError(result.InternalException);
+                        break;
+                    }
+                }
+            }
+
+            GetSupportAttachments();
+        }
+
+        private void SaveSupportAttachmentButton_Click(object sender, EventArgs e)
+        {
+            if (ServerSupportAttachmentListbox.SelectedItem != null)
+            {
+                var currentAttachment = ServerSupportAttachmentListbox.SelectedItem as FileManagerSupportRequestAttachment;
+                if (currentAttachment == null)
+                {
+                    AttachmentDetailsPanel.Visible = false;
+                    return;
+                }
+                var dialog = new SaveFileDialog();
+                dialog.Filter = $"Server File|*.{currentAttachment.FileExtention}";
+                dialog.DefaultExt = currentAttachment.FileExtention;
+                dialog.AddExtension = true;
+                dialog.FileName = currentAttachment.FileName;
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (var result = FileManager.GetSupportRequestAttachment((long)SupportRequestIDNumeric.Value, currentAttachment.ServerSideName))
+                    {
+                        if (result.InternalException != null)
+                        {
+                            ShowError(result.InternalException);
+                        }
+                        else
+                        {
+                            try
+                            {
+                                using (var fileStream = File.Create(dialog.FileName))
+                                {
+                                    result.Result.Content.CopyTo(fileStream);
+                                    fileStream.Flush();
+                                    fileStream.Close();
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                ShowError(ex);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void DeleteSupportAttachmentButton_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure?", "Delete Support Request Attachment", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                var result = FileManager.RemoveSupportRequestAttachment((long)SupportRequestIDNumeric.Value, ServerSupportAttachmentListbox.SelectedItem.ToString());
+                if (result.InternalException != null)
+                {
+                    ShowError(result.InternalException);
+                    return;
+                }
+
+                GetSupportAttachments();
             }
         }
     }

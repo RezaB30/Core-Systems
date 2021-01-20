@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RadiusR.FileManagement
+namespace RadiusR.FileManagement.SpecialFiles
 {
     public enum ClientAttachmentTypes
     {

@@ -58,18 +58,24 @@
   <ItemGroup>
     <Compile Include="BTKLogFile.cs" />
     <Compile Include="BTKLogging\BTKLogUtilities.cs" />
-    <Compile Include="ClientAttachmentTypes.cs" />
+    <Compile Include="SpecialFiles\ClientAttachmentTypes.cs" />
     <Compile Include="FileManagerBasicFile.cs" />
-    <Compile Include="FileManagerClientAttachment.cs" />
-    <Compile Include="FileManagerClientAttachmentWithContent.cs" />
+    <Compile Include="SpecialFiles\FileHashUtility.cs" />
+    <Compile Include="SpecialFiles\FileManagerClientAttachment.cs" />
+    <Compile Include="SpecialFiles\FileManagerClientAttachmentWithContent.cs" />
     <Compile Include="MasterISSFileManager-BTKLogs.cs" />
     <Compile Include="MasterISSFileManager-ClientAttachments.cs" />
     <Compile Include="MasterISSFileManager-MailFiles.cs" />
     <Compile Include="MasterISSFileManager-PDFFiles.cs" />
     <Compile Include="MasterISSFileManager.cs" />
+    <Compile Include="MasterISSFileManager-SupportRequestAttachments.cs" />
     <Compile Include="MIMEUtility.cs" />
     <Compile Include="PathRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpecialFiles\FileManagerSpecialFileBase.cs" />
+    <Compile Include="SpecialFiles\FileManagerSpecialFileWithContent.cs" />
+    <Compile Include="SpecialFiles\FileManagerSupportRequestAttachment.cs" />
+    <Compile Include="SpecialFiles\FileManagerSupportRequestAttachmentWithContent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -80,5 +86,6 @@
       <Name>RadiusR.DB</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
