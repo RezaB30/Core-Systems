@@ -120,6 +120,9 @@
   <data name="EmailBodyParametersWarning" xml:space="preserve">
     <value>Tüm ([fullName]) metinleri müşteri adıyla değiştirilecektir.</value>
   </data>
+  <data name="MaximumFileSize" xml:space="preserve">
+    <value>İzin verilen maksimum dosya boyutu {0}MB'tır.</value>
+  </data>
   <data name="SupportRequestFinishWarning" xml:space="preserve">
     <value>Bu istek müşteriye görünürse, bu mesaj müşteri tarafından görülecektir.</value>
   </data>

@@ -1157,6 +1157,10 @@ namespace RadiusR_Manager.Controllers
                         ModelState.AddModelError(item.Key, item.FirstOrDefault());
                     }
                 }
+                else if (referrerSubscription.ID == dbSubscription.ID)
+                {
+                    ModelState.AddModelError("ReferenceNo", RadiusR.Localization.Validation.ModelSpecific.SelfReferralDiscount);
+                }
                 else
                 {
                     var discount = new RecurringDiscount(specialOffer);

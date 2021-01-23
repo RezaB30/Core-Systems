@@ -250,7 +250,7 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Can not remove province while it has relative data..
+        ///   Looks up a localized string similar to Request updated but file upload was unsuccessful..
         /// </summary>
         public static string _28 {
             get {

@@ -288,4 +288,10 @@
   <data name="WebsiteServicesUsername" xml:space="preserve">
     <value>Web Site Servislerinin Kullanıcı Adı</value>
   </data>
+  <data name="MaxSupportAttachmentPerRequest" xml:space="preserve">
+    <value>İstek Başına, Dosya Eklenti Sayısı</value>
+  </data>
+  <data name="MaxSupportAttachmentSize" xml:space="preserve">
+    <value>Destek Ek Dosyasının Maks. Boyutu</value>
+  </data>
 </root>

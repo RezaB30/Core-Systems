@@ -15,7 +15,7 @@ namespace RadiusR_Manager.Models.ViewModels
         [UIHint("ExactTime")]
         public DateTime CreationDate { get; set; }
 
-        [EnumType(typeof(RadiusR.FileManagement.ClientAttachmentTypes), typeof(RadiusR.Localization.Lists.ClientAttachmentTypes))]
+        [EnumType(typeof(RadiusR.FileManagement.SpecialFiles.ClientAttachmentTypes), typeof(RadiusR.Localization.Lists.ClientAttachmentTypes))]
         [UIHint("LocalizedList")]
         public short AttachmentType { get; set; }
 

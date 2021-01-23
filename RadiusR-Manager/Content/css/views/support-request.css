@@ -130,6 +130,27 @@ div.support-request-stage-row {
     background-size: 1.5em;
 }
 
+    div.support-request-stage-row.attachments-row a {
+        display: inline-block;
+        background-image: url('../../Images/Buttons/paper-clip.svg');
+        background-repeat: no-repeat;
+        background-position-x: 0.1em;
+        background-position-y: center;
+        background-size: 1em;
+        padding: 0.2em 0.2em 0.2em 1.2em;
+        background-color: #355e62;
+        border-radius: 0.3em;
+        color: #ddd;
+        margin: 0.1em;
+        transition: 0.2s all ease;
+    }
+
+        div.support-request-stage-row.attachments-row a:hover {
+            background-color: #623535;
+            text-decoration: underline;
+            color: aliceblue;
+        }
+
 td.support-request-stage-separator {
     border-bottom: 2px dashed gray;
 }

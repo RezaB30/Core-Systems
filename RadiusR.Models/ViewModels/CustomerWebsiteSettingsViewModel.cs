@@ -43,6 +43,18 @@ namespace RadiusR_Manager.Models.ViewModels
         [SettingElement]
         public string WebsiteServicesPassword { get; set; }
 
+        [Display(ResourceType = typeof(RadiusR.Localization.AppSettings.Names), Name = "MaxSupportAttachmentSize")]
+        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
+        [PositiveLong(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "PositiveLong")]
+        [UIHint("TrafficLimit")]
+        public string MaxSupportAttachmentSizeDisplay { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.AppSettings.Names), Name = "MaxSupportAttachmentPerRequest")]
+        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
+        [PositiveInt(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "PositiveInt")]
+        [MaxLength(3, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
+        public string MaxSupportAttachmentPerRequestDisplay { get; set; }
+
         public TimeSpan? _OnlinePasswordDuration
         {
             get
@@ -73,6 +85,38 @@ namespace RadiusR_Manager.Models.ViewModels
             }
         }
 
+        [SettingElement]
+        public long? MaxSupportAttachmentSize
+        {
+            get
+            {
+                long val = 0;
+                if (long.TryParse(MaxSupportAttachmentSizeDisplay, out val))
+                    return val;
+                return null;
+            }
+            set
+            {
+                MaxSupportAttachmentSizeDisplay = value.ToString();
+            }
+        }
+
+        [SettingElement]
+        public int? MaxSupportAttachmentPerRequest
+        {
+            get
+            {
+                int val = 0;
+                if (int.TryParse(MaxSupportAttachmentPerRequestDisplay, out val))
+                    return val;
+                return null;
+            }
+            set
+            {
+                MaxSupportAttachmentPerRequestDisplay = value.ToString();
+            }
+        }
+
         public CustomerWebsiteSettingsViewModel() { }
 
         public CustomerWebsiteSettingsViewModel(bool loadup = false)
@@ -84,6 +128,8 @@ namespace RadiusR_Manager.Models.ViewModels
                 WebsiteServicesInfrastructureDomainID = CustomerWebsiteSettings.WebsiteServicesInfrastructureDomainID;
                 WebsiteServicesUsername = CustomerWebsiteSettings.WebsiteServicesUsername;
                 WebsiteServicesPassword = CustomerWebsiteSettings.WebsiteServicesPassword;
+                MaxSupportAttachmentSize = CustomerWebsiteSettings.MaxSupportAttachmentSize;
+                MaxSupportAttachmentPerRequest = CustomerWebsiteSettings.MaxSupportAttachmentPerRequest;
             }
         }
     }

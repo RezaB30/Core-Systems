@@ -241,6 +241,24 @@ namespace RadiusR.Localization.AppSettings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Max. Support Attachment Per Request.
+        /// </summary>
+        public static string MaxSupportAttachmentPerRequest {
+            get {
+                return ResourceManager.GetString("MaxSupportAttachmentPerRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max. Support Attachment File Size.
+        /// </summary>
+        public static string MaxSupportAttachmentSize {
+            get {
+                return ResourceManager.GetString("MaxSupportAttachmentSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Service Website Password Life.
         /// </summary>
         public static string OnlinePasswordDuration {

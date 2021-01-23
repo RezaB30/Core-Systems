@@ -126,6 +126,9 @@
   <data name="DependentDataError" xml:space="preserve">
     <value>Silinemez, çünkü buna bağlı hareketler var.</value>
   </data>
+  <data name="FileManagerError" xml:space="preserve">
+    <value>Dosya Yöneticisi Hatası: Dosyalara erişim hatası.</value>
+  </data>
   <data name="GenericErrorMessage" xml:space="preserve">
     <value>İşleminiz gerçekleştirilirken bir hata oluştu.</value>
   </data>

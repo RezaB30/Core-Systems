@@ -297,4 +297,7 @@
   <data name="DateBinder" xml:space="preserve">
     <value>{0} doğru bir tarih değil.</value>
   </data>
+  <data name="FileIsTooLarge" xml:space="preserve">
+    <value>Dosya çok büyük.</value>
+  </data>
 </root>

@@ -17,6 +17,8 @@ using RadiusR_Manager.Models.ViewModels.SupportRequestModels;
 using RadiusR.DB.ModelExtentions;
 using RadiusR.SMS;
 using RadiusR.DB.RandomCode;
+using RadiusR.FileManagement;
+using RadiusR.FileManagement.SpecialFiles;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -349,11 +351,77 @@ namespace RadiusR_Manager.Controllers
             return View(viewResults);
         }
 
+        [AjaxCall]
+        [HttpPost]
+        // POST: SupportRequest/RequestAttachmentList
+        public ActionResult RequestAttachmentList(long id, int? groupId)
+        {
+            var currentSupportRequest = db.SupportRequests.Find(id);
+            if (currentSupportRequest == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            var userGroupPermissions = GetSupportRequestPermissions(currentSupportRequest, groupId);
+
+            if (!userGroupPermissions.CanRead)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+            }
+
+            var fileManager = new MasterISSFileManager();
+            var results = fileManager.GetSupportRequestAttachmentList(currentSupportRequest.ID);
+            if (results.InternalException != null)
+            {
+                return Json(new
+                {
+                    errorMessage = RadiusR.Localization.Errors.Common.FileManagerError
+                });
+            }
+
+            return Json(new
+            {
+                errorMessage = (string)null,
+                fileList = results.Result.Select(att => new
+                {
+                    stageId = att.StageId,
+                    fileName = att.FileName,
+                    fileExtention = att.FileExtention,
+                    serverSideName = att.ServerSideName
+                })
+            });
+        }
+
+        [HttpGet]
+        // GET: SupportRequest/GetSupportAttachment
+        public ActionResult GetSupportAttachment(long id, string fileName, int? groupId)
+        {
+            var currentSupportRequest = db.SupportRequests.Find(id);
+            if (currentSupportRequest == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            var userGroupPermissions = GetSupportRequestPermissions(currentSupportRequest, groupId);
+
+            if (!userGroupPermissions.CanRead)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+            }
+
+            var fileManager = new MasterISSFileManager();
+            var result = fileManager.GetSupportRequestAttachment(currentSupportRequest.ID, fileName);
+            if (result.InternalException != null)
+            {
+                return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+            }
+
+            return File(result.Result.Content, result.Result.FileDetail.MIMEType, $"{result.Result.FileDetail.FileName}.{result.Result.FileDetail.FileExtention}");
+        }
+
         [ActionName("Details")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         // POST: SupportRequest/Details
-        public ActionResult ProcessRequest(long id, int? groupId, string returnUrl, [Bind(Prefix = "processParameters")] SupportRequestProcessViewModel processParameters)
+        public ActionResult ProcessRequest(long id, int? groupId, string returnUrl, [Bind(Prefix = "processParameters")] SupportRequestProcessViewModel processParameters, HttpPostedFileBase[] attachments)
         {
             var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
             UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
@@ -366,13 +434,21 @@ namespace RadiusR_Manager.Controllers
             }
             var isCurrentlyAssigned = currentSupportRequest.AssignedGroupID.HasValue;
 
+            // check permissions
             var currentGroupExtendedPermissions = GetSupportRequestPermissions(currentSupportRequest, groupId);
             var currentGroupPermissions = currentGroupExtendedPermissions.BaseClaim;
-            //var currentGroupPermissions = User.GiveSupportGroups().FirstOrDefault(item => item.GroupId == (groupId ?? currentSupportRequest.AssignedGroupID));
             if (currentGroupPermissions == null)
             {
                 UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
                 return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            // check attachments
+            attachments = attachments ?? new HttpPostedFileBase[0];
+            attachments = attachments.Where(att => att != null && att.ContentLength > 0).ToArray();
+            if (attachments.Any(att => att.ContentLength > CustomerWebsiteSettings.MaxSupportAttachmentSize))
+            {
+                ModelState.AddModelError("attachments", RadiusR.Localization.Validation.Common.FileIsTooLarge);
             }
 
             if (processParameters.ActionType.HasValue)
@@ -399,7 +475,22 @@ namespace RadiusR_Manager.Controllers
                                 };
                                 db.SupportRequestProgresses.Add(newSupportRequestPrgress);
                                 db.SaveChanges();
-                                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+
+                                var fileManager = new MasterISSFileManager();
+                                bool errorOccured = false;
+                                foreach (var file in attachments)
+                                {
+                                    var fileName = file.FileName.Substring(0, file.FileName.LastIndexOf('.'));
+                                    var fileExtention = file.FileName.Substring(file.FileName.LastIndexOf('.') + 1);
+                                    var results = fileManager.SaveSupportRequestAttachment(currentSupportRequest.ID, new FileManagerSupportRequestAttachmentWithContent(file.InputStream, new FileManagerSupportRequestAttachment(newSupportRequestPrgress.ID, fileName, fileExtention)));
+                                    if (results.InternalException != null)
+                                        errorOccured = true;
+                                }
+
+                                if (errorOccured)
+                                    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "28", uri);
+                                else
+                                    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
                                 return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
                             }
                         }
@@ -433,6 +524,23 @@ namespace RadiusR_Manager.Controllers
                                 currentSupportRequest.RedirectedGroupID = selectedGroup.ID;
                                 db.SupportRequestProgresses.Add(newSupportRequestPrgress);
                                 db.SaveChanges();
+
+                                var fileManager = new MasterISSFileManager();
+                                bool errorOccured = false;
+                                foreach (var file in attachments)
+                                {
+                                    var fileName = file.FileName.Substring(0, file.FileName.LastIndexOf('.'));
+                                    var fileExtention = file.FileName.Substring(file.FileName.LastIndexOf('.') + 1);
+                                    var results = fileManager.SaveSupportRequestAttachment(currentSupportRequest.ID, new FileManagerSupportRequestAttachmentWithContent(file.InputStream, new FileManagerSupportRequestAttachment(newSupportRequestPrgress.ID, fileName, fileExtention)));
+                                    if (results.InternalException != null)
+                                        errorOccured = true;
+                                }
+
+                                if (errorOccured)
+                                    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "28", uri);
+                                else
+                                    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+
                                 UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
                                 return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
                             }
@@ -477,6 +585,22 @@ namespace RadiusR_Manager.Controllers
                                     db.SaveChanges();
                                 }
 
+                                var fileManager = new MasterISSFileManager();
+                                bool errorOccured = false;
+                                foreach (var file in attachments)
+                                {
+                                    var fileName = file.FileName.Substring(0, file.FileName.LastIndexOf('.'));
+                                    var fileExtention = file.FileName.Substring(file.FileName.LastIndexOf('.') + 1);
+                                    var results = fileManager.SaveSupportRequestAttachment(currentSupportRequest.ID, new FileManagerSupportRequestAttachmentWithContent(file.InputStream, new FileManagerSupportRequestAttachment(newSupportRequestPrgress.ID, fileName, fileExtention)));
+                                    if (results.InternalException != null)
+                                        errorOccured = true;
+                                }
+
+                                if (errorOccured)
+                                    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "28", uri);
+                                else
+                                    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+
                                 UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
                                 return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
                             }
@@ -517,6 +641,22 @@ namespace RadiusR_Manager.Controllers
                                     db.SMSArchives.AddSafely(smsClient.SendSubscriberSMS(currentSupportRequest.Subscription, SMSType.SupportRequestResolved, new Dictionary<string, object>() { { SMSParamaterRepository.SMSParameterNameCollection.SupportPIN, currentSupportRequest.SupportPin } }));
                                     db.SaveChanges();
                                 }
+
+                                var fileManager = new MasterISSFileManager();
+                                bool errorOccured = false;
+                                foreach (var file in attachments)
+                                {
+                                    var fileName = file.FileName.Substring(0, file.FileName.LastIndexOf('.'));
+                                    var fileExtention = file.FileName.Substring(file.FileName.LastIndexOf('.') + 1);
+                                    var results = fileManager.SaveSupportRequestAttachment(currentSupportRequest.ID, new FileManagerSupportRequestAttachmentWithContent(file.InputStream, new FileManagerSupportRequestAttachment(newSupportRequestPrgress.ID, fileName, fileExtention)));
+                                    if (results.InternalException != null)
+                                        errorOccured = true;
+                                }
+
+                                if (errorOccured)
+                                    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "28", uri);
+                                else
+                                    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
 
                                 UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
                                 return Redirect(uri.Uri.PathAndQuery + uri.Fragment);

@@ -126,6 +126,9 @@
   <data name="DependentDataError" xml:space="preserve">
     <value>Can not delete. There are some data dependent on this.</value>
   </data>
+  <data name="FileManagerError" xml:space="preserve">
+    <value>File Manager Error: Error accessing files.</value>
+  </data>
   <data name="GenericErrorMessage" xml:space="preserve">
     <value>An error occurred while processing your request.</value>
   </data>

@@ -29,4 +29,6 @@ function initializePartial(containerId) {
     SetupSubscriptionAddFee(containerId);
     SetupCheckbuttons(containerId);
     SetupTelekomTariffSelector(containerId);
+    SetupFileUploads(containerId);
+    SetupMultiFileUploads(containerId);
 }

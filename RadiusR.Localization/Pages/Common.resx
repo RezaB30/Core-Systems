@@ -1182,4 +1182,7 @@
   <data name="EditExternalUsage" xml:space="preserve">
     <value>Edit External Usage</value>
   </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Attachments</value>
+  </data>
 </root>

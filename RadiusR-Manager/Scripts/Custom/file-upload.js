@@ -1,8 +1,4 @@
-﻿$(document).ready(function () {
-    setupFileUploads();
-});
-
-function setupFileUploads(containerId) {
+﻿function SetupFileUploads(containerId) {
     var container = $("body");
     if (typeof containerId != "undefined")
         container = $(containerId);

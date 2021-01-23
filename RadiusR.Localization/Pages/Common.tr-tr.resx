@@ -1179,4 +1179,7 @@
   <data name="EditExternalUsage" xml:space="preserve">
     <value>Harici Kullanımını Düzenle</value>
   </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Ek Dosyalar</value>
+  </data>
 </root>

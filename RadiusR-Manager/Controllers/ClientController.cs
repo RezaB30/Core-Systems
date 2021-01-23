@@ -32,6 +32,7 @@ using RezaB.Web;
 using RezaB.Data.Localization;
 using RezaB.Data.Formating;
 using RezaB.Web.Authentication;
+using RadiusR.FileManagement.SpecialFiles;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -906,7 +907,7 @@ namespace RadiusR_Manager.Controllers
             {
                 return Content(RadiusR.Localization.Pages.Common.FileManagerError);
             }
-            return File(result.Result.Content, "application/octet-stream", result.Result.ServerSideName);
+            return File(result.Result.Content, "application/octet-stream", result.Result.FileDetail.ServerSideName);
         }
 
         [AuthorizePermission(Permissions = "Client Files")]
@@ -918,7 +919,7 @@ namespace RadiusR_Manager.Controllers
             {
                 return Content(RadiusR.Localization.Pages.Common.FileManagerError);
             }
-            return File(result.Result.Content, result.Result.MIMEType);
+            return File(result.Result.Content, result.Result.FileDetail.MIMEType);
         }
 
         [AuthorizePermission(Permissions = "Edit Client Files")]
@@ -937,13 +938,13 @@ namespace RadiusR_Manager.Controllers
             if (!IsValidAttachmentFileType(fileType))
                 return RedirectToAction("Files", new { id = id, errorMessage = 9 });
             var fileManager = new MasterISSFileManager();
-            var newFile = new FileManagerClientAttachmentWithContent(newAttachment.InputStream, attachmentType, fileType);
+            var newFile = new FileManagerClientAttachmentWithContent(newAttachment.InputStream, new FileManagerClientAttachment(attachmentType, fileType));
             var result = fileManager.SaveClientAttachment(id, newFile);
             if (result.InternalException != null)
             {
                 return Content(RadiusR.Localization.Pages.Common.FileManagerError);
             }
-            db.SystemLogs.Add(SystemLogProcessor.AddFile(newFile.ServerSideName, User.GiveUserId(), id, SystemLogInterface.MasterISS, null));
+            db.SystemLogs.Add(SystemLogProcessor.AddFile(newFile.FileDetail.ServerSideName, User.GiveUserId(), id, SystemLogInterface.MasterISS, null));
             db.SaveChanges();
             return RedirectToAction("Files", new { id = id, errorMessage = 0 });
         }

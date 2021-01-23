@@ -106,6 +106,15 @@ namespace RadiusR.Localization.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subscriber cannot use referral discount on the self..
+        /// </summary>
+        public static string SelfReferralDiscount {
+            get {
+                return ResourceManager.GetString("SelfReferralDiscount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start date cannot be greater than end date..
         /// </summary>
         public static string StartDateCannotBeGreaterThanEndDate {

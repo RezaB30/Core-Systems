@@ -120,6 +120,9 @@
   <data name="EmailBodyParametersWarning" xml:space="preserve">
     <value>All ([fullName]) texts will be replaced by customer name.</value>
   </data>
+  <data name="MaximumFileSize" xml:space="preserve">
+    <value>Maximum allowed file size is {0}MB.</value>
+  </data>
   <data name="SupportRequestFinishWarning" xml:space="preserve">
     <value>If this request is visible to customer, this message will be visible to customer.</value>
   </data>

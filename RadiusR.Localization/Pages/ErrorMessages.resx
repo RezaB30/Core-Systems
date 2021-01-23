@@ -181,7 +181,7 @@
     <value>Can not remove cashier while it has relative data.</value>
   </data>
   <data name="_28" xml:space="preserve">
-    <value>Can not remove province while it has relative data.</value>
+    <value>Request updated but file upload was unsuccessful.</value>
   </data>
   <data name="_29" xml:space="preserve">
     <value>Can not remove city while it has relative data.</value>

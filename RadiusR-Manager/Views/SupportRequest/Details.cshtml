@@ -1,4 +1,5 @@
 ﻿@using RezaB.Web.Helpers
+@using RadiusR_Manager.Helpers
 
 @model RadiusR_Manager.Models.ViewModels.SupportRequestModels.SupportRequestDetailsViewModel
 
@@ -78,6 +79,10 @@
                     }
                 </td>
             </tr>
+            <tr>
+                <td class="file-manager-error text-danger">
+                </td>
+            </tr>
             @foreach (var item in Model.Stages)
             {
                 var itemVisibilityClass = (Model.RequestInfo.IsVisibleToCustomer && item.IsVisibleToCustomer) ? "visible" : "invisible";
@@ -112,6 +117,9 @@
                         <div class="support-request-stage-row">
                             <div class="support-request-message">@Html.DisplayFor(modelItem => item.Message)</div>
                         </div>
+                        <div class="support-request-stage-row attachments-row" row-id="@item.ID">
+
+                        </div>
                     </td>
                 </tr>
             }
@@ -120,7 +128,7 @@
                     @if (supportPermissions != null && Model.RequestInfo.StateID != (short)RadiusR.DB.Enums.SupportRequests.SupportRequestStateID.Done)
                     {
                         <div class="submit-row support-request-action-box">
-                            @using (Html.BeginForm())
+                            @using (Html.BeginForm(null, null, new { id = ViewContext.RouteData.Values["id"], groupId = groupId, returnUrl = Request.QueryString["returnUrl"] }, FormMethod.Post, htmlAttributes: new { @enctype = "multipart/form-data" }))
                             {
                                 @Html.HiddenFor(model => processParameters.ActionType, new { @class = "action-type-input" })
                                 @Html.AntiForgeryToken()
@@ -140,6 +148,18 @@
                                         @Html.EditorFor(model => processParameters.IsVisibleToCustomer)
                                     </div>
                                 }
+                                @*attachments*@
+                                <div class="support-request-action-row" style="padding: 0.4em 0;">
+                                    <label>@RadiusR.Localization.Pages.Common.Attachments:</label>@Html.ValidationMessage("attachments")
+                                    <div>
+                                        @Html.MultiFileUpload("attachments", "image/*,application/pdf,.zip,.rar")
+                                    </div>
+                                    <div>
+                                        <span class="warning-message-hint">
+                                            @string.Format(RadiusR.Localization.Pages.WarningMessages.MaximumFileSize, RadiusR.DB.CustomerWebsiteSettings.MaxSupportAttachmentSize / (1024 * 1024))
+                                        </span>
+                                    </div>
+                                </div>
                                 <ol class="important-ordered-list">
                                     @if (groupId.HasValue && (supportPermissions.IsLeader || supportPermissions.CanAssignToStaff))
                                     {
@@ -223,5 +243,32 @@
 
             StartWaitingCounter('div.waiting-progress');
         });
+    </script>
+    <script>
+        var fileLinkBase = '@Url.Action("GetSupportAttachment",new { id = Model.RequestInfo.ID, groupId = groupId})' + '&fileName=';
+        $.ajax({
+            url: '@Url.Action("RequestAttachmentList")',
+            method: 'POST',
+            data: {
+                id: @Model.RequestInfo.ID,
+                groupId: @groupId
+            },
+            complete: function (response, status) {
+                if (status == 'success') {
+                    var responseObject = response.responseJSON;
+                    if (responseObject.errorMessage != null) {
+                        $('td.file-manager-error').text(responseObject.errorMessage);
+                    }
+                    else {
+                        for (var i = 0; i < responseObject.fileList.length; i++) {
+                            $('div[row-id=' + responseObject.fileList[i].stageId + '].attachments-row').append('<a href="'+fileLinkBase + responseObject.fileList[i].serverSideName + '">' + responseObject.fileList[i].fileName + '.' + responseObject.fileList[i].fileExtention + '</a>');
+                        }
+                    }
+                }
+                else {
+                    alert(status);
+                }
+            }
+        })
     </script>
 }

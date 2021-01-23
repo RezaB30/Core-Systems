@@ -293,3 +293,7 @@ v 5.07.01 '2021-01-03'
 v 5.07.02 '2021-01-16'
 - added website services settings to customer website settings.
 - added externality to tariffs.
+v 5.07.03 ''
+- prevented self referral discount.
+- added attachment to support requests.
+- prevented self referring discounts.

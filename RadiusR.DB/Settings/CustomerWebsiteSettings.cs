@@ -50,6 +50,22 @@ namespace RadiusR.DB
             }
         }
 
+        public static long MaxSupportAttachmentSize
+        {
+            get
+            {
+                return DBSetting<RadiusREntities, AppSetting>.Retrieve<long>(MethodBase.GetCurrentMethod().Name.Substring(4));
+            }
+        }
+
+        public static int MaxSupportAttachmentPerRequest
+        {
+            get
+            {
+                return DBSetting<RadiusREntities, AppSetting>.Retrieve<int>(MethodBase.GetCurrentMethod().Name.Substring(4));
+            }
+        }
+
         #region METHODS
         /// <summary>
         /// Clears settings cache.

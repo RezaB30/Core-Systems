@@ -1,0 +1,24 @@
+﻿div.multi-file-upload-wrapper {
+    display: inline-block;
+}
+
+    div.multi-file-upload-wrapper div.rows-container {
+        display: none;
+        margin: 0.5em;
+        border-style: dashed;
+        border-width: 1px 0;
+        border-color: gray;
+        padding: 0.3em;
+        border-left: 0.2em solid gray;
+    }
+
+    div.multi-file-upload-wrapper div.instance-row {
+        margin: 0.3em 0;
+    }
+
+    div.multi-file-upload-wrapper input.delete-button {
+        margin: 0 0.3em;
+    }
+
+    div.multi-file-upload-wrapper div.add-instance-row {
+    }

@@ -1,6 +1,6 @@
-﻿///<reference path="Scripts/jquery-{version}.js" />
-///<reference path="Scripts/jquery-{version}.intellisense.js" />
-///<reference path="Scripts/selectlist.js" />
+﻿///<reference path="../jquery/jquery-1.10.2.js" />
+///<reference path="../jquery/jquery-1.10.2.intellisense.js" />
+///<reference path="selectlist.js" />
 
 function SetupMultiselectList(containerId) {
     ///<summary>Enables interactions with custom multiselect list.</summary>

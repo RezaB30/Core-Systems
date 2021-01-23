@@ -70,6 +70,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximum allowed file size is {0}MB..
+        /// </summary>
+        public static string MaximumFileSize {
+            get {
+                return ResourceManager.GetString("MaximumFileSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If this request is visible to customer, this message will be visible to customer..
         /// </summary>
         public static string SupportRequestFinishWarning {

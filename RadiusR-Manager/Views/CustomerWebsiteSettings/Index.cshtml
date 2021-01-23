@@ -78,6 +78,32 @@
                 </td>
             </tr>
             <tr>
+                <td>
+                    @Html.LabelFor(model => model.MaxSupportAttachmentSizeDisplay)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.MaxSupportAttachmentSizeDisplay)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.MaxSupportAttachmentSizeDisplay)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.MaxSupportAttachmentPerRequestDisplay)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.MaxSupportAttachmentPerRequestDisplay, new { htmlAttributes = new { @maxlength = 3, @autocomplete = "off" } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.MaxSupportAttachmentPerRequestDisplay)
+                </td>
+            </tr>
+            <tr>
                 <td colspan="2" class="centered">
                     @Html.ActionLink(RadiusR.Localization.Pages.Common.Reset, null, null, new { @class = "link-button iconed-button reload-button" })
                     &nbsp;
