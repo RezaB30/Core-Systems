@@ -170,7 +170,7 @@ img.language-button {
 }
 
 div.settings-link {
-    float: left;
+    display: inline-block;
     font-style: normal;
     margin-left: 2em;
 }
@@ -208,12 +208,12 @@ div.body {
 
 div.nav-bar {
     width: 15em;
-    position: absolute;
+    position: fixed;
     background-color: #272727;
     color: white;
     z-index: 1;
     top: 3.2em;
-    bottom: 2.4em;
+    bottom: 0;
     text-indent: 0.5em;
     overflow: auto;
     transition: 0.5s all ease;
@@ -234,6 +234,17 @@ div.page-contents {
         margin-left: 0;
     }
 
+div.footer-wrapper {
+    left: 15em;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+div.footer-wrapper.collapsed {
+    left: 0;
+}
+
 div.footer {
     color: white;
     background-color: black;
@@ -243,12 +254,11 @@ div.footer {
     font-size: 0.8em;
     height: 3em;
     width: 100%;
-    position: absolute;
-    bottom: 0;
     line-height: 3em;
 }
 
     div.footer div.footer-icons-container {
+        float: left;
     }
 
 span.version-tag {
@@ -413,15 +423,14 @@ div.logo-watermark {
     background-image: url('../Images/Logo/logo.svg');
     background-repeat: no-repeat;
     background-position: center;
-    height: 7em;
+    height: 5em;
     background-size: contain;
     opacity: 0.3;
     z-index: -1;
     background-color: white;
     border-radius: 0.3em;
-    box-shadow: 0 0 1em 1em white;
-    margin: 1em 1em 3em 1em;
-    top: 1em;
+    box-shadow: 0 0 0.5em 0.5em white;
+    margin: 1em;
 }
 
 div.warning-message {

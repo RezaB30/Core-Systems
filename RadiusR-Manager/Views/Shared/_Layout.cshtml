@@ -60,27 +60,29 @@
     </div>
 
     <footer>
-        <div class="footer">
-            <div class="footer-icons-container">
-                @if (User.HasPermission("System Settings"))
-                {
-                    <div class="settings-link">
-                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Settings, "Index", "Settings", null, new { @class = "iconed-button settings-button" })
-                    </div>
-                }
-                @if (User.HasPermission("Radius Settings"))
-                {
-                    <div class="settings-link">
-                        @Html.ActionLink(RadiusR.Localization.Pages.Common.RadiusSettings, "Index", "RadiusSettings", null, new { @class = "iconed-button radius-settings-button" })
-                    </div>
-                }
-                @if (User.IsInRole("seller"))
-                {
-                    @Html.Partial("_CreditPartial")
-                }
-            </div>
-            <div>
-                &copy; 2017 - @DateTime.Now.Year - @RadiusR.Localization.Pages.Common.RadiusRManager - v<span class="version-tag">@ViewBag.Version</span>
+        <div class="footer-wrapper">
+            <div class="footer">
+                <div class="footer-icons-container">
+                    @if (User.HasPermission("System Settings"))
+                    {
+                        <div class="settings-link">
+                            @Html.ActionLink(RadiusR.Localization.Pages.Common.Settings, "Index", "Settings", null, new { @class = "iconed-button settings-button" })
+                        </div>
+                    }
+                    @if (User.HasPermission("Radius Settings"))
+                    {
+                        <div class="settings-link">
+                            @Html.ActionLink(RadiusR.Localization.Pages.Common.RadiusSettings, "Index", "RadiusSettings", null, new { @class = "iconed-button radius-settings-button" })
+                        </div>
+                    }
+                    @if (User.IsInRole("seller"))
+                    {
+                        @Html.Partial("_CreditPartial")
+                    }
+                </div>
+                <div style="text-align: center;">
+                    &copy; 2017 - @DateTime.Now.Year - @RadiusR.Localization.Pages.Common.RadiusRManager - v<span class="version-tag">@ViewBag.Version</span>
+                </div>
             </div>
         </div>
     </footer>

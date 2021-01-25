@@ -21,25 +21,21 @@ function SetupSelectLists(containerId) {
 
         selectOption(hiddenField.val(), currentWrapper);
 
-        textbox.focusin(function () {
+        dropArrow.click(function () {
             textbox.select();
-            //currentWrapper.focusin();
+            textbox.trigger('click');
         });
 
-        //textbox.keydown(function (event) {
-        //    event.preventDefault();
-        //});
+        textbox.focusin(function () {
+            textbox.select();
+        });
 
         textbox.click(function (event) {
-            //currentWrapper.append('.');
-            //setValue(currentWrapper);
             optionsContainer.stop(true, false);
             optionsContainer.slideToggle(slidingTime, function () { optionsContainer.height('') });
         });
 
         textbox.keydown(function (event) {
-            //event.stopPropagation();
-
             if (event.keyCode == 13) {
                 event.preventDefault();
                 setValue();
