@@ -126,6 +126,9 @@
   <data name="Disabled" xml:space="preserve">
     <value>Donduruldu</value>
   </data>
+  <data name="Dismissed" xml:space="preserve">
+    <value>Vazgeçildi</value>
+  </data>
   <data name="PreRegisterd" xml:space="preserve">
     <value>Ön Kayıt Oldu</value>
   </data>

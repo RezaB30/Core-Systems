@@ -126,6 +126,9 @@
   <data name="Disabled" xml:space="preserve">
     <value>Disabled</value>
   </data>
+  <data name="Dismissed" xml:space="preserve">
+    <value>Dismissed</value>
+  </data>
   <data name="PreRegisterd" xml:space="preserve">
     <value>Pre-Registerd</value>
   </data>

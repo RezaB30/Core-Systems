@@ -13,7 +13,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
         {
             get
             {
-                return CustomerState.Cancelled;
+                return IsDismissed ? CustomerState.Dismissed : CustomerState.Cancelled;
             }
         }
 
@@ -22,5 +22,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
         public string CancellationReasonDescription { get; set; }
 
         public bool ForceCancellation { get; set; }
+
+        internal bool IsDismissed { get; set; }
     }
 }

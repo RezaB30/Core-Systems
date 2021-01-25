@@ -217,7 +217,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
 
                 if (oldState == (short)CustomerState.Disabled)
                 {
-                    if(activateOptions.ScheduleSMSes)
+                    if (activateOptions.ScheduleSMSes)
                     {
                         // schedule SMS
                         db.ScheduledSMS.Add(new ScheduledSMS()
@@ -336,6 +336,13 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                 var billingReadySubscription = db.PrepareForBilling(db.Subscriptions.Where(s => s.ID == subscriptionId)).FirstOrDefault();
                 // check if it is a valid change.
                 ValidateStateChange(cancelOptions, (CustomerState)billingReadySubscription.Subscription.State);
+                // update the new state if it should be dismissed instead of cancelled
+                var validForDismissed = new short[]
+                {
+                    (short)CustomerState.PreRegisterd,
+                    (short)CustomerState.Registered
+                };
+                cancelOptions.IsDismissed = validForDismissed.Contains(billingReadySubscription.Subscription.State) && !billingReadySubscription.Subscription.RadiusAccountings.Any();
                 // remove any scheduled task
                 if (billingReadySubscription.Subscription.ChangeStateTasks.Any())
                 {

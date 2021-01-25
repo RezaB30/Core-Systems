@@ -297,3 +297,5 @@ v 5.07.03 '2021-1-23'
 - prevented self referral discount.
 - added attachment to support requests.
 - prevented self referring discounts.
+v 5.07.04 '2021-01-25'
+- added dismissed customer state.

@@ -14,5 +14,6 @@ namespace RadiusR.DB.Enums
         Disabled = 4,
         Cancelled = 5,
         PreRegisterd = 6,
+        Dismissed = 7,
     }
 }
