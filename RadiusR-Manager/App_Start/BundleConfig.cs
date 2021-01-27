@@ -14,10 +14,10 @@ namespace RadiusR_Manager
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery/jquery.validate*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/scripts").IncludeDirectory(
-                "~/Scripts/Custom", "*.js").Include(
-                "~/Scripts/initialize.js"
-                ));
+            bundles.Add(new ScriptBundle("~/bundles/scripts")
+                .IncludeDirectory("~/Scripts/Custom", "*.js")
+                .IncludeDirectory("~/Scripts/Views", "*.js")
+                .Include("~/Scripts/initialize.js"));
 
             bundles.Add(new StyleBundle("~/bundles/css")
                 .Include("~/Content/css/*.css", new CssRewriteUrlTransform())
