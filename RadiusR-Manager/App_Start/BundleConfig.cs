@@ -19,12 +19,12 @@ namespace RadiusR_Manager
                 "~/Scripts/initialize.js"
                 ));
 
-            bundles.Add(new StyleBundle("~/Content/css").IncludeDirectory(
-                "~/Content/css", "*.css", true));
+            bundles.Add(new StyleBundle("~/bundles/css")
+                .Include("~/Content/css/*.css", new CssRewriteUrlTransform())
+                .Include("~/Content/css/views/*.css", new CssRewriteUrlTransform()));
 
-            bundles.Add(new StyleBundle("~/Content/css-m").IncludeDirectory(
-                "~/Content/css-m", "*.css", true
-                ));
+            bundles.Add(new StyleBundle("~/bundles/css-m")
+                .Include("~/Content/css-m/*.css", new CssRewriteUrlTransform()));
 
             // view bundles
             bundles.Add(new ScriptBundle("~/bundles/views/customer-register.js").Include("~/Scripts/Views/customer-register.js"));
