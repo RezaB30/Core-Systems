@@ -113,16 +113,16 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                     }
                 };
                 // general
-                registeredCustomer.FirstName = registrationInfo.IDCard.FirstName;
-                registeredCustomer.LastName = registrationInfo.IDCard.LastName;
+                registeredCustomer.FirstName = registrationInfo.IDCard.FirstName.Trim();
+                registeredCustomer.LastName = registrationInfo.IDCard.LastName.Trim();
                 registeredCustomer.BirthDate = registrationInfo.IDCard.BirthDate.Value;
                 // individual
                 if (customerType == Enums.CustomerType.Individual)
                 {
-                    registeredCustomer.BirthPlace = registrationInfo.IndividualInfo.BirthPlace;
-                    registeredCustomer.FathersName = registrationInfo.IndividualInfo.FathersName;
-                    registeredCustomer.MothersMaidenName = registrationInfo.IndividualInfo.MothersMaidenName;
-                    registeredCustomer.MothersName = registrationInfo.IndividualInfo.MothersName;
+                    registeredCustomer.BirthPlace = registrationInfo.IndividualInfo.BirthPlace.Trim();
+                    registeredCustomer.FathersName = registrationInfo.IndividualInfo.FathersName.Trim();
+                    registeredCustomer.MothersMaidenName = registrationInfo.IndividualInfo.MothersMaidenName.Trim();
+                    registeredCustomer.MothersName = registrationInfo.IndividualInfo.MothersName.Trim();
                     registeredCustomer.Nationality = (short)registrationInfo.IndividualInfo.Nationality.Value;
                     registeredCustomer.Profession = (short)registrationInfo.IndividualInfo.Profession.Value;
                     registeredCustomer.Address = registrationInfo.IndividualInfo.ResidencyAddress.GetDbObject();
@@ -131,10 +131,10 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                 // corporate
                 else
                 {
-                    registeredCustomer.BirthPlace = registrationInfo.CorporateInfo.ExecutiveBirthPlace;
-                    registeredCustomer.FathersName = registrationInfo.CorporateInfo.ExecutiveFathersName;
-                    registeredCustomer.MothersMaidenName = registrationInfo.CorporateInfo.ExecutiveMothersMaidenName;
-                    registeredCustomer.MothersName = registrationInfo.CorporateInfo.ExecutiveMothersName;
+                    registeredCustomer.BirthPlace = registrationInfo.CorporateInfo.ExecutiveBirthPlace.Trim();
+                    registeredCustomer.FathersName = registrationInfo.CorporateInfo.ExecutiveFathersName.Trim();
+                    registeredCustomer.MothersMaidenName = registrationInfo.CorporateInfo.ExecutiveMothersMaidenName.Trim();
+                    registeredCustomer.MothersName = registrationInfo.CorporateInfo.ExecutiveMothersName.Trim();
                     registeredCustomer.Nationality = (short)registrationInfo.CorporateInfo.ExecutiveNationality.Value;
                     registeredCustomer.Profession = (short)registrationInfo.CorporateInfo.ExecutiveProfession.Value;
                     registeredCustomer.Address = registrationInfo.CorporateInfo.ExecutiveResidencyAddress.GetDbObject();
@@ -142,12 +142,12 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
 
                     registeredCustomer.CorporateCustomerInfo = new CorporateCustomerInfo()
                     {
-                        CentralSystemNo = registrationInfo.CorporateInfo.CentralSystemNo,
+                        CentralSystemNo = registrationInfo.CorporateInfo.CentralSystemNo.Trim(),
                         Address = registrationInfo.CorporateInfo.CompanyAddress.GetDbObject(),
-                        TaxNo = registrationInfo.CorporateInfo.TaxNo,
+                        TaxNo = registrationInfo.CorporateInfo.TaxNo.Trim(),
                         TaxOffice = registrationInfo.CorporateInfo.TaxOffice,
-                        Title = registrationInfo.CorporateInfo.Title,
-                        TradeRegistrationNo = registrationInfo.CorporateInfo.TradeRegistrationNo
+                        Title = registrationInfo.CorporateInfo.Title.Trim(),
+                        TradeRegistrationNo = registrationInfo.CorporateInfo.TradeRegistrationNo.Trim()
                     };
                 }
             }

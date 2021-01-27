@@ -299,3 +299,5 @@ v 5.07.03 '2021-1-23'
 - prevented self referring discounts.
 v 5.07.04 '2021-01-25'
 - added dismissed customer state.
+v 5.07.05 '2021-01-27'
+- updated customer setup user password algorithm.

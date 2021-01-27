@@ -218,7 +218,7 @@ namespace RadiusR_Manager.Controllers
 
             if (ModelState.IsValid)
             {
-                dbUser.Password = RadiusR.DB.Passwords.PasswordUtilities.HashLowSecurityPassword(user.Password);
+                dbUser.Password = RadiusR.DB.Passwords.PasswordUtilities.HashPassword(user.Password).ToLower();
 
                 db.SaveChanges();
                 return RedirectToAction("Users", new { errorMessage = 0 });
@@ -255,7 +255,7 @@ namespace RadiusR_Manager.Controllers
                     IsEnabled = true,
                     Name = user.Name,
                     Username = user.Username,
-                    Password = RadiusR.DB.Passwords.PasswordUtilities.HashLowSecurityPassword(user.Password)
+                    Password = RadiusR.DB.Passwords.PasswordUtilities.HashPassword(user.Password).ToLower()
                 });
 
                 db.SaveChanges();
