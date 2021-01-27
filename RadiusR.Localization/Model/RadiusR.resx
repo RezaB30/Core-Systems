@@ -1536,4 +1536,7 @@
   <data name="XDSL" xml:space="preserve">
     <value>XDSL</value>
   </data>
+  <data name="BTKActivationUser" xml:space="preserve">
+    <value>BTK Activation User</value>
+  </data>
 </root>

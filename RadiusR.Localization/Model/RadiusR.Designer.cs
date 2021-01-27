@@ -484,6 +484,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BTK Activation User.
+        /// </summary>
+        public static string BTKActivationUser {
+            get {
+                return ResourceManager.GetString("BTKActivationUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BTK Log Type.
         /// </summary>
         public static string BTKLogType {

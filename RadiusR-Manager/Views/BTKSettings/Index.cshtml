@@ -9,64 +9,77 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <table class="input-table">
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.BTKOperatorName)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.BTKOperatorName, new { @htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                @Html.ValidationMessageFor(model => model.BTKOperatorName)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.BTKOperatorCode)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.BTKOperatorCode, new { @htmlAttributes = new { @maxlength = 3, @autocomplete = "off" } })
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                @Html.ValidationMessageFor(model => model.BTKOperatorCode)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.BTKOperatorType)
-            </td>
-            <td>
-                @Html.Select(model => model.BTKOperatorType, (SelectList)ViewBag.OperatorTypes, RadiusR.Localization.Pages.Common.Choose)
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                @Html.ValidationMessageFor(model => model.BTKOperatorType)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.BTKOperatorDepartment)
-            </td>
-            <td>
-                @Html.Select(model => model.BTKOperatorDepartment, HelperUtilities.CreateNumericSelectList(1, 99, Model.BTKOperatorDepartment), RadiusR.Localization.Pages.Common.Choose)
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                @Html.ValidationMessageFor(model => model.BTKOperatorDepartment)
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" class="centered">
-                @Html.ActionLink(RadiusR.Localization.Pages.Common.Reset, null, null, new { @class = "link-button iconed-button reload-button" })&nbsp;
-                <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
-            </td>
-        </tr>
-    </table>
+<table class="input-table">
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.BTKOperatorName)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.BTKOperatorName, new { @htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.BTKOperatorName)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.BTKOperatorCode)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.BTKOperatorCode, new { @htmlAttributes = new { @maxlength = 3, @autocomplete = "off" } })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.BTKOperatorCode)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.BTKOperatorType)
+        </td>
+        <td>
+            @Html.Select(model => model.BTKOperatorType, (SelectList)ViewBag.OperatorTypes, RadiusR.Localization.Pages.Common.Choose)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.BTKOperatorType)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.BTKOperatorDepartment)
+        </td>
+        <td>
+            @Html.Select(model => model.BTKOperatorDepartment, HelperUtilities.CreateNumericSelectList(1, 99, Model.BTKOperatorDepartment), RadiusR.Localization.Pages.Common.Choose)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.BTKOperatorDepartment)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.BTKActivationUser)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.BTKActivationUser, new { @htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.BTKActivationUser)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="centered">
+            @Html.ActionLink(RadiusR.Localization.Pages.Common.Reset, null, null, new { @class = "link-button iconed-button reload-button" })&nbsp;
+            <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+        </td>
+    </tr>
+</table>
 }

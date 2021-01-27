@@ -22,7 +22,8 @@ namespace RadiusR_Manager.Controllers
                 BTKOperatorCode = BTKSettings.BTKOperatorCode,
                 BTKOperatorDepartment = BTKSettings.BTKOperatorDepartment,
                 BTKOperatorName = BTKSettings.BTKOperatorName,
-                BTKOperatorType = BTKSettings.BTKOperatorType
+                BTKOperatorType = BTKSettings.BTKOperatorType,
+                BTKActivationUser = BTKSettings.BTKActivationUser
             };
 
             ViewBag.OperatorTypes = new SelectList(Enum.GetNames(typeof(BTKOperatorTypes)).Select(name => new { Name = name, Value = name }), "Value", "Name", result.BTKOperatorType);

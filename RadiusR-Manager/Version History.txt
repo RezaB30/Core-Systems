@@ -301,3 +301,5 @@ v 5.07.04 '2021-01-25'
 - added dismissed customer state.
 v 5.07.05 '2021-01-27'
 - updated customer setup user password algorithm.
+v 5.07.06 '2021-01-27'
+- added activation user to BTK settings.

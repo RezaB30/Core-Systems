@@ -222,20 +222,20 @@ namespace RadiusR.DB.BTKLogging
         private static Dictionary<string, string> _LineStateCodeDictionary = new Dictionary<string, string>()
         {
             { "1", "AKTIF" },
-            { "2", "IPTAL_NUMARA DEGISTIRME" },
+            { "2", "IPTAL_NUMARA_DEGISTIRME" },
             {"3", "IPTAL" },
-            {"4", "IPTAL_SAHTE EVRAK" },
-            {"5", "IPTAL_MUSTERI TALEBI" },
+            {"4", "IPTAL_SAHTE_EVRAK" },
+            {"5", "IPTAL_MUSTERI_TALEBI" },
             {"6", "IPTAL_DEVIR" },
-            {"7", "IPTAL_HAT BENIM DEGIL" },
-            {"8", "IPTAL_KARA LISTE" },
-            {"9", "IPTAL_KULLANIM DISI" },
-            {"10", "IPTAL_EKSIK EVRAK" },
-            {"11", "IPTAL_SEHVEN GIRIS" },
-            {"12", "IPTAL_BAGLI URUN IPTALI" },
-            {"13", "KISITLI_KONTUR BITTI" },
-            {"14", "KISITLI_ARAMAYA KAPALI" },
-            {"15", "DONDURULMUS_MUSTERI TALEBI" },
+            {"7", "IPTAL_HAT_BENIM_DEGIL" },
+            {"8", "IPTAL_KARA_LISTE" },
+            {"9", "IPTAL_KULLANIM_DISI" },
+            {"10", "IPTAL_EKSIK_EVRAK" },
+            {"11", "IPTAL_SEHVEN_GIRIS" },
+            {"12", "IPTAL_BAGLI_URUN_IPTALI" },
+            {"13", "KISITLI_KONTUR_BITTI" },
+            {"14", "KISITLI_ARAMAYA_KAPALI" },
+            {"15", "DONDURULMUS_MUSTERI_TALEBI" },
             {"16", "DONDURULMUS_ISLETME" }
         };
 
@@ -267,21 +267,21 @@ namespace RadiusR.DB.BTKLogging
 
         private static Dictionary<int, string> _ClientChangeDictionary = new Dictionary<int, string>()
         {
-            {1, "YENI ABONELIK KAYDI" },
-            {2, "HAT DURUM DEGISIKLIGI" },
-            {3, "SIM KART DEGISIKLIGI" },
-            {4, "ODEME TIPI DEGISIKLIGI" },
-            {5, "ADRES DEGISIKLIGI" },
-            {6, "IMSI DEGISIKLIGI" },
-            {7, "TARIFE DEGISIKLIGI" },
-            {8, "DEVIR (MUSTERI) DEGISIKLIGI" },
-            {9, "NUMARA DEGISIKLIGI" },
-            {10, "HAT IPTAL" },
-            {11, "MUSTERI BILGI DEGISIKLIGI" },
-            {12, "NUMARA TASIMA" },
-            {13, "NUMARA DEGISMEDEN NAKIL" },
-            {14, "NUMARA DEGISTIREREK NAKIL" },
-            {15, "IP DEGISIKLIGI" }
+            {1, "YENI_ABONELIK_KAYDI" },
+            {2, "HAT_DURUM_DEGISIKLIGI" },
+            {3, "SIM_KART_DEGISIKLIGI" },
+            {4, "ODEME_TIPI_DEGISIKLIGI" },
+            {5, "ADRES_DEGISIKLIGI" },
+            {6, "IMSI_DEGISIKLIGI" },
+            {7, "TARIFE_DEGISIKLIGI" },
+            {8, "DEVIR_MUSTERI_DEGISIKLIGI" },
+            {9, "NUMARA_DEGISIKLIGI" },
+            {10, "HAT_IPTAL" },
+            {11, "MUSTERI_BILGI_DEGISIKLIGI" },
+            {12, "NUMARA_TASIMA" },
+            {13, "NUMARA_DEGISMEDEN_NAKIL" },
+            {14, "NUMARA_DEGISTIREREK_NAKIL" },
+            {15, "IP_DEGISIKLIGI" }
         };
 
         internal static int[] RelevantSystemLogTypes = new[]

@@ -180,7 +180,7 @@ namespace RadiusR.DB.BTKLogging
             return string.Join("|;|", new string[] {
                 BTKSettings.BTKOperatorCode,
                 subscription.SubscriberNo,
-                string.Empty,
+                subscription.SubscriberNo,
                 BTKLoggingUtilities.GetLineState(subscription.State),
                 BTKLoggingUtilities.GetLineStateCode(subscription),
                 BTKLoggingUtilities.GetLineStateDetails(subscription),
@@ -235,6 +235,7 @@ namespace RadiusR.DB.BTKLogging
                 subscription.Customer.Address.StreetName,
                 subscription.Customer.Address.DoorNo,
                 subscription.Customer.Address.ApartmentNo,
+                subscription.Customer.Address.AddressNo.ToString(),
                 subscription.Customer.CorporateCustomerInfo != null ? subscription.Customer.FirstName : string.Empty,
                 subscription.Customer.CorporateCustomerInfo != null ? subscription.Customer.LastName : string.Empty,
                 subscription.Customer.CorporateCustomerInfo != null ? subscription.Customer.CustomerIDCard.TCKNo : string.Empty,
@@ -242,7 +243,7 @@ namespace RadiusR.DB.BTKLogging
                 subscription.Customer.CorporateCustomerInfo != null ? subscription.Customer.CorporateCustomerInfo.Address.AddressText.Replace(Environment.NewLine, " ") :string.Empty,
                 string.Empty,
                 string.Empty,
-                string.Empty,//BTKLoggingUtilities.GetActivationUser(subscription),
+                BTKSettings.BTKActivationUser,//BTKLoggingUtilities.GetActivationUser(subscription),
                 string.Empty,
                 string.Empty,
                 string.Empty,//BTKLoggingUtilities.GetLastUpdateUser(subscription),
@@ -250,7 +251,6 @@ namespace RadiusR.DB.BTKLogging
                 subscription.Service.RateLimit,
                 subscription.Username,
                 subscription.SubscriptionTelekomInfo != null ? subscription.SubscriptionTelekomInfo.RedbackName ?? string.Empty : string.Empty,
-                subscription.SubscriberNo
             });
         }
 

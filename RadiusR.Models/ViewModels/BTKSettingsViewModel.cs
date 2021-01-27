@@ -35,5 +35,11 @@ namespace RadiusR_Manager.Models.ViewModels
         [Range(1, 99, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "IntRange")]
         [SettingElement]
         public int BTKOperatorDepartment { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "BTKActivationUser")]
+        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
+        [MaxLength(150, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
+        [SettingElement]
+        public string BTKActivationUser { get; set; }
     }
 }
