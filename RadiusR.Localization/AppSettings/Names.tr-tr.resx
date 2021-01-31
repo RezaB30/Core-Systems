@@ -294,4 +294,13 @@
   <data name="MaxSupportAttachmentSize" xml:space="preserve">
     <value>Destek Ek Dosyasının Maks. Boyutu</value>
   </data>
+  <data name="RecaptchaClientKey" xml:space="preserve">
+    <value>Recaptcha İstemci Anahtarı</value>
+  </data>
+  <data name="RecaptchaServerKey" xml:space="preserve">
+    <value>Recaptcha Sunucu Anahtarı</value>
+  </data>
+  <data name="UseGoogleRecaptcha" xml:space="preserve">
+    <value>Google Recaptcha'yı kullan</value>
+  </data>
 </root>

@@ -304,6 +304,24 @@ namespace RadiusR.Localization.AppSettings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recaptcha Client Key.
+        /// </summary>
+        public static string RecaptchaClientKey {
+            get {
+                return ResourceManager.GetString("RecaptchaClientKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recaptcha Server Key.
+        /// </summary>
+        public static string RecaptchaServerKey {
+            get {
+                return ResourceManager.GetString("RecaptchaServerKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Review Delay.
         /// </summary>
         public static string ReviewDelay {
@@ -543,6 +561,15 @@ namespace RadiusR.Localization.AppSettings {
         public static string TTServicesUsername {
             get {
                 return ResourceManager.GetString("TTServicesUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Google Recaptcha.
+        /// </summary>
+        public static string UseGoogleRecaptcha {
+            get {
+                return ResourceManager.GetString("UseGoogleRecaptcha", resourceCulture);
             }
         }
         

@@ -71,5 +71,13 @@ namespace RadiusR_Manager.Models.RadiusViewModels
                 return SchedulerStartDay;
             }
         }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "LastOperationDate")]
+        [UIHint("ExactTime")]
+        public DateTime? LastOperationDate { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "LastUploadDate")]
+        [UIHint("ExactTime")]
+        public DateTime? LastUploadDate { get; set; }
     }
 }

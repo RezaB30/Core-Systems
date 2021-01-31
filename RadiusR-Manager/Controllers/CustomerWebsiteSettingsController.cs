@@ -25,6 +25,13 @@ namespace RadiusR_Manager.Controllers
         // POST: CustomerWebsiteSettings
         public ActionResult Index(CustomerWebsiteSettingsViewModel settings)
         {
+            if (!settings.CustomerWebsiteUseGoogleRecaptcha)
+            {
+                settings.CustomerWebsiteRecaptchaClientKey = settings.CustomerWebsiteRecaptchaServerKey = "-";
+                ModelState.Remove("CustomerWebsiteRecaptchaClientKey");
+                ModelState.Remove("CustomerWebsiteRecaptchaServerKey");
+            }
+
             if (ModelState.IsValid)
             {
                 settings.WebsiteServicesInfrastructureDomainID = settings.WebsiteServicesInfrastructureDomainID ?? 0;

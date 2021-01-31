@@ -1539,4 +1539,10 @@
   <data name="BTKActivationUser" xml:space="preserve">
     <value>BTK Aktivasyon Kullanıcı</value>
   </data>
+  <data name="LastOperationDate" xml:space="preserve">
+    <value>Son Operasyon Tarihi</value>
+  </data>
+  <data name="LastUploadDate" xml:space="preserve">
+    <value>Son Yükleme Tarihi</value>
+  </data>
 </root>

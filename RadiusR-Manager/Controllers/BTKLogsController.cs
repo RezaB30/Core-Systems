@@ -162,6 +162,8 @@ namespace RadiusR_Manager.Controllers
                 SchedulerStartTime = TimeSpan.FromTicks(set.SchedulerStartTime).ToString(@"hh\:mm\:ss"),
                 SchedulerWorkPeriod = set.SchedulerWorkPeriod,
                 PartitionFiles = set.PartitionFiles,
+                LastOperationDate = set.LastOperationTime,
+                LastUploadDate = set.LastUploadTime,
                 IsActive = set.IsActive
             });
 

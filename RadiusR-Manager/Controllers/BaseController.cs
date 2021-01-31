@@ -12,6 +12,7 @@ using System.Web.Routing;
 using RadiusR.DB;
 using NLog;
 using RezaB.Web;
+using System.Reflection;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -46,7 +47,8 @@ namespace RadiusR_Manager.Controllers
                     CultureInfo.GetCultureInfo(lang);
             }
 
-            ViewBag.Version = Settings.Default.Version;
+            var version = Assembly.GetExecutingAssembly().GetName().Version;
+            ViewBag.Version = version.ToString(3);
             return base.BeginExecuteCore(callback, state);
         }
 

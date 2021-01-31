@@ -55,6 +55,23 @@ namespace RadiusR_Manager.Models.ViewModels
         [MaxLength(3, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
         public string MaxSupportAttachmentPerRequestDisplay { get; set; }
 
+        [Display(ResourceType = typeof(RadiusR.Localization.AppSettings.Names), Name = "UseGoogleRecaptcha")]
+        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
+        [SettingElement]
+        public bool CustomerWebsiteUseGoogleRecaptcha { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.AppSettings.Names), Name = "RecaptchaClientKey")]
+        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
+        [MaxLength(150, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
+        [SettingElement]
+        public string CustomerWebsiteRecaptchaClientKey { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.AppSettings.Names), Name = "RecaptchaServerKey")]
+        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
+        [MaxLength(150, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
+        [SettingElement]
+        public string CustomerWebsiteRecaptchaServerKey { get; set; }
+
         public TimeSpan? _OnlinePasswordDuration
         {
             get
@@ -130,6 +147,9 @@ namespace RadiusR_Manager.Models.ViewModels
                 WebsiteServicesPassword = CustomerWebsiteSettings.WebsiteServicesPassword;
                 MaxSupportAttachmentSize = CustomerWebsiteSettings.MaxSupportAttachmentSize;
                 MaxSupportAttachmentPerRequest = CustomerWebsiteSettings.MaxSupportAttachmentPerRequest;
+                CustomerWebsiteUseGoogleRecaptcha = CustomerWebsiteSettings.CustomerWebsiteUseGoogleRecaptcha;
+                CustomerWebsiteRecaptchaClientKey = CustomerWebsiteSettings.CustomerWebsiteRecaptchaClientKey;
+                CustomerWebsiteRecaptchaServerKey = CustomerWebsiteSettings.CustomerWebsiteRecaptchaServerKey;
             }
         }
     }

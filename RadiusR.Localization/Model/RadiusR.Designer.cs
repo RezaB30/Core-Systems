@@ -2050,6 +2050,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last Operation Date.
+        /// </summary>
+        public static string LastOperationDate {
+            get {
+                return ResourceManager.GetString("LastOperationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Operation Time.
         /// </summary>
         public static string LastOperationTime {
@@ -2082,6 +2091,15 @@ namespace RadiusR.Localization.Model {
         public static string LastTariffChangeDate {
             get {
                 return ResourceManager.GetString("LastTariffChangeDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Upload Date.
+        /// </summary>
+        public static string LastUploadDate {
+            get {
+                return ResourceManager.GetString("LastUploadDate", resourceCulture);
             }
         }
         

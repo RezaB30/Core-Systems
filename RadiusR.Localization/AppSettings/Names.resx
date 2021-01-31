@@ -294,4 +294,13 @@
   <data name="MaxSupportAttachmentSize" xml:space="preserve">
     <value>Max. Support Attachment File Size</value>
   </data>
+  <data name="RecaptchaClientKey" xml:space="preserve">
+    <value>Recaptcha Client Key</value>
+  </data>
+  <data name="RecaptchaServerKey" xml:space="preserve">
+    <value>Recaptcha Server Key</value>
+  </data>
+  <data name="UseGoogleRecaptcha" xml:space="preserve">
+    <value>Use Google Recaptcha</value>
+  </data>
 </root>

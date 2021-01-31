@@ -66,6 +66,30 @@ namespace RadiusR.DB
             }
         }
 
+        public static bool CustomerWebsiteUseGoogleRecaptcha
+        {
+            get
+            {
+                return DBSetting<RadiusREntities, AppSetting>.Retrieve<bool>(MethodBase.GetCurrentMethod().Name.Substring(4));
+            }
+        }
+
+        public static string CustomerWebsiteRecaptchaClientKey
+        {
+            get
+            {
+                return DBSetting<RadiusREntities, AppSetting>.Retrieve<string>(MethodBase.GetCurrentMethod().Name.Substring(4));
+            }
+        }
+
+        public static string CustomerWebsiteRecaptchaServerKey
+        {
+            get
+            {
+                return DBSetting<RadiusREntities, AppSetting>.Retrieve<string>(MethodBase.GetCurrentMethod().Name.Substring(4));
+            }
+        }
+
         #region METHODS
         /// <summary>
         /// Clears settings cache.
