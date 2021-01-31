@@ -56,7 +56,7 @@ namespace RadiusR.FileManagement
                 {
                     return new FileManagerResult<IEnumerable<LogFileWithDate>>(listResult.InternalException);
                 }
-                var filteredNames = listResult.Result.Select(fn => new LogFileWithDate() { FileName = fn, BTKDate = BTKLogging.BTKLogUtilities.GetDateTimeFromFileName(fn) }).Where(fn => fn.BTKDate >= startDate && fn.BTKDate < endDate).OrderBy(fn => fn.BTKDate).ToArray();
+                var filteredNames = listResult.Result.Select(fn => new LogFileWithDate() { FileName = fn, BTKDate = BTKLogging.BTKLogUtilities.GetDateTimeFromFileName(fn) }).Where(fn => fn.BTKDate > startDate && fn.BTKDate < endDate).OrderBy(fn => fn.BTKDate).ToArray();
                 finalResult.AddRange(filteredNames);
 
                 currentDate = currentDate.AddDays(1).Date;
