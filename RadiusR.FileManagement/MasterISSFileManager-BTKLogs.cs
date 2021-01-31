@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RadiusR.FileManagement.BTKLogging;
 using RezaB.Files;
 
 namespace RadiusR.FileManagement
@@ -33,17 +34,35 @@ namespace RadiusR.FileManagement
             return result;
         }
 
-        public FileManagerResult<IEnumerable<string>> ListBTKLogs(RadiusR.DB.Enums.BTKLogTypes logType, DateTime date)
+        public FileManagerResult<IEnumerable<LogFileWithDate>> ListBTKLogs(RadiusR.DB.Enums.BTKLogTypes logType, DateTime startDate, DateTime endDate)
         {
-            var searchPath = GetBTKLogPath(logType, date);
-            InternalFileManager.GoToRootDirectory();
-            var result = InternalFileManager.EnterDirectoryPath(searchPath);
-            if (result.InternalException != null)
+            if (startDate >= endDate)
             {
-                return new FileManagerResult<IEnumerable<string>>(result.InternalException);
+                return new FileManagerResult<IEnumerable<LogFileWithDate>>(Enumerable.Empty<LogFileWithDate>());
             }
-            var listResult = InternalFileManager.GetFileList();
-            return listResult;
+            var currentDate = startDate.Date;
+            var finalResult = new List<LogFileWithDate>();
+            while (currentDate <= endDate.Date)
+            {
+                var searchPath = GetBTKLogPath(logType, currentDate);
+                InternalFileManager.GoToRootDirectory();
+                var result = InternalFileManager.EnterDirectoryPath(searchPath);
+                if (result.InternalException != null)
+                {
+                    return new FileManagerResult<IEnumerable<LogFileWithDate>>(result.InternalException);
+                }
+                var listResult = InternalFileManager.GetFileList();
+                if (listResult.InternalException != null)
+                {
+                    return new FileManagerResult<IEnumerable<LogFileWithDate>>(listResult.InternalException);
+                }
+                var filteredNames = listResult.Result.Select(fn => new LogFileWithDate() { FileName = fn, BTKDate = BTKLogging.BTKLogUtilities.GetDateTimeFromFileName(fn) }).Where(fn => fn.BTKDate >= startDate && fn.BTKDate < endDate).OrderBy(fn => fn.BTKDate).ToArray();
+                finalResult.AddRange(filteredNames);
+
+                currentDate = currentDate.AddDays(1).Date;
+            }
+
+            return new FileManagerResult<IEnumerable<LogFileWithDate>>(finalResult.ToArray());
         }
 
         public FileManagerResult<FileManagerBasicFile> GetBTKLog(RadiusR.DB.Enums.BTKLogTypes logType, DateTime date, string fileName)

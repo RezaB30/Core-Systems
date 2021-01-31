@@ -48,14 +48,23 @@ namespace RadiusR.BTKLogging
                                 try
                                 {
                                     BTKLogManager.CreateLogs(settings[i]);
-                                    BTKLogManager.UploadCreatedFiles(settings[i]);
                                     using (RadiusREntities db = new RadiusREntities())
                                     {
                                         var dbSettings = db.BTKSchedulerSettings.Find((short)settings[i].LogType);
                                         dbSettings.LastOperationTime = settings[i].NextOperationTime;
                                         db.SaveChanges();
                                     }
+                                    logger.Trace("Log files created for {0}.", settings[i].LogType.ToString());
 
+                                    logger.Trace("Uploading files for {0}.", settings[i].LogType.ToString());
+                                    BTKLogManager.UploadCreatedFiles(settings[i]);
+                                    using (RadiusREntities db = new RadiusREntities())
+                                    {
+                                        var dbSettings = db.BTKSchedulerSettings.Find((short)settings[i].LogType);
+                                        dbSettings.LastUploadTime = settings[i].LastUploadTime;
+                                        db.SaveChanges();
+                                    }
+                                    logger.Trace("Files for {0} uploaded.", settings[i].LogType.ToString());
                                 }
                                 catch (Exception ex)
                                 {

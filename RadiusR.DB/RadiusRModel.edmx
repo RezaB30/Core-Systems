@@ -120,6 +120,7 @@
           <Property Name="FTPPassword" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="LastOperationTime" Type="datetime" />
+          <Property Name="LastUploadTime" Type="datetime" />
         </EntityType>
         <EntityType Name="Cashier">
           <Key>
@@ -3328,22 +3329,6 @@
           <Property Name="BlockType" Type="Int16" Nullable="false" />
           <Property Name="UseLocation" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="BTKSchedulerSetting">
-          <Key>
-            <PropertyRef Name="LogType" />
-          </Key>
-          <Property Name="LogType" Type="Int16" Nullable="false" />
-          <Property Name="SchedulerStartTime" Type="Int64" Nullable="false" />
-          <Property Name="SchedulerActiveTime" Type="Int64" Nullable="false" />
-          <Property Name="SchedulerWorkPeriod" Type="Int16" Nullable="false" />
-          <Property Name="SchedulerStartDay" Type="String" MaxLength="83" FixedLength="false" Unicode="true" />
-          <Property Name="PartitionFiles" Type="Boolean" Nullable="false" />
-          <Property Name="FTPFolder" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FTPUsername" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FTPPassword" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="LastOperationTime" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="Cashier">
           <Key>
             <PropertyRef Name="ID" />
@@ -3987,7 +3972,6 @@
           <EntitySet Name="AppSettings" EntityType="Self.AppSetting" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
           <EntitySet Name="BTKIPBlocks" EntityType="Self.BTKIPBlock" />
-          <EntitySet Name="BTKSchedulerSettings" EntityType="Self.BTKSchedulerSetting" />
           <EntitySet Name="Cashiers" EntityType="Self.Cashier" />
           <EntitySet Name="CashierBalances" EntityType="Self.CashierBalance" />
           <EntitySet Name="ChangeServiceTypeTasks" EntityType="Self.ChangeServiceTypeTask" />
@@ -4562,6 +4546,7 @@
             <End Role="Service" EntitySet="Services" />
             <End Role="ExternalTariff" EntitySet="ExternalTariffs" />
           </AssociationSet>
+          <EntitySet Name="BTKSchedulerSettings" EntityType="RadiusRModel.BTKSchedulerSetting" />
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
           <Key>
@@ -6568,6 +6553,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BTKSchedulerSetting">
+          <Key>
+            <PropertyRef Name="LogType" />
+          </Key>
+          <Property Name="LogType" Type="Int16" Nullable="false" />
+          <Property Name="SchedulerStartTime" Type="Int64" Nullable="false" />
+          <Property Name="SchedulerActiveTime" Type="Int64" Nullable="false" />
+          <Property Name="SchedulerWorkPeriod" Type="Int16" Nullable="false" />
+          <Property Name="SchedulerStartDay" Type="String" MaxLength="83" FixedLength="false" Unicode="true" />
+          <Property Name="PartitionFiles" Type="Boolean" Nullable="false" />
+          <Property Name="FTPFolder" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FTPUsername" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FTPPassword" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="LastOperationTime" Type="DateTime" Precision="3" />
+          <Property Name="LastUploadTime" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6635,23 +6637,6 @@
                 <ScalarProperty Name="DeallocationDate" ColumnName="DeallocationDate" />
                 <ScalarProperty Name="BlockType" ColumnName="BlockType" />
                 <ScalarProperty Name="UseLocation" ColumnName="UseLocation" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BTKSchedulerSettings">
-            <EntityTypeMapping TypeName="RadiusRModel.BTKSchedulerSetting">
-              <MappingFragment StoreEntitySet="BTKSchedulerSettings">
-                <ScalarProperty Name="LogType" ColumnName="LogType" />
-                <ScalarProperty Name="SchedulerStartTime" ColumnName="SchedulerStartTime" />
-                <ScalarProperty Name="SchedulerActiveTime" ColumnName="SchedulerActiveTime" />
-                <ScalarProperty Name="SchedulerWorkPeriod" ColumnName="SchedulerWorkPeriod" />
-                <ScalarProperty Name="SchedulerStartDay" ColumnName="SchedulerStartDay" />
-                <ScalarProperty Name="PartitionFiles" ColumnName="PartitionFiles" />
-                <ScalarProperty Name="FTPFolder" ColumnName="FTPFolder" />
-                <ScalarProperty Name="FTPUsername" ColumnName="FTPUsername" />
-                <ScalarProperty Name="FTPPassword" ColumnName="FTPPassword" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="LastOperationTime" ColumnName="LastOperationTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7766,6 +7751,24 @@
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
                 <ScalarProperty Name="DomainID" ColumnName="DomainID" />
                 <ScalarProperty Name="TariffID" ColumnName="TariffID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BTKSchedulerSettings">
+            <EntityTypeMapping TypeName="RadiusRModel.BTKSchedulerSetting">
+              <MappingFragment StoreEntitySet="BTKSchedulerSettings">
+                <ScalarProperty Name="LastUploadTime" ColumnName="LastUploadTime" />
+                <ScalarProperty Name="LastOperationTime" ColumnName="LastOperationTime" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="FTPPassword" ColumnName="FTPPassword" />
+                <ScalarProperty Name="FTPUsername" ColumnName="FTPUsername" />
+                <ScalarProperty Name="FTPFolder" ColumnName="FTPFolder" />
+                <ScalarProperty Name="PartitionFiles" ColumnName="PartitionFiles" />
+                <ScalarProperty Name="SchedulerStartDay" ColumnName="SchedulerStartDay" />
+                <ScalarProperty Name="SchedulerWorkPeriod" ColumnName="SchedulerWorkPeriod" />
+                <ScalarProperty Name="SchedulerActiveTime" ColumnName="SchedulerActiveTime" />
+                <ScalarProperty Name="SchedulerStartTime" ColumnName="SchedulerStartTime" />
+                <ScalarProperty Name="LogType" ColumnName="LogType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -25,5 +25,6 @@ namespace RadiusR.DB
         public string FTPPassword { get; set; }
         public bool IsActive { get; set; }
         public Nullable<System.DateTime> LastOperationTime { get; set; }
+        public Nullable<System.DateTime> LastUploadTime { get; set; }
     }
 }

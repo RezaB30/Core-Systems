@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RadiusR.FileManagement.BTKLogging;
 using RadiusR.FileManagement.SpecialFiles;
 
 namespace RadiusR.FileManagement.TestUnit
@@ -75,9 +76,9 @@ namespace RadiusR.FileManagement.TestUnit
             }
         }
 
-        private void ListBTKLogs()
+        private void ListBTKLogs(DateTime start, DateTime? end = null)
         {
-            var results = FileManager.ListBTKLogs((RadiusR.DB.Enums.BTKLogTypes)Enum.Parse(typeof(RadiusR.DB.Enums.BTKLogTypes), BTKLogTypeCombobox.SelectedItem as string), BTKLogDatetimepicker.Value);
+            var results = FileManager.ListBTKLogs((RadiusR.DB.Enums.BTKLogTypes)Enum.Parse(typeof(RadiusR.DB.Enums.BTKLogTypes), BTKLogTypeCombobox.SelectedItem as string), end.HasValue ? start : start.Date, end ?? start.Date);
             if (results.InternalException != null)
             {
                 ShowError(results.InternalException);
@@ -438,14 +439,14 @@ namespace RadiusR.FileManagement.TestUnit
                 }
                 else
                 {
-                    ListBTKLogs();
+                    ListBTKLogs(BTKLogDatetimepicker.Value);
                 }
             }
         }
 
         private void BTKLogsListButton_Click(object sender, EventArgs e)
         {
-            ListBTKLogs();
+            ListBTKLogs(BTKLogsFilterStartDatepicker.Value.AddSeconds(BTKLogsFilterStartDatepicker.Value.Second * -1), BTKLogsFilterEndDatepicker.Value.AddSeconds(BTKLogsFilterEndDatepicker.Value.Second * -1));
         }
 
         private void BTKLogsDownloadButton_Click(object sender, EventArgs e)

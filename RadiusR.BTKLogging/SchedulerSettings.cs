@@ -21,6 +21,7 @@ namespace RadiusR.BTKLogging
         public string FTPPassword { get; set; }
         public bool IsActive { get; set; }
         public DateTime LastOperationTime { get; set; }
+        public DateTime LastUploadTime { get; set; }
         public DateTime CurrentOperationTime { get; private set; }
         public DateTime? NextOperationTime { get; private set; }
 
@@ -37,6 +38,7 @@ namespace RadiusR.BTKLogging
             FTPPassword = dbSetting.FTPPassword;
             IsActive = dbSetting.IsActive;
             LastOperationTime = dbSetting.LastOperationTime ?? DateTime.Now.AddMonths(-1);
+            LastUploadTime = dbSetting.LastUploadTime ?? LastOperationTime;
 
             CurrentOperationTime = DateTime.Now;
             NextOperationTime = GetNextDate();
@@ -49,24 +51,24 @@ namespace RadiusR.BTKLogging
 
             return NextOperationTime.HasValue;
 
-            var checkTime = LastOperationTime;
-            switch (SchedulerWorkPeriod)
-            {
-                case SchedulerWorkPeriods.Hourly:
-                    return DateTime.Now.Day > checkTime.Day || DateTime.Now.Hour > checkTime.Hour;
+            //var checkTime = LastOperationTime;
+            //switch (SchedulerWorkPeriod)
+            //{
+            //    case SchedulerWorkPeriods.Hourly:
+            //        return DateTime.Now.Day > checkTime.Day || DateTime.Now.Hour > checkTime.Hour;
 
-                case SchedulerWorkPeriods.Daily:
-                    return DateTime.Now.Day > checkTime.Day && DateTime.Now.TimeOfDay > SchedulerStartTime;
+            //    case SchedulerWorkPeriods.Daily:
+            //        return DateTime.Now.Day > checkTime.Day && DateTime.Now.TimeOfDay > SchedulerStartTime;
 
-                case SchedulerWorkPeriods.Weekly:
-                    return DateTime.Now.Day > checkTime.Day && StartDays.Contains((int)DateTime.Now.DayOfWeek + 1) && DateTime.Now.TimeOfDay > SchedulerStartTime;
+            //    case SchedulerWorkPeriods.Weekly:
+            //        return DateTime.Now.Day > checkTime.Day && StartDays.Contains((int)DateTime.Now.DayOfWeek + 1) && DateTime.Now.TimeOfDay > SchedulerStartTime;
 
-                case SchedulerWorkPeriods.Monthly:
-                    return DateTime.Now.Day > checkTime.Day && StartDays.Contains(DateTime.Now.Day) && DateTime.Now.TimeOfDay > SchedulerStartTime;
+            //    case SchedulerWorkPeriods.Monthly:
+            //        return DateTime.Now.Day > checkTime.Day && StartDays.Contains(DateTime.Now.Day) && DateTime.Now.TimeOfDay > SchedulerStartTime;
 
-                default:
-                    return false;
-            }
+            //    default:
+            //        return false;
+            //}
         }
 
         public IEnumerable<int> StartDays

@@ -85,18 +85,8 @@ namespace RadiusR.FileManagement.TestUnit
             this.BTKLogTypeCombobox = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.SupportRequestAttachmentsTabpage = new System.Windows.Forms.TabPage();
-            this.label13 = new System.Windows.Forms.Label();
-            this.SupportRequestIDNumeric = new System.Windows.Forms.NumericUpDown();
-            this.LocalSupportAttachmentListbox = new System.Windows.Forms.ListBox();
-            this.ServerSupportAttachmentListbox = new System.Windows.Forms.ListBox();
-            this.GetSupportAttachmentsButton = new System.Windows.Forms.Button();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.AddLocalSupportAttachmentButton = new System.Windows.Forms.Button();
-            this.UploadSupportAttachmentButton = new System.Windows.Forms.Button();
-            this.label16 = new System.Windows.Forms.Label();
-            this.SupportAttachmentStageIDNumeric = new System.Windows.Forms.NumericUpDown();
             this.SupportAttachmentDetailPanel = new System.Windows.Forms.Panel();
+            this.SupportAttachmentSentNameLabel = new System.Windows.Forms.Label();
             this.DeleteSupportAttachmentButton = new System.Windows.Forms.Button();
             this.SupportAttachmentFileNameTextbox = new System.Windows.Forms.TextBox();
             this.SupportAttachmentExtentionLabel = new System.Windows.Forms.Label();
@@ -105,10 +95,25 @@ namespace RadiusR.FileManagement.TestUnit
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.SaveSupportAttachmentButton = new System.Windows.Forms.Button();
-            this.label17 = new System.Windows.Forms.Label();
-            this.SupportAttachmentSentNameLabel = new System.Windows.Forms.Label();
+            this.SupportAttachmentStageIDNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label16 = new System.Windows.Forms.Label();
+            this.UploadSupportAttachmentButton = new System.Windows.Forms.Button();
+            this.AddLocalSupportAttachmentButton = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.GetSupportAttachmentsButton = new System.Windows.Forms.Button();
+            this.ServerSupportAttachmentListbox = new System.Windows.Forms.ListBox();
+            this.LocalSupportAttachmentListbox = new System.Windows.Forms.ListBox();
+            this.SupportRequestIDNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.BTKLogsFilterStartDatepicker = new System.Windows.Forms.DateTimePicker();
+            this.label19 = new System.Windows.Forms.Label();
+            this.BTKLogsFilterEndDatepicker = new System.Windows.Forms.DateTimePicker();
+            this.label24 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ArchiveNoNumeric)).BeginInit();
             this.MainTabcontrol.SuspendLayout();
             this.ClientAttachmentsTabpage.SuspendLayout();
@@ -120,9 +125,9 @@ namespace RadiusR.FileManagement.TestUnit
             this.ContractMailBodyGroupbox.SuspendLayout();
             this.BTKLogsTabpage.SuspendLayout();
             this.SupportRequestAttachmentsTabpage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SupportRequestIDNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SupportAttachmentStageIDNumeric)).BeginInit();
             this.SupportAttachmentDetailPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SupportAttachmentStageIDNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SupportRequestIDNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // label4
@@ -630,9 +635,14 @@ namespace RadiusR.FileManagement.TestUnit
             this.BTKLogsTabpage.Controls.Add(this.BTKLogsListbox);
             this.BTKLogsTabpage.Controls.Add(this.BTKLogsListButton);
             this.BTKLogsTabpage.Controls.Add(this.BTKLogUploadButton);
+            this.BTKLogsTabpage.Controls.Add(this.BTKLogsFilterEndDatepicker);
+            this.BTKLogsTabpage.Controls.Add(this.BTKLogsFilterStartDatepicker);
             this.BTKLogsTabpage.Controls.Add(this.BTKLogDatetimepicker);
             this.BTKLogsTabpage.Controls.Add(this.label11);
             this.BTKLogsTabpage.Controls.Add(this.BTKLogTypeCombobox);
+            this.BTKLogsTabpage.Controls.Add(this.label24);
+            this.BTKLogsTabpage.Controls.Add(this.label19);
+            this.BTKLogsTabpage.Controls.Add(this.label18);
             this.BTKLogsTabpage.Controls.Add(this.label10);
             this.BTKLogsTabpage.Location = new System.Drawing.Point(4, 22);
             this.BTKLogsTabpage.Name = "BTKLogsTabpage";
@@ -661,7 +671,7 @@ namespace RadiusR.FileManagement.TestUnit
             // 
             // BTKLogsListButton
             // 
-            this.BTKLogsListButton.Location = new System.Drawing.Point(566, 8);
+            this.BTKLogsListButton.Location = new System.Drawing.Point(485, 67);
             this.BTKLogsListButton.Name = "BTKLogsListButton";
             this.BTKLogsListButton.Size = new System.Drawing.Size(75, 23);
             this.BTKLogsListButton.TabIndex = 5;
@@ -681,7 +691,7 @@ namespace RadiusR.FileManagement.TestUnit
             // 
             // BTKLogDatetimepicker
             // 
-            this.BTKLogDatetimepicker.CustomFormat = "yyyy-MM-dd HH:mm";
+            this.BTKLogDatetimepicker.CustomFormat = "yyyy-MM-dd";
             this.BTKLogDatetimepicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.BTKLogDatetimepicker.Location = new System.Drawing.Point(341, 10);
             this.BTKLogDatetimepicker.Name = "BTKLogDatetimepicker";
@@ -736,134 +746,6 @@ namespace RadiusR.FileManagement.TestUnit
             this.SupportRequestAttachmentsTabpage.TabIndex = 4;
             this.SupportRequestAttachmentsTabpage.Text = "Support Request Attachments";
             // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(650, 12);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(104, 13);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "Support Request ID:";
-            // 
-            // SupportRequestIDNumeric
-            // 
-            this.SupportRequestIDNumeric.Location = new System.Drawing.Point(760, 10);
-            this.SupportRequestIDNumeric.Maximum = new decimal(new int[] {
-            9999999,
-            0,
-            0,
-            0});
-            this.SupportRequestIDNumeric.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.SupportRequestIDNumeric.Name = "SupportRequestIDNumeric";
-            this.SupportRequestIDNumeric.Size = new System.Drawing.Size(120, 20);
-            this.SupportRequestIDNumeric.TabIndex = 1;
-            this.SupportRequestIDNumeric.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // LocalSupportAttachmentListbox
-            // 
-            this.LocalSupportAttachmentListbox.FormattingEnabled = true;
-            this.LocalSupportAttachmentListbox.Location = new System.Drawing.Point(8, 66);
-            this.LocalSupportAttachmentListbox.Name = "LocalSupportAttachmentListbox";
-            this.LocalSupportAttachmentListbox.Size = new System.Drawing.Size(404, 251);
-            this.LocalSupportAttachmentListbox.TabIndex = 2;
-            this.LocalSupportAttachmentListbox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.LocalSupportAttachmentListbox_KeyUp);
-            // 
-            // ServerSupportAttachmentListbox
-            // 
-            this.ServerSupportAttachmentListbox.FormattingEnabled = true;
-            this.ServerSupportAttachmentListbox.Location = new System.Drawing.Point(653, 66);
-            this.ServerSupportAttachmentListbox.Name = "ServerSupportAttachmentListbox";
-            this.ServerSupportAttachmentListbox.Size = new System.Drawing.Size(403, 251);
-            this.ServerSupportAttachmentListbox.TabIndex = 3;
-            this.ServerSupportAttachmentListbox.SelectedIndexChanged += new System.EventHandler(this.ServerSupportAttachmentListbox_SelectedIndexChanged);
-            // 
-            // GetSupportAttachmentsButton
-            // 
-            this.GetSupportAttachmentsButton.Location = new System.Drawing.Point(886, 7);
-            this.GetSupportAttachmentsButton.Name = "GetSupportAttachmentsButton";
-            this.GetSupportAttachmentsButton.Size = new System.Drawing.Size(113, 23);
-            this.GetSupportAttachmentsButton.TabIndex = 4;
-            this.GetSupportAttachmentsButton.Text = "Get Attachments";
-            this.GetSupportAttachmentsButton.UseVisualStyleBackColor = true;
-            this.GetSupportAttachmentsButton.Click += new System.EventHandler(this.GetSupportAttachmentsButton_Click);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(9, 47);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(36, 13);
-            this.label14.TabIndex = 5;
-            this.label14.Text = "Local:";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(650, 47);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(41, 13);
-            this.label15.TabIndex = 5;
-            this.label15.Text = "Server:";
-            // 
-            // AddLocalSupportAttachmentButton
-            // 
-            this.AddLocalSupportAttachmentButton.Location = new System.Drawing.Point(8, 324);
-            this.AddLocalSupportAttachmentButton.Name = "AddLocalSupportAttachmentButton";
-            this.AddLocalSupportAttachmentButton.Size = new System.Drawing.Size(75, 23);
-            this.AddLocalSupportAttachmentButton.TabIndex = 6;
-            this.AddLocalSupportAttachmentButton.Text = "Add File";
-            this.AddLocalSupportAttachmentButton.UseVisualStyleBackColor = true;
-            this.AddLocalSupportAttachmentButton.Click += new System.EventHandler(this.AddLocalSupportAttachmentButton_Click);
-            // 
-            // UploadSupportAttachmentButton
-            // 
-            this.UploadSupportAttachmentButton.Location = new System.Drawing.Point(419, 293);
-            this.UploadSupportAttachmentButton.Name = "UploadSupportAttachmentButton";
-            this.UploadSupportAttachmentButton.Size = new System.Drawing.Size(75, 23);
-            this.UploadSupportAttachmentButton.TabIndex = 7;
-            this.UploadSupportAttachmentButton.Text = "Upload >";
-            this.UploadSupportAttachmentButton.UseVisualStyleBackColor = true;
-            this.UploadSupportAttachmentButton.Click += new System.EventHandler(this.UploadSupportAttachmentButton_Click);
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(497, 278);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(77, 13);
-            this.label16.TabIndex = 8;
-            this.label16.Text = "With Stage ID:";
-            // 
-            // SupportAttachmentStageIDNumeric
-            // 
-            this.SupportAttachmentStageIDNumeric.Location = new System.Drawing.Point(500, 294);
-            this.SupportAttachmentStageIDNumeric.Maximum = new decimal(new int[] {
-            9999999,
-            0,
-            0,
-            0});
-            this.SupportAttachmentStageIDNumeric.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.SupportAttachmentStageIDNumeric.Name = "SupportAttachmentStageIDNumeric";
-            this.SupportAttachmentStageIDNumeric.Size = new System.Drawing.Size(147, 20);
-            this.SupportAttachmentStageIDNumeric.TabIndex = 9;
-            this.SupportAttachmentStageIDNumeric.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
             // SupportAttachmentDetailPanel
             // 
             this.SupportAttachmentDetailPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -884,6 +766,15 @@ namespace RadiusR.FileManagement.TestUnit
             this.SupportAttachmentDetailPanel.Size = new System.Drawing.Size(404, 104);
             this.SupportAttachmentDetailPanel.TabIndex = 12;
             this.SupportAttachmentDetailPanel.Visible = false;
+            // 
+            // SupportAttachmentSentNameLabel
+            // 
+            this.SupportAttachmentSentNameLabel.AutoSize = true;
+            this.SupportAttachmentSentNameLabel.Location = new System.Drawing.Point(153, 81);
+            this.SupportAttachmentSentNameLabel.Name = "SupportAttachmentSentNameLabel";
+            this.SupportAttachmentSentNameLabel.Size = new System.Drawing.Size(10, 13);
+            this.SupportAttachmentSentNameLabel.TabIndex = 17;
+            this.SupportAttachmentSentNameLabel.Text = "-";
             // 
             // DeleteSupportAttachmentButton
             // 
@@ -962,6 +853,16 @@ namespace RadiusR.FileManagement.TestUnit
             this.label22.TabIndex = 11;
             this.label22.Text = "Creation Date:";
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label17.Location = new System.Drawing.Point(84, 81);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(63, 13);
+            this.label17.TabIndex = 11;
+            this.label17.Text = "Sent Name:";
+            // 
             // label23
             // 
             this.label23.AutoSize = true;
@@ -982,24 +883,178 @@ namespace RadiusR.FileManagement.TestUnit
             this.SaveSupportAttachmentButton.UseVisualStyleBackColor = true;
             this.SaveSupportAttachmentButton.Click += new System.EventHandler(this.SaveSupportAttachmentButton_Click);
             // 
-            // label17
+            // SupportAttachmentStageIDNumeric
             // 
-            this.label17.AutoSize = true;
-            this.label17.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label17.Location = new System.Drawing.Point(84, 81);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(63, 13);
-            this.label17.TabIndex = 11;
-            this.label17.Text = "Sent Name:";
+            this.SupportAttachmentStageIDNumeric.Location = new System.Drawing.Point(500, 294);
+            this.SupportAttachmentStageIDNumeric.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.SupportAttachmentStageIDNumeric.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.SupportAttachmentStageIDNumeric.Name = "SupportAttachmentStageIDNumeric";
+            this.SupportAttachmentStageIDNumeric.Size = new System.Drawing.Size(147, 20);
+            this.SupportAttachmentStageIDNumeric.TabIndex = 9;
+            this.SupportAttachmentStageIDNumeric.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
-            // SupportAttachmentSentNameLabel
+            // label16
             // 
-            this.SupportAttachmentSentNameLabel.AutoSize = true;
-            this.SupportAttachmentSentNameLabel.Location = new System.Drawing.Point(153, 81);
-            this.SupportAttachmentSentNameLabel.Name = "SupportAttachmentSentNameLabel";
-            this.SupportAttachmentSentNameLabel.Size = new System.Drawing.Size(10, 13);
-            this.SupportAttachmentSentNameLabel.TabIndex = 17;
-            this.SupportAttachmentSentNameLabel.Text = "-";
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(497, 278);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(77, 13);
+            this.label16.TabIndex = 8;
+            this.label16.Text = "With Stage ID:";
+            // 
+            // UploadSupportAttachmentButton
+            // 
+            this.UploadSupportAttachmentButton.Location = new System.Drawing.Point(419, 293);
+            this.UploadSupportAttachmentButton.Name = "UploadSupportAttachmentButton";
+            this.UploadSupportAttachmentButton.Size = new System.Drawing.Size(75, 23);
+            this.UploadSupportAttachmentButton.TabIndex = 7;
+            this.UploadSupportAttachmentButton.Text = "Upload >";
+            this.UploadSupportAttachmentButton.UseVisualStyleBackColor = true;
+            this.UploadSupportAttachmentButton.Click += new System.EventHandler(this.UploadSupportAttachmentButton_Click);
+            // 
+            // AddLocalSupportAttachmentButton
+            // 
+            this.AddLocalSupportAttachmentButton.Location = new System.Drawing.Point(8, 324);
+            this.AddLocalSupportAttachmentButton.Name = "AddLocalSupportAttachmentButton";
+            this.AddLocalSupportAttachmentButton.Size = new System.Drawing.Size(75, 23);
+            this.AddLocalSupportAttachmentButton.TabIndex = 6;
+            this.AddLocalSupportAttachmentButton.Text = "Add File";
+            this.AddLocalSupportAttachmentButton.UseVisualStyleBackColor = true;
+            this.AddLocalSupportAttachmentButton.Click += new System.EventHandler(this.AddLocalSupportAttachmentButton_Click);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(650, 47);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(41, 13);
+            this.label15.TabIndex = 5;
+            this.label15.Text = "Server:";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(9, 47);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(36, 13);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "Local:";
+            // 
+            // GetSupportAttachmentsButton
+            // 
+            this.GetSupportAttachmentsButton.Location = new System.Drawing.Point(886, 7);
+            this.GetSupportAttachmentsButton.Name = "GetSupportAttachmentsButton";
+            this.GetSupportAttachmentsButton.Size = new System.Drawing.Size(113, 23);
+            this.GetSupportAttachmentsButton.TabIndex = 4;
+            this.GetSupportAttachmentsButton.Text = "Get Attachments";
+            this.GetSupportAttachmentsButton.UseVisualStyleBackColor = true;
+            this.GetSupportAttachmentsButton.Click += new System.EventHandler(this.GetSupportAttachmentsButton_Click);
+            // 
+            // ServerSupportAttachmentListbox
+            // 
+            this.ServerSupportAttachmentListbox.FormattingEnabled = true;
+            this.ServerSupportAttachmentListbox.Location = new System.Drawing.Point(653, 66);
+            this.ServerSupportAttachmentListbox.Name = "ServerSupportAttachmentListbox";
+            this.ServerSupportAttachmentListbox.Size = new System.Drawing.Size(403, 251);
+            this.ServerSupportAttachmentListbox.TabIndex = 3;
+            this.ServerSupportAttachmentListbox.SelectedIndexChanged += new System.EventHandler(this.ServerSupportAttachmentListbox_SelectedIndexChanged);
+            // 
+            // LocalSupportAttachmentListbox
+            // 
+            this.LocalSupportAttachmentListbox.FormattingEnabled = true;
+            this.LocalSupportAttachmentListbox.Location = new System.Drawing.Point(8, 66);
+            this.LocalSupportAttachmentListbox.Name = "LocalSupportAttachmentListbox";
+            this.LocalSupportAttachmentListbox.Size = new System.Drawing.Size(404, 251);
+            this.LocalSupportAttachmentListbox.TabIndex = 2;
+            this.LocalSupportAttachmentListbox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.LocalSupportAttachmentListbox_KeyUp);
+            // 
+            // SupportRequestIDNumeric
+            // 
+            this.SupportRequestIDNumeric.Location = new System.Drawing.Point(760, 10);
+            this.SupportRequestIDNumeric.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.SupportRequestIDNumeric.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.SupportRequestIDNumeric.Name = "SupportRequestIDNumeric";
+            this.SupportRequestIDNumeric.Size = new System.Drawing.Size(120, 20);
+            this.SupportRequestIDNumeric.TabIndex = 1;
+            this.SupportRequestIDNumeric.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(650, 12);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(104, 13);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Support Request ID:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(8, 75);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(65, 13);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "Listing Filter:";
+            // 
+            // BTKLogsFilterStartDatepicker
+            // 
+            this.BTKLogsFilterStartDatepicker.CustomFormat = "yyyy-MM-dd HH:mm";
+            this.BTKLogsFilterStartDatepicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.BTKLogsFilterStartDatepicker.Location = new System.Drawing.Point(137, 69);
+            this.BTKLogsFilterStartDatepicker.Name = "BTKLogsFilterStartDatepicker";
+            this.BTKLogsFilterStartDatepicker.Size = new System.Drawing.Size(138, 20);
+            this.BTKLogsFilterStartDatepicker.TabIndex = 3;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(101, 75);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(30, 13);
+            this.label19.TabIndex = 0;
+            this.label19.Text = "from:";
+            // 
+            // BTKLogsFilterEndDatepicker
+            // 
+            this.BTKLogsFilterEndDatepicker.CustomFormat = "yyyy-MM-dd HH:mm";
+            this.BTKLogsFilterEndDatepicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.BTKLogsFilterEndDatepicker.Location = new System.Drawing.Point(341, 69);
+            this.BTKLogsFilterEndDatepicker.Name = "BTKLogsFilterEndDatepicker";
+            this.BTKLogsFilterEndDatepicker.Size = new System.Drawing.Size(138, 20);
+            this.BTKLogsFilterEndDatepicker.TabIndex = 3;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(316, 75);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(19, 13);
+            this.label24.TabIndex = 0;
+            this.label24.Text = "to:";
             // 
             // MainForm
             // 
@@ -1030,10 +1085,10 @@ namespace RadiusR.FileManagement.TestUnit
             this.BTKLogsTabpage.PerformLayout();
             this.SupportRequestAttachmentsTabpage.ResumeLayout(false);
             this.SupportRequestAttachmentsTabpage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SupportRequestIDNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SupportAttachmentStageIDNumeric)).EndInit();
             this.SupportAttachmentDetailPanel.ResumeLayout(false);
             this.SupportAttachmentDetailPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SupportAttachmentStageIDNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SupportRequestIDNumeric)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1119,6 +1174,11 @@ namespace RadiusR.FileManagement.TestUnit
         private System.Windows.Forms.Button SaveSupportAttachmentButton;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label SupportAttachmentSentNameLabel;
+        private System.Windows.Forms.DateTimePicker BTKLogsFilterStartDatepicker;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.DateTimePicker BTKLogsFilterEndDatepicker;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label24;
     }
 }
 

@@ -34,7 +34,6 @@ namespace RadiusR.DB
         public virtual DbSet<AppSetting> AppSettings { get; set; }
         public virtual DbSet<AppUser> AppUsers { get; set; }
         public virtual DbSet<BTKIPBlock> BTKIPBlocks { get; set; }
-        public virtual DbSet<BTKSchedulerSetting> BTKSchedulerSettings { get; set; }
         public virtual DbSet<Cashier> Cashiers { get; set; }
         public virtual DbSet<CashierBalance> CashierBalances { get; set; }
         public virtual DbSet<ChangeServiceTypeTask> ChangeServiceTypeTasks { get; set; }
@@ -121,5 +120,6 @@ namespace RadiusR.DB
         public virtual DbSet<SupportGroupUser> SupportGroupUsers { get; set; }
         public virtual DbSet<VPOSList> VPOSLists { get; set; }
         public virtual DbSet<ExternalTariff> ExternalTariffs { get; set; }
+        public virtual DbSet<BTKSchedulerSetting> BTKSchedulerSettings { get; set; }
     }
 }

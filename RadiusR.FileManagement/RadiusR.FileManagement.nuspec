@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <title>RadiusR.FileManagement</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <description>MasterISS File Manager.</description>
-    <releaseNotes>Added support request attachments.</releaseNotes>
+    <releaseNotes>Updated BTK logs.</releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>MasterISS File Management</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />

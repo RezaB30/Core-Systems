@@ -9,11 +9,14 @@ using System.Data.Entity;
 using RadiusR.FileManagement;
 using RadiusR.FileManagement.BTKLogging;
 using RezaB.Files.FTP;
+using NLog;
 
 namespace RadiusR.BTKLogging
 {
     public static class BTKLogManager
     {
+        private static Logger logger = LogManager.GetLogger("BTK Log Scheduler");
+
         public static void CreateLogs(SchedulerSettings schedulerSettings)
         {
             // create log files
@@ -45,16 +48,21 @@ namespace RadiusR.BTKLogging
         public static void UploadCreatedFiles(SchedulerSettings schedulerSettings)
         {
             var fileManager = new MasterISSFileManager();
-            var result = fileManager.ListBTKLogs(schedulerSettings.LogType, schedulerSettings.CurrentOperationTime);
+            var result = fileManager.ListBTKLogs(schedulerSettings.LogType, schedulerSettings.LastUploadTime, schedulerSettings.CurrentOperationTime);
             if (result.InternalException != null)
             {
-
+                throw result.InternalException;
             }
-            var validLogFiles = result.Result.Select(fileName => new { Name = fileName, Date = BTKLogUtilities.GetDateTimeFromFileName(fileName) }).Where(item => item.Date.HasValue && item.Date >= schedulerSettings.CurrentOperationTime).Select(item => item.Name).ToArray();
+            var validLogFiles = result.Result.Where(lf => lf.BTKDate.HasValue).ToArray();
+            logger.Trace("Upload file list for {0}:{1}{2}",
+                schedulerSettings.LogType.ToString(),
+                Environment.NewLine,
+                string.Join(Environment.NewLine, validLogFiles.Select(lf => lf.FileName).ToArray()));
             var ftpClient = FTPClientFactory.CreateFTPClient(schedulerSettings.FTPFolder, schedulerSettings.FTPUsername, schedulerSettings.FTPPassword);
-            foreach (var logFileName in validLogFiles)
+            foreach (var logFileWithDate in validLogFiles)
             {
-                using (var fileResult = fileManager.GetBTKLog(schedulerSettings.LogType, schedulerSettings.CurrentOperationTime, logFileName))
+                logger.Trace("Uploading {0}.", logFileWithDate.FileName);
+                using (var fileResult = fileManager.GetBTKLog(schedulerSettings.LogType, logFileWithDate.BTKDate.Value, logFileWithDate.FileName))
                 {
                     if(fileResult.InternalException != null)
                     {
@@ -67,7 +75,11 @@ namespace RadiusR.BTKLogging
                     }
                     else if (!uploadResult.Result)
                     {
-                        throw new Exception($"error uploading [{logFileName}].");
+                        throw new Exception($"error uploading [{logFileWithDate.FileName}].");
+                    }
+                    else
+                    {
+                        schedulerSettings.LastUploadTime = logFileWithDate.BTKDate.Value;
                     }
                 }
             }
