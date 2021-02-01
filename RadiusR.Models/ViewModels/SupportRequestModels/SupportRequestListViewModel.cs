@@ -71,7 +71,7 @@ namespace RadiusR_Manager.Models.ViewModels.SupportRequestModels
             StateID = dbRequest.StateID;
             IsVisibleToCustomer = dbRequest.IsVisibleToCustomer;
             HasCustomerResponse = dbRequest.SupportRequestProgresses.Any() && !dbRequest.SupportRequestProgresses.OrderByDescending(srp => srp.Date).ThenByDescending(srp => srp.ID).FirstOrDefault().AppUserID.HasValue;
-            CustomerName = dbRequest.Subscription.ValidDisplayName;
+            CustomerName = dbRequest.Subscription?.ValidDisplayName;
         }
     }
 

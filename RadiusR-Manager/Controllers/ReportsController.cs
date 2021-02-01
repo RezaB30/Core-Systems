@@ -557,7 +557,7 @@ namespace RadiusR_Manager.Controllers
             var baseQuery = db.Subscriptions.Where(client => !string.IsNullOrEmpty(client.StaticIP));
             if (!string.IsNullOrEmpty(search.StaticIP))
             {
-                baseQuery = baseQuery.Where(client => client.StaticIP.Contains(search.StaticIP));
+                baseQuery = baseQuery.Where(client => client.StaticIP == search.StaticIP);
             }
             baseQuery = baseQuery.OrderBy(client => client.ID).AsQueryable();
 
@@ -754,11 +754,11 @@ namespace RadiusR_Manager.Controllers
             }
             if (!string.IsNullOrWhiteSpace(search.LocalIP))
             {
-                baseQuery = baseQuery.Where(ra => (ra.RadiusAccountingIPInfo != null && ra.RadiusAccountingIPInfo.LocalIP.Contains(search.LocalIP)) || ra.FramedIPAddress.Contains(search.LocalIP));
+                baseQuery = baseQuery.Where(ra => (ra.RadiusAccountingIPInfo != null && ra.RadiusAccountingIPInfo.LocalIP== search.LocalIP) || ra.FramedIPAddress == search.LocalIP);
             }
             if (!string.IsNullOrWhiteSpace(search.RealIP))
             {
-                baseQuery = baseQuery.Where(ra => ra.RadiusAccountingIPInfo.RealIP.Contains(search.RealIP));
+                baseQuery = baseQuery.Where(ra => ra.RadiusAccountingIPInfo.RealIP == search.RealIP);
             }
 
             var viewResults = baseQuery.Select(ra => new IPDRReportViewModel()

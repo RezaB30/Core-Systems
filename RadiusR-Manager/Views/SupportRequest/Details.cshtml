@@ -22,14 +22,17 @@
                     @Html.DisplayFor(model => model.RequestInfo.SupportPin)
                 </td>
             </tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(model => model.RequestInfo.SubscriberNo)
-                </td>
-                <td>
-                    <a href="@Url.Action("Details", "Client", new { id = Model.RequestInfo.SubscriptionID })" class="details-link">@Html.DisplayFor(model => model.RequestInfo.SubscriberNo) - @Html.DisplayFor(model => model.RequestInfo.CustomerName)</a>
-                </td>
-            </tr>
+            @if (Model.RequestInfo.SubscriptionID.HasValue)
+            {
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.RequestInfo.SubscriberNo)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", "Client", new { id = Model.RequestInfo.SubscriptionID })" class="details-link">@Html.DisplayFor(model => model.RequestInfo.SubscriberNo) - @Html.DisplayFor(model => model.RequestInfo.CustomerName)</a>
+                    </td>
+                </tr>
+            }
             <tr>
                 <td>
                     @Html.LabelFor(model => model.RequestInfo.RequestType)/@Html.LabelFor(model => model.RequestInfo.RequestSubType)
