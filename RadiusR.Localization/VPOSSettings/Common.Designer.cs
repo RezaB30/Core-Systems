@@ -79,7 +79,7 @@ namespace RadiusR.Localization.VPOSSettings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Merchant Salt.
+        ///   Looks up a localized string similar to Merchant Salt / Terminal Code.
         /// </summary>
         public static string MerchantSalt {
             get {

@@ -126,6 +126,9 @@
   <data name="QNBFinans" xml:space="preserve">
     <value>QNB Finans Bankası</value>
   </data>
+  <data name="Vakif" xml:space="preserve">
+    <value>Vakıf Bankası</value>
+  </data>
   <data name="Ziraat" xml:space="preserve">
     <value>Ziraat Bankası</value>
   </data>

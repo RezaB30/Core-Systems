@@ -124,7 +124,7 @@
     <value>Merchant Code</value>
   </data>
   <data name="MerchantSalt" xml:space="preserve">
-    <value>Merchant Salt</value>
+    <value>Merchant Salt / Terminal Code</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>

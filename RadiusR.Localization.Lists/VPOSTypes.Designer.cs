@@ -88,6 +88,15 @@ namespace RadiusR.Localization.Lists {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vakif Bank.
+        /// </summary>
+        public static string Vakif {
+            get {
+                return ResourceManager.GetString("Vakif", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ziraat Bank.
         /// </summary>
         public static string Ziraat {

@@ -77,6 +77,21 @@ namespace RadiusR.VPOS
                         InstallmentCount = installmentCount,
                         BillingCustomerName = customerName,
                     };
+                case DB.Enums.VPOSTypes.Vakif:
+                    return new RezaB.Web.VPOS.Vakif.Vakifbank3DHostModel()
+                    {
+                        CurrencyCode = defaultCurrencyCode,
+                        MerchantId = VPOSSettings.MerchantID,
+                        OkUrl = okUrl,
+                        FailUrl = failUrl,
+                        PurchaseAmount = purchaseAmount,
+                        Language = language,
+                        OrderId = orderId.HasValue ? orderIdPrefix + "-" + orderId : null,
+                        InstallmentCount = installmentCount,
+                        HostTerminalId = VPOSSettings.MerchantSalt,
+                        Storekey = VPOSSettings.StoreKey,
+                        BillingCustomerName = customerName,
+                    };
                 default:
                     return null;
             }
@@ -90,6 +105,8 @@ namespace RadiusR.VPOS
                 case DB.Enums.VPOSTypes.Ziraat:
                 case DB.Enums.VPOSTypes.Halk:
                     return "ErrMsg";
+                case DB.Enums.VPOSTypes.Vakif:
+                    return "Message";
                 default:
                     return string.Empty;
             }

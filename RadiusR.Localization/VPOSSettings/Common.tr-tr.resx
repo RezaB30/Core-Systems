@@ -124,7 +124,7 @@
     <value>Mağaza Kodu</value>
   </data>
   <data name="MerchantSalt" xml:space="preserve">
-    <value>Merchant Salt</value>
+    <value>Merchant Salt / Terminal Kodu</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Şifre</value>

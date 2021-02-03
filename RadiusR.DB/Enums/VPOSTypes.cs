@@ -12,5 +12,6 @@ namespace RadiusR.DB.Enums
         Ziraat = 2,
         Halk = 3,
         PayTR = 4,
+        Vakif = 5,
     }
 }
