@@ -21,11 +21,11 @@ namespace RadiusR.DB
             this.ServiceBillingPeriods = new HashSet<ServiceBillingPeriod>();
             this.ServiceRateTimeTables = new HashSet<ServiceRateTimeTable>();
             this.Domains = new HashSet<Domain>();
-            this.PartnerAvailableTariffs = new HashSet<PartnerAvailableTariff>();
             this.PartnerRegisteredSubscriptions = new HashSet<PartnerRegisteredSubscription>();
             this.SubscriptionTariffHistories = new HashSet<SubscriptionTariffHistory>();
             this.SubscriptionTariffHistories1 = new HashSet<SubscriptionTariffHistory>();
             this.Subscriptions = new HashSet<Subscription>();
+            this.PartnerAvailableTariffs = new HashSet<PartnerAvailableTariff>();
         }
     
         public int ID { get; set; }
@@ -52,8 +52,6 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Domain> Domains { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartnerAvailableTariff> PartnerAvailableTariffs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerRegisteredSubscription> PartnerRegisteredSubscriptions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubscriptionTariffHistory> SubscriptionTariffHistories { get; set; }
@@ -62,5 +60,7 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Subscription> Subscriptions { get; set; }
         public virtual ExternalTariff ExternalTariff { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartnerAvailableTariff> PartnerAvailableTariffs { get; set; }
     }
 }

@@ -741,8 +741,8 @@ namespace RadiusR_Manager.Controllers
                 TariffID = pat.TariffID,
                 TariffName = pat.Service.Name,
                 _allowance = pat.Allowance,
-                _allowanceThreshold = pat.AllowanceThreshold,
-                Commitment = pat.Commitment
+                //_allowanceThreshold = pat.AllowanceThreshold,
+                //Commitment = pat.Commitment
             });
 
             SetupPages(page, ref viewResults);
@@ -796,7 +796,7 @@ namespace RadiusR_Manager.Controllers
                 {
                     ModelState.AddModelError("Allowance", string.Format(RadiusR.Localization.Validation.ModelSpecific.AllowanceGreaterThanTariffFee, dbTariff.Price.ToString("###,##0.00")));
                 }
-                else if (dbPartnerGroup.PartnerAvailableTariffs.Any(pat => pat.TariffID == availableTariff.TariffID && pat.Commitment == availableTariff.Commitment && pat.DomainID == availableTariff.DomianID))
+                else if (dbPartnerGroup.PartnerAvailableTariffs.Any(pat => pat.TariffID == availableTariff.TariffID && pat.DomainID == availableTariff.DomianID))
                 {
                     ModelState.AddModelError("TariffID", RadiusR.Localization.Validation.ModelSpecific.TariffAlreadyAdded);
                 }
@@ -805,8 +805,8 @@ namespace RadiusR_Manager.Controllers
                     db.PartnerAvailableTariffs.Add(new PartnerAvailableTariff()
                     {
                         Allowance = availableTariff._allowance.Value,
-                        AllowanceThreshold = availableTariff._allowanceThreshold.Value,
-                        Commitment = availableTariff.Commitment,
+                        //AllowanceThreshold = availableTariff._allowanceThreshold.Value,
+                        //Commitment = availableTariff.Commitment,
                         PartnerGroupID = dbPartnerGroup.ID,
                         TariffID = dbTariff.ID,
                         DomainID = dbDomain.ID

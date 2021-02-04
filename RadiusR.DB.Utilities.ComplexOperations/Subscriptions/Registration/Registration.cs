@@ -213,7 +213,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                     // invalid partner
                     return new[] { new { Key = "RegisteringPartner.PartnerID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidPartner } }.ToLookup(item => item.Key, item => item.ErrorMessage);
                 var commitmentLength = registrationInfo.CommitmentInfo != null ? (short?)registrationInfo.CommitmentInfo.CommitmentLength : null;
-                if (!dbPartner.PartnerGroup.PartnerAvailableTariffs.Any(pat => pat.TariffID == registrationInfo.ServiceID && pat.Commitment == commitmentLength))
+                if (!dbPartner.PartnerGroup.PartnerAvailableTariffs.Any(pat => pat.TariffID == registrationInfo.ServiceID))
                 {
                     // invalid tariff for partner
                     return new[] { new { Key = "ServiceID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidTariffForPartner }, new { Key = "CommitmentInfo.CommitmentLength", ErrorMessage = Resources.RegistrationValidationMessages.InvalidTariffForPartner } }.ToLookup(item => item.Key, item => item.ErrorMessage);

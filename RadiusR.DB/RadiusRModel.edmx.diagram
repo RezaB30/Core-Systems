@@ -128,10 +128,6 @@
         <AssociationConnector Association="RadiusRModel.FK_PartnerSubUser_Partner" />
         <AssociationConnector Association="RadiusRModel.FK_PartnerBillPayment_PartnerSubUser" />
         <EntityTypeShape EntityType="RadiusRModel.SMSText" Width="1.5" PointX="9.75" PointY="9.75" />
-        <EntityTypeShape EntityType="RadiusRModel.PartnerAvailableTariff" Width="1.5" PointX="14.25" PointY="92.875" />
-        <AssociationConnector Association="RadiusRModel.FK_PartnerAvailableTariff_DomainID" />
-        <AssociationConnector Association="RadiusRModel.FK_PartnerAvailableTariff_Partner" />
-        <AssociationConnector Association="RadiusRModel.FK_PartnerAvailableTariff_Service" />
         <EntityTypeShape EntityType="RadiusRModel.SystemLog" Width="1.5" PointX="10.5" PointY="79.875" />
         <AssociationConnector Association="RadiusRModel.FK_SystemLog_AppUser" />
         <AssociationConnector Association="RadiusRModel.FK_SystemLog_Customer" />
@@ -218,6 +214,10 @@
         <AssociationConnector Association="RadiusRModel.FK_ExternalTariff_Domain" />
         <AssociationConnector Association="RadiusRModel.FK_ExternalTariff_Service" />
         <EntityTypeShape EntityType="RadiusRModel.BTKSchedulerSetting" Width="1.5" PointX="2.75" PointY="10.75" />
+        <EntityTypeShape EntityType="RadiusRModel.PartnerAvailableTariff" Width="1.5" PointX="14.25" PointY="93.125" />
+        <AssociationConnector Association="RadiusRModel.FK_PartnerAvailableTariff_DomainID" />
+        <AssociationConnector Association="RadiusRModel.FK_PartnerAvailableTariff_Partner" />
+        <AssociationConnector Association="RadiusRModel.FK_PartnerAvailableTariff_Service" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -486,10 +486,8 @@
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PartnerGroupID" Type="int" Nullable="false" />
           <Property Name="TariffID" Type="int" Nullable="false" />
-          <Property Name="Commitment" Type="smallint" />
           <Property Name="Allowance" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="DomainID" Type="int" Nullable="false" />
-          <Property Name="AllowanceThreshold" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="PartnerBillPayment">
           <Key>
@@ -4250,19 +4248,6 @@
             <End Role="PartnerBillPayment" EntitySet="PartnerBillPayments" />
           </AssociationSet>
           <EntitySet Name="SMSTexts" EntityType="RadiusRModel.SMSText" />
-          <EntitySet Name="PartnerAvailableTariffs" EntityType="RadiusRModel.PartnerAvailableTariff" />
-          <AssociationSet Name="FK_PartnerAvailableTariff_DomainID" Association="RadiusRModel.FK_PartnerAvailableTariff_DomainID">
-            <End Role="Domain" EntitySet="Domains" />
-            <End Role="PartnerAvailableTariff" EntitySet="PartnerAvailableTariffs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PartnerAvailableTariff_Partner" Association="RadiusRModel.FK_PartnerAvailableTariff_Partner">
-            <End Role="PartnerGroup" EntitySet="PartnerGroups" />
-            <End Role="PartnerAvailableTariff" EntitySet="PartnerAvailableTariffs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PartnerAvailableTariff_Service" Association="RadiusRModel.FK_PartnerAvailableTariff_Service">
-            <End Role="Service" EntitySet="Services" />
-            <End Role="PartnerAvailableTariff" EntitySet="PartnerAvailableTariffs" />
-          </AssociationSet>
           <EntitySet Name="SystemLogs" EntityType="RadiusRModel.SystemLog" />
           <AssociationSet Name="FK_SystemLog_AppUser" Association="RadiusRModel.FK_SystemLog_AppUser">
             <End Role="AppUser" EntitySet="AppUsers" />
@@ -4547,6 +4532,19 @@
             <End Role="ExternalTariff" EntitySet="ExternalTariffs" />
           </AssociationSet>
           <EntitySet Name="BTKSchedulerSettings" EntityType="RadiusRModel.BTKSchedulerSetting" />
+          <EntitySet Name="PartnerAvailableTariffs" EntityType="RadiusRModel.PartnerAvailableTariff" />
+          <AssociationSet Name="FK_PartnerAvailableTariff_DomainID" Association="RadiusRModel.FK_PartnerAvailableTariff_DomainID">
+            <End Role="Domain" EntitySet="Domains" />
+            <End Role="PartnerAvailableTariff" EntitySet="PartnerAvailableTariffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartnerAvailableTariff_Partner" Association="RadiusRModel.FK_PartnerAvailableTariff_Partner">
+            <End Role="PartnerGroup" EntitySet="PartnerGroups" />
+            <End Role="PartnerAvailableTariff" EntitySet="PartnerAvailableTariffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartnerAvailableTariff_Service" Association="RadiusRModel.FK_PartnerAvailableTariff_Service">
+            <End Role="Service" EntitySet="Services" />
+            <End Role="PartnerAvailableTariff" EntitySet="PartnerAvailableTariffs" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
           <Key>
@@ -5000,12 +4998,12 @@
           <NavigationProperty Name="ServiceBillingPeriods" Relationship="RadiusRModel.FK_ServiceBillingPeriod_Service" FromRole="Service" ToRole="ServiceBillingPeriod" />
           <NavigationProperty Name="ServiceRateTimeTables" Relationship="RadiusRModel.FK_ServiceRateTimeTable_Service" FromRole="Service" ToRole="ServiceRateTimeTable" />
           <NavigationProperty Name="Domains" Relationship="RadiusRModel.ServiceDomain" FromRole="Service" ToRole="Domain" />
-          <NavigationProperty Name="PartnerAvailableTariffs" Relationship="RadiusRModel.FK_PartnerAvailableTariff_Service" FromRole="Service" ToRole="PartnerAvailableTariff" />
           <NavigationProperty Name="PartnerRegisteredSubscriptions" Relationship="RadiusRModel.FK_PartnerRegisteredSubscription_Service" FromRole="Service" ToRole="PartnerRegisteredSubscription" />
           <NavigationProperty Name="SubscriptionTariffHistories" Relationship="RadiusRModel.FK_SubscriptionTariffHistory_NewTariff" FromRole="Service" ToRole="SubscriptionTariffHistory" />
           <NavigationProperty Name="SubscriptionTariffHistories1" Relationship="RadiusRModel.FK_SubscriptionTariffHistory_OldTariff" FromRole="Service" ToRole="SubscriptionTariffHistory" />
           <NavigationProperty Name="Subscriptions" Relationship="RadiusRModel.FK_Subscription_Service" FromRole="Service" ToRole="Subscription" />
           <NavigationProperty Name="ExternalTariff" Relationship="RadiusRModel.FK_ExternalTariff_Service" FromRole="Service" ToRole="ExternalTariff" />
+          <NavigationProperty Name="PartnerAvailableTariffs" Relationship="RadiusRModel.FK_PartnerAvailableTariff_Service" FromRole="Service" ToRole="PartnerAvailableTariff" />
         </EntityType>
         <Association Name="FK_ChangeServiceTypeTask_Service">
           <End Type="RadiusRModel.Service" Role="Service" Multiplicity="1" />
@@ -5183,9 +5181,9 @@
           <Property Name="MaxFreezesPerYear" Type="Int16" Nullable="false" />
           <NavigationProperty Name="TelekomAccessCredential" Relationship="RadiusRModel.FK_TelekomAccessCredential_Domain" FromRole="Domain" ToRole="TelekomAccessCredential" />
           <NavigationProperty Name="Services" Relationship="RadiusRModel.ServiceDomain" FromRole="Domain" ToRole="Service" />
-          <NavigationProperty Name="PartnerAvailableTariffs" Relationship="RadiusRModel.FK_PartnerAvailableTariff_DomainID" FromRole="Domain" ToRole="PartnerAvailableTariff" />
           <NavigationProperty Name="Subscriptions" Relationship="RadiusRModel.FK_Subscription_Domain" FromRole="Domain" ToRole="Subscription" />
           <NavigationProperty Name="ExternalTariffs" Relationship="RadiusRModel.FK_ExternalTariff_Domain" FromRole="Domain" ToRole="ExternalTariff" />
+          <NavigationProperty Name="PartnerAvailableTariffs" Relationship="RadiusRModel.FK_PartnerAvailableTariff_DomainID" FromRole="Domain" ToRole="PartnerAvailableTariff" />
         </EntityType>
         <Association Name="FK_TelekomAccessCredential_Domain">
           <End Type="RadiusRModel.Domain" Role="Domain" Multiplicity="1" />
@@ -5389,57 +5387,6 @@
           <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDisabled" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="PartnerAvailableTariff">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PartnerGroupID" Type="Int32" Nullable="false" />
-          <Property Name="TariffID" Type="Int32" Nullable="false" />
-          <Property Name="Commitment" Type="Int16" />
-          <Property Name="Allowance" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="DomainID" Type="Int32" Nullable="false" />
-          <Property Name="AllowanceThreshold" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <NavigationProperty Name="Domain" Relationship="RadiusRModel.FK_PartnerAvailableTariff_DomainID" FromRole="PartnerAvailableTariff" ToRole="Domain" />
-          <NavigationProperty Name="PartnerGroup" Relationship="RadiusRModel.FK_PartnerAvailableTariff_Partner" FromRole="PartnerAvailableTariff" ToRole="PartnerGroup" />
-          <NavigationProperty Name="Service" Relationship="RadiusRModel.FK_PartnerAvailableTariff_Service" FromRole="PartnerAvailableTariff" ToRole="Service" />
-        </EntityType>
-        <Association Name="FK_PartnerAvailableTariff_DomainID">
-          <End Type="RadiusRModel.Domain" Role="Domain" Multiplicity="1" />
-          <End Type="RadiusRModel.PartnerAvailableTariff" Role="PartnerAvailableTariff" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Domain">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PartnerAvailableTariff">
-              <PropertyRef Name="DomainID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PartnerAvailableTariff_Partner">
-          <End Type="RadiusRModel.PartnerGroup" Role="PartnerGroup" Multiplicity="1" />
-          <End Type="RadiusRModel.PartnerAvailableTariff" Role="PartnerAvailableTariff" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PartnerGroup">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PartnerAvailableTariff">
-              <PropertyRef Name="PartnerGroupID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PartnerAvailableTariff_Service">
-          <End Type="RadiusRModel.Service" Role="Service" Multiplicity="1" />
-          <End Type="RadiusRModel.PartnerAvailableTariff" Role="PartnerAvailableTariff" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Service">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PartnerAvailableTariff">
-              <PropertyRef Name="TariffID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="SystemLog">
           <Key>
             <PropertyRef Name="ID" />
@@ -6570,6 +6517,55 @@
           <Property Name="LastOperationTime" Type="DateTime" Precision="3" />
           <Property Name="LastUploadTime" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="PartnerAvailableTariff">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartnerGroupID" Type="Int32" Nullable="false" />
+          <Property Name="TariffID" Type="Int32" Nullable="false" />
+          <Property Name="Allowance" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="DomainID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Domain" Relationship="RadiusRModel.FK_PartnerAvailableTariff_DomainID" FromRole="PartnerAvailableTariff" ToRole="Domain" />
+          <NavigationProperty Name="PartnerGroup" Relationship="RadiusRModel.FK_PartnerAvailableTariff_Partner" FromRole="PartnerAvailableTariff" ToRole="PartnerGroup" />
+          <NavigationProperty Name="Service" Relationship="RadiusRModel.FK_PartnerAvailableTariff_Service" FromRole="PartnerAvailableTariff" ToRole="Service" />
+        </EntityType>
+        <Association Name="FK_PartnerAvailableTariff_DomainID">
+          <End Type="RadiusRModel.Domain" Role="Domain" Multiplicity="1" />
+          <End Type="RadiusRModel.PartnerAvailableTariff" Role="PartnerAvailableTariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domain">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PartnerAvailableTariff">
+              <PropertyRef Name="DomainID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerAvailableTariff_Partner">
+          <End Type="RadiusRModel.PartnerGroup" Role="PartnerGroup" Multiplicity="1" />
+          <End Type="RadiusRModel.PartnerAvailableTariff" Role="PartnerAvailableTariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PartnerGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PartnerAvailableTariff">
+              <PropertyRef Name="PartnerGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerAvailableTariff_Service">
+          <End Type="RadiusRModel.Service" Role="Service" Multiplicity="1" />
+          <End Type="RadiusRModel.PartnerAvailableTariff" Role="PartnerAvailableTariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PartnerAvailableTariff">
+              <PropertyRef Name="TariffID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7456,19 +7452,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PartnerAvailableTariffs">
-            <EntityTypeMapping TypeName="RadiusRModel.PartnerAvailableTariff">
-              <MappingFragment StoreEntitySet="PartnerAvailableTariff">
-                <ScalarProperty Name="AllowanceThreshold" ColumnName="AllowanceThreshold" />
-                <ScalarProperty Name="DomainID" ColumnName="DomainID" />
-                <ScalarProperty Name="Allowance" ColumnName="Allowance" />
-                <ScalarProperty Name="Commitment" ColumnName="Commitment" />
-                <ScalarProperty Name="TariffID" ColumnName="TariffID" />
-                <ScalarProperty Name="PartnerGroupID" ColumnName="PartnerGroupID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SystemLogs">
             <EntityTypeMapping TypeName="RadiusRModel.SystemLog">
               <MappingFragment StoreEntitySet="SystemLog">
@@ -7769,6 +7752,17 @@
                 <ScalarProperty Name="SchedulerActiveTime" ColumnName="SchedulerActiveTime" />
                 <ScalarProperty Name="SchedulerStartTime" ColumnName="SchedulerStartTime" />
                 <ScalarProperty Name="LogType" ColumnName="LogType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PartnerAvailableTariffs">
+            <EntityTypeMapping TypeName="RadiusRModel.PartnerAvailableTariff">
+              <MappingFragment StoreEntitySet="PartnerAvailableTariff">
+                <ScalarProperty Name="DomainID" ColumnName="DomainID" />
+                <ScalarProperty Name="Allowance" ColumnName="Allowance" />
+                <ScalarProperty Name="TariffID" ColumnName="TariffID" />
+                <ScalarProperty Name="PartnerGroupID" ColumnName="PartnerGroupID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
