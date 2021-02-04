@@ -32,7 +32,8 @@ namespace RadiusR.VPOS
                         Language = language,
                         OrderId = orderId.HasValue ? orderIdPrefix + "-" + orderId : null,
                         InstallmentCount = installmentCount,
-                        BillingCustomerName = customerName
+                        BillingCustomerName = customerName,
+                        FormMethod = "POST"
                     };
                 case DB.Enums.VPOSTypes.Ziraat:
                     return new RezaB.Web.VPOS.Ziraat.Ziraat3DHostModel()
@@ -46,7 +47,8 @@ namespace RadiusR.VPOS
                         Language = language,
                         OrderId = orderId.HasValue ? orderIdPrefix + "-" + orderId : null,
                         InstallmentCount = installmentCount,
-                        BillingCustomerName = customerName
+                        BillingCustomerName = customerName,
+                        FormMethod = "POST"
                     };
                 case DB.Enums.VPOSTypes.Halk:
                     return new RezaB.Web.VPOS.Halk.Halk3DHostModel()
@@ -60,7 +62,8 @@ namespace RadiusR.VPOS
                         Language = language,
                         OrderId = orderId.HasValue ? orderIdPrefix + "-" + orderId : null,
                         InstallmentCount = installmentCount,
-                        BillingCustomerName = customerName
+                        BillingCustomerName = customerName,
+                        FormMethod = "POST"
                     };
                 case DB.Enums.VPOSTypes.PayTR:
                     return new RezaB.Web.VPOS.PayTR.PayTRVPOS3DHostModel()
@@ -76,6 +79,7 @@ namespace RadiusR.VPOS
                         OrderId = orderId.HasValue ? orderIdPrefix + "-" + orderId : null,
                         InstallmentCount = installmentCount,
                         BillingCustomerName = customerName,
+                        FormMethod = "POST"
                     };
                 case DB.Enums.VPOSTypes.Vakif:
                     return new RezaB.Web.VPOS.Vakif.Vakifbank3DHostModel()
@@ -91,6 +95,7 @@ namespace RadiusR.VPOS
                         HostTerminalId = VPOSSettings.MerchantSalt,
                         Storekey = VPOSSettings.StoreKey,
                         BillingCustomerName = customerName,
+                        FormMethod = "GET"
                     };
                 default:
                     return null;

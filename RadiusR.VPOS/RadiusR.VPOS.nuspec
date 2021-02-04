@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.2-beta1</version>
+    <version>1.0.2</version>
     <title>RadiusR.VPOS</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -13,7 +13,7 @@
     <tags>MasterISS VPOS Manager</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />
 	<dependencies>
-		<dependency id="RezaB.Web.VPOS" version="1.1.0"/>
+		<dependency id="RezaB.Web.VPOS" version="1.1.1"/>
 		<dependency id="RadiusR.DB" version="1.1.7"/>
 	</dependencies>
   </metadata>
