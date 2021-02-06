@@ -97,6 +97,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Archive Access.
+        /// </summary>
+        public static string ArchiveAccess {
+            get {
+                return ResourceManager.GetString("ArchiveAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Automatic Payment Report.
         /// </summary>
         public static string AutomaticPaymentReport {

@@ -465,4 +465,7 @@
   <data name="ExternallyAvailableTariffs" xml:space="preserve">
     <value>Externally Available Tariffs</value>
   </data>
+  <data name="ArchiveAccess" xml:space="preserve">
+    <value>Archive Access</value>
+  </data>
 </root>

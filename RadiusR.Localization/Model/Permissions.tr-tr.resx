@@ -465,4 +465,7 @@
   <data name="ExternallyAvailableTariffs" xml:space="preserve">
     <value>Dışarıdan Mevcut Tarifeler</value>
   </data>
+  <data name="ArchiveAccess" xml:space="preserve">
+    <value>Arşiv Erişimi</value>
+  </data>
 </root>
