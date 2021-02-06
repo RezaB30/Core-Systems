@@ -1545,4 +1545,7 @@
   <data name="LastUploadDate" xml:space="preserve">
     <value>Last Upload Date</value>
   </data>
+  <data name="AllowanceState" xml:space="preserve">
+    <value>Allowance State</value>
+  </data>
 </root>

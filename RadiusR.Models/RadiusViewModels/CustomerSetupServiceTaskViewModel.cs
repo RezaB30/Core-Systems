@@ -55,8 +55,10 @@ namespace RadiusR_Manager.Models.RadiusViewModels
         [Display(ResourceType = typeof(RadiusR.Localization.Pages.Common), Name = "Description")]
         public string Details { get; set; }
 
-        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "IsChargeable")]
-        public bool IsCharged { get; set; }
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "AllowanceState")]
+        [EnumType(typeof(RadiusR.DB.Enums.PartnerAllowanceState), typeof(RadiusR.Localization.Lists.PartnerAllowanceState))]
+        [UIHint("LocalizedList")]
+        public short AllowanceState { get; set; }
 
         public bool IsActive
         {

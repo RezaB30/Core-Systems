@@ -196,6 +196,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allowance State.
+        /// </summary>
+        public static string AllowanceState {
+            get {
+                return ResourceManager.GetString("AllowanceState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Allowance Threshold.
         /// </summary>
         public static string AllowanceThreshold {

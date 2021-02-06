@@ -32,13 +32,16 @@ namespace RadiusR.DB
         public Nullable<System.DateTime> CompletionDate { get; set; }
         public short TaskStatus { get; set; }
         public string Details { get; set; }
-        public bool IsCharged { get; set; }
+        public short AllowanceState { get; set; }
+        public Nullable<decimal> Allowance { get; set; }
+        public Nullable<long> PartnerCollectionID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerSetupStatusUpdate> CustomerSetupStatusUpdates { get; set; }
         public virtual CustomerSetupUser CustomerSetupUser { get; set; }
+        public virtual PartnerCollection PartnerCollection { get; set; }
+        public virtual Subscription Subscription { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubscriptionSupportRequest> SubscriptionSupportRequests { get; set; }
-        public virtual Subscription Subscription { get; set; }
     }
 }

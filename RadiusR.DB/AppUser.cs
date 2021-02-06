@@ -30,6 +30,8 @@ namespace RadiusR.DB
             this.SupportRequestProgresses = new HashSet<SupportRequestProgress>();
             this.SupportRequests = new HashSet<SupportRequest>();
             this.SupportGroupUsers = new HashSet<SupportGroupUser>();
+            this.PartnerCollectionCreations = new HashSet<PartnerCollection>();
+            this.PartnerCollectionPayments = new HashSet<PartnerCollection>();
         }
     
         public int ID { get; set; }
@@ -69,5 +71,9 @@ namespace RadiusR.DB
         public virtual ICollection<SupportRequest> SupportRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupportGroupUser> SupportGroupUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartnerCollection> PartnerCollectionCreations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartnerCollection> PartnerCollectionPayments { get; set; }
     }
 }

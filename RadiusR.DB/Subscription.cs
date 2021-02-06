@@ -20,7 +20,6 @@ namespace RadiusR.DB
             this.Bills = new HashSet<Bill>();
             this.ChangeServiceTypeTasks = new HashSet<ChangeServiceTypeTask>();
             this.ChangeStateTasks = new HashSet<ChangeStateTask>();
-            this.CustomerSetupTasks = new HashSet<CustomerSetupTask>();
             this.Fees = new HashSet<Fee>();
             this.RadiusAccountings = new HashSet<RadiusAccounting>();
             this.RadiusDailyAccountings = new HashSet<RadiusDailyAccounting>();
@@ -38,6 +37,7 @@ namespace RadiusR.DB
             this.TelekomWorkOrders = new HashSet<TelekomWorkOrder>();
             this.Groups = new HashSet<Group>();
             this.SupportRequests = new HashSet<SupportRequest>();
+            this.CustomerSetupTasks = new HashSet<CustomerSetupTask>();
         }
     
         public long ID { get; set; }
@@ -70,8 +70,6 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChangeStateTask> ChangeStateTasks { get; set; }
         public virtual Customer Customer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CustomerSetupTask> CustomerSetupTasks { get; set; }
         public virtual Domain Domain { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Fee> Fees { get; set; }
@@ -115,5 +113,7 @@ namespace RadiusR.DB
         public virtual ICollection<Group> Groups { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupportRequest> SupportRequests { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CustomerSetupTask> CustomerSetupTasks { get; set; }
     }
 }

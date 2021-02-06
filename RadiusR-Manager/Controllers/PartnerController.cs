@@ -68,6 +68,7 @@ namespace RadiusR_Manager.Controllers
         }
 
         [HttpGet]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // GET: Partner/Add
         public ActionResult Add()
         {
@@ -78,6 +79,7 @@ namespace RadiusR_Manager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // POST: Partner/Add
         public ActionResult Add(PartnerViewModel partner)
         {
@@ -120,6 +122,7 @@ namespace RadiusR_Manager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // POST: Partner/ToggleState
         public ActionResult ToggleState(int id, string returnUrl)
         {
@@ -166,6 +169,7 @@ namespace RadiusR_Manager.Controllers
         }
 
         [HttpGet]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // GET: Partner/Edit
         public ActionResult Edit(int id, string returnUrl)
         {
@@ -205,6 +209,7 @@ namespace RadiusR_Manager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // POST: Partner/Edit
         public ActionResult Edit(int id, string returnUrl, PartnerViewModel partner)
         {
@@ -255,6 +260,7 @@ namespace RadiusR_Manager.Controllers
         }
 
         [HttpGet]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // GET: Partner/ChangePassword
         public ActionResult ChangePassword(int id, string returnUrl)
         {
@@ -272,6 +278,7 @@ namespace RadiusR_Manager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // POST: Partner/ChangePassword
         public ActionResult ChangePassword(int id, string returnUrl, PartnerChangePasswordViewModel passwordChange)
         {
@@ -297,6 +304,7 @@ namespace RadiusR_Manager.Controllers
             return View(passwordChange);
         }
 
+        [AuthorizePermission(Permissions = "Partner Management")]
         // GET: Partner/Settings
         public ActionResult Settings(int id, string returnUrl)
         {
@@ -314,6 +322,7 @@ namespace RadiusR_Manager.Controllers
         }
 
         [HttpGet]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // GET: Partner/WorkAreas
         public ActionResult WorkAreas(int id, string returnUrl, int? page)
         {
@@ -346,6 +355,7 @@ namespace RadiusR_Manager.Controllers
         }
 
         [HttpGet]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // GET: Partner/AddWorkArea
         public ActionResult AddWorkArea(int id, string returnUrl)
         {
@@ -365,6 +375,7 @@ namespace RadiusR_Manager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // POST: Partner/AddWorkArea
         public ActionResult AddWorkArea(int id, string returnUrl, PartnerWorkAreaViewModel workArea)
         {
@@ -433,6 +444,7 @@ namespace RadiusR_Manager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // POST: Partner/RemoveWorkArea
         public ActionResult RemoveWorkArea(int id, string returnUrl, long workAreaID)
         {
@@ -454,6 +466,7 @@ namespace RadiusR_Manager.Controllers
             return RedirectToAction("WorkAreas", new { id = dbPartner.ID, returnUrl = uri.Uri.PathAndQuery + uri.Fragment, errorMessage = 0 });
         }
 
+        [AuthorizePermission(Permissions = "Partner Management")]
         // GET: Partner/Permission
         public ActionResult Permissions(int id, string returnUrl, int? page)
         {
@@ -479,6 +492,7 @@ namespace RadiusR_Manager.Controllers
         }
 
         [HttpGet]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // GET: Partner/EditPermissions
         public ActionResult EditPermissions(int id, string returnUrl)
         {
@@ -503,6 +517,7 @@ namespace RadiusR_Manager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // POST: Partner/EditPermissions
         public ActionResult EditPermissions(int id, string returnUrl, PartnerPermissionSelectionViewModel partnerPermissions)
         {
@@ -577,6 +592,7 @@ namespace RadiusR_Manager.Controllers
             return View(partnerPermissions);
         }
 
+        [AuthorizePermission(Permissions = "Partner Management")]
         // GET: Partner/Credits
         public ActionResult Credits(int id, string returnUrl, int? page)
         {
@@ -610,6 +626,7 @@ namespace RadiusR_Manager.Controllers
         }
 
         [HttpGet]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // GET: Partner/AddCredits
         public ActionResult AddCredits(int id, string returnUrl)
         {
@@ -630,6 +647,7 @@ namespace RadiusR_Manager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // POST: Partner/AddCredits
         public ActionResult AddCredits(int id, string returnUrl, PartnerCreditEditViewModel addedCredits)
         {
@@ -663,6 +681,7 @@ namespace RadiusR_Manager.Controllers
         }
 
         [HttpGet]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // GET: Partner/SubtractCredits
         public ActionResult SubtractCredits(int id, string returnUrl)
         {
@@ -683,6 +702,7 @@ namespace RadiusR_Manager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // POST: Partner/SubtractCredits
         public ActionResult SubtractCredits(int id, string returnUrl, PartnerCreditEditViewModel subtractedCredits)
         {
@@ -723,6 +743,7 @@ namespace RadiusR_Manager.Controllers
             return View(viewName: "AddCredits", model: subtractedCredits);
         }
 
+        [AuthorizePermission(Permissions = "Partner Management")]
         // GET: Partner/ValidTariffs
         public ActionResult ValidTariffs(int id, string returnUrl, int? page)
         {
@@ -754,6 +775,7 @@ namespace RadiusR_Manager.Controllers
         }
 
         [HttpGet]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // GET: Partner/AddValidTariff
         public ActionResult AddValidTariff(int id, string returnUrl)
         {
@@ -771,6 +793,7 @@ namespace RadiusR_Manager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // POST: Partner/AddValidTariff
         public ActionResult AddValidTariff(int id, string returnUrl, PartnerAvailableTariffViewModel availableTariff)
         {
@@ -827,6 +850,7 @@ namespace RadiusR_Manager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // POST: Partner/RemoveValidTariff
         public ActionResult RemoveValidTariff(int id, string returnUrl, long validTariffId)
         {
@@ -846,6 +870,7 @@ namespace RadiusR_Manager.Controllers
             return RedirectToAction("ValidTariffs", new { id = dbPartnerGroup.ID, returnUrl = uri.Uri.PathAndQuery + uri.Fragment, errorMessage = 0 });
         }
 
+        [AuthorizePermission(Permissions = "Partner Management")]
         // GET: Partner/Groups
         public ActionResult Groups(int? page)
         {
@@ -862,6 +887,7 @@ namespace RadiusR_Manager.Controllers
         }
 
         [HttpGet]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // GET: partner/AddGroup
         public ActionResult AddGroup()
         {
@@ -870,6 +896,7 @@ namespace RadiusR_Manager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // POST: partner/AddGroup
         public ActionResult AddGroup(PartnerGroupViewModel group)
         {
@@ -890,6 +917,7 @@ namespace RadiusR_Manager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Partner Management")]
         // POST: Partner/RemoveGroup
         public ActionResult RemoveGroup(int id)
         {

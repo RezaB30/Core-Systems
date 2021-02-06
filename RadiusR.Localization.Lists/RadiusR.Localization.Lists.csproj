@@ -399,6 +399,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="PartnerAllowanceState.tr-tr.Designer.cs">
+      <DependentUpon>PartnerAllowanceState.tr-tr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="PartnerAllowanceState.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PartnerAllowanceState.resx</DependentUpon>
+    </Compile>
     <Compile Include="PartnerPermissions.Designer.cs">
       <DependentUpon>PartnerPermissions.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1036,6 +1046,14 @@
     <EmbeddedResource Include="OfflineGatewayTypes.tr-tr.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>OfflineGatewayTypes.tr-tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PartnerAllowanceState.tr-tr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PartnerAllowanceState.tr-tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PartnerAllowanceState.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PartnerAllowanceState.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="PartnerPermissions.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

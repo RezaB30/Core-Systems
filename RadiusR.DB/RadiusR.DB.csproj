@@ -152,6 +152,7 @@
     <Compile Include="Enums\IPBlockType.cs" />
     <Compile Include="Enums\NASTypes.cs" />
     <Compile Include="Enums\OfflineGatewayTypes.cs" />
+    <Compile Include="Enums\PartnerAllowanceState.cs" />
     <Compile Include="Enums\PartnerPermissions.cs" />
     <Compile Include="Enums\QuotaType.cs" />
     <Compile Include="Enums\RecurringDiscount\RecurringDiscountApplicationState.cs" />
@@ -218,6 +219,9 @@
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PartnerBillPayment.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PartnerCollection.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PartnerCredit.cs">

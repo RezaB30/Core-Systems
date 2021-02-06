@@ -259,7 +259,9 @@
           <Property Name="CompletionDate" Type="datetime" />
           <Property Name="TaskStatus" Type="smallint" Nullable="false" />
           <Property Name="Details" Type="nvarchar(max)" />
-          <Property Name="IsCharged" Type="bit" Nullable="false" />
+          <Property Name="AllowanceState" Type="smallint" Nullable="false" />
+          <Property Name="Allowance" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PartnerCollectionID" Type="bigint" />
         </EntityType>
         <EntityType Name="CustomerSetupUser">
           <Key>
@@ -496,6 +498,17 @@
           <Property Name="BillID" Type="bigint" Nullable="false" />
           <Property Name="PartnerID" Type="int" Nullable="false" />
           <Property Name="PartnerSubUserID" Type="int" />
+        </EntityType>
+        <EntityType Name="PartnerCollection">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PartnerID" Type="int" Nullable="false" />
+          <Property Name="CreatorID" Type="int" Nullable="false" />
+          <Property Name="PayerID" Type="int" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="PaymentDate" Type="datetime" />
         </EntityType>
         <EntityType Name="PartnerCredit">
           <Key>
@@ -1390,6 +1403,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CustomerSetupTask_PartnerCollection">
+          <End Role="PartnerCollection" Type="Self.PartnerCollection" Multiplicity="0..1" />
+          <End Role="CustomerSetupTask" Type="Self.CustomerSetupTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PartnerCollection">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CustomerSetupTask">
+              <PropertyRef Name="PartnerCollectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CustomerSetupTask_Subscription">
           <End Role="Subscription" Type="Self.Subscription" Multiplicity="1" />
           <End Role="CustomerSetupTask" Type="Self.CustomerSetupTask" Multiplicity="*" />
@@ -1723,6 +1748,42 @@
             </Principal>
             <Dependent Role="PartnerBillPayment">
               <PropertyRef Name="PartnerSubUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerCollection_AppUser">
+          <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+          <End Role="PartnerCollection" Type="Self.PartnerCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PartnerCollection">
+              <PropertyRef Name="CreatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerCollection_AppUser1">
+          <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
+          <End Role="PartnerCollection" Type="Self.PartnerCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PartnerCollection">
+              <PropertyRef Name="PayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerCollection_Partner">
+          <End Role="Partner" Type="Self.Partner" Multiplicity="1" />
+          <End Role="PartnerCollection" Type="Self.PartnerCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partner">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PartnerCollection">
+              <PropertyRef Name="PartnerID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2679,6 +2740,7 @@
           <EntitySet Name="Partner" EntityType="Self.Partner" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PartnerAvailableTariff" EntityType="Self.PartnerAvailableTariff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PartnerBillPayment" EntityType="Self.PartnerBillPayment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PartnerCollection" EntityType="Self.PartnerCollection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PartnerCredit" EntityType="Self.PartnerCredit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PartnerGroup" EntityType="Self.PartnerGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PartnerPermission" EntityType="Self.PartnerPermission" Schema="dbo" store:Type="Tables" />
@@ -2827,6 +2889,10 @@
             <End Role="CustomerSetupUser" EntitySet="CustomerSetupUser" />
             <End Role="CustomerSetupTask" EntitySet="CustomerSetupTask" />
           </AssociationSet>
+          <AssociationSet Name="FK_CustomerSetupTask_PartnerCollection" Association="Self.FK_CustomerSetupTask_PartnerCollection">
+            <End Role="PartnerCollection" EntitySet="PartnerCollection" />
+            <End Role="CustomerSetupTask" EntitySet="CustomerSetupTask" />
+          </AssociationSet>
           <AssociationSet Name="FK_CustomerSetupTask_Subscription" Association="Self.FK_CustomerSetupTask_Subscription">
             <End Role="Subscription" EntitySet="Subscription" />
             <End Role="CustomerSetupTask" EntitySet="CustomerSetupTask" />
@@ -2938,6 +3004,18 @@
           <AssociationSet Name="FK_PartnerBillPayment_PartnerSubUser" Association="Self.FK_PartnerBillPayment_PartnerSubUser">
             <End Role="PartnerSubUser" EntitySet="PartnerSubUser" />
             <End Role="PartnerBillPayment" EntitySet="PartnerBillPayment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartnerCollection_AppUser" Association="Self.FK_PartnerCollection_AppUser">
+            <End Role="AppUser" EntitySet="AppUser" />
+            <End Role="PartnerCollection" EntitySet="PartnerCollection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartnerCollection_AppUser1" Association="Self.FK_PartnerCollection_AppUser1">
+            <End Role="AppUser" EntitySet="AppUser" />
+            <End Role="PartnerCollection" EntitySet="PartnerCollection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartnerCollection_Partner" Association="Self.FK_PartnerCollection_Partner">
+            <End Role="Partner" EntitySet="Partner" />
+            <End Role="PartnerCollection" EntitySet="PartnerCollection" />
           </AssociationSet>
           <AssociationSet Name="FK_PartnerCredit_Bill" Association="Self.FK_PartnerCredit_Bill">
             <End Role="Bill" EntitySet="Bill" />
@@ -3311,6 +3389,8 @@
           <NavigationProperty Name="SupportRequestProgresses" Relationship="RadiusRModel.FK_SupportRequestProgress_AppUser" FromRole="AppUser" ToRole="SupportRequestProgress" />
           <NavigationProperty Name="SupportRequests" Relationship="RadiusRModel.FK_SupportRequest_AppUser" FromRole="AppUser" ToRole="SupportRequest" />
           <NavigationProperty Name="SupportGroupUsers" Relationship="RadiusRModel.FK_SupportGroupUser_AppUser" FromRole="AppUser" ToRole="SupportGroupUser" />
+          <NavigationProperty Name="PartnerCollectionCreations" Relationship="RadiusRModel.FK_PartnerCollection_AppUser" FromRole="AppUser" ToRole="PartnerCollection" />
+          <NavigationProperty Name="PartnerCollectionPayments" Relationship="RadiusRModel.FK_PartnerCollection_AppUser1" FromRole="AppUser" ToRole="PartnerCollection" />
         </EntityType>
         <EntityType Name="BTKIPBlock">
           <Key>
@@ -3396,28 +3476,7 @@
           <Property Name="Description" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ReservationDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="CustomerSetupTask" Relationship="Self.FK_CustomerSetupTaskNote_CustomerSetupTask" FromRole="CustomerSetupStatusUpdate" ToRole="CustomerSetupTask" />
-        </EntityType>
-        <EntityType Name="CustomerSetupTask">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SetupUserID" Type="Int32" Nullable="false" />
-          <Property Name="SubscriptionID" Type="Int64" Nullable="false" />
-          <Property Name="TaskType" Type="Int16" Nullable="false" />
-          <Property Name="HasModem" Type="Boolean" Nullable="false" />
-          <Property Name="ModemName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="XDSLType" Type="Int16" Nullable="false" />
-          <Property Name="TaskIssueDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CompletionDate" Type="DateTime" Precision="3" />
-          <Property Name="TaskStatus" Type="Int16" Nullable="false" />
-          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsCharged" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="CustomerSetupStatusUpdates" Relationship="Self.FK_CustomerSetupTaskNote_CustomerSetupTask" FromRole="CustomerSetupTask" ToRole="CustomerSetupStatusUpdate" />
-          <NavigationProperty Name="CustomerSetupUser" Relationship="Self.FK_CustomerSetupTask_CustomerSetupUser" FromRole="CustomerSetupTask" ToRole="CustomerSetupUser" />
-          <NavigationProperty Name="SubscriptionSupportRequests" Relationship="Self.FK_SubscriptionSupportRequest_CustomerSetupTask" FromRole="CustomerSetupTask" ToRole="SubscriptionSupportRequest" />
-          <NavigationProperty Name="Subscription" Relationship="RadiusRModel.FK_CustomerSetupTask_Subscription" FromRole="CustomerSetupTask" ToRole="Subscription" />
+          <NavigationProperty Name="CustomerSetupTask" Relationship="RadiusRModel.FK_CustomerSetupTaskNote_CustomerSetupTask" FromRole="CustomerSetupStatusUpdate" ToRole="CustomerSetupTask" />
         </EntityType>
         <EntityType Name="CustomerSetupUser">
           <Key>
@@ -3428,8 +3487,8 @@
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="CustomerSetupTasks" Relationship="Self.FK_CustomerSetupTask_CustomerSetupUser" FromRole="CustomerSetupUser" ToRole="CustomerSetupTask" />
           <NavigationProperty Name="Partners" Relationship="RadiusRModel.FK_Partner_CustomerSetupUser" FromRole="CustomerSetupUser" ToRole="Partner" />
+          <NavigationProperty Name="CustomerSetupTasks" Relationship="RadiusRModel.FK_CustomerSetupTask_CustomerSetupUser" FromRole="CustomerSetupUser" ToRole="CustomerSetupTask" />
         </EntityType>
         <EntityType Name="Discount">
           <Key>
@@ -3759,8 +3818,8 @@
           <Property Name="CustomerSetupTaskID" Type="Int64" />
           <Property Name="IssuerID" Type="Int32" />
           <NavigationProperty Name="AppUser" Relationship="Self.FK_SubscriptionSupportRequest_AppUser" FromRole="SubscriptionSupportRequest" ToRole="AppUser" />
-          <NavigationProperty Name="CustomerSetupTask" Relationship="Self.FK_SubscriptionSupportRequest_CustomerSetupTask" FromRole="SubscriptionSupportRequest" ToRole="CustomerSetupTask" />
           <NavigationProperty Name="Subscription" Relationship="RadiusRModel.FK_SubscriptionSupportRequest_Subscription" FromRole="SubscriptionSupportRequest" ToRole="Subscription" />
+          <NavigationProperty Name="CustomerSetupTask" Relationship="RadiusRModel.FK_SubscriptionSupportRequest_CustomerSetupTask" FromRole="SubscriptionSupportRequest" ToRole="CustomerSetupTask" />
         </EntityType>
         <EntityType Name="SystemSetting">
           <Key>
@@ -3885,42 +3944,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CustomerSetupTaskNote_CustomerSetupTask">
-          <End Role="CustomerSetupTask" Type="Self.CustomerSetupTask" Multiplicity="1" />
-          <End Role="CustomerSetupStatusUpdate" Type="Self.CustomerSetupStatusUpdate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CustomerSetupTask">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CustomerSetupStatusUpdate">
-              <PropertyRef Name="CustomerSetupTaskID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CustomerSetupTask_CustomerSetupUser">
-          <End Role="CustomerSetupUser" Type="Self.CustomerSetupUser" Multiplicity="1" />
-          <End Role="CustomerSetupTask" Type="Self.CustomerSetupTask" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CustomerSetupUser">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CustomerSetupTask">
-              <PropertyRef Name="SetupUserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SubscriptionSupportRequest_CustomerSetupTask">
-          <End Role="CustomerSetupTask" Type="Self.CustomerSetupTask" Multiplicity="0..1" />
-          <End Role="SubscriptionSupportRequest" Type="Self.SubscriptionSupportRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CustomerSetupTask">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SubscriptionSupportRequest">
-              <PropertyRef Name="CustomerSetupTaskID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_FeeTypeVariant_FeeTypeCost">
           <End Role="FeeTypeCost" Type="Self.FeeTypeCost" Multiplicity="1" />
           <End Role="FeeTypeVariant" Type="Self.FeeTypeVariant" Multiplicity="*" />
@@ -3976,7 +3999,6 @@
           <EntitySet Name="ChangeStateTasks" EntityType="Self.ChangeStateTask" />
           <EntitySet Name="CustomerBlackLists" EntityType="Self.CustomerBlackList" />
           <EntitySet Name="CustomerSetupStatusUpdates" EntityType="Self.CustomerSetupStatusUpdate" />
-          <EntitySet Name="CustomerSetupTasks" EntityType="Self.CustomerSetupTask" />
           <EntitySet Name="CustomerSetupUsers" EntityType="Self.CustomerSetupUser" />
           <EntitySet Name="Discounts" EntityType="Self.Discount" />
           <EntitySet Name="EBillRegisteredCompanies" EntityType="Self.EBillRegisteredCompany" />
@@ -4044,18 +4066,6 @@
           <AssociationSet Name="FK_ChangeStateTask_SchedulerTask" Association="Self.FK_ChangeStateTask_SchedulerTask">
             <End Role="SchedulerTask" EntitySet="SchedulerTasks" />
             <End Role="ChangeStateTask" EntitySet="ChangeStateTasks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CustomerSetupTaskNote_CustomerSetupTask" Association="Self.FK_CustomerSetupTaskNote_CustomerSetupTask">
-            <End Role="CustomerSetupTask" EntitySet="CustomerSetupTasks" />
-            <End Role="CustomerSetupStatusUpdate" EntitySet="CustomerSetupStatusUpdates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CustomerSetupTask_CustomerSetupUser" Association="Self.FK_CustomerSetupTask_CustomerSetupUser">
-            <End Role="CustomerSetupUser" EntitySet="CustomerSetupUsers" />
-            <End Role="CustomerSetupTask" EntitySet="CustomerSetupTasks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SubscriptionSupportRequest_CustomerSetupTask" Association="Self.FK_SubscriptionSupportRequest_CustomerSetupTask">
-            <End Role="CustomerSetupTask" EntitySet="CustomerSetupTasks" />
-            <End Role="SubscriptionSupportRequest" EntitySet="SubscriptionSupportRequests" />
           </AssociationSet>
           <AssociationSet Name="FK_FeeTypeVariant_FeeTypeCost" Association="Self.FK_FeeTypeVariant_FeeTypeCost">
             <End Role="FeeTypeCost" EntitySet="FeeTypeCosts" />
@@ -4379,10 +4389,6 @@
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Subscription" EntitySet="Subscriptions" />
           </AssociationSet>
-          <AssociationSet Name="FK_CustomerSetupTask_Subscription" Association="RadiusRModel.FK_CustomerSetupTask_Subscription">
-            <End Role="Subscription" EntitySet="Subscriptions" />
-            <End Role="CustomerSetupTask" EntitySet="CustomerSetupTasks" />
-          </AssociationSet>
           <AssociationSet Name="FK_Subscription_Domain" Association="RadiusRModel.FK_Subscription_Domain">
             <End Role="Domain" EntitySet="Domains" />
             <End Role="Subscription" EntitySet="Subscriptions" />
@@ -4544,6 +4550,40 @@
           <AssociationSet Name="FK_PartnerAvailableTariff_Service" Association="RadiusRModel.FK_PartnerAvailableTariff_Service">
             <End Role="Service" EntitySet="Services" />
             <End Role="PartnerAvailableTariff" EntitySet="PartnerAvailableTariffs" />
+          </AssociationSet>
+          <EntitySet Name="PartnerCollections" EntityType="RadiusRModel.PartnerCollection" />
+          <AssociationSet Name="FK_PartnerCollection_AppUser" Association="RadiusRModel.FK_PartnerCollection_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="PartnerCollection" EntitySet="PartnerCollections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartnerCollection_AppUser1" Association="RadiusRModel.FK_PartnerCollection_AppUser1">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="PartnerCollection" EntitySet="PartnerCollections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartnerCollection_Partner" Association="RadiusRModel.FK_PartnerCollection_Partner">
+            <End Role="Partner" EntitySet="Partners" />
+            <End Role="PartnerCollection" EntitySet="PartnerCollections" />
+          </AssociationSet>
+          <EntitySet Name="CustomerSetupTasks" EntityType="RadiusRModel.CustomerSetupTask" />
+          <AssociationSet Name="FK_CustomerSetupTaskNote_CustomerSetupTask" Association="RadiusRModel.FK_CustomerSetupTaskNote_CustomerSetupTask">
+            <End Role="CustomerSetupTask" EntitySet="CustomerSetupTasks" />
+            <End Role="CustomerSetupStatusUpdate" EntitySet="CustomerSetupStatusUpdates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerSetupTask_CustomerSetupUser" Association="RadiusRModel.FK_CustomerSetupTask_CustomerSetupUser">
+            <End Role="CustomerSetupUser" EntitySet="CustomerSetupUsers" />
+            <End Role="CustomerSetupTask" EntitySet="CustomerSetupTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerSetupTask_PartnerCollection" Association="RadiusRModel.FK_CustomerSetupTask_PartnerCollection">
+            <End Role="PartnerCollection" EntitySet="PartnerCollections" />
+            <End Role="CustomerSetupTask" EntitySet="CustomerSetupTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerSetupTask_Subscription" Association="RadiusRModel.FK_CustomerSetupTask_Subscription">
+            <End Role="Subscription" EntitySet="Subscriptions" />
+            <End Role="CustomerSetupTask" EntitySet="CustomerSetupTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscriptionSupportRequest_CustomerSetupTask" Association="RadiusRModel.FK_SubscriptionSupportRequest_CustomerSetupTask">
+            <End Role="CustomerSetupTask" EntitySet="CustomerSetupTasks" />
+            <End Role="SubscriptionSupportRequest" EntitySet="SubscriptionSupportRequests" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
@@ -5255,6 +5295,7 @@
           <NavigationProperty Name="WorkAreas" Relationship="RadiusRModel.FK_WorkArea_Partner" FromRole="Partner" ToRole="WorkArea" />
           <NavigationProperty Name="PartnerSubUsers" Relationship="RadiusRModel.FK_PartnerSubUser_Partner" FromRole="Partner" ToRole="PartnerSubUser" />
           <NavigationProperty Name="PartnerRegisteredSubscriptions" Relationship="RadiusRModel.FK_PartnerRegisteredSubscription_Partner" FromRole="Partner" ToRole="PartnerRegisteredSubscription" />
+          <NavigationProperty Name="PartnerCollections" Relationship="RadiusRModel.FK_PartnerCollection_Partner" FromRole="Partner" ToRole="PartnerCollection" />
         </EntityType>
         <Association Name="FK_Partner_Address">
           <End Type="RadiusRModel.Address" Role="Address" Multiplicity="1" />
@@ -5914,7 +5955,6 @@
           <NavigationProperty Name="ChangeServiceTypeTasks" Relationship="RadiusRModel.FK_ChangeServiceTypeTask_Subscription" FromRole="Subscription" ToRole="ChangeServiceTypeTask" />
           <NavigationProperty Name="ChangeStateTasks" Relationship="RadiusRModel.FK_ChangeStateTask_Subscription" FromRole="Subscription" ToRole="ChangeStateTask" />
           <NavigationProperty Name="Customer" Relationship="RadiusRModel.FK_Subscription_Customer" FromRole="Subscription" ToRole="Customer" />
-          <NavigationProperty Name="CustomerSetupTasks" Relationship="RadiusRModel.FK_CustomerSetupTask_Subscription" FromRole="Subscription" ToRole="CustomerSetupTask" />
           <NavigationProperty Name="Domain" Relationship="RadiusRModel.FK_Subscription_Domain" FromRole="Subscription" ToRole="Domain" />
           <NavigationProperty Name="Fees" Relationship="RadiusRModel.FK_Fee_Subscription" FromRole="Subscription" ToRole="Fee" />
           <NavigationProperty Name="MobilExpressAutoPayment" Relationship="RadiusRModel.FK_MobilExpressAutoPayment_Subscription" FromRole="Subscription" ToRole="MobilExpressAutoPayment" />
@@ -5941,6 +5981,7 @@
           <NavigationProperty Name="TelekomWorkOrders" Relationship="RadiusRModel.FK_TelekomWorkOrder_Subscription" FromRole="Subscription" ToRole="TelekomWorkOrder" />
           <NavigationProperty Name="Groups" Relationship="RadiusRModel.SubscriptionGroup" FromRole="Subscription" ToRole="Group" />
           <NavigationProperty Name="SupportRequests" Relationship="RadiusRModel.FK_SupportRequest_Subscription" FromRole="Subscription" ToRole="SupportRequest" />
+          <NavigationProperty Name="CustomerSetupTasks" Relationship="RadiusRModel.FK_CustomerSetupTask_Subscription" FromRole="Subscription" ToRole="CustomerSetupTask" />
         </EntityType>
         <Association Name="FK_Subscription_Address">
           <End Type="RadiusRModel.Address" Role="Address" Multiplicity="1" />
@@ -5999,18 +6040,6 @@
             </Principal>
             <Dependent Role="Subscription">
               <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CustomerSetupTask_Subscription">
-          <End Type="RadiusRModel.Subscription" Role="Subscription" Multiplicity="1" />
-          <End Type="RadiusRModel.CustomerSetupTask" Role="CustomerSetupTask" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Subscription">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CustomerSetupTask">
-              <PropertyRef Name="SubscriptionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6566,6 +6595,141 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PartnerCollection">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartnerID" Type="Int32" Nullable="false" />
+          <Property Name="CreatorID" Type="Int32" Nullable="false" />
+          <Property Name="PayerID" Type="Int32" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CreatorUser" Relationship="RadiusRModel.FK_PartnerCollection_AppUser" FromRole="PartnerCollection" ToRole="AppUser" />
+          <NavigationProperty Name="PayerUser" Relationship="RadiusRModel.FK_PartnerCollection_AppUser1" FromRole="PartnerCollection" ToRole="AppUser" />
+          <NavigationProperty Name="Partner" Relationship="RadiusRModel.FK_PartnerCollection_Partner" FromRole="PartnerCollection" ToRole="Partner" />
+          <NavigationProperty Name="CustomerSetupTasks" Relationship="RadiusRModel.FK_CustomerSetupTask_PartnerCollection" FromRole="PartnerCollection" ToRole="CustomerSetupTask" />
+        </EntityType>
+        <Association Name="FK_PartnerCollection_AppUser">
+          <End Type="RadiusRModel.AppUser" Role="AppUser" Multiplicity="1" />
+          <End Type="RadiusRModel.PartnerCollection" Role="PartnerCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PartnerCollection">
+              <PropertyRef Name="CreatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerCollection_AppUser1">
+          <End Type="RadiusRModel.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="RadiusRModel.PartnerCollection" Role="PartnerCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PartnerCollection">
+              <PropertyRef Name="PayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerCollection_Partner">
+          <End Type="RadiusRModel.Partner" Role="Partner" Multiplicity="1" />
+          <End Type="RadiusRModel.PartnerCollection" Role="PartnerCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partner">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PartnerCollection">
+              <PropertyRef Name="PartnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CustomerSetupTask">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SetupUserID" Type="Int32" Nullable="false" />
+          <Property Name="SubscriptionID" Type="Int64" Nullable="false" />
+          <Property Name="TaskType" Type="Int16" Nullable="false" />
+          <Property Name="HasModem" Type="Boolean" Nullable="false" />
+          <Property Name="ModemName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="XDSLType" Type="Int16" Nullable="false" />
+          <Property Name="TaskIssueDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CompletionDate" Type="DateTime" Precision="3" />
+          <Property Name="TaskStatus" Type="Int16" Nullable="false" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AllowanceState" Type="Int16" Nullable="false" />
+          <Property Name="Allowance" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PartnerCollectionID" Type="Int64" />
+          <NavigationProperty Name="CustomerSetupStatusUpdates" Relationship="RadiusRModel.FK_CustomerSetupTaskNote_CustomerSetupTask" FromRole="CustomerSetupTask" ToRole="CustomerSetupStatusUpdate" />
+          <NavigationProperty Name="CustomerSetupUser" Relationship="RadiusRModel.FK_CustomerSetupTask_CustomerSetupUser" FromRole="CustomerSetupTask" ToRole="CustomerSetupUser" />
+          <NavigationProperty Name="PartnerCollection" Relationship="RadiusRModel.FK_CustomerSetupTask_PartnerCollection" FromRole="CustomerSetupTask" ToRole="PartnerCollection" />
+          <NavigationProperty Name="Subscription" Relationship="RadiusRModel.FK_CustomerSetupTask_Subscription" FromRole="CustomerSetupTask" ToRole="Subscription" />
+          <NavigationProperty Name="SubscriptionSupportRequests" Relationship="RadiusRModel.FK_SubscriptionSupportRequest_CustomerSetupTask" FromRole="CustomerSetupTask" ToRole="SubscriptionSupportRequest" />
+        </EntityType>
+        <Association Name="FK_CustomerSetupTaskNote_CustomerSetupTask">
+          <End Type="RadiusRModel.CustomerSetupTask" Role="CustomerSetupTask" Multiplicity="1" />
+          <End Type="RadiusRModel.CustomerSetupStatusUpdate" Role="CustomerSetupStatusUpdate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerSetupTask">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CustomerSetupStatusUpdate">
+              <PropertyRef Name="CustomerSetupTaskID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerSetupTask_CustomerSetupUser">
+          <End Type="RadiusRModel.CustomerSetupUser" Role="CustomerSetupUser" Multiplicity="1" />
+          <End Type="RadiusRModel.CustomerSetupTask" Role="CustomerSetupTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerSetupUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CustomerSetupTask">
+              <PropertyRef Name="SetupUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerSetupTask_PartnerCollection">
+          <End Type="RadiusRModel.PartnerCollection" Role="PartnerCollection" Multiplicity="0..1" />
+          <End Type="RadiusRModel.CustomerSetupTask" Role="CustomerSetupTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PartnerCollection">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CustomerSetupTask">
+              <PropertyRef Name="PartnerCollectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerSetupTask_Subscription">
+          <End Type="RadiusRModel.Subscription" Role="Subscription" Multiplicity="1" />
+          <End Type="RadiusRModel.CustomerSetupTask" Role="CustomerSetupTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscription">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CustomerSetupTask">
+              <PropertyRef Name="SubscriptionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubscriptionSupportRequest_CustomerSetupTask">
+          <End Type="RadiusRModel.CustomerSetupTask" Role="CustomerSetupTask" Multiplicity="0..1" />
+          <End Type="RadiusRModel.SubscriptionSupportRequest" Role="SubscriptionSupportRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerSetupTask">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SubscriptionSupportRequest">
+              <PropertyRef Name="CustomerSetupTaskID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6701,24 +6865,6 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="ReservationDate" ColumnName="ReservationDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerSetupTasks">
-            <EntityTypeMapping TypeName="RadiusRModel.CustomerSetupTask">
-              <MappingFragment StoreEntitySet="CustomerSetupTask">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="SetupUserID" ColumnName="SetupUserID" />
-                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
-                <ScalarProperty Name="TaskType" ColumnName="TaskType" />
-                <ScalarProperty Name="HasModem" ColumnName="HasModem" />
-                <ScalarProperty Name="ModemName" ColumnName="ModemName" />
-                <ScalarProperty Name="XDSLType" ColumnName="XDSLType" />
-                <ScalarProperty Name="TaskIssueDate" ColumnName="TaskIssueDate" />
-                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
-                <ScalarProperty Name="TaskStatus" ColumnName="TaskStatus" />
-                <ScalarProperty Name="Details" ColumnName="Details" />
-                <ScalarProperty Name="IsCharged" ColumnName="IsCharged" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7762,6 +7908,38 @@
                 <ScalarProperty Name="Allowance" ColumnName="Allowance" />
                 <ScalarProperty Name="TariffID" ColumnName="TariffID" />
                 <ScalarProperty Name="PartnerGroupID" ColumnName="PartnerGroupID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PartnerCollections">
+            <EntityTypeMapping TypeName="RadiusRModel.PartnerCollection">
+              <MappingFragment StoreEntitySet="PartnerCollection">
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="PayerID" ColumnName="PayerID" />
+                <ScalarProperty Name="CreatorID" ColumnName="CreatorID" />
+                <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerSetupTasks">
+            <EntityTypeMapping TypeName="RadiusRModel.CustomerSetupTask">
+              <MappingFragment StoreEntitySet="CustomerSetupTask">
+                <ScalarProperty Name="PartnerCollectionID" ColumnName="PartnerCollectionID" />
+                <ScalarProperty Name="Allowance" ColumnName="Allowance" />
+                <ScalarProperty Name="AllowanceState" ColumnName="AllowanceState" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="TaskStatus" ColumnName="TaskStatus" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="TaskIssueDate" ColumnName="TaskIssueDate" />
+                <ScalarProperty Name="XDSLType" ColumnName="XDSLType" />
+                <ScalarProperty Name="ModemName" ColumnName="ModemName" />
+                <ScalarProperty Name="HasModem" ColumnName="HasModem" />
+                <ScalarProperty Name="TaskType" ColumnName="TaskType" />
+                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+                <ScalarProperty Name="SetupUserID" ColumnName="SetupUserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -980,7 +980,7 @@ namespace RadiusR_Manager.Controllers
                 CompletionDate = task.CompletionDate,
                 Details = task.Details,
                 IssueDate = task.TaskIssueDate,
-                IsCharged = task.IsCharged,
+                AllowanceState = task.AllowanceState,
                 Status = task.TaskStatus,
                 TaskType = task.TaskType,
                 User = task.CustomerSetupUser.Name
@@ -1042,7 +1042,7 @@ namespace RadiusR_Manager.Controllers
                     XDSLType = task.XDSLType,
                     TaskIssueDate = DateTime.Now,
                     TaskStatus = (short)RadiusR.DB.Enums.CustomerSetup.TaskStatuses.New,
-                    IsCharged = false
+                    AllowanceState = (short)PartnerAllowanceState.OnHold
                 };
                 db.CustomerSetupTasks.Add(dbWorkOrder);
 

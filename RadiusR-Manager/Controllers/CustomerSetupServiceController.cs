@@ -58,7 +58,7 @@ namespace RadiusR_Manager.Controllers
                 Status = task.TaskStatus,
                 TaskType = task.TaskType,
                 XDSLType = task.XDSLType,
-                IsCharged = task.IsCharged,
+                AllowanceState = task.AllowanceState,
                 ReservationDate = task.CustomerSetupStatusUpdates.Any() ? task.CustomerSetupStatusUpdates.LastOrDefault().ReservationDate : null,
                 User = task.CustomerSetupUser.Name,
                 Client = new SubscriptionListDisplayViewModel()
@@ -266,33 +266,33 @@ namespace RadiusR_Manager.Controllers
             return View(user);
         }
 
-        [AuthorizePermission(Permissions = "Setup Task Service Fee")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        // POST: CustomerSetupService/AddServiceFee
-        public ActionResult AddServiceFee(long id, string page)
-        {
-            page = page ?? "0";
-            var task = db.CustomerSetupTasks.Find(id);
-            if (task == null || task.TaskStatus != (short)TaskStatuses.Completed || task.IsCharged)
-            {
-                return RedirectToAction("Index", new { errorMessage = 9 });
-            }
-            //add fee
-            var serviceFee = db.FeeTypeCosts.Find((short)FeeType.Service);
-            task.Subscription.Fees.Add(new Fee()
-            {
-                FeeTypeID = serviceFee.FeeTypeID,
-                Cost = serviceFee.Cost,
-                InstallmentBillCount = 1,
-                Date = DateTime.Now
-            });
-            task.IsCharged = true;
+        //[AuthorizePermission(Permissions = "Setup Task Service Fee")]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //// POST: CustomerSetupService/AddServiceFee
+        //public ActionResult AddServiceFee(long id, string page)
+        //{
+        //    page = page ?? "0";
+        //    var task = db.CustomerSetupTasks.Find(id);
+        //    if (task == null || task.TaskStatus != (short)TaskStatuses.Completed || task.IsCharged)
+        //    {
+        //        return RedirectToAction("Index", new { errorMessage = 9 });
+        //    }
+        //    //add fee
+        //    var serviceFee = db.FeeTypeCosts.Find((short)FeeType.Service);
+        //    task.Subscription.Fees.Add(new Fee()
+        //    {
+        //        FeeTypeID = serviceFee.FeeTypeID,
+        //        Cost = serviceFee.Cost,
+        //        InstallmentBillCount = 1,
+        //        Date = DateTime.Now
+        //    });
+        //    task.IsCharged = true;
 
-            db.SaveChanges();
+        //    db.SaveChanges();
 
-            return RedirectToAction("Index", new { errorMessage = 0, page = page });
-        }
+        //    return RedirectToAction("Index", new { errorMessage = 0, page = page });
+        //}
 
         [HttpGet]
         // GET: CustomerSetupService/AddNewTask
@@ -330,7 +330,7 @@ namespace RadiusR_Manager.Controllers
                 ClientName = task.Subscription.ValidDisplayName,
                 HasModem = task.HasModem,
                 IssueDate = task.TaskIssueDate,
-                IsCharged = task.IsCharged,
+                AllowanceState = task.AllowanceState,
                 ModemName = task.ModemName,
                 User = task.CustomerSetupUser.Name,
                 Details = task.Details,

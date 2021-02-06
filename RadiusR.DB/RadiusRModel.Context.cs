@@ -40,7 +40,6 @@ namespace RadiusR.DB
         public virtual DbSet<ChangeStateTask> ChangeStateTasks { get; set; }
         public virtual DbSet<CustomerBlackList> CustomerBlackLists { get; set; }
         public virtual DbSet<CustomerSetupStatusUpdate> CustomerSetupStatusUpdates { get; set; }
-        public virtual DbSet<CustomerSetupTask> CustomerSetupTasks { get; set; }
         public virtual DbSet<CustomerSetupUser> CustomerSetupUsers { get; set; }
         public virtual DbSet<Discount> Discounts { get; set; }
         public virtual DbSet<EBillRegisteredCompany> EBillRegisteredCompanies { get; set; }
@@ -121,5 +120,7 @@ namespace RadiusR.DB
         public virtual DbSet<ExternalTariff> ExternalTariffs { get; set; }
         public virtual DbSet<BTKSchedulerSetting> BTKSchedulerSettings { get; set; }
         public virtual DbSet<PartnerAvailableTariff> PartnerAvailableTariffs { get; set; }
+        public virtual DbSet<PartnerCollection> PartnerCollections { get; set; }
+        public virtual DbSet<CustomerSetupTask> CustomerSetupTasks { get; set; }
     }
 }

@@ -12,23 +12,24 @@ namespace RadiusR.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class CustomerSetupUser
+    public partial class PartnerCollection
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CustomerSetupUser()
+        public PartnerCollection()
         {
-            this.Partners = new HashSet<Partner>();
             this.CustomerSetupTasks = new HashSet<CustomerSetupTask>();
         }
     
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public bool IsEnabled { get; set; }
+        public long ID { get; set; }
+        public int PartnerID { get; set; }
+        public int CreatorID { get; set; }
+        public Nullable<int> PayerID { get; set; }
+        public System.DateTime CreationDate { get; set; }
+        public Nullable<System.DateTime> PaymentDate { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Partner> Partners { get; set; }
+        public virtual AppUser CreatorUser { get; set; }
+        public virtual AppUser PayerUser { get; set; }
+        public virtual Partner Partner { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerSetupTask> CustomerSetupTasks { get; set; }
     }
