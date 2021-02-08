@@ -25,7 +25,6 @@ namespace RadiusR.DB
             this.TelekomWorkOrders = new HashSet<TelekomWorkOrder>();
             this.Bills = new HashSet<Bill>();
             this.SystemLogs = new HashSet<SystemLog>();
-            this.PartnerRegisteredSubscriptions = new HashSet<PartnerRegisteredSubscription>();
             this.LeaderInGroups = new HashSet<SupportGroup>();
             this.SupportRequestProgresses = new HashSet<SupportRequestProgress>();
             this.SupportRequests = new HashSet<SupportRequest>();
@@ -61,8 +60,6 @@ namespace RadiusR.DB
         public virtual ICollection<Bill> Bills { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SystemLog> SystemLogs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartnerRegisteredSubscription> PartnerRegisteredSubscriptions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupportGroup> LeaderInGroups { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -11,6 +11,7 @@ using RadiusR_Manager.Models.ViewModels.Customer;
 using RezaB.Web.CustomAttributes;
 using RezaB.Web;
 using RadiusR.SystemLogs;
+using RadiusR.DB.Utilities.Extentions;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -354,18 +355,40 @@ namespace RadiusR_Manager.Controllers
         [AuthorizePermission(Permissions = "Close Setup Task")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // POST: CustomerSetupService/CloseWorkOrder
-        public ActionResult CloseWorkOrder(long id, string returnUrl)
+        // POST: CustomerSetupService/CompleteTask
+        public ActionResult CompleteTask(long id, string returnUrl)
         {
             var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
             var task = db.CustomerSetupTasks.Find(id);
-            if (task == null)
+            if (task == null || !task.IsActive)
             {
                 UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
                 return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
             }
 
-            task.TaskStatus = (short)TaskStatuses.Completed;
+            task.CompleteCustomerSetupTask();
+            db.SystemLogs.Add(SystemLogProcessor.CloseWorkOrder(task.ID, User.GiveUserId(), task.SubscriptionID, SystemLogInterface.MasterISS, null));
+            db.SaveChanges();
+
+            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+        }
+
+        [AuthorizePermission(Permissions = "Close Setup Task")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST: CustomerSetupService/CancelTask
+        public ActionResult CancelTask(long id, string returnUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+            var task = db.CustomerSetupTasks.Find(id);
+            if (task == null || !task.IsActive)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            task.CancelCustomerSetupTask();
             db.SystemLogs.Add(SystemLogProcessor.CloseWorkOrder(task.ID, User.GiveUserId(), task.SubscriptionID, SystemLogInterface.MasterISS, null));
             db.SaveChanges();
 

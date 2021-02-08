@@ -123,12 +123,21 @@
     <a class="link-button iconed-button back-button" href="@ViewBag.BackLink">@RadiusR.Localization.Pages.Common.Back</a>
     @if (Model.IsActive && User.HasPermission("Close Setup Task"))
     {
-        using (Html.BeginForm("CloseWorkOrder", null, null, FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block;" }))
+        @:&nbsp;
+        using (Html.BeginForm("CancelTask", null, null, FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block;" }))
         {
             @Html.AntiForgeryToken()
             @Html.Hidden("returnUrl", ViewBag.BackLink as string)
             @Html.Hidden("id", ViewContext.RouteData.Values["id"])
-            <input type="submit" value="@RadiusR.Localization.Pages.Common.Close" class="link-button iconed-button cancel-button" />
+            <input type="submit" value="@RadiusR.Localization.Pages.Common.Cancel" class="link-button iconed-button cancel-button" />
+        }
+        @:&nbsp;
+        using (Html.BeginForm("CompleteTask", null, null, FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block;" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("returnUrl", ViewBag.BackLink as string)
+            @Html.Hidden("id", ViewContext.RouteData.Values["id"])
+            <input type="submit" value="@RadiusR.Localization.Pages.Common.Finish" class="link-button iconed-button accept-button" />
         }
     }
 </div>

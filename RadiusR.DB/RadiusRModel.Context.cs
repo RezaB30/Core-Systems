@@ -101,7 +101,6 @@ namespace RadiusR.DB
         public virtual DbSet<SMSText> SMSTexts { get; set; }
         public virtual DbSet<SystemLog> SystemLogs { get; set; }
         public virtual DbSet<NASExpiredPool> NASExpiredPools { get; set; }
-        public virtual DbSet<PartnerRegisteredSubscription> PartnerRegisteredSubscriptions { get; set; }
         public virtual DbSet<RecurringDiscount> RecurringDiscounts { get; set; }
         public virtual DbSet<SpecialOffer> SpecialOffers { get; set; }
         public virtual DbSet<AppliedRecurringDiscount> AppliedRecurringDiscounts { get; set; }
@@ -122,5 +121,6 @@ namespace RadiusR.DB
         public virtual DbSet<PartnerAvailableTariff> PartnerAvailableTariffs { get; set; }
         public virtual DbSet<PartnerCollection> PartnerCollections { get; set; }
         public virtual DbSet<CustomerSetupTask> CustomerSetupTasks { get; set; }
+        public virtual DbSet<PartnerRegisteredSubscription> PartnerRegisteredSubscriptions { get; set; }
     }
 }

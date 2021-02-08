@@ -192,6 +192,7 @@
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ModelExtentions\Customer.cs" />
+    <Compile Include="ModelExtentions\CustomerSetupTask.cs" />
     <Compile Include="ModelExtentions\FeeExtentions.cs" />
     <Compile Include="ModelExtentions\RecurringDiscount.cs" />
     <Compile Include="ModelExtentions\SMSArchiveSet.cs" />

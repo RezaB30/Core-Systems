@@ -5,48 +5,48 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="42b3ddc062a94f2c9faf26d8921bc96e" Name="Diagram1" ZoomLevel="98">
-        <EntityTypeShape EntityType="RadiusRModel.Address" Width="1.5" PointX="1.125" PointY="73.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.Address" Width="1.5" PointX="1.125" PointY="73.5" IsExpanded="true" />
         <EntityTypeShape EntityType="RadiusRModel.AppSetting" Width="1.5" PointX="6.125" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.AppUser" Width="1.875" PointX="3" PointY="62.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.AppUser" Width="1.875" PointX="3" PointY="62.5" IsExpanded="true" />
         <EntityTypeShape EntityType="RadiusRModel.BTKIPBlock" Width="1.5" PointX="6.125" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.Cashier" Width="1.5" PointX="5.625" PointY="64.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.CashierBalance" Width="1.5" PointX="7.875" PointY="64.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.ChangeServiceTypeTask" Width="1.5" PointX="13.875" PointY="81.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.ChangeStateTask" Width="1.5" PointX="13.875" PointY="90" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.Cashier" Width="1.5" PointX="5.625" PointY="63.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.CashierBalance" Width="1.5" PointX="7.875" PointY="64.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.ChangeServiceTypeTask" Width="1.5" PointX="10.875" PointY="87.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.ChangeStateTask" Width="1.5" PointX="19.875" PointY="76.625" IsExpanded="true" />
         <EntityTypeShape EntityType="RadiusRModel.CustomerBlackList" Width="1.5" PointX="8.125" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.CustomerSetupStatusUpdate" Width="1.5" PointX="13.125" PointY="69.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.CustomerSetupUser" Width="1.5" PointX="1.125" PointY="70.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.Discount" Width="1.5" PointX="19.875" PointY="90.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.CustomerSetupStatusUpdate" Width="1.5" PointX="13.125" PointY="68.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.CustomerSetupUser" Width="1.5" PointX="1.125" PointY="69.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.Discount" Width="1.5" PointX="16.875" PointY="105" IsExpanded="true" />
         <EntityTypeShape EntityType="RadiusRModel.EBillRegisteredCompany" Width="1.5" PointX="8.125" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.FeeTypeCost" Width="1.5" PointX="14.625" PointY="93.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.FeeTypeVariant" Width="1.5" PointX="11.625" PointY="92" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.Group" Width="1.5" PointX="6.375" PointY="69" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.FeeTypeCost" Width="1.5" PointX="17.625" PointY="95.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.FeeTypeVariant" Width="1.5" PointX="14.625" PointY="94.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.Group" Width="1.5" PointX="6.375" PointY="68.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RadiusRModel.NASNetmap" Width="1.5" PointX="3.375" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="RadiusRModel.NASVerticalIPMap" Width="1.5" PointX="3.375" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="RadiusRModel.PDFFormItemPlacement" Width="1.5" PointX="6.125" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.Permission" Width="1.5" PointX="1.5" PointY="59.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.Permission" Width="1.5" PointX="1.5" PointY="59.25" IsExpanded="true" />
         <EntityTypeShape EntityType="RadiusRModel.QuotaPackage" Width="1.5" PointX="8.125" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.RadiusAccounting" Width="1.5" PointX="10.875" PointY="134.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.RadiusAccountingIPInfo" Width="1.5" PointX="13.125" PointY="135.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.RadiusDailyAccounting" Width="1.5" PointX="10.875" PointY="140.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.RadiusAccounting" Width="1.5" PointX="10.875" PointY="133" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.RadiusAccountingIPInfo" Width="1.5" PointX="13.125" PointY="134.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.RadiusDailyAccounting" Width="1.5" PointX="10.875" PointY="139" IsExpanded="true" />
         <EntityTypeShape EntityType="RadiusRModel.RadiusDefault" Width="1.5" PointX="10.125" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.RadiusRBillingService" Width="1.5" PointX="8.625" PointY="74" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.RadiusSMS" Width="1.5" PointX="10.875" PointY="143.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.Role" Width="1.5" PointX="0.75" PointY="64.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.SchedulerTask" Width="1.5" PointX="11.625" PointY="95.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.ServiceRateTimeTable" Width="1.5" PointX="8.625" PointY="102.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.SMSArchive" Width="1.5" PointX="25.125" PointY="85.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.RadiusRBillingService" Width="1.5" PointX="8.625" PointY="73.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.RadiusSMS" Width="1.5" PointX="10.875" PointY="142.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.Role" Width="1.5" PointX="0.75" PointY="64.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.SchedulerTask" Width="1.5" PointX="17.625" PointY="67.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.ServiceRateTimeTable" Width="1.5" PointX="8.625" PointY="105.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.SMSArchive" Width="1.5" PointX="25.125" PointY="77.5" IsExpanded="true" />
         <EntityTypeShape EntityType="RadiusRModel.SMSSetting" Width="1.5" PointX="10.125" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.SubscriptionCancellation" Width="1.5" PointX="10.875" PointY="145.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.SubscriptionCommitment" Width="1.5" PointX="10.875" PointY="148.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.SubscriptionCredit" Width="1.5" PointX="26.125" PointY="81.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.SubscriptionGPSCoord" Width="1.5" PointX="10.875" PointY="150.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.SubscriptionNote" Width="1.5" PointX="19.875" PointY="86.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.SubscriptionQuota" Width="1.5" PointX="10.875" PointY="153.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.SubscriptionStateHistory" Width="1.5" PointX="13.875" PointY="77.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.SubscriptionSupportRequest" Width="1.5" PointX="16.125" PointY="76.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.SubscriptionCancellation" Width="1.5" PointX="10.875" PointY="144.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.SubscriptionCommitment" Width="1.5" PointX="10.875" PointY="147.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.SubscriptionCredit" Width="1.5" PointX="23.125" PointY="85.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.SubscriptionGPSCoord" Width="1.5" PointX="10.875" PointY="149.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.SubscriptionNote" Width="1.5" PointX="13.875" PointY="89.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.SubscriptionQuota" Width="1.5" PointX="10.875" PointY="152.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.SubscriptionStateHistory" Width="1.5" PointX="13.875" PointY="85.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.SubscriptionSupportRequest" Width="1.5" PointX="13.875" PointY="76.125" IsExpanded="true" />
         <EntityTypeShape EntityType="RadiusRModel.SystemSetting" Width="1.5" PointX="10.125" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.TaxRate" Width="1.5" PointX="16.875" PointY="100.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RadiusRModel.TaxRate" Width="1.5" PointX="19.875" PointY="94.875" IsExpanded="true" />
         <AssociationConnector Association="RadiusRModel.FK_AppUser_Role" ManuallyRouted="false" />
         <AssociationConnector Association="RadiusRModel.FK_Cashier_AppUser" ManuallyRouted="false" />
         <AssociationConnector Association="RadiusRModel.FK_SubscriptionCredit_AppUser" ManuallyRouted="false" />
@@ -61,58 +61,58 @@
         <AssociationConnector Association="RadiusRModel.FK_RadiusAccountingIPInfo_RadiusAccounting" ManuallyRouted="false" />
         <AssociationConnector Association="RadiusRModel.FeeTypeTax" ManuallyRouted="false" />
         <AssociationConnector Association="RadiusRModel.RolePermission" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="RadiusRModel.RecurringPaymentSubscription" Width="1.5" PointX="10.875" PointY="74.125" />
+        <EntityTypeShape EntityType="RadiusRModel.RecurringPaymentSubscription" Width="1.5" PointX="10.875" PointY="79.75" />
         <AssociationConnector Association="RadiusRModel.FK_RecurringPaymentSubscription_RadiusRBillingService" />
-        <EntityTypeShape EntityType="RadiusRModel.ScheduledSMS" Width="1.5" PointX="27.125" PointY="77.625" />
-        <EntityTypeShape EntityType="RadiusRModel.MobilExpressAutoPayment" Width="1.5" PointX="10.875" PointY="127.625" />
-        <EntityTypeShape EntityType="RadiusRModel.EBill" Width="1.5" PointX="19.125" PointY="108.625" />
-        <EntityTypeShape EntityType="RadiusRModel.ServiceBillingPeriod" Width="1.5" PointX="8.625" PointY="100.375" />
-        <EntityTypeShape EntityType="RadiusRModel.CorporateCustomerInfo" Width="1.5" PointX="5.625" PointY="81.625" />
-        <EntityTypeShape EntityType="RadiusRModel.Customer" Width="1.5" PointX="3.375" PointY="86.625" />
+        <EntityTypeShape EntityType="RadiusRModel.ScheduledSMS" Width="1.5" PointX="23.125" PointY="81.25" />
+        <EntityTypeShape EntityType="RadiusRModel.MobilExpressAutoPayment" Width="1.5" PointX="10.875" PointY="126.5" />
+        <EntityTypeShape EntityType="RadiusRModel.EBill" Width="1.5" PointX="19.125" PointY="108.25" />
+        <EntityTypeShape EntityType="RadiusRModel.ServiceBillingPeriod" Width="1.5" PointX="8.625" PointY="103" />
+        <EntityTypeShape EntityType="RadiusRModel.CorporateCustomerInfo" Width="1.5" PointX="5.625" PointY="81.375" />
+        <EntityTypeShape EntityType="RadiusRModel.Customer" Width="1.5" PointX="3.375" PointY="86.375" />
         <AssociationConnector Association="RadiusRModel.FK_CorporateCustomerInfo_Address" />
         <AssociationConnector Association="RadiusRModel.FK_Customer_Address" />
         <AssociationConnector Association="RadiusRModel.FK_Customer_BillingAddress" />
         <AssociationConnector Association="RadiusRModel.FK_CorporateCustomerInfo_Customer" />
-        <EntityTypeShape EntityType="RadiusRModel.CustomerAdditionalPhoneNo" Width="1.5" PointX="5.625" PointY="118.875" />
+        <EntityTypeShape EntityType="RadiusRModel.CustomerAdditionalPhoneNo" Width="1.5" PointX="5.625" PointY="118.5" />
         <AssociationConnector Association="RadiusRModel.FK_CustomerAdditionalPhoneNo_Customer" />
-        <EntityTypeShape EntityType="RadiusRModel.CustomerIDCard" Width="1.5" PointX="5.625" PointY="121.375" />
+        <EntityTypeShape EntityType="RadiusRModel.CustomerIDCard" Width="1.5" PointX="5.625" PointY="121.125" />
         <AssociationConnector Association="RadiusRModel.FK_CustomerIDCard_Customer" />
-        <EntityTypeShape EntityType="RadiusRModel.TelekomWorkOrderParameter" Width="1.5" PointX="21.125" PointY="76.125" />
+        <EntityTypeShape EntityType="RadiusRModel.TelekomWorkOrderParameter" Width="1.5" PointX="16.125" PointY="91.75" />
         <EntityTypeShape EntityType="RadiusRModel.TelekomTariff" Width="1.5" PointX="8.125" PointY="9.75" />
-        <EntityTypeShape EntityType="RadiusRModel.SubscriptionTelekomInfo" Width="1.5" PointX="10.875" PointY="130.375" />
-        <EntityTypeShape EntityType="RadiusRModel.TelekomWorkOrder" Width="1.5" PointX="18.875" PointY="75.125" />
+        <EntityTypeShape EntityType="RadiusRModel.SubscriptionTelekomInfo" Width="1.5" PointX="10.875" PointY="129.25" />
+        <EntityTypeShape EntityType="RadiusRModel.TelekomWorkOrder" Width="1.5" PointX="13.875" PointY="80.75" />
         <AssociationConnector Association="RadiusRModel.FK_TelekomWorkOrder_AppUser" />
         <AssociationConnector Association="RadiusRModel.FK_TelekomWorkOrderParameter_TelekomWorkOrderParameter" />
-        <EntityTypeShape EntityType="RadiusRModel.BillFee" Width="1.5" PointX="22.125" PointY="87.875" />
+        <EntityTypeShape EntityType="RadiusRModel.BillFee" Width="1.5" PointX="19.125" PointY="89.5" />
         <AssociationConnector Association="RadiusRModel.FK_BillFee_Discount" />
         <AssociationConnector Association="RadiusRModel.FK_BillFee_FeeTypeCost" />
-        <EntityTypeShape EntityType="RadiusRModel.Bill" Width="1.5" PointX="16.875" PointY="80.375" />
+        <EntityTypeShape EntityType="RadiusRModel.Bill" Width="1.5" PointX="16.875" PointY="80.125" />
         <AssociationConnector Association="RadiusRModel.FK_Bill_AppUser" />
         <AssociationConnector Association="RadiusRModel.FK_BillFee_Bill" />
         <AssociationConnector Association="RadiusRModel.FK_EBill_Bill" />
         <AssociationConnector Association="RadiusRModel.FK_ScheduledSMS_Bill" />
         <AssociationConnector Association="RadiusRModel.FK_SMSArchive_Bill" />
         <AssociationConnector Association="RadiusRModel.FK_SubscriptionCredit_Bill" />
-        <EntityTypeShape EntityType="RadiusRModel.Service" Width="1.5" PointX="6.375" PointY="93.5" />
+        <EntityTypeShape EntityType="RadiusRModel.Service" Width="1.5" PointX="6.375" PointY="96.125" />
         <AssociationConnector Association="RadiusRModel.FK_ChangeServiceTypeTask_Service" />
         <AssociationConnector Association="RadiusRModel.FK_ServiceBillingPeriod_Service" />
         <AssociationConnector Association="RadiusRModel.FK_ServiceRateTimeTable_Service" />
-        <EntityTypeShape EntityType="RadiusRModel.Fee" Width="1.5" PointX="13.875" PointY="85.125" />
+        <EntityTypeShape EntityType="RadiusRModel.Fee" Width="1.5" PointX="16.875" PointY="86.75" />
         <AssociationConnector Association="RadiusRModel.FK_BillFee_Fee" />
         <AssociationConnector Association="RadiusRModel.FK_Fee_FeeTypeCost" />
         <AssociationConnector Association="RadiusRModel.FK_Fee_FeeTypeVariant" />
-        <EntityTypeShape EntityType="RadiusRModel.WorkArea" Width="1.5" PointX="5.625" PointY="85.625" />
-        <EntityTypeShape EntityType="RadiusRModel.PartnerGroup" Width="1.5" PointX="1.125" PointY="80.25" />
-        <EntityTypeShape EntityType="RadiusRModel.PartnerPermission" Width="1.5" PointX="5.625" PointY="79.375" />
-        <EntityTypeShape EntityType="RadiusRModel.PartnerCredit" Width="1.5" PointX="24.125" PointY="74.25" />
+        <EntityTypeShape EntityType="RadiusRModel.WorkArea" Width="1.5" PointX="5.625" PointY="87.5" />
+        <EntityTypeShape EntityType="RadiusRModel.PartnerGroup" Width="1.5" PointX="1.125" PointY="80" />
+        <EntityTypeShape EntityType="RadiusRModel.PartnerPermission" Width="1.5" PointX="5.625" PointY="85.25" />
+        <EntityTypeShape EntityType="RadiusRModel.PartnerCredit" Width="1.5" PointX="22.125" PointY="77" />
         <AssociationConnector Association="RadiusRModel.FK_PartnerCredit_Bill" />
-        <EntityTypeShape EntityType="RadiusRModel.TelekomAccessCredential" Width="1.5" PointX="8.625" PointY="90" />
-        <EntityTypeShape EntityType="RadiusRModel.Domain" Width="1.5" PointX="6.375" PointY="89.375" />
+        <EntityTypeShape EntityType="RadiusRModel.TelekomAccessCredential" Width="1.5" PointX="8.625" PointY="89.75" />
+        <EntityTypeShape EntityType="RadiusRModel.Domain" Width="1.5" PointX="6.375" PointY="92" />
         <AssociationConnector Association="RadiusRModel.FK_TelekomAccessCredential_Domain" />
         <AssociationConnector Association="RadiusRModel.ServiceDomain" />
-        <EntityTypeShape EntityType="RadiusRModel.PartnerBillPayment" Width="1.5" PointX="24.125" PointY="78.5" />
+        <EntityTypeShape EntityType="RadiusRModel.PartnerBillPayment" Width="1.5" PointX="22.125" PointY="73.125" />
         <AssociationConnector Association="RadiusRModel.FK_PartnerBillPayment_Bill" />
-        <EntityTypeShape EntityType="RadiusRModel.Partner" Width="1.5" PointX="3.375" PointY="73.5" />
+        <EntityTypeShape EntityType="RadiusRModel.Partner" Width="1.5" PointX="3.375" PointY="73.125" />
         <AssociationConnector Association="RadiusRModel.FK_Partner_Address" />
         <AssociationConnector Association="RadiusRModel.FK_Partner_CustomerSetupUser" />
         <AssociationConnector Association="RadiusRModel.FK_Partner_PartnerGroup" />
@@ -120,28 +120,24 @@
         <AssociationConnector Association="RadiusRModel.FK_PartnerCredit_Partner" />
         <AssociationConnector Association="RadiusRModel.FK_PartnerPermission_Partner" />
         <AssociationConnector Association="RadiusRModel.FK_WorkArea_Partner" />
-        <EntityTypeShape EntityType="RadiusRModel.PartnerSubUser" Width="1.5" PointX="5.625" PointY="76" />
+        <EntityTypeShape EntityType="RadiusRModel.PartnerSubUser" Width="1.5" PointX="5.625" PointY="75.875" />
         <AssociationConnector Association="RadiusRModel.FK_PartnerSubUser_Partner" />
         <AssociationConnector Association="RadiusRModel.FK_PartnerBillPayment_PartnerSubUser" />
         <EntityTypeShape EntityType="RadiusRModel.SMSText" Width="1.5" PointX="10.125" PointY="9.75" />
-        <EntityTypeShape EntityType="RadiusRModel.SystemLog" Width="1.5" PointX="10.875" PointY="83.25" />
+        <EntityTypeShape EntityType="RadiusRModel.SystemLog" Width="1.5" PointX="10.875" PointY="82.875" />
         <AssociationConnector Association="RadiusRModel.FK_SystemLog_AppUser" />
         <AssociationConnector Association="RadiusRModel.FK_SystemLog_Customer" />
         <EntityTypeShape EntityType="RadiusRModel.NASExpiredPool" Width="1.5" PointX="3.375" PointY="7.625" />
-        <EntityTypeShape EntityType="RadiusRModel.PartnerRegisteredSubscription" Width="1.5" PointX="13.875" PointY="73.25" />
-        <AssociationConnector Association="RadiusRModel.FK_PartnerRegisteredSubscription_AppUser" />
-        <AssociationConnector Association="RadiusRModel.FK_PartnerRegisteredSubscription_Partner" />
-        <AssociationConnector Association="RadiusRModel.FK_PartnerRegisteredSubscription_Service" />
-        <EntityTypeShape EntityType="RadiusRModel.RecurringDiscount" Width="2.25" PointX="16.875" PointY="86.75" />
+        <EntityTypeShape EntityType="RadiusRModel.RecurringDiscount" Width="2.25" PointX="19.875" PointY="80.375" />
         <AssociationConnector Association="RadiusRModel.FK_RecurringDiscount_FeeTypeCost" />
         <AssociationConnector Association="RadiusRModel.FK_RecurringDiscount_RecurringDiscount" />
-        <EntityTypeShape EntityType="RadiusRModel.SpecialOffer" Width="1.5" PointX="16.875" PointY="102.5" />
+        <EntityTypeShape EntityType="RadiusRModel.SpecialOffer" Width="1.5" PointX="19.875" PointY="97.125" />
         <AssociationConnector Association="RadiusRModel.FK_SpecialOffer_FeeTypeCost" />
-        <EntityTypeShape EntityType="RadiusRModel.AppliedRecurringDiscount" Width="1.5" PointX="22.875" PointY="84.875" />
+        <EntityTypeShape EntityType="RadiusRModel.AppliedRecurringDiscount" Width="1.5" PointX="25.875" PointY="81.75" />
         <AssociationConnector Association="RadiusRModel.FK_AppliedRecurringDiscount_Bill" />
         <AssociationConnector Association="RadiusRModel.FK_AppliedRecurringDiscount_RecurringDiscount" />
-        <EntityTypeShape EntityType="RadiusRModel.OfflinePaymentGateway" Width="1.5" PointX="20.875" PointY="70.375" />
-        <EntityTypeShape EntityType="RadiusRModel.ExternalPayment" Width="1.5" PointX="23.125" PointY="82" />
+        <EntityTypeShape EntityType="RadiusRModel.OfflinePaymentGateway" Width="1.5" PointX="16.875" PointY="100.125" />
+        <EntityTypeShape EntityType="RadiusRModel.ExternalPayment" Width="1.5" PointX="19.125" PointY="86.625" />
         <AssociationConnector Association="RadiusRModel.FK_ExternalPayments_Bill" />
         <AssociationConnector Association="RadiusRModel.FK_ExternalPayments_ExternalPayments" />
         <AssociationConnector Association="RadiusRModel.FK_ExternalPayments_OfflinePaymentGateway" />
@@ -150,19 +146,19 @@
         <AssociationConnector Association="RadiusRModel.FK_NASExpiredPool_NAS" />
         <AssociationConnector Association="RadiusRModel.FK_NASNetmap_NAS" />
         <AssociationConnector Association="RadiusRModel.FK_NASVerticalIPMap_NAS" />
-        <EntityTypeShape EntityType="RadiusRModel.SupportRequestSubType" Width="1.5" PointX="17.625" PointY="70.125" />
-        <EntityTypeShape EntityType="RadiusRModel.SupportRequestType" Width="1.5" PointX="15.375" PointY="70" />
+        <EntityTypeShape EntityType="RadiusRModel.SupportRequestSubType" Width="1.5" PointX="14.625" PointY="65.875" />
+        <EntityTypeShape EntityType="RadiusRModel.SupportRequestType" Width="1.5" PointX="12.375" PointY="65.75" />
         <AssociationConnector Association="RadiusRModel.FK_SupportRequestSubType_SupportRequestType" />
-        <EntityTypeShape EntityType="RadiusRModel.SupportGroup" Width="1.875" PointX="17.25" PointY="92.125" />
+        <EntityTypeShape EntityType="RadiusRModel.SupportGroup" Width="1.875" PointX="14.25" PointY="61.875" />
         <AssociationConnector Association="RadiusRModel.FK_SupportGroup_AppUser" />
         <AssociationConnector Association="RadiusRModel.SupportGroupRequestType" />
-        <EntityTypeShape EntityType="RadiusRModel.SupportRequestProgress" Width="1.5" PointX="27.625" PointY="85.25" />
+        <EntityTypeShape EntityType="RadiusRModel.SupportRequestProgress" Width="1.5" PointX="19.625" PointY="72" />
         <AssociationConnector Association="RadiusRModel.FK_SupportRequestProgress_AppUser" />
         <AssociationConnector Association="RadiusRModel.FK_SupportRequestProgress_SupportGroup" />
-        <EntityTypeShape EntityType="RadiusRModel.SubscriptionTariffHistory" Width="1.5" PointX="10.875" PointY="87.75" />
+        <EntityTypeShape EntityType="RadiusRModel.SubscriptionTariffHistory" Width="1.5" PointX="13.875" PointY="72.5" />
         <AssociationConnector Association="RadiusRModel.FK_SubscriptionTariffHistory_NewTariff" />
         <AssociationConnector Association="RadiusRModel.FK_SubscriptionTariffHistory_OldTariff" />
-        <EntityTypeShape EntityType="RadiusRModel.Subscription" Width="1.5" PointX="8.625" PointY="77.5" />
+        <EntityTypeShape EntityType="RadiusRModel.Subscription" Width="1.5" PointX="8.625" PointY="77.125" />
         <AssociationConnector Association="RadiusRModel.FK_Subscription_Address" />
         <AssociationConnector Association="RadiusRModel.FK_Bill_Subscription" />
         <AssociationConnector Association="RadiusRModel.FK_ChangeServiceTypeTask_Subscription" />
@@ -171,7 +167,6 @@
         <AssociationConnector Association="RadiusRModel.FK_Subscription_Domain" />
         <AssociationConnector Association="RadiusRModel.FK_Fee_Subscription" />
         <AssociationConnector Association="RadiusRModel.FK_MobilExpressAutoPayment_Subscription" />
-        <AssociationConnector Association="RadiusRModel.FK_PartnerRegisteredSubscription_Subscription" />
         <AssociationConnector Association="RadiusRModel.FK_RadiusAccounting_Subscription" />
         <AssociationConnector Association="RadiusRModel.FK_RadiusDailyAccounting_Subscription" />
         <AssociationConnector Association="RadiusRModel.FK_RadiusSMS_Subscription" />
@@ -193,7 +188,7 @@
         <AssociationConnector Association="RadiusRModel.FK_SystemLog_Subscription" />
         <AssociationConnector Association="RadiusRModel.FK_TelekomWorkOrder_Subscription" />
         <AssociationConnector Association="RadiusRModel.SubscriptionGroup" />
-        <EntityTypeShape EntityType="RadiusRModel.SupportRequest" Width="2" PointX="19.875" PointY="80.75" />
+        <EntityTypeShape EntityType="RadiusRModel.SupportRequest" Width="2" PointX="16.875" PointY="74.375" />
         <AssociationConnector Association="RadiusRModel.FK_SupportRequest_AppUser" />
         <AssociationConnector Association="RadiusRModel.FK_SupportRequest_Subscription" />
         <AssociationConnector Association="RadiusRModel.FK_SupportRequest_RedirectedGroupID" />
@@ -201,28 +196,33 @@
         <AssociationConnector Association="RadiusRModel.FK_SupportRequest_SupportRequestSubType" />
         <AssociationConnector Association="RadiusRModel.FK_SupportRequest_SupportRequestType" />
         <AssociationConnector Association="RadiusRModel.FK_SupportRequestProgress_SupportRequest" />
-        <EntityTypeShape EntityType="RadiusRModel.SupportGroupUser" Width="1.5" PointX="23.875" PointY="70.625" />
+        <EntityTypeShape EntityType="RadiusRModel.SupportGroupUser" Width="1.5" PointX="16.875" PointY="63.75" />
         <AssociationConnector Association="RadiusRModel.FK_SupportGroupUser_AppUser" />
         <AssociationConnector Association="RadiusRModel.FK_SupportGroupUser_SupportGroup" />
         <EntityTypeShape EntityType="RadiusRModel.VPOSList" Width="1.5" PointX="1.125" PointY="10.75" />
-        <EntityTypeShape EntityType="RadiusRModel.ExternalTariff" Width="1.5" PointX="8.625" PointY="94" />
+        <EntityTypeShape EntityType="RadiusRModel.ExternalTariff" Width="1.5" PointX="8.625" PointY="95.75" />
         <AssociationConnector Association="RadiusRModel.FK_ExternalTariff_Domain" />
         <AssociationConnector Association="RadiusRModel.FK_ExternalTariff_Service" />
         <EntityTypeShape EntityType="RadiusRModel.BTKSchedulerSetting" Width="1.5" PointX="3.125" PointY="10.75" />
-        <EntityTypeShape EntityType="RadiusRModel.PartnerAvailableTariff" Width="1.5" PointX="17.625" PointY="96.375" />
+        <EntityTypeShape EntityType="RadiusRModel.PartnerAvailableTariff" Width="1.5" PointX="11.625" PointY="91.625" />
         <AssociationConnector Association="RadiusRModel.FK_PartnerAvailableTariff_DomainID" />
         <AssociationConnector Association="RadiusRModel.FK_PartnerAvailableTariff_Partner" />
         <AssociationConnector Association="RadiusRModel.FK_PartnerAvailableTariff_Service" />
-        <EntityTypeShape EntityType="RadiusRModel.PartnerCollection" Width="2" PointX="5.625" PointY="72.125" />
+        <EntityTypeShape EntityType="RadiusRModel.PartnerCollection" Width="2" PointX="5.625" PointY="71.75" />
         <AssociationConnector Association="RadiusRModel.FK_PartnerCollection_AppUser" />
         <AssociationConnector Association="RadiusRModel.FK_PartnerCollection_AppUser1" />
         <AssociationConnector Association="RadiusRModel.FK_PartnerCollection_Partner" />
-        <EntityTypeShape EntityType="RadiusRModel.CustomerSetupTask" Width="1.5" PointX="10.875" PointY="77.125" />
+        <EntityTypeShape EntityType="RadiusRModel.CustomerSetupTask" Width="1.5" PointX="10.875" PointY="73.75" />
         <AssociationConnector Association="RadiusRModel.FK_CustomerSetupTaskNote_CustomerSetupTask" />
         <AssociationConnector Association="RadiusRModel.FK_CustomerSetupTask_CustomerSetupUser" />
         <AssociationConnector Association="RadiusRModel.FK_CustomerSetupTask_PartnerCollection" />
         <AssociationConnector Association="RadiusRModel.FK_CustomerSetupTask_Subscription" />
         <AssociationConnector Association="RadiusRModel.FK_SubscriptionSupportRequest_CustomerSetupTask" />
+        <EntityTypeShape EntityType="RadiusRModel.PartnerRegisteredSubscription" Width="1.5" PointX="16.875" PointY="70.625" />
+        <AssociationConnector Association="RadiusRModel.FK_PartnerRegisteredSubscription_Partner" />
+        <AssociationConnector Association="RadiusRModel.FK_PartnerRegisteredSubscription_PartnerCollection" />
+        <AssociationConnector Association="RadiusRModel.FK_PartnerRegisteredSubscription_Service" />
+        <AssociationConnector Association="RadiusRModel.FK_PartnerRegisteredSubscription_Subscription" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

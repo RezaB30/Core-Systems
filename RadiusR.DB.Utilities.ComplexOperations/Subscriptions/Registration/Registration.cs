@@ -262,11 +262,8 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                 PartnerRegisteredSubscription = registrationInfo.RegisteringPartner != null ? new PartnerRegisteredSubscription()
                 {
                     Allowance = Math.Abs(registrationInfo.RegisteringPartner.Allowance.Value),
-                    AllowanceThreshold = Math.Abs(registrationInfo.RegisteringPartner.AllowanceThreshold.Value),
-                    Commitment = registrationInfo.CommitmentInfo != null ? (short?)registrationInfo.CommitmentInfo.CommitmentLength : null,
                     PartnerID = registrationInfo.RegisteringPartner.PartnerID.Value,
                     TariffID = registrationInfo.ServiceID.Value,
-                    RegistrationDate = DateTime.Now
                 } : null,
                 RecurringDiscounts = specialOffer != null ?
                 new List<RecurringDiscount>()

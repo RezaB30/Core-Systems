@@ -22,8 +22,8 @@ namespace RadiusR.DB
             this.PartnerPermissions = new HashSet<PartnerPermission>();
             this.WorkAreas = new HashSet<WorkArea>();
             this.PartnerSubUsers = new HashSet<PartnerSubUser>();
-            this.PartnerRegisteredSubscriptions = new HashSet<PartnerRegisteredSubscription>();
             this.PartnerCollections = new HashSet<PartnerCollection>();
+            this.PartnerRegisteredSubscriptions = new HashSet<PartnerRegisteredSubscription>();
         }
     
         public int ID { get; set; }
@@ -59,8 +59,8 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerSubUser> PartnerSubUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PartnerRegisteredSubscription> PartnerRegisteredSubscriptions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerCollection> PartnerCollections { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PartnerRegisteredSubscription> PartnerRegisteredSubscriptions { get; set; }
     }
 }

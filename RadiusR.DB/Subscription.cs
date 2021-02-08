@@ -74,7 +74,6 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Fee> Fees { get; set; }
         public virtual MobilExpressAutoPayment MobilExpressAutoPayment { get; set; }
-        public virtual PartnerRegisteredSubscription PartnerRegisteredSubscription { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RadiusAccounting> RadiusAccountings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -115,5 +114,6 @@ namespace RadiusR.DB
         public virtual ICollection<SupportRequest> SupportRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerSetupTask> CustomerSetupTasks { get; set; }
+        public virtual PartnerRegisteredSubscription PartnerRegisteredSubscription { get; set; }
     }
 }
