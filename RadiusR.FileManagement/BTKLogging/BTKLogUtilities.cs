@@ -42,7 +42,11 @@ namespace RadiusR.FileManagement.BTKLogging
             if (dateMatch == null)
                 return null;
             DateTime result;
-            if( DateTime.TryParseExact(dateMatch.Value, "yyyyMMddHHmmss", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out result))
+            if (DateTime.TryParseExact(dateMatch.Value, "yyyyMMddHHmmss", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out result))
+            {
+                return result;
+            }
+            else if (DateTime.TryParseExact(dateMatch.Value, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out result))
             {
                 return result;
             }
