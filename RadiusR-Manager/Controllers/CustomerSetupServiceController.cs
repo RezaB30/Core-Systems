@@ -316,7 +316,7 @@ namespace RadiusR_Manager.Controllers
         // GET: CustomerSetupService/Details
         public ActionResult Details(long id, string redirectUrl)
         {
-            var uri = redirectUrl != null ? new UriBuilder(redirectUrl) : new UriBuilder(Url.Action("Index", null, null, Request.Url.Scheme));
+            var uri = redirectUrl != null ? new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl) : new UriBuilder(Url.Action("Index", null, null, Request.Url.Scheme));
 
             var task = db.CustomerSetupTasks.Find(id);
             if (task == null)

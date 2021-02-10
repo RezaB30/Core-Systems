@@ -28,7 +28,7 @@
             @Html.DisplayNameFor(model => model.CompletionDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsCharged)
+            @Html.DisplayNameFor(model => model.AllowanceState)
         </th>
         <th></th>
     </tr>
@@ -52,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.CompletionDate)
             </td>
             <td class="centered">
-                @Html.DisplayFor(modelItem => item.IsCharged)
+                @Html.DisplayFor(modelItem => item.AllowanceState)
             </td>
             <td>
                 @if (User.HasPermission("Create Setup Task") && item.Status == (short)RadiusR.DB.Enums.CustomerSetup.TaskStatuses.New)
@@ -63,7 +63,7 @@
                         <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button delete-button" />
                     }
                 }
-                @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", "CustomerSetupService", new { id = item.ID, redirectUrl = Url.Action("Details", "Client", new { id = ViewBag.ClientID }, Request.Url.Scheme) + "#faults" }, new { @class = "link-button iconed-button details-button" })
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", "CustomerSetupService", new { id = item.ID, redirectUrl = Url.Action("Details", "Client", new { id = ViewBag.ClientID }) + "#faults" }, new { @class = "link-button iconed-button details-button" })
             </td>
         </tr>
     }

@@ -19,6 +19,7 @@ namespace RadiusR.DB
         public int TariffID { get; set; }
         public decimal Allowance { get; set; }
         public Nullable<long> PartnerCollectionID { get; set; }
+        public short AllowanceState { get; set; }
     
         public virtual Partner Partner { get; set; }
         public virtual PartnerCollection PartnerCollection { get; set; }

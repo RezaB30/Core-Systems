@@ -465,4 +465,16 @@
   <data name="ExternallyAvailableTariffs" xml:space="preserve">
     <value>Dışarıdan Mevcut Tarifeler</value>
   </data>
+  <data name="PartnerCollectionCreation" xml:space="preserve">
+    <value>Bayi Hasılat Oluşturma</value>
+  </data>
+  <data name="PartnerCollectionPayment" xml:space="preserve">
+    <value>Bayi Hasılat Ödeme</value>
+  </data>
+  <data name="PartnerCollections" xml:space="preserve">
+    <value>Bayilerin Hasılatı</value>
+  </data>
+  <data name="PartnerManagement" xml:space="preserve">
+    <value>Bayi Yönetimi</value>
+  </data>
 </root>

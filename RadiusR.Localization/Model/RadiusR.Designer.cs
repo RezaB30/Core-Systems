@@ -898,6 +898,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creator.
+        /// </summary>
+        public static string Creator {
+            get {
+                return ResourceManager.GetString("Creator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CRM Speed Profile.
         /// </summary>
         public static string CRMSpeedProfile {
@@ -2703,6 +2712,15 @@ namespace RadiusR.Localization.Model {
         public static string PayDate {
             get {
                 return ResourceManager.GetString("PayDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payer.
+        /// </summary>
+        public static string Payer {
+            get {
+                return ResourceManager.GetString("Payer", resourceCulture);
             }
         }
         

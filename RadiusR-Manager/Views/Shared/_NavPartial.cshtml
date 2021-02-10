@@ -498,6 +498,12 @@
                         @Html.ActionLink(RadiusR.Localization.Pages.Common.PartnerAPISettings, "APISettings", "Partner")
                     </li>
                 }
+                @if (User.HasPermission("Partner Collections"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Allowances, "Allowances", "Partner")
+                    </li>
+                }
             </ul>
         </li>
     }

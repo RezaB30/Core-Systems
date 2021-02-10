@@ -159,6 +159,7 @@
     <Compile Include="RadiusViewModels\NoteViewModel.cs" />
     <Compile Include="RadiusViewModels\OfflinePaymentGatewayViewModel.cs" />
     <Compile Include="RadiusViewModels\PartnerAvailableTariffViewModel.cs" />
+    <Compile Include="RadiusViewModels\PartnerCollectionViewModel.cs" />
     <Compile Include="RadiusViewModels\PartnerCreditViewModel.cs" />
     <Compile Include="RadiusViewModels\PartnerGroupViewModel.cs" />
     <Compile Include="RadiusViewModels\PartnerPermissionViewModel.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="ViewModels\CustomerWebsiteSettingsViewModel.cs" />
     <Compile Include="ViewModels\EmailSettingsViewModel.cs" />
     <Compile Include="ViewModels\FileManagerSettingsViewModel.cs" />
+    <Compile Include="ViewModels\PartnerCollectionDetailsViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestModels\ShareSupportRequestsViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestModels\SupportRequestCreateViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestModels\SupportRequestDetailsViewModel.cs" />

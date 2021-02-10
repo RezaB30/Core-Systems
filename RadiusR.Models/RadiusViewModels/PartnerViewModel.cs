@@ -76,6 +76,7 @@ namespace RadiusR_Manager.Models.RadiusViewModels
         [MinLength(6, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MinLength")]
         public string Password { get; set; }
 
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "IsActive")]
         public bool IsActive { get; set; }
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "SetupAllowance")]

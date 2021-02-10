@@ -1,0 +1,48 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.PartnerViewModel>
+
+@{
+    ViewBag.Title = $"{RadiusR.Localization.Pages.Common.Partners}-{RadiusR.Localization.Pages.Common.Allowances}";
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExecutiveFirstName)/@Html.DisplayNameFor(model => model.ExecutiveLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GroupName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExecutiveFirstName)&nbsp;@Html.DisplayFor(modelItem => item.ExecutiveLastName)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.GroupName)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.SetupAllowance, "SetupAllowance", new { id = item.ID }, new { @class = "link-button iconed-button details-button" })
+                &nbsp;
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.SalesAllowance, "SalesAllowance", new { id = item.ID }, new { @class = "link-button iconed-button details-button" })
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList()

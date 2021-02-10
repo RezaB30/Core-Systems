@@ -763,6 +763,42 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Partner Proceed Creation.
+        /// </summary>
+        public static string PartnerCollectionCreation {
+            get {
+                return ResourceManager.GetString("PartnerCollectionCreation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Partner Proceed Payment.
+        /// </summary>
+        public static string PartnerCollectionPayment {
+            get {
+                return ResourceManager.GetString("PartnerCollectionPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Partner Proceeds.
+        /// </summary>
+        public static string PartnerCollections {
+            get {
+                return ResourceManager.GetString("PartnerCollections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Partner Management.
+        /// </summary>
+        public static string PartnerManagement {
+            get {
+                return ResourceManager.GetString("PartnerManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Partners.
         /// </summary>
         public static string Partners {

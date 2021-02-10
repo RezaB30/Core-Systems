@@ -12,6 +12,8 @@ using System.Text;
 using RadiusR.DB.DomainsCache;
 using RezaB.Web;
 using RezaB.Data.Localization;
+using System.Data.SqlClient;
+using System.Data.Entity;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -966,6 +968,383 @@ namespace RadiusR_Manager.Controllers
             RadiusR.DB.Settings.PartnerAPISettings.ClearCache();
 
             return RedirectToAction("APISettings", new { errorMessage = 0 });
+        }
+
+        [HttpGet]
+        [AuthorizePermission(Permissions = "Partner Collections")]
+        // GET: Partner/Allowances
+        public ActionResult Allowances(int? page)
+        {
+            var results = db.Partners.OrderBy(p => p.Title).Select(p => new PartnerViewModel()
+            {
+                Title = p.Title,
+                ExecutiveFirstName = p.ExecutiveFirstName,
+                ExecutiveLastName = p.ExecutiveLastName,
+                GroupName = p.PartnerGroup.Name,
+                IsActive = p.IsActive,
+                ID = p.ID,
+            });
+
+            SetupPages(page, ref results);
+
+            return View(results);
+        }
+
+        [HttpGet]
+        [AuthorizePermission(Permissions = "Partner Collections")]
+        // GET: Partner/SetupAllowance
+        public ActionResult SetupAllowance(int id, int? page)
+        {
+
+            var dbPartner = db.Partners.Find(id);
+            if (dbPartner == null)
+                return RedirectToAction("Allowances", new { errorMessage = 9 });
+
+            var results = db.PartnerCollections.Where(pc => pc.PartnerID == dbPartner.ID && pc.CollectionType == (short)RadiusR.DB.Enums.PartnerCollectionType.Setup).OrderByDescending(pc => pc.CreationDate).Select(pc => new PartnerCollectionViewModel()
+            {
+                ID = pc.ID,
+                CreationDate = pc.CreationDate,
+                Creator = pc.CreatorUser.Name,
+                PaymentDate = pc.PaymentDate,
+                Payer = pc.PayerUser.Name,
+                _total = pc.CustomerSetupTasks.Select(cst => cst.Allowance ?? 0m).DefaultIfEmpty(0m).Sum()
+            });
+
+            SetupPages(page, ref results);
+
+            ViewBag.CollectionType = RadiusR.DB.Enums.PartnerCollectionType.Setup;
+            ViewBag.PartnerName = dbPartner.Title;
+            return View("PartnerCollectionList", results);
+        }
+
+        [HttpGet]
+        [AuthorizePermission(Permissions = "Partner Collections")]
+        // GET: Partner/SalesAllowance
+        public ActionResult SalesAllowance(int id, int? page)
+        {
+            var dbPartner = db.Partners.Find(id);
+            if (dbPartner == null)
+                return RedirectToAction("Allowances", new { errorMessage = 9 });
+
+            var results = db.PartnerCollections.Where(pc => pc.PartnerID == dbPartner.ID && pc.CollectionType == (short)RadiusR.DB.Enums.PartnerCollectionType.Sales).OrderByDescending(pc => pc.CreationDate).Select(pc => new PartnerCollectionViewModel()
+            {
+                ID = pc.ID,
+                CreationDate = pc.CreationDate,
+                Creator = pc.CreatorUser.Name,
+                PaymentDate = pc.PaymentDate,
+                Payer = pc.PayerUser.Name,
+                _total = pc.PartnerRegisteredSubscriptions.Select(prs => prs.Allowance).DefaultIfEmpty(0m).Sum()
+            });
+
+            SetupPages(page, ref results);
+
+            ViewBag.CollectionType = RadiusR.DB.Enums.PartnerCollectionType.Sales;
+            ViewBag.PartnerName = dbPartner.Title;
+            return View("PartnerCollectionList", results);
+        }
+
+        [HttpGet]
+        [AuthorizePermission(Permissions = "Partner Collection Creation")]
+        // GET: Partner/CreateSetupCollection
+        public ActionResult CreateSetupCollection(int id, string returnUrl, int? page)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+
+            var dbPartner = db.Partners.Find(id);
+            if (dbPartner == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            var results = db.CustomerSetupTasks
+                .Where(cst => cst.SetupUserID == dbPartner.CustomerSetupUserID && cst.TaskStatus == (short)RadiusR.DB.Enums.CustomerSetup.TaskStatuses.Completed && cst.AllowanceState == (short)RadiusR.DB.Enums.PartnerAllowanceState.OnHold)
+                .OrderByDescending(cst => cst.CompletionDate)
+                .Select(cst => new PartnerCollectionDetailsViewModel()
+                {
+                    ID = cst.ID,
+                    IssueDate = cst.TaskIssueDate,
+                    CompletionDate = cst.CompletionDate,
+                    SubscriptionID = cst.SubscriptionID,
+                    SubscriberNo = cst.Subscription.SubscriberNo,
+                    _allowance = cst.Allowance,
+                    AllowanceState = cst.AllowanceState
+                });
+
+            ViewBag.Total = (results.Select(r => r._allowance).DefaultIfEmpty(0m).Sum() ?? 0m).ToString("###,##0.00");
+
+            SetupPages(page, ref results);
+
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+            ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            ViewBag.PartnerName = dbPartner.Title;
+            return View("CollectionDetails", results);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Partner Collection Creation")]
+        // POST: Partner/CreateSetupCollection
+        public ActionResult CreateSetupCollection(int id, string returnUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+
+            var dbPartner = db.Partners.Find(id);
+            if (dbPartner == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            var resultIds = db.CustomerSetupTasks
+                .Where(cst => cst.SetupUserID == dbPartner.CustomerSetupUserID && cst.TaskStatus == (short)RadiusR.DB.Enums.CustomerSetup.TaskStatuses.Completed && cst.AllowanceState == (short)RadiusR.DB.Enums.PartnerAllowanceState.OnHold)
+                .Select(cst => cst.ID).ToArray();
+
+            // to prevent unchecked changes
+            {
+                var temp = new CustomerSetupTask()
+                {
+                    PartnerCollectionID = 0,
+                    AllowanceState = 0
+                };
+            }
+            // transaction scope
+            using (var transaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    var newCollection = new PartnerCollection()
+                    {
+                        CollectionType = (short)RadiusR.DB.Enums.PartnerCollectionType.Setup,
+                        CreationDate = DateTime.Now,
+                        CreatorID = User.GiveUserId().Value,
+                        PartnerID = dbPartner.ID
+                    };
+                    db.PartnerCollections.Add(newCollection);
+                    db.SaveChanges();
+
+                    db.Database.ExecuteSqlCommand($"UPDATE CustomerSetupTask SET AllowanceState = @newState, PartnerCollectionID = @collectionID WHERE ID in ({string.Join(",", resultIds)})", new SqlParameter("@newState", (short)RadiusR.DB.Enums.PartnerAllowanceState.Accepted), new SqlParameter("@collectionID", newCollection.ID));
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+        }
+
+        [HttpGet]
+        [AuthorizePermission(Permissions = "Partner Collection Creation")]
+        // GET: Partner/CreateSalesCollection
+        public ActionResult CreateSalesCollection(int id, string returnUrl, int? page)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+
+            var dbPartner = db.Partners.Find(id);
+            if (dbPartner == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            var results = db.PartnerRegisteredSubscriptions
+                .Where(prs => prs.PartnerID == dbPartner.ID && prs.AllowanceState == (short)RadiusR.DB.Enums.PartnerAllowanceState.OnHold && prs.Subscription.Bills.Any(b=>b.Source == (short)RadiusR.DB.Enums.BillSources.System && (DbFunctions.DiffMonths(b.PeriodStart, b.PeriodEnd) == 1 && b.PeriodStart.Value.Day <= b.PeriodEnd.Value.Day) || (DbFunctions.DiffMonths(b.PeriodStart, b.PeriodEnd) > 1)))
+                .OrderByDescending(prs => prs.Subscription.MembershipDate)
+                .Select(prs => new PartnerCollectionDetailsViewModel()
+                {
+                    ID = prs.SubscriptionID,
+                    IssueDate = prs.Subscription.MembershipDate,
+                    CompletionDate = null,
+                    SubscriptionID = prs.SubscriptionID,
+                    SubscriberNo = prs.Subscription.SubscriberNo,
+                    _allowance = prs.Allowance,
+                    AllowanceState = prs.AllowanceState
+                });
+
+            ViewBag.Total = (results.Select(r => r._allowance).DefaultIfEmpty(0m).Sum() ?? 0m).ToString("###,##0.00");
+
+            SetupPages(page, ref results);
+
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+            ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            ViewBag.PartnerName = dbPartner.Title;
+            return View("CollectionDetails", results);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Partner Collection Creation")]
+        // POST: Partner/CreateSalesCollection
+        public ActionResult CreateSalesCollection(int id, string returnUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+
+            var dbPartner = db.Partners.Find(id);
+            if (dbPartner == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            var resultIds = db.PartnerRegisteredSubscriptions
+                .Where(prs => prs.PartnerID == dbPartner.ID && prs.AllowanceState == (short)RadiusR.DB.Enums.PartnerAllowanceState.OnHold && prs.Subscription.Bills.Any(b => b.Source == (short)RadiusR.DB.Enums.BillSources.System && (DbFunctions.DiffMonths(b.PeriodStart, b.PeriodEnd) == 1 && b.PeriodStart.Value.Day <= b.PeriodEnd.Value.Day) || (DbFunctions.DiffMonths(b.PeriodStart, b.PeriodEnd) > 1)))
+                .Select(prs => prs.SubscriptionID).ToArray();
+
+            // to prevent unchecked changes
+            {
+                var temp = new PartnerRegisteredSubscription()
+                {
+                    PartnerCollectionID = 0,
+                    AllowanceState = 0
+                };
+            }
+            // transaction scope
+            using (var transaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    var newCollection = new PartnerCollection()
+                    {
+                        CollectionType = (short)RadiusR.DB.Enums.PartnerCollectionType.Sales,
+                        CreationDate = DateTime.Now,
+                        CreatorID = User.GiveUserId().Value,
+                        PartnerID = dbPartner.ID
+                    };
+                    db.PartnerCollections.Add(newCollection);
+                    db.SaveChanges();
+
+                    db.Database.ExecuteSqlCommand($"UPDATE PartnerRegisteredSubscription SET AllowanceState = @newState, PartnerCollectionID = @collectionID WHERE ID in ({string.Join(",", resultIds)})", new SqlParameter("@newState", (short)RadiusR.DB.Enums.PartnerAllowanceState.Accepted), new SqlParameter("@collectionID", newCollection.ID));
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+        }
+
+        [HttpGet]
+        [AuthorizePermission(Permissions = "Partner Collections")]
+        // GET: Partner/CollectionDetails
+        public ActionResult CollectionDetails(long id, string returnUrl, int? page)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+
+            var dbPartnerCollection = db.PartnerCollections.Find(id);
+            if (dbPartnerCollection == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            if (dbPartnerCollection.CollectionType == (short)RadiusR.DB.Enums.PartnerCollectionType.Setup)
+            {
+                var results = db.CustomerSetupTasks.Where(cst => cst.PartnerCollectionID == dbPartnerCollection.ID).OrderByDescending(cst => cst.CompletionDate).Select(cst => new PartnerCollectionDetailsViewModel()
+                {
+                    ID = cst.ID,
+                    IssueDate = cst.TaskIssueDate,
+                    CompletionDate = cst.CompletionDate,
+                    SubscriptionID = cst.SubscriptionID,
+                    SubscriberNo = cst.Subscription.SubscriberNo,
+                    _allowance = cst.Allowance,
+                    AllowanceState = cst.AllowanceState
+                });
+
+                ViewBag.Total = (results.Select(r => r._allowance).DefaultIfEmpty(0m).Sum() ?? 0m).ToString("###,##0.00");
+
+                SetupPages(page, ref results);
+
+                UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+                ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
+                ViewBag.PartnerName = dbPartnerCollection.Partner.Title;
+                return View("CollectionDetails", results);
+            }
+            else if (dbPartnerCollection.CollectionType == (short)RadiusR.DB.Enums.PartnerCollectionType.Sales)
+            {
+                return Content("Not Implemented Yet!");
+            }
+            else
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Partner Collection Payment")]
+        // POST: Partner/PayPartnerCollection
+        public ActionResult PayPartnerCollection(long id, string returnUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+
+            var dbPartnerCollection = db.PartnerCollections.Find(id);
+            if (dbPartnerCollection == null || dbPartnerCollection.PaymentDate.HasValue)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+
+            // transaction scope
+            using (var transaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    dbPartnerCollection.PayerID = User.GiveUserId().Value;
+                    dbPartnerCollection.PaymentDate = DateTime.Now;
+                    db.SaveChanges();
+
+                    if (dbPartnerCollection.CollectionType == (short)RadiusR.DB.Enums.PartnerCollectionType.Setup)
+                    {
+                        // to prevent unchecked changes
+                        {
+                            var temp = new CustomerSetupTask()
+                            {
+                                PartnerCollectionID = 0,
+                                AllowanceState = 0
+                            };
+                        }
+
+                        db.Database.ExecuteSqlCommand($"UPDATE CustomerSetupTask SET AllowanceState = @newState WHERE PartnerCollectionID = @collectionId", new SqlParameter("@newState", (short)RadiusR.DB.Enums.PartnerAllowanceState.Paid), new SqlParameter("@collectionId", dbPartnerCollection.ID));
+                        transaction.Commit();
+                    }
+                    else if (dbPartnerCollection.CollectionType == (short)RadiusR.DB.Enums.PartnerCollectionType.Sales)
+                    {
+                        // to prevent unchecked changes
+                        {
+                            var temp = new PartnerRegisteredSubscription()
+                            {
+                                PartnerCollectionID = 0,
+                                AllowanceState = 0
+                            };
+                        }
+
+                        db.Database.ExecuteSqlCommand($"UPDATE PartnerRegisteredSubscription SET AllowanceState = @newState WHERE PartnerCollectionID = @collectionId", new SqlParameter("@newState", (short)RadiusR.DB.Enums.PartnerAllowanceState.Paid), new SqlParameter("@collectionId", dbPartnerCollection.ID));
+                        transaction.Commit();
+                    }
+                    else
+                    {
+                        transaction.Rollback();
+                        UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                        return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                    }
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+
+            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
         }
 
         private string GenerateUniqueSetupServiceUsername(int length)

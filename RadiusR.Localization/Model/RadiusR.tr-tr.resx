@@ -1548,4 +1548,10 @@
   <data name="AllowanceState" xml:space="preserve">
     <value>Hakediş Durumu</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Yaratıcı</value>
+  </data>
+  <data name="Payer" xml:space="preserve">
+    <value>Ödeyen</value>
+  </data>
 </root>

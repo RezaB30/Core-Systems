@@ -1182,4 +1182,19 @@
   <data name="Attachments" xml:space="preserve">
     <value>Ek Dosyalar</value>
   </data>
+  <data name="Allowances" xml:space="preserve">
+    <value>Hakedişler</value>
+  </data>
+  <data name="CreatePartnerProceed" xml:space="preserve">
+    <value>Hasılat Oluştur</value>
+  </data>
+  <data name="SalesAllowance" xml:space="preserve">
+    <value>Satış Hakedişi</value>
+  </data>
+  <data name="SetupAllowance" xml:space="preserve">
+    <value>Kurulum Hakedişi</value>
+  </data>
+  <data name="PartnerProceedDetails" xml:space="preserve">
+    <value>Bayinin Hasılat Detayları</value>
+  </data>
 </root>

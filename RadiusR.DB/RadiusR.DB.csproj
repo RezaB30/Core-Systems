@@ -153,6 +153,7 @@
     <Compile Include="Enums\NASTypes.cs" />
     <Compile Include="Enums\OfflineGatewayTypes.cs" />
     <Compile Include="Enums\PartnerAllowanceState.cs" />
+    <Compile Include="Enums\PartnerCollectionType.cs" />
     <Compile Include="Enums\PartnerPermissions.cs" />
     <Compile Include="Enums\QuotaType.cs" />
     <Compile Include="Enums\RecurringDiscount\RecurringDiscountApplicationState.cs" />

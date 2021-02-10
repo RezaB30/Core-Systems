@@ -27,6 +27,7 @@ namespace RadiusR.DB
         public Nullable<int> PayerID { get; set; }
         public System.DateTime CreationDate { get; set; }
         public Nullable<System.DateTime> PaymentDate { get; set; }
+        public short CollectionType { get; set; }
     
         public virtual AppUser CreatorUser { get; set; }
         public virtual AppUser PayerUser { get; set; }

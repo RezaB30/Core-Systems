@@ -506,6 +506,7 @@
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PartnerID" Type="int" Nullable="false" />
           <Property Name="CreatorID" Type="int" Nullable="false" />
+          <Property Name="CollectionType" Type="smallint" Nullable="false" />
           <Property Name="PayerID" Type="int" />
           <Property Name="CreationDate" Type="datetime" Nullable="false" />
           <Property Name="PaymentDate" Type="datetime" />
@@ -545,6 +546,7 @@
           <Property Name="TariffID" Type="int" Nullable="false" />
           <Property Name="Allowance" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="PartnerCollectionID" Type="bigint" />
+          <Property Name="AllowanceState" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="PartnerSubUser">
           <Key>
@@ -6539,6 +6541,7 @@
           <NavigationProperty Name="Partner" Relationship="RadiusRModel.FK_PartnerCollection_Partner" FromRole="PartnerCollection" ToRole="Partner" />
           <NavigationProperty Name="CustomerSetupTasks" Relationship="RadiusRModel.FK_CustomerSetupTask_PartnerCollection" FromRole="PartnerCollection" ToRole="CustomerSetupTask" />
           <NavigationProperty Name="PartnerRegisteredSubscriptions" Relationship="RadiusRModel.FK_PartnerRegisteredSubscription_PartnerCollection" FromRole="PartnerCollection" ToRole="PartnerRegisteredSubscription" />
+          <Property Name="CollectionType" Type="Int16" Nullable="false" />
         </EntityType>
         <Association Name="FK_PartnerCollection_AppUser">
           <End Type="RadiusRModel.AppUser" Role="AppUser" Multiplicity="1" />
@@ -6673,6 +6676,7 @@
           <NavigationProperty Name="PartnerCollection" Relationship="RadiusRModel.FK_PartnerRegisteredSubscription_PartnerCollection" FromRole="PartnerRegisteredSubscription" ToRole="PartnerCollection" />
           <NavigationProperty Name="Service" Relationship="RadiusRModel.FK_PartnerRegisteredSubscription_Service" FromRole="PartnerRegisteredSubscription" ToRole="Service" />
           <NavigationProperty Name="Subscription" Relationship="RadiusRModel.FK_PartnerRegisteredSubscription_Subscription" FromRole="PartnerRegisteredSubscription" ToRole="Subscription" />
+          <Property Name="AllowanceState" Type="Int16" Nullable="false" />
         </EntityType>
         <Association Name="FK_PartnerRegisteredSubscription_Partner">
           <End Type="RadiusRModel.Partner" Role="Partner" Multiplicity="1" />
@@ -7892,6 +7896,7 @@
           <EntitySetMapping Name="PartnerCollections">
             <EntityTypeMapping TypeName="RadiusRModel.PartnerCollection">
               <MappingFragment StoreEntitySet="PartnerCollection">
+                <ScalarProperty Name="CollectionType" ColumnName="CollectionType" />
                 <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
                 <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
                 <ScalarProperty Name="PayerID" ColumnName="PayerID" />
@@ -7924,6 +7929,7 @@
           <EntitySetMapping Name="PartnerRegisteredSubscriptions">
             <EntityTypeMapping TypeName="RadiusRModel.PartnerRegisteredSubscription">
               <MappingFragment StoreEntitySet="PartnerRegisteredSubscription">
+                <ScalarProperty Name="AllowanceState" ColumnName="AllowanceState" />
                 <ScalarProperty Name="PartnerCollectionID" ColumnName="PartnerCollectionID" />
                 <ScalarProperty Name="Allowance" ColumnName="Allowance" />
                 <ScalarProperty Name="TariffID" ColumnName="TariffID" />

@@ -203,6 +203,7 @@ namespace RadiusR_Manager.Controllers
             db.ServiceBillingPeriods.RemoveRange(service.ServiceBillingPeriods);
             if (service.ExternalTariff != null)
                 db.ExternalTariffs.Remove(service.ExternalTariff);
+            service.Domains.Clear();
             db.Services.Remove(service);
             db.SaveChanges();
 
