@@ -105,6 +105,15 @@
         min-width: 14em;
     }
 
+    div.footer-wrapper {
+        left: 0;
+    }
+
+    div.footer div.footer-icons-container{
+        float: none;
+        text-align: left;
+    }
+
     table.details-table td:first-child {
         width: initial;
     }
