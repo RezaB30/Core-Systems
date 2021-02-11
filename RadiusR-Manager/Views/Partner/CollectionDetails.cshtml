@@ -53,7 +53,14 @@
                 @Html.DisplayFor(modelItem => item.AllowanceState)
             </td>
             <td>
-                @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", "CustomerSetupService", new { id = item.ID, redirectUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button details-button" })
+                @if (collectionType == RadiusR.DB.Enums.PartnerCollectionType.Setup)
+                {
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", "CustomerSetupService", new { id = item.ID, redirectUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button details-button" })
+                }
+                else if (collectionType == RadiusR.DB.Enums.PartnerCollectionType.Sales)
+                {
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", "Client", new { id = item.ID }, new { @class = "link-button iconed-button details-button" })
+                }
             </td>
         </tr>
     }

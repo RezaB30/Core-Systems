@@ -1151,7 +1151,7 @@ namespace RadiusR_Manager.Controllers
             }
 
             var results = db.PartnerRegisteredSubscriptions
-                .Where(prs => prs.PartnerID == dbPartner.ID && prs.AllowanceState == (short)RadiusR.DB.Enums.PartnerAllowanceState.OnHold && prs.Subscription.Bills.Any(b=>b.Source == (short)RadiusR.DB.Enums.BillSources.System && (DbFunctions.DiffMonths(b.PeriodStart, b.PeriodEnd) == 1 && b.PeriodStart.Value.Day <= b.PeriodEnd.Value.Day) || (DbFunctions.DiffMonths(b.PeriodStart, b.PeriodEnd) > 1)))
+                .Where(prs => prs.PartnerID == dbPartner.ID && prs.AllowanceState == (short)RadiusR.DB.Enums.PartnerAllowanceState.OnHold && prs.Subscription.Bills.Any(b => b.Source == (short)RadiusR.DB.Enums.BillSources.System && (DbFunctions.DiffMonths(b.PeriodStart, b.PeriodEnd) == 1 && b.PeriodStart.Value.Day <= b.PeriodEnd.Value.Day) || (DbFunctions.DiffMonths(b.PeriodStart, b.PeriodEnd) > 1)))
                 .OrderByDescending(prs => prs.Subscription.MembershipDate)
                 .Select(prs => new PartnerCollectionDetailsViewModel()
                 {
@@ -1198,7 +1198,8 @@ namespace RadiusR_Manager.Controllers
                 var temp = new PartnerRegisteredSubscription()
                 {
                     PartnerCollectionID = 0,
-                    AllowanceState = 0
+                    AllowanceState = 0,
+                    SubscriptionID = 0
                 };
             }
             // transaction scope
@@ -1216,7 +1217,7 @@ namespace RadiusR_Manager.Controllers
                     db.PartnerCollections.Add(newCollection);
                     db.SaveChanges();
 
-                    db.Database.ExecuteSqlCommand($"UPDATE PartnerRegisteredSubscription SET AllowanceState = @newState, PartnerCollectionID = @collectionID WHERE ID in ({string.Join(",", resultIds)})", new SqlParameter("@newState", (short)RadiusR.DB.Enums.PartnerAllowanceState.Accepted), new SqlParameter("@collectionID", newCollection.ID));
+                    db.Database.ExecuteSqlCommand($"UPDATE PartnerRegisteredSubscription SET AllowanceState = @newState, PartnerCollectionID = @collectionID WHERE SubscriptionID in ({string.Join(",", resultIds)})", new SqlParameter("@newState", (short)RadiusR.DB.Enums.PartnerAllowanceState.Accepted), new SqlParameter("@collectionID", newCollection.ID));
                     transaction.Commit();
                 }
                 catch
@@ -1267,7 +1268,28 @@ namespace RadiusR_Manager.Controllers
             }
             else if (dbPartnerCollection.CollectionType == (short)RadiusR.DB.Enums.PartnerCollectionType.Sales)
             {
-                return Content("Not Implemented Yet!");
+                var results = db.PartnerRegisteredSubscriptions
+               .Where(prs => prs.PartnerCollectionID == dbPartnerCollection.ID)
+               .OrderByDescending(prs => prs.Subscription.MembershipDate)
+               .Select(prs => new PartnerCollectionDetailsViewModel()
+               {
+                   ID = prs.SubscriptionID,
+                   IssueDate = prs.Subscription.MembershipDate,
+                   CompletionDate = null,
+                   SubscriptionID = prs.SubscriptionID,
+                   SubscriberNo = prs.Subscription.SubscriberNo,
+                   _allowance = prs.Allowance,
+                   AllowanceState = prs.AllowanceState
+               });
+
+                ViewBag.Total = (results.Select(r => r._allowance).DefaultIfEmpty(0m).Sum() ?? 0m).ToString("###,##0.00");
+
+                SetupPages(page, ref results);
+
+                UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+                ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
+                ViewBag.PartnerName = dbPartnerCollection.Partner.Title;
+                return View("CollectionDetails", results);
             }
             else
             {
