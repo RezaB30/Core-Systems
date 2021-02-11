@@ -310,3 +310,4 @@ v 5.07.08 '2021-02-03'
 - added vakif to VPOSes.
 v 5.08.00 ''
 - removed commitment and threshold allowance from partner available tariffs.
+- added partner collections, collection creation & payment.

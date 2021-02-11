@@ -212,11 +212,17 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                 if (dbPartner == null)
                     // invalid partner
                     return new[] { new { Key = "RegisteringPartner.PartnerID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidPartner } }.ToLookup(item => item.Key, item => item.ErrorMessage);
-                var commitmentLength = registrationInfo.CommitmentInfo != null ? (short?)registrationInfo.CommitmentInfo.CommitmentLength : null;
+
+                if (!dbPartner.PartnerPermissions.Any(p => p.Permission == (short)Enums.PartnerPermissions.Sale))
+                {
+                    // invalid partner permission
+                    return new[] { new { Key = "RegisteringPartner.PartnerID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidPartner } }.ToLookup(item => item.Key, item => item.ErrorMessage);
+
+                }
                 if (!dbPartner.PartnerGroup.PartnerAvailableTariffs.Any(pat => pat.TariffID == registrationInfo.ServiceID))
                 {
                     // invalid tariff for partner
-                    return new[] { new { Key = "ServiceID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidTariffForPartner }, new { Key = "CommitmentInfo.CommitmentLength", ErrorMessage = Resources.RegistrationValidationMessages.InvalidTariffForPartner } }.ToLookup(item => item.Key, item => item.ErrorMessage);
+                    return new[] { new { Key = "ServiceID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidTariffForPartner } }.ToLookup(item => item.Key, item => item.ErrorMessage);
                 }
             }
             var dbGroups = new List<Group>();
@@ -264,6 +270,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                     Allowance = Math.Abs(registrationInfo.RegisteringPartner.Allowance.Value),
                     PartnerID = registrationInfo.RegisteringPartner.PartnerID.Value,
                     TariffID = registrationInfo.ServiceID.Value,
+                    AllowanceState = (short)Enums.PartnerAllowanceState.OnHold
                 } : null,
                 RecurringDiscounts = specialOffer != null ?
                 new List<RecurringDiscount>()

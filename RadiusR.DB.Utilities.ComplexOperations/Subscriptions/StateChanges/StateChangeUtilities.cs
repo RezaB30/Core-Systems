@@ -413,19 +413,12 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                         CancellationCause = Enums.RecurringDiscount.RecurringDiscountCancellationCause.SubscriptionCancellation
                     });
                 }
-                //// cancel referral discounts
-                //var referralDiscounts = billingReadySubscription.Subscription.RecurringDiscounts.Where(rd => rd.ReferrerRecurringDiscount != null || rd.ReferringRecurringDiscounts.Any()).ToArray();
-
-                //foreach (var discount in referralDiscounts)
-                //{
-                //    Discounts.DiscountUtilities.CancelRecurringDiscount(db, discount, new Discounts.DiscountOperationOptions()
-                //    {
-                //        AppUserID = cancelOptions.AppUserID,
-                //        LogInterface = cancelOptions.LogInterface,
-                //        LogInterfaceUsername = cancelOptions.LogInterfaceUsername,
-                //        CancellationCause = Enums.RecurringDiscount.RecurringDiscountCancellationCause.SubscriptionCancellation
-                //    });
-                //}
+                // cancel partner allowance if has not reached valid payment
+                if (billingReadySubscription.Subscription.PartnerRegisteredSubscription != null && !billingReadySubscription.Subscription.PartnerRegisteredSubscription.HasFullBills)
+                {
+                    billingReadySubscription.Subscription.PartnerRegisteredSubscription.AllowanceState = (short)PartnerAllowanceState.Cancelled;
+                }
+                
                 // save
                 db.SaveChanges();
             }

@@ -195,6 +195,7 @@
     <Compile Include="ModelExtentions\Customer.cs" />
     <Compile Include="ModelExtentions\CustomerSetupTask.cs" />
     <Compile Include="ModelExtentions\FeeExtentions.cs" />
+    <Compile Include="ModelExtentions\PartnerRegisteredSubscription.cs" />
     <Compile Include="ModelExtentions\RecurringDiscount.cs" />
     <Compile Include="ModelExtentions\SMSArchiveSet.cs" />
     <Compile Include="ModelExtentions\SubscriptionUtilities.cs" />
@@ -250,6 +251,7 @@
     </Compile>
     <Compile Include="QueryExtentions\BillsQuery.cs" />
     <Compile Include="QueryExtentions\ExternalTariffsExtention.cs" />
+    <Compile Include="QueryExtentions\PartnerRegisteredSubscriptionQuery.cs" />
     <Compile Include="QueryExtentions\ServicesQuery.cs" />
     <Compile Include="QueryExtentions\SpecialOffersQuery.cs" />
     <Compile Include="QuotaPackage.cs">

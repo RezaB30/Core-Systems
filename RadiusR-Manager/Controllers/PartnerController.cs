@@ -1,4 +1,5 @@
 ﻿using RadiusR.DB;
+using RadiusR.DB.QueryExtentions;
 using RadiusR_Manager.Models.RadiusViewModels;
 using RezaB.Web.CustomAttributes;
 using System;
@@ -1190,7 +1191,7 @@ namespace RadiusR_Manager.Controllers
             }
 
             var resultIds = db.PartnerRegisteredSubscriptions
-                .Where(prs => prs.PartnerID == dbPartner.ID && prs.AllowanceState == (short)RadiusR.DB.Enums.PartnerAllowanceState.OnHold && prs.Subscription.Bills.Any(b => b.Source == (short)RadiusR.DB.Enums.BillSources.System && (DbFunctions.DiffMonths(b.PeriodStart, b.PeriodEnd) == 1 && b.PeriodStart.Value.Day <= b.PeriodEnd.Value.Day) || (DbFunctions.DiffMonths(b.PeriodStart, b.PeriodEnd) > 1)))
+                .Where(prs => prs.PartnerID == dbPartner.ID && prs.AllowanceState == (short)RadiusR.DB.Enums.PartnerAllowanceState.OnHold).FilterSubscriptionsWithAtLeastOneFullBill()
                 .Select(prs => prs.SubscriptionID).ToArray();
 
             // to prevent unchecked changes
