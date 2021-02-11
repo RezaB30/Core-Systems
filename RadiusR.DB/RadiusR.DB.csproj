@@ -196,6 +196,7 @@
     <Compile Include="ModelExtentions\CustomerSetupTask.cs" />
     <Compile Include="ModelExtentions\FeeExtentions.cs" />
     <Compile Include="ModelExtentions\PartnerRegisteredSubscription.cs" />
+    <Compile Include="ModelExtentions\PartnerUtilities.cs" />
     <Compile Include="ModelExtentions\RecurringDiscount.cs" />
     <Compile Include="ModelExtentions\SMSArchiveSet.cs" />
     <Compile Include="ModelExtentions\SubscriptionUtilities.cs" />

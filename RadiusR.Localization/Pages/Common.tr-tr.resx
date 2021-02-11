@@ -1197,4 +1197,7 @@
   <data name="PartnerProceedDetails" xml:space="preserve">
     <value>Bayinin Hasılat Detayları</value>
   </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Genel Bakış</value>
+  </data>
 </root>

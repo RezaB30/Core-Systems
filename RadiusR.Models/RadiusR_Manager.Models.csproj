@@ -183,6 +183,7 @@
     <Compile Include="ViewModels\CustomerWebsiteSettingsViewModel.cs" />
     <Compile Include="ViewModels\EmailSettingsViewModel.cs" />
     <Compile Include="ViewModels\FileManagerSettingsViewModel.cs" />
+    <Compile Include="ViewModels\PartnerAllowanceDetailsViewModel.cs" />
     <Compile Include="ViewModels\PartnerCollectionDetailsViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestModels\ShareSupportRequestsViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestModels\SupportRequestCreateViewModel.cs" />

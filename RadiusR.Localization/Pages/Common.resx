@@ -1200,4 +1200,7 @@
   <data name="PartnerProceedDetails" xml:space="preserve">
     <value>Partner Proceed Details</value>
   </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Overview</value>
+  </data>
 </root>

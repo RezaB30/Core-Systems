@@ -1,5 +1,6 @@
 ﻿using RadiusR.DB;
 using RadiusR.DB.QueryExtentions;
+using RadiusR.DB.ModelExtentions;
 using RadiusR_Manager.Models.RadiusViewModels;
 using RezaB.Web.CustomAttributes;
 using System;
@@ -1015,6 +1016,7 @@ namespace RadiusR_Manager.Controllers
 
             ViewBag.CollectionType = RadiusR.DB.Enums.PartnerCollectionType.Setup;
             ViewBag.PartnerName = dbPartner.Title;
+            ViewBag.AllowanceDetails = db.GetAllowanceDetails(dbPartner.ID, RadiusR.DB.Enums.PartnerCollectionType.Setup).Select(item => new PartnerAllowanceDetailsViewModel(item.Key, item.Value)).ToArray();
             return View("PartnerCollectionList", results);
         }
 
@@ -1041,6 +1043,7 @@ namespace RadiusR_Manager.Controllers
 
             ViewBag.CollectionType = RadiusR.DB.Enums.PartnerCollectionType.Sales;
             ViewBag.PartnerName = dbPartner.Title;
+            ViewBag.AllowanceDetails = db.GetAllowanceDetails(dbPartner.ID, RadiusR.DB.Enums.PartnerCollectionType.Sales).Select(item => new PartnerAllowanceDetailsViewModel(item.Key, item.Value)).ToArray();
             return View("PartnerCollectionList", results);
         }
 

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.1.0-beta1</version>
+    <version>1.1.0</version>
     <title>RadiusR.DB.Utilities</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -13,7 +13,7 @@
     <tags>MasterISS Database Utilities</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />
 	<dependencies>
-		<dependency id="RadiusR.DB" version="1.2.0-alpha1"/>
+		<dependency id="RadiusR.DB" version="1.2.0"/>
 		<dependency id="RadiusR.Scheduler.SMS" version="1.0.0"/>
 	</dependencies>
   </metadata>
