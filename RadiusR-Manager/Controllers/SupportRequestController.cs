@@ -393,7 +393,7 @@ namespace RadiusR_Manager.Controllers
 
         [HttpGet]
         // GET: SupportRequest/GetSupportAttachment
-        public ActionResult GetSupportAttachment(long id, string fileName, int? groupId)
+        public ActionResult GetSupportAttachment(long id, string fileName, int? groupId = null)
         {
             var currentSupportRequest = db.SupportRequests.Find(id);
             if (currentSupportRequest == null)

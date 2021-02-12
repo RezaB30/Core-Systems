@@ -248,13 +248,13 @@
         });
     </script>
     <script>
-        var fileLinkBase = '@Url.Action("GetSupportAttachment",new { id = Model.RequestInfo.ID, groupId = groupId})' + '&fileName=';
+        var fileLinkBase = '@Url.Action("GetSupportAttachment",new { id = Model.RequestInfo.ID })' + '?groupId=' + '@groupId' + '&fileName=';
         $.ajax({
             url: '@Url.Action("RequestAttachmentList")',
             method: 'POST',
             data: {
                 id: @Model.RequestInfo.ID,
-                groupId: @groupId
+                groupId: '@groupId'
             },
             complete: function (response, status) {
                 if (status == 'success') {
