@@ -17,8 +17,8 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CustomerSetupUser()
         {
-            this.CustomerSetupTasks = new HashSet<CustomerSetupTask>();
             this.Partners = new HashSet<Partner>();
+            this.CustomerSetupTasks = new HashSet<CustomerSetupTask>();
         }
     
         public int ID { get; set; }
@@ -28,8 +28,8 @@ namespace RadiusR.DB
         public bool IsEnabled { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CustomerSetupTask> CustomerSetupTasks { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Partner> Partners { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CustomerSetupTask> CustomerSetupTasks { get; set; }
     }
 }

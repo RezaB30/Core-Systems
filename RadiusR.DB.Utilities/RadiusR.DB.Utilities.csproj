@@ -73,6 +73,7 @@
     <Compile Include="Billing\PrepaidFeePayment.cs" />
     <Compile Include="Billing\SubscriptionExtentions.cs" />
     <Compile Include="Extentions\ClientCancellationUtilities.cs" />
+    <Compile Include="Extentions\CustomerSetupTaskUtilities.cs" />
     <Compile Include="Extentions\ScheduledTasks.cs" />
     <Compile Include="Extentions\SetupUserExtentions.cs" />
     <Compile Include="Extentions\SubscriptionStateUtilities.cs" />

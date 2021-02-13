@@ -17,15 +17,12 @@ namespace RadiusR.DB
         public long SubscriptionID { get; set; }
         public int PartnerID { get; set; }
         public int TariffID { get; set; }
-        public Nullable<short> Commitment { get; set; }
         public decimal Allowance { get; set; }
-        public decimal AllowanceThreshold { get; set; }
-        public System.DateTime RegistrationDate { get; set; }
-        public Nullable<System.DateTime> PayDate { get; set; }
-        public Nullable<int> PaymentUserID { get; set; }
+        public Nullable<long> PartnerCollectionID { get; set; }
+        public short AllowanceState { get; set; }
     
-        public virtual AppUser AppUser { get; set; }
         public virtual Partner Partner { get; set; }
+        public virtual PartnerCollection PartnerCollection { get; set; }
         public virtual Service Service { get; set; }
         public virtual Subscription Subscription { get; set; }
     }

@@ -1,0 +1,79 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Helpers
+@using RezaB.Web.Authentication
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.PartnerCollectionDetailsViewModel>
+
+@{
+    var collectionType = (RadiusR.DB.Enums.PartnerCollectionType?)ViewBag.CollectionType ?? RadiusR.DB.Enums.PartnerCollectionType.Sales;
+    var isDetailsPage = ViewContext.RouteData.Values["action"] as string == "CollectionDetails";
+    ViewBag.Title = $"{ViewBag.PartnerName}-{(isDetailsPage ? RadiusR.Localization.Pages.Common.PartnerProceedDetails : RadiusR.Localization.Pages.Common.CreatePartnerProceed)}({(collectionType == RadiusR.DB.Enums.PartnerCollectionType.Setup ? RadiusR.Localization.Pages.Common.SetupAllowance : RadiusR.Localization.Pages.Common.SalesAllowance)})";
+    var total = ViewBag.Total;
+}
+
+<div class="button-row centered">
+    <label>@RadiusR.Localization.Pages.Common.Total:</label>
+    @Html.CurrencyDisplayFor(model => total)
+</div>
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SubscriberNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompletionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IssueDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Allowance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowanceState)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(Html.DisplayTextFor(modelItem => item.SubscriberNo).ToHtmlString(), "Details", "Client", new { id = item.SubscriptionID }, new { @class = "details-link" })
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.CompletionDate)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.IssueDate)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Allowance)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.AllowanceState)
+            </td>
+            <td>
+                @if (collectionType == RadiusR.DB.Enums.PartnerCollectionType.Setup)
+                {
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", "CustomerSetupService", new { id = item.ID, redirectUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button details-button" })
+                }
+                else if (collectionType == RadiusR.DB.Enums.PartnerCollectionType.Sales)
+                {
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", "Client", new { id = item.ID }, new { @class = "link-button iconed-button details-button" })
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList()
+<div class="button-row centered">
+    <a href="@ViewBag.ReturnUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+    @if (!isDetailsPage && User.HasPermission("Partner Collection Creation") && Model.Any())
+    {
+        using (Html.BeginForm(null, null, new { id = ViewContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block" }))
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="@RadiusR.Localization.Pages.Common.CreatePartnerProceed" class="link-button iconed-button accept-button" />
+        }
+    }
+</div>

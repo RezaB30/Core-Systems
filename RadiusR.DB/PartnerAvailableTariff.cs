@@ -17,10 +17,8 @@ namespace RadiusR.DB
         public long ID { get; set; }
         public int PartnerGroupID { get; set; }
         public int TariffID { get; set; }
-        public Nullable<short> Commitment { get; set; }
         public decimal Allowance { get; set; }
         public int DomainID { get; set; }
-        public decimal AllowanceThreshold { get; set; }
     
         public virtual Domain Domain { get; set; }
         public virtual PartnerGroup PartnerGroup { get; set; }

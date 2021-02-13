@@ -1185,4 +1185,22 @@
   <data name="Attachments" xml:space="preserve">
     <value>Attachments</value>
   </data>
+  <data name="Allowances" xml:space="preserve">
+    <value>Allowances</value>
+  </data>
+  <data name="CreatePartnerProceed" xml:space="preserve">
+    <value>Create Partner Proceed</value>
+  </data>
+  <data name="SalesAllowance" xml:space="preserve">
+    <value>Sales Allowance</value>
+  </data>
+  <data name="SetupAllowance" xml:space="preserve">
+    <value>Setup Allowance</value>
+  </data>
+  <data name="PartnerProceedDetails" xml:space="preserve">
+    <value>Partner Proceed Details</value>
+  </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Overview</value>
+  </data>
 </root>

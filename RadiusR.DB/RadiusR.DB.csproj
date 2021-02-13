@@ -152,6 +152,8 @@
     <Compile Include="Enums\IPBlockType.cs" />
     <Compile Include="Enums\NASTypes.cs" />
     <Compile Include="Enums\OfflineGatewayTypes.cs" />
+    <Compile Include="Enums\PartnerAllowanceState.cs" />
+    <Compile Include="Enums\PartnerCollectionType.cs" />
     <Compile Include="Enums\PartnerPermissions.cs" />
     <Compile Include="Enums\QuotaType.cs" />
     <Compile Include="Enums\RecurringDiscount\RecurringDiscountApplicationState.cs" />
@@ -191,7 +193,10 @@
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ModelExtentions\Customer.cs" />
+    <Compile Include="ModelExtentions\CustomerSetupTask.cs" />
     <Compile Include="ModelExtentions\FeeExtentions.cs" />
+    <Compile Include="ModelExtentions\PartnerRegisteredSubscription.cs" />
+    <Compile Include="ModelExtentions\PartnerUtilities.cs" />
     <Compile Include="ModelExtentions\RecurringDiscount.cs" />
     <Compile Include="ModelExtentions\SMSArchiveSet.cs" />
     <Compile Include="ModelExtentions\SubscriptionUtilities.cs" />
@@ -220,6 +225,9 @@
     <Compile Include="PartnerBillPayment.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="PartnerCollection.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="PartnerCredit.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
@@ -244,6 +252,7 @@
     </Compile>
     <Compile Include="QueryExtentions\BillsQuery.cs" />
     <Compile Include="QueryExtentions\ExternalTariffsExtention.cs" />
+    <Compile Include="QueryExtentions\PartnerRegisteredSubscriptionQuery.cs" />
     <Compile Include="QueryExtentions\ServicesQuery.cs" />
     <Compile Include="QueryExtentions\SpecialOffersQuery.cs" />
     <Compile Include="QuotaPackage.cs">

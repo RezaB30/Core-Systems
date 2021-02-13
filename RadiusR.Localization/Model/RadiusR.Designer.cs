@@ -196,6 +196,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allowance State.
+        /// </summary>
+        public static string AllowanceState {
+            get {
+                return ResourceManager.GetString("AllowanceState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Allowance Threshold.
         /// </summary>
         public static string AllowanceThreshold {
@@ -885,6 +894,15 @@ namespace RadiusR.Localization.Model {
         public static string CreationDate {
             get {
                 return ResourceManager.GetString("CreationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creator.
+        /// </summary>
+        public static string Creator {
+            get {
+                return ResourceManager.GetString("Creator", resourceCulture);
             }
         }
         
@@ -2694,6 +2712,15 @@ namespace RadiusR.Localization.Model {
         public static string PayDate {
             get {
                 return ResourceManager.GetString("PayDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payer.
+        /// </summary>
+        public static string Payer {
+            get {
+                return ResourceManager.GetString("Payer", resourceCulture);
             }
         }
         

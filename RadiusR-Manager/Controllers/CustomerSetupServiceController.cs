@@ -11,6 +11,7 @@ using RadiusR_Manager.Models.ViewModels.Customer;
 using RezaB.Web.CustomAttributes;
 using RezaB.Web;
 using RadiusR.SystemLogs;
+using RadiusR.DB.Utilities.Extentions;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -58,7 +59,7 @@ namespace RadiusR_Manager.Controllers
                 Status = task.TaskStatus,
                 TaskType = task.TaskType,
                 XDSLType = task.XDSLType,
-                IsCharged = task.IsCharged,
+                AllowanceState = task.AllowanceState,
                 ReservationDate = task.CustomerSetupStatusUpdates.Any() ? task.CustomerSetupStatusUpdates.LastOrDefault().ReservationDate : null,
                 User = task.CustomerSetupUser.Name,
                 Client = new SubscriptionListDisplayViewModel()
@@ -266,33 +267,33 @@ namespace RadiusR_Manager.Controllers
             return View(user);
         }
 
-        [AuthorizePermission(Permissions = "Setup Task Service Fee")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        // POST: CustomerSetupService/AddServiceFee
-        public ActionResult AddServiceFee(long id, string page)
-        {
-            page = page ?? "0";
-            var task = db.CustomerSetupTasks.Find(id);
-            if (task == null || task.TaskStatus != (short)TaskStatuses.Completed || task.IsCharged)
-            {
-                return RedirectToAction("Index", new { errorMessage = 9 });
-            }
-            //add fee
-            var serviceFee = db.FeeTypeCosts.Find((short)FeeType.Service);
-            task.Subscription.Fees.Add(new Fee()
-            {
-                FeeTypeID = serviceFee.FeeTypeID,
-                Cost = serviceFee.Cost,
-                InstallmentBillCount = 1,
-                Date = DateTime.Now
-            });
-            task.IsCharged = true;
+        //[AuthorizePermission(Permissions = "Setup Task Service Fee")]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //// POST: CustomerSetupService/AddServiceFee
+        //public ActionResult AddServiceFee(long id, string page)
+        //{
+        //    page = page ?? "0";
+        //    var task = db.CustomerSetupTasks.Find(id);
+        //    if (task == null || task.TaskStatus != (short)TaskStatuses.Completed || task.IsCharged)
+        //    {
+        //        return RedirectToAction("Index", new { errorMessage = 9 });
+        //    }
+        //    //add fee
+        //    var serviceFee = db.FeeTypeCosts.Find((short)FeeType.Service);
+        //    task.Subscription.Fees.Add(new Fee()
+        //    {
+        //        FeeTypeID = serviceFee.FeeTypeID,
+        //        Cost = serviceFee.Cost,
+        //        InstallmentBillCount = 1,
+        //        Date = DateTime.Now
+        //    });
+        //    task.IsCharged = true;
 
-            db.SaveChanges();
+        //    db.SaveChanges();
 
-            return RedirectToAction("Index", new { errorMessage = 0, page = page });
-        }
+        //    return RedirectToAction("Index", new { errorMessage = 0, page = page });
+        //}
 
         [HttpGet]
         // GET: CustomerSetupService/AddNewTask
@@ -315,7 +316,7 @@ namespace RadiusR_Manager.Controllers
         // GET: CustomerSetupService/Details
         public ActionResult Details(long id, string redirectUrl)
         {
-            var uri = redirectUrl != null ? new UriBuilder(redirectUrl) : new UriBuilder(Url.Action("Index", null, null, Request.Url.Scheme));
+            var uri = redirectUrl != null ? new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + redirectUrl) : new UriBuilder(Url.Action("Index", null, null, Request.Url.Scheme));
 
             var task = db.CustomerSetupTasks.Find(id);
             if (task == null)
@@ -330,7 +331,7 @@ namespace RadiusR_Manager.Controllers
                 ClientName = task.Subscription.ValidDisplayName,
                 HasModem = task.HasModem,
                 IssueDate = task.TaskIssueDate,
-                IsCharged = task.IsCharged,
+                AllowanceState = task.AllowanceState,
                 ModemName = task.ModemName,
                 User = task.CustomerSetupUser.Name,
                 Details = task.Details,
@@ -354,18 +355,40 @@ namespace RadiusR_Manager.Controllers
         [AuthorizePermission(Permissions = "Close Setup Task")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // POST: CustomerSetupService/CloseWorkOrder
-        public ActionResult CloseWorkOrder(long id, string returnUrl)
+        // POST: CustomerSetupService/CompleteTask
+        public ActionResult CompleteTask(long id, string returnUrl)
         {
             var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
             var task = db.CustomerSetupTasks.Find(id);
-            if (task == null)
+            if (task == null || !task.IsActive)
             {
                 UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
                 return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
             }
 
-            task.TaskStatus = (short)TaskStatuses.Completed;
+            task.CompleteCustomerSetupTask();
+            db.SystemLogs.Add(SystemLogProcessor.CloseWorkOrder(task.ID, User.GiveUserId(), task.SubscriptionID, SystemLogInterface.MasterISS, null));
+            db.SaveChanges();
+
+            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+        }
+
+        [AuthorizePermission(Permissions = "Close Setup Task")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST: CustomerSetupService/CancelTask
+        public ActionResult CancelTask(long id, string returnUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+            var task = db.CustomerSetupTasks.Find(id);
+            if (task == null || !task.IsActive)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            task.CancelCustomerSetupTask();
             db.SystemLogs.Add(SystemLogProcessor.CloseWorkOrder(task.ID, User.GiveUserId(), task.SubscriptionID, SystemLogInterface.MasterISS, null));
             db.SaveChanges();
 

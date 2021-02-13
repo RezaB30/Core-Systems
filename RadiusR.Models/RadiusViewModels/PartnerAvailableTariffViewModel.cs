@@ -26,10 +26,10 @@ namespace RadiusR_Manager.Models.RadiusViewModels
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "TariffName")]
         public string TariffName { get; set; }
 
-        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "CommitmentLength")]
-        [EnumType(typeof(RadiusR.DB.Enums.CommitmentLength), typeof(RadiusR.Localization.Lists.CommitmentLength))]
-        [UIHint("LocalizedList")]
-        public short? Commitment { get; set; }
+        //[Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "CommitmentLength")]
+        //[EnumType(typeof(RadiusR.DB.Enums.CommitmentLength), typeof(RadiusR.Localization.Lists.CommitmentLength))]
+        //[UIHint("LocalizedList")]
+        //public short? Commitment { get; set; }
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "Allowance")]
         [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
@@ -37,11 +37,11 @@ namespace RadiusR_Manager.Models.RadiusViewModels
         [UIHint("Currency")]
         public string Allowance { get; set; }
 
-        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "AllowanceThreshold")]
-        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
-        [Currency(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Currency")]
-        [UIHint("Currency")]
-        public string AllowanceThreshold { get; set; }
+        //[Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "AllowanceThreshold")]
+        //[Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
+        //[Currency(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Currency")]
+        //[UIHint("Currency")]
+        //public string AllowanceThreshold { get; set; }
 
         public decimal? _allowance
         {
@@ -61,22 +61,22 @@ namespace RadiusR_Manager.Models.RadiusViewModels
             }
         }
 
-        public decimal? _allowanceThreshold
-        {
-            get
-            {
-                decimal parsed;
-                if (decimal.TryParse(AllowanceThreshold, out parsed))
-                    return parsed;
-                return null;
-            }
-            set
-            {
-                if (value.HasValue)
-                    AllowanceThreshold = value.Value.ToString("###,##0.00");
-                else
-                    AllowanceThreshold = null;
-            }
-        }
+        //    public decimal? _allowanceThreshold
+        //    {
+        //        get
+        //        {
+        //            decimal parsed;
+        //            if (decimal.TryParse(AllowanceThreshold, out parsed))
+        //                return parsed;
+        //            return null;
+        //        }
+        //        set
+        //        {
+        //            if (value.HasValue)
+        //                AllowanceThreshold = value.Value.ToString("###,##0.00");
+        //            else
+        //                AllowanceThreshold = null;
+        //        }
+        //    }
     }
 }

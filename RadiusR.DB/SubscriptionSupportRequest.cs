@@ -24,7 +24,7 @@ namespace RadiusR.DB
         public Nullable<int> IssuerID { get; set; }
     
         public virtual AppUser AppUser { get; set; }
-        public virtual CustomerSetupTask CustomerSetupTask { get; set; }
         public virtual Subscription Subscription { get; set; }
+        public virtual CustomerSetupTask CustomerSetupTask { get; set; }
     }
 }

@@ -319,7 +319,7 @@ namespace RadiusR_Manager.Controllers
         public ActionResult OnlineClients()
         {
             var NASNames = db.NAS.Select(nas => new { IP = nas.IP, Name = nas.Name }).ToDictionary(item => item.IP, item => item.Name);
-            var onlineClients = db.RadiusAccountings.Where(ra => !ra.StopTime.HasValue).Select(ra => new { NASIP = ra.NASIP }).ToArray().GroupBy( ra => ra.NASIP).Select(group => new OnlineClientsReportViewModel()
+            var onlineClients = db.Database.SqlQuery<string>("SELECT NASIP FROM RadiusAccounting WHERE StopTime IS NULL;").ToArray().GroupBy( ra => ra).Select(group => new OnlineClientsReportViewModel()
             {
                 ClientCount = group.LongCount(),
                 IP = group.Key

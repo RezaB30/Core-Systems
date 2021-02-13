@@ -465,6 +465,18 @@
   <data name="ExternallyAvailableTariffs" xml:space="preserve">
     <value>Externally Available Tariffs</value>
   </data>
+  <data name="PartnerCollectionCreation" xml:space="preserve">
+    <value>Partner Proceed Creation</value>
+  </data>
+  <data name="PartnerCollectionPayment" xml:space="preserve">
+    <value>Partner Proceed Payment</value>
+  </data>
+  <data name="PartnerCollections" xml:space="preserve">
+    <value>Partner Proceeds</value>
+  </data>
+  <data name="PartnerManagement" xml:space="preserve">
+    <value>Partner Management</value>
+  </data>
   <data name="ArchiveAccess" xml:space="preserve">
     <value>Archive Access</value>
   </data>

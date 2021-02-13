@@ -483,16 +483,25 @@
                 <li>
                     @Html.ActionLink(RadiusR.Localization.Pages.Common.Partners, "Index", "Partner")
                 </li>
-                <li>
-                    @Html.ActionLink(RadiusR.Localization.Pages.Common.AddPartner, "Add", "Partner")
-                </li>
-                <li>
-                    @Html.ActionLink(RadiusR.Localization.Pages.Common.PartnerGroups, "Groups", "Partner")
-                </li>
+                @if (User.HasPermission("Partner Management"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.AddPartner, "Add", "Partner")
+                    </li>
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.PartnerGroups, "Groups", "Partner")
+                    </li>
+                }
                 @if (User.HasPermission("Partner API Settings"))
                 {
                     <li>
                         @Html.ActionLink(RadiusR.Localization.Pages.Common.PartnerAPISettings, "APISettings", "Partner")
+                    </li>
+                }
+                @if (User.HasPermission("Partner Collections"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Allowances, "Allowances", "Partner")
                     </li>
                 }
             </ul>

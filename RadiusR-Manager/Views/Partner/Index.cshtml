@@ -1,5 +1,6 @@
 ﻿@using RezaB.Web.Helpers
 @using RadiusR_Manager.Helpers
+@using RezaB.Web.Authentication
 
 @model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.PartnerViewModel>
 
@@ -95,24 +96,27 @@
                 @Html.DisplayFor(modelItem => item.GroupName)
             </td>
             <td>
-                @using (Html.BeginForm("ToggleState", null, FormMethod.Post, new { @confirm = "enabled" }))
+                @if (User.HasPermission("Partner Management"))
                 {
-                    @Html.AntiForgeryToken()
-                    @Html.Hidden("id", item.ID)
-                    @Html.Hidden("returnUrl", Request.Url.AbsoluteUri)
-                    if (item.IsActive)
+                    using (Html.BeginForm("ToggleState", null, FormMethod.Post, new { @confirm = "enabled" }))
                     {
-                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Deactivate" class="link-button iconed-button lock-button" />
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", item.ID)
+                        @Html.Hidden("returnUrl", Request.Url.AbsoluteUri)
+                        if (item.IsActive)
+                        {
+                            <input type="submit" value="@RadiusR.Localization.Pages.Common.Deactivate" class="link-button iconed-button lock-button" />
+                        }
+                        else
+                        {
+                            <input type="submit" value="@RadiusR.Localization.Pages.Common.Activate" c class="link-button iconed-button unlock-button" />
+                        }
                     }
-                    else
-                    {
-                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Activate" c class="link-button iconed-button unlock-button" />
-                    }
+                    @:&nbsp;
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Settings, "Settings", new { id = item.ID, returnUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button settings2-button" })
+                    @:&nbsp;
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "Edit", new { id = item.ID, returnUrl = Request.Url.AbsoluteUri }, new { @class = "link-button iconed-button edit-button" })
                 }
-                &nbsp;
-                @Html.ActionLink(RadiusR.Localization.Pages.Common.Settings, "Settings", new { id = item.ID, returnUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button settings2-button" })
-                &nbsp;
-                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "Edit", new { id = item.ID, returnUrl = Request.Url.AbsoluteUri }, new { @class = "link-button iconed-button edit-button" })
             </td>
         </tr>
     }

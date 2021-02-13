@@ -304,6 +304,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allowances.
+        /// </summary>
+        public static string Allowances {
+            get {
+                return ResourceManager.GetString("Allowances", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amount.
         /// </summary>
         public static string Amount {
@@ -948,6 +957,15 @@ namespace RadiusR.Localization.Pages {
         public static string CreateBill {
             get {
                 return ResourceManager.GetString("CreateBill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Partner Proceed.
+        /// </summary>
+        public static string CreatePartnerProceed {
+            get {
+                return ResourceManager.GetString("CreatePartnerProceed", resourceCulture);
             }
         }
         
@@ -2194,6 +2212,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overview.
+        /// </summary>
+        public static string Overview {
+            get {
+                return ResourceManager.GetString("Overview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Partner API Settings.
         /// </summary>
         public static string PartnerAPISettings {
@@ -2226,6 +2253,15 @@ namespace RadiusR.Localization.Pages {
         public static string PartnerPermissions {
             get {
                 return ResourceManager.GetString("PartnerPermissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Partner Proceed Details.
+        /// </summary>
+        public static string PartnerProceedDetails {
+            get {
+                return ResourceManager.GetString("PartnerProceedDetails", resourceCulture);
             }
         }
         
@@ -2599,6 +2635,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sales Allowance.
+        /// </summary>
+        public static string SalesAllowance {
+            get {
+                return ResourceManager.GetString("SalesAllowance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {
@@ -2748,6 +2793,15 @@ namespace RadiusR.Localization.Pages {
         public static string Settings {
             get {
                 return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setup Allowance.
+        /// </summary>
+        public static string SetupAllowance {
+            get {
+                return ResourceManager.GetString("SetupAllowance", resourceCulture);
             }
         }
         

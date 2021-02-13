@@ -14,15 +14,15 @@
         <th>
             @Html.DisplayNameFor(model => model.DomainName)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Commitment)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Allowance)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.AllowanceThreshold)
-        </th>
+        </th>*@
         <th></th>
     </tr>
     @foreach (var item in Model)
@@ -34,15 +34,15 @@
             <td class="centered">
                 @Html.DisplayFor(modelItem => item.DomainName)
             </td>
-            <td class="centered">
+            @*<td class="centered">
                 @Html.DisplayFor(modelItem => item.Commitment)
-            </td>
+            </td>*@
             <td class="centered">
                 @Html.DisplayFor(modelItem => item.Allowance)
             </td>
-            <td class="centered">
+            @*<td class="centered">
                 @Html.DisplayFor(modelItem => item.AllowanceThreshold)
-            </td>
+            </td>*@
             <td>
                 @using (Html.BeginForm("RemoveValidTariff", null, FormMethod.Post, new { @confirm = "enabled" }))
                 {

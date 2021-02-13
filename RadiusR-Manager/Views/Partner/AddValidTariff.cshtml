@@ -39,7 +39,7 @@
                         @Html.ValidationMessageFor(model => model.TariffID)
                     </td>
                 </tr>
-                <tr>
+                @*<tr>
                     <td>
                         @Html.LabelFor(model => model.Commitment)
                     </td>
@@ -51,7 +51,7 @@
                     <td colspan="2">
                         @Html.ValidationMessageFor(model => model.Commitment)
                     </td>
-                </tr>
+                </tr>*@
                 <tr>
                     <td>
                         @Html.LabelFor(model => model.Allowance)
@@ -65,7 +65,7 @@
                         @Html.ValidationMessageFor(model => model.Allowance)
                     </td>
                 </tr>
-                <tr>
+                @*<tr>
                     <td>
                         @Html.LabelFor(model => model.AllowanceThreshold)
                     </td>
@@ -77,7 +77,7 @@
                     <td colspan="2">
                         @Html.ValidationMessageFor(model => model.AllowanceThreshold)
                     </td>
-                </tr>
+                </tr>*@
                 <tr>
                     <td colspan="2" class="centered">
                         @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "ValidTariffs", new { id = Request.RequestContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button back-button" })

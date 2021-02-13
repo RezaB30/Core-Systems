@@ -91,7 +91,7 @@
         </th>
         <th></th>
         <th>
-            @Html.DisplayNameFor(model => model.IsCharged)
+            @Html.DisplayNameFor(model => model.AllowanceState)
         </th>
         <th></th>
     </tr>
@@ -135,18 +135,18 @@
                 <div class="online-status-loading"></div>
             </td>
             <td class="centered">
-                @Html.DisplayFor(modelItem => item.IsCharged)
+                @Html.DisplayFor(modelItem => item.AllowanceState)
             </td>
             <td>
-                @if (!item.IsCharged && User.HasPermission("Setup Task Service Fee") && item.Status == (short)TaskStatuses.Completed)
+                @*@if (!item.IsCharged && User.HasPermission("Setup Task Service Fee") && item.Status == (short)TaskStatuses.Completed)
                 {
                     using (Html.BeginForm("AddServiceFee", null, new { id = item.ID, page = Request.QueryString["page"] }, FormMethod.Post, new { @confirm = "enabled" }))
                     {
                         @Html.AntiForgeryToken()
                         <input type="submit" value="@RadiusR.Localization.Pages.Common.AddServiceFee" class="link-button iconed-button money-button" />
                     }
-                }
-                @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", new { id = item.ID, redirectUrl = Request.Url.AbsoluteUri }, new { @class = "link-button iconed-button details-button" })
+                }*@
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "Details", new { id = item.ID, redirectUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button details-button" })
             </td>
         </tr>
     }

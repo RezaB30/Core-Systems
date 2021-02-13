@@ -212,11 +212,17 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                 if (dbPartner == null)
                     // invalid partner
                     return new[] { new { Key = "RegisteringPartner.PartnerID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidPartner } }.ToLookup(item => item.Key, item => item.ErrorMessage);
-                var commitmentLength = registrationInfo.CommitmentInfo != null ? (short?)registrationInfo.CommitmentInfo.CommitmentLength : null;
-                if (!dbPartner.PartnerGroup.PartnerAvailableTariffs.Any(pat => pat.TariffID == registrationInfo.ServiceID && pat.Commitment == commitmentLength))
+
+                if (!dbPartner.PartnerPermissions.Any(p => p.Permission == (short)Enums.PartnerPermissions.Sale))
+                {
+                    // invalid partner permission
+                    return new[] { new { Key = "RegisteringPartner.PartnerID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidPartner } }.ToLookup(item => item.Key, item => item.ErrorMessage);
+
+                }
+                if (!dbPartner.PartnerGroup.PartnerAvailableTariffs.Any(pat => pat.TariffID == registrationInfo.ServiceID))
                 {
                     // invalid tariff for partner
-                    return new[] { new { Key = "ServiceID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidTariffForPartner }, new { Key = "CommitmentInfo.CommitmentLength", ErrorMessage = Resources.RegistrationValidationMessages.InvalidTariffForPartner } }.ToLookup(item => item.Key, item => item.ErrorMessage);
+                    return new[] { new { Key = "ServiceID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidTariffForPartner } }.ToLookup(item => item.Key, item => item.ErrorMessage);
                 }
             }
             var dbGroups = new List<Group>();
@@ -262,11 +268,9 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                 PartnerRegisteredSubscription = registrationInfo.RegisteringPartner != null ? new PartnerRegisteredSubscription()
                 {
                     Allowance = Math.Abs(registrationInfo.RegisteringPartner.Allowance.Value),
-                    AllowanceThreshold = Math.Abs(registrationInfo.RegisteringPartner.AllowanceThreshold.Value),
-                    Commitment = registrationInfo.CommitmentInfo != null ? (short?)registrationInfo.CommitmentInfo.CommitmentLength : null,
                     PartnerID = registrationInfo.RegisteringPartner.PartnerID.Value,
                     TariffID = registrationInfo.ServiceID.Value,
-                    RegistrationDate = DateTime.Now
+                    AllowanceState = (short)Enums.PartnerAllowanceState.OnHold
                 } : null,
                 RecurringDiscounts = specialOffer != null ?
                 new List<RecurringDiscount>()

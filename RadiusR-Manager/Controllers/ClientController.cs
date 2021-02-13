@@ -980,7 +980,7 @@ namespace RadiusR_Manager.Controllers
                 CompletionDate = task.CompletionDate,
                 Details = task.Details,
                 IssueDate = task.TaskIssueDate,
-                IsCharged = task.IsCharged,
+                AllowanceState = task.AllowanceState,
                 Status = task.TaskStatus,
                 TaskType = task.TaskType,
                 User = task.CustomerSetupUser.Name
@@ -1030,26 +1030,35 @@ namespace RadiusR_Manager.Controllers
 
             if (ModelState.IsValid)
             {
-                task.ModemName = task.HasModem ? task.ModemName : null;
-                var dbWorkOrder = new CustomerSetupTask()
+                var setupUser = db.CustomerSetupUsers.Find(task.SetupUserID);
+                if (setupUser == null)
                 {
-                    SubscriptionID = dbSubscription.ID,
-                    Details = task.TaskDescription,
-                    HasModem = task.HasModem,
-                    ModemName = task.ModemName,
-                    SetupUserID = task.SetupUserID.Value,
-                    TaskType = task.TaskType,
-                    XDSLType = task.XDSLType,
-                    TaskIssueDate = DateTime.Now,
-                    TaskStatus = (short)RadiusR.DB.Enums.CustomerSetup.TaskStatuses.New,
-                    IsCharged = false
-                };
-                db.CustomerSetupTasks.Add(dbWorkOrder);
+                    ModelState.AddModelError("SetupUserID", RadiusR.Localization.Validation.Common.InvalidInput);
+                }
+                else
+                {
+                    task.ModemName = task.HasModem ? task.ModemName : null;
+                    var dbWorkOrder = new CustomerSetupTask()
+                    {
+                        SubscriptionID = dbSubscription.ID,
+                        Details = task.TaskDescription,
+                        HasModem = task.HasModem,
+                        ModemName = task.ModemName,
+                        SetupUserID = task.SetupUserID.Value,
+                        TaskType = task.TaskType,
+                        XDSLType = task.XDSLType,
+                        TaskIssueDate = DateTime.Now,
+                        TaskStatus = (short)RadiusR.DB.Enums.CustomerSetup.TaskStatuses.New,
+                        Allowance = setupUser.Partners.Any() ? setupUser.Partners.First().SetupAllowance : (decimal?)null,
+                        AllowanceState = (short)PartnerAllowanceState.OnHold
+                    };
+                    db.CustomerSetupTasks.Add(dbWorkOrder);
 
-                db.SaveChanges();
-                db.SystemLogs.Add(SystemLogProcessor.AddWorkOrder(dbWorkOrder.ID, User.GiveUserId(), dbSubscription.ID, SystemLogInterface.MasterISS, null));
-                db.SaveChanges();
-                return Redirect(Url.Action("Details", "Client", new { id = id, errorMessage = 0 }) + "#faults");
+                    db.SaveChanges();
+                    db.SystemLogs.Add(SystemLogProcessor.AddWorkOrder(dbWorkOrder.ID, User.GiveUserId(), dbSubscription.ID, SystemLogInterface.MasterISS, null));
+                    db.SaveChanges();
+                    return Redirect(Url.Action("Details", "Client", new { id = id, errorMessage = 0 }) + "#faults");
+                }
             }
 
             ViewBag.ClientID = dbSubscription.ID;
