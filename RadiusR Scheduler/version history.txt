@@ -2,3 +2,5 @@
 - restructured the scheduler to use the new RezaB.Scheduling library.
 - reordered tasks.
 - added tariff change tasks.
+v2.0.1.0 '2021-02-15'
+- automatic payment bug fix.

@@ -76,29 +76,36 @@ namespace RadiusR_Manager.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         // POST: NAS/Add
-        public ActionResult Add([Bind(Include = "BackboneNASID,Name,IP,RadiusIncomingPort,Secret,ApiUsername,ApiPassword,ApiPort,NASType,NATType")]NASViewModel nasModel)
+        public ActionResult Add([Bind(Include = "BackboneNASID,Name,IP,RadiusIncomingPort,Secret,ApiUsername,ApiPassword,ApiPort,NASType,NATType")] NASViewModel nasModel)
         {
             if (ModelState.IsValid)
             {
-                var nas = new NAS()
+                if (db.NAS.Any(n => n.IP == nasModel.IP))
                 {
-                    BackboneNASID = nasModel.BackboneNASID,
-                    Name = nasModel.Name,
-                    IP = nasModel.IP,
-                    RadiusIncomingPort = int.Parse(nasModel.RadiusIncomingPort),
-                    Secret = nasModel.Secret,
-                    TypeID = nasModel.NASType.Value,
-                    NATType = nasModel.NATType,
-                    ApiUsername = nasModel.ApiUsername,
-                    ApiPassword = nasModel.ApiPassword,
-                    ApiPort = int.Parse(nasModel.ApiPort),
-                    Disabled = false
-                };
+                    ModelState.AddModelError("IP", RadiusR.Localization.Validation.Common.InvalidInput);
+                }
+                else
+                {
+                    var nas = new NAS()
+                    {
+                        BackboneNASID = nasModel.BackboneNASID,
+                        Name = nasModel.Name,
+                        IP = nasModel.IP,
+                        RadiusIncomingPort = int.Parse(nasModel.RadiusIncomingPort),
+                        Secret = nasModel.Secret,
+                        TypeID = nasModel.NASType.Value,
+                        NATType = nasModel.NATType,
+                        ApiUsername = nasModel.ApiUsername,
+                        ApiPassword = nasModel.ApiPassword,
+                        ApiPort = int.Parse(nasModel.ApiPort),
+                        Disabled = false
+                    };
 
-                db.NAS.Add(nas);
-                db.SaveChanges();
+                    db.NAS.Add(nas);
+                    db.SaveChanges();
 
-                return RedirectToAction("Index", new { errorMessage = 0 });
+                    return RedirectToAction("Index", new { errorMessage = 0 });
+                }
             }
 
             //if (nasModel.NASVerticalIPMaps == null)
@@ -160,7 +167,7 @@ namespace RadiusR_Manager.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         // POST: NAS/Edit
-        public ActionResult Edit(long id, [Bind(Include = "BackboneNASID,Name,IP,RadiusIncomingPort,Secret,ApiUsername,ApiPassword,ApiPort,NASType,NATType")]NASViewModel nas)
+        public ActionResult Edit(long id, [Bind(Include = "BackboneNASID,Name,IP,RadiusIncomingPort,Secret,ApiUsername,ApiPassword,ApiPort,NASType,NATType")] NASViewModel nas)
         {
             var dbNas = db.NAS.Find(id);
             if (dbNas == null)
@@ -170,43 +177,50 @@ namespace RadiusR_Manager.Controllers
 
             if (ModelState.IsValid)
             {
-                // changes in NAT rules ------------
-                if (dbNas.NATType != nas.NATType)
+                if (db.NAS.Any(n => n.ID != dbNas.ID && n.IP == nas.IP))
                 {
-                    var router = new MikrotikRouter(new MikrotikApiCredentials(dbNas.IP, dbNas.ApiPort, dbNas.ApiUsername, dbNas.ApiPassword), 10000);
-                    if (!router.ConfirmVerticalNAT(true) || !router.ClearActiveVerticalNATs())
+                    ModelState.AddModelError("IP", RadiusR.Localization.Validation.Common.InvalidInput);
+                }
+                else
+                {
+                    // changes in NAT rules ------------
+                    if (dbNas.NATType != nas.NATType)
                     {
-                        ModelState.AddModelError("Router", RadiusR.Localization.Pages.ErrorMessages._19);
-                        logger.Error(router.ExceptionLog);
+                        var router = new MikrotikRouter(new MikrotikApiCredentials(dbNas.IP, dbNas.ApiPort, dbNas.ApiUsername, dbNas.ApiPassword), 10000);
+                        if (!router.ConfirmVerticalNAT(true) || !router.ClearActiveVerticalNATs())
+                        {
+                            ModelState.AddModelError("Router", RadiusR.Localization.Pages.ErrorMessages._19);
+                            logger.Error(router.ExceptionLog);
+                        }
+                        if (!router.ConfirmNetmapChanges(true) || !router.ClearActiveNetmaps())
+                        {
+                            ModelState.AddModelError("Router", RadiusR.Localization.Pages.ErrorMessages._19);
+                            logger.Error(router.ExceptionLog);
+                        }
+                        if (ModelState.IsValid)
+                        {
+                            db.NASVerticalIPMaps.RemoveRange(dbNas.NASVerticalIPMaps);
+                            db.NASNetmaps.RemoveRange(dbNas.NASNetmaps);
+                        }
                     }
-                    if (!router.ConfirmNetmapChanges(true) || !router.ClearActiveNetmaps())
-                    {
-                        ModelState.AddModelError("Router", RadiusR.Localization.Pages.ErrorMessages._19);
-                        logger.Error(router.ExceptionLog);
-                    }
+                    //----------------------------------
                     if (ModelState.IsValid)
                     {
-                        db.NASVerticalIPMaps.RemoveRange(dbNas.NASVerticalIPMaps);
-                        db.NASNetmaps.RemoveRange(dbNas.NASNetmaps);
+                        dbNas.BackboneNASID = nas.BackboneNASID;
+                        dbNas.IP = nas.IP;
+                        dbNas.Name = nas.Name;
+                        dbNas.TypeID = nas.NASType.Value;
+                        dbNas.RadiusIncomingPort = int.Parse(nas.RadiusIncomingPort);
+                        dbNas.Secret = nas.Secret;
+                        dbNas.ApiUsername = nas.ApiUsername;
+                        dbNas.ApiPassword = nas.ApiPassword;
+                        dbNas.ApiPort = int.Parse(nas.ApiPort);
+                        dbNas.NATType = nas.NATType;
+
+                        db.SaveChanges();
+
+                        return RedirectToAction("Index", new { errorMessage = 0 });
                     }
-                }
-                //----------------------------------
-                if (ModelState.IsValid)
-                {
-                    dbNas.BackboneNASID = nas.BackboneNASID;
-                    dbNas.IP = nas.IP;
-                    dbNas.Name = nas.Name;
-                    dbNas.TypeID = nas.NASType.Value;
-                    dbNas.RadiusIncomingPort = int.Parse(nas.RadiusIncomingPort);
-                    dbNas.Secret = nas.Secret;
-                    dbNas.ApiUsername = nas.ApiUsername;
-                    dbNas.ApiPassword = nas.ApiPassword;
-                    dbNas.ApiPort = int.Parse(nas.ApiPort);
-                    dbNas.NATType = nas.NATType;
-
-                    db.SaveChanges();
-
-                    return RedirectToAction("Index", new { errorMessage = 0 });
                 }
             }
 
@@ -434,7 +448,7 @@ namespace RadiusR_Manager.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         // POST: NAS/EditNetmap
-        public ActionResult EditNetmap(int id, [Bind(Include = "NASNetmaps")]NetmapListViewModel netmaps)
+        public ActionResult EditNetmap(int id, [Bind(Include = "NASNetmaps")] NetmapListViewModel netmaps)
         {
             var validNATTypes = new List<NATType>()
             {

@@ -104,6 +104,8 @@ namespace RadiusR.Scheduler.Tasks
                                                     db.ScheduledSMS.Add(results.ToAdd);
                                                 // log results
                                                 failLogger.Warn($"Automatic payment for bill ID '{bill.ID}' subscriber No '{bill.Subscription.SubscriberNo}' returned error with code: {response.Response.ResponseCode:G} MESSAGE: {response.Response.ErrorMessage}");
+                                                // save
+                                                db.SaveChanges();
                                                 break;
                                             }
                                             successLogger.Info($"Successful payment for bill ID '{bill.ID}' subscriber No '{bill.Subscription.SubscriberNo}'");
@@ -168,7 +170,7 @@ namespace RadiusR.Scheduler.Tasks
                                 try
                                 {
                                     // get unpaid bills
-                                    var unpaidBills = automaticPayment.Subscription.Bills.Where(b => b.PaymentTypeID == (short)PaymentType.None).ToArray().Where(b => b.DueDate <= today).ToArray();
+                                    var unpaidBills = automaticPayment.Subscription.Bills.Where(b => b.BillStatusID == (short)BillState.Unpaid).ToArray().Where(b => b.DueDate <= today).ToArray();
                                     // skip if has an unsuccessful tried unpaid bill
                                     if (unpaidBills.Any(b => b.DueDate < automaticPayment.LastOperationTime))
                                         continue;
@@ -193,6 +195,8 @@ namespace RadiusR.Scheduler.Tasks
                                                     db.ScheduledSMS.Add(results.ToAdd);
                                                 // log results
                                                 failLogger.Warn($"Automatic payment for bill ID '{bill.ID}' subscriber No '{bill.Subscription.SubscriberNo}' returned error with code: {response.Response.ResponseCode:G} MESSAGE: {response.Response.ErrorMessage}");
+                                                // save
+                                                db.SaveChanges();
                                                 break;
                                             }
                                             successLogger.Trace($"Successful payment for bill ID '{bill.ID}' subscriber No '{bill.Subscription.SubscriberNo}'");
