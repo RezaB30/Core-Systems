@@ -11,147 +11,160 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-            <table>
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.OnlinePasswordDuration)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.OnlinePasswordDuration, new { htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.OnlinePasswordDuration)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.SupportRequestPassedTime)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.SupportRequestPassedTime, new { htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.SupportRequestPassedTime)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.WebsiteServicesInfrastructureDomainID)
+                </td>
+                <td>
+                    @Html.Select(model => model.WebsiteServicesInfrastructureDomainID, (SelectList)ViewBag.Domains, RadiusR.Localization.Pages.Common.Choose)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.WebsiteServicesInfrastructureDomainID)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.CustomerWebsiteRegistrationGroupID)
+                </td>
+                <td>
+                    @Html.Select(model => model.CustomerWebsiteRegistrationGroupID, (SelectList)ViewBag.Groups, RadiusR.Localization.Pages.Common.Choose)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.CustomerWebsiteRegistrationGroupID)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.WebsiteServicesUsername)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.WebsiteServicesUsername, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.WebsiteServicesUsername)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.WebsiteServicesPassword)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.WebsiteServicesPassword, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.WebsiteServicesPassword)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.MaxSupportAttachmentSizeDisplay)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.MaxSupportAttachmentSizeDisplay)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.MaxSupportAttachmentSizeDisplay)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.MaxSupportAttachmentPerRequestDisplay)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.MaxSupportAttachmentPerRequestDisplay, new { htmlAttributes = new { @maxlength = 3, @autocomplete = "off" } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.MaxSupportAttachmentPerRequestDisplay)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.CustomerWebsiteUseGoogleRecaptcha)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.CustomerWebsiteUseGoogleRecaptcha)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.CustomerWebsiteUseGoogleRecaptcha)
+                </td>
+            </tr>
+            <tbody class="recaptcha-section" style="display: none;">
                 <tr>
                     <td>
-                        @Html.LabelFor(model => model.OnlinePasswordDuration)
+                        @Html.LabelFor(model => model.CustomerWebsiteRecaptchaClientKey)
                     </td>
                     <td>
-                        @Html.EditorFor(model => model.OnlinePasswordDuration, new { htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+                        @Html.EditorFor(model => model.CustomerWebsiteRecaptchaClientKey, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.OnlinePasswordDuration)
+                        @Html.ValidationMessageFor(model => model.CustomerWebsiteRecaptchaClientKey)
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        @Html.LabelFor(model => model.SupportRequestPassedTime)
+                        @Html.LabelFor(model => model.CustomerWebsiteRecaptchaServerKey)
                     </td>
                     <td>
-                        @Html.EditorFor(model => model.SupportRequestPassedTime, new { htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+                        @Html.EditorFor(model => model.CustomerWebsiteRecaptchaServerKey, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.SupportRequestPassedTime)
+                        @Html.ValidationMessageFor(model => model.CustomerWebsiteRecaptchaServerKey)
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.WebsiteServicesInfrastructureDomainID)
-                    </td>
-                    <td>
-                        @Html.Select(model => model.WebsiteServicesInfrastructureDomainID, (SelectList)ViewBag.Domains, RadiusR.Localization.Pages.Common.Choose)
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.WebsiteServicesInfrastructureDomainID)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.WebsiteServicesUsername)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.WebsiteServicesUsername, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.WebsiteServicesUsername)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.WebsiteServicesPassword)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.WebsiteServicesPassword, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.WebsiteServicesPassword)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.MaxSupportAttachmentSizeDisplay)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.MaxSupportAttachmentSizeDisplay)
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.MaxSupportAttachmentSizeDisplay)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.MaxSupportAttachmentPerRequestDisplay)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.MaxSupportAttachmentPerRequestDisplay, new { htmlAttributes = new { @maxlength = 3, @autocomplete = "off" } })
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.MaxSupportAttachmentPerRequestDisplay)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.CustomerWebsiteUseGoogleRecaptcha)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.CustomerWebsiteUseGoogleRecaptcha)
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.CustomerWebsiteUseGoogleRecaptcha)
-                    </td>
-                </tr>
-                <tbody class="recaptcha-section" style="display: none;">
-                    <tr>
-                        <td>
-                            @Html.LabelFor(model => model.CustomerWebsiteRecaptchaClientKey)
-                        </td>
-                        <td>
-                            @Html.EditorFor(model => model.CustomerWebsiteRecaptchaClientKey, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            @Html.ValidationMessageFor(model => model.CustomerWebsiteRecaptchaClientKey)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            @Html.LabelFor(model => model.CustomerWebsiteRecaptchaServerKey)
-                        </td>
-                        <td>
-                            @Html.EditorFor(model => model.CustomerWebsiteRecaptchaServerKey, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            @Html.ValidationMessageFor(model => model.CustomerWebsiteRecaptchaServerKey)
-                        </td>
-                    </tr>
-                </tbody>
-                <tr>
-                    <td colspan="2" class="centered">
-                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Reset, null, null, new { @class = "link-button iconed-button reload-button" })
-                        &nbsp;
-                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
-                    </td>
-                </tr>
-            </table>
+            </tbody>
+            <tr>
+                <td colspan="2" class="centered">
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Reset, null, null, new { @class = "link-button iconed-button reload-button" })
+                    &nbsp;
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />
+                </td>
+            </tr>
+        </table>
         }
     </div>
 </div>

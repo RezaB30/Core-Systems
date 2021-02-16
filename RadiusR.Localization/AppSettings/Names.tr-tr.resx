@@ -303,4 +303,7 @@
   <data name="UseGoogleRecaptcha" xml:space="preserve">
     <value>Google Recaptcha'yı kullan</value>
   </data>
+  <data name="CustomerWebsiteRegistrationGroupID" xml:space="preserve">
+    <value>Online İşlem Merkezi Başvuru Grubu</value>
+  </data>
 </root>

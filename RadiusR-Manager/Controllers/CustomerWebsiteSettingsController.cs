@@ -13,12 +13,15 @@ namespace RadiusR_Manager.Controllers
     [AuthorizePermission(Permissions = "Customer Website Settings")]
     public class CustomerWebsiteSettingsController : BaseController
     {
+        RadiusREntities db = new RadiusREntities();
+
         [HttpGet]
         // GET: CustomerWebsiteSettings
         public ActionResult Index()
         {
             var results = new CustomerWebsiteSettingsViewModel(true);
             ViewBag.Domains = new SelectList(DomainsCache.GetTelekomDomains(), "ID", "Name", results.WebsiteServicesInfrastructureDomainID);
+            ViewBag.Groups = new SelectList(db.Groups.Where(g => g.IsActive || g.ID == results.CustomerWebsiteRegistrationGroupID).Select(g => new { Name = g.Name, ID = g.ID }), "ID", "Name", results.CustomerWebsiteRegistrationGroupID);
             return View(results);
         }
 
@@ -35,11 +38,13 @@ namespace RadiusR_Manager.Controllers
             if (ModelState.IsValid)
             {
                 settings.WebsiteServicesInfrastructureDomainID = settings.WebsiteServicesInfrastructureDomainID ?? 0;
+                settings.CustomerWebsiteRegistrationGroupID = settings.CustomerWebsiteRegistrationGroupID ?? 0;
                 CustomerWebsiteSettings.Update(settings);
                 return RedirectToAction(null, new { errorMessage = 0 });
             }
 
             ViewBag.Domains = new SelectList(DomainsCache.GetTelekomDomains(), "ID", "Name", settings.WebsiteServicesInfrastructureDomainID);
+            ViewBag.Groups = new SelectList(db.Groups.Where(g => g.IsActive || g.ID == settings.CustomerWebsiteRegistrationGroupID).Select(g => new { Name = g.Name, ID = g.ID }), "ID", "Name", settings.CustomerWebsiteRegistrationGroupID);
             return View(settings);
         }
     }

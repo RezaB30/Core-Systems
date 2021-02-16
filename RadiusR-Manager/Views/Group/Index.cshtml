@@ -5,7 +5,32 @@
 
 @{
     ViewBag.Title = RadiusR.Localization.Model.RadiusR.Groups + "-" + RadiusR.Localization.Pages.Common.GroupsList;
+    var search = ViewBag.Search as RadiusR_Manager.Models.ViewModels.Search.GroupSearchViewModel ?? new RadiusR_Manager.Models.ViewModels.Search.GroupSearchViewModel();
 }
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm(null, null, FormMethod.Get))
+        {
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => search.GroupName)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => search.GroupName, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                        <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
 
 <table class="data-table">
     <tr>
@@ -14,6 +39,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.SubscriptionsCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
         </th>
         <th></th>
     </tr>
@@ -26,16 +54,40 @@
             <td class="centered">
                 @Html.DisplayFor(modelItem => item.SubscriptionsCount)
             </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
             <td>
                 @if (User.HasPermission("Modify Groups"))
                 {
                     @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "Edit", new { id = item.ID }, new { @class = "link-button iconed-button edit-button" })
-                    @:&nbsp;
-                    using (Html.BeginForm("Remove", null, FormMethod.Post, new { @confirm = "enabled" }))
+                    if (item.CanBeChanged)
                     {
-                        @Html.AntiForgeryToken()
-                        @Html.Hidden("ID", item.ID)
-                        <input type="submit" name="" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button remove-button" />
+                        @:&nbsp;
+                        if (item._subscriptionCount <= 0)
+                        {
+                            using (Html.BeginForm("Remove", null, FormMethod.Post, new { @confirm = "enabled" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("ID", item.ID)
+                                <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button remove-button" />
+                            }
+                        }
+                        else
+                        {
+                            using (Html.BeginForm("ToggleActive", null, new { id = item.ID, returnUrl = Request.Url.PathAndQuery }, FormMethod.Post, new { @confirm = "enabled" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                if (item.IsActive)
+                                {
+                                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Deactivate" class="link-button iconed-button lock-button" />
+                                }
+                                else
+                                {
+                                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Activate" class="link-button iconed-button unlock-button" />
+                                }
+                            }
+                        }
                     }
                 }
             </td>

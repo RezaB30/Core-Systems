@@ -601,6 +601,15 @@ namespace RadiusR.Localization.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Duplicate values not allowed..
+        /// </summary>
+        public static string ValueExists {
+            get {
+                return ResourceManager.GetString("ValueExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} can only have letter and number characters..
         /// </summary>
         public static string WordAndNumber {

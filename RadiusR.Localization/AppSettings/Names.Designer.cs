@@ -124,6 +124,15 @@ namespace RadiusR.Localization.AppSettings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Website Registration Group.
+        /// </summary>
+        public static string CustomerWebsiteRegistrationGroupID {
+            get {
+                return ResourceManager.GetString("CustomerWebsiteRegistrationGroupID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Api Password.
         /// </summary>
         public static string EBillApiPassword {

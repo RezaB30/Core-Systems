@@ -15,15 +15,20 @@ namespace RadiusR_Manager.Models.RadiusViewModels
         [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
         public string Name { get; set; }
 
-        public IEnumerable<Subscription> Subscriptions { get; set; }
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "IsActive")]
+        public bool IsActive { get; set; }
+
+        public int _subscriptionCount { get; set; }
 
         [Display(ResourceType = typeof(RadiusR.Localization.Pages.Common), Name = "Clients")]
         public string SubscriptionsCount
         {
             get
             {
-                return Subscriptions.Count().ToString("###,###,##0");
+                return _subscriptionCount.ToString("###,###,##0");
             }
         }
+
+        public bool CanBeChanged { get; set; }
     }
 }

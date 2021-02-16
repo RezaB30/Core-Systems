@@ -35,7 +35,7 @@ namespace RadiusR_Manager.Controllers
             ViewBag.Domains = new SelectList(DomainsCache.GetAllDomains().Select(d => new { Name = d.Name, Value = d.ID }), "Value", "Name", null);
             ViewBag.Services = new SelectList(Enumerable.Empty<object>(), null);
             ViewBag.BillingPeriods = new SelectList(Enumerable.Empty<object>(), null);
-            ViewBag.GroupList = new MultiSelectList(db.Groups.ToList(), "ID", "Name");
+            ViewBag.GroupList = new MultiSelectList(db.Groups.GetValidGroupsForSubscriptions().ToList(), "ID", "Name");
             ViewBag.AvailableFees = db.FeeTypeCosts.Include(f => f.FeeTypeVariants).ToArray().Where(f => f.CanBeInitial).Select(f => new SubscriberFeesAddViewModel()
             {
                 FeeTypeID = f.FeeTypeID,
@@ -271,7 +271,7 @@ namespace RadiusR_Manager.Controllers
             ViewBag.Domains = new SelectList(DomainsCache.GetAllDomains().Select(d => new { Name = d.Name, Value = d.ID }), "Value", "Name", registeredCustomer.SubscriptionInfo.DomainID != 0 ? registeredCustomer.SubscriptionInfo.DomainID : (int?)null);
             ViewBag.Services = registeredCustomer.SubscriptionInfo.DomainID != 0 && registeredCustomer.SubscriptionInfo.ServiceID != 0 ? new SelectList(db.Domains.Find(registeredCustomer.SubscriptionInfo.DomainID).Services.AsQueryable().FilterActiveServices().ToArray(), "ID", "Name", registeredCustomer.SubscriptionInfo.ServiceID) : new SelectList(Enumerable.Empty<object>(), null);
             ViewBag.BillingPeriods = registeredCustomer.SubscriptionInfo.DomainID != 0 && registeredCustomer.SubscriptionInfo.ServiceID != 0 && registeredCustomer.SubscriptionInfo.BillingPeriod != 0 ? new SelectList(db.Services.Find(registeredCustomer.SubscriptionInfo.ServiceID).ServiceBillingPeriods, "DayOfMonth", "DayOfMonth", registeredCustomer.SubscriptionInfo.BillingPeriod) : new SelectList(Enumerable.Empty<object>(), null);
-            ViewBag.GroupList = new MultiSelectList(db.Groups.ToList(), "ID", "Name", registeredCustomer.SubscriptionInfo.GroupIds);
+            ViewBag.GroupList = new MultiSelectList(db.Groups.GetValidGroupsForSubscriptions().ToList(), "ID", "Name", registeredCustomer.SubscriptionInfo.GroupIds);
             ViewBag.AvailableFees = availableFees;
 
             var validSpecialOffers = db.SpecialOffers.FilterActiveSpecialOffers().Select(so => new { Key = so.ID, Value = so.Name }).ToArray();
@@ -293,7 +293,7 @@ namespace RadiusR_Manager.Controllers
             ViewBag.Domains = new SelectList(DomainsCache.GetAllDomains().Select(d => new { Name = d.Name, Value = d.ID }), "Value", "Name", null);
             ViewBag.Services = new SelectList(Enumerable.Empty<object>(), null);
             ViewBag.BillingPeriods = new SelectList(Enumerable.Empty<object>(), null);
-            ViewBag.GroupList = new MultiSelectList(db.Groups.ToList(), "ID", "Name");
+            ViewBag.GroupList = new MultiSelectList(db.Groups.GetValidGroupsForSubscriptions().ToList(), "ID", "Name");
             ViewBag.AvailableFees = db.FeeTypeCosts.Include(f => f.FeeTypeVariants).ToArray().Where(f => f.CanBeInitial).Select(f => new SubscriberFeesAddViewModel()
             {
                 FeeTypeID = f.FeeTypeID,
@@ -462,7 +462,7 @@ namespace RadiusR_Manager.Controllers
             ViewBag.Domains = new SelectList(DomainsCache.GetAllDomains().Select(d => new { Name = d.Name, Value = d.ID }), "Value", "Name", subscription.DomainID != 0 ? subscription.DomainID : (int?)null);
             ViewBag.Services = subscription.DomainID != 0 && subscription.ServiceID != 0 ? new SelectList(db.Domains.Find(subscription.DomainID).Services, "ID", "Name", subscription.ServiceID) : new SelectList(Enumerable.Empty<object>(), null);
             ViewBag.BillingPeriods = subscription.DomainID != 0 && subscription.ServiceID != 0 && subscription.BillingPeriod != 0 ? new SelectList(db.Services.Find(subscription.ServiceID).ServiceBillingPeriods, "DayOfMonth", "DayOfMonth", subscription.BillingPeriod) : new SelectList(Enumerable.Empty<object>(), null);
-            ViewBag.GroupList = new MultiSelectList(db.Groups.ToList(), "ID", "Name", subscription.GroupIds);
+            ViewBag.GroupList = new MultiSelectList(db.Groups.GetValidGroupsForSubscriptions().ToList(), "ID", "Name", subscription.GroupIds);
             ViewBag.AvailableFees = availableFees;
             ViewBag.CustomerName = referenceSubscription.ValidDisplayName;
 

@@ -72,6 +72,10 @@ namespace RadiusR_Manager.Models.ViewModels
         [SettingElement]
         public string CustomerWebsiteRecaptchaServerKey { get; set; }
 
+        [Display(ResourceType = typeof(RadiusR.Localization.AppSettings.Names), Name = "CustomerWebsiteRegistrationGroupID")]
+        [SettingElement]
+        public int? CustomerWebsiteRegistrationGroupID { get; set; }
+
         public TimeSpan? _OnlinePasswordDuration
         {
             get
@@ -150,6 +154,7 @@ namespace RadiusR_Manager.Models.ViewModels
                 CustomerWebsiteUseGoogleRecaptcha = CustomerWebsiteSettings.CustomerWebsiteUseGoogleRecaptcha;
                 CustomerWebsiteRecaptchaClientKey = CustomerWebsiteSettings.CustomerWebsiteRecaptchaClientKey;
                 CustomerWebsiteRecaptchaServerKey = CustomerWebsiteSettings.CustomerWebsiteRecaptchaServerKey;
+                CustomerWebsiteRegistrationGroupID = CustomerWebsiteSettings.CustomerWebsiteRegistrationGroupID;
             }
         }
     }

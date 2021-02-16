@@ -383,6 +383,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="MobilExpressAutoPayment">
           <Key>
@@ -3534,14 +3535,6 @@
           <NavigationProperty Name="FeeTypeCost" Relationship="Self.FK_FeeTypeVariant_FeeTypeCost" FromRole="FeeTypeVariant" ToRole="FeeTypeCost" />
           <NavigationProperty Name="Fees" Relationship="RadiusRModel.FK_Fee_FeeTypeVariant" FromRole="FeeTypeVariant" ToRole="Fee" />
         </EntityType>
-        <EntityType Name="Group">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Subscriptions" Relationship="RadiusRModel.SubscriptionGroup" FromRole="Group" ToRole="Subscription" />
-        </EntityType>
         <EntityType Name="NASNetmap">
           <Key>
             <PropertyRef Name="ID" />
@@ -4001,7 +3994,6 @@
           <EntitySet Name="EBillRegisteredCompanies" EntityType="Self.EBillRegisteredCompany" />
           <EntitySet Name="FeeTypeCosts" EntityType="Self.FeeTypeCost" />
           <EntitySet Name="FeeTypeVariants" EntityType="Self.FeeTypeVariant" />
-          <EntitySet Name="Groups" EntityType="Self.Group" />
           <EntitySet Name="NASNetmaps" EntityType="Self.NASNetmap" />
           <EntitySet Name="NASVerticalIPMaps" EntityType="Self.NASVerticalIPMap" />
           <EntitySet Name="PDFFormItemPlacements" EntityType="Self.PDFFormItemPlacement" />
@@ -4465,10 +4457,6 @@
             <End Role="Subscription" EntitySet="Subscriptions" />
             <End Role="TelekomWorkOrder" EntitySet="TelekomWorkOrders" />
           </AssociationSet>
-          <AssociationSet Name="SubscriptionGroup" Association="RadiusRModel.SubscriptionGroup">
-            <End Role="Group" EntitySet="Groups" />
-            <End Role="Subscription" EntitySet="Subscriptions" />
-          </AssociationSet>
           <EntitySet Name="SupportRequests" EntityType="RadiusRModel.SupportRequest" />
           <AssociationSet Name="FK_SupportRequest_AppUser" Association="RadiusRModel.FK_SupportRequest_AppUser">
             <End Role="AppUser" EntitySet="AppUsers" />
@@ -4581,6 +4569,11 @@
           <AssociationSet Name="FK_PartnerRegisteredSubscription_Subscription" Association="RadiusRModel.FK_PartnerRegisteredSubscription_Subscription">
             <End Role="Subscription" EntitySet="Subscriptions" />
             <End Role="PartnerRegisteredSubscription" EntitySet="PartnerRegisteredSubscriptions" />
+          </AssociationSet>
+          <EntitySet Name="Groups" EntityType="RadiusRModel.Group" />
+          <AssociationSet Name="SubscriptionGroup" Association="RadiusRModel.SubscriptionGroup">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="Subscription" EntitySet="Subscriptions" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
@@ -5921,10 +5914,10 @@
           <NavigationProperty Name="SubscriptionTelekomInfo" Relationship="RadiusRModel.FK_SubscriptionTelekomInfo_Subscription" FromRole="Subscription" ToRole="SubscriptionTelekomInfo" />
           <NavigationProperty Name="SystemLogs" Relationship="RadiusRModel.FK_SystemLog_Subscription" FromRole="Subscription" ToRole="SystemLog" />
           <NavigationProperty Name="TelekomWorkOrders" Relationship="RadiusRModel.FK_TelekomWorkOrder_Subscription" FromRole="Subscription" ToRole="TelekomWorkOrder" />
-          <NavigationProperty Name="Groups" Relationship="RadiusRModel.SubscriptionGroup" FromRole="Subscription" ToRole="Group" />
           <NavigationProperty Name="SupportRequests" Relationship="RadiusRModel.FK_SupportRequest_Subscription" FromRole="Subscription" ToRole="SupportRequest" />
           <NavigationProperty Name="CustomerSetupTasks" Relationship="RadiusRModel.FK_CustomerSetupTask_Subscription" FromRole="Subscription" ToRole="CustomerSetupTask" />
           <NavigationProperty Name="PartnerRegisteredSubscription" Relationship="RadiusRModel.FK_PartnerRegisteredSubscription_Subscription" FromRole="Subscription" ToRole="PartnerRegisteredSubscription" />
+          <NavigationProperty Name="Groups" Relationship="RadiusRModel.SubscriptionGroup" FromRole="Subscription" ToRole="Group" />
         </EntityType>
         <Association Name="FK_Subscription_Address">
           <End Type="RadiusRModel.Address" Role="Address" Multiplicity="1" />
@@ -6261,10 +6254,6 @@
               <PropertyRef Name="SubscriptionID" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
-        <Association Name="SubscriptionGroup">
-          <End Type="RadiusRModel.Group" Role="Group" Multiplicity="*" />
-          <End Type="RadiusRModel.Subscription" Role="Subscription" Multiplicity="*" />
         </Association>
         <EntityType Name="SupportRequest">
           <Key>
@@ -6726,6 +6715,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Subscriptions" Relationship="RadiusRModel.SubscriptionGroup" FromRole="Group" ToRole="Subscription" />
+        </EntityType>
+        <Association Name="SubscriptionGroup">
+          <End Type="RadiusRModel.Group" Role="Group" Multiplicity="*" />
+          <End Type="RadiusRModel.Subscription" Role="Subscription" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6914,14 +6916,6 @@
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="FeeTypeID" ColumnName="FeeTypeID" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Groups">
-            <EntityTypeMapping TypeName="RadiusRModel.Group">
-              <MappingFragment StoreEntitySet="Group">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7802,14 +7796,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="SubscriptionGroup" TypeName="RadiusRModel.SubscriptionGroup" StoreEntitySet="SubscriptionGroup">
-            <EndProperty Name="Subscription">
-              <ScalarProperty Name="ID" ColumnName="SubscriptionID" />
-            </EndProperty>
-            <EndProperty Name="Group">
-              <ScalarProperty Name="ID" ColumnName="GroupID" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="SupportRequests">
             <EntityTypeMapping TypeName="RadiusRModel.SupportRequest">
               <MappingFragment StoreEntitySet="SupportRequest">
@@ -7938,6 +7924,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="RadiusRModel.Group">
+              <MappingFragment StoreEntitySet="Group">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="SubscriptionGroup" TypeName="RadiusRModel.SubscriptionGroup" StoreEntitySet="SubscriptionGroup">
+            <EndProperty Name="Subscription">
+              <ScalarProperty Name="ID" ColumnName="SubscriptionID" />
+            </EndProperty>
+            <EndProperty Name="Group">
+              <ScalarProperty Name="ID" ColumnName="GroupID" />
+            </EndProperty>
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

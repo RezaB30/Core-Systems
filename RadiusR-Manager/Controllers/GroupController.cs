@@ -1,11 +1,14 @@
 ﻿using RadiusR.DB;
 using RadiusR_Manager.Models.RadiusViewModels;
+using RadiusR_Manager.Models.ViewModels.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using RezaB.Web.CustomAttributes;
+using System.Data.Entity;
+using RezaB.Web;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -14,15 +17,27 @@ namespace RadiusR_Manager.Controllers
     {
         RadiusREntities db = new RadiusREntities();
         // GET: Group
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, [Bind(Prefix = "search")] GroupSearchViewModel search)
         {
-            var viewResults = db.Groups.OrderBy(group => group.Name).Select(group => new GroupViewModel()
+            var baseQuery = db.Groups.Include(g => g.Subscriptions).OrderBy(group => group.Name).AsQueryable();
+            if (search != null)
+            {
+                if (!string.IsNullOrWhiteSpace(search.GroupName))
+                {
+                    baseQuery = baseQuery.Where(g => g.Name.Contains(search.GroupName));
+                }
+            }
+            var viewResults = baseQuery.Select(group => new GroupViewModel()
             {
                 ID = group.ID,
                 Name = group.Name,
-                Subscriptions = group.Subscriptions
+                IsActive = group.IsActive,
+                _subscriptionCount = group.Subscriptions.Count(),
+                CanBeChanged = group.ID != CustomerWebsiteSettings.CustomerWebsiteRegistrationGroupID
             }).AsQueryable();
+
             SetupPages(page, ref viewResults);
+            ViewBag.Search = search;
             return View(viewResults.ToList());
         }
 
@@ -42,16 +57,47 @@ namespace RadiusR_Manager.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Groups.Add(new Group()
+                group.Name = group.Name.ToUpper().Trim();
+                if (db.Groups.Any(g=>g.Name.ToUpper() == group.Name))
                 {
-                    Name = group.Name
-                });
+                    ModelState.AddModelError("Name", RadiusR.Localization.Validation.Common.ValueExists);
+                }
+                else
+                {
+                    db.Groups.Add(new Group()
+                    {
+                        Name = group.Name,
+                        IsActive = true
+                    });
 
-                db.SaveChanges();
+                    db.SaveChanges();
 
-                return RedirectToAction("Index", new { errorMessage = 0 });
+                    return RedirectToAction("Index", new { errorMessage = 0 });
+                }
             }
             return View(group);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AuthorizePermission(Permissions = "Modify Groups")]
+        // POST: Group/ToggleActive
+        public ActionResult ToggleActive(int id, string returnUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+
+            var dbGroup = db.Groups.Find(id);
+            if (dbGroup == null || dbGroup.ID == CustomerWebsiteSettings.CustomerWebsiteRegistrationGroupID)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "18", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            dbGroup.IsActive = !dbGroup.IsActive;
+            db.SaveChanges();
+
+            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
         }
 
         [HttpPost]
@@ -61,9 +107,13 @@ namespace RadiusR_Manager.Controllers
         public ActionResult Remove(int id)
         {
             var dbGroup = db.Groups.Find(id);
-            if (dbGroup == null)
+            if (dbGroup == null || dbGroup.ID == CustomerWebsiteSettings.CustomerWebsiteRegistrationGroupID)
             {
                 return RedirectToAction("Index", new { errorMessage = 18 });
+            }
+            if (dbGroup.Subscriptions.Any())
+            {
+                return RedirectToAction("Index", new { errorMessage = 9 });
             }
 
             dbGroup.Subscriptions.Clear();
@@ -94,7 +144,7 @@ namespace RadiusR_Manager.Controllers
 
         [AuthorizePermission(Permissions = "Modify Groups")]
         // POST: Group/Edit
-        public ActionResult Edit([Bind(Include = "ID,Name")]GroupViewModel group)
+        public ActionResult Edit([Bind(Include = "ID,Name")] GroupViewModel group)
         {
             var dbGroup = db.Groups.Find(group.ID);
             if (dbGroup == null)
@@ -104,11 +154,19 @@ namespace RadiusR_Manager.Controllers
 
             if (ModelState.IsValid)
             {
-                dbGroup.Name = group.Name;
+                group.Name = group.Name.ToUpper().Trim();
+                if (db.Groups.Any(g => g.ID != dbGroup.ID && g.Name.ToUpper() == group.Name))
+                {
+                    ModelState.AddModelError("Name", RadiusR.Localization.Validation.Common.ValueExists);
+                }
+                else
+                {
+                    dbGroup.Name = group.Name;
 
-                db.SaveChanges();
+                    db.SaveChanges();
 
-                return RedirectToAction("Index", new { errorMessage = 0 });
+                    return RedirectToAction("Index", new { errorMessage = 0 });
+                }
             }
 
             return View(group);

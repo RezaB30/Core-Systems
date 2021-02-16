@@ -90,6 +90,15 @@ namespace RadiusR.DB
             }
         }
 
+        public static int? CustomerWebsiteRegistrationGroupID
+        {
+            get
+            {
+                var val = DBSetting<RadiusREntities, AppSetting>.Retrieve<int>(MethodBase.GetCurrentMethod().Name.Substring(4));
+                return (val == 0) ? (int?)null : val;
+            }
+        }
+
         #region METHODS
         /// <summary>
         /// Clears settings cache.

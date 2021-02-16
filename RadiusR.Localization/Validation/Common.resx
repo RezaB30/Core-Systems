@@ -300,4 +300,7 @@
   <data name="FileIsTooLarge" xml:space="preserve">
     <value>File is too large.</value>
   </data>
+  <data name="ValueExists" xml:space="preserve">
+    <value>Duplicate values not allowed.</value>
+  </data>
 </root>

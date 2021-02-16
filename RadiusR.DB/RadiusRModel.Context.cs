@@ -45,7 +45,6 @@ namespace RadiusR.DB
         public virtual DbSet<EBillRegisteredCompany> EBillRegisteredCompanies { get; set; }
         public virtual DbSet<FeeTypeCost> FeeTypeCosts { get; set; }
         public virtual DbSet<FeeTypeVariant> FeeTypeVariants { get; set; }
-        public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<NASNetmap> NASNetmaps { get; set; }
         public virtual DbSet<NASVerticalIPMap> NASVerticalIPMaps { get; set; }
         public virtual DbSet<PDFFormItemPlacement> PDFFormItemPlacements { get; set; }
@@ -122,5 +121,6 @@ namespace RadiusR.DB
         public virtual DbSet<PartnerCollection> PartnerCollections { get; set; }
         public virtual DbSet<CustomerSetupTask> CustomerSetupTasks { get; set; }
         public virtual DbSet<PartnerRegisteredSubscription> PartnerRegisteredSubscriptions { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
     }
 }

@@ -311,3 +311,6 @@ v 5.07.08 '2021-02-03'
 v 5.08.00 '2021-02-11'
 - removed commitment and threshold allowance from partner available tariffs.
 - added partner collections, collection creation & payment.
+V 5.08.01 '2021-02-16'
+- added group for customer webstie registrates.
+- added search to groups.

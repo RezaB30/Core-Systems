@@ -185,6 +185,7 @@
     <Compile Include="ViewModels\FileManagerSettingsViewModel.cs" />
     <Compile Include="ViewModels\PartnerAllowanceDetailsViewModel.cs" />
     <Compile Include="ViewModels\PartnerCollectionDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Search\GroupSearchViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestModels\ShareSupportRequestsViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestModels\SupportRequestCreateViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestModels\SupportRequestDetailsViewModel.cs" />

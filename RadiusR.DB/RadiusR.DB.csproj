@@ -252,6 +252,7 @@
     </Compile>
     <Compile Include="QueryExtentions\BillsQuery.cs" />
     <Compile Include="QueryExtentions\ExternalTariffsExtention.cs" />
+    <Compile Include="QueryExtentions\GroupsQuery.cs" />
     <Compile Include="QueryExtentions\PartnerRegisteredSubscriptionQuery.cs" />
     <Compile Include="QueryExtentions\ServicesQuery.cs" />
     <Compile Include="QueryExtentions\SpecialOffersQuery.cs" />

@@ -303,4 +303,7 @@
   <data name="UseGoogleRecaptcha" xml:space="preserve">
     <value>Use Google Recaptcha</value>
   </data>
+  <data name="CustomerWebsiteRegistrationGroupID" xml:space="preserve">
+    <value>Customer Website Registration Group</value>
+  </data>
 </root>

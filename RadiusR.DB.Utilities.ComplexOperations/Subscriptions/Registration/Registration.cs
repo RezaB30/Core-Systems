@@ -228,7 +228,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
             var dbGroups = new List<Group>();
             if (registrationInfo.GroupIds != null && registrationInfo.GroupIds.Any())
             {
-                dbGroups = db.Groups.Where(g => registrationInfo.GroupIds.Contains(g.ID)).ToList();
+                dbGroups = db.Groups.Where(g => g.IsActive && registrationInfo.GroupIds.Contains(g.ID)).ToList();
                 if (dbGroups.Count() != registrationInfo.GroupIds.Count())
                 {
                     // invalid groups
