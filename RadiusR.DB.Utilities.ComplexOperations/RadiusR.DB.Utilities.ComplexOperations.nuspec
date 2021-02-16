@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <title>RadiusR.DB.Utilities.ComplexOperations</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -13,6 +13,7 @@
     <tags>MasterISS Complex Database Operations</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />
 	<dependencies>
+		<dependency id="RadiusR.DB" version="1.2.1"/>
 		<dependency id="RadiusR.DB.TelekomOperations" version="1.0.0"/>
 		<dependency id="RadiusR.SMS" version="1.0.0"/>
 		<dependency id="RadiusR.SystemLogs" version="1.0.2"/>
