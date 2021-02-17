@@ -97,6 +97,15 @@ namespace RadiusR.Localization.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid synchronization options..
+        /// </summary>
+        public static string InvalidSynchronizationOptions {
+            get {
+                return ResourceManager.GetString("InvalidSynchronizationOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Max date range is 60 days..
         /// </summary>
         public static string MaxDateRange60Days {
@@ -129,6 +138,15 @@ namespace RadiusR.Localization.Validation {
         public static string StaticDiscountNotValidForBillBaseDiscounts {
             get {
                 return ResourceManager.GetString("StaticDiscountNotValidForBillBaseDiscounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subscription does not have Telekom info..
+        /// </summary>
+        public static string SubscriptionHasNoTelekomInfo {
+            get {
+                return ResourceManager.GetString("SubscriptionHasNoTelekomInfo", resourceCulture);
             }
         }
         

@@ -131,82 +131,21 @@ namespace RadiusR_Manager.Controllers
             }
         }
 
-        private TTWebServiceException UpdateSubscriberTelekomInfoFromWebService(Subscription subscription, CachedDomain domain, string dslNo)
+        private string GetSynchronizationErrorMessage(RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TelekomSynchronization.TelekomSynchronizationResultCodes errorCode)
         {
-            // Tariff Update
+            switch (errorCode)
             {
-                var serviceClient = new TelekomSubscriberInfoServiceClient(domain.TelekomCredential.XDSLWebServiceUsernameInt, domain.TelekomCredential.XDSLWebServicePassword);
-                var response = serviceClient.GetSubscriberDetailedInfo(dslNo);
-                if (response.InternalException != null)
-                {
-                    return response.InternalException;
-                }
-
-                if (response.Data.PacketCode.HasValue)
-                    subscription.SubscriptionTelekomInfo.PacketCode = response.Data.PacketCode.Value;
-                if (response.Data.TariffCode.HasValue)
-                    subscription.SubscriptionTelekomInfo.TariffCode = response.Data.TariffCode.Value;
-                if (response.Data.DSLType.HasValue)
-                    subscription.SubscriptionTelekomInfo.XDSLType = (short)response.Data.DSLType.Value;
-                if (response.Data.CustomerCode.HasValue)
-                    subscription.SubscriptionTelekomInfo.TTCustomerCode = response.Data.CustomerCode.Value;
-                if (!string.IsNullOrEmpty(response.Data.PSTNNo) && response.Data.PSTNNo != dslNo)
-                    subscription.SubscriptionTelekomInfo.PSTN = response.Data.PSTNNo;
-                else
-                    subscription.SubscriptionTelekomInfo.PSTN = null;
-                if (!string.IsNullOrWhiteSpace(response.Data.SubscriberUsername))
-                {
-                    var newUsername = response.Data.SubscriberUsername + "@" + domain.Name;
-                    if (db.Subscriptions.Any(s => s.Username.ToLower() == newUsername && s.ID != subscription.ID))
-                        return new TTWebServiceException(RadiusR.Localization.Validation.Common.UsernameExists + " (" + newUsername + ")");
-                    subscription.Username = newUsername;
-                }
-
-                // system log
-                db.SystemLogs.Add(SystemLogProcessor.TelekomSync(User.GiveUserId(), subscription.ID, SystemLogInterface.MasterISS, null));
-                // save
-                db.SaveChanges();
-
-                // Password Update
-                {
-                    //// Fiber
-                    //if (response.Data.DSLType.Value == RezaB.TurkTelekom.WebServices.XDSLType.Fiber)
-                    //{
-                    var secondaryResponse = serviceClient.GetFTTXAAAInfo(dslNo);
-                    if (secondaryResponse.InternalException != null)
-                    {
-                        return secondaryResponse.InternalException;
-                    }
-
-                    subscription.RadiusPassword = secondaryResponse.Data.Password;
-                    //}
-                    //// Non-Fiber
-                    //else
-                    //{
-                    //    var secondaryResponse = serviceClient.GetDSLAMPassword(dslNo);
-                    //    if (secondaryResponse.InternalException != null)
-                    //    {
-                    //        return secondaryResponse.InternalException;
-                    //    }
-
-                    //    subscription.RadiusPassword = secondaryResponse.Data;
-                    //}
-
-                    // save
-                    db.SaveChanges();
-                }
+                case RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TelekomSynchronization.TelekomSynchronizationResultCodes.InvalidDomain:
+                    return RadiusR.Localization.Validation.ModelSpecific.InvalidDomain;
+                case RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TelekomSynchronization.TelekomSynchronizationResultCodes.SubscriptionHasNoTelekomInfo:
+                    return RadiusR.Localization.Validation.ModelSpecific.SubscriptionHasNoTelekomInfo;
+                case RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TelekomSynchronization.TelekomSynchronizationResultCodes.SynchronizedUsernameExists:
+                    return RadiusR.Localization.Validation.Common.UsernameExists;
+                case RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TelekomSynchronization.TelekomSynchronizationResultCodes.InvalidOptions:
+                    return RadiusR.Localization.Validation.ModelSpecific.InvalidSynchronizationOptions;
+                default:
+                    return null;
             }
-            // redback update
-            {
-                var serviceClient = new InfrastructurInfoServiceClient(domain.TelekomCredential.XDSLWebServiceUsernameInt, domain.TelekomCredential.XDSLWebServicePassword);
-                var response = serviceClient.GetInfrastructureInfo(dslNo);
-                if (response.InternalException == null)
-                {
-                    subscription.SubscriptionTelekomInfo.RedbackName = response.Data.RedbackName;
-                }
-            }
-
-            return null;
         }
 
         #region Filler Methos

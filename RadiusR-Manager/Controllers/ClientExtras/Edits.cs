@@ -22,6 +22,7 @@ using RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TariffChanges;
 using RadiusR.DB.QueryExtentions;
 using RezaB.Data.Localization;
 using RezaB.Web.Authentication;
+using RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TelekomSynchronization;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -810,10 +811,16 @@ namespace RadiusR_Manager.Controllers
                         return RedirectToAction("Details", new { id = subscription.ID, errorMessage = 9 });
                     }
 
-                    var results = UpdateSubscriberTelekomInfoFromWebService(subscription, domain, dslNoModel.DSLNo);
-                    if (results != null)
+                    var results = db.UpdateSubscriberTelekomInfoFromWebService(new TelekomSynchronizationOptions()
                     {
-                        ViewBag.TelekomError = results.GetShortMessage();
+                        AppUserID = User.GiveUserId(),
+                        LogInterface = SystemLogInterface.MasterISS,
+                        DBSubscription = subscription,
+                        DSLNo = dslNoModel.DSLNo
+                    });
+                    if (results.ResultCode != TelekomSynchronizationResultCodes.Success)
+                    {
+                        ViewBag.TelekomError = results.ResultCode == TelekomSynchronizationResultCodes.TelekomError ? results.TelekomException?.GetShortMessage() : GetSynchronizationErrorMessage(results.ResultCode) ;
                     }
                     else
                     {

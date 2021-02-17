@@ -705,7 +705,7 @@
             <td>
                 @if (User.HasPermission("Change Client Service"))
                 {
-                    using (Html.BeginForm("CancelChangeService", null, new { id = Model.SubscriptionInfo.ArchiveNo },FormMethod.Post, new { @confirm = "enabled" }))
+                    using (Html.BeginForm("CancelChangeService", null, new { id = Model.SubscriptionInfo.ArchiveNo }, FormMethod.Post, new { @confirm = "enabled" }))
                     {
                         @Html.AntiForgeryToken()
                         <input type="submit" value="@RadiusR.Localization.Pages.Common.Cancel" class="link-button iconed-button cancel-button right-aligned" />
@@ -769,7 +769,7 @@
             @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.CancellationDate)
         </td>
         <td></td>
-    </tr>  
+    </tr>
     <tr>
         <td>
             @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo.DaysRemaining)
@@ -834,7 +834,7 @@
         <td>
             @if (User.HasPermission("Modify Clients"))
             {
-                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "EditGroups", new { id = Model.SubscriptionInfo.ArchiveNo}, new { @class = "link-button iconed-button edit-button" })
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "EditGroups", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button edit-button" })
             }
         </td>
     </tr>
@@ -904,6 +904,9 @@
                         @Html.AntiForgeryToken()
                         <input type="submit" value="@RadiusR.Localization.Pages.Common.Synchronize" class="link-button iconed-button reload-button" />
                     }
+                    <div class="text-danger">
+                        @ViewBag.TelekomSyncError
+                    </div>
                 </td>
             </tr>
         }

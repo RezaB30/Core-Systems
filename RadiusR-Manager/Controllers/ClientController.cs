@@ -467,6 +467,7 @@ namespace RadiusR_Manager.Controllers
             }
 
             var customer = new CustomerDetailsViewModel(dbSubscription, db);
+            ViewBag.TelekomSyncError = TempData["tt-sync-error"];
             return View(customer);
         }
 

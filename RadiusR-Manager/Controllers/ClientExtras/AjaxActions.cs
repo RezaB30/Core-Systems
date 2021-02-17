@@ -15,6 +15,7 @@ using RezaB.TurkTelekom.WebServices.InfrastructureInfo;
 using RadiusR.SystemLogs;
 using RezaB.TurkTelekom.WebServices.TTOYS;
 using RezaB.Web.Authentication;
+using RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TelekomSynchronization;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -165,13 +166,21 @@ namespace RadiusR_Manager.Controllers
                 return RedirectToAction("Details", new { id = dbSubscription.ID, errorMessage = 9 });
             }
 
-            var results = UpdateSubscriberTelekomInfoFromWebService(dbSubscription, domain, dbSubscription.SubscriptionTelekomInfo.SubscriptionNo);
-
-            if (results != null)
+            var results = db.UpdateSubscriberTelekomInfoFromWebService(new TelekomSynchronizationOptions()
             {
+                AppUserID = User.GiveUserId(),
+                LogInterface = SystemLogInterface.MasterISS,
+                DBSubscription = dbSubscription,
+                DSLNo = dbSubscription.SubscriptionTelekomInfo.SubscriptionNo
+            });
+
+            if (results.ResultCode != TelekomSynchronizationResultCodes.Success)
+            {
+                TempData["tt-sync-error"] = results.ResultCode == TelekomSynchronizationResultCodes.TelekomError ? results.TelekomException?.GetShortMessage() : GetSynchronizationErrorMessage(results.ResultCode) ;
                 return RedirectToAction("Details", new { id = dbSubscription.ID, errorMessage = 33 });
             }
 
+            db.SaveChanges();
             return RedirectToAction("Details", new { id = dbSubscription.ID, errorMessage = 0 });
         }
 

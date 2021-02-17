@@ -103,6 +103,10 @@
     <Compile Include="Subscriptions\TariffChanges\SubscriptionTariffUtilities.cs" />
     <Compile Include="Subscriptions\TariffChanges\TariffChangeOptions.cs" />
     <Compile Include="Subscriptions\TariffChanges\TariffChangeResult.cs" />
+    <Compile Include="Subscriptions\TelekomSynchronization\TelekomSynchronizationOptions.cs" />
+    <Compile Include="Subscriptions\TelekomSynchronization\TelekomSynchronizationResultCodes.cs" />
+    <Compile Include="Subscriptions\TelekomSynchronization\TelekomSynchronizationResults.cs" />
+    <Compile Include="Subscriptions\TelekomSynchronization\TelekomSynchronizationUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -152,6 +156,7 @@
       <LastGenOutput>ValidationMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

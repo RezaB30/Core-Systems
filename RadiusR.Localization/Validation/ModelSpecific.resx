@@ -129,6 +129,9 @@
   <data name="InvalidSmartQuotaForBillingType" xml:space="preserve">
     <value>Smart quota is only available for invoiced billing type.</value>
   </data>
+  <data name="InvalidSynchronizationOptions" xml:space="preserve">
+    <value>Invalid synchronization options.</value>
+  </data>
   <data name="MaxDateRange60Days" xml:space="preserve">
     <value>Max date range is 60 days.</value>
   </data>
@@ -140,6 +143,9 @@
   </data>
   <data name="StaticDiscountNotValidForBillBaseDiscounts" xml:space="preserve">
     <value>This discount type is not valid for bill based discounts.</value>
+  </data>
+  <data name="SubscriptionHasNoTelekomInfo" xml:space="preserve">
+    <value>Subscription does not have Telekom info.</value>
   </data>
   <data name="SubtractedAmountLessThanTotalCredits" xml:space="preserve">
     <value>Subtracted amount cannot be greater than total of credits.</value>
