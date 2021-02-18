@@ -117,58 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="IDCardValidationFailed" xml:space="preserve">
-    <value>ID card validation failed.</value>
-  </data>
-  <data name="InsufficientDataForCustomerType" xml:space="preserve">
-    <value>Insufficient data for this customer type.</value>
-  </data>
-  <data name="InvalidAddedFees" xml:space="preserve">
-    <value>Invalid added fees.</value>
-  </data>
-  <data name="InvalidBillingPeriod" xml:space="preserve">
-    <value>Invalid billing period.</value>
-  </data>
-  <data name="InvalidDiscountType" xml:space="preserve">
-    <value>Invalid Discount Type.</value>
-  </data>
-  <data name="InvalidDomain" xml:space="preserve">
-    <value>Invalid domain.</value>
-  </data>
-  <data name="InvalidFeeType" xml:space="preserve">
-    <value>Invalid Fee Type.</value>
-  </data>
-  <data name="InvalidGroups" xml:space="preserve">
-    <value>Invalid groups.</value>
-  </data>
-  <data name="InvalidPartner" xml:space="preserve">
-    <value>Invalid partner.</value>
-  </data>
-  <data name="InvalidReferenceNo" xml:space="preserve">
-    <value>Invalid Reference No.</value>
-  </data>
-  <data name="InvalidSpecialOffer" xml:space="preserve">
-    <value>Invalid Special Offer.</value>
-  </data>
-  <data name="InvalidTariff" xml:space="preserve">
-    <value>Invalid tariff.</value>
-  </data>
-  <data name="InvalidTariffForPartner" xml:space="preserve">
-    <value>Invalid tariff for partner.</value>
-  </data>
-  <data name="InvalidTariffTypeForReferralDiscount" xml:space="preserve">
-    <value>Invalid Tariff Type For Referral Discount.</value>
-  </data>
-  <data name="InvalidTelekomTariff" xml:space="preserve">
-    <value>Telekom tariff is invalid. (PacketCode: {0}, TariffCode: {1})</value>
-  </data>
-  <data name="InvalidTransferringSubscription" xml:space="preserve">
-    <value>Invalid Transferring Subscription.</value>
-  </data>
-  <data name="TelekomInfoNotValidForDomain" xml:space="preserve">
-    <value>Telekom info is not valid for this domain.</value>
-  </data>
-  <data name="TelekomSyncError" xml:space="preserve">
-    <value>Could not syncronize with Telekom. ({0})</value>
+  <data name="TransferCancellationReason" xml:space="preserve">
+    <value>Transferred to {0} subscription no.</value>
   </data>
 </root>

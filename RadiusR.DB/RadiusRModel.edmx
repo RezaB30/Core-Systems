@@ -837,6 +837,7 @@
           <Property Name="DomainID" Type="int" Nullable="false" />
           <Property Name="ReferenceNo" Type="nvarchar" MaxLength="6" Nullable="false" />
           <Property Name="LastTariffChangeDate" Type="datetime" />
+          <Property Name="RegistrationType" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="SubscriptionCancellation">
           <Key>
@@ -947,6 +948,15 @@
           <Property Name="PacketCode" Type="int" Nullable="false" />
           <Property Name="TariffCode" Type="int" Nullable="false" />
           <Property Name="IsPaperWorkNeeded" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubscriptionTransferHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="From" Type="bigint" Nullable="false" />
+          <Property Name="To" Type="bigint" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
         </EntityType>
         <EntityType Name="SupportGroup">
           <Key>
@@ -2422,6 +2432,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SubscriptionTransferHistory_Subscription_From">
+          <End Role="Subscription" Type="Self.Subscription" Multiplicity="1" />
+          <End Role="SubscriptionTransferHistory" Type="Self.SubscriptionTransferHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscription">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SubscriptionTransferHistory">
+              <PropertyRef Name="From" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubscriptionTransferHistory_Subscription_To">
+          <End Role="Subscription" Type="Self.Subscription" Multiplicity="1" />
+          <End Role="SubscriptionTransferHistory" Type="Self.SubscriptionTransferHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscription">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SubscriptionTransferHistory">
+              <PropertyRef Name="To" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SupportGroup_AppUser">
           <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
           <End Role="SupportGroup" Type="Self.SupportGroup" Multiplicity="*" />
@@ -2780,6 +2814,7 @@
           <EntitySet Name="SubscriptionSupportRequest" EntityType="Self.SubscriptionSupportRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubscriptionTariffHistory" EntityType="Self.SubscriptionTariffHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubscriptionTelekomInfo" EntityType="Self.SubscriptionTelekomInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubscriptionTransferHistory" EntityType="Self.SubscriptionTransferHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupportGroup" EntityType="Self.SupportGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupportGroupRequestType" EntityType="Self.SupportGroupRequestType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupportGroupUser" EntityType="Self.SupportGroupUser" Schema="dbo" store:Type="Tables" />
@@ -3227,6 +3262,14 @@
           <AssociationSet Name="FK_SubscriptionTelekomInfo_Subscription" Association="Self.FK_SubscriptionTelekomInfo_Subscription">
             <End Role="Subscription" EntitySet="Subscription" />
             <End Role="SubscriptionTelekomInfo" EntitySet="SubscriptionTelekomInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscriptionTransferHistory_Subscription_From" Association="Self.FK_SubscriptionTransferHistory_Subscription_From">
+            <End Role="Subscription" EntitySet="Subscription" />
+            <End Role="SubscriptionTransferHistory" EntitySet="SubscriptionTransferHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscriptionTransferHistory_Subscription_To" Association="Self.FK_SubscriptionTransferHistory_Subscription_To">
+            <End Role="Subscription" EntitySet="Subscription" />
+            <End Role="SubscriptionTransferHistory" EntitySet="SubscriptionTransferHistory" />
           </AssociationSet>
           <AssociationSet Name="FK_SupportGroup_AppUser" Association="Self.FK_SupportGroup_AppUser">
             <End Role="AppUser" EntitySet="AppUser" />
@@ -4575,6 +4618,15 @@
             <End Role="Group" EntitySet="Groups" />
             <End Role="Subscription" EntitySet="Subscriptions" />
           </AssociationSet>
+          <EntitySet Name="SubscriptionTransferHistories" EntityType="RadiusRModel.SubscriptionTransferHistory" />
+          <AssociationSet Name="FK_SubscriptionTransferHistory_Subscription_From" Association="RadiusRModel.FK_SubscriptionTransferHistory_Subscription_From">
+            <End Role="Subscription" EntitySet="Subscriptions" />
+            <End Role="SubscriptionTransferHistory" EntitySet="SubscriptionTransferHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscriptionTransferHistory_Subscription_To" Association="RadiusRModel.FK_SubscriptionTransferHistory_Subscription_To">
+            <End Role="Subscription" EntitySet="Subscriptions" />
+            <End Role="SubscriptionTransferHistory" EntitySet="SubscriptionTransferHistories" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
           <Key>
@@ -5918,6 +5970,9 @@
           <NavigationProperty Name="CustomerSetupTasks" Relationship="RadiusRModel.FK_CustomerSetupTask_Subscription" FromRole="Subscription" ToRole="CustomerSetupTask" />
           <NavigationProperty Name="PartnerRegisteredSubscription" Relationship="RadiusRModel.FK_PartnerRegisteredSubscription_Subscription" FromRole="Subscription" ToRole="PartnerRegisteredSubscription" />
           <NavigationProperty Name="Groups" Relationship="RadiusRModel.SubscriptionGroup" FromRole="Subscription" ToRole="Group" />
+          <Property Name="RegistrationType" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="SubscriptionTransferredFromHistories" Relationship="RadiusRModel.FK_SubscriptionTransferHistory_Subscription_From" FromRole="Subscription" ToRole="SubscriptionTransferHistory" />
+          <NavigationProperty Name="SubscriptionTransferredToHistories" Relationship="RadiusRModel.FK_SubscriptionTransferHistory_Subscription_To" FromRole="Subscription" ToRole="SubscriptionTransferHistory" />
         </EntityType>
         <Association Name="FK_Subscription_Address">
           <End Type="RadiusRModel.Address" Role="Address" Multiplicity="1" />
@@ -6727,6 +6782,41 @@
         <Association Name="SubscriptionGroup">
           <End Type="RadiusRModel.Group" Role="Group" Multiplicity="*" />
           <End Type="RadiusRModel.Subscription" Role="Subscription" Multiplicity="*" />
+        </Association>
+        <EntityType Name="SubscriptionTransferHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="From" Type="Int64" Nullable="false" />
+          <Property Name="To" Type="Int64" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TransferrerSubscription" Relationship="RadiusRModel.FK_SubscriptionTransferHistory_Subscription_From" FromRole="SubscriptionTransferHistory" ToRole="Subscription" />
+          <NavigationProperty Name="TransferredSubscription" Relationship="RadiusRModel.FK_SubscriptionTransferHistory_Subscription_To" FromRole="SubscriptionTransferHistory" ToRole="Subscription" />
+        </EntityType>
+        <Association Name="FK_SubscriptionTransferHistory_Subscription_From">
+          <End Type="RadiusRModel.Subscription" Role="Subscription" Multiplicity="1" />
+          <End Type="RadiusRModel.SubscriptionTransferHistory" Role="SubscriptionTransferHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscription">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SubscriptionTransferHistory">
+              <PropertyRef Name="From" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubscriptionTransferHistory_Subscription_To">
+          <End Type="RadiusRModel.Subscription" Role="Subscription" Multiplicity="1" />
+          <End Type="RadiusRModel.SubscriptionTransferHistory" Role="SubscriptionTransferHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscription">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SubscriptionTransferHistory">
+              <PropertyRef Name="To" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -7772,6 +7862,7 @@
           <EntitySetMapping Name="Subscriptions">
             <EntityTypeMapping TypeName="RadiusRModel.Subscription">
               <MappingFragment StoreEntitySet="Subscription">
+                <ScalarProperty Name="RegistrationType" ColumnName="RegistrationType" />
                 <ScalarProperty Name="LastTariffChangeDate" ColumnName="LastTariffChangeDate" />
                 <ScalarProperty Name="ReferenceNo" ColumnName="ReferenceNo" />
                 <ScalarProperty Name="DomainID" ColumnName="DomainID" />
@@ -7941,6 +8032,16 @@
               <ScalarProperty Name="ID" ColumnName="GroupID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="SubscriptionTransferHistories">
+            <EntityTypeMapping TypeName="RadiusRModel.SubscriptionTransferHistory">
+              <MappingFragment StoreEntitySet="SubscriptionTransferHistory">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="To" ColumnName="To" />
+                <ScalarProperty Name="From" ColumnName="From" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -475,6 +475,15 @@ namespace RadiusR.Localization.Lists {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subscription Transfer Application.
+        /// </summary>
+        public static string SubscriptionTransferApplied {
+            get {
+                return ResourceManager.GetString("SubscriptionTransferApplied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Telekom Sync.
         /// </summary>
         public static string TelekomSync {

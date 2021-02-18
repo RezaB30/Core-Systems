@@ -73,7 +73,7 @@ namespace RadiusR.DB
         {
             get
             {
-                return State == (short)Enums.CustomerState.Cancelled;
+                return State == (short)Enums.CustomerState.Cancelled || State == (short)Enums.CustomerState.Dismissed;
             }
         }
 

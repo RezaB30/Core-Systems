@@ -24,5 +24,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
         public bool ForceCancellation { get; set; }
 
         internal bool IsDismissed { get; set; }
+
+        public bool DoNotCancelTelekomService { get; set; }
     }
 }

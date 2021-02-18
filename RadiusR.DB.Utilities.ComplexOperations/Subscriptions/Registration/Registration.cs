@@ -173,6 +173,11 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
             if (validationResults != null)
                 return validationResults;
             // validate logics
+            if (registrationInfo.RegistrationType == Enums.SubscriptionRegistrationType.Transfer && !registrationInfo.TransferringSubsciptionID.HasValue)
+            {
+                // transferring subscription id required
+                return new[] { new { Key = "TransferringSubsciptionID", ErrorMessage = string.Format(Resources.ValidationMessages.Required, "TransferringSubsciptionID") } }.ToLookup(item => item.Key, item => item.ErrorMessage);
+            }
             var selectedDomain = DomainsCache.DomainsCache.GetDomainByID(registrationInfo.DomainID.Value);
             if (selectedDomain == null)
             {
@@ -204,7 +209,16 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                 if (results != null)
                     return results;
             }
-
+            // validate transfer
+            if (registrationInfo.RegistrationType == Enums.SubscriptionRegistrationType.Transfer)
+            {
+                var transferringSubscription = db.Subscriptions.Find(registrationInfo.TransferringSubsciptionID);
+                if (transferringSubscription == null || !transferringSubscription.IsActive || transferringSubscription.SubscriptionTransferredFromHistories.Any(sth => !sth.Date.HasValue) || transferringSubscription.DomainID != registrationInfo.DomainID)
+                {
+                    // invalid transferring subscription
+                    return new[] { new { Key = "TransferringSubsciptionID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidTransferringSubscription } }.ToLookup(item => item.Key, item => item.ErrorMessage);
+                }
+            }
             // validate partner info
             if (registrationInfo.RegisteringPartner != null)
             {
@@ -301,7 +315,15 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                         }
                     }
                 }
-                : null
+                : null,
+                SubscriptionTransferredToHistories = registrationInfo.RegistrationType == Enums.SubscriptionRegistrationType.Transfer ? new List<SubscriptionTransferHistory>()
+                {
+                    new SubscriptionTransferHistory()
+                    {
+                        Date = null,
+                        From = registrationInfo.TransferringSubsciptionID.Value
+                    }
+                } : null
             };
             // telekom domain specific
             if (selectedDomain.TelekomCredential != null)

@@ -609,6 +609,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="SubscriptionRegistrationType.tr-tr.Designer.cs">
+      <DependentUpon>SubscriptionRegistrationType.tr-tr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="SubscriptionRegistrationType.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SubscriptionRegistrationType.resx</DependentUpon>
+    </Compile>
     <Compile Include="SupportRequestIssuerType.Designer.cs">
       <DependentUpon>SupportRequestIssuerType.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1214,6 +1224,14 @@
     <EmbeddedResource Include="SMSType.tr-tr.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SMSType.tr-tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubscriptionRegistrationType.tr-tr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SubscriptionRegistrationType.tr-tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubscriptionRegistrationType.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SubscriptionRegistrationType.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="SupportRequestIssuerType.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

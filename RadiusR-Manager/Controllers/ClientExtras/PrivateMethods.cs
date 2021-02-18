@@ -148,7 +148,7 @@ namespace RadiusR_Manager.Controllers
             }
         }
 
-        #region Filler Methos
+        #region Filler Methods
 
         public CustomerRegistrationInfo CreateCustomerInfoForRegistration(CustomerRegistrationViewModel customerModel)
         {

@@ -258,4 +258,7 @@
   <data name="CloseWorkOrder" xml:space="preserve">
     <value>İş Emri Kapatma</value>
   </data>
+  <data name="SubscriptionTransferApplied" xml:space="preserve">
+    <value>Abonelik Devri Uygulanma</value>
+  </data>
 </root>

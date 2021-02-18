@@ -127,7 +127,7 @@
     <value>Changed address.</value>
   </data>
   <data name="AddSubscription" xml:space="preserve">
-    <value>Subscription {0} added.</value>
+    <value>Subscription {0} added as  {1}.</value>
   </data>
   <data name="AddWorkOrder" xml:space="preserve">
     <value>Added work order: {0}</value>
@@ -257,5 +257,8 @@
   </data>
   <data name="CloseWorkOrder" xml:space="preserve">
     <value>Closed work order: {0}</value>
+  </data>
+  <data name="SubscriptionTransferApplied" xml:space="preserve">
+    <value>Transferred subscription {0} to {1}.</value>
   </data>
 </root>

@@ -258,4 +258,7 @@
   <data name="CloseWorkOrder" xml:space="preserve">
     <value>Close Work Order</value>
   </data>
+  <data name="SubscriptionTransferApplied" xml:space="preserve">
+    <value>Subscription Transfer Application</value>
+  </data>
 </root>

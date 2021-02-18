@@ -38,6 +38,8 @@ namespace RadiusR.DB
             this.SupportRequests = new HashSet<SupportRequest>();
             this.CustomerSetupTasks = new HashSet<CustomerSetupTask>();
             this.Groups = new HashSet<Group>();
+            this.SubscriptionTransferredFromHistories = new HashSet<SubscriptionTransferHistory>();
+            this.SubscriptionTransferredToHistories = new HashSet<SubscriptionTransferHistory>();
         }
     
         public long ID { get; set; }
@@ -61,6 +63,7 @@ namespace RadiusR.DB
         public int DomainID { get; set; }
         public string ReferenceNo { get; set; }
         public Nullable<System.DateTime> LastTariffChangeDate { get; set; }
+        public short RegistrationType { get; set; }
     
         public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -115,5 +118,9 @@ namespace RadiusR.DB
         public virtual PartnerRegisteredSubscription PartnerRegisteredSubscription { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Group> Groups { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubscriptionTransferHistory> SubscriptionTransferredFromHistories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubscriptionTransferHistory> SubscriptionTransferredToHistories { get; set; }
     }
 }

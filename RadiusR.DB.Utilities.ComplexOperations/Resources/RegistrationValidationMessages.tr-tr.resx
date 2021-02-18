@@ -162,6 +162,9 @@
   <data name="InvalidTelekomTariff" xml:space="preserve">
     <value>Telekom tarifesi geçersiz. (PaketKodu: {0}, TarifeKodu: {1})</value>
   </data>
+  <data name="InvalidTransferringSubscription" xml:space="preserve">
+    <value>Geçersiz devreden Aboneliği.</value>
+  </data>
   <data name="TelekomInfoNotValidForDomain" xml:space="preserve">
     <value>Telekom bilgileri bu domain için geçerli değil.</value>
   </data>

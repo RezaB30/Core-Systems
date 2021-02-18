@@ -43,11 +43,53 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                 TelekomWorkOrder addedTelekomWorkOrder = null;
                 if (domain.TelekomCredential != null && subscription.SubscriptionTelekomInfo != null && string.IsNullOrWhiteSpace(subscription.SubscriptionTelekomInfo.SubscriptionNo))
                 {
-                    // Telekom registration
-                    var results = TelekomRegistration(subscription.Customer, subscription, domain, registerOptions.AppUserID);
-                    if (results != null)
-                        throw new Exception(results.GetShortMessage());
-                    addedTelekomWorkOrder = subscription.TelekomWorkOrders.OrderByDescending(two => two.CreationDate).FirstOrDefault();
+                    // check for transfer
+                    if (subscription.RegistrationType == (short)Enums.SubscriptionRegistrationType.Transfer)
+                    {
+                        var pendingTransfer = subscription.SubscriptionTransferredFromHistories.FirstOrDefault(sth => !sth.Date.HasValue);
+                        if (pendingTransfer == null)
+                        {
+                            throw new Exception("No transferring subscription found!");
+                        }
+                        var transferringSubscription = pendingTransfer.TransferrerSubscription;
+                        if (!transferringSubscription.IsActive)
+                        {
+                            throw new Exception("Transferring subscription is not active!");
+                        }
+                        if (transferringSubscription.SubscriptionTelekomInfo == null || string.IsNullOrWhiteSpace(transferringSubscription.SubscriptionTelekomInfo.SubscriptionNo))
+                        {
+                            throw new Exception("Transferring subscription has no valid telekom info!");
+                        }
+                        if (transferringSubscription.DomainID != subscription.DomainID)
+                        {
+                            throw new Exception("Transferring subscription domain does not match!");
+                        }
+                        // transfer subscription
+                        CopyTelekomInfo(transferringSubscription.SubscriptionTelekomInfo, subscription.SubscriptionTelekomInfo);
+                        // cancel transferring subscription
+                        ChangeSubscriptionState(transferringSubscription.ID, new CancelSubscriptionOptions()
+                        {
+                            AppUserID = registerOptions.AppUserID,
+                            LogInterface = registerOptions.LogInterface,
+                            LogInterfaceUsername = registerOptions.LogInterfaceUsername,
+                            ScheduleSMSes = registerOptions.ScheduleSMSes,
+                            CancellationReason = CancellationReason.Transfer,
+                            CancellationReasonDescription = string.Format(Resources.StateChanges.TransferCancellationReason, subscription.SubscriberNo),
+                            DoNotCancelTelekomService = true,
+                            ForceCancellation = true
+                        });
+                        // transfer system log
+                        db.SystemLogs.Add(SystemLogProcessor.SubscriptionTransferApplied(registerOptions.AppUserID, subscriptionId, transferringSubscription.ID, subscriptionId, registerOptions.LogInterface, registerOptions.LogInterfaceUsername));
+                        db.SystemLogs.Add(SystemLogProcessor.SubscriptionTransferApplied(registerOptions.AppUserID, transferringSubscription.ID, transferringSubscription.ID, subscriptionId, registerOptions.LogInterface, registerOptions.LogInterfaceUsername));
+                    }
+                    else
+                    {
+                        // Telekom registration
+                        var results = TelekomRegistration(subscription.Customer, subscription, domain, registerOptions.AppUserID);
+                        if (results != null)
+                            throw new Exception(results.GetShortMessage());
+                        addedTelekomWorkOrder = subscription.TelekomWorkOrders.OrderByDescending(two => two.CreationDate).FirstOrDefault();
+                    }
                 }
 
                 // set state history
@@ -376,29 +418,33 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                 db.SystemLogs.Add(SystemLogProcessor.ChangeClientState(cancelOptions.AppUserID, subscriptionId, cancelOptions.LogInterface, cancelOptions.LogInterfaceUsername, (CustomerState)billingReadySubscription.Subscription.State, cancelOptions.NewState));
                 // change state
                 billingReadySubscription.Subscription.State = (short)cancelOptions.NewState;
-                // TT cancellation request if available
-                if (billingReadySubscription.Subscription.SubscriptionTelekomInfo != null && !string.IsNullOrWhiteSpace(billingReadySubscription.Subscription.SubscriptionTelekomInfo.SubscriptionNo))
+                // if should cancel telekom service
+                if (!cancelOptions.DoNotCancelTelekomService)
                 {
-                    var domain = DomainsCache.DomainsCache.GetDomainByID(billingReadySubscription.Subscription.DomainID);
-                    if (domain != null && domain.TelekomCredential != null)
+                    // TT cancellation request if available
+                    if (billingReadySubscription.Subscription.SubscriptionTelekomInfo != null && !string.IsNullOrWhiteSpace(billingReadySubscription.Subscription.SubscriptionTelekomInfo.SubscriptionNo))
                     {
-                        var client = new RezaB.TurkTelekom.WebServices.TTApplication.TTApplicationServiceClient(domain.TelekomCredential.XDSLWebServiceUsernameInt, domain.TelekomCredential.XDSLWebServicePassword, billingReadySubscription.Subscription.SubscriptionTelekomInfo.TTCustomerCode);
-                        var response = client.CancelCustomer(billingReadySubscription.Subscription.SubscriptionTelekomInfo.SubscriptionNo);
-                        if (response.InternalException != null && !cancelOptions.ForceCancellation)
+                        var domain = DomainsCache.DomainsCache.GetDomainByID(billingReadySubscription.Subscription.DomainID);
+                        if (domain != null && domain.TelekomCredential != null)
                         {
-                            throw response.InternalException;
+                            var client = new RezaB.TurkTelekom.WebServices.TTApplication.TTApplicationServiceClient(domain.TelekomCredential.XDSLWebServiceUsernameInt, domain.TelekomCredential.XDSLWebServicePassword, billingReadySubscription.Subscription.SubscriptionTelekomInfo.TTCustomerCode);
+                            var response = client.CancelCustomer(billingReadySubscription.Subscription.SubscriptionTelekomInfo.SubscriptionNo);
+                            if (response.InternalException != null && !cancelOptions.ForceCancellation)
+                            {
+                                throw response.InternalException;
+                            }
                         }
-                    }
 
-                    // close telekom work order
-                    {
-                        var openWorkOrders = billingReadySubscription.Subscription.TelekomWorkOrders.Where(two => two.IsOpen && two.OperationTypeID == (short)RadiusR.DB.Enums.TelekomOperations.TelekomOperationType.Registration).ToArray();
-                        foreach (var workOrder in openWorkOrders)
+                        // close telekom work order
                         {
-                            workOrder.IsOpen = false;
-                            workOrder.ClosingDate = DateTime.Now;
-                            // add system log
-                            db.SystemLogs.Add(SystemLogProcessor.CloseTelekomWorkOrder(cancelOptions.AppUserID, subscriptionId, cancelOptions.LogInterface, cancelOptions.LogInterfaceUsername, workOrder.ID, (Enums.TelekomOperations.TelekomOperationType)workOrder.OperationTypeID, (Enums.TelekomOperations.TelekomOperationSubType)workOrder.OperationSubType));
+                            var openWorkOrders = billingReadySubscription.Subscription.TelekomWorkOrders.Where(two => two.IsOpen && two.OperationTypeID == (short)RadiusR.DB.Enums.TelekomOperations.TelekomOperationType.Registration).ToArray();
+                            foreach (var workOrder in openWorkOrders)
+                            {
+                                workOrder.IsOpen = false;
+                                workOrder.ClosingDate = DateTime.Now;
+                                // add system log
+                                db.SystemLogs.Add(SystemLogProcessor.CloseTelekomWorkOrder(cancelOptions.AppUserID, subscriptionId, cancelOptions.LogInterface, cancelOptions.LogInterfaceUsername, workOrder.ID, (Enums.TelekomOperations.TelekomOperationType)workOrder.OperationTypeID, (Enums.TelekomOperations.TelekomOperationSubType)workOrder.OperationSubType));
+                            }
                         }
                     }
                 }
@@ -417,6 +463,12 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                 if (billingReadySubscription.Subscription.PartnerRegisteredSubscription != null && !billingReadySubscription.Subscription.PartnerRegisteredSubscription.HasFullBills)
                 {
                     billingReadySubscription.Subscription.PartnerRegisteredSubscription.AllowanceState = (short)PartnerAllowanceState.Cancelled;
+                }
+                // cancel pending transfers
+                var pendingTransferTos = billingReadySubscription.Subscription.SubscriptionTransferredToHistories.Where(sth => !sth.Date.HasValue).ToArray();
+                if (pendingTransferTos.Any())
+                {
+                    db.SubscriptionTransferHistories.RemoveRange(pendingTransferTos);
                 }
                 
                 // save
@@ -524,6 +576,18 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
             }
 
             return null;
+        }
+
+        private static void CopyTelekomInfo(SubscriptionTelekomInfo from, SubscriptionTelekomInfo to)
+        {
+            to.SubscriptionNo = from.SubscriptionNo;
+            to.PSTN = from.PSTN;
+            to.RedbackName = from.RedbackName;
+            to.PacketCode = from.PacketCode;
+            to.TariffCode = from.TariffCode;
+            to.TTCustomerCode = from.TTCustomerCode;
+            to.XDSLType = from.XDSLType;
+            to.IsPaperWorkNeeded = from.IsPaperWorkNeeded;
         }
     }
 }

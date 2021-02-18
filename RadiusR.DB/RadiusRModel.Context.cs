@@ -122,5 +122,6 @@ namespace RadiusR.DB
         public virtual DbSet<CustomerSetupTask> CustomerSetupTasks { get; set; }
         public virtual DbSet<PartnerRegisteredSubscription> PartnerRegisteredSubscriptions { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<SubscriptionTransferHistory> SubscriptionTransferHistories { get; set; }
     }
 }

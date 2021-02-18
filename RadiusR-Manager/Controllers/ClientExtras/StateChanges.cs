@@ -147,7 +147,8 @@ namespace RadiusR_Manager.Controllers
                         LogInterface = SystemLogInterface.MasterISS,
                         CancellationReason = (CancellationReason)cancelOptions.ReasonID,
                         CancellationReasonDescription = cancelOptions.ReasonDescription,
-                        ForceCancellation = force && User.HasPermission("Force Cancellation")
+                        ForceCancellation = force && User.HasPermission("Force Cancellation"),
+                        DoNotCancelTelekomService = false
                     });
 
                     UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);

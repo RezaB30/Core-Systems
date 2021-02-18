@@ -184,6 +184,11 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
         public class SubscriptionRegistrationInfo : ValidatableBase
         {
             [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
+            public Enums.SubscriptionRegistrationType? RegistrationType { get; set; }
+
+            public long? TransferringSubsciptionID { get; set; }
+
+            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public int? DomainID { get; set; }
 
             [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]

@@ -115,7 +115,7 @@ namespace RadiusR.SystemLogs.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Subscription {0} added..
+        ///   Looks up a localized string similar to Subscription {0} added as  {1}..
         /// </summary>
         public static string AddSubscription {
             get {
@@ -471,6 +471,15 @@ namespace RadiusR.SystemLogs.Localization {
         public static string StepUpSubscriptionSpeedProfile {
             get {
                 return ResourceManager.GetString("StepUpSubscriptionSpeedProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transferred subscription {0} to {1}..
+        /// </summary>
+        public static string SubscriptionTransferApplied {
+            get {
+                return ResourceManager.GetString("SubscriptionTransferApplied", resourceCulture);
             }
         }
         

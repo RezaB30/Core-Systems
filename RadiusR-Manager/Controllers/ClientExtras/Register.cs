@@ -125,7 +125,7 @@ namespace RadiusR_Manager.Controllers
 
                         // logs
                         var dbSubscription = dbCustomer.Subscriptions.OrderByDescending(s => s.MembershipDate).FirstOrDefault();
-                        db.SystemLogs.Add(SystemLogProcessor.AddSubscription(User.GiveUserId(), dbSubscription.ID, dbCustomer.ID, SystemLogInterface.MasterISS, null, dbSubscription.SubscriberNo));
+                        db.SystemLogs.Add(SystemLogProcessor.AddSubscription(User.GiveUserId(), dbSubscription.ID, dbCustomer.ID, (SubscriptionRegistrationType)dbSubscription.RegistrationType, SystemLogInterface.MasterISS, null, dbSubscription.SubscriberNo));
                         db.SaveChanges();
 
                         return RedirectToAction("Index", "Client", new { errorMessage = 0 });
@@ -370,7 +370,7 @@ namespace RadiusR_Manager.Controllers
                     // save db
                     db.SaveChanges();
                     // logs
-                    db.SystemLogs.Add(SystemLogProcessor.AddSubscription(User.GiveUserId(), dbSubscription.ID, referenceSubscription.CustomerID, SystemLogInterface.MasterISS, null, dbSubscription.SubscriberNo));
+                    db.SystemLogs.Add(SystemLogProcessor.AddSubscription(User.GiveUserId(), dbSubscription.ID, referenceSubscription.CustomerID, (SubscriptionRegistrationType)dbSubscription.RegistrationType, SystemLogInterface.MasterISS, null, dbSubscription.SubscriberNo));
                     db.SaveChanges();
 
                     return RedirectToAction("Index", "Client", new { errorMessage = 0 });

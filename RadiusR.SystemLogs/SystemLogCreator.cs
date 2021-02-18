@@ -214,7 +214,7 @@ namespace RadiusR.SystemLogs
             };
         }
 
-        public static SystemLog AddSubscription(int? userID, long subscriptionID, long customerID, SystemLogInterface interfaceType, string interfaceUsername, string subscriptionNo)
+        public static SystemLog AddSubscription(int? userID, long subscriptionID, long customerID, SubscriptionRegistrationType registrationType, SystemLogInterface interfaceType, string interfaceUsername, string subscriptionNo)
         {
             return new SystemLog()
             {
@@ -225,7 +225,11 @@ namespace RadiusR.SystemLogs
                 AppUserID = userID,
                 SubscriptionID = subscriptionID,
                 CustomerID = customerID,
-                Parameters = HttpUtility.HtmlEncode("<a href='" + InsertLink("Details", "Client", new { id = subscriptionID.ToString() }) + "'>" + subscriptionNo + "</a>")
+                Parameters = HttpUtility.HtmlEncode(string.Join(ParameterSeparator, new string[]
+                {
+                    "<a href='" + InsertLink("Details", "Client", new { id = subscriptionID.ToString() }) + "'>" + subscriptionNo + "</a>",
+                    "<span class='important'>" + InsertResource(typeof(RadiusR.Localization.Lists.SubscriptionRegistrationType), registrationType.ToString()) + "</span>"
+                }))
             };
         }
 
@@ -726,6 +730,23 @@ namespace RadiusR.SystemLogs
                 AppUserID = userID,
                 SubscriptionID = subscriptionID,
                 Parameters = HttpUtility.HtmlEncode("<a href='" + InsertLink("Details", "CustomerSetupService", new { id = customerSetupTaskID.ToString() }) + "'>" + customerSetupTaskID.ToString() + "</a>")
+            };
+        }
+
+        public static SystemLog SubscriptionTransferApplied(int? userID, long subscriptionID, long fromSubscriptionID, long toSubscriptionID, SystemLogInterface interfaceType, string interfaceUsername)
+        {
+            return new SystemLog()
+            {
+                Date = DateTime.Now,
+                LogType = (int)SystemLogTypes.SubscriptionTransferApplied,
+                Interface = (short)interfaceType,
+                InterfaceUsername = interfaceUsername,
+                AppUserID = userID,
+                SubscriptionID = subscriptionID,
+                Parameters = HttpUtility.HtmlEncode(string.Join(ParameterSeparator, new[] {
+                    "<a href='" + InsertLinkWithDictionary("Details", "Subscription", new Dictionary<string,string>() { { "id", fromSubscriptionID.ToString() } }) + "'>" + fromSubscriptionID + "</a>",
+                    "<a href='" + InsertLinkWithDictionary("Details", "Subscription", new Dictionary<string,string>() { { "id", toSubscriptionID.ToString() } }) + "'>" + toSubscriptionID + "</a>",
+                }))
             };
         }
 

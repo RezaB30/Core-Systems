@@ -78,6 +78,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RegistrationValidationMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\StateChanges.tr-tr.Designer.cs">
+      <DependentUpon>StateChanges.tr-tr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\StateChanges.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StateChanges.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\ValidationMessages.tr-tr.Designer.cs">
       <DependentUpon>ValidationMessages.tr-tr.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -146,6 +156,14 @@
     <EmbeddedResource Include="Resources\RegistrationValidationMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>RegistrationValidationMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\StateChanges.tr-tr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StateChanges.tr-tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\StateChanges.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StateChanges.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ValidationMessages.tr-tr.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
