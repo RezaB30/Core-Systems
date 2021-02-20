@@ -82,6 +82,6 @@
                 }
             });
         }
-        setupCheckbuttons(currentWrapper);
+        SetupCheckbuttons(currentWrapper);
     });
 }

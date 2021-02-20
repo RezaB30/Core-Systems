@@ -97,6 +97,15 @@ namespace RadiusR.Localization.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid subscription no..
+        /// </summary>
+        public static string InvalidSubscriptionNo {
+            get {
+                return ResourceManager.GetString("InvalidSubscriptionNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid synchronization options..
         /// </summary>
         public static string InvalidSynchronizationOptions {
@@ -147,6 +156,15 @@ namespace RadiusR.Localization.Validation {
         public static string SubscriptionHasNoTelekomInfo {
             get {
                 return ResourceManager.GetString("SubscriptionHasNoTelekomInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subscription has pending transfer..
+        /// </summary>
+        public static string SubscriptionHasPendingTransfer {
+            get {
+                return ResourceManager.GetString("SubscriptionHasPendingTransfer", resourceCulture);
             }
         }
         

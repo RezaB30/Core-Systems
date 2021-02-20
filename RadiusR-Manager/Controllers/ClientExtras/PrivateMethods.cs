@@ -250,7 +250,9 @@ namespace RadiusR_Manager.Controllers
                 SetupAddress = CreateAddressForRegistration(subscriptionModel.SetupAddress),
                 StaticIP = subscriptionModel.StaticIP,
                 ServiceID = subscriptionModel.ServiceID,
-                Username = subscriptionModel.Username
+                Username = subscriptionModel.Username,
+                RegistrationType = (SubscriptionRegistrationType?)subscriptionModel.RegistrationType,
+                TransitionXDSLNo = (SubscriptionRegistrationType?)subscriptionModel.RegistrationType == SubscriptionRegistrationType.Transition ? subscriptionModel.TransitionXDSLNo : null
             };
 
             if (subscriptionModel.TelekomDetailedInfo != null)

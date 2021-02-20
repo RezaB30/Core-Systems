@@ -104,6 +104,30 @@ namespace RadiusR_Manager.Controllers
         {
             prefix = string.IsNullOrEmpty(prefix) ? string.Empty : prefix + ".";
 
+            // non-transition registration type
+            if (model.RegistrationType != (short)RadiusR.DB.Enums.SubscriptionRegistrationType.Transition)
+            {
+                model.TransitionXDSLNo = null;
+                ModelState.Remove(prefix + "TransitionXDSLNo");
+            }
+            // non-transfer registration type
+            if (model.RegistrationType != (short)RadiusR.DB.Enums.SubscriptionRegistrationType.Transfer)
+            {
+                model.TransferringSubscriptionID = null;
+                model.TransferringSubscriptionNo = null;
+                ModelState.Remove(prefix + "TransferringSubscriptionNo");
+            }
+            // non-new registeration registration type
+            if (model.RegistrationType != (short)RadiusR.DB.Enums.SubscriptionRegistrationType.NewRegistration)
+            {
+                model.TelekomDetailedInfo = null;
+                var toRemoveKeys = ModelState.Keys.Where(k => k.StartsWith(prefix + "TelekomDetailedInfo")).ToArray();
+                foreach (var key in toRemoveKeys)
+                {
+                    ModelState.Remove(key);
+                }
+            }
+
             if (model.DomainID > 0)
             {
                 // TT Packet
@@ -143,16 +167,6 @@ namespace RadiusR_Manager.Controllers
                     ModelState.Remove(key);
                 }
             }
-            //if (model.ReferralDiscount != null)
-            //    FixRecurringDiscountModelState(prefix + "ReferralDiscount.", model.ReferralDiscount);
-            //if (string.IsNullOrEmpty(model.ReferenceNo))
-            //{
-            //    var toRemoveKeys = ModelState.Keys.Where(k => k.StartsWith(prefix + "ReferralDiscount")).ToArray();
-            //    foreach (var key in toRemoveKeys)
-            //    {
-            //        ModelState.Remove(key);
-            //    }
-            //}
         }
 
         private void FixRecurringDiscountModelState(string prefix, RecurringDiscountViewModel model)

@@ -188,6 +188,9 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
 
             public long? TransferringSubsciptionID { get; set; }
 
+            [RegularExpression(@"^[0-9]{10}$", ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "RegexValidation")]
+            public string TransitionXDSLNo { get; set; }
+
             [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public int? DomainID { get; set; }
 

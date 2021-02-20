@@ -8,6 +8,43 @@
 <table class="input-table" style="width: 100%;">
     <tr>
         <td>
+            @Html.LabelFor(model => model.RegistrationType)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.RegistrationType)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(model => model.RegistrationType)
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    <tr class="registration-type-transfer" style="display: none;">
+        <td>
+            @Html.LabelFor(model => model.TransferringSubscriptionID)
+        </td>
+        <td>
+            @Html.HiddenFor(model => model.TransferringSubscriptionID)
+            @Html.EditorFor(model => model.TransferringSubscriptionNo, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+            <div id="transferring-subscription-check" class="check-name-invalid"></div>
+        </td>
+        <td colspan="2">
+            <input type="button" value="" class="link-button iconed-button accept-button transferring-subscription-check" style="vertical-align: middle;" />
+            &nbsp;
+            <div id="transferring-subscription-validation-message-container" class="text-danger" style="display: inline-block; vertical-align: middle;">
+            </div>
+            <div id="transferring-subscription-found-name" style="display: inline-block; vertical-align: middle; color: seagreen;"></div>
+        </td>
+    </tr>
+    <tr class="registration-type-transfer" style="display: none;">
+        <td colspan="4">
+            @Html.ValidationMessageFor(model => model.TransferringSubscriptionID)
+        </td>
+    </tr>
+    <tr>
+        <td>
             @Html.LabelFor(model => model.Username)
         </td>
         <td>
@@ -41,6 +78,7 @@
         <td id="tariff-container">
             @Html.Select(model => model.ServiceID, (SelectList)ViewBag.Services, RadiusR.Localization.Pages.Common.Choose)
             <div id="tariff-check" class="check-name-invalid"></div>
+            <input type="hidden" value="@Url.Action("GetDomainServices", "Service")" class="fetch-url"/>
         </td>
     </tr>
     <tr>
@@ -58,6 +96,7 @@
         <td id="billing-period-container">
             @Html.Select(model => model.BillingPeriod, (SelectList)ViewBag.BillingPeriods, RadiusR.Localization.Pages.Common.Choose)
             <div id="billing-period-check" class="check-name-invalid"></div>
+            <input type="hidden" value="@Url.Action("GetServiceBillingPeriods", "Service")" class="fetch-url" />
         </td>
         <td colspan="2"></td>
     </tr>
@@ -86,7 +125,30 @@
     <tr>
         <td colspan="4" class="input-table-row-group-separator"></td>
     </tr>
+    <tbody id="transition-telekom-info" style="display: none;">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.TransitionXDSLNo)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.TransitionXDSLNo, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.TransitionXDSLNo)
+            </td>
+            <td colspan="2"></td>
+        </tr>
+    </tbody>
     <tbody id="telekom-info" style="display: none;">
+        <tr>
+            <td colspan="4">
+                <input id="valid-registration-types" type="hidden" value="@((short)RadiusR.DB.Enums.SubscriptionRegistrationType.NewRegistration)"/>
+                <input id="domain-credentials-check-url" type="hidden" value="@Url.Action("HasDomainCredentials", "Client")"/>
+            </td>
+        </tr>
         <tr>
             <td class="centered" colspan="4">
                 <input id="infrastructure-check-button" type="button" value="@RadiusR.Localization.Pages.Common.InfrastructureCheck" class="link-button iconed-button validate-button" />

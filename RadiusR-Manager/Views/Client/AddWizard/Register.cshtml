@@ -116,15 +116,16 @@
         });
     </script>
     @Scripts.Render("~/bundles/views/customer-register.js")
-    <script>
+<script>
         CustomerViewSetupTCKValidation('@Url.Action("CheckCustomerIdentity", "Client")');
         CustomerViewSetupCustomerTypeToggle('@((short)RadiusR.DB.Enums.CustomerType.Individual)');
         CustomerViewSetupAddressToggles();
         SubscriptionViewSetupUsernameTypeToggle();
-        SubscriptionViewSetupDomainChanges('@Url.Action("GetDomainServices", "Service")', '@Url.Action("GetServiceBillingPeriods", "Service")', '@Url.Action("HasDomainCredentials", "Client")', '@Url.Action("GetTelekomPacketSelector", "TTServices")', 'SubscriptionInfo.TelekomDetailedInfo.TelekomTariffInfo', '@RadiusR.Localization.Pages.Common.LoadingError');
+        SubscriptionViewSetupDomainChanges('@Url.Action("GetTelekomPacketSelector", "TTServices")', 'SubscriptionInfo.TelekomDetailedInfo.TelekomTariffInfo');
         SubscriptionViewSetupInfrastructureCheck('@Url.Action("GetAvailability", "TTServices")');
         SubscriptionViewSetupTelekomInfoModeToggle();
         SetupRecurringDiscountEditor('#referral-discount-editor',@((short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountType.Static), @((short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountType.Percentage), @((short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountApplicationType.FeeBased), @((short)RadiusR.DB.Enums.RecurringDiscount.RecurringDiscountApplicationType.BillBased));
         SubscriptionViewSetupReferralDiscount();
-    </script>
+        SubscriptionViewSetupRegistrationType('@Url.Action("TransferringSubscriptionValidation")', @((short)RadiusR.DB.Enums.SubscriptionRegistrationType.NewRegistration),@((short)RadiusR.DB.Enums.SubscriptionRegistrationType.Transition),@((short)RadiusR.DB.Enums.SubscriptionRegistrationType.Transfer));
+</script>
 }

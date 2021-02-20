@@ -129,6 +129,9 @@
   <data name="InvalidSmartQuotaForBillingType" xml:space="preserve">
     <value>Akıllı kota yalnızca faturalı faturalandırma tipi için kullanılabilir.</value>
   </data>
+  <data name="InvalidSubscriptionNo" xml:space="preserve">
+    <value>Geçersiz abone no.</value>
+  </data>
   <data name="InvalidSynchronizationOptions" xml:space="preserve">
     <value>Geçersiz senkronizasyon seçenekleri.</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="SubscriptionHasNoTelekomInfo" xml:space="preserve">
     <value>Aboneliğin Telekom bilgisi yoktur.</value>
+  </data>
+  <data name="SubscriptionHasPendingTransfer" xml:space="preserve">
+    <value>Abonenin bekleyen devrimi var.</value>
   </data>
   <data name="SubtractedAmountLessThanTotalCredits" xml:space="preserve">
     <value>Çıkartılan tutar, toplam krediden fazla olamaz.</value>

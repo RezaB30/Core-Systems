@@ -129,6 +129,9 @@
   <data name="InvalidSmartQuotaForBillingType" xml:space="preserve">
     <value>Smart quota is only available for invoiced billing type.</value>
   </data>
+  <data name="InvalidSubscriptionNo" xml:space="preserve">
+    <value>Invalid subscription no.</value>
+  </data>
   <data name="InvalidSynchronizationOptions" xml:space="preserve">
     <value>Invalid synchronization options.</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="SubscriptionHasNoTelekomInfo" xml:space="preserve">
     <value>Subscription does not have Telekom info.</value>
+  </data>
+  <data name="SubscriptionHasPendingTransfer" xml:space="preserve">
+    <value>Subscription has pending transfer.</value>
   </data>
   <data name="SubtractedAmountLessThanTotalCredits" xml:space="preserve">
     <value>Subtracted amount cannot be greater than total of credits.</value>

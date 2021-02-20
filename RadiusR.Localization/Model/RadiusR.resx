@@ -1554,4 +1554,13 @@
   <data name="Payer" xml:space="preserve">
     <value>Payer</value>
   </data>
+  <data name="RegistrationType" xml:space="preserve">
+    <value>Registration Type</value>
+  </data>
+  <data name="TransferringSubscription" xml:space="preserve">
+    <value>Transferring Subscription</value>
+  </data>
+  <data name="TransitionXDSLNo" xml:space="preserve">
+    <value>Transition XDSL No</value>
+  </data>
 </root>

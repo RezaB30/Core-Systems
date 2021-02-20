@@ -168,6 +168,9 @@
   <data name="TelekomInfoNotValidForDomain" xml:space="preserve">
     <value>Telekom bilgileri bu domain için geçerli değil.</value>
   </data>
+  <data name="TelekomInfoNotValidForRegistrationType" xml:space="preserve">
+    <value>Telekom bilgisi bu kayıt türü için geçerli değildir.</value>
+  </data>
   <data name="TelekomSyncError" xml:space="preserve">
     <value>Telekom ile senkronize edilemedi. ({0})</value>
   </data>

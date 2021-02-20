@@ -168,6 +168,16 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
 
         public static ILookup<string, string> RegisterSubscriptionForExistingCustomer(this RadiusREntities db, CustomerRegistrationInfo.SubscriptionRegistrationInfo registrationInfo, Customer referenceCustomer)
         {
+            // prevent unnecessary inputs based on registration type
+            if (registrationInfo.RegistrationType == Enums.SubscriptionRegistrationType.Transfer || registrationInfo.RegistrationType == Enums.SubscriptionRegistrationType.Transition)
+            {
+                if (registrationInfo.TelekomDetailedInfo != null)
+                {
+                    // telekom info not valid for this domain
+                    return new[] { new { Key = "TelekomDetailedInfo", ErrorMessage = Resources.RegistrationValidationMessages.TelekomInfoNotValidForRegistrationType } }.ToLookup(item => item.Key, item => item.ErrorMessage);
+                }
+            }
+            
             // validate inputs
             var validationResults = registrationInfo.Validate();
             if (validationResults != null)
@@ -200,6 +210,12 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                 // telekom info not valid for this domain
                 return new[] { new { Key = "TelekomDetailedInfo", ErrorMessage = Resources.RegistrationValidationMessages.TelekomInfoNotValidForDomain } }.ToLookup(item => item.Key, item => item.ErrorMessage);
             }
+            // prevent wrong registration types for non-telekom domains
+            if ((registrationInfo.RegistrationType == Enums.SubscriptionRegistrationType.Transfer || registrationInfo.RegistrationType == Enums.SubscriptionRegistrationType.Transition) && selectedDomain.TelekomCredential == null)
+            {
+                // invalid registration type for non-telekom domain
+                return new[] { new { Key = "DomainID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidDomain } }.ToLookup(item => item.Key, item => item.ErrorMessage);
+            }
             // referall discount ligics
             Subscription referrerSubscription = null;
             SpecialOffer specialOffer = null;
@@ -212,6 +228,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
             // validate transfer
             if (registrationInfo.RegistrationType == Enums.SubscriptionRegistrationType.Transfer)
             {
+                registrationInfo.TelekomDetailedInfo = null;
                 var transferringSubscription = db.Subscriptions.Find(registrationInfo.TransferringSubsciptionID);
                 if (transferringSubscription == null || !transferringSubscription.IsActive || transferringSubscription.SubscriptionTransferredFromHistories.Any(sth => !sth.Date.HasValue) || transferringSubscription.DomainID != registrationInfo.DomainID)
                 {

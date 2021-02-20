@@ -1554,4 +1554,13 @@
   <data name="Payer" xml:space="preserve">
     <value>Ödeyen</value>
   </data>
+  <data name="RegistrationType" xml:space="preserve">
+    <value>Başvuru Tipi</value>
+  </data>
+  <data name="TransferringSubscription" xml:space="preserve">
+    <value>Devreden Aboneliği</value>
+  </data>
+  <data name="TransitionXDSLNo" xml:space="preserve">
+    <value>Geçiş XDSL No</value>
+  </data>
 </root>

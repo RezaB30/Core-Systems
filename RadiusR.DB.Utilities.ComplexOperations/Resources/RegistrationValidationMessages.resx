@@ -168,6 +168,9 @@
   <data name="TelekomInfoNotValidForDomain" xml:space="preserve">
     <value>Telekom info is not valid for this domain.</value>
   </data>
+  <data name="TelekomInfoNotValidForRegistrationType" xml:space="preserve">
+    <value>Telekom info is not valid for this registration type.</value>
+  </data>
   <data name="TelekomSyncError" xml:space="preserve">
     <value>Could not syncronize with Telekom. ({0})</value>
   </data>

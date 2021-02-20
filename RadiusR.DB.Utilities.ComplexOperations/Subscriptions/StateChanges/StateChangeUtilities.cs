@@ -37,7 +37,11 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                 // set subscription state
                 var oldState = subscription.State;
                 subscription.State = (short)registerOptions.NewState;
-
+                // check transition has xdsl no
+                if (subscription.RegistrationType == (short)Enums.SubscriptionRegistrationType.Transition && string.IsNullOrWhiteSpace(subscription.SubscriptionTelekomInfo?.SubscriptionNo))
+                {
+                    throw new Exception("Transition subscription does not have XDSL no!");
+                }
                 // if needs Telekom registration
                 var domain = DomainsCache.DomainsCache.GetDomainByID(subscription.DomainID);
                 TelekomWorkOrder addedTelekomWorkOrder = null;
@@ -66,6 +70,9 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                         }
                         // transfer subscription
                         CopyTelekomInfo(transferringSubscription.SubscriptionTelekomInfo, subscription.SubscriptionTelekomInfo);
+                        // swap login info
+                        subscription.Username = transferringSubscription.Username;
+                        subscription.RadiusPassword = transferringSubscription.RadiusPassword;
                         // cancel transferring subscription
                         ChangeSubscriptionState(transferringSubscription.ID, new CancelSubscriptionOptions()
                         {
@@ -470,7 +477,8 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                 {
                     db.SubscriptionTransferHistories.RemoveRange(pendingTransferTos);
                 }
-                
+                // change username to cancelled
+                billingReadySubscription.Subscription.Username += "(c)";
                 // save
                 db.SaveChanges();
             }

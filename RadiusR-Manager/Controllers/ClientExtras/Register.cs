@@ -52,7 +52,7 @@ namespace RadiusR_Manager.Controllers
             var validSpecialOffers = db.SpecialOffers.FilterActiveSpecialOffers().Select(so => new { Key = so.ID, Value = so.Name }).ToArray();
             ViewBag.SpecialOfferList = new SelectList(validSpecialOffers, "Key", "Value", (validSpecialOffers.Count() == 1) ? validSpecialOffers.FirstOrDefault().Key : (int?)null);
 
-            return View(viewName: "AddWizard/Register", model: new CustomerRegistrationViewModel());
+            return View(viewName: "AddWizard/Register", model: new CustomerRegistrationViewModel() { SubscriptionInfo = new CustomerSubscriptionViewModel() { RegistrationType = (short)SubscriptionRegistrationType.NewRegistration } });
         }
 
         [AuthorizePermission(Permissions = "Modify Clients")]
@@ -311,7 +311,7 @@ namespace RadiusR_Manager.Controllers
             ViewBag.SpecialOfferList = new SelectList(validSpecialOffers, "Key", "Value", (validSpecialOffers.Count() == 1) ? validSpecialOffers.FirstOrDefault().Key : (int?)null);
 
             ViewBag.CustomerName = referenceSubscription.ValidDisplayName;
-            return View(viewName: "AddWizard/AddSubscription", model: new CustomerSubscriptionViewModel());
+            return View(viewName: "AddWizard/AddSubscription", model: new CustomerSubscriptionViewModel() { RegistrationType = (short)SubscriptionRegistrationType.NewRegistration });
         }
 
         [AuthorizePermission(Permissions = "Modify Clients")]
@@ -608,6 +608,44 @@ namespace RadiusR_Manager.Controllers
             }
 
             return View(viewName: "AddWizard/SendTelekomRegistration", model: TTPacket);
+        }
+
+        [HttpPost]
+        [AuthorizePermission(Permissions = "Modify Clients")]
+        [AjaxCall]
+        // POST: Client/TransferringSubscriptionValidation
+        public ActionResult TransferringSubscriptionValidation(string transferringSubscriptionNo)
+        {
+            var foundSub = db.Subscriptions.FirstOrDefault(s => s.SubscriberNo == transferringSubscriptionNo);
+            if (foundSub == null || !foundSub.IsActive)
+            {
+                return Json(new
+                {
+                    IsValid = false,
+                    ValidationMessage = RadiusR.Localization.Validation.ModelSpecific.InvalidSubscriptionNo
+                });
+            }
+            if (foundSub.SubscriptionTransferredFromHistories.Any(sth => !sth.Date.HasValue) || foundSub.SubscriptionTransferredToHistories.Any(sth => !sth.Date.HasValue))
+            {
+                return Json(new
+                {
+                    IsValid = false,
+                    ValidationMessage = RadiusR.Localization.Validation.ModelSpecific.SubscriptionHasPendingTransfer
+                });
+            }
+
+            return Json(new
+            {
+                IsValid = true,
+                SubId = foundSub.ID,
+                SubName = foundSub.ValidDisplayName,
+                BBK = foundSub.Address.ApartmentID,
+                PostalCode = foundSub.Address.PostalCode,
+                Floor = foundSub.Address.Floor,
+                DomainID = foundSub.DomainID,
+                TariffID = foundSub.ServiceID,
+                BillingPeriod = foundSub.PaymentDay
+            });
         }
     }
 }

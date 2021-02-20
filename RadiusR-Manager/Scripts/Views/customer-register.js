@@ -85,8 +85,100 @@ function SubscriptionViewSetupUsernameTypeToggle() {
     }
 }
 
+//  -------------- domain changes functions -------------------------
+function updateTariffList(selectedTariffValue, selectedBillingPeriod) {
+    var domainInput = $('#domain-container').find('div.select-list-wrapper').find('input[type="hidden"]');
+    var tariffWrapper = $('#tariff-container').find('div.select-list-wrapper');
+    var tariffInput = tariffWrapper.find('input[type="hidden"]');
+    var billingPeriodWrapper = $('#billing-period-container').find('div.select-list-wrapper');
+    var billingPeriodInput = billingPeriodWrapper.find('input[type="hidden"]');
+    var billingPeriodPresetValue = billingPeriodInput.val();
+    var fetchUrl = $('#tariff-container input.fetch-url').val();
+
+    $('#tariff-check').attr('class', '').addClass('check-name-loading');
+    if (domainInput.val() != '') {
+        FillSelectListFromUrl(tariffWrapper, fetchUrl, { id: domainInput.val() }, function (status) {
+            if (status = 'success') {
+                $('#tariff-check').attr('class', '').addClass('check-name-valid');
+                updateBillingPeriodList(selectedBillingPeriod);
+            }
+        }, selectedTariffValue);
+    }
+    else {
+        ClearSelectListItems(tariffWrapper);
+        $('#tariff-check').attr('class', '').addClass('check-name-invalid');
+    }
+}
+
+function updateBillingPeriodList(selectedBillingPeriod) {
+    var domainInput = $('#domain-container').find('div.select-list-wrapper').find('input[type="hidden"]');
+    var tariffWrapper = $('#tariff-container').find('div.select-list-wrapper');
+    var tariffInput = tariffWrapper.find('input[type="hidden"]');
+    var billingPeriodWrapper = $('#billing-period-container').find('div.select-list-wrapper');
+    var billingPeriodInput = billingPeriodWrapper.find('input[type="hidden"]');
+    var billingPeriodPresetValue = billingPeriodInput.val();
+    var fetchUrl = $('#billing-period-container input.fetch-url').val();
+
+    $('#billing-period-check').attr('class', '').addClass('check-name-loading');
+    if (tariffInput.val() != '') {
+        FillSelectListFromUrl(billingPeriodWrapper, fetchUrl, { id: tariffInput.val() }, function (status, items) {
+            if (status = 'success') {
+                $('#billing-period-check').attr('class', '').addClass('check-name-valid');
+                if (items != null) {
+                    if (items.length == 0) {
+                        billingPeriodWrapper.hide();
+                    }
+                    else {
+                        billingPeriodWrapper.fadeIn(200);
+                    }
+                }
+            }
+        }, selectedBillingPeriod);
+    }
+    else {
+        ClearSelectListItems(billingPeriodWrapper);
+        $('#billing-period-check').attr('class', '').addClass('check-name-invalid');
+    }
+}
+
+function updateUIForCredentials() {
+    $('#telekom-info').hide();
+    $('#domain-credentials-error').hide();
+    $('#infrastructure-check-results').html('');
+    var validRegTypes = $('#valid-registration-types').val().split(',');
+    var domainInput = $('#domain-container').find('div.select-list-wrapper').find('input[type="hidden"]');
+    var registrationTypeInput = $('input[name$=RegistrationType]');
+    var checkDomainCredentialsUrl = $('#domain-credentials-check-url').val();
+
+    if (domainInput.val() != '' && $.inArray(registrationTypeInput.val(), validRegTypes) != -1) {
+        $.ajax(checkDomainCredentialsUrl, {
+            data: { id: domainInput.val() },
+            method: 'POST',
+            complete: function (data, status) {
+                if (status == 'success') {
+                    if (data.responseJSON.FoundCredentials) {
+                        $('#telekom-info').show();
+                    }
+                }
+                else {
+                    $('#domain-credentials-error').show();
+                }
+            }
+        })
+    }
+}
+// --------------------------------------------------------------------------------------
+// set customer tariff programatically
+function SetTariffProgramatically(domainId, tariffId, billingPeriod) {
+    var domainInputWrapper = $('#domain-container').find('div.select-list-wrapper');
+    var domainInput = domainInputWrapper.find('input[type="hidden"]');
+    domainInput.off('click', updateTariffList);
+    selectOption(domainId, domainInputWrapper);
+    domainInput.on('click', updateTariffList);
+    updateTariffList(tariffId, billingPeriod);
+}
 // domain changes
-function SubscriptionViewSetupDomainChanges(domainTariffsUrl, billingPeriodsUrl, checkDomainCredentialsUrl, packetListForDomainUrl, packetListInputPrefix, loadingErrorText) {
+function SubscriptionViewSetupDomainChanges(packetListForDomainUrl, packetListInputPrefix) {
     var domainInput = $('#domain-container').find('div.select-list-wrapper').find('input[type="hidden"]');
     var tariffWrapper = $('#tariff-container').find('div.select-list-wrapper');
     var tariffInput = tariffWrapper.find('input[type="hidden"]');
@@ -94,76 +186,73 @@ function SubscriptionViewSetupDomainChanges(domainTariffsUrl, billingPeriodsUrl,
     var billingPeriodInput = billingPeriodWrapper.find('input[type="hidden"]');
     var billingPeriodPresetValue = billingPeriodInput.val();
     // domain -> tariff -> billing period
-    domainInput.change(function () {
-        updateTariffList();
-    });
+    domainInput.change(updateTariffList);
     tariffInput.change(function () {
         updateBillingPeriodList();
     });
-    var updateTariffList = function (selectedTariffValue, selectedBillingPeriod) {
-        $('#tariff-check').attr('class', '').addClass('check-name-loading');
-        if (domainInput.val() != '') {
-            FillSelectListFromUrl(tariffWrapper, domainTariffsUrl, { id: domainInput.val() }, function (status) {
-                if (status = 'success') {
-                    $('#tariff-check').attr('class', '').addClass('check-name-valid');
-                    updateBillingPeriodList(selectedBillingPeriod);
-                }
-            }, selectedTariffValue);
-        }
-        else {
-            ClearSelectListItems(tariffWrapper);
-            $('#tariff-check').attr('class', '').addClass('check-name-invalid');
-        }
-    };
-    var updateBillingPeriodList = function (selectedBillingPeriod) {
-        $('#billing-period-check').attr('class', '').addClass('check-name-loading');
-        if (tariffInput.val() != '') {
-            FillSelectListFromUrl(billingPeriodWrapper, billingPeriodsUrl, { id: tariffInput.val() }, function (status, items) {
-                if (status = 'success') {
-                    $('#billing-period-check').attr('class', '').addClass('check-name-valid');
-                    if (items != null) {
-                        if (items.length == 0) {
-                            billingPeriodWrapper.hide();
-                        }
-                        else {
-                            billingPeriodWrapper.fadeIn(200);
-                        }
-                    }
-                }
-            }, selectedBillingPeriod);
-        }
-        else {
-            ClearSelectListItems(billingPeriodWrapper);
-            $('#billing-period-check').attr('class', '').addClass('check-name-invalid');
-        }
-    };
+    //var updateTariffList = function (selectedTariffValue, selectedBillingPeriod) {
+    //    $('#tariff-check').attr('class', '').addClass('check-name-loading');
+    //    if (domainInput.val() != '') {
+    //        FillSelectListFromUrl(tariffWrapper, domainTariffsUrl, { id: domainInput.val() }, function (status) {
+    //            if (status = 'success') {
+    //                $('#tariff-check').attr('class', '').addClass('check-name-valid');
+    //                updateBillingPeriodList(selectedBillingPeriod);
+    //            }
+    //        }, selectedTariffValue);
+    //    }
+    //    else {
+    //        ClearSelectListItems(tariffWrapper);
+    //        $('#tariff-check').attr('class', '').addClass('check-name-invalid');
+    //    }
+    //};
+    //var updateBillingPeriodList = function (selectedBillingPeriod) {
+    //    $('#billing-period-check').attr('class', '').addClass('check-name-loading');
+    //    if (tariffInput.val() != '') {
+    //        FillSelectListFromUrl(billingPeriodWrapper, billingPeriodsUrl, { id: tariffInput.val() }, function (status, items) {
+    //            if (status = 'success') {
+    //                $('#billing-period-check').attr('class', '').addClass('check-name-valid');
+    //                if (items != null) {
+    //                    if (items.length == 0) {
+    //                        billingPeriodWrapper.hide();
+    //                    }
+    //                    else {
+    //                        billingPeriodWrapper.fadeIn(200);
+    //                    }
+    //                }
+    //            }
+    //        }, selectedBillingPeriod);
+    //    }
+    //    else {
+    //        ClearSelectListItems(billingPeriodWrapper);
+    //        $('#billing-period-check').attr('class', '').addClass('check-name-invalid');
+    //    }
+    //};
     updateTariffList(tariffInput.val(), billingPeriodPresetValue);
 
     // domain -> tt-credentials
-    domainInput.change(function () {
-        updateUIForCredentials();
-    });
-    var updateUIForCredentials = function () {
-        $('#telekom-info').hide();
-        $('#domain-credentials-error').hide();
-        $('#infrastructure-check-results').html('');
-        if (domainInput.val() != '') {
-            $.ajax(checkDomainCredentialsUrl, {
-                data: { id: domainInput.val() },
-                method: 'POST',
-                complete: function (data, status) {
-                    if (status == 'success') {
-                        if (data.responseJSON.FoundCredentials) {
-                            $('#telekom-info').show();
-                        }
-                    }
-                    else {
-                        $('#domain-credentials-error').show();
-                    }
-                }
-            })
-        }
-    };
+    domainInput.change(updateUIForCredentials);
+    //var updateUIForCredentials = function () {
+    //    $('#telekom-info').hide();
+    //    $('#domain-credentials-error').hide();
+    //    $('#infrastructure-check-results').html('');
+    //    var validRegTypes = $('#valid-registration-types').val().split(',');
+    //    if (domainInput.val() != '' && $.inArray(registrationTypeInput.val(), validRegTypes) != -1) {
+    //        $.ajax(checkDomainCredentialsUrl, {
+    //            data: { id: domainInput.val() },
+    //            method: 'POST',
+    //            complete: function (data, status) {
+    //                if (status == 'success') {
+    //                    if (data.responseJSON.FoundCredentials) {
+    //                        $('#telekom-info').show();
+    //                    }
+    //                }
+    //                else {
+    //                    $('#domain-credentials-error').show();
+    //                }
+    //            }
+    //        })
+    //    }
+    //};
     updateUIForCredentials();
 
     // domain -> packet selection
@@ -253,7 +342,7 @@ function SubscriptionViewSetupDomainChanges(domainTariffsUrl, billingPeriodsUrl,
                     }
                 });
             }
-            setupCheckbuttons('#packet-selection-container');
+            SetupCheckbuttons('#packet-selection-container');
         });
         loader.Load(packetListForDomainUrl, { domainId: domainInput.val(), prefix: packetListInputPrefix }, 'POST');
     };
@@ -292,4 +381,94 @@ function SubscriptionViewSetupReferralDiscount() {
         }
     });
     $('#reference-no-input-container').find('input[name]').trigger('input');
+}
+
+// registration type select
+function SubscriptionViewSetupRegistrationType(validationUrl, newRegisterId, transitionId, transferId) {
+    var transferringSubscriberDisplayInput = $('input[name$=TransferringSubscriptionNo]');
+    var transferringSubscriberValueInput = $('input[name$=TransferringSubscriptionID]');
+    var validationMark = $('#transferring-subscription-check');
+    var checkButton = $('input.transferring-subscription-check');
+    var validationContainer = $('#transferring-subscription-validation-message-container');
+    var foundNameContainer = $('#transferring-subscription-found-name');
+    var setupAddressBBKInput = $('#setup-address input.bbk-input');
+    var setupAddressBBKFillButton = $('#setup-address input.bbk-fetch-button');
+    var setupAddressPostalCodeInput = $('#setup-address input[name$=".PostalCode"]');
+    var setupAddressFloorInput = $('#setup-address input[name$=".Floor"]');
+    var domainInput = $('#domain-container').find('div.select-list-wrapper').find('input[type="hidden"]');
+
+    $('input[name$=RegistrationType]').change(function () {
+        var regTypeInput = $(this);
+        var currentValue = parseInt(regTypeInput.val());
+
+        if (currentValue == transferId) {
+            $('tr.registration-type-transfer').show();
+        }
+        else {
+            $('tr.registration-type-transfer').hide();
+        }
+        if (currentValue == transitionId) {
+            $('#transition-telekom-info').show();
+        }
+        else {
+            $('#transition-telekom-info').hide();
+        }
+
+        updateUIForCredentials();
+    });
+
+    $('input[name$=RegistrationType]').trigger('change');
+
+    checkButton.click(function () {
+        if (transferringSubscriberDisplayInput.val().trim().length > 0) {
+            checkButton.hide();
+            validationMark.removeClass();
+            validationMark.addClass('check-name-loading');
+
+            $.ajax({
+                url: validationUrl,
+                data: {
+                    transferringSubscriptionNo: transferringSubscriberDisplayInput.val()
+                },
+                method: 'POST',
+                complete: function (data, status) {
+                    if (status == 'success') {
+                        var validationResponse = data.responseJSON;
+                        if (validationResponse.IsValid) {
+                            validationMark.removeClass();
+                            validationMark.addClass('check-name-valid');
+                            validationContainer.text('');
+                            foundNameContainer.text(validationResponse.SubName);
+                            transferringSubscriberValueInput.val(validationResponse.SubId);
+                            setupAddressBBKInput.val(validationResponse.BBK);
+                            setupAddressBBKFillButton.trigger('click');
+                            setupAddressPostalCodeInput.val(validationResponse.PostalCode);
+                            setupAddressFloorInput.val(validationResponse.Floor);
+                            SetTariffProgramatically(validationResponse.DomainID, validationResponse.TariffID, validationResponse.BillingPeriod);
+                        }
+                        else {
+                            validationMark.removeClass();
+                            validationMark.addClass('check-name-invalid');
+                            validationContainer.text(validationResponse.ValidationMessage);
+                            foundNameContainer.text('');
+                            transferringSubscriberValueInput.val('');
+                            setupAddressPostalCodeInput.val('');
+                            setupAddressFloorInput.val('');
+                        }
+                    }
+                    else {
+                        validationMark.removeClass();
+                        validationMark.addClass('check-name-duplicate');
+                        foundNameContainer.text('');
+                        transferringSubscriberValueInput.val('');
+                        setupAddressPostalCodeInput.val('');
+                        setupAddressFloorInput.val('');
+                    }
+                    checkButton.show();
+                }
+            });
+        }
+    });
+
+    checkButton.trigger('click');
 }

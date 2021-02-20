@@ -214,6 +214,15 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Telekom info is not valid for this registration type..
+        /// </summary>
+        public static string TelekomInfoNotValidForRegistrationType {
+            get {
+                return ResourceManager.GetString("TelekomInfoNotValidForRegistrationType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not syncronize with Telekom. ({0}).
         /// </summary>
         public static string TelekomSyncError {

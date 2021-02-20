@@ -13,6 +13,28 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
 {
     public class CustomerSubscriptionViewModel
     {
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "RegistrationType")]
+        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
+        [EnumType(typeof(SubscriptionRegistrationType), typeof(RadiusR.Localization.Lists.SubscriptionRegistrationType))]
+        [UIHint("LocalizedList")]
+        public short? RegistrationType { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "TransferringSubscription")]
+        public long? TransferringSubscriptionID { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "TransferringSubscription")]
+        [MaxLength(10, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
+        [MinLength(10, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MinLength")]
+        [Number(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Number")]
+        public string TransferringSubscriptionNo { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "TransitionXDSLNo")]
+        [MaxLength(10, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
+        [MinLength(10, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MinLength")]
+        [Number(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Number")]
+        public string TransitionXDSLNo { get; set; }
+
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "DomainName")]
         [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
         public int DomainID { get; set; }
