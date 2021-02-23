@@ -37,7 +37,7 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
         public CustomerDetailsViewModel(Subscription dbSubscription, RadiusREntities db)
         {
             var domain = RadiusR.DB.DomainsCache.DomainsCache.GetDomainByID(dbSubscription.DomainID);
-            var telekomTariff = dbSubscription.SubscriptionTelekomInfo != null ? RadiusR.DB.DomainsCache.TelekomTariffsCache.GetSpecificTariff(domain, dbSubscription.SubscriptionTelekomInfo.PacketCode, dbSubscription.SubscriptionTelekomInfo.TariffCode) : null;
+            var telekomTariff = dbSubscription.SubscriptionTelekomInfo?.XDSLType != null ? RadiusR.DB.DomainsCache.TelekomTariffsCache.GetSpecificTariff(domain, dbSubscription.SubscriptionTelekomInfo.PacketCode.Value, dbSubscription.SubscriptionTelekomInfo.TariffCode.Value) : null;
             var currentQoutaAndUsage = dbSubscription.GetQuotaAndUsageInfo();
             //var currentBillingPeriod = dbSubscription.GetCurrentBillingPeriod();
             

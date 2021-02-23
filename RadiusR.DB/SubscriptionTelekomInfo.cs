@@ -19,10 +19,10 @@ namespace RadiusR.DB
         public long TTCustomerCode { get; set; }
         public string PSTN { get; set; }
         public string RedbackName { get; set; }
-        public short XDSLType { get; set; }
-        public int PacketCode { get; set; }
-        public int TariffCode { get; set; }
-        public bool IsPaperWorkNeeded { get; set; }
+        public Nullable<short> XDSLType { get; set; }
+        public Nullable<int> PacketCode { get; set; }
+        public Nullable<int> TariffCode { get; set; }
+        public Nullable<bool> IsPaperWorkNeeded { get; set; }
     
         public virtual Subscription Subscription { get; set; }
     }

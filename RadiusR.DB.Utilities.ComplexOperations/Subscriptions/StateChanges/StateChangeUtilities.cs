@@ -50,7 +50,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                     // check for transfer
                     if (subscription.RegistrationType == (short)Enums.SubscriptionRegistrationType.Transfer)
                     {
-                        var pendingTransfer = subscription.SubscriptionTransferredFromHistories.FirstOrDefault(sth => !sth.Date.HasValue);
+                        var pendingTransfer = subscription.SubscriptionTransferredToHistories.FirstOrDefault(sth => !sth.Date.HasValue);
                         if (pendingTransfer == null)
                         {
                             throw new Exception("No transferring subscription found!");
@@ -89,6 +89,19 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                         db.SystemLogs.Add(SystemLogProcessor.SubscriptionTransferApplied(registerOptions.AppUserID, subscriptionId, transferringSubscription.ID, subscriptionId, registerOptions.LogInterface, registerOptions.LogInterfaceUsername));
                         db.SystemLogs.Add(SystemLogProcessor.SubscriptionTransferApplied(registerOptions.AppUserID, transferringSubscription.ID, transferringSubscription.ID, subscriptionId, registerOptions.LogInterface, registerOptions.LogInterfaceUsername));
                     }
+                    // transition
+                    else if (subscription.RegistrationType == (short)SubscriptionRegistrationType.Transition)
+                    {
+                        TelekomSynchronization.TelekomSynchronizationUtilities.UpdateSubscriberTelekomInfoFromWebService(db, new TelekomSynchronization.TelekomSynchronizationOptions()
+                        {
+                            AppUserID = registerOptions.AppUserID,
+                            LogInterface = registerOptions.LogInterface,
+                            LogInterfaceUsername = registerOptions.LogInterfaceUsername,
+                            DBSubscription = subscription,
+                            DSLNo = subscription.SubscriptionTelekomInfo.SubscriptionNo
+                        });
+                    }
+                    // new registration
                     else
                     {
                         // Telekom registration
@@ -187,16 +200,14 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                     }
 
                     // set TT redback name
-                    var domain = DomainsCache.DomainsCache.GetDomainByID(billingreadySubscription.Subscription.DomainID);
-                    if (domain != null && domain.TelekomCredential != null && billingreadySubscription.Subscription.SubscriptionTelekomInfo != null)
+                    TelekomSynchronization.TelekomSynchronizationUtilities.UpdateSubscriberTelekomInfoFromWebService(db, new TelekomSynchronization.TelekomSynchronizationOptions()
                     {
-                        var client = new RezaB.TurkTelekom.WebServices.InfrastructureInfo.InfrastructurInfoServiceClient(domain.TelekomCredential.XDSLWebServiceUsernameInt, domain.TelekomCredential.XDSLWebServicePassword);
-                        var results = client.GetInfrastructureInfo(billingreadySubscription.Subscription.SubscriptionTelekomInfo.SubscriptionNo);
-                        if (results.InternalException == null && results.Data != null)
-                        {
-                            billingreadySubscription.Subscription.SubscriptionTelekomInfo.RedbackName = results.Data.RedbackName;
-                        }
-                    }
+                        AppUserID = reserveOptions.AppUserID,
+                        LogInterface = reserveOptions.LogInterface,
+                        LogInterfaceUsername = reserveOptions.LogInterfaceUsername,
+                        DBSubscription = billingreadySubscription.Subscription,
+                        DSLNo = billingreadySubscription.Subscription.SubscriptionTelekomInfo.SubscriptionNo
+                    });
                 }
                 // set state history
                 billingreadySubscription.Subscription.AddStateHistory(reserveOptions.NewState, reserveOptions.AppUserID);

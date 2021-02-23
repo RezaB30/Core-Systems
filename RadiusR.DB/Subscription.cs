@@ -106,7 +106,6 @@ namespace RadiusR.DB
         public virtual ICollection<SubscriptionSupportRequest> SubscriptionSupportRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubscriptionTariffHistory> SubscriptionTariffHistories { get; set; }
-        public virtual SubscriptionTelekomInfo SubscriptionTelekomInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SystemLog> SystemLogs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -122,5 +121,6 @@ namespace RadiusR.DB
         public virtual ICollection<SubscriptionTransferHistory> SubscriptionTransferredFromHistories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubscriptionTransferHistory> SubscriptionTransferredToHistories { get; set; }
+        public virtual SubscriptionTelekomInfo SubscriptionTelekomInfo { get; set; }
     }
 }

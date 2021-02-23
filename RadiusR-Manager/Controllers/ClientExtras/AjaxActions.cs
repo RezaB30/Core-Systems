@@ -99,7 +99,7 @@ namespace RadiusR_Manager.Controllers
                 return Content("<div class='text-danger centered'>" + RadiusR.Localization.Pages.ErrorMessages._9 + "</div>");
             }
 
-            CachedTelekomTariff cachedTariff = TelekomTariffsCache.GetSpecificTariff(domain, dbSubscription.SubscriptionTelekomInfo.PacketCode, dbSubscription.SubscriptionTelekomInfo.TariffCode);
+            CachedTelekomTariff cachedTariff = TelekomTariffsCache.GetSpecificTariff(domain, dbSubscription.SubscriptionTelekomInfo.PacketCode.Value, dbSubscription.SubscriptionTelekomInfo.TariffCode.Value);
 
             var telekomTariff = cachedTariff != null ? new TelekomTariffHelperViewModel(cachedTariff) : null;
 
@@ -124,7 +124,7 @@ namespace RadiusR_Manager.Controllers
                 return Content("<div class='text-danger centered'>" + RadiusR.Localization.Pages.ErrorMessages._9 + "</div>");
             }
 
-            CachedTelekomTariff cachedTariff = TelekomTariffsCache.GetSpecificTariff(domain, dbSubscription.SubscriptionTelekomInfo.PacketCode, dbSubscription.SubscriptionTelekomInfo.TariffCode);
+            CachedTelekomTariff cachedTariff = TelekomTariffsCache.GetSpecificTariff(domain, dbSubscription.SubscriptionTelekomInfo.PacketCode.Value, dbSubscription.SubscriptionTelekomInfo.TariffCode.Value);
 
             // 
 

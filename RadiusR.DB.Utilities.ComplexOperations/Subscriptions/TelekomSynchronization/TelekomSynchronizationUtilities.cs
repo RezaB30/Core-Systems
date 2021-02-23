@@ -84,7 +84,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TelekomSynchroniz
                 }
 
                 // system log
-                db.SystemLogs.Add(SystemLogProcessor.TelekomSync(options.AppUserID, options.DBSubscription.ID, options.LogInterface.Value, null));
+                db.SystemLogs.Add(SystemLogProcessor.TelekomSync(options.AppUserID, options.DBSubscription.ID, options.LogInterface.Value, options.LogInterfaceUsername));
                 //// save
                 //db.SaveChanges();
 

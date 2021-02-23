@@ -252,7 +252,9 @@ namespace RadiusR_Manager.Controllers
                 ServiceID = subscriptionModel.ServiceID,
                 Username = subscriptionModel.Username,
                 RegistrationType = (SubscriptionRegistrationType?)subscriptionModel.RegistrationType,
-                TransitionXDSLNo = (SubscriptionRegistrationType?)subscriptionModel.RegistrationType == SubscriptionRegistrationType.Transition ? subscriptionModel.TransitionXDSLNo : null
+                TransitionXDSLNo = (SubscriptionRegistrationType?)subscriptionModel.RegistrationType == SubscriptionRegistrationType.Transition ? subscriptionModel.TransitionXDSLNo : null,
+                TransitionPSTN = (SubscriptionRegistrationType?)subscriptionModel.RegistrationType == SubscriptionRegistrationType.Transition ? subscriptionModel.TransitionPSTN : null,
+                TransferringSubsciptionID = (SubscriptionRegistrationType?)subscriptionModel.RegistrationType == SubscriptionRegistrationType.Transfer ? subscriptionModel.TransferringSubscriptionID : null
             };
 
             if (subscriptionModel.TelekomDetailedInfo != null)

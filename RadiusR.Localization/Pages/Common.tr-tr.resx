@@ -1200,4 +1200,7 @@
   <data name="Overview" xml:space="preserve">
     <value>Genel Bakış</value>
   </data>
+  <data name="SubscriptionTransition" xml:space="preserve">
+    <value>Abonelik Geçişi</value>
+  </data>
 </root>

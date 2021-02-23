@@ -108,7 +108,9 @@ namespace RadiusR_Manager.Controllers
             if (model.RegistrationType != (short)RadiusR.DB.Enums.SubscriptionRegistrationType.Transition)
             {
                 model.TransitionXDSLNo = null;
+                model.TransitionPSTN = null;
                 ModelState.Remove(prefix + "TransitionXDSLNo");
+                ModelState.Remove(prefix + "TransitionPSTN");
             }
             // non-transfer registration type
             if (model.RegistrationType != (short)RadiusR.DB.Enums.SubscriptionRegistrationType.Transfer)

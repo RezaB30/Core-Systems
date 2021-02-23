@@ -17,7 +17,7 @@ namespace RadiusR.DB.TelekomOperations
             {
                 return null;
             }
-            var selectedTelekomTariff = DomainsCache.TelekomTariffsCache.GetSpecificTariff(selectedDomain, dbSubsciption.SubscriptionTelekomInfo.PacketCode, dbSubsciption.SubscriptionTelekomInfo.TariffCode);
+            var selectedTelekomTariff = DomainsCache.TelekomTariffsCache.GetSpecificTariff(selectedDomain, dbSubsciption.SubscriptionTelekomInfo.PacketCode.Value, dbSubsciption.SubscriptionTelekomInfo.TariffCode.Value);
             if (selectedTelekomTariff == null)
             {
                 return null;
@@ -49,8 +49,8 @@ namespace RadiusR.DB.TelekomOperations
                 TariffInfo = new TelekomRegistrationTicket.RegistrationTariffInfo()
                 {
                     ApplicationType = (ApplicationType)selectedDomain.AccessMethod.Value,
-                    PacketCode = dbSubsciption.SubscriptionTelekomInfo.PacketCode,
-                    TariffCode = dbSubsciption.SubscriptionTelekomInfo.TariffCode,
+                    PacketCode = dbSubsciption.SubscriptionTelekomInfo.PacketCode.Value,
+                    TariffCode = dbSubsciption.SubscriptionTelekomInfo.TariffCode.Value,
                     SpeedCode = selectedTelekomTariff.SpeedCode,
                     XDSLType = (XDSLType)dbSubsciption.SubscriptionTelekomInfo.XDSLType
                 },
@@ -61,7 +61,7 @@ namespace RadiusR.DB.TelekomOperations
                     PhoneNo = dbCustomer.ContactPhoneNo
                 },
                 PSTNNo = dbSubsciption.SubscriptionTelekomInfo.PSTN,
-                HandicapTCK = dbSubsciption.SubscriptionTelekomInfo.IsPaperWorkNeeded ? dbCustomer.CustomerIDCard.TCKNo : null
+                HandicapTCK = dbSubsciption.SubscriptionTelekomInfo.IsPaperWorkNeeded == true ? dbCustomer.CustomerIDCard.TCKNo : null
             };
         }
     }

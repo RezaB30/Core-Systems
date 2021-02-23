@@ -1203,4 +1203,7 @@
   <data name="Overview" xml:space="preserve">
     <value>Overview</value>
   </data>
+  <data name="SubscriptionTransition" xml:space="preserve">
+    <value>Subscription Transition</value>
+  </data>
 </root>

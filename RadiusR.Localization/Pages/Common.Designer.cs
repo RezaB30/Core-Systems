@@ -2914,6 +2914,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subscription Transition.
+        /// </summary>
+        public static string SubscriptionTransition {
+            get {
+                return ResourceManager.GetString("SubscriptionTransition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Subtract.
         /// </summary>
         public static string Subtract {

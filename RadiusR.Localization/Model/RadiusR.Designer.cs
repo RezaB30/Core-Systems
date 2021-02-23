@@ -4165,6 +4165,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Transition PSTN.
+        /// </summary>
+        public static string TransitionPSTN {
+            get {
+                return ResourceManager.GetString("TransitionPSTN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transition XDSL No.
         /// </summary>
         public static string TransitionXDSLNo {

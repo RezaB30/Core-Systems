@@ -969,6 +969,7 @@
     <Content Include="Views\Partner\Allowances.cshtml" />
     <Content Include="Views\Partner\PartnerCollectionList.cshtml" />
     <Content Include="Views\Partner\CollectionDetails.cshtml" />
+    <Content Include="Views\Client\AddWizard\PrepareTransition.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

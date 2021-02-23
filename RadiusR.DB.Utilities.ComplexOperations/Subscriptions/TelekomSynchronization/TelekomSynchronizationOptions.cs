@@ -21,6 +21,10 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TelekomSynchroniz
         /// </summary>
         public SystemLogInterface? LogInterface { get; set; }
         /// <summary>
+        /// Log interface username.
+        /// </summary>
+        public string LogInterfaceUsername { get; set; }
+        /// <summary>
         /// The target subscription from database context.
         /// </summary>
         public Subscription DBSubscription { get; set; }

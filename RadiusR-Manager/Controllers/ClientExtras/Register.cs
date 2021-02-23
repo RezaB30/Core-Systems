@@ -130,141 +130,6 @@ namespace RadiusR_Manager.Controllers
 
                         return RedirectToAction("Index", "Client", new { errorMessage = 0 });
                     }
-
-                    #region pre 5.03.06
-                    //var selectedDomain = DomainsCache.GetDomainByID(registeredCustomer.SubscriptionInfo.DomainID);
-                    //registeredCustomer.SubscriptionInfo.GroupIds = registeredCustomer.SubscriptionInfo.GroupIds ?? Enumerable.Empty<int>();
-                    //registeredCustomer.SubscriptionInfo.GroupIds = registeredCustomer.SubscriptionInfo.GroupIds.Distinct();
-
-                    //// check for existing customer
-                    //var dbCustomer = db.Customers.FirstOrDefault(c => c.CustomerIDCard.TCKNo == registeredCustomer.IDCard.TCKNo && c.CustomerType == (short)registeredCustomer.GeneralInfo.CustomerType);
-                    //if (dbCustomer == null)
-                    //{
-                    //    dbCustomer = new Customer()
-                    //    {
-                    //        Address = registeredCustomer.GeneralInfo.CustomerType == (short)CustomerType.Individual ? (registeredCustomer.IndividualInfo.ResidencySameAsSetupAddress == true ? registeredCustomer.SubscriptionInfo.SetupAddress.GetDatabaseObject() : registeredCustomer.IndividualInfo.ResidencyAddress.GetDatabaseObject())
-                    //    : (registeredCustomer.CorporateInfo.ExecutiveResidencySameAsSetupAddress == true ? registeredCustomer.SubscriptionInfo.SetupAddress.GetDatabaseObject() : registeredCustomer.CorporateInfo.ExecutiveResidencyAddress.GetDatabaseObject()),
-                    //        BillingAddress = registeredCustomer.GeneralInfo.BillingSameAsSetupAddress == true ? registeredCustomer.SubscriptionInfo.SetupAddress.GetDatabaseObject() : registeredCustomer.GeneralInfo.BillingAddress.GetDatabaseObject(),
-                    //        BirthDate = registeredCustomer.IDCard.BirthDate.Value,
-                    //        BirthPlace = registeredCustomer.GeneralInfo.CustomerType == (short)CustomerType.Individual ? registeredCustomer.IndividualInfo.BirthPlace : registeredCustomer.CorporateInfo.ExecutiveBirthPlace,
-                    //        ContactPhoneNo = registeredCustomer.GeneralInfo.ContactPhoneNo,
-                    //        CustomerAdditionalPhoneNoes = (registeredCustomer.GeneralInfo.OtherPhoneNos != null && registeredCustomer.GeneralInfo.OtherPhoneNos.Any()) ? registeredCustomer.GeneralInfo.OtherPhoneNos.Select(pn => new CustomerAdditionalPhoneNo()
-                    //        {
-                    //            PhoneNo = pn.Number
-                    //        }).ToList() : null,
-                    //        Culture = registeredCustomer.GeneralInfo.Culture,
-                    //        CorporateCustomerInfo = registeredCustomer.GeneralInfo.CustomerType != (short)CustomerType.Individual ? new CorporateCustomerInfo()
-                    //        {
-                    //            Address = registeredCustomer.CorporateInfo.CompanySameAsSetupAddress == true ? registeredCustomer.SubscriptionInfo.SetupAddress.GetDatabaseObject() : registeredCustomer.CorporateInfo.CompanyAddress.GetDatabaseObject(),
-                    //            CentralSystemNo = registeredCustomer.CorporateInfo.CentralSystemNo,
-                    //            TaxNo = registeredCustomer.CorporateInfo.TaxNo,
-                    //            TaxOffice = registeredCustomer.CorporateInfo.TaxOffice,
-                    //            Title = registeredCustomer.CorporateInfo.Title,
-                    //            TradeRegistrationNo = registeredCustomer.CorporateInfo.TradeRegistrationNo
-                    //        } : null,
-                    //        CustomerIDCard = new CustomerIDCard()
-                    //        {
-                    //            DateOfIssue = registeredCustomer.IDCard.DateOfIssue,
-                    //            District = registeredCustomer.IDCard.District,
-                    //            Neighbourhood = registeredCustomer.IDCard.Neighbourhood,
-                    //            PageNo = registeredCustomer.IDCard.PageNo,
-                    //            PassportNo = registeredCustomer.IDCard.PassportNo,
-                    //            PlaceOfIssue = registeredCustomer.IDCard.PlaceOfIssue,
-                    //            Province = registeredCustomer.IDCard.Province,
-                    //            RowNo = registeredCustomer.IDCard.RowNo,
-                    //            SerialNo = registeredCustomer.IDCard.SerialNo,
-                    //            TCKNo = registeredCustomer.IDCard.TCKNo,
-                    //            TypeID = registeredCustomer.IDCard.CardType.Value,
-                    //            VolumeNo = registeredCustomer.IDCard.VolumeNo
-                    //        },
-                    //        CustomerType = registeredCustomer.GeneralInfo.CustomerType.Value,
-                    //        Email = registeredCustomer.GeneralInfo.Email,
-                    //        FathersName = registeredCustomer.GeneralInfo.CustomerType == (short)CustomerType.Individual ? registeredCustomer.IndividualInfo.FathersName : registeredCustomer.CorporateInfo.ExecutiveFathersName,
-                    //        FirstName = registeredCustomer.IDCard.FirstName,
-                    //        LastName = registeredCustomer.IDCard.LastName,
-                    //        MothersMaidenName = registeredCustomer.GeneralInfo.CustomerType == (short)CustomerType.Individual ? registeredCustomer.IndividualInfo.MothersMaidenName : registeredCustomer.CorporateInfo.ExecutiveMothersMaidenName,
-                    //        MothersName = registeredCustomer.GeneralInfo.CustomerType == (short)CustomerType.Individual ? registeredCustomer.IndividualInfo.MothersName : registeredCustomer.CorporateInfo.ExecutiveMothersName,
-                    //        Nationality = registeredCustomer.GeneralInfo.CustomerType == (short)CustomerType.Individual ? registeredCustomer.IndividualInfo.Nationality.Value : registeredCustomer.CorporateInfo.ExecutiveNationality.Value,
-                    //        Profession = registeredCustomer.GeneralInfo.CustomerType == (short)CustomerType.Individual ? registeredCustomer.IndividualInfo.Profession.Value : registeredCustomer.CorporateInfo.ExecutiveProfession.Value,
-                    //        Sex = registeredCustomer.GeneralInfo.CustomerType == (short)CustomerType.Individual ? registeredCustomer.IndividualInfo.Sex.Value : registeredCustomer.CorporateInfo.ExecutiveSex.Value,
-                    //    };
-
-                    //    dbCustomer.Subscriptions = new List<Subscription>();
-
-                    //    db.Customers.Add(dbCustomer);
-                    //}
-
-                    //var dbGroups = db.Groups.ToArray().Where(g => registeredCustomer.SubscriptionInfo.GroupIds.Contains(g.ID)).ToArray();
-
-                    //CachedTelekomTariff selectedTelekomTariff = null;
-                    //if (registeredCustomer.SubscriptionInfo.TTPacket != null && registeredCustomer.SubscriptionInfo.TTPacket.PacketCode.HasValue && registeredCustomer.SubscriptionInfo.TTPacket.TariffCode.HasValue)
-                    //    selectedTelekomTariff = TelekomTariffsCache.GetSpecificTariff(selectedDomain, registeredCustomer.SubscriptionInfo.TTPacket.PacketCode.Value, registeredCustomer.SubscriptionInfo.TTPacket.TariffCode.Value);
-                    //else if (selectedDomain.TelekomCredential != null && !string.IsNullOrEmpty(registeredCustomer.SubscriptionInfo.TelekomInfo.SubscriberNo))
-                    //{
-                    //    var telekomServiceClient = new TelekomSubscriberInfoServiceClient(selectedDomain.TelekomCredential.XDSLWebServiceUsernameInt, selectedDomain.TelekomCredential.XDSLWebServicePassword);
-                    //    var response = telekomServiceClient.GetSubscriberDetailedInfo(registeredCustomer.SubscriptionInfo.TelekomInfo.SubscriberNo);
-                    //    if (response.InternalException != null || !response.Data.PacketCode.HasValue || !response.Data.TariffCode.HasValue)
-                    //    {
-                    //        ViewBag.TelekomError = response.InternalException != null ? response.InternalException.GetShortMessage() : RadiusR.Localization.Validation.Common.TelekomError;
-                    //        ModelState.AddModelError("TelekomError", RadiusR.Localization.Validation.Common.TelekomError);
-                    //    }
-                    //    else
-                    //    {
-                    //        selectedTelekomTariff = TelekomTariffsCache.GetSpecificTariff(selectedDomain, response.Data.PacketCode.Value, response.Data.TariffCode.Value);
-                    //    }
-                    //}
-
-                    //var dbSubsciption = new Subscription()
-                    //{
-                    //    Address = registeredCustomer.SubscriptionInfo.SetupAddress.GetDatabaseObject(),
-                    //    DomainID = registeredCustomer.SubscriptionInfo.DomainID,
-                    //    Fees = registeredCustomer.SubscriptionInfo.AddedFees.Select(af => af.GetDBObject(dbFees)).SelectMany(f => f).Where(f => f != null).ToList(),
-                    //    Groups = dbGroups,
-                    //    MembershipDate = DateTime.Today,
-                    //    PaymentDay = registeredCustomer.SubscriptionInfo.BillingPeriod,
-                    //    ServiceID = registeredCustomer.SubscriptionInfo.ServiceID,
-                    //    SimultaneousUse = 1,
-                    //    State = (short)CustomerState.Registered,
-                    //    StaticIP = registeredCustomer.SubscriptionInfo.StaticIP,
-                    //    SubscriptionCommitment = registeredCustomer.SubscriptionInfo.Commitment != null && registeredCustomer.SubscriptionInfo.Commitment.CommitmentLength.HasValue ? new SubscriptionCommitment()
-                    //    {
-                    //        CommitmentLength = registeredCustomer.SubscriptionInfo.Commitment.CommitmentLength.Value,
-                    //        CommitmentExpirationDate = registeredCustomer.SubscriptionInfo.Commitment.CommitmentExpirationDate.Value
-                    //    } : null,
-                    //    SubscriberNo = UsernameFactory.GenerateUniqueSubscriberNo(selectedDomain),
-                    //    Username = string.IsNullOrWhiteSpace(registeredCustomer.SubscriptionInfo.Username) ? UsernameFactory.GenerateUsername(selectedDomain) : registeredCustomer.SubscriptionInfo.Username + "@" + selectedDomain.Name,
-                    //    RadiusPassword = Authenticator.GenerateInternetPassword(),
-                    //    SubscriptionTelekomInfo = selectedDomain.TelekomCredential != null ? new SubscriptionTelekomInfo()
-                    //    {
-                    //        PSTN = registeredCustomer.SubscriptionInfo.TelekomInfo.PSTN,
-                    //        SubscriptionNo = registeredCustomer.SubscriptionInfo.TelekomInfo.SubscriberNo,
-                    //        TTCustomerCode = !string.IsNullOrEmpty(registeredCustomer.SubscriptionInfo.TelekomInfo.CustomerCode) ? long.Parse(registeredCustomer.SubscriptionInfo.TelekomInfo.CustomerCode) : selectedDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt,
-                    //        PacketCode = selectedTelekomTariff != null ? selectedTelekomTariff.PacketCode : 0,
-                    //        TariffCode = selectedTelekomTariff != null ? selectedTelekomTariff.TariffCode : 0,
-                    //        XDSLType = selectedTelekomTariff != null ? (short)selectedTelekomTariff.XDSLType : (short)0,
-                    //        IsPaperWorkNeeded = registeredCustomer.SubscriptionInfo.TTPacket.IsPaperworkNeeded
-                    //    } : null
-                    //};
-                    //dbCustomer.Subscriptions.Add(dbSubsciption);
-
-                    //// telekom registration
-                    //if (selectedDomain.TelekomCredential != null && (registeredCustomer.SubscriptionInfo.TelekomInfo == null || string.IsNullOrEmpty(registeredCustomer.SubscriptionInfo.TelekomInfo.SubscriberNo)))
-                    //{
-                    //    dbSubsciption.SubscriptionTelekomInfo.SubscriptionNo = " ";
-                    //    dbSubsciption.State = (short)CustomerState.PreRegisterd;
-                    //}
-
-                    //if (ModelState.IsValid)
-                    //{
-                    //    // save db
-                    //    db.SaveChanges();
-                    //    // logs
-                    //    db.SystemLogs.Add(SystemLogProcessor.AddSubscription(User.GiveUserId(), dbSubsciption.ID, dbCustomer.ID, dbSubsciption.SubscriberNo));
-                    //    db.SaveChanges();
-
-                    //    return RedirectToAction("Index", "Client", new { errorMessage = 0 });
-                    //}
-                    #endregion
                 }
             }
 
@@ -366,97 +231,15 @@ namespace RadiusR_Manager.Controllers
                 }
                 else
                 {
-                    var dbSubscription = dbCustomer.Subscriptions.OrderByDescending(s => s.ID).FirstOrDefault();
                     // save db
                     db.SaveChanges();
                     // logs
+                    var dbSubscription = dbCustomer.Subscriptions.OrderByDescending(s => s.ID).FirstOrDefault();
                     db.SystemLogs.Add(SystemLogProcessor.AddSubscription(User.GiveUserId(), dbSubscription.ID, referenceSubscription.CustomerID, (SubscriptionRegistrationType)dbSubscription.RegistrationType, SystemLogInterface.MasterISS, null, dbSubscription.SubscriberNo));
                     db.SaveChanges();
 
                     return RedirectToAction("Index", "Client", new { errorMessage = 0 });
                 }
-
-                #region pre 5.03.06
-                //var selectedDomain = DomainsCache.GetDomainByID(subscription.DomainID);
-                //subscription.GroupIds = subscription.GroupIds ?? Enumerable.Empty<int>();
-                //subscription.GroupIds = subscription.GroupIds.Distinct().ToArray();
-
-                //var dbGroups = db.Groups.ToArray().Where(g => subscription.GroupIds.Contains(g.ID)).ToArray();
-
-                //CachedTelekomTariff selectedTelekomTariff = null;
-                //if (subscription.TelekomDetailedInfo.TelekomTariffInfo != null && subscription.TelekomDetailedInfo.TelekomTariffInfo.PacketCode.HasValue && subscription.TelekomDetailedInfo.TelekomTariffInfo.TariffCode.HasValue)
-                //    selectedTelekomTariff = TelekomTariffsCache.GetSpecificTariff(selectedDomain, subscription.TelekomDetailedInfo.TelekomTariffInfo.PacketCode.Value, subscription.TelekomDetailedInfo.TelekomTariffInfo.TariffCode.Value);
-                //else if (selectedDomain.TelekomCredential != null && !string.IsNullOrEmpty(subscription.TelekomDetailedInfo.SubscriberNo))
-                //{
-                //    var telekomServiceClient = new TelekomSubscriberInfoServiceClient(selectedDomain.TelekomCredential.XDSLWebServiceUsernameInt, selectedDomain.TelekomCredential.XDSLWebServicePassword);
-                //    var response = telekomServiceClient.GetSubscriberDetailedInfo(subscription.TelekomDetailedInfo.SubscriberNo);
-                //    if (response.InternalException != null || !response.Data.PacketCode.HasValue || !response.Data.TariffCode.HasValue)
-                //    {
-                //        ViewBag.TelekomError = response.InternalException != null ? response.InternalException.GetShortMessage() : RadiusR.Localization.Validation.Common.TelekomError;
-                //        ModelState.AddModelError("TelekomError", RadiusR.Localization.Validation.Common.TelekomError);
-                //    }
-                //    else
-                //    {
-                //        selectedTelekomTariff = TelekomTariffsCache.GetSpecificTariff(selectedDomain, response.Data.PacketCode.Value, response.Data.TariffCode.Value);
-                //    }
-                //}
-
-                //Subscription dbSubsciption = null;
-                //if (ModelState.IsValid)
-                //{
-                //    dbSubsciption = new Subscription()
-                //    {
-                //        Address = subscription.SetupAddress.GetDatabaseObject(),
-                //        DomainID = subscription.DomainID,
-                //        Fees = subscription.AddedFeesInfo.Select(af => af.GetDBObject(dbFees)).SelectMany(f => f).Where(f => f != null).ToList(),
-                //        Groups = dbGroups,
-                //        MembershipDate = DateTime.Today,
-                //        PaymentDay = subscription.BillingPeriod,
-                //        ServiceID = subscription.ServiceID,
-                //        SimultaneousUse = 1,
-                //        State = (short)CustomerState.Registered,
-                //        StaticIP = subscription.StaticIP,
-                //        SubscriptionCommitment = subscription.CommitmentInfo != null && subscription.CommitmentInfo.CommitmentLength.HasValue ? new SubscriptionCommitment()
-                //        {
-                //            CommitmentLength = subscription.CommitmentInfo.CommitmentLength.Value,
-                //            CommitmentExpirationDate = subscription.CommitmentInfo.CommitmentExpirationDate.Value
-                //        } : null,
-                //        SubscriberNo = UsernameFactory.GenerateUniqueSubscriberNo(selectedDomain),
-                //        Username = UsernameFactory.GenerateUsername(selectedDomain),
-                //        RadiusPassword = Authenticator.GenerateInternetPassword(),
-                //        SubscriptionTelekomInfo = selectedDomain.TelekomCredential != null ? new SubscriptionTelekomInfo()
-                //        {
-                //            PSTN = subscription.TelekomDetailedInfo.PSTN,
-                //            SubscriptionNo = subscription.TelekomDetailedInfo.SubscriberNo,
-                //            TTCustomerCode = !string.IsNullOrEmpty(subscription.TelekomDetailedInfo.CustomerCode) ? long.Parse(subscription.TelekomDetailedInfo.CustomerCode) : selectedDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt,
-                //            PacketCode = selectedTelekomTariff != null ? selectedTelekomTariff.PacketCode : 0,
-                //            TariffCode = selectedTelekomTariff != null ? selectedTelekomTariff.TariffCode : 0,
-                //            XDSLType = selectedTelekomTariff != null ? (short)selectedTelekomTariff.XDSLType : (short)0,
-                //            IsPaperWorkNeeded = subscription.TelekomDetailedInfo.TelekomTariffInfo.IsPaperworkNeeded
-                //        } : null
-                //    };
-
-                //    dbSubsciption.CustomerID = referenceSubscription.CustomerID;
-
-                //    // telekom registration
-                //    if (selectedDomain.TelekomCredential != null && (subscription.TelekomDetailedInfo == null || string.IsNullOrEmpty(subscription.TelekomDetailedInfo.SubscriberNo)))
-                //    {
-                //        dbSubsciption.SubscriptionTelekomInfo.SubscriptionNo = " ";
-                //        dbSubsciption.State = (short)CustomerState.PreRegisterd;
-                //    }
-                //}
-                //if (ModelState.IsValid)
-                //{
-                //    db.Subscriptions.Add(dbSubsciption);
-                //    // save db
-                //    db.SaveChanges();
-                //    // logs
-                //    db.SystemLogs.Add(SystemLogProcessor.AddSubscription(User.GiveUserId(), dbSubsciption.ID, referenceSubscription.CustomerID, dbSubsciption.SubscriberNo));
-                //    db.SaveChanges();
-
-                //    return RedirectToAction("Index", "Client", new { errorMessage = 0 });
-                //}
-                #endregion
             }
 
             ViewBag.Domains = new SelectList(DomainsCache.GetAllDomains().Select(d => new { Name = d.Name, Value = d.ID }), "Value", "Name", subscription.DomainID != 0 ? subscription.DomainID : (int?)null);
@@ -512,8 +295,8 @@ namespace RadiusR_Manager.Controllers
                 {
                     selectedPacket = new
                     {
-                        PacketCode = dbSubscription.SubscriptionTelekomInfo.PacketCode,
-                        TariffCode = dbSubscription.SubscriptionTelekomInfo.TariffCode
+                        PacketCode = dbSubscription.SubscriptionTelekomInfo.PacketCode.Value,
+                        TariffCode = dbSubscription.SubscriptionTelekomInfo.TariffCode.Value
                     };
                 }
                 var telekomTariff = TelekomTariffsCache.GetSpecificTariff(domain, selectedPacket.PacketCode, selectedPacket.TariffCode);
@@ -608,6 +391,76 @@ namespace RadiusR_Manager.Controllers
             }
 
             return View(viewName: "AddWizard/SendTelekomRegistration", model: TTPacket);
+        }
+
+        [AuthorizePermission(Permissions = "Subscriber State")]
+        [HttpGet]
+        // GET: Client/PrepareTransition
+        public ActionResult PrepareTransition(long id, string returnUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+            ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
+
+            var dbSubscription = db.Subscriptions.Find(id);
+            if (dbSubscription == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "4", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            ViewBag.CustomerName = dbSubscription.ValidDisplayName;
+
+            var viewResult = new PrepareTransitionViewModel()
+            {
+                TransitionPSTN = dbSubscription.SubscriptionTelekomInfo?.PSTN,
+                TransitionXDSLNo = dbSubscription.SubscriptionTelekomInfo?.SubscriptionNo
+            };
+
+            return View(viewName: "AddWizard/PrepareTransition", model: viewResult);
+        }
+
+        [AuthorizePermission(Permissions = "Subscriber State")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        // POST: Client/PrepareTransition
+        public ActionResult PrepareTransition(long id, string returnUrl, PrepareTransitionViewModel preparationModel)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            var dbSubscription = db.Subscriptions.Find(id);
+            if (dbSubscription == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "4", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            if (ModelState.IsValid)
+            {
+                if (dbSubscription.SubscriptionTelekomInfo == null)
+                    dbSubscription.SubscriptionTelekomInfo = new SubscriptionTelekomInfo();
+
+                dbSubscription.SubscriptionTelekomInfo.SubscriptionNo = preparationModel.TransitionXDSLNo;
+                dbSubscription.SubscriptionTelekomInfo.PSTN = preparationModel.TransitionPSTN;
+
+                db.SaveChanges();
+
+                StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new RegisterSubscriptionOptions()
+                {
+                    AppUserID = User.GiveUserId(),
+                    LogInterface = SystemLogInterface.MasterISS,
+                    ScheduleSMSes = false
+                });
+
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            ViewBag.CustomerName = dbSubscription.ValidDisplayName;
+            ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
+
+            return View(viewName: "AddWizard/PrepareTransition", model: preparationModel);
         }
 
         [HttpPost]

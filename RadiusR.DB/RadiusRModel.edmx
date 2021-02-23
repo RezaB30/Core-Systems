@@ -944,10 +944,10 @@
           <Property Name="TTCustomerCode" Type="bigint" Nullable="false" />
           <Property Name="PSTN" Type="nvarchar" MaxLength="10" />
           <Property Name="RedbackName" Type="nvarchar" MaxLength="150" />
-          <Property Name="XDSLType" Type="smallint" Nullable="false" />
-          <Property Name="PacketCode" Type="int" Nullable="false" />
-          <Property Name="TariffCode" Type="int" Nullable="false" />
-          <Property Name="IsPaperWorkNeeded" Type="bit" Nullable="false" />
+          <Property Name="XDSLType" Type="smallint" />
+          <Property Name="PacketCode" Type="int" />
+          <Property Name="TariffCode" Type="int" />
+          <Property Name="IsPaperWorkNeeded" Type="bit" />
         </EntityType>
         <EntityType Name="SubscriptionTransferHistory">
           <Key>
@@ -4158,7 +4158,6 @@
           </AssociationSet>
           <EntitySet Name="TelekomWorkOrderParameters" EntityType="RadiusRModel.TelekomWorkOrderParameter" />
           <EntitySet Name="TelekomTariffs" EntityType="RadiusRModel.TelekomTariff" />
-          <EntitySet Name="SubscriptionTelekomInfoes" EntityType="RadiusRModel.SubscriptionTelekomInfo" />
           <EntitySet Name="TelekomWorkOrders" EntityType="RadiusRModel.TelekomWorkOrder" />
           <AssociationSet Name="FK_TelekomWorkOrder_AppUser" Association="RadiusRModel.FK_TelekomWorkOrder_AppUser">
             <End Role="AppUser" EntitySet="AppUsers" />
@@ -4488,10 +4487,6 @@
             <End Role="Subscription" EntitySet="Subscriptions" />
             <End Role="SubscriptionTariffHistory" EntitySet="SubscriptionTariffHistories" />
           </AssociationSet>
-          <AssociationSet Name="FK_SubscriptionTelekomInfo_Subscription" Association="RadiusRModel.FK_SubscriptionTelekomInfo_Subscription">
-            <End Role="Subscription" EntitySet="Subscriptions" />
-            <End Role="SubscriptionTelekomInfo" EntitySet="SubscriptionTelekomInfoes" />
-          </AssociationSet>
           <AssociationSet Name="FK_SystemLog_Subscription" Association="RadiusRModel.FK_SystemLog_Subscription">
             <End Role="Subscription" EntitySet="Subscriptions" />
             <End Role="SystemLog" EntitySet="SystemLogs" />
@@ -4626,6 +4621,11 @@
           <AssociationSet Name="FK_SubscriptionTransferHistory_Subscription_To" Association="RadiusRModel.FK_SubscriptionTransferHistory_Subscription_To">
             <End Role="Subscription" EntitySet="Subscriptions" />
             <End Role="SubscriptionTransferHistory" EntitySet="SubscriptionTransferHistories" />
+          </AssociationSet>
+          <EntitySet Name="SubscriptionTelekomInfoes" EntityType="RadiusRModel.SubscriptionTelekomInfo" />
+          <AssociationSet Name="FK_SubscriptionTelekomInfo_Subscription" Association="RadiusRModel.FK_SubscriptionTelekomInfo_Subscription">
+            <End Role="Subscription" EntitySet="Subscriptions" />
+            <End Role="SubscriptionTelekomInfo" EntitySet="SubscriptionTelekomInfoes" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
@@ -4856,21 +4856,6 @@
           </Key>
           <Property Name="SpeedCode" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="SubscriptionTelekomInfo">
-          <Key>
-            <PropertyRef Name="SubscriptionID" />
-          </Key>
-          <Property Name="SubscriptionID" Type="Int64" Nullable="false" />
-          <Property Name="SubscriptionNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="TTCustomerCode" Type="Int64" Nullable="false" />
-          <Property Name="PSTN" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="RedbackName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="XDSLType" Type="Int16" Nullable="false" />
-          <Property Name="PacketCode" Type="Int32" Nullable="false" />
-          <Property Name="TariffCode" Type="Int32" Nullable="false" />
-          <Property Name="IsPaperWorkNeeded" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Subscription" Relationship="RadiusRModel.FK_SubscriptionTelekomInfo_Subscription" FromRole="SubscriptionTelekomInfo" ToRole="Subscription" />
         </EntityType>
         <EntityType Name="TelekomWorkOrder">
           <Key>
@@ -5963,7 +5948,6 @@
           <NavigationProperty Name="SubscriptionStateHistories" Relationship="RadiusRModel.FK_SubscriptionStateHistory_Subscription" FromRole="Subscription" ToRole="SubscriptionStateHistory" />
           <NavigationProperty Name="SubscriptionSupportRequests" Relationship="RadiusRModel.FK_SubscriptionSupportRequest_Subscription" FromRole="Subscription" ToRole="SubscriptionSupportRequest" />
           <NavigationProperty Name="SubscriptionTariffHistories" Relationship="RadiusRModel.FK_SubscriptionTariffHistory_Subscription" FromRole="Subscription" ToRole="SubscriptionTariffHistory" />
-          <NavigationProperty Name="SubscriptionTelekomInfo" Relationship="RadiusRModel.FK_SubscriptionTelekomInfo_Subscription" FromRole="Subscription" ToRole="SubscriptionTelekomInfo" />
           <NavigationProperty Name="SystemLogs" Relationship="RadiusRModel.FK_SystemLog_Subscription" FromRole="Subscription" ToRole="SystemLog" />
           <NavigationProperty Name="TelekomWorkOrders" Relationship="RadiusRModel.FK_TelekomWorkOrder_Subscription" FromRole="Subscription" ToRole="TelekomWorkOrder" />
           <NavigationProperty Name="SupportRequests" Relationship="RadiusRModel.FK_SupportRequest_Subscription" FromRole="Subscription" ToRole="SupportRequest" />
@@ -5973,6 +5957,7 @@
           <Property Name="RegistrationType" Type="Int16" Nullable="false" />
           <NavigationProperty Name="SubscriptionTransferredFromHistories" Relationship="RadiusRModel.FK_SubscriptionTransferHistory_Subscription_From" FromRole="Subscription" ToRole="SubscriptionTransferHistory" />
           <NavigationProperty Name="SubscriptionTransferredToHistories" Relationship="RadiusRModel.FK_SubscriptionTransferHistory_Subscription_To" FromRole="Subscription" ToRole="SubscriptionTransferHistory" />
+          <NavigationProperty Name="SubscriptionTelekomInfo" Relationship="RadiusRModel.FK_SubscriptionTelekomInfo_Subscription" FromRole="Subscription" ToRole="SubscriptionTelekomInfo" />
         </EntityType>
         <Association Name="FK_Subscription_Address">
           <End Type="RadiusRModel.Address" Role="Address" Multiplicity="1" />
@@ -6270,18 +6255,6 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="SubscriptionTariffHistory">
-              <PropertyRef Name="SubscriptionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SubscriptionTelekomInfo_Subscription">
-          <End Type="RadiusRModel.Subscription" Role="Subscription" Multiplicity="1" />
-          <End Type="RadiusRModel.SubscriptionTelekomInfo" Role="SubscriptionTelekomInfo" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Subscription">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SubscriptionTelekomInfo">
               <PropertyRef Name="SubscriptionID" />
             </Dependent>
           </ReferentialConstraint>
@@ -6815,6 +6788,33 @@
             </Principal>
             <Dependent Role="SubscriptionTransferHistory">
               <PropertyRef Name="To" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SubscriptionTelekomInfo">
+          <Key>
+            <PropertyRef Name="SubscriptionID" />
+          </Key>
+          <Property Name="SubscriptionID" Type="Int64" Nullable="false" />
+          <Property Name="SubscriptionNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="TTCustomerCode" Type="Int64" Nullable="false" />
+          <Property Name="PSTN" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="RedbackName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="XDSLType" Type="Int16" />
+          <Property Name="PacketCode" Type="Int32" />
+          <Property Name="TariffCode" Type="Int32" />
+          <Property Name="IsPaperWorkNeeded" Type="Boolean" />
+          <NavigationProperty Name="Subscription" Relationship="RadiusRModel.FK_SubscriptionTelekomInfo_Subscription" FromRole="SubscriptionTelekomInfo" ToRole="Subscription" />
+        </EntityType>
+        <Association Name="FK_SubscriptionTelekomInfo_Subscription">
+          <End Type="RadiusRModel.Subscription" Role="Subscription" Multiplicity="1" />
+          <End Type="RadiusRModel.SubscriptionTelekomInfo" Role="SubscriptionTelekomInfo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Subscription">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SubscriptionTelekomInfo">
+              <PropertyRef Name="SubscriptionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7443,21 +7443,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SubscriptionTelekomInfoes">
-            <EntityTypeMapping TypeName="RadiusRModel.SubscriptionTelekomInfo">
-              <MappingFragment StoreEntitySet="SubscriptionTelekomInfo">
-                <ScalarProperty Name="IsPaperWorkNeeded" ColumnName="IsPaperWorkNeeded" />
-                <ScalarProperty Name="TariffCode" ColumnName="TariffCode" />
-                <ScalarProperty Name="PacketCode" ColumnName="PacketCode" />
-                <ScalarProperty Name="XDSLType" ColumnName="XDSLType" />
-                <ScalarProperty Name="RedbackName" ColumnName="RedbackName" />
-                <ScalarProperty Name="PSTN" ColumnName="PSTN" />
-                <ScalarProperty Name="TTCustomerCode" ColumnName="TTCustomerCode" />
-                <ScalarProperty Name="SubscriptionNo" ColumnName="SubscriptionNo" />
-                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TelekomWorkOrders">
             <EntityTypeMapping TypeName="RadiusRModel.TelekomWorkOrder">
               <MappingFragment StoreEntitySet="TelekomWorkOrder">
@@ -8039,6 +8024,21 @@
                 <ScalarProperty Name="To" ColumnName="To" />
                 <ScalarProperty Name="From" ColumnName="From" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubscriptionTelekomInfoes">
+            <EntityTypeMapping TypeName="RadiusRModel.SubscriptionTelekomInfo">
+              <MappingFragment StoreEntitySet="SubscriptionTelekomInfo">
+                <ScalarProperty Name="IsPaperWorkNeeded" ColumnName="IsPaperWorkNeeded" />
+                <ScalarProperty Name="TariffCode" ColumnName="TariffCode" />
+                <ScalarProperty Name="PacketCode" ColumnName="PacketCode" />
+                <ScalarProperty Name="XDSLType" ColumnName="XDSLType" />
+                <ScalarProperty Name="RedbackName" ColumnName="RedbackName" />
+                <ScalarProperty Name="PSTN" ColumnName="PSTN" />
+                <ScalarProperty Name="TTCustomerCode" ColumnName="TTCustomerCode" />
+                <ScalarProperty Name="SubscriptionNo" ColumnName="SubscriptionNo" />
+                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1563,4 +1563,7 @@
   <data name="TransitionXDSLNo" xml:space="preserve">
     <value>Transition XDSL No</value>
   </data>
+  <data name="TransitionPSTN" xml:space="preserve">
+    <value>Transition PSTN</value>
+  </data>
 </root>

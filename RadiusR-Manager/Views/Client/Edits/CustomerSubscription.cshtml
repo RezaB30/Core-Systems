@@ -133,13 +133,20 @@
             <td>
                 @Html.EditorFor(model => model.TransitionXDSLNo, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
             </td>
-            <td colspan="2"></td>
+            <td>
+                @Html.LabelFor(model => model.TransitionPSTN)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.TransitionPSTN, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+            </td>
         </tr>
         <tr>
             <td colspan="2">
                 @Html.ValidationMessageFor(model => model.TransitionXDSLNo)
             </td>
-            <td colspan="2"></td>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.TransitionPSTN)
+            </td>
         </tr>
     </tbody>
     <tbody id="telekom-info" style="display: none;">

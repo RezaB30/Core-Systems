@@ -277,6 +277,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
             }
             var dbSubscription = new Subscription()
             {
+                RegistrationType = (short)registrationInfo.RegistrationType.Value,
                 Address = registrationInfo.SetupAddress.GetDbObject(),
                 DomainID = selectedDomain.ID,
                 Fees = registrationInfo.AddedFeesInfo != null ? registrationInfo.AddedFeesInfo.SelectMany(af => af.GetDBObjects(dbFees)).ToList() : null,
@@ -412,10 +413,39 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                         }
                     }
                 }
+               
                 // no attached telekom info
                 else
                 {
+                    // for all registration that should pass telekom check
                     dbSubscription.State = (short)Enums.CustomerState.PreRegisterd;
+
+                    // transfer & transition registration types and no telekom info
+                    if (registrationInfo.RegistrationType == Enums.SubscriptionRegistrationType.Transfer || registrationInfo.RegistrationType == Enums.SubscriptionRegistrationType.Transition)
+                    {
+                        // transfer
+                        if (registrationInfo.RegistrationType == Enums.SubscriptionRegistrationType.Transfer)
+                        {
+                            // empty telekom info
+                            dbSubscription.SubscriptionTelekomInfo = new SubscriptionTelekomInfo()
+                            {
+                                SubscriptionNo = " ",
+                                TTCustomerCode = !string.IsNullOrWhiteSpace(registrationInfo.TelekomDetailedInfo?.CustomerCode) ? long.Parse(registrationInfo.TelekomDetailedInfo.CustomerCode) : selectedDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt
+                            };
+                        }
+                        // transition
+                        else if (registrationInfo.RegistrationType == Enums.SubscriptionRegistrationType.Transition)
+                        {
+                            // transition telekom info
+                            dbSubscription.SubscriptionTelekomInfo = new SubscriptionTelekomInfo()
+                            {
+                                SubscriptionNo = registrationInfo.TransitionXDSLNo,
+                                PSTN = registrationInfo.TransitionPSTN,
+                                TTCustomerCode = selectedDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt
+                            };
+
+                        }
+                    }
                 }
             }
             // add to customer

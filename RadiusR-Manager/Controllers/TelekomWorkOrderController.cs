@@ -276,8 +276,8 @@ namespace RadiusR_Manager.Controllers
             {
                 selectedPacket = new
                 {
-                    PacketCode = workOrder.Subscription.SubscriptionTelekomInfo.PacketCode,
-                    TariffCode = workOrder.Subscription.SubscriptionTelekomInfo.TariffCode
+                    PacketCode = workOrder.Subscription.SubscriptionTelekomInfo.PacketCode.Value,
+                    TariffCode = workOrder.Subscription.SubscriptionTelekomInfo.TariffCode.Value
                 };
             }
             var telekomTariff = TelekomTariffsCache.GetSpecificTariff(currentDomain, selectedPacket.PacketCode, selectedPacket.TariffCode);

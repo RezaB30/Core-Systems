@@ -161,7 +161,27 @@ namespace RadiusR_Manager.Controllers
             switch (status)
             {
                 case CustomerState.Registered:
-                    return RedirectToAction("SendTelekomRegistration", new { id = dbSubscription.ID, returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
+                    // new registration
+                    if (dbSubscription.RegistrationType == (short)SubscriptionRegistrationType.NewRegistration)
+                        return RedirectToAction("SendTelekomRegistration", new { id = dbSubscription.ID, returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
+                    // transition
+                    else if (dbSubscription.RegistrationType == (short)SubscriptionRegistrationType.Transition)
+                    {
+                        return RedirectToAction("PrepareTransition", new { id = dbSubscription.ID, returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
+                    }
+                    // transfer
+                    else
+                    {
+                        StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new RegisterSubscriptionOptions()
+                        {
+                            AppUserID = User.GiveUserId(),
+                            LogInterface = SystemLogInterface.MasterISS,
+                            ScheduleSMSes = false
+                        });
+
+                        UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                        return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                    }
                 case CustomerState.Reserved:
                     return RedirectToAction("ReserveClientActions", new { redirectUrl = redirectUrl, id = id });
                 case CustomerState.Active:
