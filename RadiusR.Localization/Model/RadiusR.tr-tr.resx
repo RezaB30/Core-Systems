@@ -1566,4 +1566,16 @@
   <data name="TransitionPSTN" xml:space="preserve">
     <value>Geçiş PSTN</value>
   </data>
+  <data name="RegistrationInfo" xml:space="preserve">
+    <value>Başvuru Bilgileri</value>
+  </data>
+  <data name="TransferHistory" xml:space="preserve">
+    <value>Devir Geçmişi</value>
+  </data>
+  <data name="TransferredFrom" xml:space="preserve">
+    <value>{0} tarafından devredildi.</value>
+  </data>
+  <data name="TransferredTo" xml:space="preserve">
+    <value>{0}'e devredildi.</value>
+  </data>
 </root>

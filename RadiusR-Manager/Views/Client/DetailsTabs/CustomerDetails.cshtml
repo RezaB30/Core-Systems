@@ -7,6 +7,55 @@
 <table class="details-table last-cell-right-aligned">
     <tr>
         <td colspan="3" class="section-head">
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.RegistrationInfo)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.RegistrationInfo.RegistrationType)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.RegistrationInfo.RegistrationType)
+        </td>
+        <td></td>
+    </tr>
+    @if (Model.SubscriptionInfo.RegistrationInfo.TransferHistory?.Any() == true)
+    {
+        <tr>
+            <td colspan="3" class="section-head">
+                @Html.DisplayNameFor(model => model.SubscriptionInfo.RegistrationInfo.TransferHistory)
+            </td>
+        </tr>
+        foreach (var item in Model.SubscriptionInfo.RegistrationInfo.TransferHistory)
+        {
+            <tr>
+                <td>
+                    @if (item.Date.HasValue)
+                    {
+                        @Html.DisplayFor(modelItem => item.Date)
+                    }
+                    else
+                    {
+                        @RadiusR.Localization.Pages.Common.Pending
+                    }
+                </td>
+                <td>
+                    @if (!string.IsNullOrWhiteSpace(item.TransferredFromSubscriberNo))
+                    {
+                        @Html.Raw(string.Format(Html.DisplayNameFor(modelItem => item.TransferredFromSubscriberNo).ToHtmlString(), Html.DisplayFor(modelItem => item.TransferredFromSubscriberNo).ToHtmlString()))
+                    }
+                    @if (!string.IsNullOrWhiteSpace(item.TransferredToSubscriberNo))
+                    {
+                        @Html.Raw(string.Format(Html.DisplayNameFor(modelItem => item.TransferredToSubscriberNo).ToHtmlString(), Html.DisplayFor(modelItem => item.TransferredToSubscriberNo).ToHtmlString()))
+                    }
+                </td>
+                <td></td>
+            </tr>
+        }
+    }
+
+    <tr>
+        <td colspan="3" class="section-head">
             @Html.DisplayNameFor(model => model.GeneralInfo)
         </td>
     </tr>

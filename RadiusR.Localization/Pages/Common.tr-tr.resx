@@ -1203,4 +1203,7 @@
   <data name="SubscriptionTransition" xml:space="preserve">
     <value>Abonelik Geçişi</value>
   </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Bekliyor</value>
+  </data>
 </root>

@@ -12,6 +12,9 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
 {
     public class SubscriptionDetailsViewModel
     {
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "RegistrationInfo")]
+        public SubscriptionRegistrationInfoViewModel RegistrationInfo { get; set; }
+
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "ArchiveNo")]
         public long ArchiveNo { get; set; }
 

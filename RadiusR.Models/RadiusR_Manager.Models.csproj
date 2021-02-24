@@ -182,6 +182,8 @@
     <Compile Include="ViewModels\ClientStates\PrepareTransitionViewModel.cs" />
     <Compile Include="ViewModels\ClientStates\UpdateTelekomInfoBeforeSendViewModel.cs" />
     <Compile Include="ViewModels\CustomerWebsiteSettingsViewModel.cs" />
+    <Compile Include="ViewModels\Customer\SubscriptionRegistrationInfoViewModel.cs" />
+    <Compile Include="ViewModels\Customer\TransferHistoryViewModel.cs" />
     <Compile Include="ViewModels\EmailSettingsViewModel.cs" />
     <Compile Include="ViewModels\FileManagerSettingsViewModel.cs" />
     <Compile Include="ViewModels\PartnerAllowanceDetailsViewModel.cs" />

@@ -3238,6 +3238,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Registration Info.
+        /// </summary>
+        public static string RegistrationInfo {
+            get {
+                return ResourceManager.GetString("RegistrationInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Registration No.
         /// </summary>
         public static string RegistrationNo {
@@ -4152,6 +4161,33 @@ namespace RadiusR.Localization.Model {
         public static string TradeRegistrationNo {
             get {
                 return ResourceManager.GetString("TradeRegistrationNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer History.
+        /// </summary>
+        public static string TransferHistory {
+            get {
+                return ResourceManager.GetString("TransferHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transferred from {0}.
+        /// </summary>
+        public static string TransferredFrom {
+            get {
+                return ResourceManager.GetString("TransferredFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transferred to {0}.
+        /// </summary>
+        public static string TransferredTo {
+            get {
+                return ResourceManager.GetString("TransferredTo", resourceCulture);
             }
         }
         

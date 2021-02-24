@@ -85,6 +85,8 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                             DoNotCancelTelekomService = true,
                             ForceCancellation = true
                         });
+                        // set transfer history date
+                        pendingTransfer.Date = DateTime.Now;
                         // transfer system log
                         db.SystemLogs.Add(SystemLogProcessor.SubscriptionTransferApplied(registerOptions.AppUserID, subscriptionId, transferringSubscription.ID, subscriptionId, registerOptions.LogInterface, registerOptions.LogInterfaceUsername));
                         db.SystemLogs.Add(SystemLogProcessor.SubscriptionTransferApplied(registerOptions.AppUserID, transferringSubscription.ID, transferringSubscription.ID, subscriptionId, registerOptions.LogInterface, registerOptions.LogInterfaceUsername));

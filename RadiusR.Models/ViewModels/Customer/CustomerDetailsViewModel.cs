@@ -40,7 +40,7 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
             var telekomTariff = dbSubscription.SubscriptionTelekomInfo?.XDSLType != null ? RadiusR.DB.DomainsCache.TelekomTariffsCache.GetSpecificTariff(domain, dbSubscription.SubscriptionTelekomInfo.PacketCode.Value, dbSubscription.SubscriptionTelekomInfo.TariffCode.Value) : null;
             var currentQoutaAndUsage = dbSubscription.GetQuotaAndUsageInfo();
             //var currentBillingPeriod = dbSubscription.GetCurrentBillingPeriod();
-            
+
             ID = dbSubscription.CustomerID;
             DisplayName = dbSubscription.ValidDisplayName;
             IDCard = new IDCardViewModel()
@@ -110,6 +110,19 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
             }
             SubscriptionInfo = new SubscriptionDetailsViewModel()
             {
+                RegistrationInfo = new SubscriptionRegistrationInfoViewModel()
+                {
+                    RegistrationType = dbSubscription.RegistrationType,
+                    TransferHistory = dbSubscription.SubscriptionTransferredFromHistories.Select(sth => new TransferHistoryViewModel()
+                    {
+                        TransferredToSubscriberNo = sth.TransferredSubscription.SubscriberNo,
+                        Date = sth.Date
+                    }).Concat(dbSubscription.SubscriptionTransferredToHistories.Select(sth => new TransferHistoryViewModel()
+                    {
+                        TransferredFromSubscriberNo = sth.TransferrerSubscription.SubscriberNo,
+                        Date = sth.Date
+                    })).OrderBy(th => th.Date).ToArray()
+                },
                 ArchiveNo = dbSubscription.ID,
                 Commitment = dbSubscription.SubscriptionCommitment != null ? new CommitmentViewModel()
                 {

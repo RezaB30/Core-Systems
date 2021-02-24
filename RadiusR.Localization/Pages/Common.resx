@@ -1206,4 +1206,7 @@
   <data name="SubscriptionTransition" xml:space="preserve">
     <value>Subscription Transition</value>
   </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
 </root>

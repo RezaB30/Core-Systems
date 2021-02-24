@@ -1566,4 +1566,16 @@
   <data name="TransitionPSTN" xml:space="preserve">
     <value>Transition PSTN</value>
   </data>
+  <data name="RegistrationInfo" xml:space="preserve">
+    <value>Registration Info</value>
+  </data>
+  <data name="TransferHistory" xml:space="preserve">
+    <value>Transfer History</value>
+  </data>
+  <data name="TransferredFrom" xml:space="preserve">
+    <value>Transferred from {0}</value>
+  </data>
+  <data name="TransferredTo" xml:space="preserve">
+    <value>Transferred to {0}</value>
+  </data>
 </root>
