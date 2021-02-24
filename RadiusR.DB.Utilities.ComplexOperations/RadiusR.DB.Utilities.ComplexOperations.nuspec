@@ -2,21 +2,21 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <title>RadiusR.DB.Utilities.ComplexOperations</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <description>MasterISS complex database operations.</description>
-    <releaseNotes>Updated for partner allowance.</releaseNotes>
+    <releaseNotes>Updated for subscription registration types.</releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>MasterISS Complex Database Operations</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />
 	<dependencies>
-		<dependency id="RadiusR.DB" version="1.2.1"/>
+		<dependency id="RadiusR.DB" version="1.2.2"/>
 		<dependency id="RadiusR.DB.TelekomOperations" version="1.0.0"/>
 		<dependency id="RadiusR.SMS" version="1.0.0"/>
-		<dependency id="RadiusR.SystemLogs" version="1.0.2"/>
+		<dependency id="RadiusR.SystemLogs" version="1.0.3"/>
 		<dependency id="RezaB.API.TCKValidation" version="1.0.0"/>
 	</dependencies>
   </metadata>

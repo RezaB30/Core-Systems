@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <title>RadiusR.SystemLogs</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -13,9 +13,9 @@
     <tags>MasterISS Logging</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />
 	<dependencies>
-		<dependency id="RadiusR.Localization" version="1.0.1"/>
-		<dependency id="RadiusR.Localization.Lists" version="1.0.1"/>
-		<dependency id="RadiusR.DB" version="1.0.5"/>
+		<dependency id="RadiusR.Localization" version="1.0.4"/>
+		<dependency id="RadiusR.Localization.Lists" version="1.0.8"/>
+		<dependency id="RadiusR.DB" version="1.2.2"/>
 	</dependencies>
   </metadata>
   <files>
