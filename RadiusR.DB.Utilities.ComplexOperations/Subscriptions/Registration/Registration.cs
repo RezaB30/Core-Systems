@@ -439,7 +439,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                             // transition telekom info
                             dbSubscription.SubscriptionTelekomInfo = new SubscriptionTelekomInfo()
                             {
-                                SubscriptionNo = registrationInfo.TransitionXDSLNo,
+                                SubscriptionNo = registrationInfo.TransitionXDSLNo ?? " ",
                                 PSTN = registrationInfo.TransitionPSTN,
                                 TTCustomerCode = selectedDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt
                             };

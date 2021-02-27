@@ -31,7 +31,6 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
         public string TransferringSubscriptionNo { get; set; }
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "TransitionXDSLNo")]
-        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
         [MaxLength(10, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
         [MinLength(10, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MinLength")]
         [Number(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Number")]
