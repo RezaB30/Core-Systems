@@ -459,6 +459,9 @@
     <Compile Include="TelekomWorkOrderParameter.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="TransitionOperator.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="VPOSList.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>

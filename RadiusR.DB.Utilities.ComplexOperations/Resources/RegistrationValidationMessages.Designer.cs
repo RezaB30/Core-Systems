@@ -205,6 +205,15 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No operator is registered by [{0}] name..
+        /// </summary>
+        public static string OperatorIsNotRegistered {
+            get {
+                return ResourceManager.GetString("OperatorIsNotRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Telekom info is not valid for this domain..
         /// </summary>
         public static string TelekomInfoNotValidForDomain {

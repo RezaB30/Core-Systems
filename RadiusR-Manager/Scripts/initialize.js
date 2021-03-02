@@ -31,4 +31,5 @@ function initializePartial(containerId) {
     SetupTelekomTariffSelector(containerId);
     SetupFileUploads(containerId);
     SetupMultiFileUploads(containerId);
+    SetupMultiTextEditors(containerId);
 }

@@ -123,5 +123,6 @@ namespace RadiusR.DB
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<SubscriptionTransferHistory> SubscriptionTransferHistories { get; set; }
         public virtual DbSet<SubscriptionTelekomInfo> SubscriptionTelekomInfoes { get; set; }
+        public virtual DbSet<TransitionOperator> TransitionOperators { get; set; }
     }
 }

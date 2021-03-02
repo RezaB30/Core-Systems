@@ -948,6 +948,7 @@
           <Property Name="PacketCode" Type="int" />
           <Property Name="TariffCode" Type="int" />
           <Property Name="IsPaperWorkNeeded" Type="bit" />
+          <Property Name="OperatorID" Type="int" />
         </EntityType>
         <EntityType Name="SubscriptionTransferHistory">
           <Key>
@@ -1109,6 +1110,15 @@
           <Property Name="WorkOrderID" Type="bigint" Nullable="false" />
           <Property Name="ParameterCode" Type="int" Nullable="false" />
           <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransitionOperator">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TelekomUsername" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="RemoteFolder" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="VPOSList">
           <Key>
@@ -2432,6 +2442,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SubscriptionTelekomInfo_TransitionOperator">
+          <End Role="TransitionOperator" Type="Self.TransitionOperator" Multiplicity="0..1" />
+          <End Role="SubscriptionTelekomInfo" Type="Self.SubscriptionTelekomInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransitionOperator">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SubscriptionTelekomInfo">
+              <PropertyRef Name="OperatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SubscriptionTransferHistory_Subscription_From">
           <End Role="Subscription" Type="Self.Subscription" Multiplicity="1" />
           <End Role="SubscriptionTransferHistory" Type="Self.SubscriptionTransferHistory" Multiplicity="*" />
@@ -2829,6 +2851,7 @@
           <EntitySet Name="TelekomTariff" EntityType="Self.TelekomTariff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TelekomWorkOrder" EntityType="Self.TelekomWorkOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TelekomWorkOrderParameter" EntityType="Self.TelekomWorkOrderParameter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransitionOperator" EntityType="Self.TransitionOperator" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VPOSList" EntityType="Self.VPOSList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkArea" EntityType="Self.WorkArea" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AppliedRecurringDiscount_Bill" Association="Self.FK_AppliedRecurringDiscount_Bill">
@@ -3261,6 +3284,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_SubscriptionTelekomInfo_Subscription" Association="Self.FK_SubscriptionTelekomInfo_Subscription">
             <End Role="Subscription" EntitySet="Subscription" />
+            <End Role="SubscriptionTelekomInfo" EntitySet="SubscriptionTelekomInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubscriptionTelekomInfo_TransitionOperator" Association="Self.FK_SubscriptionTelekomInfo_TransitionOperator">
+            <End Role="TransitionOperator" EntitySet="TransitionOperator" />
             <End Role="SubscriptionTelekomInfo" EntitySet="SubscriptionTelekomInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_SubscriptionTransferHistory_Subscription_From" Association="Self.FK_SubscriptionTransferHistory_Subscription_From">
@@ -4625,6 +4652,11 @@
           <EntitySet Name="SubscriptionTelekomInfoes" EntityType="RadiusRModel.SubscriptionTelekomInfo" />
           <AssociationSet Name="FK_SubscriptionTelekomInfo_Subscription" Association="RadiusRModel.FK_SubscriptionTelekomInfo_Subscription">
             <End Role="Subscription" EntitySet="Subscriptions" />
+            <End Role="SubscriptionTelekomInfo" EntitySet="SubscriptionTelekomInfoes" />
+          </AssociationSet>
+          <EntitySet Name="TransitionOperators" EntityType="RadiusRModel.TransitionOperator" />
+          <AssociationSet Name="FK_SubscriptionTelekomInfo_TransitionOperator" Association="RadiusRModel.FK_SubscriptionTelekomInfo_TransitionOperator">
+            <End Role="TransitionOperator" EntitySet="TransitionOperators" />
             <End Role="SubscriptionTelekomInfo" EntitySet="SubscriptionTelekomInfoes" />
           </AssociationSet>
           </EntityContainer>
@@ -6805,6 +6837,8 @@
           <Property Name="TariffCode" Type="Int32" />
           <Property Name="IsPaperWorkNeeded" Type="Boolean" />
           <NavigationProperty Name="Subscription" Relationship="RadiusRModel.FK_SubscriptionTelekomInfo_Subscription" FromRole="SubscriptionTelekomInfo" ToRole="Subscription" />
+          <Property Name="OperatorID" Type="Int32" />
+          <NavigationProperty Name="TransitionOperator" Relationship="RadiusRModel.FK_SubscriptionTelekomInfo_TransitionOperator" FromRole="SubscriptionTelekomInfo" ToRole="TransitionOperator" />
         </EntityType>
         <Association Name="FK_SubscriptionTelekomInfo_Subscription">
           <End Type="RadiusRModel.Subscription" Role="Subscription" Multiplicity="1" />
@@ -6815,6 +6849,28 @@
             </Principal>
             <Dependent Role="SubscriptionTelekomInfo">
               <PropertyRef Name="SubscriptionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TransitionOperator">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TelekomUsername" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="RemoteFolder" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SubscriptionTelekomInfoes" Relationship="RadiusRModel.FK_SubscriptionTelekomInfo_TransitionOperator" FromRole="TransitionOperator" ToRole="SubscriptionTelekomInfo" />
+        </EntityType>
+        <Association Name="FK_SubscriptionTelekomInfo_TransitionOperator">
+          <End Type="RadiusRModel.TransitionOperator" Role="TransitionOperator" Multiplicity="0..1" />
+          <End Type="RadiusRModel.SubscriptionTelekomInfo" Role="SubscriptionTelekomInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransitionOperator">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SubscriptionTelekomInfo">
+              <PropertyRef Name="OperatorID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8030,6 +8086,7 @@
           <EntitySetMapping Name="SubscriptionTelekomInfoes">
             <EntityTypeMapping TypeName="RadiusRModel.SubscriptionTelekomInfo">
               <MappingFragment StoreEntitySet="SubscriptionTelekomInfo">
+                <ScalarProperty Name="OperatorID" ColumnName="OperatorID" />
                 <ScalarProperty Name="IsPaperWorkNeeded" ColumnName="IsPaperWorkNeeded" />
                 <ScalarProperty Name="TariffCode" ColumnName="TariffCode" />
                 <ScalarProperty Name="PacketCode" ColumnName="PacketCode" />
@@ -8039,6 +8096,16 @@
                 <ScalarProperty Name="TTCustomerCode" ColumnName="TTCustomerCode" />
                 <ScalarProperty Name="SubscriptionNo" ColumnName="SubscriptionNo" />
                 <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransitionOperators">
+            <EntityTypeMapping TypeName="RadiusRModel.TransitionOperator">
+              <MappingFragment StoreEntitySet="TransitionOperator">
+                <ScalarProperty Name="RemoteFolder" ColumnName="RemoteFolder" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="TelekomUsername" ColumnName="TelekomUsername" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

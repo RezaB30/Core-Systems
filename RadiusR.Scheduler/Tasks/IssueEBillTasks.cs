@@ -14,7 +14,7 @@ using RezaB.NetInvoice.Wrapper;
 
 namespace RadiusR.Scheduler.Tasks
 {
-    class IssueEBillTasks : AbortableTask
+    public class IssueEBillTasks : AbortableTask
     {
         private static Logger logger = LogManager.GetLogger("issue-ebill-tasks");
         private const int batchSize = 1000;

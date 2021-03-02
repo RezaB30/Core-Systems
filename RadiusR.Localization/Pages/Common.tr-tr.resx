@@ -1206,4 +1206,7 @@
   <data name="Pending" xml:space="preserve">
     <value>Bekliyor</value>
   </data>
+  <data name="TransitionOperators" xml:space="preserve">
+    <value>Geçiş İşletmecileri</value>
+  </data>
 </root>

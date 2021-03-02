@@ -17,7 +17,7 @@ using RadiusR.SystemLogs;
 
 namespace RadiusR.Scheduler.Tasks
 {
-    class AutomaticPaymentTasks : AbortableTask
+    public class AutomaticPaymentTasks : AbortableTask
     {
         private static Logger logger = LogManager.GetLogger("automatic-payment-tasks");
         private static Logger successLogger = LogManager.GetLogger("automatic-payment-success");

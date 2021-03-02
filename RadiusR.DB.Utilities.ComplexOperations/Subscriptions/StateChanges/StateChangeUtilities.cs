@@ -439,7 +439,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                 // change state
                 billingReadySubscription.Subscription.State = (short)cancelOptions.NewState;
                 // if should cancel telekom service
-                if (!cancelOptions.DoNotCancelTelekomService)
+                if (!cancelOptions.DoNotCancelTelekomService && !cancelOptions.IsDismissed)
                 {
                     // TT cancellation request if available
                     if (billingReadySubscription.Subscription.SubscriptionTelekomInfo != null && !string.IsNullOrWhiteSpace(billingReadySubscription.Subscription.SubscriptionTelekomInfo.SubscriptionNo))

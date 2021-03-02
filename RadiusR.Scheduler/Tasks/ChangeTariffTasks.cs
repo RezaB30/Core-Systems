@@ -11,7 +11,7 @@ using RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TariffChanges;
 
 namespace RadiusR.Scheduler.Tasks
 {
-    class ChangeTariffTasks : AbortableTask
+    public class ChangeTariffTasks : AbortableTask
     {
         private static Logger logger = LogManager.GetLogger("change-tariff-tasks");
 

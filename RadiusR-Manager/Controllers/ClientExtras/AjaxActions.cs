@@ -176,7 +176,7 @@ namespace RadiusR_Manager.Controllers
 
             if (results.ResultCode != TelekomSynchronizationResultCodes.Success)
             {
-                TempData["tt-sync-error"] = results.ResultCode == TelekomSynchronizationResultCodes.TelekomError ? results.TelekomException?.GetShortMessage() : GetSynchronizationErrorMessage(results.ResultCode) ;
+                TempData["tt-sync-error"] = results.ResultCode == TelekomSynchronizationResultCodes.TelekomError ? string.Join(Environment.NewLine, results.TelekomExceptions.Select(tte => tte.GetShortMessage())) : GetSynchronizationErrorMessage(results.ResultCode) ;
                 return RedirectToAction("Details", new { id = dbSubscription.ID, errorMessage = 33 });
             }
 

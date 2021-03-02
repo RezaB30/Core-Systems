@@ -820,7 +820,7 @@ namespace RadiusR_Manager.Controllers
                     });
                     if (results.ResultCode != TelekomSynchronizationResultCodes.Success)
                     {
-                        ViewBag.TelekomError = results.ResultCode == TelekomSynchronizationResultCodes.TelekomError ? results.TelekomException?.GetShortMessage() : GetSynchronizationErrorMessage(results.ResultCode) ;
+                        ViewBag.TelekomError = results.ResultCode == TelekomSynchronizationResultCodes.TelekomError ? string.Join(Environment.NewLine, results.TelekomExceptions.Select(tte => tte.GetShortMessage())) : GetSynchronizationErrorMessage(results.ResultCode) ;
                     }
                     else
                     {

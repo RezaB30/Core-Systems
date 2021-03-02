@@ -120,7 +120,13 @@
   <data name="CorporateContract" xml:space="preserve">
     <value>Kurumsal Abonelik Başvuru Formu</value>
   </data>
+  <data name="CorporateTransition" xml:space="preserve">
+    <value>Kurumsal Geçiş Formu</value>
+  </data>
   <data name="IndividualContract" xml:space="preserve">
     <value>Bireysel Abonelik Başvuru Formu</value>
+  </data>
+  <data name="IndividualTransition" xml:space="preserve">
+    <value>Bireysel Geçiş Formu</value>
   </data>
 </root>

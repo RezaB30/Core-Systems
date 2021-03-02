@@ -480,4 +480,7 @@
   <data name="ArchiveAccess" xml:space="preserve">
     <value>Archive Access</value>
   </data>
+  <data name="TransitionOperators" xml:space="preserve">
+    <value>Transition Operators</value>
+  </data>
 </root>

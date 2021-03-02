@@ -1578,4 +1578,25 @@
   <data name="TransferredTo" xml:space="preserve">
     <value>{0}'e devredildi.</value>
   </data>
+  <data name="FullNameOrTitle" xml:space="preserve">
+    <value>Adı Soyadı/Ünvanı</value>
+  </data>
+  <data name="TCKAndTaxNo" xml:space="preserve">
+    <value>TCK/Vergi No</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Devir</value>
+  </data>
+  <data name="Transferred" xml:space="preserve">
+    <value>Devralan</value>
+  </data>
+  <data name="Transferring" xml:space="preserve">
+    <value>Devreden</value>
+  </data>
+  <data name="TransitionSourceOperator" xml:space="preserve">
+    <value>Verici Operatör</value>
+  </data>
+  <data name="RemoteFolders" xml:space="preserve">
+    <value>Uzak Klasörler</value>
+  </data>
 </root>

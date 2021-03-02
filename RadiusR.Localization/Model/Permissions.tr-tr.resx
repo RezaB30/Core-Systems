@@ -480,4 +480,7 @@
   <data name="ArchiveAccess" xml:space="preserve">
     <value>Arşiv Erişimi</value>
   </data>
+  <data name="TransitionOperators" xml:space="preserve">
+    <value>Geçiş İşletmecileri</value>
+  </data>
 </root>

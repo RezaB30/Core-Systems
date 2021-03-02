@@ -120,7 +120,13 @@
   <data name="CorporateContract" xml:space="preserve">
     <value>Corporate Subscription Application Form</value>
   </data>
+  <data name="CorporateTransition" xml:space="preserve">
+    <value>Corporate Transition Form</value>
+  </data>
   <data name="IndividualContract" xml:space="preserve">
     <value>Individual Subscription Application Form</value>
+  </data>
+  <data name="IndividualTransition" xml:space="preserve">
+    <value>Individual Transition Form</value>
   </data>
 </root>

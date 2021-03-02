@@ -1123,6 +1123,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Transition Operators.
+        /// </summary>
+        public static string TransitionOperators {
+            get {
+                return ResourceManager.GetString("TransitionOperators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transport Subscription.
         /// </summary>
         public static string TransportSubscription {

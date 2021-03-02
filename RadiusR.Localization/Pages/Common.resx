@@ -1209,4 +1209,7 @@
   <data name="Pending" xml:space="preserve">
     <value>Pending</value>
   </data>
+  <data name="TransitionOperators" xml:space="preserve">
+    <value>Transition Operators</value>
+  </data>
 </root>

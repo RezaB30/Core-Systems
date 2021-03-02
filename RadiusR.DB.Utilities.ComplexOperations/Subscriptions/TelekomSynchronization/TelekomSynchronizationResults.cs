@@ -11,7 +11,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TelekomSynchroniz
     {
         public TelekomSynchronizationResultCodes ResultCode { get; set; }
 
-        public TTWebServiceException TelekomException { get; set; }
+        public ICollection<TTWebServiceException> TelekomExceptions { get; set; }
 
         public string SynchronizedUsername { get; set; }
     }

@@ -49,8 +49,32 @@ namespace RadiusR.DB.Enums
         CompanyTitle = 35,
         TaxOffice = 36,
         TaxNo = 37,
+        TCKAndTaxNo = 63,
+        FirstAndLastName = 64,
+        DisplayName = 65, // First+LastName+Title
         CentralSystemNo = 38,
         TradeRegistrationNo = 39,
-        BillingAddress = 40 // next 45
+        BillingAddress = 40,
+        Transferred_SubscriberNo = 45,
+        Transferred_FirstName = 46,
+        Transferred_LastName = 47,
+        Transferred_FirstAndLastName = 48,
+        Transferred_CompanyTitle = 49,
+        Transferred_DisplayName = 50, // First+LastName+Title
+        Transferred_TCKNo = 51,
+        Transferred_TaxNo = 52,
+        Transferred_TCKAndTaxNo = 53,
+        Transferring_SubscriberNo = 54,
+        Transferring_FirstName = 55,
+        Transferring_LastName = 56,
+        Transferring_FirstAndLastName = 57,
+        Transferring_CompanyTitle = 58,
+        Transferring_DisplayName = 59, // First+LastName+Title
+        Transferring_TCKNo = 60,
+        Transferring_TaxNo = 61,
+        Transferring_TCKAndTaxNo = 62,
+        XDSLNo = 66,
+        SubscriberNo = 67,
+        TransitionSourceOperator = 68,
     }
 }

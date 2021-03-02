@@ -13,7 +13,7 @@ using RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges;
 
 namespace RadiusR.Scheduler.Tasks
 {
-    class ChangeStateTasks : AbortableTask
+    public class ChangeStateTasks : AbortableTask
     {
         private static Logger logger = LogManager.GetLogger("change-state-tasks");
 

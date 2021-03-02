@@ -15,7 +15,7 @@ using System.Data.SqlClient;
 
 namespace RadiusR.Scheduler.Tasks
 {
-    class ScheduledSMSTasks : AbortableTask
+    public class ScheduledSMSTasks : AbortableTask
     {
         private static Logger logger = LogManager.GetLogger("scheduled-sms-tasks");
         private const int batchSize = 250;

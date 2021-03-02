@@ -574,6 +574,12 @@
                         @Html.ActionLink(RadiusR.Localization.Pages.Common.TelekomTariffs, "TelekomTariffs", "TTServices")
                     </li>
                 }
+                @if (User.HasPermission("Transition Operators"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.TransitionOperators, "Index", "TransitionOperators")
+                    </li>
+                }
                 @if (User.HasPermission("Customer Website Settings"))
                 {
                     <li>

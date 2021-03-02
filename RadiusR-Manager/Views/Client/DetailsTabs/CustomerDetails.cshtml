@@ -944,6 +944,15 @@
             </td>
             <td></td>
         </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.SubscriptionInfo.TelekomInfo.OperatorName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SubscriptionInfo.TelekomInfo.OperatorName)
+            </td>
+            <td></td>
+        </tr>
         if (User.HasPermission("Modify Clients"))
         {
             <tr>

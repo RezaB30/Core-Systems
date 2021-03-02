@@ -23,7 +23,9 @@ namespace RadiusR.DB
         public Nullable<int> PacketCode { get; set; }
         public Nullable<int> TariffCode { get; set; }
         public Nullable<bool> IsPaperWorkNeeded { get; set; }
+        public Nullable<int> OperatorID { get; set; }
     
         public virtual Subscription Subscription { get; set; }
+        public virtual TransitionOperator TransitionOperator { get; set; }
     }
 }

@@ -303,4 +303,7 @@
   <data name="ValueExists" xml:space="preserve">
     <value>Tekrarlayan değerlere izin verilmez.</value>
   </data>
+  <data name="ValueAlreadyExists" xml:space="preserve">
+    <value>Bu değer zaten mevcuttur.</value>
+  </data>
 </root>

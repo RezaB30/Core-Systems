@@ -23,7 +23,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TelekomSynchroniz
         public static TelekomSynchronizationResults UpdateSubscriberTelekomInfoFromWebService(this RadiusREntities db, TelekomSynchronizationOptions options)
         {
             // check options
-            if(options.DBSubscription == null || !options.AppUserID.HasValue || string.IsNullOrWhiteSpace(options.DSLNo) || !options.LogInterface.HasValue)
+            if (options.DBSubscription == null || !options.AppUserID.HasValue || string.IsNullOrWhiteSpace(options.DSLNo) || !options.LogInterface.HasValue)
             {
                 return new TelekomSynchronizationResults()
                 {
@@ -47,57 +47,65 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TelekomSynchroniz
                     ResultCode = TelekomSynchronizationResultCodes.InvalidDomain
                 };
             }
+
+            // initialize
+            var result = new TelekomSynchronizationResults()
+            {
+                ResultCode = TelekomSynchronizationResultCodes.Success,
+                TelekomExceptions = new List<TTWebServiceException>()
+            };
+
             // Tariff Update
             {
                 var serviceClient = new TelekomSubscriberInfoServiceClient(domain.TelekomCredential.XDSLWebServiceUsernameInt, domain.TelekomCredential.XDSLWebServicePassword);
                 var response = serviceClient.GetSubscriberDetailedInfo(options.DSLNo);
                 if (response.InternalException != null)
                 {
-                    return new TelekomSynchronizationResults(){
-                        ResultCode = TelekomSynchronizationResultCodes.TelekomError,
-                        TelekomException = response.InternalException 
-                    };
+                    result.ResultCode = TelekomSynchronizationResultCodes.TelekomError;
+                    result.TelekomExceptions.Add(response.InternalException);
+                    //return new TelekomSynchronizationResults(){
+                    //    ResultCode = TelekomSynchronizationResultCodes.TelekomError,
+                    //    TelekomExceptions = response.InternalException 
+                    //};
                 }
-
-                if (response.Data.PacketCode.HasValue)
-                    options.DBSubscription.SubscriptionTelekomInfo.PacketCode = response.Data.PacketCode.Value;
-                if (response.Data.TariffCode.HasValue)
-                    options.DBSubscription.SubscriptionTelekomInfo.TariffCode = response.Data.TariffCode.Value;
-                if (response.Data.DSLType.HasValue)
-                    options.DBSubscription.SubscriptionTelekomInfo.XDSLType = (short)response.Data.DSLType.Value;
-                if (response.Data.CustomerCode.HasValue)
-                    options.DBSubscription.SubscriptionTelekomInfo.TTCustomerCode = response.Data.CustomerCode.Value;
-                if (!string.IsNullOrEmpty(response.Data.PSTNNo) && response.Data.PSTNNo != options.DSLNo)
-                    options.DBSubscription.SubscriptionTelekomInfo.PSTN = response.Data.PSTNNo;
                 else
-                    options.DBSubscription.SubscriptionTelekomInfo.PSTN = null;
-                if (!string.IsNullOrWhiteSpace(response.Data.SubscriberUsername))
                 {
-                    var newUsername = response.Data.SubscriberUsername + "@" + domain.Name;
-                    if (db.Subscriptions.Any(s => s.Username.ToLower() == newUsername && s.ID != options.DBSubscription.ID))
-                        return new TelekomSynchronizationResults()
-                        {
-                            ResultCode = TelekomSynchronizationResultCodes.SynchronizedUsernameExists,
-                            SynchronizedUsername = newUsername
-                        };
-                    options.DBSubscription.Username = newUsername;
+                    if (response.Data.PacketCode.HasValue)
+                        options.DBSubscription.SubscriptionTelekomInfo.PacketCode = response.Data.PacketCode.Value;
+                    if (response.Data.TariffCode.HasValue)
+                        options.DBSubscription.SubscriptionTelekomInfo.TariffCode = response.Data.TariffCode.Value;
+                    if (response.Data.DSLType.HasValue)
+                        options.DBSubscription.SubscriptionTelekomInfo.XDSLType = (short)response.Data.DSLType.Value;
+                    if (response.Data.CustomerCode.HasValue)
+                        options.DBSubscription.SubscriptionTelekomInfo.TTCustomerCode = response.Data.CustomerCode.Value;
+                    if (!string.IsNullOrEmpty(response.Data.PSTNNo) && response.Data.PSTNNo != options.DSLNo)
+                        options.DBSubscription.SubscriptionTelekomInfo.PSTN = response.Data.PSTNNo;
+                    else
+                        options.DBSubscription.SubscriptionTelekomInfo.PSTN = null;
+                    if (!string.IsNullOrWhiteSpace(response.Data.SubscriberUsername))
+                    {
+                        var newUsername = response.Data.SubscriberUsername + "@" + domain.Name;
+                        if (db.Subscriptions.Any(s => s.Username.ToLower() == newUsername && s.ID != options.DBSubscription.ID))
+                            return new TelekomSynchronizationResults()
+                            {
+                                ResultCode = TelekomSynchronizationResultCodes.SynchronizedUsernameExists,
+                                SynchronizedUsername = newUsername
+                            };
+                        options.DBSubscription.Username = newUsername;
+                    }
                 }
-
-                // system log
-                db.SystemLogs.Add(SystemLogProcessor.TelekomSync(options.AppUserID, options.DBSubscription.ID, options.LogInterface.Value, options.LogInterfaceUsername));
-                //// save
-                //db.SaveChanges();
-
                 // Password Update
                 {
                     var secondaryResponse = serviceClient.GetFTTXAAAInfo(options.DSLNo);
                     if (secondaryResponse.InternalException != null)
                     {
-                        return new TelekomSynchronizationResults()
-                        {
-                            ResultCode = TelekomSynchronizationResultCodes.TelekomError,
-                            TelekomException = secondaryResponse.InternalException
-                        };
+                        result.ResultCode = TelekomSynchronizationResultCodes.TelekomError;
+                        result.TelekomExceptions.Add(secondaryResponse.InternalException);
+                        //return new TelekomSynchronizationResults()
+                        //{
+                        //    ResultCode = TelekomSynchronizationResultCodes.TelekomError,
+                        //    TelekomExceptions = secondaryResponse.InternalException
+                        //};
                     }
 
                     options.DBSubscription.RadiusPassword = secondaryResponse.Data.Password;
@@ -114,12 +122,50 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TelekomSynchroniz
                 {
                     options.DBSubscription.SubscriptionTelekomInfo.RedbackName = response.Data.RedbackName;
                 }
+                else
+                {
+                    result.ResultCode = TelekomSynchronizationResultCodes.TelekomError;
+                    result.TelekomExceptions.Add(response.InternalException);
+                }
             }
-            // success
-            return new TelekomSynchronizationResults()
+            // operator name update
             {
-                ResultCode = TelekomSynchronizationResultCodes.Success
-            };
+                var serviceClient = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TTChurnApplicationClient(domain.TelekomCredential.XDSLWebServiceUsernameInt, domain.TelekomCredential.XDSLWebServicePassword);
+                var response = serviceClient.GetOperatorByXDSLNo(options.DSLNo);
+                if (response.InternalException == null)
+                {
+                    var cachedOperator = TransitionOperatorsCache.GetAllOperators().FirstOrDefault(to => to.Username == response.Data);
+                    if (cachedOperator == null)
+                    {
+                        result.ResultCode = TelekomSynchronizationResultCodes.TelekomError;
+                        result.TelekomExceptions.Add(new TTWebServiceException($"Operator user [{response.Data}] does not exist."));
+                        //return new TelekomSynchronizationResults()
+                        //{
+                        //    ResultCode = TelekomSynchronizationResultCodes.TelekomError,
+                        //    TelekomExceptions = new TTWebServiceException($"Operator user [{response.Data}] does not exist.")
+                        //};
+                    }
+                    else
+                    {
+                        options.DBSubscription.SubscriptionTelekomInfo.OperatorID = cachedOperator.ID;
+                    }
+                }
+                else
+                {
+                    result.ResultCode = TelekomSynchronizationResultCodes.TelekomError;
+                    result.TelekomExceptions.Add(response.InternalException);
+                }
+            }
+            // system log
+            db.SystemLogs.Add(SystemLogProcessor.TelekomSync(options.AppUserID, options.DBSubscription.ID, options.LogInterface.Value, options.LogInterfaceUsername));
+
+            return result;
+
+            // success
+            //return new TelekomSynchronizationResults()
+            //{
+            //    ResultCode = TelekomSynchronizationResultCodes.Success
+            //};
         }
     }
 }

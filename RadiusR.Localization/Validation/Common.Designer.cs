@@ -601,6 +601,15 @@ namespace RadiusR.Localization.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This value already exists..
+        /// </summary>
+        public static string ValueAlreadyExists {
+            get {
+                return ResourceManager.GetString("ValueAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duplicate values not allowed..
         /// </summary>
         public static string ValueExists {

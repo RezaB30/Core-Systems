@@ -3193,6 +3193,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Transition Operators.
+        /// </summary>
+        public static string TransitionOperators {
+            get {
+                return ResourceManager.GetString("TransitionOperators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transport.
         /// </summary>
         public static string Transport {

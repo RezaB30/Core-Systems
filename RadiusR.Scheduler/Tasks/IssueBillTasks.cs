@@ -11,7 +11,7 @@ using RadiusR.DB.Utilities.Billing;
 
 namespace RadiusR.Scheduler.Tasks
 {
-    class IssueBillTasks : AbortableTask
+    public class IssueBillTasks : AbortableTask
     {
         private static Logger logger = LogManager.GetLogger("issue-bill-tasks");
         private const int batchSize = 1000;

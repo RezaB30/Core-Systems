@@ -303,4 +303,7 @@
   <data name="ValueExists" xml:space="preserve">
     <value>Duplicate values not allowed.</value>
   </data>
+  <data name="ValueAlreadyExists" xml:space="preserve">
+    <value>This value already exists.</value>
+  </data>
 </root>

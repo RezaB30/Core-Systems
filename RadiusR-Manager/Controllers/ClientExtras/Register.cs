@@ -106,11 +106,11 @@ namespace RadiusR_Manager.Controllers
                 {
                     Customer dbCustomer;
                     var registrationInfo = CreateCustomerInfoForRegistration(registeredCustomer);
-                    var validationResults = db.RegisterSubscriptionWithNewCustomer(registrationInfo, out dbCustomer, true);
-                    if (validationResults != null)
+                    var registrationResults = db.RegisterSubscriptionWithNewCustomer(registrationInfo, out dbCustomer, true);
+                    if (registrationResults != null)
                     {
-                        ViewBag.RegistrationValidations = validationResults;
-                        foreach (var item in validationResults)
+                        ViewBag.RegistrationValidations = registrationResults.ValidationMessages;
+                        foreach (var item in registrationResults.ValidationMessages)
                         {
                             ModelState.AddModelError(item.Key, string.Join(Environment.NewLine, item.Select(ve => ve)));
                         }
@@ -118,7 +118,7 @@ namespace RadiusR_Manager.Controllers
                     else
                     {
                         // if new customer add it
-                        if (dbCustomer.ID <= 0)
+                        if (registrationResults.DoesCustomerExist == false)
                             db.Customers.Add(dbCustomer);
                         // save db
                         db.SaveChanges();
@@ -220,11 +220,11 @@ namespace RadiusR_Manager.Controllers
             {
                 var dbCustomer = db.Customers.Find(referenceSubscription.CustomerID);
                 var registrationInfo = CreateSubscriptionInfoForRegistration(subscription);
-                var validationResults = db.RegisterSubscriptionForExistingCustomer(registrationInfo, dbCustomer);
-                if (validationResults != null)
+                var registrationResults = db.RegisterSubscriptionForExistingCustomer(registrationInfo, dbCustomer);
+                if (!registrationResults.IsSuccess)
                 {
-                    ViewBag.RegistrationValidations = validationResults;
-                    foreach (var item in validationResults)
+                    ViewBag.RegistrationValidations = registrationResults.ValidationMessages;
+                    foreach (var item in registrationResults.ValidationMessages)
                     {
                         ModelState.AddModelError(item.Key, string.Join(Environment.NewLine, item.Select(ve => ve)));
                     }

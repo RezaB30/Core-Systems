@@ -164,9 +164,8 @@
       <HintPath>..\packages\RezaB.Networking.1.0.1\lib\net452\RezaB.Networking.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RezaB.TurkTelekom.WebServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.TurkTelekom.WebServices.1.0.0\lib\net452\RezaB.TurkTelekom.WebServices.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="RezaB.TurkTelekom.WebServices, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.TurkTelekom.WebServices.1.1.0-beta1\lib\net452\RezaB.TurkTelekom.WebServices.dll</HintPath>
     </Reference>
     <Reference Include="RezaB.Web, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RezaB.Web.1.1.1\lib\net452\RezaB.Web.dll</HintPath>
@@ -341,6 +340,7 @@
     <Compile Include="Controllers\SupportRequestController.cs" />
     <Compile Include="Controllers\TaxController.cs" />
     <Compile Include="Controllers\TelekomWorkOrderController.cs" />
+    <Compile Include="Controllers\TransitionOperatorsController.cs" />
     <Compile Include="Controllers\TTServicesController.cs" />
     <Compile Include="Controllers\UserManagementController.cs" />
     <Compile Include="Controllers\CallCenterController.cs" />
@@ -354,6 +354,7 @@
     <Compile Include="Helpers\ClientFeeListHelper.cs" />
     <Compile Include="Helpers\ClientStateDisplayHelper.cs" />
     <Compile Include="Helpers\CustomFeeListHelper.cs" />
+    <Compile Include="Helpers\MultiTextEditorHelper.cs" />
     <Compile Include="Helpers\RecurringDiscountEditorHelper.cs" />
     <Compile Include="Helpers\DisplayMultiListForHelper.cs" />
     <Compile Include="Helpers\ExpiredPoolListHelper.cs" />
@@ -395,6 +396,7 @@
     <Content Include="Content\css\multi-file-upload.css" />
     <Content Include="Content\Images\Buttons\paper-clip.svg" />
     <Content Include="Scripts\Custom\multi-file-upload.js" />
+    <Content Include="Scripts\Custom\multi-text-editor.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
     <Content Include="Scripts\jquery-3.5.1.slim.js" />
@@ -970,6 +972,8 @@
     <Content Include="Views\Partner\PartnerCollectionList.cshtml" />
     <Content Include="Views\Partner\CollectionDetails.cshtml" />
     <Content Include="Views\Client\AddWizard\PrepareTransition.cshtml" />
+    <Content Include="Views\TransitionOperators\Index.cshtml" />
+    <Content Include="Views\TransitionOperators\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

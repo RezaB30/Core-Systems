@@ -1578,4 +1578,25 @@
   <data name="TransferredTo" xml:space="preserve">
     <value>Transferred to {0}</value>
   </data>
+  <data name="FullNameOrTitle" xml:space="preserve">
+    <value>Full Name/Title</value>
+  </data>
+  <data name="TCKAndTaxNo" xml:space="preserve">
+    <value>TCK/TaxNo</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
+  <data name="Transferred" xml:space="preserve">
+    <value>Transferred</value>
+  </data>
+  <data name="Transferring" xml:space="preserve">
+    <value>Transferring</value>
+  </data>
+  <data name="TransitionSourceOperator" xml:space="preserve">
+    <value>Source Operator</value>
+  </data>
+  <data name="RemoteFolders" xml:space="preserve">
+    <value>Remote Folders</value>
+  </data>
 </root>

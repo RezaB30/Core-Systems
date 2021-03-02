@@ -165,6 +165,9 @@
   <data name="InvalidTransferringSubscription" xml:space="preserve">
     <value>Geçersiz devreden Aboneliği.</value>
   </data>
+  <data name="OperatorIsNotRegistered" xml:space="preserve">
+    <value>[{0}] adıyla kayıtlı işletmeci yok.</value>
+  </data>
   <data name="TelekomInfoNotValidForDomain" xml:space="preserve">
     <value>Telekom bilgileri bu domain için geçerli değil.</value>
   </data>

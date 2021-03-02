@@ -12,7 +12,7 @@ using RadiusR.Scheduler.SMS;
 
 namespace RadiusR.Scheduler.Tasks
 {
-    class SMSGenerationTasks : AbortableTask
+    public class SMSGenerationTasks : AbortableTask
     {
         private static Logger logger = LogManager.GetLogger("sms-generation-tasks");
         private const int batchSize = 1000;

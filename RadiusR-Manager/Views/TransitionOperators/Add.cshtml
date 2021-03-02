@@ -1,0 +1,65 @@
+﻿@using RadiusR_Manager.Helpers;
+
+@model RadiusR_Manager.Models.RadiusViewModels.TransitionOperatorViewModel
+
+@{
+    ViewBag.Title = $"{RadiusR.Localization.Pages.Common.TransitionOperators}-{ViewBag.OperatorName ?? RadiusR.Localization.Pages.Common.Add}";
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+        <table class="input-table">
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.DisplayName)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.DisplayName, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.DisplayName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Username)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.Username)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.RemoteFolders)
+                </td>
+                <td>
+                    @Html.MultiTextEditorFor(model => model.RemoteFolders, new { @autocomplete = "off", @maxlength = 40 })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.RemoteFolders)
+                    @Html.ValidationMessageFor(model => model._remoteFolder)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="centered">
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class = "link-button iconed-button back-button" })
+                    &nbsp;
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                </td>
+            </tr>
+        </table>
+        }
+    </div>
+</div>

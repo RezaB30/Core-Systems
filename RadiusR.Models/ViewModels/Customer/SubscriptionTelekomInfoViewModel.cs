@@ -34,5 +34,8 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "TTPacket")]
         public TelekomTariffHelperViewModel TelekomTariffInfo { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "OperatorName")]
+        public string OperatorName { get; set; }
     }
 }

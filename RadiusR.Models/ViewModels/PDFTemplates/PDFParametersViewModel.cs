@@ -13,6 +13,9 @@ namespace RadiusR_Manager.Models.ViewModels.PDFTemplates
 {
     public class PDFParametersViewModel
     {
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "SubscriberNo")]
+        public Coords SubscriberNo { get; set; }
+
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "FirstName")]
         public Coords FirstName { get; set; }
 
@@ -76,6 +79,15 @@ namespace RadiusR_Manager.Models.ViewModels.PDFTemplates
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "TaxNo")]
         public Coords TaxNo { get; set; }
 
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "TCKAndTaxNo")]
+        public Coords TCKAndTaxNo { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "FullName")]
+        public Coords FirstAndLastName { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "FullNameOrTitle")]
+        public Coords DisplayName { get; set; }
+
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "CentralSystemNo")]
         public Coords CentralSystemNo { get; set; }
 
@@ -84,6 +96,15 @@ namespace RadiusR_Manager.Models.ViewModels.PDFTemplates
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "BillingAddress")]
         public Coords BillingAddress { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "TelekomSubscriberNo")]
+        public Coords XDSLNo { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "TransitionSourceOperator")]
+        public Coords TransitionSourceOperator { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "Transfer")]
+        public Transfer TransferAction { get; set; }
 
         #region Subclasses
 
@@ -118,6 +139,45 @@ namespace RadiusR_Manager.Models.ViewModels.PDFTemplates
 
             [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "BBK")]
             public Coords BBK { get; set; }
+        }
+
+        public class TransferSubscription
+        {
+            [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "SubscriberNo")]
+            public Coords SubscriberNo { get; set; }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "FirstName")]
+            public Coords FirstName { get; set; }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "LastName")]
+            public Coords LastName { get; set; }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "FullName")]
+            public Coords FirstAndLastName { get; set; }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "CompanyTitle")]
+            public Coords CompanyTitle { get; set; }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "FullNameOrTitle")]
+            public Coords DisplayName { get; set; }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "TCKNo")]
+            public Coords TCKNo { get; set; }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "TaxNo")]
+            public Coords TaxNo { get; set; }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "TCKAndTaxNo")]
+            public Coords TCKAndTaxNo { get; set; }
+        }
+
+        public class Transfer
+        {
+            [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "Transferring")]
+            public TransferSubscription TransferringSubscription { get; set; }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "Transferred")]
+            public TransferSubscription TransferredSubscription { get; set; }
         }
 
         public class Sex
@@ -160,6 +220,16 @@ namespace RadiusR_Manager.Models.ViewModels.PDFTemplates
         public void UpdateDatabase(RadiusREntities db, int formType)
         {
             db.PDFFormItemPlacements.RemoveRange(db.PDFFormItemPlacements.Where(pdfItem => pdfItem.FormType == formType));
+            if (SubscriberNo != null)
+            {
+                db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                {
+                    ItemID = (int)PDFItemIDs.SubscriberNo,
+                    FormType = formType,
+                    CoordsX = SubscriberNo.X.Value,
+                    CoordsY = SubscriberNo.Y.Value
+                });
+            }
             if (FirstName != null)
             {
                 db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
@@ -570,6 +640,36 @@ namespace RadiusR_Manager.Models.ViewModels.PDFTemplates
                     CoordsY = TaxNo.Y.Value
                 });
             }
+            if (TCKAndTaxNo != null)
+            {
+                db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                {
+                    ItemID = (int)PDFItemIDs.TCKAndTaxNo,
+                    FormType = formType,
+                    CoordsX = TCKAndTaxNo.X.Value,
+                    CoordsY = TCKAndTaxNo.Y.Value
+                });
+            }
+            if (FirstAndLastName != null)
+            {
+                db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                {
+                    ItemID = (int)PDFItemIDs.FirstAndLastName,
+                    FormType = formType,
+                    CoordsX = FirstAndLastName.X.Value,
+                    CoordsY = FirstAndLastName.Y.Value
+                });
+            }
+            if (DisplayName != null)
+            {
+                db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                {
+                    ItemID = (int)PDFItemIDs.DisplayName,
+                    FormType = formType,
+                    CoordsX = DisplayName.X.Value,
+                    CoordsY = DisplayName.Y.Value
+                });
+            }
             if (CentralSystemNo != null)
             {
                 db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
@@ -600,6 +700,215 @@ namespace RadiusR_Manager.Models.ViewModels.PDFTemplates
                     CoordsY = BillingAddress.Y.Value
                 });
             }
+            if (XDSLNo != null)
+            {
+                db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                {
+                    ItemID = (int)PDFItemIDs.XDSLNo,
+                    FormType = formType,
+                    CoordsX = XDSLNo.X.Value,
+                    CoordsY = XDSLNo.Y.Value
+                });
+            }
+            if (TransitionSourceOperator != null)
+            {
+                db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                {
+                    ItemID = (int)PDFItemIDs.TransitionSourceOperator,
+                    FormType = formType,
+                    CoordsX = XDSLNo.X.Value,
+                    CoordsY = XDSLNo.Y.Value
+                });
+            }
+            if (TransferAction != null)
+            {
+                if (TransferAction.TransferredSubscription != null)
+                {
+                    if (TransferAction.TransferredSubscription.SubscriberNo != null)
+                    {
+                        db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                        {
+                            ItemID = (int)PDFItemIDs.Transferred_SubscriberNo,
+                            FormType = formType,
+                            CoordsX = TransferAction.TransferredSubscription.SubscriberNo.X.Value,
+                            CoordsY = TransferAction.TransferredSubscription.SubscriberNo.Y.Value
+                        });
+                    }
+                    if (TransferAction.TransferredSubscription.FirstName != null)
+                    {
+                        db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                        {
+                            ItemID = (int)PDFItemIDs.Transferred_FirstName,
+                            FormType = formType,
+                            CoordsX = TransferAction.TransferredSubscription.FirstName.X.Value,
+                            CoordsY = TransferAction.TransferredSubscription.FirstName.Y.Value
+                        });
+                    }
+                    if (TransferAction.TransferredSubscription.LastName != null)
+                    {
+                        db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                        {
+                            ItemID = (int)PDFItemIDs.Transferred_LastName,
+                            FormType = formType,
+                            CoordsX = TransferAction.TransferredSubscription.LastName.X.Value,
+                            CoordsY = TransferAction.TransferredSubscription.LastName.Y.Value
+                        });
+                    }
+                    if (TransferAction.TransferredSubscription.FirstAndLastName != null)
+                    {
+                        db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                        {
+                            ItemID = (int)PDFItemIDs.Transferred_FirstAndLastName,
+                            FormType = formType,
+                            CoordsX = TransferAction.TransferredSubscription.FirstAndLastName.X.Value,
+                            CoordsY = TransferAction.TransferredSubscription.FirstAndLastName.Y.Value
+                        });
+                    }
+                    if (TransferAction.TransferredSubscription.CompanyTitle != null)
+                    {
+                        db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                        {
+                            ItemID = (int)PDFItemIDs.Transferred_CompanyTitle,
+                            FormType = formType,
+                            CoordsX = TransferAction.TransferredSubscription.CompanyTitle.X.Value,
+                            CoordsY = TransferAction.TransferredSubscription.CompanyTitle.Y.Value
+                        });
+                    }
+                    if (TransferAction.TransferredSubscription.DisplayName != null)
+                    {
+                        db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                        {
+                            ItemID = (int)PDFItemIDs.Transferred_DisplayName,
+                            FormType = formType,
+                            CoordsX = TransferAction.TransferredSubscription.DisplayName.X.Value,
+                            CoordsY = TransferAction.TransferredSubscription.DisplayName.Y.Value
+                        });
+                    }
+                    if (TransferAction.TransferredSubscription.TCKNo != null)
+                    {
+                        db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                        {
+                            ItemID = (int)PDFItemIDs.Transferred_TCKNo,
+                            FormType = formType,
+                            CoordsX = TransferAction.TransferredSubscription.TCKNo.X.Value,
+                            CoordsY = TransferAction.TransferredSubscription.TCKNo.Y.Value
+                        });
+                    }
+                    if (TransferAction.TransferredSubscription.TaxNo != null)
+                    {
+                        db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                        {
+                            ItemID = (int)PDFItemIDs.Transferred_TaxNo,
+                            FormType = formType,
+                            CoordsX = TransferAction.TransferredSubscription.TaxNo.X.Value,
+                            CoordsY = TransferAction.TransferredSubscription.TaxNo.Y.Value
+                        });
+                    }
+                    if (TransferAction.TransferredSubscription.TCKAndTaxNo != null)
+                    {
+                        db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                        {
+                            ItemID = (int)PDFItemIDs.Transferred_TCKAndTaxNo,
+                            FormType = formType,
+                            CoordsX = TransferAction.TransferredSubscription.TCKAndTaxNo.X.Value,
+                            CoordsY = TransferAction.TransferredSubscription.TCKAndTaxNo.Y.Value
+                        });
+                    }
+                }
+                if (TransferAction.TransferringSubscription != null)
+                {
+                    if (TransferAction.TransferringSubscription.SubscriberNo != null)
+                    {
+                        db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                        {
+                            ItemID = (int)PDFItemIDs.Transferring_SubscriberNo,
+                            FormType = formType,
+                            CoordsX = TransferAction.TransferringSubscription.SubscriberNo.X.Value,
+                            CoordsY = TransferAction.TransferringSubscription.SubscriberNo.Y.Value
+                        });
+                    }
+                    if (TransferAction.TransferringSubscription.FirstName != null)
+                    {
+                        db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                        {
+                            ItemID = (int)PDFItemIDs.Transferring_FirstName,
+                            FormType = formType,
+                            CoordsX = TransferAction.TransferringSubscription.FirstName.X.Value,
+                            CoordsY = TransferAction.TransferringSubscription.FirstName.Y.Value
+                        });
+                    }
+                    if (TransferAction.TransferringSubscription.LastName != null)
+                    {
+                        db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                        {
+                            ItemID = (int)PDFItemIDs.Transferring_LastName,
+                            FormType = formType,
+                            CoordsX = TransferAction.TransferringSubscription.LastName.X.Value,
+                            CoordsY = TransferAction.TransferringSubscription.LastName.Y.Value
+                        });
+                    }
+                    if (TransferAction.TransferringSubscription.FirstAndLastName != null)
+                    {
+                        db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                        {
+                            ItemID = (int)PDFItemIDs.Transferring_FirstAndLastName,
+                            FormType = formType,
+                            CoordsX = TransferAction.TransferringSubscription.FirstAndLastName.X.Value,
+                            CoordsY = TransferAction.TransferringSubscription.FirstAndLastName.Y.Value
+                        });
+                    }
+                    if (TransferAction.TransferringSubscription.CompanyTitle != null)
+                    {
+                        db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                        {
+                            ItemID = (int)PDFItemIDs.Transferring_CompanyTitle,
+                            FormType = formType,
+                            CoordsX = TransferAction.TransferringSubscription.CompanyTitle.X.Value,
+                            CoordsY = TransferAction.TransferringSubscription.CompanyTitle.Y.Value
+                        });
+                    }
+                    if (TransferAction.TransferringSubscription.DisplayName != null)
+                    {
+                        db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                        {
+                            ItemID = (int)PDFItemIDs.Transferring_DisplayName,
+                            FormType = formType,
+                            CoordsX = TransferAction.TransferringSubscription.DisplayName.X.Value,
+                            CoordsY = TransferAction.TransferringSubscription.DisplayName.Y.Value
+                        });
+                    }
+                    if (TransferAction.TransferringSubscription.TCKNo != null)
+                    {
+                        db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                        {
+                            ItemID = (int)PDFItemIDs.Transferring_TCKNo,
+                            FormType = formType,
+                            CoordsX = TransferAction.TransferringSubscription.TCKNo.X.Value,
+                            CoordsY = TransferAction.TransferringSubscription.TCKNo.Y.Value
+                        });
+                    }
+                    if (TransferAction.TransferringSubscription.TaxNo != null)
+                    {
+                        db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                        {
+                            ItemID = (int)PDFItemIDs.Transferring_TaxNo,
+                            FormType = formType,
+                            CoordsX = TransferAction.TransferringSubscription.TaxNo.X.Value,
+                            CoordsY = TransferAction.TransferringSubscription.TaxNo.Y.Value
+                        });
+                    }
+                    if (TransferAction.TransferringSubscription.TCKAndTaxNo != null)
+                    {
+                        db.PDFFormItemPlacements.Add(new PDFFormItemPlacement()
+                        {
+                            ItemID = (int)PDFItemIDs.Transferring_TCKAndTaxNo,
+                            FormType = formType,
+                            CoordsX = TransferAction.TransferringSubscription.TCKAndTaxNo.X.Value,
+                            CoordsY = TransferAction.TransferringSubscription.TCKAndTaxNo.Y.Value
+                        });
+                    }
+                }
+            }
         }
 
         public PDFParametersViewModel() { }
@@ -611,6 +920,13 @@ namespace RadiusR_Manager.Models.ViewModels.PDFTemplates
             {
                 switch ((PDFItemIDs)item.ItemID)
                 {
+                    case PDFItemIDs.SubscriberNo:
+                        SubscriberNo = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
                     case PDFItemIDs.FirstName:
                         FirstName = new Coords()
                         {
@@ -994,6 +1310,27 @@ namespace RadiusR_Manager.Models.ViewModels.PDFTemplates
                             Y = new InvariantDecimal() { Value = item.CoordsY }
                         };
                         break;
+                    case PDFItemIDs.TCKAndTaxNo:
+                        TCKAndTaxNo = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.FirstAndLastName:
+                        FirstAndLastName = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.DisplayName:
+                        DisplayName = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
                     case PDFItemIDs.CentralSystemNo:
                         CentralSystemNo = new Coords()
                         {
@@ -1010,6 +1347,182 @@ namespace RadiusR_Manager.Models.ViewModels.PDFTemplates
                         break;
                     case PDFItemIDs.BillingAddress:
                         BillingAddress = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.XDSLNo:
+                        XDSLNo = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.TransitionSourceOperator:
+                        TransitionSourceOperator = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.Transferred_SubscriberNo:
+                        TransferAction = TransferAction ?? new Transfer();
+                        TransferAction.TransferredSubscription = TransferAction.TransferredSubscription ?? new TransferSubscription();
+                        TransferAction.TransferredSubscription.SubscriberNo = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.Transferred_FirstName:
+                        TransferAction = TransferAction ?? new Transfer();
+                        TransferAction.TransferredSubscription = TransferAction.TransferredSubscription ?? new TransferSubscription();
+                        TransferAction.TransferredSubscription.FirstName = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.Transferred_LastName:
+                        TransferAction = TransferAction ?? new Transfer();
+                        TransferAction.TransferredSubscription = TransferAction.TransferredSubscription ?? new TransferSubscription();
+                        TransferAction.TransferredSubscription.LastName = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.Transferred_FirstAndLastName:
+                        TransferAction = TransferAction ?? new Transfer();
+                        TransferAction.TransferredSubscription = TransferAction.TransferredSubscription ?? new TransferSubscription();
+                        TransferAction.TransferredSubscription.FirstAndLastName = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.Transferred_CompanyTitle:
+                        TransferAction = TransferAction ?? new Transfer();
+                        TransferAction.TransferredSubscription = TransferAction.TransferredSubscription ?? new TransferSubscription();
+                        TransferAction.TransferredSubscription.CompanyTitle = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.Transferred_DisplayName:
+                        TransferAction = TransferAction ?? new Transfer();
+                        TransferAction.TransferredSubscription = TransferAction.TransferredSubscription ?? new TransferSubscription();
+                        TransferAction.TransferredSubscription.DisplayName = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.Transferred_TCKNo:
+                        TransferAction = TransferAction ?? new Transfer();
+                        TransferAction.TransferredSubscription = TransferAction.TransferredSubscription ?? new TransferSubscription();
+                        TransferAction.TransferredSubscription.TCKNo = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.Transferred_TaxNo:
+                        TransferAction = TransferAction ?? new Transfer();
+                        TransferAction.TransferredSubscription = TransferAction.TransferredSubscription ?? new TransferSubscription();
+                        TransferAction.TransferredSubscription.TaxNo = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.Transferred_TCKAndTaxNo:
+                        TransferAction = TransferAction ?? new Transfer();
+                        TransferAction.TransferredSubscription = TransferAction.TransferredSubscription ?? new TransferSubscription();
+                        TransferAction.TransferredSubscription.TCKAndTaxNo = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.Transferring_SubscriberNo:
+                        TransferAction = TransferAction ?? new Transfer();
+                        TransferAction.TransferringSubscription = TransferAction.TransferringSubscription ?? new TransferSubscription();
+                        TransferAction.TransferringSubscription.SubscriberNo = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.Transferring_FirstName:
+                        TransferAction = TransferAction ?? new Transfer();
+                        TransferAction.TransferringSubscription = TransferAction.TransferringSubscription ?? new TransferSubscription();
+                        TransferAction.TransferringSubscription.FirstName = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.Transferring_LastName:
+                        TransferAction = TransferAction ?? new Transfer();
+                        TransferAction.TransferringSubscription = TransferAction.TransferringSubscription ?? new TransferSubscription();
+                        TransferAction.TransferringSubscription.LastName = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.Transferring_FirstAndLastName:
+                        TransferAction = TransferAction ?? new Transfer();
+                        TransferAction.TransferringSubscription = TransferAction.TransferringSubscription ?? new TransferSubscription();
+                        TransferAction.TransferringSubscription.FirstAndLastName = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.Transferring_CompanyTitle:
+                        TransferAction = TransferAction ?? new Transfer();
+                        TransferAction.TransferringSubscription = TransferAction.TransferringSubscription ?? new TransferSubscription();
+                        TransferAction.TransferringSubscription.CompanyTitle = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.Transferring_DisplayName:
+                        TransferAction = TransferAction ?? new Transfer();
+                        TransferAction.TransferringSubscription = TransferAction.TransferringSubscription ?? new TransferSubscription();
+                        TransferAction.TransferringSubscription.DisplayName = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.Transferring_TCKNo:
+                        TransferAction = TransferAction ?? new Transfer();
+                        TransferAction.TransferringSubscription = TransferAction.TransferringSubscription ?? new TransferSubscription();
+                        TransferAction.TransferringSubscription.TCKNo = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.Transferring_TaxNo:
+                        TransferAction = TransferAction ?? new Transfer();
+                        TransferAction.TransferringSubscription = TransferAction.TransferringSubscription ?? new TransferSubscription();
+                        TransferAction.TransferringSubscription.TaxNo = new Coords()
+                        {
+                            X = new InvariantDecimal() { Value = item.CoordsX },
+                            Y = new InvariantDecimal() { Value = item.CoordsY }
+                        };
+                        break;
+                    case PDFItemIDs.Transferring_TCKAndTaxNo:
+                        TransferAction = TransferAction ?? new Transfer();
+                        TransferAction.TransferringSubscription = TransferAction.TransferringSubscription ?? new TransferSubscription();
+                        TransferAction.TransferringSubscription.TCKAndTaxNo = new Coords()
                         {
                             X = new InvariantDecimal() { Value = item.CoordsX },
                             Y = new InvariantDecimal() { Value = item.CoordsY }

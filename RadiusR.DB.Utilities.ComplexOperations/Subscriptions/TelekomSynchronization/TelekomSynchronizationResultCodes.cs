@@ -13,6 +13,6 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TelekomSynchroniz
         InvalidDomain = 2,
         SubscriptionHasNoTelekomInfo = 3,
         SynchronizedUsernameExists = 4,
-        InvalidOptions = 5,
+        InvalidOptions = 5
     }
 }

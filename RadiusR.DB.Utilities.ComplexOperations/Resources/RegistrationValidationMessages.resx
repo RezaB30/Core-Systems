@@ -165,6 +165,9 @@
   <data name="InvalidTransferringSubscription" xml:space="preserve">
     <value>Invalid Transferring Subscription.</value>
   </data>
+  <data name="OperatorIsNotRegistered" xml:space="preserve">
+    <value>No operator is registered by [{0}] name.</value>
+  </data>
   <data name="TelekomInfoNotValidForDomain" xml:space="preserve">
     <value>Telekom info is not valid for this domain.</value>
   </data>

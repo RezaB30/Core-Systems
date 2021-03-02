@@ -171,7 +171,8 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
                     CustomerCode = dbSubscription.SubscriptionTelekomInfo.TTCustomerCode.ToString(),
                     PSTN = dbSubscription.SubscriptionTelekomInfo.PSTN,
                     RedbackName = dbSubscription.SubscriptionTelekomInfo.RedbackName,
-                    TariffName = telekomTariff != null ? telekomTariff.TariffName : null
+                    TariffName = telekomTariff != null ? telekomTariff.TariffName : null,
+                    OperatorName = dbSubscription.SubscriptionTelekomInfo.TransitionOperator?.DisplayName
                 } : null,
                 CancellationInfo = dbSubscription.SubscriptionCancellation != null ? new ClientCancellationViewModel()
                 {
