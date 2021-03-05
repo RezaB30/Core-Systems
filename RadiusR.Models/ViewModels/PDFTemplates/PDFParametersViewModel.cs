@@ -716,8 +716,8 @@ namespace RadiusR_Manager.Models.ViewModels.PDFTemplates
                 {
                     ItemID = (int)PDFItemIDs.TransitionSourceOperator,
                     FormType = formType,
-                    CoordsX = XDSLNo.X.Value,
-                    CoordsY = XDSLNo.Y.Value
+                    CoordsX = TransitionSourceOperator.X.Value,
+                    CoordsY = TransitionSourceOperator.Y.Value
                 });
             }
             if (TransferAction != null)

@@ -1082,6 +1082,7 @@ namespace RadiusR_Manager.Controllers
             UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
             ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
             ViewBag.PartnerName = dbPartner.Title;
+            ViewBag.CollectionType = RadiusR.DB.Enums.PartnerCollectionType.Setup;
             return View("CollectionDetails", results);
         }
 
@@ -1175,6 +1176,7 @@ namespace RadiusR_Manager.Controllers
             UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
             ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
             ViewBag.PartnerName = dbPartner.Title;
+            ViewBag.CollectionType = RadiusR.DB.Enums.PartnerCollectionType.Sales;
             return View("CollectionDetails", results);
         }
 

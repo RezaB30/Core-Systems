@@ -11,6 +11,8 @@ namespace RadiusR.DB.Enums
         IndividualContract = 1,
         CorporateContract = 2,
         IndividualTransition = 3,
-        CorporateTransition = 4
+        CorporateTransition = 4,
+        PSTNtoNaked = 5,
+        Transfer = 6
     }
 }

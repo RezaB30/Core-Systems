@@ -483,4 +483,7 @@
   <data name="TransitionOperators" xml:space="preserve">
     <value>Geçiş İşletmecileri</value>
   </data>
+  <data name="SubscriptionForms" xml:space="preserve">
+    <value>Abonelik Formları</value>
+  </data>
 </root>

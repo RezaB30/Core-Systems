@@ -92,6 +92,8 @@ input, select, a.link-button, textarea {
 
         input[type=button].large-button, input[type=submit].large-button, a.link-button.large-button {
             font-size: 2em;
+            min-width: 17em;
+            text-align: left;
         }
 
     input.currency-editor, input.percent-editor {

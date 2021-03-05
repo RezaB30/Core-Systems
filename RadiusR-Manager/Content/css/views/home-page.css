@@ -8,16 +8,16 @@ div.home-page-link-box {
     display: inline-block;
     width: 13em;
     height: 8em;
-    border: 1px solid #b6dbe7;
+    border: 1px solid #cecece;
     padding: 0.2em;
     border-radius: 0.3em;
     overflow: hidden;
     transition: 0.5s all ease;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d6f9fc+0,ddf1f9+48,a0d8ef+100 */
-    background: #d6f9fc; /* Old browsers */
+    background: whitesmoke; /* Old browsers */
     background: -moz-linear-gradient(top, #d6f9fc 0%, #ddf1f9 48%, #a0d8ef 100%); /* FF3.6-15 */
     background: -webkit-linear-gradient(top, #d6f9fc 0%,#ddf1f9 48%,#a0d8ef 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, #d6f9fc 0%,#ddf1f9 48%,#a0d8ef 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: linear-gradient(to bottom,#fff 0%,#eee 48%,#e8e8e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6f9fc', endColorstr='#a0d8ef',GradientType=0 ); /* IE6-9 */
 }
 

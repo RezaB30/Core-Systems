@@ -562,13 +562,13 @@
         </EntityType>
         <EntityType Name="PDFFormItemPlacement">
           <Key>
-            <PropertyRef Name="FormType" />
-            <PropertyRef Name="ItemID" />
+            <PropertyRef Name="ID" />
           </Key>
           <Property Name="FormType" Type="int" Nullable="false" />
           <Property Name="ItemID" Type="int" Nullable="false" />
           <Property Name="CoordsX" Type="decimal" Precision="6" Scale="6" Nullable="false" />
           <Property Name="CoordsY" Type="decimal" Precision="6" Scale="6" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Permission">
           <Key>
@@ -3630,16 +3630,6 @@
           <Property Name="PortCount" Type="Int32" Nullable="false" />
           <NavigationProperty Name="NAS" Relationship="RadiusRModel.FK_NASVerticalIPMap_NAS" FromRole="NASVerticalIPMap" ToRole="NA" />
         </EntityType>
-        <EntityType Name="PDFFormItemPlacement">
-          <Key>
-            <PropertyRef Name="FormType" />
-            <PropertyRef Name="ItemID" />
-          </Key>
-          <Property Name="FormType" Type="Int32" Nullable="false" />
-          <Property Name="ItemID" Type="Int32" Nullable="false" />
-          <Property Name="CoordsX" Type="Decimal" Precision="6" Scale="6" Nullable="false" />
-          <Property Name="CoordsY" Type="Decimal" Precision="6" Scale="6" Nullable="false" />
-        </EntityType>
         <EntityType Name="Permission">
           <Key>
             <PropertyRef Name="ID" />
@@ -4066,7 +4056,6 @@
           <EntitySet Name="FeeTypeVariants" EntityType="Self.FeeTypeVariant" />
           <EntitySet Name="NASNetmaps" EntityType="Self.NASNetmap" />
           <EntitySet Name="NASVerticalIPMaps" EntityType="Self.NASVerticalIPMap" />
-          <EntitySet Name="PDFFormItemPlacements" EntityType="Self.PDFFormItemPlacement" />
           <EntitySet Name="Permissions" EntityType="Self.Permission" />
           <EntitySet Name="QuotaPackages" EntityType="Self.QuotaPackage" />
           <EntitySet Name="RadiusAccountings" EntityType="Self.RadiusAccounting" />
@@ -4659,6 +4648,7 @@
             <End Role="TransitionOperator" EntitySet="TransitionOperators" />
             <End Role="SubscriptionTelekomInfo" EntitySet="SubscriptionTelekomInfoes" />
           </AssociationSet>
+          <EntitySet Name="PDFFormItemPlacements" EntityType="RadiusRModel.PDFFormItemPlacement" />
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
           <Key>
@@ -6874,6 +6864,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PDFFormItemPlacement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="FormType" Type="Int32" Nullable="false" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="CoordsX" Type="Decimal" Nullable="false" Precision="6" Scale="6" />
+          <Property Name="CoordsY" Type="Decimal" Nullable="false" Precision="6" Scale="6" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7087,16 +7087,6 @@
                 <ScalarProperty Name="RealIPStart" ColumnName="RealIPStart" />
                 <ScalarProperty Name="RealIPEnd" ColumnName="RealIPEnd" />
                 <ScalarProperty Name="PortCount" ColumnName="PortCount" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PDFFormItemPlacements">
-            <EntityTypeMapping TypeName="RadiusRModel.PDFFormItemPlacement">
-              <MappingFragment StoreEntitySet="PDFFormItemPlacement">
-                <ScalarProperty Name="FormType" ColumnName="FormType" />
-                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
-                <ScalarProperty Name="CoordsX" ColumnName="CoordsX" />
-                <ScalarProperty Name="CoordsY" ColumnName="CoordsY" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -8106,6 +8096,17 @@
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
                 <ScalarProperty Name="TelekomUsername" ColumnName="TelekomUsername" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PDFFormItemPlacements">
+            <EntityTypeMapping TypeName="RadiusRModel.PDFFormItemPlacement">
+              <MappingFragment StoreEntitySet="PDFFormItemPlacement">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CoordsY" ColumnName="CoordsY" />
+                <ScalarProperty Name="CoordsX" ColumnName="CoordsX" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="FormType" ColumnName="FormType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

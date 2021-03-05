@@ -18,5 +18,6 @@ namespace RadiusR.DB
         public int ItemID { get; set; }
         public decimal CoordsX { get; set; }
         public decimal CoordsY { get; set; }
+        public long ID { get; set; }
     }
 }

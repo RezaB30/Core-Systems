@@ -22,6 +22,10 @@ namespace RadiusR_Manager.Models.Extentions
                 var disconnectionTimeOfDay = TimeSpan.ParseExact(db.RadiusDefaults.FirstOrDefault(def => def.Attribute == "DailyDisconnectionTime").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture);
                 query = query.Where(client => client.State == (short)CustomerState.Active && DbFunctions.AddSeconds(client.LastAllowedDate, (int)disconnectionTimeOfDay.TotalSeconds) < DateTime.Now);
             }
+            if (searchModel.RegistrationType.HasValue)
+            {
+                query = query.Where(c => c.RegistrationType == searchModel.RegistrationType);
+            }
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
             {
                 query = query.Where(c => c.Customer.CustomerType == (short)CustomerType.Individual && (c.Customer.FirstName.ToLower() + " " + c.Customer.LastName.ToLower()).Contains(searchModel.Name.ToLower()));

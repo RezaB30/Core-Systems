@@ -109,7 +109,7 @@
         left: 0;
     }
 
-    div.footer div.footer-icons-container{
+    div.footer div.footer-icons-container {
         float: none;
         text-align: left;
     }
@@ -217,6 +217,12 @@
         width: 90vw;
     }
 
+    input[type="button"].large-button, input[type="submit"].large-button, a.link-button.large-button {
+        font-size: 1em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+    }
     /*---cashier-payment---*/
     table.bill-receipt td:first-child {
         min-width: initial;

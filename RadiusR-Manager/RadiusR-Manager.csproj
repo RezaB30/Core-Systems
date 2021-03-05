@@ -308,6 +308,7 @@
     <Compile Include="Controllers\ClientExtras\AjaxActions.cs" />
     <Compile Include="Controllers\ClientExtras\DetailsTabs.cs" />
     <Compile Include="Controllers\ClientExtras\Edits.cs" />
+    <Compile Include="Controllers\ClientExtras\Forms.cs" />
     <Compile Include="Controllers\ClientExtras\PrivateMethods.cs" />
     <Compile Include="Controllers\ClientExtras\Register.cs" />
     <Compile Include="Controllers\ClientExtras\StateChanges.cs" />
@@ -974,6 +975,7 @@
     <Content Include="Views\Client\AddWizard\PrepareTransition.cshtml" />
     <Content Include="Views\TransitionOperators\Index.cshtml" />
     <Content Include="Views\TransitionOperators\Add.cshtml" />
+    <Content Include="Views\Client\Forms\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

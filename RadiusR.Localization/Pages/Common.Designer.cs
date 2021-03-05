@@ -2113,6 +2113,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notes &amp; Forms.
+        /// </summary>
+        public static string NotesAndForms {
+            get {
+                return ResourceManager.GetString("NotesAndForms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notification URL.
         /// </summary>
         public static string NotificationURL {
@@ -2730,6 +2739,15 @@ namespace RadiusR.Localization.Pages {
         public static string SendCredentials {
             get {
                 return ResourceManager.GetString("SendCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send E-Mail.
+        /// </summary>
+        public static string SendEMail {
+            get {
+                return ResourceManager.GetString("SendEMail", resourceCulture);
             }
         }
         

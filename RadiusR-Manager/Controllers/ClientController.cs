@@ -1110,20 +1110,20 @@ namespace RadiusR_Manager.Controllers
             return RedirectToAction("WorkOrders", "Client", new { id = subscriptionId, errorMessage = 0 });
         }
 
-        [AuthorizePermission(Permissions = "Client Files")]
-        // GET: Client/DownloadContract
-        public ActionResult DownloadContract(long id)
-        {
-            var subscription = db.Subscriptions.Find(id);
-            if (subscription == null)
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            var createdPDF = RadiusR.PDFForms.PDFWriter.GetContractPDF(db, id);
-            if (createdPDF.InternalException != null)
-            {
-                return Content(RadiusR.Localization.Pages.Common.FileManagerError);
-            }
-            return File(createdPDF.Result, "application/pdf", string.Format(RadiusR.Localization.Pages.Common.ContractFileName, subscription.SubscriberNo));
-        }
+        //[AuthorizePermission(Permissions = "Client Files")]
+        //// GET: Client/DownloadContract
+        //public ActionResult DownloadContract(long id)
+        //{
+        //    var subscription = db.Subscriptions.Find(id);
+        //    if (subscription == null)
+        //        return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+        //    var createdPDF = RadiusR.PDFForms.PDFWriter.GetContractPDF(db, id);
+        //    if (createdPDF.InternalException != null)
+        //    {
+        //        return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+        //    }
+        //    return File(createdPDF.Result, "application/pdf", string.Format(RadiusR.Localization.Pages.Common.ContractFileName, subscription.SubscriberNo));
+        //}
 
         [AuthorizePermission(Permissions = "Quota Sale")]
         [HttpGet]

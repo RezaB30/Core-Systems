@@ -440,9 +440,6 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
 
             [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public decimal? Allowance { get; set; }
-
-            [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
-            public decimal? AllowanceThreshold { get; set; }
         }
 
         public class ReferralDiscountInfo

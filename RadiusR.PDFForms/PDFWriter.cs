@@ -106,11 +106,11 @@ namespace RadiusR.PDFForms
             }
         }
 
-        public static FileManagerResult<Stream> GetTransitionPDF(RadiusREntities db, long SubscriptionID, CultureInfo culture = null)
+        public static FileManagerResult<Stream> GetTransitionPDF(RadiusREntities db, long subscriptionID, CultureInfo culture = null)
         {
-            var subscription = db.Subscriptions.Find(SubscriptionID);
+            var subscription = db.Subscriptions.Find(subscriptionID);
             var formType = subscription.Customer.CustomerType == (short)CustomerType.Individual ? PDFFormType.IndividualTransition : PDFFormType.CorporateTransition;
-            var elementList = LoadFormItems(db, formType, SubscriptionID, null, null);
+            var elementList = LoadFormItems(db, formType, subscriptionID, null, null);
             var fileManager = new MasterISSFileManager();
             using (var pdfFormResult = fileManager.GetPDFForm(formType))
             {
@@ -122,238 +122,273 @@ namespace RadiusR.PDFForms
             }
         }
 
-        private static IEnumerable<PDFElement> LoadFormItems(RadiusREntities db, PDFFormType formType, long subscriptionId, long? transferringSubscriptionId, long? transferredSubscriptionId, CultureInfo culture = null)
+        public static FileManagerResult<Stream> GetPSTNtoNakedPDF(RadiusREntities db, long subscriptionID, CultureInfo culture = null)
         {
-            var subscription = db.Subscriptions.Find(subscriptionId);
+            var elementList = LoadFormItems(db, PDFFormType.PSTNtoNaked, subscriptionID, null, null);
+            var fileManager = new MasterISSFileManager();
+            using (var pdfFormResult = fileManager.GetPDFForm(PDFFormType.PSTNtoNaked))
+            {
+                if (pdfFormResult.InternalException != null)
+                {
+                    return new FileManagerResult<Stream>(pdfFormResult.InternalException);
+                }
+                return new FileManagerResult<Stream>(CreatePDF(pdfFormResult.Result.Content, null, elementList));
+            }
+        }
+
+        public static FileManagerResult<Stream> GetTransferPDF(RadiusREntities db, long transferringSubscriptionID, long transferredSubscriptionID, CultureInfo culture = null)
+        {
+            var elementList = LoadFormItems(db, PDFFormType.Transfer, null, transferringSubscriptionID, transferredSubscriptionID);
+            var fileManager = new MasterISSFileManager();
+            using (var pdfFormResult = fileManager.GetPDFForm(PDFFormType.Transfer))
+            {
+                if (pdfFormResult.InternalException != null)
+                {
+                    return new FileManagerResult<Stream>(pdfFormResult.InternalException);
+                }
+                return new FileManagerResult<Stream>(CreatePDF(pdfFormResult.Result.Content, null, elementList));
+            }
+        }
+
+        private static IEnumerable<PDFElement> LoadFormItems(RadiusREntities db, PDFFormType formType, long? subscriptionId, long? transferringSubscriptionId, long? transferredSubscriptionId, CultureInfo culture = null)
+        {
+            var subscription = subscriptionId.HasValue ? db.Subscriptions.Find(subscriptionId) : null;
             var transferringSubscription = transferringSubscriptionId.HasValue ? db.Subscriptions.Find(transferringSubscriptionId) : null;
             var transferredSubscription = transferredSubscriptionId.HasValue ? db.Subscriptions.Find(transferredSubscriptionId) : null;
             var placeList = db.PDFFormItemPlacements.Where(item => item.FormType == (int)formType).ToList();
-            if (subscription.Customer.CustomerType == (short)CustomerType.Individual)
-            {
-                placeList = db.PDFFormItemPlacements.Where(item => item.FormType == (int)PDFFormType.IndividualContract).ToList();
-            }
-            else if (subscription.Customer.CorporateCustomerInfo != null)
-            {
-                placeList = db.PDFFormItemPlacements.Where(item => item.FormType == (int)PDFFormType.CorporateContract).ToList();
-            }
+            //if (subscription.Customer.CustomerType == (short)CustomerType.Individual)
+            //{
+            //    placeList = db.PDFFormItemPlacements.Where(item => item.FormType == (int)PDFFormType.IndividualContract).ToList();
+            //}
+            //else if (subscription.Customer.CorporateCustomerInfo != null)
+            //{
+            //    placeList = db.PDFFormItemPlacements.Where(item => item.FormType == (int)PDFFormType.CorporateContract).ToList();
+            //}
 
             List<PDFElement> elementList = new List<PDFElement>();
             foreach (var item in placeList)
             {
-                switch ((PDFItemIDs)item.ItemID)
+                if (subscription != null)
                 {
-                    case PDFItemIDs.SubscriberNo:
-                        elementList.Add(new PDFElement()
-                        {
-                            Text = subscription.SubscriberNo,
-                            Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
-                        });
-                        break;
-                    case PDFItemIDs.FirstName:
-                        elementList.Add(new PDFElement
-                        {
-                            Text = subscription.Customer.FirstName,
-                            Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
-                        });
-                        break;
-                    case PDFItemIDs.LastName:
-                        elementList.Add(new PDFElement
-                        {
-                            Text = subscription.Customer.LastName,
-                            Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
-                        });
-                        break;
-                    case PDFItemIDs.BillingAddress:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.Address.AddressText, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.BirthDate:
-                        elementList.Add(new PDFElement
-                        {
-                            Text = subscription.Customer.BirthDate.ToString("dd MMMM yyyy", culture),
-                            Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
-                        });
-                        break;
-                    case PDFItemIDs.BirthPlace:
-                        elementList.Add(new PDFElement
-                        {
-                            Text = subscription.Customer.BirthPlace,
-                            Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
-                        });
-                        break;
-                    case PDFItemIDs.CentralSystemNo:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.CorporateCustomerInfo.CentralSystemNo, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.CompanyTitle:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.CorporateCustomerInfo.Title, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.ContactPhoneNo:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.ContactPhoneNo, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.Email:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.Email, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.FathersName:
-                        elementList.Add(new PDFElement
-                        {
-                            Text = subscription.Customer.FathersName,
-                            Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
-                        });
-                        break;
-                    case PDFItemIDs.PSTN:
-                        elementList.Add(new PDFElement { Text = subscription.SubscriptionTelekomInfo != null ? subscription.SubscriptionTelekomInfo.PSTN : "", Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.LandPhone_No:
-                        elementList.Add(new PDFElement { Text = subscription.SubscriptionTelekomInfo == null || string.IsNullOrEmpty(subscription.SubscriptionTelekomInfo.PSTN) ? "X" : "", Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.LandPhone_Yes:
-                        elementList.Add(new PDFElement { Text = subscription.SubscriptionTelekomInfo != null && !string.IsNullOrEmpty(subscription.SubscriptionTelekomInfo.PSTN) ? "X" : "", Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.MothersMaidenName:
-                        elementList.Add(new PDFElement
-                        {
-                            Text = subscription.Customer.MothersMaidenName,
-                            Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
-                        });
-                        break;
-                    case PDFItemIDs.MothersName:
-                        elementList.Add(new PDFElement
-                        {
-                            Text = subscription.Customer.MothersName,
-                            Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
-                        });
-                        break;
-                    case PDFItemIDs.Nationality:
-                        elementList.Add(new PDFElement
-                        {
-                            Text = new LocalizedList<CountryCodes, RadiusR.Localization.Lists.CountryCodes>().GetDisplayText(subscription.Customer.Nationality, culture),
-                            Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
-                        });
-                        break;
-                    case PDFItemIDs.Profession:
-                        elementList.Add(new PDFElement
-                        {
-                            Text = new LocalizedList<Profession, RadiusR.Localization.Lists.Profession>().GetDisplayText(subscription.Customer.Profession, culture),
-                            Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
-                        });
-                        break;
-                    case PDFItemIDs.ResidenceAddress_BuildingName:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.Address.BuildingName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.ResidenceAddress_BuildingNo:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.Address.ApartmentNo.Replace("Ic Kapi(Daire) ", ""), Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.ResidenceAddress_DistrictName:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.Address.DistrictName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.ResidenceAddress_DoorNo:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.Address.DoorNo, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.ResidenceAddress_Floor:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.Address.Floor, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.ResidenceAddress_NeighborhoodName:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.Address.NeighborhoodName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.ResidenceAddress_ProvinceName:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.Address.ProvinceName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.ResidenceAddress_StreetName:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.Address.StreetName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.ResidenceAddress_PostalCode:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.Address.PostalCode.ToString(), Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.ResidenceAddress_BBK:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.Address.ApartmentID.ToString(), Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.Sex_Female:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.Sex == 1 ? " " : "X", Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.Sex_Male:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.Sex == 2 ? " " : "X", Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.SubscriptionAddress_BuildingName:
-                        elementList.Add(new PDFElement { Text = subscription.Address.BuildingName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.SubscriptionAddress_BuildingNo:
-                        elementList.Add(new PDFElement { Text = subscription.Address.ApartmentNo.Replace("Ic Kapi(Daire) ", ""), Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.SubscriptionAddress_DistrictName:
-                        elementList.Add(new PDFElement { Text = subscription.Address.DistrictName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.SubscriptionAddress_DoorNo:
-                        elementList.Add(new PDFElement { Text = subscription.Address.DoorNo, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.SubscriptionAddress_Floor:
-                        elementList.Add(new PDFElement { Text = subscription.Address.Floor, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.SubscriptionAddress_NeighborhoodName:
-                        elementList.Add(new PDFElement { Text = subscription.Address.NeighborhoodName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.SubscriptionAddress_ProvinceName:
-                        elementList.Add(new PDFElement { Text = subscription.Address.ProvinceName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.SubscriptionAddress_StreetName:
-                        elementList.Add(new PDFElement { Text = subscription.Address.StreetName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.SubscriptionAddress_PostalCode:
-                        elementList.Add(new PDFElement { Text = subscription.Address.PostalCode.ToString(), Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.SubscriptionAddress_BBK:
-                        elementList.Add(new PDFElement { Text = subscription.Address.ApartmentID.ToString(), Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.TariffName:
-                        elementList.Add(new PDFElement { Text = subscription.Service.Name, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.TaxNo:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.CorporateCustomerInfo.TaxNo, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.TCKAndTaxNo:
-                        elementList.Add(new PDFElement()
-                        {
-                            Text = subscription.Customer.CustomerType == (short)CustomerType.Individual ? subscription.Customer.CustomerIDCard.TCKNo : subscription.Customer.CorporateCustomerInfo.TaxNo,
-                            Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
-                        });
-                        break;
-                    case PDFItemIDs.FirstAndLastName:
-                        elementList.Add(new PDFElement()
-                        {
-                            Text = subscription.Customer.FirstName + " " + subscription.Customer.LastName,
-                            Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
-                        });
-                        break;
-                    case PDFItemIDs.DisplayName:
-                        elementList.Add(new PDFElement()
-                        {
-                            Text = subscription.ValidDisplayName,
-                            Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
-                        });
-                        break;
-                    case PDFItemIDs.TaxOffice:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.CorporateCustomerInfo.TaxOffice, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.TCKNo:
-                        elementList.Add(new PDFElement
-                        {
-                            Text = subscription.Customer.CustomerIDCard.TCKNo,
-                            Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
-                        });
-                        break;
-                    case PDFItemIDs.TradeRegistrationNo:
-                        elementList.Add(new PDFElement { Text = subscription.Customer.CorporateCustomerInfo.TradeRegistrationNo, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
-                        break;
-                    case PDFItemIDs.XDSLNo:
-                        elementList.Add(new PDFElement
-                        {
-                            Text = subscription.SubscriptionTelekomInfo?.SubscriptionNo,
-                            Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
-                        });
-                        break;
-                    case PDFItemIDs.TransitionSourceOperator:
-                        // call web service
-                        break;
-                    default:
-                        break;
+                    switch ((PDFItemIDs)item.ItemID)
+                    {
+                        case PDFItemIDs.SubscriberNo:
+                            elementList.Add(new PDFElement()
+                            {
+                                Text = subscription.SubscriberNo,
+                                Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                            });
+                            break;
+                        case PDFItemIDs.FirstName:
+                            elementList.Add(new PDFElement
+                            {
+                                Text = subscription.Customer.FirstName,
+                                Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                            });
+                            break;
+                        case PDFItemIDs.LastName:
+                            elementList.Add(new PDFElement
+                            {
+                                Text = subscription.Customer.LastName,
+                                Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                            });
+                            break;
+                        case PDFItemIDs.BillingAddress:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.Address.AddressText, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.BirthDate:
+                            elementList.Add(new PDFElement
+                            {
+                                Text = subscription.Customer.BirthDate.ToString("dd MMMM yyyy", culture),
+                                Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                            });
+                            break;
+                        case PDFItemIDs.BirthPlace:
+                            elementList.Add(new PDFElement
+                            {
+                                Text = subscription.Customer.BirthPlace,
+                                Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                            });
+                            break;
+                        case PDFItemIDs.CentralSystemNo:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.CorporateCustomerInfo.CentralSystemNo, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.CompanyTitle:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.CorporateCustomerInfo.Title, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.ContactPhoneNo:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.ContactPhoneNo, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.Email:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.Email, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.FathersName:
+                            elementList.Add(new PDFElement
+                            {
+                                Text = subscription.Customer.FathersName,
+                                Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                            });
+                            break;
+                        case PDFItemIDs.PSTN:
+                            elementList.Add(new PDFElement { Text = subscription.SubscriptionTelekomInfo != null ? subscription.SubscriptionTelekomInfo.PSTN : "", Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.LandPhone_No:
+                            elementList.Add(new PDFElement { Text = subscription.SubscriptionTelekomInfo == null || string.IsNullOrEmpty(subscription.SubscriptionTelekomInfo.PSTN) ? "X" : "", Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.LandPhone_Yes:
+                            elementList.Add(new PDFElement { Text = subscription.SubscriptionTelekomInfo != null && !string.IsNullOrEmpty(subscription.SubscriptionTelekomInfo.PSTN) ? "X" : "", Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.MothersMaidenName:
+                            elementList.Add(new PDFElement
+                            {
+                                Text = subscription.Customer.MothersMaidenName,
+                                Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                            });
+                            break;
+                        case PDFItemIDs.MothersName:
+                            elementList.Add(new PDFElement
+                            {
+                                Text = subscription.Customer.MothersName,
+                                Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                            });
+                            break;
+                        case PDFItemIDs.Nationality:
+                            elementList.Add(new PDFElement
+                            {
+                                Text = new LocalizedList<CountryCodes, RadiusR.Localization.Lists.CountryCodes>().GetDisplayText(subscription.Customer.Nationality, culture),
+                                Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                            });
+                            break;
+                        case PDFItemIDs.Profession:
+                            elementList.Add(new PDFElement
+                            {
+                                Text = new LocalizedList<Profession, RadiusR.Localization.Lists.Profession>().GetDisplayText(subscription.Customer.Profession, culture),
+                                Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                            });
+                            break;
+                        case PDFItemIDs.ResidenceAddress_BuildingName:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.Address.BuildingName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.ResidenceAddress_BuildingNo:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.Address.ApartmentNo.Replace("Ic Kapi(Daire) ", ""), Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.ResidenceAddress_DistrictName:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.Address.DistrictName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.ResidenceAddress_DoorNo:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.Address.DoorNo, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.ResidenceAddress_Floor:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.Address.Floor, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.ResidenceAddress_NeighborhoodName:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.Address.NeighborhoodName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.ResidenceAddress_ProvinceName:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.Address.ProvinceName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.ResidenceAddress_StreetName:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.Address.StreetName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.ResidenceAddress_PostalCode:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.Address.PostalCode.ToString(), Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.ResidenceAddress_BBK:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.Address.ApartmentID.ToString(), Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.Sex_Female:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.Sex == 1 ? " " : "X", Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.Sex_Male:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.Sex == 2 ? " " : "X", Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.SubscriptionAddress_BuildingName:
+                            elementList.Add(new PDFElement { Text = subscription.Address.BuildingName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.SubscriptionAddress_BuildingNo:
+                            elementList.Add(new PDFElement { Text = subscription.Address.ApartmentNo.Replace("Ic Kapi(Daire) ", ""), Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.SubscriptionAddress_DistrictName:
+                            elementList.Add(new PDFElement { Text = subscription.Address.DistrictName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.SubscriptionAddress_DoorNo:
+                            elementList.Add(new PDFElement { Text = subscription.Address.DoorNo, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.SubscriptionAddress_Floor:
+                            elementList.Add(new PDFElement { Text = subscription.Address.Floor, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.SubscriptionAddress_NeighborhoodName:
+                            elementList.Add(new PDFElement { Text = subscription.Address.NeighborhoodName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.SubscriptionAddress_ProvinceName:
+                            elementList.Add(new PDFElement { Text = subscription.Address.ProvinceName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.SubscriptionAddress_StreetName:
+                            elementList.Add(new PDFElement { Text = subscription.Address.StreetName, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.SubscriptionAddress_PostalCode:
+                            elementList.Add(new PDFElement { Text = subscription.Address.PostalCode.ToString(), Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.SubscriptionAddress_BBK:
+                            elementList.Add(new PDFElement { Text = subscription.Address.ApartmentID.ToString(), Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.TariffName:
+                            elementList.Add(new PDFElement { Text = subscription.Service.Name, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.TaxNo:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.CorporateCustomerInfo.TaxNo, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.TCKAndTaxNo:
+                            elementList.Add(new PDFElement()
+                            {
+                                Text = subscription.Customer.CustomerType == (short)CustomerType.Individual ? subscription.Customer.CustomerIDCard.TCKNo : subscription.Customer.CorporateCustomerInfo.TaxNo,
+                                Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                            });
+                            break;
+                        case PDFItemIDs.FirstAndLastName:
+                            elementList.Add(new PDFElement()
+                            {
+                                Text = subscription.Customer.FirstName + " " + subscription.Customer.LastName,
+                                Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                            });
+                            break;
+                        case PDFItemIDs.DisplayName:
+                            elementList.Add(new PDFElement()
+                            {
+                                Text = subscription.ValidDisplayName,
+                                Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                            });
+                            break;
+                        case PDFItemIDs.TaxOffice:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.CorporateCustomerInfo.TaxOffice, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.TCKNo:
+                            elementList.Add(new PDFElement
+                            {
+                                Text = subscription.Customer.CustomerIDCard.TCKNo,
+                                Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                            });
+                            break;
+                        case PDFItemIDs.TradeRegistrationNo:
+                            elementList.Add(new PDFElement { Text = subscription.Customer.CorporateCustomerInfo.TradeRegistrationNo, Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY)) });
+                            break;
+                        case PDFItemIDs.XDSLNo:
+                            elementList.Add(new PDFElement
+                            {
+                                Text = subscription.SubscriptionTelekomInfo?.SubscriptionNo,
+                                Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                            });
+                            break;
+                        case PDFItemIDs.TransitionSourceOperator:
+                            elementList.Add(new PDFElement()
+                            {
+                                Text = subscription.SubscriptionTelekomInfo?.TransitionOperator?.DisplayName,
+                                Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                            });
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 if (transferredSubscription != null)
                 {

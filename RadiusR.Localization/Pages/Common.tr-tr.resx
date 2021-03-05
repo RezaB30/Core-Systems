@@ -1209,4 +1209,10 @@
   <data name="TransitionOperators" xml:space="preserve">
     <value>Geçiş İşletmecileri</value>
   </data>
+  <data name="NotesAndForms" xml:space="preserve">
+    <value>Notlar &amp; Formlar</value>
+  </data>
+  <data name="SendEMail" xml:space="preserve">
+    <value>E-Posta Gönder</value>
+  </data>
 </root>

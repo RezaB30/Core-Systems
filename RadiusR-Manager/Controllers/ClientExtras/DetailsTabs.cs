@@ -553,5 +553,7 @@ namespace RadiusR_Manager.Controllers
 
             return RedirectToAction("Details", "Client", new { id = subscription.ID, errorMessage = 0 });
         }
+
+        
     }
 }

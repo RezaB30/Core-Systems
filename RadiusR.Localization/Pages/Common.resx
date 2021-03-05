@@ -1212,4 +1212,10 @@
   <data name="TransitionOperators" xml:space="preserve">
     <value>Transition Operators</value>
   </data>
+  <data name="NotesAndForms" xml:space="preserve">
+    <value>Notes &amp; Forms</value>
+  </data>
+  <data name="SendEMail" xml:space="preserve">
+    <value>Send E-Mail</value>
+  </data>
 </root>

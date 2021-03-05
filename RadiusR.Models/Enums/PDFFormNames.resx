@@ -117,22 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CorporateContract" xml:space="preserve">
-    <value>Kurumsal Abonelik Başvuru Formu</value>
+  <data name="ContractForm" xml:space="preserve">
+    <value>Contract Form</value>
   </data>
-  <data name="CorporateTransition" xml:space="preserve">
-    <value>Kurumsal Geçiş Formu</value>
+  <data name="PSTNtoNakedForm" xml:space="preserve">
+    <value>PSTN to Naked Form</value>
   </data>
-  <data name="IndividualContract" xml:space="preserve">
-    <value>Bireysel Abonelik Başvuru Formu</value>
+  <data name="TransferForm" xml:space="preserve">
+    <value>Transfer Form</value>
   </data>
-  <data name="IndividualTransition" xml:space="preserve">
-    <value>Bireysel Geçiş Formu</value>
-  </data>
-  <data name="PSTNtoNaked" xml:space="preserve">
-    <value>PSTN'den Yalına Formu</value>
-  </data>
-  <data name="Transfer" xml:space="preserve">
-    <value>Devir Formu</value>
+  <data name="TransitionForm" xml:space="preserve">
+    <value>Transition Form</value>
   </data>
 </root>

@@ -78,5 +78,10 @@ namespace RadiusR_Manager.Models.ViewModels
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "BillingPeriod")]
         public int? BillingPeriod { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "RegistrationType")]
+        [EnumType(typeof(SubscriptionRegistrationType), typeof(RadiusR.Localization.Lists.SubscriptionRegistrationType))]
+        [UIHint("LocalizedList")]
+        public short? RegistrationType { get; set; }
     }
 }

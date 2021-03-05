@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RadiusR.Localization.Lists {
+namespace RadiusR_Manager.Models.Enums {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace RadiusR.Localization.Lists {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class PDFFormType {
+    public class PDFFormNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal PDFFormType() {
+        internal PDFFormNames() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace RadiusR.Localization.Lists {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RadiusR.Localization.Lists.PDFFormType", typeof(PDFFormType).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RadiusR_Manager.Models.Enums.PDFFormNames", typeof(PDFFormNames).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,38 @@ namespace RadiusR.Localization.Lists {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Corporate Subscription Application Form.
+        ///   Looks up a localized string similar to Contract Form.
         /// </summary>
-        public static string CorporateContract {
+        public static string ContractForm {
             get {
-                return ResourceManager.GetString("CorporateContract", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Corporate Transition Form.
-        /// </summary>
-        public static string CorporateTransition {
-            get {
-                return ResourceManager.GetString("CorporateTransition", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Individual Subscription Application Form.
-        /// </summary>
-        public static string IndividualContract {
-            get {
-                return ResourceManager.GetString("IndividualContract", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Individual Transition Form.
-        /// </summary>
-        public static string IndividualTransition {
-            get {
-                return ResourceManager.GetString("IndividualTransition", resourceCulture);
+                return ResourceManager.GetString("ContractForm", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to PSTN to Naked Form.
         /// </summary>
-        public static string PSTNtoNaked {
+        public static string PSTNtoNakedForm {
             get {
-                return ResourceManager.GetString("PSTNtoNaked", resourceCulture);
+                return ResourceManager.GetString("PSTNtoNakedForm", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Transfer Form.
         /// </summary>
-        public static string Transfer {
+        public static string TransferForm {
             get {
-                return ResourceManager.GetString("Transfer", resourceCulture);
+                return ResourceManager.GetString("TransferForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transition Form.
+        /// </summary>
+        public static string TransitionForm {
+            get {
+                return ResourceManager.GetString("TransitionForm", resourceCulture);
             }
         }
     }

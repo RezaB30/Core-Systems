@@ -483,4 +483,7 @@
   <data name="TransitionOperators" xml:space="preserve">
     <value>Transition Operators</value>
   </data>
+  <data name="SubscriptionForms" xml:space="preserve">
+    <value>Subscription Forms</value>
+  </data>
 </root>

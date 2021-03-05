@@ -320,7 +320,6 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                     {
                         ValidationMessages = new[] { new { Key = "RegisteringPartner.PartnerID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidPartner } }.ToLookup(item => item.Key, item => item.ErrorMessage)
                     };
-
                 }
                 if (!dbPartner.PartnerGroup.PartnerAvailableTariffs.Any(pat => pat.TariffID == registrationInfo.ServiceID))
                 {

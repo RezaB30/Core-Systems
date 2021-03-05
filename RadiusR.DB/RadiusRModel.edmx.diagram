@@ -22,7 +22,6 @@
         <EntityTypeShape EntityType="RadiusRModel.FeeTypeVariant" Width="1.5" PointX="18.125" PointY="103.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RadiusRModel.NASNetmap" Width="1.5" PointX="3.375" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="RadiusRModel.NASVerticalIPMap" Width="1.5" PointX="3.375" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="RadiusRModel.PDFFormItemPlacement" Width="1.5" PointX="6.125" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RadiusRModel.Permission" Width="1.5" PointX="1.5" PointY="61.25" IsExpanded="true" />
         <EntityTypeShape EntityType="RadiusRModel.QuotaPackage" Width="1.5" PointX="8.125" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RadiusRModel.RadiusAccounting" Width="1.5" PointX="11.375" PointY="138.875" IsExpanded="true" />
@@ -228,6 +227,7 @@
         <AssociationConnector Association="RadiusRModel.FK_SubscriptionTelekomInfo_Subscription" />
         <EntityTypeShape EntityType="RadiusRModel.TransitionOperator" Width="1.5" PointX="9.125" PointY="75.75" />
         <AssociationConnector Association="RadiusRModel.FK_SubscriptionTelekomInfo_TransitionOperator" />
+        <EntityTypeShape EntityType="RadiusRModel.PDFFormItemPlacement" Width="1.5" PointX="5.375" PointY="7.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

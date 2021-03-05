@@ -1024,6 +1024,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subscription Forms.
+        /// </summary>
+        public static string SubscriptionForms {
+            get {
+                return ResourceManager.GetString("SubscriptionForms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Support Requests.
         /// </summary>
         public static string SupportRequests {

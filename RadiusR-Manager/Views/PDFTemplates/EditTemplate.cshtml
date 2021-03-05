@@ -275,9 +275,93 @@
             <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.XDSLNo)" content-name="@Html.NameFor(model=>model.XDSLNo)">
                 <span>@Html.DisplayNameFor(model => model.XDSLNo)</span>
             </div>
+            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransitionSourceOperator)" content-name="@Html.NameFor(model=>model.TransitionSourceOperator)">
+                <span>@Html.DisplayNameFor(model => model.TransitionSourceOperator)</span>
+            </div>
         </div>
         <!--Context menu-->
         <!--Loaded Items-->
+        @if (Model.TransferAction != null)
+        {
+            if (Model.TransferAction.TransferringSubscription != null)
+            {
+                if (Model.TransferAction.TransferringSubscription.SubscriberNo != null)
+                {
+                    <span id="@Html.IdFor(model=>model.TransferAction.TransferringSubscription.SubscriberNo)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransferAction.TransferringSubscription.SubscriberNo)" content-position-x="@Model.TransferAction.TransferringSubscription.SubscriberNo.X" content-position-y="@Model.TransferAction.TransferringSubscription.SubscriberNo.Y">@Html.DisplayNameFor(model => model.TransferAction.TransferringSubscription.SubscriberNo)</span>
+                }
+                if (Model.TransferAction.TransferringSubscription.FirstName != null)
+                {
+                    <span id="@Html.IdFor(model=>model.TransferAction.TransferringSubscription.FirstName)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransferAction.TransferringSubscription.FirstName)" content-position-x="@Model.TransferAction.TransferringSubscription.FirstName.X" content-position-y="@Model.TransferAction.TransferringSubscription.FirstName.Y">@Html.DisplayNameFor(model => model.TransferAction.TransferringSubscription.FirstName)</span>
+                }
+                if (Model.TransferAction.TransferringSubscription.LastName != null)
+                {
+                    <span id="@Html.IdFor(model=>model.TransferAction.TransferringSubscription.LastName)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransferAction.TransferringSubscription.LastName)" content-position-x="@Model.TransferAction.TransferringSubscription.LastName.X" content-position-y="@Model.TransferAction.TransferringSubscription.LastName.Y">@Html.DisplayNameFor(model => model.TransferAction.TransferringSubscription.LastName)</span>
+                }
+                if (Model.TransferAction.TransferringSubscription.FirstAndLastName != null)
+                {
+                    <span id="@Html.IdFor(model=>model.TransferAction.TransferringSubscription.FirstAndLastName)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransferAction.TransferringSubscription.FirstAndLastName)" content-position-x="@Model.TransferAction.TransferringSubscription.FirstAndLastName.X" content-position-y="@Model.TransferAction.TransferringSubscription.FirstAndLastName.Y">@Html.DisplayNameFor(model => model.TransferAction.TransferringSubscription.FirstAndLastName)</span>
+                }
+                if (Model.TransferAction.TransferringSubscription.CompanyTitle != null)
+                {
+                    <span id="@Html.IdFor(model=>model.TransferAction.TransferringSubscription.CompanyTitle)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransferAction.TransferringSubscription.CompanyTitle)" content-position-x="@Model.TransferAction.TransferringSubscription.CompanyTitle.X" content-position-y="@Model.TransferAction.TransferringSubscription.CompanyTitle.Y">@Html.DisplayNameFor(model => model.TransferAction.TransferringSubscription.CompanyTitle)</span>
+                }
+                if (Model.TransferAction.TransferringSubscription.DisplayName != null)
+                {
+                    <span id="@Html.IdFor(model=>model.TransferAction.TransferringSubscription.DisplayName)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransferAction.TransferringSubscription.DisplayName)" content-position-x="@Model.TransferAction.TransferringSubscription.DisplayName.X" content-position-y="@Model.TransferAction.TransferringSubscription.DisplayName.Y">@Html.DisplayNameFor(model => model.TransferAction.TransferringSubscription.DisplayName)</span>
+                }
+                if (Model.TransferAction.TransferringSubscription.TCKNo != null)
+                {
+                    <span id="@Html.IdFor(model=>model.TransferAction.TransferringSubscription.TCKNo)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransferAction.TransferringSubscription.TCKNo)" content-position-x="@Model.TransferAction.TransferringSubscription.TCKNo.X" content-position-y="@Model.TransferAction.TransferringSubscription.TCKNo.Y">@Html.DisplayNameFor(model => model.TransferAction.TransferringSubscription.TCKNo)</span>
+                }
+                if (Model.TransferAction.TransferringSubscription.TaxNo != null)
+                {
+                    <span id="@Html.IdFor(model=>model.TransferAction.TransferringSubscription.TaxNo)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransferAction.TransferringSubscription.TaxNo)" content-position-x="@Model.TransferAction.TransferringSubscription.TaxNo.X" content-position-y="@Model.TransferAction.TransferringSubscription.TaxNo.Y">@Html.DisplayNameFor(model => model.TransferAction.TransferringSubscription.TaxNo)</span>
+                }
+                if (Model.TransferAction.TransferringSubscription.TCKAndTaxNo != null)
+                {
+                    <span id="@Html.IdFor(model=>model.TransferAction.TransferringSubscription.TCKAndTaxNo)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransferAction.TransferringSubscription.TCKAndTaxNo)" content-position-x="@Model.TransferAction.TransferringSubscription.TCKAndTaxNo.X" content-position-y="@Model.TransferAction.TransferringSubscription.TCKAndTaxNo.Y">@Html.DisplayNameFor(model => model.TransferAction.TransferringSubscription.TCKAndTaxNo)</span>
+                }
+            }
+            if (Model.TransferAction.TransferredSubscription != null)
+            {
+                if (Model.TransferAction.TransferredSubscription.SubscriberNo != null)
+                {
+                    <span id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription.SubscriberNo)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransferAction.TransferredSubscription.SubscriberNo)" content-position-x="@Model.TransferAction.TransferredSubscription.SubscriberNo.X" content-position-y="@Model.TransferAction.TransferredSubscription.SubscriberNo.Y">@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription.SubscriberNo)</span>
+                }
+                if (Model.TransferAction.TransferredSubscription.FirstName != null)
+                {
+                    <span id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription.FirstName)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransferAction.TransferredSubscription.FirstName)" content-position-x="@Model.TransferAction.TransferredSubscription.FirstName.X" content-position-y="@Model.TransferAction.TransferredSubscription.FirstName.Y">@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription.FirstName)</span>
+                }
+                if (Model.TransferAction.TransferredSubscription.LastName != null)
+                {
+                    <span id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription.LastName)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransferAction.TransferredSubscription.LastName)" content-position-x="@Model.TransferAction.TransferredSubscription.LastName.X" content-position-y="@Model.TransferAction.TransferredSubscription.LastName.Y">@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription.LastName)</span>
+                }
+                if (Model.TransferAction.TransferredSubscription.FirstAndLastName != null)
+                {
+                    <span id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription.FirstAndLastName)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransferAction.TransferredSubscription.FirstAndLastName)" content-position-x="@Model.TransferAction.TransferredSubscription.FirstAndLastName.X" content-position-y="@Model.TransferAction.TransferredSubscription.FirstAndLastName.Y">@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription.FirstAndLastName)</span>
+                }
+                if (Model.TransferAction.TransferredSubscription.CompanyTitle != null)
+                {
+                    <span id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription.CompanyTitle)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransferAction.TransferredSubscription.CompanyTitle)" content-position-x="@Model.TransferAction.TransferredSubscription.CompanyTitle.X" content-position-y="@Model.TransferAction.TransferredSubscription.CompanyTitle.Y">@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription.CompanyTitle)</span>
+                }
+                if (Model.TransferAction.TransferredSubscription.DisplayName != null)
+                {
+                    <span id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription.DisplayName)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransferAction.TransferredSubscription.DisplayName)" content-position-x="@Model.TransferAction.TransferredSubscription.DisplayName.X" content-position-y="@Model.TransferAction.TransferredSubscription.DisplayName.Y">@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription.DisplayName)</span>
+                }
+                if (Model.TransferAction.TransferredSubscription.TCKNo != null)
+                {
+                    <span id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription.TCKNo)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransferAction.TransferredSubscription.TCKNo)" content-position-x="@Model.TransferAction.TransferredSubscription.TCKNo.X" content-position-y="@Model.TransferAction.TransferredSubscription.TCKNo.Y">@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription.TCKNo)</span>
+                }
+                if (Model.TransferAction.TransferredSubscription.TaxNo != null)
+                {
+                    <span id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription.TaxNo)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransferAction.TransferredSubscription.TaxNo)" content-position-x="@Model.TransferAction.TransferredSubscription.TaxNo.X" content-position-y="@Model.TransferAction.TransferredSubscription.TaxNo.Y">@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription.TaxNo)</span>
+                }
+                if (Model.TransferAction.TransferredSubscription.TCKAndTaxNo != null)
+                {
+                    <span id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription.TCKAndTaxNo)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransferAction.TransferredSubscription.TCKAndTaxNo)" content-position-x="@Model.TransferAction.TransferredSubscription.TCKAndTaxNo.X" content-position-y="@Model.TransferAction.TransferredSubscription.TCKAndTaxNo.Y">@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription.TCKAndTaxNo)</span>
+                }
+            }
+        }
         @if (Model.SubscriberNo != null)
         {
             <span id="@Html.IdFor(model=>model.SubscriberNo)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.SubscriberNo)" content-position-x="@Model.SubscriberNo.X" content-position-y="@Model.SubscriberNo.Y">@Html.DisplayNameFor(model => model.SubscriberNo)</span>
@@ -462,6 +546,14 @@
         {
             <span id="@Html.IdFor(model=>model.TCKAndTaxNo)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TCKAndTaxNo)" content-position-x="@Model.TCKAndTaxNo.X" content-position-y="@Model.TCKAndTaxNo.Y">@Html.DisplayNameFor(model => model.TCKAndTaxNo)</span>
         }
+        @if (Model.FirstAndLastName != null)
+        {
+            <span id="@Html.IdFor(model=>model.FirstAndLastName)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.FirstAndLastName)" content-position-x="@Model.FirstAndLastName.X" content-position-y="@Model.FirstAndLastName.Y">@Html.DisplayNameFor(model => model.FirstAndLastName)</span>
+        }
+        @if (Model.DisplayName != null)
+        {
+            <span id="@Html.IdFor(model=>model.DisplayName)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.DisplayName)" content-position-x="@Model.DisplayName.X" content-position-y="@Model.DisplayName.Y">@Html.DisplayNameFor(model => model.DisplayName)</span>
+        }
         @if (Model.CentralSystemNo != null)
         {
             <span id="@Html.IdFor(model=>model.CentralSystemNo)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.CentralSystemNo)" content-position-x="@Model.CentralSystemNo.X" content-position-y="@Model.CentralSystemNo.Y">@Html.DisplayNameFor(model => model.CentralSystemNo)</span>
@@ -477,6 +569,10 @@
         @if (Model.XDSLNo != null)
         {
             <span id="@Html.IdFor(model=>model.XDSLNo)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.XDSLNo)" content-position-x="@Model.XDSLNo.X" content-position-y="@Model.XDSLNo.Y">@Html.DisplayNameFor(model => model.XDSLNo)</span>
+        }
+        @if (Model.TransitionSourceOperator != null)
+        {
+            <span id="@Html.IdFor(model=>model.TransitionSourceOperator)" class="pdf-template-item-view" content-name="@Html.NameFor(model => model.TransitionSourceOperator)" content-position-x="@Model.TransitionSourceOperator.X" content-position-y="@Model.TransitionSourceOperator.Y">@Html.DisplayNameFor(model => model.TransitionSourceOperator)</span>
         }
         <!--Loaded Items-->
     </div>

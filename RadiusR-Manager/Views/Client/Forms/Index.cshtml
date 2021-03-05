@@ -1,0 +1,77 @@
+﻿@using RezaB.Web.Authentication
+@using RezaB.Web.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.SubscriptionFormsViewModel
+
+@{
+    ViewBag.Title = $"{ViewBag.CustomerName}-{RadiusR.Localization.Pages.Common.Forms}";
+    var allFormTypes = ViewBag.AllForms as IDictionary<int, string> ?? new Dictionary<int, string>();
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @RadiusR.Localization.Pages.Common.Forms
+        </th>
+        <th>
+            @RadiusR.Localization.Pages.Common.Download
+        </th>
+        <th>
+            @RadiusR.Localization.Pages.Common.SendEMail
+        </th>
+    </tr>
+    @foreach (var item in allFormTypes)
+    {
+        <tr>
+            <td>
+                @item.Value
+                @if (item.Key == (int)RadiusR_Manager.Models.Enums.PDFForms.TransferForm)
+                {
+                    @Html.Select("transferId", (SelectList)ViewBag.Transfers, RadiusR.Localization.Pages.Common.Choose)
+                }
+            </td>
+            <td class="centered download-link-container">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Download, "DownloadForm", new { id = ViewContext.RouteData.Values["id"], formType = item.Key }, new { @class = "link-button iconed-button download-button" })
+            </td>
+            <td class="centered">
+                @if (Model.HasEmailAddress)
+                {
+
+                }
+                else
+                {
+
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+@section PageScripts{
+    <script>
+        $('input[name=transferId]').change(function () {
+            let transferId = $(this).val();
+            $('td.download-link-container').find('.download-button').each(function () {
+                let currentLink = $(this);
+                let actionUrl = currentLink.attr('href');
+                let newUrl = actionUrl.split('&')[0] + '&transferId=' + transferId;
+                currentLink.attr('href', newUrl);
+            });
+        });
+    </script>
+}
+
+@*@if (User.HasPermission("Client Files"))
+    {
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.DownloadContract, "DownloadContract", new { id = ViewContext.RouteData.Values["id"] }, new { @class = "link-button iconed-button download-button" })
+    }
+    @if (User.HasPermission("Send Email To Client") && Model.HasEmailAddress)
+    {
+        @:&nbsp;
+        using (Html.BeginForm("SendContractViaMail", "Client", new { id = ViewContext.RouteData.Values["id"] }, FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block;" }))
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="@RadiusR.Localization.Pages.Common.SendContractViaMail" class="link-button iconed-button send-button" />
+        }
+    }*@
+

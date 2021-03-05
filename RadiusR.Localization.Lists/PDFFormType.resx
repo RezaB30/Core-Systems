@@ -129,4 +129,10 @@
   <data name="IndividualTransition" xml:space="preserve">
     <value>Individual Transition Form</value>
   </data>
+  <data name="PSTNtoNaked" xml:space="preserve">
+    <value>PSTN to Naked Form</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Transfer Form</value>
+  </data>
 </root>
