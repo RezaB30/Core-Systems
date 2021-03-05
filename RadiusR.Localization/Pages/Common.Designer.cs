@@ -2932,6 +2932,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer has no registered e-mail..
+        /// </summary>
+        public static string SubscriptionHasNoEMail {
+            get {
+                return ResourceManager.GetString("SubscriptionHasNoEMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Subscription Info.
         /// </summary>
         public static string SubscriptionInfo {

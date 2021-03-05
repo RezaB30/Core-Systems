@@ -1215,4 +1215,7 @@
   <data name="SendEMail" xml:space="preserve">
     <value>E-Posta Gönder</value>
   </data>
+  <data name="SubscriptionHasNoEMail" xml:space="preserve">
+    <value>Müşterinin kayıtlı e-postası yok.</value>
+  </data>
 </root>

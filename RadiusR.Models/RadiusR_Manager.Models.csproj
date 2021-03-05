@@ -200,6 +200,7 @@
     <Compile Include="ViewModels\PartnerAllowanceDetailsViewModel.cs" />
     <Compile Include="ViewModels\PartnerCollectionDetailsViewModel.cs" />
     <Compile Include="ViewModels\Search\GroupSearchViewModel.cs" />
+    <Compile Include="ViewModels\SubscriptionFormEmailListViewModel.cs" />
     <Compile Include="ViewModels\SubscriptionFormsViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestModels\ShareSupportRequestsViewModel.cs" />
     <Compile Include="ViewModels\SupportRequestModels\SupportRequestCreateViewModel.cs" />

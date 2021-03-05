@@ -93,7 +93,7 @@ namespace RadiusR.PDFForms
         {
             var subscription = db.Subscriptions.Find(SubscriptionID);
             var formType = subscription.Customer.CustomerType == (short)CustomerType.Individual ? PDFFormType.IndividualContract : PDFFormType.CorporateContract;
-            var elementList = LoadFormItems(db, formType, SubscriptionID, null, null);
+            var elementList = LoadFormItems(db, formType, SubscriptionID, null, null, culture);
             var fileManager = new MasterISSFileManager();
             using (var pdfFormResult = fileManager.GetPDFForm(formType))
             using (var formAppendixResult = fileManager.GetContractAppendix())
@@ -110,7 +110,7 @@ namespace RadiusR.PDFForms
         {
             var subscription = db.Subscriptions.Find(subscriptionID);
             var formType = subscription.Customer.CustomerType == (short)CustomerType.Individual ? PDFFormType.IndividualTransition : PDFFormType.CorporateTransition;
-            var elementList = LoadFormItems(db, formType, subscriptionID, null, null);
+            var elementList = LoadFormItems(db, formType, subscriptionID, null, null, culture);
             var fileManager = new MasterISSFileManager();
             using (var pdfFormResult = fileManager.GetPDFForm(formType))
             {
@@ -124,7 +124,7 @@ namespace RadiusR.PDFForms
 
         public static FileManagerResult<Stream> GetPSTNtoNakedPDF(RadiusREntities db, long subscriptionID, CultureInfo culture = null)
         {
-            var elementList = LoadFormItems(db, PDFFormType.PSTNtoNaked, subscriptionID, null, null);
+            var elementList = LoadFormItems(db, PDFFormType.PSTNtoNaked, subscriptionID, null, null, culture);
             var fileManager = new MasterISSFileManager();
             using (var pdfFormResult = fileManager.GetPDFForm(PDFFormType.PSTNtoNaked))
             {
@@ -138,7 +138,7 @@ namespace RadiusR.PDFForms
 
         public static FileManagerResult<Stream> GetTransferPDF(RadiusREntities db, long transferringSubscriptionID, long transferredSubscriptionID, CultureInfo culture = null)
         {
-            var elementList = LoadFormItems(db, PDFFormType.Transfer, null, transferringSubscriptionID, transferredSubscriptionID);
+            var elementList = LoadFormItems(db, PDFFormType.Transfer, null, transferringSubscriptionID, transferredSubscriptionID, culture);
             var fileManager = new MasterISSFileManager();
             using (var pdfFormResult = fileManager.GetPDFForm(PDFFormType.Transfer))
             {

@@ -1218,4 +1218,7 @@
   <data name="SendEMail" xml:space="preserve">
     <value>Send E-Mail</value>
   </data>
+  <data name="SubscriptionHasNoEMail" xml:space="preserve">
+    <value>Customer has no registered e-mail.</value>
+  </data>
 </root>

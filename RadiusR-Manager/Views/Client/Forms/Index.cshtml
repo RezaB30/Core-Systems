@@ -8,44 +8,76 @@
     var allFormTypes = ViewBag.AllForms as IDictionary<int, string> ?? new Dictionary<int, string>();
 }
 
-<table class="data-table">
-    <tr>
-        <th>
-            @RadiusR.Localization.Pages.Common.Forms
-        </th>
-        <th>
-            @RadiusR.Localization.Pages.Common.Download
-        </th>
-        <th>
-            @RadiusR.Localization.Pages.Common.SendEMail
-        </th>
-    </tr>
-    @foreach (var item in allFormTypes)
-    {
+@using (Html.BeginForm(null,null, new { id = ViewContext.RouteData.Values["id"] }, FormMethod.Post, new { @confirm = "enabled" }))
+{
+    @Html.AntiForgeryToken()
+    <table class="data-table">
         <tr>
-            <td>
-                @item.Value
-                @if (item.Key == (int)RadiusR_Manager.Models.Enums.PDFForms.TransferForm)
-                {
-                    @Html.Select("transferId", (SelectList)ViewBag.Transfers, RadiusR.Localization.Pages.Common.Choose)
-                }
+            <th>
+                @RadiusR.Localization.Pages.Common.Forms
+            </th>
+            <th>
+                @RadiusR.Localization.Pages.Common.Download
+            </th>
+            <th>
+                @RadiusR.Localization.Pages.Common.SendEMail
+            </th>
+        </tr>
+        @{
+            var index = 0;
+        }
+        @foreach (var item in allFormTypes)
+        {
+            <tr>
+                <td>
+                    @item.Value
+                    @if (item.Key == (int)RadiusR_Manager.Models.Enums.PDFForms.TransferForm)
+                    {
+                        @Html.Select("transferId", (SelectList)ViewBag.Transfers, RadiusR.Localization.Pages.Common.Choose)
+                    }
+                </td>
+                <td class="centered download-link-container">
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Download, "DownloadForm", new { id = ViewContext.RouteData.Values["id"], formType = item.Key }, new { @class = "link-button iconed-button download-button" })
+                </td>
+                <td class="centered">
+                    @if (User.HasPermission("Send Email To Client") && Model.HasEmailAddress)
+                    {
+                        @Html.Hidden($"selectedForms[{index}].FormType", item.Key)
+                        @Html.CheckButton($"selectedForms[{index}].IsSelected", item.Value)
+                    }
+                    else
+                    {
+                        @:-
+                    }
+                </td>
+            </tr>
+            index++;
+        }
+        @*<tr>
+            <td colspan="3">
+                @Html.Partial("_WaitTimer")
             </td>
-            <td class="centered download-link-container">
-                @Html.ActionLink(RadiusR.Localization.Pages.Common.Download, "DownloadForm", new { id = ViewContext.RouteData.Values["id"], formType = item.Key }, new { @class = "link-button iconed-button download-button" })
-            </td>
+        </tr>*@
+        <tr id="submit-row">
+            <td></td>
+            <td></td>
             <td class="centered">
-                @if (Model.HasEmailAddress)
+                @if (User.HasPermission("Send Email To Client"))
                 {
-
-                }
-                else
-                {
-
+                    if (Model.HasEmailAddress)
+                    {
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.SendEMail" class="link-button iconed-button send-button" />
+                    }
+                    else
+                    {
+                        @RadiusR.Localization.Pages.Common.SubscriptionHasNoEMail
+                    }
                 }
             </td>
         </tr>
-    }
-</table>
+    </table>
+}
+
 
 @section PageScripts{
     <script>
@@ -59,6 +91,12 @@
             });
         });
     </script>
+    @*<script type="text/javascript">
+        $('#submit-row').closest('form').submit(function () {
+            $('#submit-row').hide();
+            StartWaitingCounter('div.waiting-progress');
+        });
+    </script>*@
 }
 
 @*@if (User.HasPermission("Client Files"))
