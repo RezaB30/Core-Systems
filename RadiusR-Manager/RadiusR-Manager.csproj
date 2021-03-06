@@ -356,6 +356,7 @@
     <Compile Include="Helpers\ClientStateDisplayHelper.cs" />
     <Compile Include="Helpers\CustomFeeListHelper.cs" />
     <Compile Include="Helpers\MultiTextEditorHelper.cs" />
+    <Compile Include="Helpers\PDFContextMenuItemHelper.cs" />
     <Compile Include="Helpers\RecurringDiscountEditorHelper.cs" />
     <Compile Include="Helpers\DisplayMultiListForHelper.cs" />
     <Compile Include="Helpers\ExpiredPoolListHelper.cs" />
@@ -976,6 +977,8 @@
     <Content Include="Views\TransitionOperators\Index.cshtml" />
     <Content Include="Views\TransitionOperators\Add.cshtml" />
     <Content Include="Views\Client\Forms\Index.cshtml" />
+    <Content Include="Views\PDFTemplates\_PDFEditContextMenu.cshtml" />
+    <Content Include="Views\PDFTemplates\_PDFEditContextMenuItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

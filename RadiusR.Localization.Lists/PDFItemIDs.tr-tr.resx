@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BillingAddress" xml:space="preserve">
+    <value>Fatura Adresi</value>
+  </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>Doğum Tarihi</value>
+  </data>
+  <data name="BirthPlace" xml:space="preserve">
+    <value>Doğum Yeri</value>
+  </data>
+  <data name="CentralSystemNo" xml:space="preserve">
+    <value>Merkezi Sistem no</value>
+  </data>
+  <data name="CompanyTitle" xml:space="preserve">
+    <value>Şirket Ünvanı</value>
+  </data>
+  <data name="ContactPhoneNo" xml:space="preserve">
+    <value>İletişim Telefon no</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Adı Soyadı/Şirket Unvanı</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-posta</value>
+  </data>
+  <data name="FathersName" xml:space="preserve">
+    <value>Baba adı</value>
+  </data>
+  <data name="FirstAndLastName" xml:space="preserve">
+    <value>Adı Soyadı</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Adı</value>
+  </data>
+  <data name="LandPhone_No" xml:space="preserve">
+    <value>Sabit Telefon Yok</value>
+  </data>
+  <data name="LandPhone_Yes" xml:space="preserve">
+    <value>Sabit Telefon Var</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Soyadı</value>
+  </data>
+  <data name="MothersMaidenName" xml:space="preserve">
+    <value>Anne Kızlık Soyadı</value>
+  </data>
+  <data name="MothersName" xml:space="preserve">
+    <value>Anne Adı</value>
+  </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>Uyruk</value>
+  </data>
+  <data name="Profession" xml:space="preserve">
+    <value>Meslek</value>
+  </data>
+  <data name="PSTN" xml:space="preserve">
+    <value>PSTN</value>
+  </data>
+  <data name="ResidenceAddress_BBK" xml:space="preserve">
+    <value>İkamet Adres BBK'si</value>
+  </data>
+  <data name="ResidenceAddress_BuildingName" xml:space="preserve">
+    <value>İkamet Adres Binanın Adı</value>
+  </data>
+  <data name="ResidenceAddress_BuildingNo" xml:space="preserve">
+    <value>İkamet Adres Bina no</value>
+  </data>
+  <data name="ResidenceAddress_DistrictName" xml:space="preserve">
+    <value>İkamet Adres İlçesi</value>
+  </data>
+  <data name="ResidenceAddress_DoorNo" xml:space="preserve">
+    <value>İkamet Adres Kapı no</value>
+  </data>
+  <data name="ResidenceAddress_Floor" xml:space="preserve">
+    <value>İkamet Adres Katı</value>
+  </data>
+  <data name="ResidenceAddress_NeighborhoodName" xml:space="preserve">
+    <value>İkamet Adres Mahallesi</value>
+  </data>
+  <data name="ResidenceAddress_PostalCode" xml:space="preserve">
+    <value>İkamet Adres Posta Kodu</value>
+  </data>
+  <data name="ResidenceAddress_ProvinceName" xml:space="preserve">
+    <value>İkamet Adres İli</value>
+  </data>
+  <data name="ResidenceAddress_StreetName" xml:space="preserve">
+    <value>İkamet Adres Sokağı</value>
+  </data>
+  <data name="Sex_Female" xml:space="preserve">
+    <value>Kadın</value>
+  </data>
+  <data name="Sex_Male" xml:space="preserve">
+    <value>Erkek</value>
+  </data>
+  <data name="SubscriberNo" xml:space="preserve">
+    <value>Abone No</value>
+  </data>
+  <data name="SubscriptionAddress_BBK" xml:space="preserve">
+    <value>Abonelik Adres BBK'si</value>
+  </data>
+  <data name="SubscriptionAddress_BuildingName" xml:space="preserve">
+    <value>Abonelik Adres Binanın Adı</value>
+  </data>
+  <data name="SubscriptionAddress_BuildingNo" xml:space="preserve">
+    <value>Abonelik Adresi Bina no</value>
+  </data>
+  <data name="SubscriptionAddress_DistrictName" xml:space="preserve">
+    <value>Abonelik Adresi Bölgesi</value>
+  </data>
+  <data name="SubscriptionAddress_DoorNo" xml:space="preserve">
+    <value>Abonelik Adresi Kapı no</value>
+  </data>
+  <data name="SubscriptionAddress_Floor" xml:space="preserve">
+    <value>Abonelik Adres Katı</value>
+  </data>
+  <data name="SubscriptionAddress_NeighborhoodName" xml:space="preserve">
+    <value>Abonelik Adres Mahallesi</value>
+  </data>
+  <data name="SubscriptionAddress_PostalCode" xml:space="preserve">
+    <value>Abonelik Adres Posta Kodu</value>
+  </data>
+  <data name="SubscriptionAddress_ProvinceName" xml:space="preserve">
+    <value>Abonelik Adres İli</value>
+  </data>
+  <data name="SubscriptionAddress_StreetName" xml:space="preserve">
+    <value>Abonelik Adres Sokağı</value>
+  </data>
+  <data name="TariffName" xml:space="preserve">
+    <value>Tarife Adı</value>
+  </data>
+  <data name="TaxNo" xml:space="preserve">
+    <value>Vergi no</value>
+  </data>
+  <data name="TaxOffice" xml:space="preserve">
+    <value>Vergi Dairesi</value>
+  </data>
+  <data name="TCKAndTaxNo" xml:space="preserve">
+    <value>TCK/Vergi no</value>
+  </data>
+  <data name="TCKNo" xml:space="preserve">
+    <value>TCK no</value>
+  </data>
+  <data name="TradeRegistrationNo" xml:space="preserve">
+    <value>Ticaret Sicil no</value>
+  </data>
+  <data name="Transferred_CompanyTitle" xml:space="preserve">
+    <value>Devralan Şirket Ünvanı</value>
+  </data>
+  <data name="Transferred_DisplayName" xml:space="preserve">
+    <value>Devralan Adı Soyadı/Şirket Ünvanı</value>
+  </data>
+  <data name="Transferred_FirstAndLastName" xml:space="preserve">
+    <value>Devralan Adı Soyadı</value>
+  </data>
+  <data name="Transferred_FirstName" xml:space="preserve">
+    <value>Devralan Adı</value>
+  </data>
+  <data name="Transferred_LastName" xml:space="preserve">
+    <value>Devralan Soyadı</value>
+  </data>
+  <data name="Transferred_SubscriberNo" xml:space="preserve">
+    <value>Devralan Abone no</value>
+  </data>
+  <data name="Transferred_TaxNo" xml:space="preserve">
+    <value>Devralan Vergi no</value>
+  </data>
+  <data name="Transferred_TCKAndTaxNo" xml:space="preserve">
+    <value>Devralan TCK/Vergi no</value>
+  </data>
+  <data name="Transferred_TCKNo" xml:space="preserve">
+    <value>Devralan TCK no</value>
+  </data>
+  <data name="Transferring_CompanyTitle" xml:space="preserve">
+    <value>Devredilen Şirket Unvanını</value>
+  </data>
+  <data name="Transferring_DisplayName" xml:space="preserve">
+    <value>Devredilen Adı Soyadı/Şirket Ünvanı</value>
+  </data>
+  <data name="Transferring_FirstAndLastName" xml:space="preserve">
+    <value>Devredilen Adı Soyad</value>
+  </data>
+  <data name="Transferring_FirstName" xml:space="preserve">
+    <value>Devredilen Adı</value>
+  </data>
+  <data name="Transferring_LastName" xml:space="preserve">
+    <value>Devredilen Soyadı</value>
+  </data>
+  <data name="Transferring_SubscriberNo" xml:space="preserve">
+    <value>Devredilen Abone no</value>
+  </data>
+  <data name="Transferring_TaxNo" xml:space="preserve">
+    <value>Devredilen Vergi no</value>
+  </data>
+  <data name="Transferring_TCKAndTaxNo" xml:space="preserve">
+    <value>Devredilen TCK/Vergi no</value>
+  </data>
+  <data name="Transferring_TCKNo" xml:space="preserve">
+    <value>Devredilen TCK no</value>
+  </data>
+  <data name="TransitionSourceOperator" xml:space="preserve">
+    <value>Geçiş İşletmeci</value>
+  </data>
+  <data name="XDSLNo" xml:space="preserve">
+    <value>XDSL no</value>
+  </data>
+</root>

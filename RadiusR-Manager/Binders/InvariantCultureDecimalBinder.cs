@@ -24,7 +24,7 @@ namespace RadiusR_Manager.Binders
             }
             try
             {
-                return new Models.ViewModels.PDFTemplates.PDFParametersViewModel.InvariantDecimal() { Value = decimal.Parse(result.AttemptedValue, CultureInfo.InvariantCulture) };
+                return new Models.ViewModels.PDFTemplates.InvariantDecimal() { Value = decimal.Parse(result.AttemptedValue, CultureInfo.InvariantCulture) };
             }
             catch
             {

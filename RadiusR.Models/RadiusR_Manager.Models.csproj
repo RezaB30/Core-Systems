@@ -199,6 +199,10 @@
     <Compile Include="ViewModels\FileManagerSettingsViewModel.cs" />
     <Compile Include="ViewModels\PartnerAllowanceDetailsViewModel.cs" />
     <Compile Include="ViewModels\PartnerCollectionDetailsViewModel.cs" />
+    <Compile Include="ViewModels\PDFTemplates\Coordinates.cs" />
+    <Compile Include="ViewModels\PDFTemplates\InvariantDecimal.cs" />
+    <Compile Include="ViewModels\PDFTemplates\PDFEditContextMenuViewModel.cs" />
+    <Compile Include="ViewModels\PDFTemplates\PDFItemPlacementViewModel.cs" />
     <Compile Include="ViewModels\Search\GroupSearchViewModel.cs" />
     <Compile Include="ViewModels\SubscriptionFormEmailListViewModel.cs" />
     <Compile Include="ViewModels\SubscriptionFormsViewModel.cs" />
@@ -258,7 +262,6 @@
     <Compile Include="ViewModels\PartnerCreditEditViewModel.cs" />
     <Compile Include="ViewModels\PartnerPermissionSelectionViewModel.cs" />
     <Compile Include="ViewModels\PartnerSearchViewModel.cs" />
-    <Compile Include="ViewModels\PDFTemplates\PDFParametersViewModel.cs" />
     <Compile Include="ViewModels\QuotaDetailViewModel.cs" />
     <Compile Include="ViewModels\QuotaSettingsViewModel.cs" />
     <Compile Include="ViewModels\ReferralDiscountReportViewModel.cs" />

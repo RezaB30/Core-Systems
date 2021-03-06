@@ -43,16 +43,33 @@ namespace RadiusR_Manager.Controllers
                 ViewBag.HasBackground = true;
             }
             ViewBag.TemplateName = new LocalizedList<PDFFormType, RadiusR.Localization.Lists.PDFFormType>().GetDisplayText(id);
-            
-            return View(new PDFParametersViewModel(db, id));
+
+            var list = new LocalizedList<PDFItemIDs, RadiusR.Localization.Lists.PDFItemIDs>();
+            var viewResults = db.PDFFormItemPlacements.Where(fi => fi.FormType == id).ToArray()
+                .Select(fi => new PDFItemPlacementViewModel()
+                {
+                    ID = fi.ItemID,
+                    Name = list.GetDisplayText(fi.ItemID),
+                    Placement = new Coordinates(fi.CoordsX, fi.CoordsY)
+                }).ToArray();
+            return View(viewResults);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         // POST: PDFTemplates/EditTemplate
-        public ActionResult EditTemplate(int id, PDFParametersViewModel parameters)
+        public ActionResult EditTemplate(int id, PDFItemPlacementViewModel[] parameters)
         {
-            parameters.UpdateDatabase(db, id);
+            var toRemove = db.PDFFormItemPlacements.Where(fi => fi.FormType == id).ToArray();
+            db.PDFFormItemPlacements.RemoveRange(toRemove);
+            var toAdd = parameters.Select(p => new PDFFormItemPlacement()
+            {
+                FormType = id,
+                ItemID = p.ID,
+                CoordsX = p.Placement.X.Value,
+                CoordsY = p.Placement.Y.Value
+            }).ToArray();
+            db.PDFFormItemPlacements.AddRange(toAdd);
             db.SaveChanges();
             return RedirectToAction("Index", new { errorMessage = 0 });
         }

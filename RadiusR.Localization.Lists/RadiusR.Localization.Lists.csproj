@@ -439,6 +439,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="PDFItemIDs.tr-tr.Designer.cs">
+      <DependentUpon>PDFItemIDs.tr-tr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="PDFItemIDs.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PDFItemIDs.resx</DependentUpon>
+    </Compile>
     <Compile Include="PortState.Designer.cs">
       <DependentUpon>PortState.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1088,6 +1098,14 @@
     <EmbeddedResource Include="PDFFormType.tr-tr.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PDFFormType.tr-tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PDFItemIDs.tr-tr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PDFItemIDs.tr-tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PDFItemIDs.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PDFItemIDs.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="PortState.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

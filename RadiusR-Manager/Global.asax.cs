@@ -25,7 +25,7 @@ namespace RadiusR_Manager
             ModelBinders.Binders[typeof(DateTime)] = new DateBinder();
             ModelBinders.Binders[typeof(bool)] = new BooleanBinder();
             ModelBinders.Binders[typeof(bool?)] = new BooleanBinder();
-            ModelBinders.Binders[typeof(Models.ViewModels.PDFTemplates.PDFParametersViewModel.InvariantDecimal)] = new InvariantCultureDecimalBinder();
+            ModelBinders.Binders[typeof(Models.ViewModels.PDFTemplates.InvariantDecimal)] = new InvariantCultureDecimalBinder();
         }
     }
 }

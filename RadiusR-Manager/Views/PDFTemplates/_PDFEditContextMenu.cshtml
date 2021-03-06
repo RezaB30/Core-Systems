@@ -1,4 +1,5 @@
-﻿
+﻿@using RadiusR_Manager.Helpers
+
 @{
     var contextModel = new RadiusR_Manager.Models.ViewModels.PDFTemplates.PDFEditContextMenuViewModel();
 }
@@ -8,241 +9,105 @@
     <div class="pdf-context-menu-item root-item">
         <span>@Html.DisplayNameFor(model => contextModel.TransferAction)</span>
         <div class="pdf-context-menu-container">
-            <div class="pdf-context-menu-item root-item" content-id="@Html.IdFor(model=>contextModel.TransferAction.TransferringSubscription)" content-name="@Html.NameFor(model=>contextModel.TransferAction.TransferringSubscription)">
+            <div class="pdf-context-menu-item root-item">
                 <span>@Html.DisplayNameFor(model => contextModel.TransferAction.TransferringSubscription)</span>
                 <div class="pdf-context-menu-container">
-                    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>contextModel.TransferAction.TransferringSubscription.SubscriberNo)" content-name="@Html.NameFor(model=>contextModel.TransferAction.TransferringSubscription.SubscriberNo)">
-                        <span>@Html.DisplayNameFor(model => contextModel.TransferAction.TransferringSubscription.SubscriberNo)</span>
-                    </div>
-                    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransferAction.TransferringSubscription.FirstName)" content-name="@Html.NameFor(model=>model.TransferAction.TransferringSubscription.FirstName)">
-                        <span>@Html.DisplayNameFor(model => model.TransferAction.TransferringSubscription.FirstName)</span>
-                    </div>
-                    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransferAction.TransferringSubscription.LastName)" content-name="@Html.NameFor(model=>model.TransferAction.TransferringSubscription.LastName)">
-                        <span>@Html.DisplayNameFor(model => model.TransferAction.TransferringSubscription.LastName)</span>
-                    </div>
-                    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransferAction.TransferringSubscription.FirstAndLastName)" content-name="@Html.NameFor(model=>model.TransferAction.TransferringSubscription.FirstAndLastName)">
-                        <span>@Html.DisplayNameFor(model => model.TransferAction.TransferringSubscription.FirstAndLastName)</span>
-                    </div>
-                    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransferAction.TransferringSubscription.CompanyTitle)" content-name="@Html.NameFor(model=>model.TransferAction.TransferringSubscription.CompanyTitle)">
-                        <span>@Html.DisplayNameFor(model => model.TransferAction.TransferringSubscription.CompanyTitle)</span>
-                    </div>
-                    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransferAction.TransferringSubscription.DisplayName)" content-name="@Html.NameFor(model=>model.TransferAction.TransferringSubscription.DisplayName)">
-                        <span>@Html.DisplayNameFor(model => model.TransferAction.TransferringSubscription.DisplayName)</span>
-                    </div>
-                    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransferAction.TransferringSubscription.TCKNo)" content-name="@Html.NameFor(model=>model.TransferAction.TransferringSubscription.TCKNo)">
-                        <span>@Html.DisplayNameFor(model => model.TransferAction.TransferringSubscription.TCKNo)</span>
-                    </div>
-                    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransferAction.TransferringSubscription.TaxNo)" content-name="@Html.NameFor(model=>model.TransferAction.TransferringSubscription.TaxNo)">
-                        <span>@Html.DisplayNameFor(model => model.TransferAction.TransferringSubscription.TaxNo)</span>
-                    </div>
-                    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransferAction.TransferringSubscription.TCKAndTaxNo)" content-name="@Html.NameFor(model=>model.TransferAction.TransferringSubscription.TCKAndTaxNo)">
-                        <span>@Html.DisplayNameFor(model => model.TransferAction.TransferringSubscription.TCKAndTaxNo)</span>
-                    </div>
+                    @Html.PDFContextMenuItemFor(model => contextModel.TransferAction.TransferringSubscription.SubscriberNo)
+                    @Html.PDFContextMenuItemFor(model => contextModel.TransferAction.TransferringSubscription.FirstName)
+                    @Html.PDFContextMenuItemFor(model => contextModel.TransferAction.TransferringSubscription.LastName)
+                    @Html.PDFContextMenuItemFor(model => contextModel.TransferAction.TransferringSubscription.FirstAndLastName)
+                    @Html.PDFContextMenuItemFor(model => contextModel.TransferAction.TransferringSubscription.CompanyTitle)
+                    @Html.PDFContextMenuItemFor(model => contextModel.TransferAction.TransferringSubscription.DisplayName)
+                    @Html.PDFContextMenuItemFor(model => contextModel.TransferAction.TransferringSubscription.TCKNo)
+                    @Html.PDFContextMenuItemFor(model => contextModel.TransferAction.TransferringSubscription.TaxNo)
+                    @Html.PDFContextMenuItemFor(model => contextModel.TransferAction.TransferringSubscription.TCKAndTaxNo)
                 </div>
             </div>
-            <div class="pdf-context-menu-item root-item" content-id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription)" content-name="@Html.NameFor(model=>model.TransferAction.TransferredSubscription)">
-                <span>@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription)</span>
+            <div class="pdf-context-menu-item root-item">
+                <span>@Html.DisplayNameFor(model => contextModel.TransferAction.TransferredSubscription)</span>
                 <div class="pdf-context-menu-container">
-                    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription.SubscriberNo)" content-name="@Html.NameFor(model=>model.TransferAction.TransferredSubscription.SubscriberNo)">
-                        <span>@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription.SubscriberNo)</span>
-                    </div>
-                    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription.FirstName)" content-name="@Html.NameFor(model=>model.TransferAction.TransferredSubscription.FirstName)">
-                        <span>@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription.FirstName)</span>
-                    </div>
-                    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription.LastName)" content-name="@Html.NameFor(model=>model.TransferAction.TransferredSubscription.LastName)">
-                        <span>@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription.LastName)</span>
-                    </div>
-                    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription.FirstAndLastName)" content-name="@Html.NameFor(model=>model.TransferAction.TransferredSubscription.FirstAndLastName)">
-                        <span>@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription.FirstAndLastName)</span>
-                    </div>
-                    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription.CompanyTitle)" content-name="@Html.NameFor(model=>model.TransferAction.TransferredSubscription.CompanyTitle)">
-                        <span>@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription.CompanyTitle)</span>
-                    </div>
-                    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription.DisplayName)" content-name="@Html.NameFor(model=>model.TransferAction.TransferredSubscription.DisplayName)">
-                        <span>@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription.DisplayName)</span>
-                    </div>
-                    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription.TCKNo)" content-name="@Html.NameFor(model=>model.TransferAction.TransferredSubscription.TCKNo)">
-                        <span>@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription.TCKNo)</span>
-                    </div>
-                    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription.TaxNo)" content-name="@Html.NameFor(model=>model.TransferAction.TransferredSubscription.TaxNo)">
-                        <span>@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription.TaxNo)</span>
-                    </div>
-                    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransferAction.TransferredSubscription.TCKAndTaxNo)" content-name="@Html.NameFor(model=>model.TransferAction.TransferredSubscription.TCKAndTaxNo)">
-                        <span>@Html.DisplayNameFor(model => model.TransferAction.TransferredSubscription.TCKAndTaxNo)</span>
-                    </div>
+                    @Html.PDFContextMenuItemFor(model => contextModel.TransferAction.TransferredSubscription.SubscriberNo)
+                    @Html.PDFContextMenuItemFor(model => contextModel.TransferAction.TransferredSubscription.FirstName)
+                    @Html.PDFContextMenuItemFor(model => contextModel.TransferAction.TransferredSubscription.LastName)
+                    @Html.PDFContextMenuItemFor(model => contextModel.TransferAction.TransferredSubscription.FirstAndLastName)
+                    @Html.PDFContextMenuItemFor(model => contextModel.TransferAction.TransferredSubscription.CompanyTitle)
+                    @Html.PDFContextMenuItemFor(model => contextModel.TransferAction.TransferredSubscription.DisplayName)
+                    @Html.PDFContextMenuItemFor(model => contextModel.TransferAction.TransferredSubscription.TCKNo)
+                    @Html.PDFContextMenuItemFor(model => contextModel.TransferAction.TransferredSubscription.TaxNo)
+                    @Html.PDFContextMenuItemFor(model => contextModel.TransferAction.TransferredSubscription.TCKAndTaxNo)
                 </div>
             </div>
         </div>
     </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.SubscriberNo)" content-name="@Html.NameFor(model=>model.SubscriberNo)">
-        <span>@Html.DisplayNameFor(model => model.SubscriberNo)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.FirstName)" content-name="@Html.NameFor(model=>model.FirstName)">
-        <span>@Html.DisplayNameFor(model => model.FirstName)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.LastName)" content-name="@Html.NameFor(model=>model.LastName)">
-        <span>@Html.DisplayNameFor(model => model.LastName)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.MothersName)" content-name="@Html.NameFor(model=>model.MothersName)">
-        <span>@Html.DisplayNameFor(model => model.MothersName)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.MothersMaidenName)" content-name="@Html.NameFor(model=>model.MothersMaidenName)">
-        <span>@Html.DisplayNameFor(model => model.MothersMaidenName)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.FathersName)" content-name="@Html.NameFor(model=>model.FathersName)">
-        <span>@Html.DisplayNameFor(model => model.FathersName)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.BirthDate)" content-name="@Html.NameFor(model=>model.BirthDate)">
-        <span>@Html.DisplayNameFor(model => model.BirthDate)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.BirthPlace)" content-name="@Html.NameFor(model=>model.BirthPlace)">
-        <span>@Html.DisplayNameFor(model => model.BirthPlace)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TCKNo)" content-name="@Html.NameFor(model=>model.TCKNo)">
-        <span>@Html.DisplayNameFor(model => model.TCKNo)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.Nationality)" content-name="@Html.NameFor(model=>model.Nationality)">
-        <span>@Html.DisplayNameFor(model => model.Nationality)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.Profession)" content-name="@Html.NameFor(model=>model.Profession)">
-        <span>@Html.DisplayNameFor(model => model.Profession)</span>
-    </div>
+    @Html.PDFContextMenuItemFor(model => contextModel.SubscriberNo)
+    @Html.PDFContextMenuItemFor(model => contextModel.FirstName)
+    @Html.PDFContextMenuItemFor(model => contextModel.LastName)
+    @Html.PDFContextMenuItemFor(model => contextModel.MothersName)
+    @Html.PDFContextMenuItemFor(model => contextModel.MothersMaidenName)
+    @Html.PDFContextMenuItemFor(model => contextModel.FathersName)
+    @Html.PDFContextMenuItemFor(model => contextModel.BirthDate)
+    @Html.PDFContextMenuItemFor(model => contextModel.BirthPlace)
+    @Html.PDFContextMenuItemFor(model => contextModel.TCKNo)
+    @Html.PDFContextMenuItemFor(model => contextModel.Nationality)
+    @Html.PDFContextMenuItemFor(model => contextModel.Profession)
     <div class="pdf-context-menu-item root-item">
-        <span>@Html.DisplayNameFor(model => model.Sexes)</span>
+        <span>@Html.DisplayNameFor(model => contextModel.Sexes)</span>
         <div class="pdf-context-menu-container">
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.Sexes.Male)" content-name="@Html.NameFor(model=>model.Sexes.Male)">
-                <span>@Html.DisplayNameFor(model => model.Sexes.Male)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.Sexes.Female)" content-name="@Html.NameFor(model=>model.Sexes.Female)">
-                <span>@Html.DisplayNameFor(model => model.Sexes.Female)</span>
-            </div>
+            @Html.PDFContextMenuItemFor(model => contextModel.Sexes.Male)
+            @Html.PDFContextMenuItemFor(model => contextModel.Sexes.Female)
         </div>
     </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.ContactPhoneNo)" content-name="@Html.NameFor(model=>model.ContactPhoneNo)">
-        <span>@Html.DisplayNameFor(model => model.ContactPhoneNo)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.Email)" content-name="@Html.NameFor(model=>model.Email)">
-        <span>@Html.DisplayNameFor(model => model.Email)</span>
-    </div>
+    @Html.PDFContextMenuItemFor(model => contextModel.ContactPhoneNo)
+    @Html.PDFContextMenuItemFor(model => contextModel.Email)
     <div class="pdf-context-menu-item root-item">
-        <span>@Html.DisplayNameFor(model => model.ResidenceAddress)</span>
+        <span>@Html.DisplayNameFor(model => contextModel.ResidenceAddress)</span>
         <div class="pdf-context-menu-container">
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.ResidenceAddress.ProvinceName)" content-name="@Html.NameFor(model=>model.ResidenceAddress.ProvinceName)">
-                <span>@Html.DisplayNameFor(model => model.ResidenceAddress.ProvinceName)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.ResidenceAddress.DistrictName)" content-name="@Html.NameFor(model=>model.ResidenceAddress.DistrictName)">
-                <span>@Html.DisplayNameFor(model => model.ResidenceAddress.DistrictName)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.ResidenceAddress.NeighborhoodName)" content-name="@Html.NameFor(model=>model.ResidenceAddress.NeighborhoodName)">
-                <span>@Html.DisplayNameFor(model => model.ResidenceAddress.NeighborhoodName)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.ResidenceAddress.StreetName)" content-name="@Html.NameFor(model=>model.ResidenceAddress.StreetName)">
-                <span>@Html.DisplayNameFor(model => model.ResidenceAddress.StreetName)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.ResidenceAddress.BuildingNo)" content-name="@Html.NameFor(model=>model.ResidenceAddress.BuildingNo)">
-                <span>@Html.DisplayNameFor(model => model.ResidenceAddress.BuildingNo)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.ResidenceAddress.DoorNo)" content-name="@Html.NameFor(model=>model.ResidenceAddress.DoorNo)">
-                <span>@Html.DisplayNameFor(model => model.ResidenceAddress.DoorNo)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.ResidenceAddress.BuildingName)" content-name="@Html.NameFor(model=>model.ResidenceAddress.BuildingName)">
-                <span>@Html.DisplayNameFor(model => model.ResidenceAddress.BuildingName)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.ResidenceAddress.Floor)" content-name="@Html.NameFor(model=>model.ResidenceAddress.Floor)">
-                <span>@Html.DisplayNameFor(model => model.ResidenceAddress.Floor)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.ResidenceAddress.PostalCode)" content-name="@Html.NameFor(model=>model.ResidenceAddress.PostalCode)">
-                <span>@Html.DisplayNameFor(model => model.ResidenceAddress.PostalCode)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.ResidenceAddress.BBK)" content-name="@Html.NameFor(model=>model.ResidenceAddress.BBK)">
-                <span>@Html.DisplayNameFor(model => model.ResidenceAddress.BBK)</span>
-            </div>
+            @Html.PDFContextMenuItemFor(model => contextModel.ResidenceAddress.ProvinceName)
+            @Html.PDFContextMenuItemFor(model => contextModel.ResidenceAddress.DistrictName)
+            @Html.PDFContextMenuItemFor(model => contextModel.ResidenceAddress.NeighborhoodName)
+            @Html.PDFContextMenuItemFor(model => contextModel.ResidenceAddress.StreetName)
+            @Html.PDFContextMenuItemFor(model => contextModel.ResidenceAddress.BuildingNo)
+            @Html.PDFContextMenuItemFor(model => contextModel.ResidenceAddress.DoorNo)
+            @Html.PDFContextMenuItemFor(model => contextModel.ResidenceAddress.BuildingName)
+            @Html.PDFContextMenuItemFor(model => contextModel.ResidenceAddress.Floor)
+            @Html.PDFContextMenuItemFor(model => contextModel.ResidenceAddress.PostalCode)
+            @Html.PDFContextMenuItemFor(model => contextModel.ResidenceAddress.BBK)
         </div>
     </div>
     <div class="pdf-context-menu-item root-item">
-        <span>@Html.DisplayNameFor(model => model.SubscriptionAddress)</span>
+        <span>@Html.DisplayNameFor(model => contextModel.SubscriptionAddress)</span>
         <div class="pdf-context-menu-container">
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.SubscriptionAddress.ProvinceName)" content-name="@Html.NameFor(model=>model.SubscriptionAddress.ProvinceName)">
-                <span>@Html.DisplayNameFor(model => model.SubscriptionAddress.ProvinceName)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.SubscriptionAddress.DistrictName)" content-name="@Html.NameFor(model=>model.SubscriptionAddress.DistrictName)">
-                <span>@Html.DisplayNameFor(model => model.SubscriptionAddress.DistrictName)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.SubscriptionAddress.NeighborhoodName)" content-name="@Html.NameFor(model=>model.SubscriptionAddress.NeighborhoodName)">
-                <span>@Html.DisplayNameFor(model => model.SubscriptionAddress.NeighborhoodName)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.SubscriptionAddress.StreetName)" content-name="@Html.NameFor(model=>model.SubscriptionAddress.StreetName)">
-                <span>@Html.DisplayNameFor(model => model.SubscriptionAddress.StreetName)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.SubscriptionAddress.BuildingNo)" content-name="@Html.NameFor(model=>model.SubscriptionAddress.BuildingNo)">
-                <span>@Html.DisplayNameFor(model => model.SubscriptionAddress.BuildingNo)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.SubscriptionAddress.DoorNo)" content-name="@Html.NameFor(model=>model.SubscriptionAddress.DoorNo)">
-                <span>@Html.DisplayNameFor(model => model.SubscriptionAddress.DoorNo)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.SubscriptionAddress.BuildingName)" content-name="@Html.NameFor(model=>model.SubscriptionAddress.BuildingName)">
-                <span>@Html.DisplayNameFor(model => model.SubscriptionAddress.BuildingName)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.SubscriptionAddress.Floor)" content-name="@Html.NameFor(model=>model.SubscriptionAddress.Floor)">
-                <span>@Html.DisplayNameFor(model => model.SubscriptionAddress.Floor)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.SubscriptionAddress.PostalCode)" content-name="@Html.NameFor(model=>model.SubscriptionAddress.PostalCode)">
-                <span>@Html.DisplayNameFor(model => model.SubscriptionAddress.PostalCode)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.SubscriptionAddress.BBK)" content-name="@Html.NameFor(model=>model.SubscriptionAddress.BBK)">
-                <span>@Html.DisplayNameFor(model => model.SubscriptionAddress.BBK)</span>
-            </div>
+            @Html.PDFContextMenuItemFor(model => contextModel.SubscriptionAddress.ProvinceName)
+            @Html.PDFContextMenuItemFor(model => contextModel.SubscriptionAddress.DistrictName)
+            @Html.PDFContextMenuItemFor(model => contextModel.SubscriptionAddress.NeighborhoodName)
+            @Html.PDFContextMenuItemFor(model => contextModel.SubscriptionAddress.StreetName)
+            @Html.PDFContextMenuItemFor(model => contextModel.SubscriptionAddress.BuildingNo)
+            @Html.PDFContextMenuItemFor(model => contextModel.SubscriptionAddress.DoorNo)
+            @Html.PDFContextMenuItemFor(model => contextModel.SubscriptionAddress.BuildingName)
+            @Html.PDFContextMenuItemFor(model => contextModel.SubscriptionAddress.Floor)
+            @Html.PDFContextMenuItemFor(model => contextModel.SubscriptionAddress.PostalCode)
+            @Html.PDFContextMenuItemFor(model => contextModel.SubscriptionAddress.BBK)
         </div>
     </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.PSTN)" content-name="@Html.NameFor(model=>model.PSTN)">
-        <span>@Html.DisplayNameFor(model => model.PSTN)</span>
-    </div>
+    @Html.PDFContextMenuItemFor(model => contextModel.PSTN)
     <div class="pdf-context-menu-item root-item">
-        <span>@Html.DisplayNameFor(model => model.LandPhone)</span>
+        <span>@Html.DisplayNameFor(model => contextModel.LandPhone)</span>
         <div class="pdf-context-menu-container">
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.LandPhone.Yes)" content-name="@Html.NameFor(model=>model.LandPhone.Yes)">
-                <span>@Html.DisplayNameFor(model => model.LandPhone.Yes)</span>
-            </div>
-            <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.LandPhone.No)" content-name="@Html.NameFor(model=>model.LandPhone.No)">
-                <span>@Html.DisplayNameFor(model => model.LandPhone.No)</span>
-            </div>
+            @Html.PDFContextMenuItemFor(model => contextModel.LandPhone.Yes)
+            @Html.PDFContextMenuItemFor(model => contextModel.LandPhone.No)
         </div>
     </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TariffName)" content-name="@Html.NameFor(model=>model.TariffName)">
-        <span>@Html.DisplayNameFor(model => model.TariffName)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.CompanyTitle)" content-name="@Html.NameFor(model=>model.CompanyTitle)">
-        <span>@Html.DisplayNameFor(model => model.CompanyTitle)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TaxOffice)" content-name="@Html.NameFor(model=>model.TaxOffice)">
-        <span>@Html.DisplayNameFor(model => model.TaxOffice)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TaxNo)" content-name="@Html.NameFor(model=>model.TaxNo)">
-        <span>@Html.DisplayNameFor(model => model.TaxNo)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TCKAndTaxNo)" content-name="@Html.NameFor(model=>model.TCKAndTaxNo)">
-        <span>@Html.DisplayNameFor(model => model.TCKAndTaxNo)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.FirstAndLastName)" content-name="@Html.NameFor(model=>model.FirstAndLastName)">
-        <span>@Html.DisplayNameFor(model => model.FirstAndLastName)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.DisplayName)" content-name="@Html.NameFor(model=>model.DisplayName)">
-        <span>@Html.DisplayNameFor(model => model.DisplayName)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.CentralSystemNo)" content-name="@Html.NameFor(model=>model.CentralSystemNo)">
-        <span>@Html.DisplayNameFor(model => model.CentralSystemNo)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TradeRegistrationNo)" content-name="@Html.NameFor(model=>model.TradeRegistrationNo)">
-        <span>@Html.DisplayNameFor(model => model.TradeRegistrationNo)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.BillingAddress)" content-name="@Html.NameFor(model=>model.BillingAddress)">
-        <span>@Html.DisplayNameFor(model => model.BillingAddress)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.XDSLNo)" content-name="@Html.NameFor(model=>model.XDSLNo)">
-        <span>@Html.DisplayNameFor(model => model.XDSLNo)</span>
-    </div>
-    <div class="pdf-context-menu-item" content-id="@Html.IdFor(model=>model.TransitionSourceOperator)" content-name="@Html.NameFor(model=>model.TransitionSourceOperator)">
-        <span>@Html.DisplayNameFor(model => model.TransitionSourceOperator)</span>
-    </div>
+    @Html.PDFContextMenuItemFor(model => contextModel.TariffName)
+    @Html.PDFContextMenuItemFor(model => contextModel.CompanyTitle)
+    @Html.PDFContextMenuItemFor(model => contextModel.TaxOffice)
+    @Html.PDFContextMenuItemFor(model => contextModel.TaxNo)
+    @Html.PDFContextMenuItemFor(model => contextModel.TCKAndTaxNo)
+    @Html.PDFContextMenuItemFor(model => contextModel.FirstAndLastName)
+    @Html.PDFContextMenuItemFor(model => contextModel.DisplayName)
+    @Html.PDFContextMenuItemFor(model => contextModel.CentralSystemNo)
+    @Html.PDFContextMenuItemFor(model => contextModel.TradeRegistrationNo)
+    @Html.PDFContextMenuItemFor(model => contextModel.BillingAddress)
+    @Html.PDFContextMenuItemFor(model => contextModel.XDSLNo)
+    @Html.PDFContextMenuItemFor(model => contextModel.TransitionSourceOperator)
 </div>
 <!--Context menu-->
