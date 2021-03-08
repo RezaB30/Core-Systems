@@ -107,7 +107,7 @@ namespace RadiusR_Manager.Controllers
                     Customer dbCustomer;
                     var registrationInfo = CreateCustomerInfoForRegistration(registeredCustomer);
                     var registrationResults = db.RegisterSubscriptionWithNewCustomer(registrationInfo, out dbCustomer, true);
-                    if (registrationResults != null)
+                    if (!registrationResults.IsSuccess)
                     {
                         ViewBag.RegistrationValidations = registrationResults.ValidationMessages;
                         foreach (var item in registrationResults.ValidationMessages)
