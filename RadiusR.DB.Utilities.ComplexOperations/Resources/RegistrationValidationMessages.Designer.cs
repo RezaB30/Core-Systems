@@ -205,6 +205,15 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid transition. ({0}).
+        /// </summary>
+        public static string InvalidTransition {
+            get {
+                return ResourceManager.GetString("InvalidTransition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No operator is registered by [{0}] name..
         /// </summary>
         public static string OperatorIsNotRegistered {

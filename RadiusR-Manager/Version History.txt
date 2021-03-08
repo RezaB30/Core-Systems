@@ -318,3 +318,13 @@ v 5.09.00 '2021-02-24'
 - added registration type.
 - added subscription transfer.
 - added partial transition for telekom subscriptions.
+v 5.09.01 '2021-03-08'
+- added churn control to transition.
+- removed allowance input from registration.
+- added more pdf forms.
+- changed pdf forms so any parameter can be added more than once.
+- updated notes page and separated forms into another page.
+- can download and send multiple forms.
+- updated forms permission.
+- added Telekom operator to database.
+- added telekom operators page. (editable operators list with remote folder)

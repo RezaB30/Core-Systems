@@ -56,7 +56,14 @@
                 @Html.DisplayFor(modelItem => item.SubscriberNo)
             </td>
             <td class="centered">
-                @Html.DisplayFor(modelItem => item.ID)
+                @if (User.HasPermission("Archive Access"))
+                {
+                    <a href="@(RadiusR_Manager.Properties.Settings.Default.ArchiveManagerUrl+ "?id=" + item.ID)" class="details-link" target="_blank">@Html.DisplayFor(modelItem => item.ID)</a>
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.ID)
+                }
             </td>
             <td class="centered">
                 @Html.DisplayFor(modelItem => item.ContactPhoneNo)

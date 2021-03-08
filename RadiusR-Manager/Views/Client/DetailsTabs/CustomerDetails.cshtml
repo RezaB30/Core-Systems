@@ -565,7 +565,14 @@
             <table style="width: 100%;">
                 <tr style="background-color: transparent;">
                     <td>
-                        @Html.DisplayFor(model => model.SubscriptionInfo.ArchiveNo)
+                        @if (User.HasPermission("Archive Access"))
+                        {
+                            <a href="@(RadiusR_Manager.Properties.Settings.Default.ArchiveManagerUrl+ "?id=" + Model.SubscriptionInfo.ArchiveNo)" class="details-link" target="_blank">@Html.DisplayFor(model => model.SubscriptionInfo.ArchiveNo)</a>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(model => model.SubscriptionInfo.ArchiveNo)
+                        }
                     </td>
                     <td style="text-align: right;">
                         @Html.DisplayNameFor(model => model.SubscriptionInfo.IsScanned)

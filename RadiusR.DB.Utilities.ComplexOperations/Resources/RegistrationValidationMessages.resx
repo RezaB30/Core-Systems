@@ -165,6 +165,9 @@
   <data name="InvalidTransferringSubscription" xml:space="preserve">
     <value>Invalid Transferring Subscription.</value>
   </data>
+  <data name="InvalidTransition" xml:space="preserve">
+    <value>Invalid transition. ({0})</value>
+  </data>
   <data name="OperatorIsNotRegistered" xml:space="preserve">
     <value>No operator is registered by [{0}] name.</value>
   </data>

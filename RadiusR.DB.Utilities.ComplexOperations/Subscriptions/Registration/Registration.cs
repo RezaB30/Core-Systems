@@ -209,7 +209,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
             {
                 if (registrationInfo.TelekomDetailedInfo != null)
                 {
-                    // telekom info not valid for this domain
+                    // telekom info not valid for this registration type
                     return new RegistrationResult()
                     {
                         ValidationMessages = new[] { new { Key = "TelekomDetailedInfo", ErrorMessage = Resources.RegistrationValidationMessages.TelekomInfoNotValidForRegistrationType } }.ToLookup(item => item.Key, item => item.ErrorMessage)
@@ -303,6 +303,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                 }
             }
             // validate partner info
+            PartnerAvailableTariff selectedPartnerTariff = null;
             if (registrationInfo.RegisteringPartner != null)
             {
                 var dbPartner = db.Partners.Find(registrationInfo.RegisteringPartner.PartnerID);
@@ -321,7 +322,8 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                         ValidationMessages = new[] { new { Key = "RegisteringPartner.PartnerID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidPartner } }.ToLookup(item => item.Key, item => item.ErrorMessage)
                     };
                 }
-                if (!dbPartner.PartnerGroup.PartnerAvailableTariffs.Any(pat => pat.TariffID == registrationInfo.ServiceID))
+                selectedPartnerTariff = dbPartner.PartnerGroup.PartnerAvailableTariffs.FirstOrDefault(pat => pat.TariffID == registrationInfo.ServiceID && pat.DomainID == selectedDomain.ID);
+                if (selectedPartnerTariff == null)
                 {
                     // invalid tariff for partner
                     return new RegistrationResult()
@@ -379,7 +381,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                 Username = string.IsNullOrEmpty(registrationInfo.Username) ? UsernameFactory.GenerateUsername(selectedDomain) : registrationInfo.Username + "@" + selectedDomain.Name,
                 PartnerRegisteredSubscription = registrationInfo.RegisteringPartner != null ? new PartnerRegisteredSubscription()
                 {
-                    Allowance = Math.Abs(registrationInfo.RegisteringPartner.Allowance.Value),
+                    Allowance = selectedPartnerTariff.Allowance,
                     PartnerID = registrationInfo.RegisteringPartner.PartnerID.Value,
                     TariffID = registrationInfo.ServiceID.Value,
                     AllowanceState = (short)Enums.PartnerAllowanceState.OnHold
@@ -525,6 +527,27 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                         // transition
                         else if (registrationInfo.RegistrationType == Enums.SubscriptionRegistrationType.Transition)
                         {
+                            // check with telekom if transition is valid
+                            {
+                                var serviceClient = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TTChurnApplicationClient(selectedDomain.TelekomCredential.XDSLWebServiceUsernameInt, selectedDomain.TelekomCredential.XDSLWebServicePassword);
+                                var response = serviceClient.ChurnAvailability(registrationInfo.TransitionXDSLNo);
+                                if (response.InternalException != null)
+                                {
+                                    // error checking churn availability
+                                    return new RegistrationResult()
+                                    {
+                                        ValidationMessages = new[] { new { Key = "TransitionXDSLNo", ErrorMessage = string.Format(Resources.RegistrationValidationMessages.InvalidTransition, response.InternalException.GetShortMessage()) } }.ToLookup(item => item.Key, item => item.ErrorMessage)
+                                    };
+                                }
+                                if (!response.Data.IsValid)
+                                {
+                                    // error checking churn availability
+                                    return new RegistrationResult()
+                                    {
+                                        ValidationMessages = new[] { new { Key = "TransitionXDSLNo", ErrorMessage = string.Format(Resources.RegistrationValidationMessages.InvalidTransition, "No Error Returned.") } }.ToLookup(item => item.Key, item => item.ErrorMessage)
+                                    };
+                                }
+                            }
                             // transition telekom info
                             dbSubscription.SubscriptionTelekomInfo = new SubscriptionTelekomInfo()
                             {
@@ -542,7 +565,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                                     // could not get operator from service
                                     return new RegistrationResult()
                                     {
-                                        ValidationMessages = new[] { new { Key = "TelekomDetailedInfo.SubscriberNo", ErrorMessage = string.Format(Resources.RegistrationValidationMessages.TelekomSyncError, response.InternalException.GetShortMessage()) } }.ToLookup(item => item.Key, item => item.ErrorMessage)
+                                        ValidationMessages = new[] { new { Key = "TransitionXDSLNo", ErrorMessage = string.Format(Resources.RegistrationValidationMessages.TelekomSyncError, response.InternalException.GetShortMessage()) } }.ToLookup(item => item.Key, item => item.ErrorMessage)
                                     };
                                 }
                                 var cachedOperator = TransitionOperatorsCache.GetAllOperators().FirstOrDefault(to => to.Username == response.Data);
@@ -551,7 +574,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                                     // the found operator is not registered
                                     return new RegistrationResult()
                                     {
-                                        ValidationMessages = new[] { new { Key = "TelekomDetailedInfo.SubscriberNo", ErrorMessage = string.Format(Resources.RegistrationValidationMessages.OperatorIsNotRegistered, response.Data) } }.ToLookup(item => item.Key, item => item.ErrorMessage)
+                                        ValidationMessages = new[] { new { Key = "TransitionXDSLNo", ErrorMessage = string.Format(Resources.RegistrationValidationMessages.OperatorIsNotRegistered, response.Data) } }.ToLookup(item => item.Key, item => item.ErrorMessage)
                                     };
                                 }
                                 // set operator
