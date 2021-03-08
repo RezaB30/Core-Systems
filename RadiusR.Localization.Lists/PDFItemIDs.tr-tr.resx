@@ -289,31 +289,31 @@
     <value>Devralan TCK no</value>
   </data>
   <data name="Transferring_CompanyTitle" xml:space="preserve">
-    <value>Devredilen Şirket Unvanını</value>
+    <value>Devreden Şirket Unvanını</value>
   </data>
   <data name="Transferring_DisplayName" xml:space="preserve">
-    <value>Devredilen Adı Soyadı/Şirket Ünvanı</value>
+    <value>Devreden Adı Soyadı/Şirket Ünvanı</value>
   </data>
   <data name="Transferring_FirstAndLastName" xml:space="preserve">
-    <value>Devredilen Adı Soyad</value>
+    <value>Devreden Adı Soyad</value>
   </data>
   <data name="Transferring_FirstName" xml:space="preserve">
-    <value>Devredilen Adı</value>
+    <value>Devreden Adı</value>
   </data>
   <data name="Transferring_LastName" xml:space="preserve">
-    <value>Devredilen Soyadı</value>
+    <value>Devreden Soyadı</value>
   </data>
   <data name="Transferring_SubscriberNo" xml:space="preserve">
-    <value>Devredilen Abone no</value>
+    <value>Devreden Abone no</value>
   </data>
   <data name="Transferring_TaxNo" xml:space="preserve">
-    <value>Devredilen Vergi no</value>
+    <value>Devreden Vergi no</value>
   </data>
   <data name="Transferring_TCKAndTaxNo" xml:space="preserve">
-    <value>Devredilen TCK/Vergi no</value>
+    <value>Devreden TCK/Vergi no</value>
   </data>
   <data name="Transferring_TCKNo" xml:space="preserve">
-    <value>Devredilen TCK no</value>
+    <value>Devreden TCK no</value>
   </data>
   <data name="TransitionSourceOperator" xml:space="preserve">
     <value>Geçiş İşletmeci</value>

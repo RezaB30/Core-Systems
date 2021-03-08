@@ -587,7 +587,10 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
             // add to customer
             referenceCustomer.Subscriptions.Add(dbSubscription);
             // return no error           
-            return null;
+            return new RegistrationResult()
+            {
+                ValidationMessages = null
+            };
         }
 
         public static ILookup<string, string> ValidateReferralDiscount(RadiusREntities db, CustomerRegistrationInfo.ReferralDiscountInfo referralDiscount, Service selectedTariff, out Subscription referrerSubscription, out SpecialOffer specialOffer, string prefix = null)

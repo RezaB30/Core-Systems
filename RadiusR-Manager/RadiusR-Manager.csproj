@@ -405,6 +405,9 @@
     <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
     <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.5.1.min.map" />
+    <Content Include="Settings.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Version History.txt" />
     <Content Include="Content\css\address-check-bookmark.css" />
     <Content Include="Content\css\address-details.css" />

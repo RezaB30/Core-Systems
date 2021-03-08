@@ -327,4 +327,5 @@ v 5.09.01 '2021-03-08'
 - can download and send multiple forms.
 - updated forms permission.
 - added Telekom operator to database.
-- added telekom operators page. (editable operators list with remote folder)
+- added Telekom operators page. (editable operators list with remote folder)
+- moved Setting to a separate config file.
