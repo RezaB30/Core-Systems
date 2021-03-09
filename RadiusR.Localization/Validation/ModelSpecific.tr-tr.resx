@@ -138,6 +138,12 @@
   <data name="MaxDateRange60Days" xml:space="preserve">
     <value>Maksimum tarih aralığı 60 gündür.</value>
   </data>
+  <data name="NoFormsSelected" xml:space="preserve">
+    <value>Hiçbir form seçilmedi.</value>
+  </data>
+  <data name="NoTransferSelected" xml:space="preserve">
+    <value>Hiçbir Devir seçilmedi.</value>
+  </data>
   <data name="SelfReferralDiscount" xml:space="preserve">
     <value>Abone, kendisi üzerinde referans indirimi kullanamaz.</value>
   </data>

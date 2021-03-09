@@ -126,17 +126,6 @@
     <Compile Include="CustomAttributes\EBillPrefixAttribute.cs" />
     <Compile Include="CustomAttributes\RateLimitAttribute.cs" />
     <Compile Include="CustomAttributes\TreeCheckerDisplayAttribute.cs" />
-    <Compile Include="Enums\PDFFormNames.tr-tr.Designer.cs">
-      <DependentUpon>PDFFormNames.tr-tr.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Enums\PDFFormNames.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PDFFormNames.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Enums\PDFForms.cs" />
     <Compile Include="Extentions\AddressViewModel.cs" />
     <Compile Include="Extentions\IQueryableSubscriptions.cs" />
     <Compile Include="PaymentTokenManager.cs" />
@@ -384,16 +373,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Enums\PDFFormNames.tr-tr.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>PDFFormNames.tr-tr.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Enums\PDFFormNames.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>PDFFormNames.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RadiusR_Manager.Models.Enums
+namespace RadiusR.DB.Enums
 {
-    public enum PDFForms
+    public enum GeneralPDFFormTypes
     {
         ContractForm = 1,
         TransitionForm = 2,

@@ -498,61 +498,61 @@ namespace RadiusR_Manager.Controllers
             return View(viewName: "DetailsTabs/SupportRequests", model: viewResults);
         }
 
-        [AuthorizePermission(Permissions = "Send Email To Client")]
-        [HttpPost]
-        // POST: Client/SendContractViaMail
-        public ActionResult SendContractViaMail(long id)
-        {
-            // checks
-            var subscription = db.Subscriptions.Find(id);
-            if (subscription == null)
-                return RedirectToAction("Details", "Client", new { id = subscription.ID, errorMessage = 9 });
-            // create mail client
-            RezaB.Mailing.IMailClient mailClient = new RezaB.Mailing.Client.MailClient(EmailSettings.SMTPEmailHost, EmailSettings.SMTPEMailPort, false, EmailSettings.SMTPEmailAddress, EmailSettings.SMTPEmailPassword);
-            // get body
-            string bodyText = string.Empty;
-            var fileManager = new MasterISSFileManager();
-            using (var bodyContent = fileManager.GetContractMailBody(subscription.Customer.Culture))
-            {
-                if (bodyContent.InternalException != null)
-                {
-                    return Content(RadiusR.Localization.Pages.Common.FileManagerError);
-                }
-                using (var reader = new StreamReader(bodyContent.Result.Content))
-                {
-                    bodyText = reader.ReadToEnd();
-                    bodyText = bodyText.Replace("([fullName])", subscription.ValidDisplayName);
-                }
-            }
-            // localized strings
-            var rm = RadiusR.Localization.MasterResourceManager.GetResourceManager("RadiusR.Localization.Pages.Common");
-            var attachmentName = $"{rm.GetString("CotractMailAttachmentName", System.Globalization.CultureInfo.CreateSpecificCulture(subscription.Customer.Culture))}.pdf";
-            var subject = string.Format(rm.GetString("ContractMailSubject", System.Globalization.CultureInfo.CreateSpecificCulture(subscription.Customer.Culture)), AppSettings.CompanyName);
-            // pdf stream
-            var pdfStream = RadiusR.PDFForms.PDFWriter.GetContractPDF(db, id);
-            if (pdfStream.InternalException != null)
-            {
-                return Content(RadiusR.Localization.Pages.Common.FileManagerError);
-            }
-            // send mail message
-            mailClient.SendMail(new RezaB.Mailing.StandardMailMessage(
-                new System.Net.Mail.MailAddress(EmailSettings.SMTPEmailDisplayEmail, EmailSettings.SMTPEmailDisplayName),
-                new string[] { subscription.Customer.Email },
-                null,
-                null,
-                subject,
-                bodyText,
-                RezaB.Mailing.MailBodyType.HTML,
-                new RezaB.Mailing.MailFileAttachment[]{
-                    new RezaB.Mailing.MailFileAttachment()
-                    {
-                        Content = pdfStream.Result,
-                        FileName = attachmentName
-                    }
-            }));
+        //[AuthorizePermission(Permissions = "Send Email To Client")]
+        //[HttpPost]
+        //// POST: Client/SendContractViaMail
+        //public ActionResult SendContractViaMail(long id)
+        //{
+        //    // checks
+        //    var subscription = db.Subscriptions.Find(id);
+        //    if (subscription == null)
+        //        return RedirectToAction("Details", "Client", new { id = subscription.ID, errorMessage = 9 });
+        //    // create mail client
+        //    RezaB.Mailing.IMailClient mailClient = new RezaB.Mailing.Client.MailClient(EmailSettings.SMTPEmailHost, EmailSettings.SMTPEMailPort, false, EmailSettings.SMTPEmailAddress, EmailSettings.SMTPEmailPassword);
+        //    // get body
+        //    string bodyText = string.Empty;
+        //    var fileManager = new MasterISSFileManager();
+        //    using (var bodyContent = fileManager.GetContractMailBody(subscription.Customer.Culture))
+        //    {
+        //        if (bodyContent.InternalException != null)
+        //        {
+        //            return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+        //        }
+        //        using (var reader = new StreamReader(bodyContent.Result.Content))
+        //        {
+        //            bodyText = reader.ReadToEnd();
+        //            bodyText = bodyText.Replace("([fullName])", subscription.ValidDisplayName);
+        //        }
+        //    }
+        //    // localized strings
+        //    var rm = RadiusR.Localization.MasterResourceManager.GetResourceManager("RadiusR.Localization.Pages.Common");
+        //    var attachmentName = $"{rm.GetString("CotractMailAttachmentName", System.Globalization.CultureInfo.CreateSpecificCulture(subscription.Customer.Culture))}.pdf";
+        //    var subject = string.Format(rm.GetString("ContractMailSubject", System.Globalization.CultureInfo.CreateSpecificCulture(subscription.Customer.Culture)), AppSettings.CompanyName);
+        //    // pdf stream
+        //    var pdfStream = RadiusR.PDFForms.PDFWriter.GetContractPDF(db, id);
+        //    if (pdfStream.InternalException != null)
+        //    {
+        //        return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+        //    }
+        //    // send mail message
+        //    mailClient.SendMail(new RezaB.Mailing.StandardMailMessage(
+        //        new System.Net.Mail.MailAddress(EmailSettings.SMTPEmailDisplayEmail, EmailSettings.SMTPEmailDisplayName),
+        //        new string[] { subscription.Customer.Email },
+        //        null,
+        //        null,
+        //        subject,
+        //        bodyText,
+        //        RezaB.Mailing.MailBodyType.HTML,
+        //        new RezaB.Mailing.MailFileAttachment[]{
+        //            new RezaB.Mailing.MailFileAttachment()
+        //            {
+        //                Content = pdfStream.Result,
+        //                FileName = attachmentName
+        //            }
+        //    }));
 
-            return RedirectToAction("Details", "Client", new { id = subscription.ID, errorMessage = 0 });
-        }
+        //    return RedirectToAction("Details", "Client", new { id = subscription.ID, errorMessage = 0 });
+        //}
 
         
     }

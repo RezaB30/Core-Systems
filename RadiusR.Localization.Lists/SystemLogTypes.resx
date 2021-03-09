@@ -261,4 +261,7 @@
   <data name="SubscriptionTransferApplied" xml:space="preserve">
     <value>Subscription Transfer Application</value>
   </data>
+  <data name="SentFormViaEmail" xml:space="preserve">
+    <value>Sending Form via Email</value>
+  </data>
 </root>

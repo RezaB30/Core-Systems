@@ -429,6 +429,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="GeneralPDFFormTypes.Designer.cs">
+      <DependentUpon>GeneralPDFFormTypes.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="GeneralPDFFormTypes.tr-tr.Designer.cs">
+      <DependentUpon>GeneralPDFFormTypes.tr-tr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="PDFFormType.Designer.cs">
       <DependentUpon>PDFFormType.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1090,6 +1100,14 @@
     <EmbeddedResource Include="PaymentType.tr-tr.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PaymentType.tr-tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GeneralPDFFormTypes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GeneralPDFFormTypes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GeneralPDFFormTypes.tr-tr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GeneralPDFFormTypes.tr-tr.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="PDFFormType.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

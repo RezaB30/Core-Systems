@@ -31,7 +31,7 @@
             <tr>
                 <td>
                     @item.Value
-                    @if (item.Key == (int)RadiusR_Manager.Models.Enums.PDFForms.TransferForm)
+                    @if (item.Key == (int)RadiusR.DB.Enums.GeneralPDFFormTypes.TransferForm)
                     {
                         @Html.Select("transferId", (SelectList)ViewBag.Transfers, RadiusR.Localization.Pages.Common.Choose)
                     }
@@ -71,6 +71,10 @@
                     else
                     {
                         @RadiusR.Localization.Pages.Common.SubscriptionHasNoEMail
+                    }
+                    if (ViewBag.SendEmailError != null)
+                    {
+                        <div class="button-row text-danger">@ViewBag.SendEmailError</div>
                     }
                 }
             </td>

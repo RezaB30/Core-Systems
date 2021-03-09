@@ -750,6 +750,20 @@ namespace RadiusR.SystemLogs
             };
         }
 
+        public static SystemLog SentFormViaEmail(int? userID, long subscriptionID, GeneralPDFFormTypes[] forms, SystemLogInterface interfaceType, string interfaceUsername)
+        {
+            return new SystemLog()
+            {
+                Date = DateTime.Now,
+                LogType = (int)SystemLogTypes.SentFormViaEmail,
+                Interface = (short)interfaceType,
+                InterfaceUsername = interfaceUsername,
+                AppUserID = userID,
+                SubscriptionID = subscriptionID,
+                Parameters = HttpUtility.HtmlEncode(string.Join(", ", forms.Select(ft => "<span class='important'>" + InsertResource(typeof(RadiusR.Localization.Lists.GeneralPDFFormTypes), ft.ToString()) + "</span>").ToArray()))
+            };
+        }
+
         private static string ClearString(string input)
         {
             return input.Replace(ParameterSeparator, " ").Trim();

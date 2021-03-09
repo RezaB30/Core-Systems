@@ -457,6 +457,15 @@ namespace RadiusR.SystemLogs.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sent {0} forms via e-mail..
+        /// </summary>
+        public static string SentFormViaEmail {
+            get {
+                return ResourceManager.GetString("SentFormViaEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Steped Down Subscriber Speed Profile..
         /// </summary>
         public static string StepDownSubscriptionSpeedProfile {

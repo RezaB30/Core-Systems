@@ -148,6 +148,7 @@
     <Compile Include="Enums\BTKOperatorTypes.cs" />
     <Compile Include="Enums\DomainInfrastructure.cs" />
     <Compile Include="Enums\FileManagerTypes.cs" />
+    <Compile Include="Enums\GeneralPDFFormTypes.cs" />
     <Compile Include="Enums\IPBlockServiceType.cs" />
     <Compile Include="Enums\IPBlockType.cs" />
     <Compile Include="Enums\NASTypes.cs" />

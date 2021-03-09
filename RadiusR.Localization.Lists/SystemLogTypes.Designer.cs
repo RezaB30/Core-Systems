@@ -457,6 +457,15 @@ namespace RadiusR.Localization.Lists {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sending Form via Email.
+        /// </summary>
+        public static string SentFormViaEmail {
+            get {
+                return ResourceManager.GetString("SentFormViaEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Step Down Subscriber Speed Profile.
         /// </summary>
         public static string StepDownSubscriptionSpeedProfile {

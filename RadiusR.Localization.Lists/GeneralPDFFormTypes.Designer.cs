@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RadiusR_Manager.Models.Enums {
+namespace RadiusR.Localization.Lists {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace RadiusR_Manager.Models.Enums {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class PDFFormNames {
+    public class GeneralPDFFormTypes {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal PDFFormNames() {
+        internal GeneralPDFFormTypes() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace RadiusR_Manager.Models.Enums {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RadiusR_Manager.Models.Enums.PDFFormNames", typeof(PDFFormNames).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RadiusR.Localization.Lists.GeneralPDFFormTypes", typeof(GeneralPDFFormTypes).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

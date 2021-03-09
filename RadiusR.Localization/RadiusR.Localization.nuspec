@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <title>RadiusR.Localization</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -13,7 +13,7 @@
     <tags>MasterISS Localization</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />
 	<dependencies>
-		<dependency id="RadiusR.Localization.Lists" version="1.0.8"/>
+		<dependency id="RadiusR.Localization.Lists" version="1.0.10"/>
 	</dependencies>
   </metadata>
   <files>

@@ -124,6 +124,24 @@ namespace RadiusR.Localization.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No forms were selected..
+        /// </summary>
+        public static string NoFormsSelected {
+            get {
+                return ResourceManager.GetString("NoFormsSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No transfer was selected..
+        /// </summary>
+        public static string NoTransferSelected {
+            get {
+                return ResourceManager.GetString("NoTransferSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Subscriber cannot use referral discount on the self..
         /// </summary>
         public static string SelfReferralDiscount {

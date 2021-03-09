@@ -1,5 +1,6 @@
 ﻿using RadiusR.DB;
 using RadiusR.FileManagement;
+using RadiusR.SystemLogs;
 using RadiusR_Manager.Models.ViewModels;
 using RezaB.Data.Localization;
 using RezaB.Web.CustomAttributes;
@@ -33,8 +34,9 @@ namespace RadiusR_Manager.Controllers
                 HasEmailAddress = !string.IsNullOrWhiteSpace(dbSubscription.Customer.Email)
             };
             ViewBag.CustomerName = dbSubscription.ValidDisplayName;
-            ViewBag.AllForms = new LocalizedList<RadiusR_Manager.Models.Enums.PDFForms, RadiusR_Manager.Models.Enums.PDFFormNames>().GetList();
+            ViewBag.AllForms = new LocalizedList<RadiusR.DB.Enums.GeneralPDFFormTypes, RadiusR.Localization.Lists.GeneralPDFFormTypes>().GetList();
             ViewBag.Transfers = new SelectList(dbSubscription.SubscriptionTransferredFromHistories.Select(sth => new { Key = sth.ID, Name = sth.TransferredSubscription.SubscriberNo, Date = sth.Date }).Concat(dbSubscription.SubscriptionTransferredToHistories.Select(sth => new { Key = sth.ID, Name = sth.TransferrerSubscription.SubscriberNo, Date = sth.Date })).OrderByDescending(sth => sth.Date).ToArray(), "Key", "Name");
+            ViewBag.SendEmailError = TempData["SendEmailError"];
             return View(viewName: "Forms/Index", model: viewResults);
         }
 
@@ -50,6 +52,7 @@ namespace RadiusR_Manager.Controllers
             }
             if (!selectedForms.Any(sf => sf.IsSelected))
             {
+                TempData["SendEmailError"] = RadiusR.Localization.Validation.ModelSpecific.NoFormsSelected;
                 return RedirectToAction("SubscriptionForms", new { id = id, errorMessage = 9 });
             }
 
@@ -73,13 +76,13 @@ namespace RadiusR_Manager.Controllers
                 }
             }
             // prepare attachments
-            var fileNameRM = RadiusR_Manager.Models.Enums.PDFFormNames.ResourceManager;
+            var fileNameRM = RadiusR.Localization.Lists.GeneralPDFFormTypes.ResourceManager;
             var attachments = new List<RezaB.Mailing.MailFileAttachment>();
             foreach (var selectedForm in selectedForms.Where(sf => sf.IsSelected))
             {
-                switch ((RadiusR_Manager.Models.Enums.PDFForms)selectedForm.FormType)
+                switch ((RadiusR.DB.Enums.GeneralPDFFormTypes)selectedForm.FormType)
                 {
-                    case Models.Enums.PDFForms.ContractForm:
+                    case RadiusR.DB.Enums.GeneralPDFFormTypes.ContractForm:
                         {
                             var form = RadiusR.PDFForms.PDFWriter.GetContractPDF(db, dbSubscription.ID);
                             if (form.InternalException != null)
@@ -93,7 +96,7 @@ namespace RadiusR_Manager.Controllers
                             });
                         }
                         break;
-                    case Models.Enums.PDFForms.TransitionForm:
+                    case RadiusR.DB.Enums.GeneralPDFFormTypes.TransitionForm:
                         {
                             var form = RadiusR.PDFForms.PDFWriter.GetTransitionPDF(db, dbSubscription.ID);
                             if (form.InternalException != null)
@@ -107,7 +110,7 @@ namespace RadiusR_Manager.Controllers
                             });
                         }
                         break;
-                    case Models.Enums.PDFForms.PSTNtoNakedForm:
+                    case RadiusR.DB.Enums.GeneralPDFFormTypes.PSTNtoNakedForm:
                         {
                             var form = RadiusR.PDFForms.PDFWriter.GetPSTNtoNakedPDF(db, dbSubscription.ID);
                             if (form.InternalException != null)
@@ -121,14 +124,17 @@ namespace RadiusR_Manager.Controllers
                             });
                         }
                         break;
-                    case Models.Enums.PDFForms.TransferForm:
+                    case RadiusR.DB.Enums.GeneralPDFFormTypes.TransferForm:
                         {
                             if (transferId.HasValue)
                             {
                                 // find transfer
                                 var transfer = db.SubscriptionTransferHistories.Find(transferId);
                                 if (transfer == null)
+                                {
                                     return RedirectToAction("SubscriptionForms", new { id = id, errorMessage = 9 });
+                                }
+                                    
 
                                 if (transfer.To == id || transfer.From == id)
                                 {
@@ -150,6 +156,7 @@ namespace RadiusR_Manager.Controllers
                             }
                             else
                             {
+                                TempData["SendEmailError"] = RadiusR.Localization.Validation.ModelSpecific.NoTransferSelected;
                                 return RedirectToAction("SubscriptionForms", new { id = id, errorMessage = 9 });
                             }
                         }
@@ -171,6 +178,9 @@ namespace RadiusR_Manager.Controllers
                 attachments
             ));
 
+            db.SystemLogs.Add(SystemLogProcessor.SentFormViaEmail(User.GiveUserId(), dbSubscription.ID, selectedForms.Where(sf => sf.IsSelected).Select(sf => (RadiusR.DB.Enums.GeneralPDFFormTypes)sf.FormType).ToArray(), RadiusR.DB.Enums.SystemLogInterface.MasterISS, null));
+            db.SaveChanges();
+
             return RedirectToAction("SubscriptionForms", new { id = id, errorMessage = 0 });
         }
 
@@ -181,36 +191,36 @@ namespace RadiusR_Manager.Controllers
             var subscription = db.Subscriptions.Find(id);
             if (subscription == null)
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            switch ((RadiusR_Manager.Models.Enums.PDFForms)formType)
+            switch ((RadiusR.DB.Enums.GeneralPDFFormTypes)formType)
             {
-                case Models.Enums.PDFForms.ContractForm:
+                case RadiusR.DB.Enums.GeneralPDFFormTypes.ContractForm:
                     {
                         var createdPDF = RadiusR.PDFForms.PDFWriter.GetContractPDF(db, id);
                         if (createdPDF.InternalException != null)
                         {
                             return Content(RadiusR.Localization.Pages.Common.FileManagerError);
                         }
-                        return File(createdPDF.Result, "application/pdf", $"{subscription.SubscriberNo}-{RadiusR_Manager.Models.Enums.PDFFormNames.ContractForm}");
+                        return File(createdPDF.Result, "application/pdf", $"{subscription.SubscriberNo}-{RadiusR.Localization.Lists.GeneralPDFFormTypes.ContractForm}.pdf");
                     }
-                case Models.Enums.PDFForms.TransitionForm:
+                case RadiusR.DB.Enums.GeneralPDFFormTypes.TransitionForm:
                     {
                         var createdPDF = RadiusR.PDFForms.PDFWriter.GetTransitionPDF(db, id);
                         if (createdPDF.InternalException != null)
                         {
                             return Content(RadiusR.Localization.Pages.Common.FileManagerError);
                         }
-                        return File(createdPDF.Result, "application/pdf", $"{subscription.SubscriberNo}-{RadiusR_Manager.Models.Enums.PDFFormNames.TransitionForm}");
+                        return File(createdPDF.Result, "application/pdf", $"{subscription.SubscriberNo}-{RadiusR.Localization.Lists.GeneralPDFFormTypes.TransitionForm}.pdf");
                     }
-                case Models.Enums.PDFForms.PSTNtoNakedForm:
+                case RadiusR.DB.Enums.GeneralPDFFormTypes.PSTNtoNakedForm:
                     {
                         var createdPDF = RadiusR.PDFForms.PDFWriter.GetPSTNtoNakedPDF(db, id);
                         if (createdPDF.InternalException != null)
                         {
                             return Content(RadiusR.Localization.Pages.Common.FileManagerError);
                         }
-                        return File(createdPDF.Result, "application/pdf", $"{subscription.SubscriberNo}-{RadiusR_Manager.Models.Enums.PDFFormNames.PSTNtoNakedForm}");
+                        return File(createdPDF.Result, "application/pdf", $"{subscription.SubscriberNo}-{RadiusR.Localization.Lists.GeneralPDFFormTypes.PSTNtoNakedForm}.pdf");
                     }
-                case Models.Enums.PDFForms.TransferForm:
+                case RadiusR.DB.Enums.GeneralPDFFormTypes.TransferForm:
                     {
                         if (!transferId.HasValue)
                             return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
@@ -226,7 +236,7 @@ namespace RadiusR_Manager.Controllers
                             {
                                 return Content(RadiusR.Localization.Pages.Common.FileManagerError);
                             }
-                            return File(createdPDF.Result, "application/pdf", $"{subscription.SubscriberNo}-{RadiusR_Manager.Models.Enums.PDFFormNames.TransferForm}");
+                            return File(createdPDF.Result, "application/pdf", $"{subscription.SubscriberNo}-{RadiusR.Localization.Lists.GeneralPDFFormTypes.TransferForm}.pdf");
                         }
                         else
                         {

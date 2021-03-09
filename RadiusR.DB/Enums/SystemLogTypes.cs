@@ -57,5 +57,6 @@ namespace RadiusR.DB.Enums
         DisableRecurringDiscount = 47,
         CloseWorkOrder = 48,
         SubscriptionTransferApplied = 49,
+        SentFormViaEmail = 50,
     }
 }

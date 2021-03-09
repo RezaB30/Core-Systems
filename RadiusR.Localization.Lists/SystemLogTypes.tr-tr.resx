@@ -261,4 +261,7 @@
   <data name="SubscriptionTransferApplied" xml:space="preserve">
     <value>Abonelik Devri Uygulanma</value>
   </data>
+  <data name="SentFormViaEmail" xml:space="preserve">
+    <value>E-posta ile Form Gönderme</value>
+  </data>
 </root>
