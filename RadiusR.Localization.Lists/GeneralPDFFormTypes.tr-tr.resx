@@ -129,4 +129,7 @@
   <data name="TransitionForm" xml:space="preserve">
     <value>Geçiş Formu</value>
   </data>
+  <data name="TransportForm" xml:space="preserve">
+    <value>Nakil Formu</value>
+  </data>
 </root>

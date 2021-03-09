@@ -11,6 +11,7 @@ namespace RadiusR.DB.Enums
         ContractForm = 1,
         TransitionForm = 2,
         PSTNtoNakedForm = 3,
-        TransferForm = 4
+        TransferForm = 4,
+        TransportForm = 5,
     }
 }

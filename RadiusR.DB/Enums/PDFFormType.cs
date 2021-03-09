@@ -13,6 +13,7 @@ namespace RadiusR.DB.Enums
         IndividualTransition = 3,
         CorporateTransition = 4,
         PSTNtoNaked = 5,
-        Transfer = 6
+        Transfer = 6,
+        Transport = 7,
     }
 }

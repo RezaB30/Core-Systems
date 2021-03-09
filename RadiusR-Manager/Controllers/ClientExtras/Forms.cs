@@ -115,7 +115,7 @@ namespace RadiusR_Manager.Controllers
                             var form = RadiusR.PDFForms.PDFWriter.GetPSTNtoNakedPDF(db, dbSubscription.ID);
                             if (form.InternalException != null)
                             {
-                                return Content($"<div class='centered text-danger'>{fileNameRM.GetString("FileManagerError", CultureInfo.CreateSpecificCulture(dbSubscription.Customer.Culture))}</div>");
+                                return Content($"<div class='centered text-danger'>{RadiusR.Localization.Pages.Common.FileManagerError}</div>");
                             }
                             attachments.Add(new RezaB.Mailing.MailFileAttachment()
                             {
@@ -159,6 +159,20 @@ namespace RadiusR_Manager.Controllers
                                 TempData["SendEmailError"] = RadiusR.Localization.Validation.ModelSpecific.NoTransferSelected;
                                 return RedirectToAction("SubscriptionForms", new { id = id, errorMessage = 9 });
                             }
+                        }
+                        break;
+                    case RadiusR.DB.Enums.GeneralPDFFormTypes.TransportForm:
+                        {
+                            var form = RadiusR.PDFForms.PDFWriter.GetTransportPDF(db, dbSubscription.ID);
+                            if (form.InternalException != null)
+                            {
+                                return Content($"<div class='centered text-danger'>{RadiusR.Localization.Pages.Common.FileManagerError}</div>");
+                            }
+                            attachments.Add(new RezaB.Mailing.MailFileAttachment()
+                            {
+                                Content = form.Result,
+                                FileName = $"{dbSubscription.SubscriberNo}-{fileNameRM.GetString("TransportForm", CultureInfo.CreateSpecificCulture(dbSubscription.Customer.Culture))}.pdf"
+                            });
                         }
                         break;
                     default:
@@ -242,6 +256,15 @@ namespace RadiusR_Manager.Controllers
                         {
                             return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
                         }
+                    }
+                case RadiusR.DB.Enums.GeneralPDFFormTypes.TransportForm:
+                    {
+                        var createdPDF = RadiusR.PDFForms.PDFWriter.GetTransportPDF(db, id);
+                        if (createdPDF.InternalException != null)
+                        {
+                            return Content(RadiusR.Localization.Pages.Common.FileManagerError);
+                        }
+                        return File(createdPDF.Result, "application/pdf", $"{subscription.SubscriberNo}-{RadiusR.Localization.Lists.GeneralPDFFormTypes.TransportForm}.pdf");
                     }
                 default:
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);

@@ -113,5 +113,14 @@ namespace RadiusR.Localization.Lists {
                 return ResourceManager.GetString("Transfer", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transport Form.
+        /// </summary>
+        public static string Transport {
+            get {
+                return ResourceManager.GetString("Transport", resourceCulture);
+            }
+        }
     }
 }

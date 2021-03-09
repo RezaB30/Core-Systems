@@ -135,4 +135,7 @@
   <data name="Transfer" xml:space="preserve">
     <value>Devir Formu</value>
   </data>
+  <data name="Transport" xml:space="preserve">
+    <value>Nakil Formu</value>
+  </data>
 </root>

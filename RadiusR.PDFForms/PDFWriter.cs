@@ -150,20 +150,26 @@ namespace RadiusR.PDFForms
             }
         }
 
+        public static FileManagerResult<Stream> GetTransportPDF(RadiusREntities db, long subscriptionID, CultureInfo culture = null)
+        {
+            var elementList = LoadFormItems(db, PDFFormType.Transport, subscriptionID, null, null, culture);
+            var fileManager = new MasterISSFileManager();
+            using (var pdfFormResult = fileManager.GetPDFForm(PDFFormType.Transport))
+            {
+                if (pdfFormResult.InternalException != null)
+                {
+                    return new FileManagerResult<Stream>(pdfFormResult.InternalException);
+                }
+                return new FileManagerResult<Stream>(CreatePDF(pdfFormResult.Result.Content, null, elementList));
+            }
+        }
+
         private static IEnumerable<PDFElement> LoadFormItems(RadiusREntities db, PDFFormType formType, long? subscriptionId, long? transferringSubscriptionId, long? transferredSubscriptionId, CultureInfo culture = null)
         {
             var subscription = subscriptionId.HasValue ? db.Subscriptions.Find(subscriptionId) : null;
             var transferringSubscription = transferringSubscriptionId.HasValue ? db.Subscriptions.Find(transferringSubscriptionId) : null;
             var transferredSubscription = transferredSubscriptionId.HasValue ? db.Subscriptions.Find(transferredSubscriptionId) : null;
             var placeList = db.PDFFormItemPlacements.Where(item => item.FormType == (int)formType).ToList();
-            //if (subscription.Customer.CustomerType == (short)CustomerType.Individual)
-            //{
-            //    placeList = db.PDFFormItemPlacements.Where(item => item.FormType == (int)PDFFormType.IndividualContract).ToList();
-            //}
-            //else if (subscription.Customer.CorporateCustomerInfo != null)
-            //{
-            //    placeList = db.PDFFormItemPlacements.Where(item => item.FormType == (int)PDFFormType.CorporateContract).ToList();
-            //}
 
             List<PDFElement> elementList = new List<PDFElement>();
             foreach (var item in placeList)
