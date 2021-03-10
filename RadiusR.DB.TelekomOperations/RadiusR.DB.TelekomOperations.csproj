@@ -43,8 +43,8 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="RezaB.TurkTelekom.WebServices, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.TurkTelekom.WebServices.1.1.0-beta2\lib\net452\RezaB.TurkTelekom.WebServices.dll</HintPath>
+    <Reference Include="RezaB.TurkTelekom.WebServices, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.TurkTelekom.WebServices.1.1.1\lib\net452\RezaB.TurkTelekom.WebServices.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />

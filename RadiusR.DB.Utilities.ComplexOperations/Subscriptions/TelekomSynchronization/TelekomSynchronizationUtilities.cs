@@ -107,17 +107,16 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TelekomSynchroniz
                         //    TelekomExceptions = secondaryResponse.InternalException
                         //};
                     }
-
-                    options.DBSubscription.RadiusPassword = secondaryResponse.Data.Password;
-
-                    //// save
-                    //db.SaveChanges();
+                    else
+                    {
+                        options.DBSubscription.RadiusPassword = secondaryResponse.Data.Password;
+                    }
                 }
             }
             // redback update
             {
                 var serviceClient = new InfrastructurInfoServiceClient(domain.TelekomCredential.XDSLWebServiceUsernameInt, domain.TelekomCredential.XDSLWebServicePassword);
-                var response = serviceClient.GetInfrastructureInfo(options.DSLNo);
+                var response = serviceClient.GetCLIDInfo(options.DSLNo);
                 if (response.InternalException == null)
                 {
                     options.DBSubscription.SubscriptionTelekomInfo.RedbackName = response.Data.RedbackName;

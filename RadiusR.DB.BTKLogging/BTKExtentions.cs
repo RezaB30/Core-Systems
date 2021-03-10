@@ -17,7 +17,9 @@ namespace RadiusR.DB.BTKLogging
             var finalQuery = query
                 .Include(ra => ra.Subscription)
                 .Include(ra => ra.RadiusAccountingIPInfo);
-            var sessionStarts = finalQuery.Where(accountingRecord => accountingRecord.StartTime >= lastOperationTime).AsEnumerable()
+            var newThisPeriod = finalQuery.Where(accountingRecord => accountingRecord.StartTime >= lastOperationTime);
+            // session starts
+            var sessionStarts = newThisPeriod.AsEnumerable()
                 .Select(accountingRecord => string.Join("|", new[]
                 {
                     accountingRecord.Username,
@@ -28,7 +30,7 @@ namespace RadiusR.DB.BTKLogging
                     accountingRecord.RadiusAccountingIPInfo != null ? accountingRecord.RadiusAccountingIPInfo.PortRange != null ? accountingRecord.RadiusAccountingIPInfo.PortRange.Split('-')[0] : "0" : null,
                     accountingRecord.RadiusAccountingIPInfo != null ? accountingRecord.RadiusAccountingIPInfo.PortRange != null ? accountingRecord.RadiusAccountingIPInfo.PortRange.Split('-')[1] : "65535" : null,
                     BTKLoggingUtilities.TranslateDateTime(accountingRecord.StartTime),
-                    accountingRecord.StopTime.HasValue ? BTKLoggingUtilities.TranslateDateTime(accountingRecord.StopTime.Value) : BTKLoggingUtilities.TranslateDateTime(accountingRecord.StartTime),
+                    BTKLoggingUtilities.TranslateDateTime(accountingRecord.StartTime),
                     "0",
                     "0",
                     null,
@@ -37,7 +39,29 @@ namespace RadiusR.DB.BTKLogging
                     accountingRecord.Subscription.SubscriberNo,
                     accountingRecord.SessionID
                 }));
-            return sessionStarts.Concat(finalQuery.Where(accountingRecord => accountingRecord.StartTime < lastOperationTime).AsEnumerable()
+            // this period stops
+            var thisPeriodStops = newThisPeriod.Where(accountingRecord => accountingRecord.StopTime.HasValue).AsEnumerable()
+                .Select(accountingRecord => string.Join("|", new[]
+                {
+                    accountingRecord.Username,
+                    accountingRecord.RadiusAccountingIPInfo != null? accountingRecord.RadiusAccountingIPInfo.LocalIP : accountingRecord.FramedIPAddress,
+                    "1",
+                    "65535",
+                    accountingRecord.RadiusAccountingIPInfo != null ? accountingRecord.RadiusAccountingIPInfo.RealIP : null,
+                    accountingRecord.RadiusAccountingIPInfo != null ? accountingRecord.RadiusAccountingIPInfo.PortRange != null ? accountingRecord.RadiusAccountingIPInfo.PortRange.Split('-')[0] : "0" : null,
+                    accountingRecord.RadiusAccountingIPInfo != null ? accountingRecord.RadiusAccountingIPInfo.PortRange != null ? accountingRecord.RadiusAccountingIPInfo.PortRange.Split('-')[1] : "65535" : null,
+                    BTKLoggingUtilities.TranslateDateTime(accountingRecord.StartTime),
+                    BTKLoggingUtilities.TranslateDateTime(accountingRecord.StopTime.Value),
+                    "0",
+                    "0",
+                    null,
+                    "session_stop",
+                    accountingRecord.NASPort,
+                    accountingRecord.Subscription.SubscriberNo,
+                    accountingRecord.SessionID
+                }));
+            // previous periods and send final
+            return sessionStarts.Concat(thisPeriodStops).Concat(finalQuery.Where(accountingRecord => accountingRecord.StartTime < lastOperationTime).AsEnumerable()
                 .Select(accountingRecord => string.Join("|", new[]
                 {
                     accountingRecord.Username,
