@@ -16,7 +16,8 @@ namespace RadiusR.DB.BTKLogging
         {
             var finalQuery = query
                 .Include(ra => ra.Subscription)
-                .Include(ra => ra.RadiusAccountingIPInfo);
+                .Include(ra => ra.RadiusAccountingIPInfo)
+                .Where(ra=> ra.Subscription.StaticIP == null);
             var newThisPeriod = finalQuery.Where(accountingRecord => accountingRecord.StartTime >= lastOperationTime);
             // session starts
             var sessionStarts = newThisPeriod.AsEnumerable()
@@ -54,7 +55,7 @@ namespace RadiusR.DB.BTKLogging
                     BTKLoggingUtilities.TranslateDateTime(accountingRecord.StopTime.Value),
                     accountingRecord.UploadBytes.ToString(),
                     accountingRecord.DownloadBytes.ToString(),
-                    null,
+                    accountingRecord.TerminateCause.HasValue? ((AcctTerminateCause)accountingRecord.TerminateCause.Value).ToString():null,
                     "session_stop",
                     accountingRecord.NASPort,
                     accountingRecord.Subscription.SubscriberNo,
