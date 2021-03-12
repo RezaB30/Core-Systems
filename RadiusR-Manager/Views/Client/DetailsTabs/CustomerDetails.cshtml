@@ -969,9 +969,7 @@
                         @Html.AntiForgeryToken()
                         <input type="submit" value="@RadiusR.Localization.Pages.Common.Synchronize" class="link-button iconed-button reload-button" />
                     }
-                    <div class="text-danger">
-                        @ViewBag.TelekomSyncError
-                    </div>
+                    <div class="text-danger" style="text-align: left; white-space: pre-line;">@ViewBag.TelekomSyncError</div>
                 </td>
             </tr>
         }
