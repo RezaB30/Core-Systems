@@ -2,19 +2,19 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <title>RadiusR.API.MobilExpress.DBAdapter</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <description>MasterISS MobilExpress Database Adapter.</description>
-    <releaseNotes>First release.</releaseNotes>
+    <releaseNotes>Framework updated.</releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>MasterISS MobilExpress Adapter</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />
 	<dependencies>
-		<dependency id="RezaB.API.MobilExpress" version="1.0.0"/>
-		<dependency id="RadiusR.DB.Utilities" version="1.0.0"/>
+		<dependency id="RezaB.API.MobilExpress" version="1.0.1"/>
+		<dependency id="RadiusR.DB.Utilities" version="1.1.1"/>
 	</dependencies>
   </metadata>
 </package>

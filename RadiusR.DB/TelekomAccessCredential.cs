@@ -21,6 +21,9 @@ namespace RadiusR.DB
         public string OLOPortalUsername { get; set; }
         public string OLOPortalPassword { get; set; }
         public string OLOPortalCustomerCode { get; set; }
+        public string TransitionFTPUsername { get; set; }
+        public string TransitionFTPPassword { get; set; }
+        public int TransitionOperatorID { get; set; }
     
         public virtual Domain Domain { get; set; }
     }

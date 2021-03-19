@@ -2,19 +2,19 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <title>RadiusR.SMS</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <description>SMS module for MasterISS.</description>
-    <releaseNotes>First release.</releaseNotes>
+    <releaseNotes>Updated framework.</releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>MasterISS SMS</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />
 	<dependencies>
-		<dependency id="RadiusR.DB.Utilities" version="1.0.0"/>
-		<dependency id="RadiusR.DB" version="1.0.0"/>
+		<dependency id="RadiusR.DB.Utilities" version="1.0.1"/>
+		<dependency id="RadiusR.DB" version="1.2.4"/>
 	</dependencies>
   </metadata>
 </package>

@@ -3,7 +3,7 @@
 @model RadiusR_Manager.Models.RadiusViewModels.DomainViewModel
 
 @{
-    ViewBag.Title = RadiusR.Localization.Pages.Common.DomainSettings + "-" + RadiusR.Localization.Pages.Common.Add;
+    ViewBag.Title = $"{RadiusR.Localization.Pages.Common.DomainSettings}-{ViewBag.CurrentDomain ?? RadiusR.Localization.Pages.Common.Add}";
 }
 
 @using (Html.BeginForm())
@@ -76,7 +76,7 @@
                 @Html.ValidationMessageFor(model => model.MaxFreezesPerYear)
             </td>
         </tr>
-        <tbody id="telekom-credentials-group">
+        <tbody id="telekom-credentials-group" style="display: none;">
             <tr>
                 <td>
                     @Html.LabelFor(model => model.TelekomAccessCredential.XDSLWebServiceUsername)
@@ -142,6 +142,43 @@
                 <td colspan="2">
                     @Html.ValidationMessageFor(model => model.TelekomAccessCredential.OLOPortalCustomerCode)
                 </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.TelekomAccessCredential.TransitionFTPUsername)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.TelekomAccessCredential.TransitionFTPUsername, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
+                </td>
+                <td>
+                    @Html.LabelFor(model => model.TelekomAccessCredential.TransitionFTPPassword)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.TelekomAccessCredential.TransitionFTPPassword, new { htmlAttributes = new { @autocomplete = "off", @maxlength = 150 } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.TelekomAccessCredential.TransitionFTPUsername)
+                </td>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.TelekomAccessCredential.TransitionFTPPassword)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.TelekomAccessCredential.TransitionOperatorID)
+                </td>
+                <td>
+                    @Html.Select(model => model.TelekomAccessCredential.TransitionOperatorID, new SelectList(RadiusR.DB.DomainsCache.TransitionOperatorsCache.GetAllOperators().OrderBy(op => op.DisplayName).Select(op => new { Name = op.DisplayName, Value = op.ID }), "Value", "Name", Model.TelekomAccessCredential?.TransitionOperatorID), RadiusR.Localization.Pages.Common.Choose)
+                </td>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.TelekomAccessCredential.TransitionFTPUsername)
+                </td>
+                <td colspan="2"></td>
             </tr>
         </tbody>
         <tr>

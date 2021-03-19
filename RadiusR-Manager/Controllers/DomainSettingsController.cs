@@ -25,15 +25,18 @@ namespace RadiusR_Manager.Controllers
                 UsernamePrefix = domain.UsernamePrefix,
                 SubscriberNoPrefix = domain.SubscriberNoPrefix,
                 AccessMethod = domain.AccessMethod,
-                TelekomAccessCredential = new TelekomAccessCredentialViewModel()
-                {
-                    OLOPortalCustomerCode = domain.TelekomAccessCredential.OLOPortalCustomerCode,
-                    OLOPortalPassword = domain.TelekomAccessCredential.OLOPortalPassword,
-                    OLOPortalUsername = domain.TelekomAccessCredential.OLOPortalUsername,
-                    XDSLWebServiceCustomerCode = domain.TelekomAccessCredential.XDSLWebServiceCustomerCode,
-                    XDSLWebServicePassword = domain.TelekomAccessCredential.XDSLWebServicePassword,
-                    XDSLWebServiceUsername = domain.TelekomAccessCredential.XDSLWebServiceUsername
-                },
+                //TelekomAccessCredential = domain.AccessMethod.HasValue ? new TelekomAccessCredentialViewModel()
+                //{
+                //    OLOPortalCustomerCode = domain.TelekomAccessCredential.OLOPortalCustomerCode,
+                //    OLOPortalPassword = domain.TelekomAccessCredential.OLOPortalPassword,
+                //    OLOPortalUsername = domain.TelekomAccessCredential.OLOPortalUsername,
+                //    XDSLWebServiceCustomerCode = domain.TelekomAccessCredential.XDSLWebServiceCustomerCode,
+                //    XDSLWebServicePassword = domain.TelekomAccessCredential.XDSLWebServicePassword,
+                //    XDSLWebServiceUsername = domain.TelekomAccessCredential.XDSLWebServiceUsername,
+                //    TransitionFTPUsername = domain.TelekomAccessCredential.TransitionFTPUsername,
+                //    TransitionFTPPassword = domain.TelekomAccessCredential.TransitionFTPPassword,
+                //    TransitionOperatorID = domain.TelekomAccessCredential.TransitionOperatorID
+                //} : null,
                 CanBeDeleted = !domain.Subscriptions.Any() && !domain.Services.Any()
             });
 
@@ -95,7 +98,10 @@ namespace RadiusR_Manager.Controllers
                             OLOPortalUsername = addedDomain.TelekomAccessCredential.OLOPortalUsername,
                             XDSLWebServiceCustomerCode = addedDomain.TelekomAccessCredential.XDSLWebServiceCustomerCode,
                             XDSLWebServicePassword = addedDomain.TelekomAccessCredential.XDSLWebServicePassword,
-                            XDSLWebServiceUsername = addedDomain.TelekomAccessCredential.XDSLWebServiceUsername
+                            XDSLWebServiceUsername = addedDomain.TelekomAccessCredential.XDSLWebServiceUsername,
+                            TransitionFTPUsername = addedDomain.TelekomAccessCredential.TransitionFTPUsername,
+                            TransitionFTPPassword = addedDomain.TelekomAccessCredential.TransitionFTPPassword,
+                            TransitionOperatorID = addedDomain.TelekomAccessCredential.TransitionOperatorID.Value
                         };
                     }
 
@@ -119,6 +125,8 @@ namespace RadiusR_Manager.Controllers
             if (dbDomain == null)
                 return RedirectToAction("Index", new { errorMessage = 9 });
 
+            ViewBag.CurrentDomain = dbDomain.Name;
+
             return View(viewName: "Add", model: new DomainViewModel()
             {
                 Name = dbDomain.Name,
@@ -135,7 +143,10 @@ namespace RadiusR_Manager.Controllers
                     OLOPortalUsername = dbDomain.TelekomAccessCredential.OLOPortalUsername,
                     XDSLWebServiceCustomerCode = dbDomain.TelekomAccessCredential.XDSLWebServiceCustomerCode,
                     XDSLWebServicePassword = dbDomain.TelekomAccessCredential.XDSLWebServicePassword,
-                    XDSLWebServiceUsername = dbDomain.TelekomAccessCredential.XDSLWebServiceUsername
+                    XDSLWebServiceUsername = dbDomain.TelekomAccessCredential.XDSLWebServiceUsername,
+                    TransitionFTPUsername = dbDomain.TelekomAccessCredential.TransitionFTPUsername,
+                    TransitionFTPPassword = dbDomain.TelekomAccessCredential.TransitionFTPPassword,
+                    TransitionOperatorID = dbDomain.TelekomAccessCredential.TransitionOperatorID
                 }
                 : new TelekomAccessCredentialViewModel()
             });
@@ -193,7 +204,10 @@ namespace RadiusR_Manager.Controllers
                                 OLOPortalUsername = editedDomain.TelekomAccessCredential.OLOPortalUsername,
                                 XDSLWebServiceCustomerCode = editedDomain.TelekomAccessCredential.XDSLWebServiceCustomerCode,
                                 XDSLWebServicePassword = editedDomain.TelekomAccessCredential.XDSLWebServicePassword,
-                                XDSLWebServiceUsername = editedDomain.TelekomAccessCredential.XDSLWebServiceUsername
+                                XDSLWebServiceUsername = editedDomain.TelekomAccessCredential.XDSLWebServiceUsername,
+                                TransitionFTPUsername = editedDomain.TelekomAccessCredential.TransitionFTPUsername,
+                                TransitionFTPPassword = editedDomain.TelekomAccessCredential.TransitionFTPPassword,
+                                TransitionOperatorID = editedDomain.TelekomAccessCredential.TransitionOperatorID.Value
                             };
                         }
                         else
@@ -204,6 +218,9 @@ namespace RadiusR_Manager.Controllers
                             dbDomain.TelekomAccessCredential.XDSLWebServiceCustomerCode = editedDomain.TelekomAccessCredential.XDSLWebServiceCustomerCode;
                             dbDomain.TelekomAccessCredential.XDSLWebServicePassword = editedDomain.TelekomAccessCredential.XDSLWebServicePassword;
                             dbDomain.TelekomAccessCredential.XDSLWebServiceUsername = editedDomain.TelekomAccessCredential.XDSLWebServiceUsername;
+                            dbDomain.TelekomAccessCredential.TransitionFTPUsername = editedDomain.TelekomAccessCredential.TransitionFTPUsername;
+                            dbDomain.TelekomAccessCredential.TransitionFTPPassword = editedDomain.TelekomAccessCredential.TransitionFTPPassword;
+                            dbDomain.TelekomAccessCredential.TransitionOperatorID = editedDomain.TelekomAccessCredential.TransitionOperatorID.Value;
                         }
                     }
                     else
@@ -221,6 +238,8 @@ namespace RadiusR_Manager.Controllers
                     return RedirectToAction("Index", new { errorMessage = 0 });
                 }
             }
+
+            ViewBag.CurrentDomain = dbDomain.Name;
 
             return View(viewName: "Add", model: editedDomain);
         }

@@ -9,17 +9,6 @@ namespace RadiusR.FileManagement.SpecialFiles
 {
     public class FileManagerClientAttachment : FileManagerSpecialFileBase
     {
-
-        //public string ServerSideName
-        //{
-        //    get
-        //    {
-        //        return $"{Enum.GetName(typeof(ClientAttachmentTypes), AttachmentType)}.{CreationDate.Ticks}.{MD5}.{FileExtention}";
-        //    }
-        //}
-
-        //public DateTime CreationDate { get; private set; }
-
         public ClientAttachmentTypes AttachmentType
         {
             get
@@ -31,18 +20,6 @@ namespace RadiusR.FileManagement.SpecialFiles
                 Name = Enum.GetName(typeof(ClientAttachmentTypes), value);
             }
         }
-
-        //public string FileExtention { get; private set; }
-
-        //public string MD5 { get; protected set; }
-
-        //public string MIMEType
-        //{
-        //    get
-        //    {
-        //        return MIMEUtility.GetMIMETypeFromFileExtention(FileExtention);
-        //    }
-        //}
 
         public FileManagerClientAttachment(ClientAttachmentTypes attachmentType, string fileExtention) : base(null, fileExtention)
         {

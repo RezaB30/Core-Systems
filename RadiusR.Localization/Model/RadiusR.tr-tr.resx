@@ -1599,4 +1599,13 @@
   <data name="RemoteFolders" xml:space="preserve">
     <value>Uzak Klasörler</value>
   </data>
+  <data name="TransitionFTPPassword" xml:space="preserve">
+    <value>Geçiş FTP Şifre</value>
+  </data>
+  <data name="TransitionFTPUsername" xml:space="preserve">
+    <value>Geçiş FTP kullanıcı Adı</value>
+  </data>
+  <data name="TransitionOperator" xml:space="preserve">
+    <value>Geçiş İşletmeci</value>
+  </data>
 </root>

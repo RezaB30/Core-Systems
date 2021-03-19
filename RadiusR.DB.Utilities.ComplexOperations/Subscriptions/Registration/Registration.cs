@@ -525,7 +525,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                             };
                         }
                         // transition
-                        else if (registrationInfo.RegistrationType == Enums.SubscriptionRegistrationType.Transition)
+                        else if (registrationInfo.RegistrationType == Enums.SubscriptionRegistrationType.Transition && !string.IsNullOrEmpty(registrationInfo.TransitionXDSLNo))
                         {
                             // check with telekom if transition is valid
                             {

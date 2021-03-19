@@ -23,19 +23,20 @@ namespace RadiusR.DB
         public long ID { get; set; }
         public short OperationTypeID { get; set; }
         public short OperationSubType { get; set; }
-        public int ManagementCode { get; set; }
-        public int ProvinceCode { get; set; }
-        public long QueueNo { get; set; }
+        public Nullable<int> ManagementCode { get; set; }
+        public Nullable<int> ProvinceCode { get; set; }
+        public Nullable<long> QueueNo { get; set; }
         public long SubscriptionID { get; set; }
         public bool IsOpen { get; set; }
         public System.DateTime CreationDate { get; set; }
         public Nullable<System.DateTime> LastRetryDate { get; set; }
         public Nullable<System.DateTime> ClosingDate { get; set; }
         public Nullable<int> AppUserID { get; set; }
+        public Nullable<long> TransactionID { get; set; }
     
         public virtual AppUser AppUser { get; set; }
+        public virtual Subscription Subscription { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TelekomWorkOrderParameter> TelekomWorkOrderParameters { get; set; }
-        public virtual Subscription Subscription { get; set; }
     }
 }

@@ -31,7 +31,6 @@ namespace RadiusR.DB
         public int MaxFreezeDuration { get; set; }
         public short MaxFreezesPerYear { get; set; }
     
-        public virtual TelekomAccessCredential TelekomAccessCredential { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Service> Services { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -40,5 +39,6 @@ namespace RadiusR.DB
         public virtual ICollection<ExternalTariff> ExternalTariffs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerAvailableTariff> PartnerAvailableTariffs { get; set; }
+        public virtual TelekomAccessCredential TelekomAccessCredential { get; set; }
     }
 }

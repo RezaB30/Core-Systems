@@ -38,6 +38,20 @@ namespace RadiusR.DB.DomainsCache
 
             public string OLOPortalCustomerCode { get; set; }
 
+            public string TransitionFTPUsername { get; set; }
+
+            public string TransitionFTPPassword { get; set; }
+
+            public int TransitionOperatorID { get; set; }
+
+            public IEnumerable<string> TransitionFolderName
+            {
+                get
+                {
+                    return TransitionOperatorsCache.GetSpecificOperator(TransitionOperatorID)?.RemoteFolders;
+                }
+            }
+
             public int OLOPortalCustomerCodeInt
             {
                 get

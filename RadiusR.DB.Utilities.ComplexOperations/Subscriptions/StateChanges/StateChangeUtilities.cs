@@ -124,7 +124,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                 if (addedTelekomWorkOrder != null)
                 {
                     // work order log
-                    db.SystemLogs.Add(SystemLogProcessor.CreateTelekomWorkOrder(registerOptions.AppUserID, subscription.ID, registerOptions.LogInterface, registerOptions.LogInterfaceUsername, addedTelekomWorkOrder.ID, new SystemLogs.Parameters.TelekomWorkOrderDetails((RadiusR.DB.Enums.TelekomOperations.TelekomOperationType)addedTelekomWorkOrder.OperationTypeID, (RadiusR.DB.Enums.TelekomOperations.TelekomOperationSubType)addedTelekomWorkOrder.OperationSubType, addedTelekomWorkOrder.ManagementCode, addedTelekomWorkOrder.ProvinceCode, addedTelekomWorkOrder.QueueNo, subscription.SubscriptionTelekomInfo.SubscriptionNo)));
+                    db.SystemLogs.Add(SystemLogProcessor.CreateTelekomWorkOrder(registerOptions.AppUserID, subscription.ID, registerOptions.LogInterface, registerOptions.LogInterfaceUsername, addedTelekomWorkOrder.ID, new SystemLogs.Parameters.TelekomWorkOrderDetails((RadiusR.DB.Enums.TelekomOperations.TelekomOperationType)addedTelekomWorkOrder.OperationTypeID, (RadiusR.DB.Enums.TelekomOperations.TelekomOperationSubType)addedTelekomWorkOrder.OperationSubType, addedTelekomWorkOrder.ManagementCode.Value, addedTelekomWorkOrder.ProvinceCode.Value, addedTelekomWorkOrder.QueueNo.Value, subscription.SubscriptionTelekomInfo.SubscriptionNo)));
                     // save
                     db.SaveChanges();
                 }
@@ -201,7 +201,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                         }
                     }
 
-                    // set TT redback name
+                    // Telekom syncronization
                     TelekomSynchronization.TelekomSynchronizationUtilities.UpdateSubscriberTelekomInfoFromWebService(db, new TelekomSynchronization.TelekomSynchronizationOptions()
                     {
                         AppUserID = reserveOptions.AppUserID,

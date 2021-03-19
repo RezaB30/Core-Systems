@@ -116,28 +116,30 @@ namespace RadiusR.Scheduler.Tasks
                                 logger.Error(ex, $"Error sending scheduled SMS with id [{scheduledSMS.ID}]");
                             }
                         }
-
-                        using (var transaction = db.Database.BeginTransaction())
+                        if (sentBatchIDs.Any())
                         {
-                            try
+                            using (var transaction = db.Database.BeginTransaction())
                             {
-                                // this is here to notify of any changes in the table in database---------------------
-                                var toPreventChangesGoUnnoticed = new object[] { new ScheduledSMS(), new ScheduledSMS().SendTime, new ScheduledSMS().ID };
-                                // CHANGE THIS ON ERROR---------------------------------------------------------------
-                                var sqlCommand = string.Format(@"UPDATE {0} SET {1} = @now WHERE {2} in ({3});", "ScheduledSMS", "SendTime", "ID", string.Join(",", sentBatchIDs.ToArray()));
-                                // -----------------------------------------------------------------------------------
-                                var now = DateTime.Now;
-                                db.Database.ExecuteSqlCommand(sqlCommand, new[] { new SqlParameter("@now", now) });
+                                try
+                                {
+                                    // this is here to notify of any changes in the table in database---------------------
+                                    var toPreventChangesGoUnnoticed = new object[] { new ScheduledSMS(), new ScheduledSMS().SendTime, new ScheduledSMS().ID };
+                                    // CHANGE THIS ON ERROR---------------------------------------------------------------
+                                    var sqlCommand = string.Format(@"UPDATE {0} SET {1} = @now WHERE {2} in ({3});", "ScheduledSMS", "SendTime", "ID", string.Join(",", sentBatchIDs.ToArray()));
+                                    // -----------------------------------------------------------------------------------
+                                    var now = DateTime.Now;
+                                    db.Database.ExecuteSqlCommand(sqlCommand, new[] { new SqlParameter("@now", now) });
 
-                                db.SMSArchives.AddRangeSafely(sentSMSArchives);
+                                    db.SMSArchives.AddRangeSafely(sentSMSArchives);
 
-                                db.SaveChanges();
-                                transaction.Commit();
-                            }
-                            catch
-                            {
-                                transaction.Rollback();
-                                throw;
+                                    db.SaveChanges();
+                                    transaction.Commit();
+                                }
+                                catch
+                                {
+                                    transaction.Rollback();
+                                    throw;
+                                }
                             }
                         }
                     }

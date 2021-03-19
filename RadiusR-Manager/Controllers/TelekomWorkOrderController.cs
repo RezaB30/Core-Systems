@@ -355,7 +355,7 @@ namespace RadiusR_Manager.Controllers
                             workOrder.LastRetryDate = DateTime.Now;
                             workOrder.Subscription.SubscriptionTelekomInfo.SubscriptionNo = response.Data.SubscriptionNo;
 
-                            db.SystemLogs.Add(SystemLogProcessor.RetryTelekomWorkOrder(User.GiveUserId(), workOrder.SubscriptionID, RadiusR.DB.Enums.SystemLogInterface.MasterISS, null, workOrder.ID, new RadiusR.SystemLogs.Parameters.TelekomWorkOrderDetails((RadiusR.DB.Enums.TelekomOperations.TelekomOperationType)workOrder.OperationTypeID, (RadiusR.DB.Enums.TelekomOperations.TelekomOperationSubType)workOrder.OperationSubType, workOrder.ManagementCode, workOrder.ProvinceCode, workOrder.QueueNo, workOrder.Subscription.SubscriptionTelekomInfo.SubscriptionNo)));
+                            db.SystemLogs.Add(SystemLogProcessor.RetryTelekomWorkOrder(User.GiveUserId(), workOrder.SubscriptionID, RadiusR.DB.Enums.SystemLogInterface.MasterISS, null, workOrder.ID, new RadiusR.SystemLogs.Parameters.TelekomWorkOrderDetails((RadiusR.DB.Enums.TelekomOperations.TelekomOperationType)workOrder.OperationTypeID, (RadiusR.DB.Enums.TelekomOperations.TelekomOperationSubType)workOrder.OperationSubType, workOrder.ManagementCode.Value, workOrder.ProvinceCode.Value, workOrder.QueueNo.Value, workOrder.Subscription.SubscriptionTelekomInfo.SubscriptionNo)));
 
                             db.SaveChanges();
 
@@ -431,7 +431,7 @@ namespace RadiusR_Manager.Controllers
                 db.TelekomWorkOrders.Add(dbWorkOrder);
                 db.SaveChanges();
                 // system log
-                db.SystemLogs.Add(SystemLogProcessor.CreateTelekomWorkOrder(User.GiveUserId(), subscriber.ID, RadiusR.DB.Enums.SystemLogInterface.MasterISS, null, dbWorkOrder.ID, new RadiusR.SystemLogs.Parameters.TelekomWorkOrderDetails((RadiusR.DB.Enums.TelekomOperations.TelekomOperationType)dbWorkOrder.OperationTypeID, (RadiusR.DB.Enums.TelekomOperations.TelekomOperationSubType)dbWorkOrder.OperationSubType, dbWorkOrder.ManagementCode, dbWorkOrder.ProvinceCode, dbWorkOrder.QueueNo, subscriber.SubscriptionTelekomInfo.SubscriptionNo)));
+                db.SystemLogs.Add(SystemLogProcessor.CreateTelekomWorkOrder(User.GiveUserId(), subscriber.ID, RadiusR.DB.Enums.SystemLogInterface.MasterISS, null, dbWorkOrder.ID, new RadiusR.SystemLogs.Parameters.TelekomWorkOrderDetails((RadiusR.DB.Enums.TelekomOperations.TelekomOperationType)dbWorkOrder.OperationTypeID, (RadiusR.DB.Enums.TelekomOperations.TelekomOperationSubType)dbWorkOrder.OperationSubType, dbWorkOrder.ManagementCode.Value, dbWorkOrder.ProvinceCode.Value, dbWorkOrder.QueueNo.Value, subscriber.SubscriptionTelekomInfo.SubscriptionNo)));
                 db.SaveChanges();
 
                 return Redirect(Url.Action("Details", "Client", new { id = subscriber.ID }) + "#faults");

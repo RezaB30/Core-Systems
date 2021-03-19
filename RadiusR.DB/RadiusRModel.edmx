@@ -1077,6 +1077,9 @@
           <Property Name="OLOPortalUsername" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="OLOPortalPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="OLOPortalCustomerCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="TransitionFTPUsername" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="TransitionFTPPassword" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="TransitionOperatorID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TelekomTariff">
           <Key>
@@ -1092,15 +1095,16 @@
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OperationTypeID" Type="smallint" Nullable="false" />
           <Property Name="OperationSubType" Type="smallint" Nullable="false" />
-          <Property Name="ManagementCode" Type="int" Nullable="false" />
-          <Property Name="ProvinceCode" Type="int" Nullable="false" />
-          <Property Name="QueueNo" Type="bigint" Nullable="false" />
+          <Property Name="ManagementCode" Type="int" />
+          <Property Name="ProvinceCode" Type="int" />
+          <Property Name="QueueNo" Type="bigint" />
           <Property Name="SubscriptionID" Type="bigint" Nullable="false" />
           <Property Name="IsOpen" Type="bit" Nullable="false" />
           <Property Name="CreationDate" Type="datetime" Nullable="false" />
           <Property Name="LastRetryDate" Type="datetime" />
           <Property Name="ClosingDate" Type="datetime" />
           <Property Name="AppUserID" Type="int" />
+          <Property Name="TransactionID" Type="bigint" />
         </EntityType>
         <EntityType Name="TelekomWorkOrderParameter">
           <Key>
@@ -3450,7 +3454,6 @@
           <NavigationProperty Name="SubscriptionNotes" Relationship="Self.FK_SubscriptionNote_AppUser" FromRole="AppUser" ToRole="SubscriptionNote" />
           <NavigationProperty Name="SubscriptionStateHistories" Relationship="Self.FK_SubscriptionStateHistory_AppUser" FromRole="AppUser" ToRole="SubscriptionStateHistory" />
           <NavigationProperty Name="SubscriptionSupportRequests" Relationship="Self.FK_SubscriptionSupportRequest_AppUser" FromRole="AppUser" ToRole="SubscriptionSupportRequest" />
-          <NavigationProperty Name="TelekomWorkOrders" Relationship="RadiusRModel.FK_TelekomWorkOrder_AppUser" FromRole="AppUser" ToRole="TelekomWorkOrder" />
           <NavigationProperty Name="Bills" Relationship="RadiusRModel.FK_Bill_AppUser" FromRole="AppUser" ToRole="Bill" />
           <NavigationProperty Name="SystemLogs" Relationship="RadiusRModel.FK_SystemLog_AppUser" FromRole="AppUser" ToRole="SystemLog" />
           <NavigationProperty Name="LeaderInGroups" Relationship="RadiusRModel.FK_SupportGroup_AppUser" FromRole="AppUser" ToRole="SupportGroup" />
@@ -3459,6 +3462,7 @@
           <NavigationProperty Name="SupportGroupUsers" Relationship="RadiusRModel.FK_SupportGroupUser_AppUser" FromRole="AppUser" ToRole="SupportGroupUser" />
           <NavigationProperty Name="PartnerCollectionCreations" Relationship="RadiusRModel.FK_PartnerCollection_AppUser" FromRole="AppUser" ToRole="PartnerCollection" />
           <NavigationProperty Name="PartnerCollectionPayments" Relationship="RadiusRModel.FK_PartnerCollection_AppUser1" FromRole="AppUser" ToRole="PartnerCollection" />
+          <NavigationProperty Name="TelekomWorkOrders" Relationship="RadiusRModel.FK_TelekomWorkOrder_AppUser" FromRole="AppUser" ToRole="TelekomWorkOrder" />
         </EntityType>
         <EntityType Name="BTKIPBlock">
           <Key>
@@ -4174,15 +4178,6 @@
           </AssociationSet>
           <EntitySet Name="TelekomWorkOrderParameters" EntityType="RadiusRModel.TelekomWorkOrderParameter" />
           <EntitySet Name="TelekomTariffs" EntityType="RadiusRModel.TelekomTariff" />
-          <EntitySet Name="TelekomWorkOrders" EntityType="RadiusRModel.TelekomWorkOrder" />
-          <AssociationSet Name="FK_TelekomWorkOrder_AppUser" Association="RadiusRModel.FK_TelekomWorkOrder_AppUser">
-            <End Role="AppUser" EntitySet="AppUsers" />
-            <End Role="TelekomWorkOrder" EntitySet="TelekomWorkOrders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TelekomWorkOrderParameter_TelekomWorkOrderParameter" Association="RadiusRModel.FK_TelekomWorkOrderParameter_TelekomWorkOrderParameter">
-            <End Role="TelekomWorkOrder" EntitySet="TelekomWorkOrders" />
-            <End Role="TelekomWorkOrderParameter" EntitySet="TelekomWorkOrderParameters" />
-          </AssociationSet>
           <EntitySet Name="BillFees" EntityType="RadiusRModel.BillFee" />
           <AssociationSet Name="FK_BillFee_Discount" Association="RadiusRModel.FK_BillFee_Discount">
             <End Role="Discount" EntitySet="Discounts" />
@@ -4251,12 +4246,7 @@
             <End Role="Bill" EntitySet="Bills" />
             <End Role="PartnerCredit" EntitySet="PartnerCredits" />
           </AssociationSet>
-          <EntitySet Name="TelekomAccessCredentials" EntityType="RadiusRModel.TelekomAccessCredential" />
           <EntitySet Name="Domains" EntityType="RadiusRModel.Domain" />
-          <AssociationSet Name="FK_TelekomAccessCredential_Domain" Association="RadiusRModel.FK_TelekomAccessCredential_Domain">
-            <End Role="Domain" EntitySet="Domains" />
-            <End Role="TelekomAccessCredential" EntitySet="TelekomAccessCredentials" />
-          </AssociationSet>
           <AssociationSet Name="ServiceDomain" Association="RadiusRModel.ServiceDomain">
             <End Role="Domain" EntitySet="Domains" />
             <End Role="Service" EntitySet="Services" />
@@ -4507,10 +4497,6 @@
             <End Role="Subscription" EntitySet="Subscriptions" />
             <End Role="SystemLog" EntitySet="SystemLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK_TelekomWorkOrder_Subscription" Association="RadiusRModel.FK_TelekomWorkOrder_Subscription">
-            <End Role="Subscription" EntitySet="Subscriptions" />
-            <End Role="TelekomWorkOrder" EntitySet="TelekomWorkOrders" />
-          </AssociationSet>
           <EntitySet Name="SupportRequests" EntityType="RadiusRModel.SupportRequest" />
           <AssociationSet Name="FK_SupportRequest_AppUser" Association="RadiusRModel.FK_SupportRequest_AppUser">
             <End Role="AppUser" EntitySet="AppUsers" />
@@ -4649,6 +4635,24 @@
             <End Role="SubscriptionTelekomInfo" EntitySet="SubscriptionTelekomInfoes" />
           </AssociationSet>
           <EntitySet Name="PDFFormItemPlacements" EntityType="RadiusRModel.PDFFormItemPlacement" />
+          <EntitySet Name="TelekomAccessCredentials" EntityType="RadiusRModel.TelekomAccessCredential" />
+          <AssociationSet Name="FK_TelekomAccessCredential_Domain" Association="RadiusRModel.FK_TelekomAccessCredential_Domain">
+            <End Role="Domain" EntitySet="Domains" />
+            <End Role="TelekomAccessCredential" EntitySet="TelekomAccessCredentials" />
+          </AssociationSet>
+          <EntitySet Name="TelekomWorkOrders" EntityType="RadiusRModel.TelekomWorkOrder" />
+          <AssociationSet Name="FK_TelekomWorkOrder_AppUser" Association="RadiusRModel.FK_TelekomWorkOrder_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="TelekomWorkOrder" EntitySet="TelekomWorkOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TelekomWorkOrder_Subscription" Association="RadiusRModel.FK_TelekomWorkOrder_Subscription">
+            <End Role="Subscription" EntitySet="Subscriptions" />
+            <End Role="TelekomWorkOrder" EntitySet="TelekomWorkOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TelekomWorkOrderParameter_TelekomWorkOrderParameter" Association="RadiusRModel.FK_TelekomWorkOrderParameter_TelekomWorkOrderParameter">
+            <End Role="TelekomWorkOrder" EntitySet="TelekomWorkOrders" />
+            <End Role="TelekomWorkOrderParameter" EntitySet="TelekomWorkOrderParameters" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
           <Key>
@@ -4879,50 +4883,6 @@
           <Property Name="SpeedCode" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="TelekomWorkOrder">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OperationTypeID" Type="Int16" Nullable="false" />
-          <Property Name="OperationSubType" Type="Int16" Nullable="false" />
-          <Property Name="ManagementCode" Type="Int32" Nullable="false" />
-          <Property Name="ProvinceCode" Type="Int32" Nullable="false" />
-          <Property Name="QueueNo" Type="Int64" Nullable="false" />
-          <Property Name="SubscriptionID" Type="Int64" Nullable="false" />
-          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
-          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastRetryDate" Type="DateTime" Precision="3" />
-          <Property Name="ClosingDate" Type="DateTime" Precision="3" />
-          <Property Name="AppUserID" Type="Int32" />
-          <NavigationProperty Name="AppUser" Relationship="RadiusRModel.FK_TelekomWorkOrder_AppUser" FromRole="TelekomWorkOrder" ToRole="AppUser" />
-          <NavigationProperty Name="TelekomWorkOrderParameters" Relationship="RadiusRModel.FK_TelekomWorkOrderParameter_TelekomWorkOrderParameter" FromRole="TelekomWorkOrder" ToRole="TelekomWorkOrderParameter" />
-          <NavigationProperty Name="Subscription" Relationship="RadiusRModel.FK_TelekomWorkOrder_Subscription" FromRole="TelekomWorkOrder" ToRole="Subscription" />
-        </EntityType>
-        <Association Name="FK_TelekomWorkOrder_AppUser">
-          <End Type="RadiusRModel.AppUser" Role="AppUser" Multiplicity="0..1" />
-          <End Type="RadiusRModel.TelekomWorkOrder" Role="TelekomWorkOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AppUser">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TelekomWorkOrder">
-              <PropertyRef Name="AppUserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TelekomWorkOrderParameter_TelekomWorkOrderParameter">
-          <End Type="RadiusRModel.TelekomWorkOrder" Role="TelekomWorkOrder" Multiplicity="1" />
-          <End Type="RadiusRModel.TelekomWorkOrderParameter" Role="TelekomWorkOrderParameter" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TelekomWorkOrder">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TelekomWorkOrderParameter">
-              <PropertyRef Name="WorkOrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="BillFee">
           <Key>
             <PropertyRef Name="ID" />
@@ -5244,19 +5204,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="TelekomAccessCredential">
-          <Key>
-            <PropertyRef Name="DomainID" />
-          </Key>
-          <Property Name="DomainID" Type="Int32" Nullable="false" />
-          <Property Name="XDSLWebServiceUsername" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
-          <Property Name="XDSLWebServicePassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="XDSLWebServiceCustomerCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="OLOPortalUsername" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OLOPortalPassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OLOPortalCustomerCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Domain" Relationship="RadiusRModel.FK_TelekomAccessCredential_Domain" FromRole="TelekomAccessCredential" ToRole="Domain" />
-        </EntityType>
         <EntityType Name="Domain">
           <Key>
             <PropertyRef Name="ID" />
@@ -5268,24 +5215,12 @@
           <Property Name="AccessMethod" Type="Int16" />
           <Property Name="MaxFreezeDuration" Type="Int32" Nullable="false" />
           <Property Name="MaxFreezesPerYear" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="TelekomAccessCredential" Relationship="RadiusRModel.FK_TelekomAccessCredential_Domain" FromRole="Domain" ToRole="TelekomAccessCredential" />
           <NavigationProperty Name="Services" Relationship="RadiusRModel.ServiceDomain" FromRole="Domain" ToRole="Service" />
           <NavigationProperty Name="Subscriptions" Relationship="RadiusRModel.FK_Subscription_Domain" FromRole="Domain" ToRole="Subscription" />
           <NavigationProperty Name="ExternalTariffs" Relationship="RadiusRModel.FK_ExternalTariff_Domain" FromRole="Domain" ToRole="ExternalTariff" />
           <NavigationProperty Name="PartnerAvailableTariffs" Relationship="RadiusRModel.FK_PartnerAvailableTariff_DomainID" FromRole="Domain" ToRole="PartnerAvailableTariff" />
+          <NavigationProperty Name="TelekomAccessCredential" Relationship="RadiusRModel.FK_TelekomAccessCredential_Domain" FromRole="Domain" ToRole="TelekomAccessCredential" />
         </EntityType>
-        <Association Name="FK_TelekomAccessCredential_Domain">
-          <End Type="RadiusRModel.Domain" Role="Domain" Multiplicity="1" />
-          <End Type="RadiusRModel.TelekomAccessCredential" Role="TelekomAccessCredential" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Domain">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TelekomAccessCredential">
-              <PropertyRef Name="DomainID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="ServiceDomain">
           <End Type="RadiusRModel.Domain" Role="Domain" Multiplicity="*" />
           <End Type="RadiusRModel.Service" Role="Service" Multiplicity="*" />
@@ -5971,7 +5906,6 @@
           <NavigationProperty Name="SubscriptionSupportRequests" Relationship="RadiusRModel.FK_SubscriptionSupportRequest_Subscription" FromRole="Subscription" ToRole="SubscriptionSupportRequest" />
           <NavigationProperty Name="SubscriptionTariffHistories" Relationship="RadiusRModel.FK_SubscriptionTariffHistory_Subscription" FromRole="Subscription" ToRole="SubscriptionTariffHistory" />
           <NavigationProperty Name="SystemLogs" Relationship="RadiusRModel.FK_SystemLog_Subscription" FromRole="Subscription" ToRole="SystemLog" />
-          <NavigationProperty Name="TelekomWorkOrders" Relationship="RadiusRModel.FK_TelekomWorkOrder_Subscription" FromRole="Subscription" ToRole="TelekomWorkOrder" />
           <NavigationProperty Name="SupportRequests" Relationship="RadiusRModel.FK_SupportRequest_Subscription" FromRole="Subscription" ToRole="SupportRequest" />
           <NavigationProperty Name="CustomerSetupTasks" Relationship="RadiusRModel.FK_CustomerSetupTask_Subscription" FromRole="Subscription" ToRole="CustomerSetupTask" />
           <NavigationProperty Name="PartnerRegisteredSubscription" Relationship="RadiusRModel.FK_PartnerRegisteredSubscription_Subscription" FromRole="Subscription" ToRole="PartnerRegisteredSubscription" />
@@ -5980,6 +5914,7 @@
           <NavigationProperty Name="SubscriptionTransferredFromHistories" Relationship="RadiusRModel.FK_SubscriptionTransferHistory_Subscription_From" FromRole="Subscription" ToRole="SubscriptionTransferHistory" />
           <NavigationProperty Name="SubscriptionTransferredToHistories" Relationship="RadiusRModel.FK_SubscriptionTransferHistory_Subscription_To" FromRole="Subscription" ToRole="SubscriptionTransferHistory" />
           <NavigationProperty Name="SubscriptionTelekomInfo" Relationship="RadiusRModel.FK_SubscriptionTelekomInfo_Subscription" FromRole="Subscription" ToRole="SubscriptionTelekomInfo" />
+          <NavigationProperty Name="TelekomWorkOrders" Relationship="RadiusRModel.FK_TelekomWorkOrder_Subscription" FromRole="Subscription" ToRole="TelekomWorkOrder" />
         </EntityType>
         <Association Name="FK_Subscription_Address">
           <End Type="RadiusRModel.Address" Role="Address" Multiplicity="1" />
@@ -6289,18 +6224,6 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="SystemLog">
-              <PropertyRef Name="SubscriptionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TelekomWorkOrder_Subscription">
-          <End Type="RadiusRModel.Subscription" Role="Subscription" Multiplicity="1" />
-          <End Type="RadiusRModel.TelekomWorkOrder" Role="TelekomWorkOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Subscription">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TelekomWorkOrder">
               <PropertyRef Name="SubscriptionID" />
             </Dependent>
           </ReferentialConstraint>
@@ -6874,6 +6797,91 @@
           <Property Name="CoordsY" Type="Decimal" Nullable="false" Precision="6" Scale="6" />
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityType Name="TelekomAccessCredential">
+          <Key>
+            <PropertyRef Name="DomainID" />
+          </Key>
+          <Property Name="DomainID" Type="Int32" Nullable="false" />
+          <Property Name="XDSLWebServiceUsername" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="XDSLWebServicePassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="XDSLWebServiceCustomerCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="OLOPortalUsername" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OLOPortalPassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OLOPortalCustomerCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="TransitionFTPUsername" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="TransitionFTPPassword" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="TransitionOperatorID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Domain" Relationship="RadiusRModel.FK_TelekomAccessCredential_Domain" FromRole="TelekomAccessCredential" ToRole="Domain" />
+        </EntityType>
+        <Association Name="FK_TelekomAccessCredential_Domain">
+          <End Type="RadiusRModel.Domain" Role="Domain" Multiplicity="1" />
+          <End Type="RadiusRModel.TelekomAccessCredential" Role="TelekomAccessCredential" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Domain">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TelekomAccessCredential">
+              <PropertyRef Name="DomainID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TelekomWorkOrder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OperationTypeID" Type="Int16" Nullable="false" />
+          <Property Name="OperationSubType" Type="Int16" Nullable="false" />
+          <Property Name="ManagementCode" Type="Int32" />
+          <Property Name="ProvinceCode" Type="Int32" />
+          <Property Name="QueueNo" Type="Int64" />
+          <Property Name="SubscriptionID" Type="Int64" Nullable="false" />
+          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastRetryDate" Type="DateTime" Precision="3" />
+          <Property Name="ClosingDate" Type="DateTime" Precision="3" />
+          <Property Name="AppUserID" Type="Int32" />
+          <Property Name="TransactionID" Type="Int64" />
+          <NavigationProperty Name="AppUser" Relationship="RadiusRModel.FK_TelekomWorkOrder_AppUser" FromRole="TelekomWorkOrder" ToRole="AppUser" />
+          <NavigationProperty Name="Subscription" Relationship="RadiusRModel.FK_TelekomWorkOrder_Subscription" FromRole="TelekomWorkOrder" ToRole="Subscription" />
+          <NavigationProperty Name="TelekomWorkOrderParameters" Relationship="RadiusRModel.FK_TelekomWorkOrderParameter_TelekomWorkOrderParameter" FromRole="TelekomWorkOrder" ToRole="TelekomWorkOrderParameter" />
+        </EntityType>
+        <Association Name="FK_TelekomWorkOrder_AppUser">
+          <End Type="RadiusRModel.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="RadiusRModel.TelekomWorkOrder" Role="TelekomWorkOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TelekomWorkOrder">
+              <PropertyRef Name="AppUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TelekomWorkOrder_Subscription">
+          <End Type="RadiusRModel.Subscription" Role="Subscription" Multiplicity="1" />
+          <End Type="RadiusRModel.TelekomWorkOrder" Role="TelekomWorkOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscription">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TelekomWorkOrder">
+              <PropertyRef Name="SubscriptionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TelekomWorkOrderParameter_TelekomWorkOrderParameter">
+          <End Type="RadiusRModel.TelekomWorkOrder" Role="TelekomWorkOrder" Multiplicity="1" />
+          <End Type="RadiusRModel.TelekomWorkOrderParameter" Role="TelekomWorkOrderParameter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelekomWorkOrder">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TelekomWorkOrderParameter">
+              <PropertyRef Name="WorkOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7489,24 +7497,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TelekomWorkOrders">
-            <EntityTypeMapping TypeName="RadiusRModel.TelekomWorkOrder">
-              <MappingFragment StoreEntitySet="TelekomWorkOrder">
-                <ScalarProperty Name="AppUserID" ColumnName="AppUserID" />
-                <ScalarProperty Name="ClosingDate" ColumnName="ClosingDate" />
-                <ScalarProperty Name="LastRetryDate" ColumnName="LastRetryDate" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
-                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
-                <ScalarProperty Name="QueueNo" ColumnName="QueueNo" />
-                <ScalarProperty Name="ProvinceCode" ColumnName="ProvinceCode" />
-                <ScalarProperty Name="ManagementCode" ColumnName="ManagementCode" />
-                <ScalarProperty Name="OperationSubType" ColumnName="OperationSubType" />
-                <ScalarProperty Name="OperationTypeID" ColumnName="OperationTypeID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="BillFees">
             <EntityTypeMapping TypeName="RadiusRModel.BillFee">
               <MappingFragment StoreEntitySet="BillFee">
@@ -7617,19 +7607,6 @@
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TelekomAccessCredentials">
-            <EntityTypeMapping TypeName="RadiusRModel.TelekomAccessCredential">
-              <MappingFragment StoreEntitySet="TelekomAccessCredential">
-                <ScalarProperty Name="OLOPortalCustomerCode" ColumnName="OLOPortalCustomerCode" />
-                <ScalarProperty Name="OLOPortalPassword" ColumnName="OLOPortalPassword" />
-                <ScalarProperty Name="OLOPortalUsername" ColumnName="OLOPortalUsername" />
-                <ScalarProperty Name="XDSLWebServiceCustomerCode" ColumnName="XDSLWebServiceCustomerCode" />
-                <ScalarProperty Name="XDSLWebServicePassword" ColumnName="XDSLWebServicePassword" />
-                <ScalarProperty Name="XDSLWebServiceUsername" ColumnName="XDSLWebServiceUsername" />
-                <ScalarProperty Name="DomainID" ColumnName="DomainID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -8107,6 +8084,41 @@
                 <ScalarProperty Name="CoordsX" ColumnName="CoordsX" />
                 <ScalarProperty Name="ItemID" ColumnName="ItemID" />
                 <ScalarProperty Name="FormType" ColumnName="FormType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TelekomAccessCredentials">
+            <EntityTypeMapping TypeName="RadiusRModel.TelekomAccessCredential">
+              <MappingFragment StoreEntitySet="TelekomAccessCredential">
+                <ScalarProperty Name="TransitionOperatorID" ColumnName="TransitionOperatorID" />
+                <ScalarProperty Name="TransitionFTPPassword" ColumnName="TransitionFTPPassword" />
+                <ScalarProperty Name="TransitionFTPUsername" ColumnName="TransitionFTPUsername" />
+                <ScalarProperty Name="OLOPortalCustomerCode" ColumnName="OLOPortalCustomerCode" />
+                <ScalarProperty Name="OLOPortalPassword" ColumnName="OLOPortalPassword" />
+                <ScalarProperty Name="OLOPortalUsername" ColumnName="OLOPortalUsername" />
+                <ScalarProperty Name="XDSLWebServiceCustomerCode" ColumnName="XDSLWebServiceCustomerCode" />
+                <ScalarProperty Name="XDSLWebServicePassword" ColumnName="XDSLWebServicePassword" />
+                <ScalarProperty Name="XDSLWebServiceUsername" ColumnName="XDSLWebServiceUsername" />
+                <ScalarProperty Name="DomainID" ColumnName="DomainID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TelekomWorkOrders">
+            <EntityTypeMapping TypeName="RadiusRModel.TelekomWorkOrder">
+              <MappingFragment StoreEntitySet="TelekomWorkOrder">
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="AppUserID" ColumnName="AppUserID" />
+                <ScalarProperty Name="ClosingDate" ColumnName="ClosingDate" />
+                <ScalarProperty Name="LastRetryDate" ColumnName="LastRetryDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+                <ScalarProperty Name="QueueNo" ColumnName="QueueNo" />
+                <ScalarProperty Name="ProvinceCode" ColumnName="ProvinceCode" />
+                <ScalarProperty Name="ManagementCode" ColumnName="ManagementCode" />
+                <ScalarProperty Name="OperationSubType" ColumnName="OperationSubType" />
+                <ScalarProperty Name="OperationTypeID" ColumnName="OperationTypeID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

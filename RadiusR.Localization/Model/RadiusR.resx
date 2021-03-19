@@ -1599,4 +1599,13 @@
   <data name="RemoteFolders" xml:space="preserve">
     <value>Remote Folders</value>
   </data>
+  <data name="TransitionFTPPassword" xml:space="preserve">
+    <value>Transition FTP Password</value>
+  </data>
+  <data name="TransitionFTPUsername" xml:space="preserve">
+    <value>Transition FTP Username</value>
+  </data>
+  <data name="TransitionOperator" xml:space="preserve">
+    <value>Transition Operator</value>
+  </data>
 </root>

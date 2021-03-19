@@ -4255,6 +4255,33 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Transition FTP Password.
+        /// </summary>
+        public static string TransitionFTPPassword {
+            get {
+                return ResourceManager.GetString("TransitionFTPPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transition FTP Username.
+        /// </summary>
+        public static string TransitionFTPUsername {
+            get {
+                return ResourceManager.GetString("TransitionFTPUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transition Operator.
+        /// </summary>
+        public static string TransitionOperator {
+            get {
+                return ResourceManager.GetString("TransitionOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transition PSTN.
         /// </summary>
         public static string TransitionPSTN {

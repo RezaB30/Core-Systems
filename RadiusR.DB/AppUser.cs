@@ -22,7 +22,6 @@ namespace RadiusR.DB
             this.SubscriptionNotes = new HashSet<SubscriptionNote>();
             this.SubscriptionStateHistories = new HashSet<SubscriptionStateHistory>();
             this.SubscriptionSupportRequests = new HashSet<SubscriptionSupportRequest>();
-            this.TelekomWorkOrders = new HashSet<TelekomWorkOrder>();
             this.Bills = new HashSet<Bill>();
             this.SystemLogs = new HashSet<SystemLog>();
             this.LeaderInGroups = new HashSet<SupportGroup>();
@@ -31,6 +30,7 @@ namespace RadiusR.DB
             this.SupportGroupUsers = new HashSet<SupportGroupUser>();
             this.PartnerCollectionCreations = new HashSet<PartnerCollection>();
             this.PartnerCollectionPayments = new HashSet<PartnerCollection>();
+            this.TelekomWorkOrders = new HashSet<TelekomWorkOrder>();
         }
     
         public int ID { get; set; }
@@ -55,8 +55,6 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubscriptionSupportRequest> SubscriptionSupportRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TelekomWorkOrder> TelekomWorkOrders { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bill> Bills { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SystemLog> SystemLogs { get; set; }
@@ -72,5 +70,7 @@ namespace RadiusR.DB
         public virtual ICollection<PartnerCollection> PartnerCollectionCreations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PartnerCollection> PartnerCollectionPayments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TelekomWorkOrder> TelekomWorkOrders { get; set; }
     }
 }

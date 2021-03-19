@@ -126,6 +126,9 @@
   <data name="TariffChange" xml:space="preserve">
     <value>Tariff Change</value>
   </data>
+  <data name="Transition" xml:space="preserve">
+    <value>Transition</value>
+  </data>
   <data name="Transport" xml:space="preserve">
     <value>Transport</value>
   </data>

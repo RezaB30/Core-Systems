@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\dell\Documents\Visual Studio 2015\RepoPrep\MasterISS Core\RadiusR.DB\RadiusRModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Repo\MasterISS Core\RadiusR.DB\RadiusRModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

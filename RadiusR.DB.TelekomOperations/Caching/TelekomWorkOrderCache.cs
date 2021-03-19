@@ -61,7 +61,7 @@ namespace RadiusR.DB.TelekomOperations.Caching
                             else
                             {
                                 var serviceClient = new RezaB.TurkTelekom.WebServices.TTApplication.TTApplicationServiceClient(currentDomain.TelekomCredential.XDSLWebServiceUsernameInt, currentDomain.TelekomCredential.XDSLWebServicePassword, current.TelekomCustomerCode ?? currentDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt);
-                                var response = serviceClient.TraceRegistration(current.ProvinceCode, current.ManagementCode, current.QueueNo);
+                                var response = serviceClient.TraceRegistration(current.ProvinceCode.Value, current.ManagementCode.Value, current.QueueNo.Value);
                                 if (response.InternalException != null)
                                 {
                                     resultsList.Add(new CachedTelekomWorkOrder(current.ID, (short)RezaB.TurkTelekom.WebServices.TTApplication.RegistrationState.Unknown));
