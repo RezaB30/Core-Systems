@@ -179,7 +179,10 @@ namespace RadiusR.BTKLogging
                 {
                     db.Configuration.AutoDetectChangesEnabled = false;
                     //db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-                    var query = db.RadiusAccountings.GetActiveInTimeSpan(schedulerSettings.LastOperationTime, schedulerSettings.NextOperationTime.Value).OrderBy(ra => ra.ID).AsQueryable();
+                    var query = db.RadiusAccountings
+                        .GetActiveInTimeSpan(schedulerSettings.LastOperationTime, schedulerSettings.NextOperationTime.Value)
+                        .Where(ra => string.IsNullOrEmpty(ra.Subscription.StaticIP))
+                        .OrderBy(ra => ra.ID).AsQueryable();
 
                     if (lastMaxAccRecordID.HasValue)
                         query = query.Where(ra => ra.ID > lastMaxAccRecordID);
@@ -188,7 +191,7 @@ namespace RadiusR.BTKLogging
                     if (currentCount <= 0)
                         break;
 
-                    contents.Append(string.Join(Environment.NewLine, query.GetIPDRLog(schedulerSettings.LastOperationTime)));
+                    contents.Append(string.Join(Environment.NewLine, query.GetIPDRLog(schedulerSettings.LastOperationTime, schedulerSettings.NextOperationTime.Value)));
 
                     if (schedulerSettings.PartitionFiles)
                     {

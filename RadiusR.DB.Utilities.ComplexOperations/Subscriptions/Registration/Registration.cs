@@ -529,8 +529,8 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                         {
                             // check with telekom if transition is valid
                             {
-                                var serviceClient = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TTChurnApplicationClient(selectedDomain.TelekomCredential.XDSLWebServiceUsernameInt, selectedDomain.TelekomCredential.XDSLWebServicePassword);
-                                var response = serviceClient.ChurnAvailability(registrationInfo.TransitionXDSLNo);
+                                var serviceClient = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionApplicationClient(selectedDomain.TelekomCredential.XDSLWebServiceUsernameInt, selectedDomain.TelekomCredential.XDSLWebServicePassword, selectedDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt);
+                                var response = serviceClient.ValidateTransition(registrationInfo.TransitionXDSLNo);
                                 if (response.InternalException != null)
                                 {
                                     // error checking churn availability
@@ -558,7 +558,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                             // get transition operator if possible
                             if (!string.IsNullOrWhiteSpace(registrationInfo.TransitionXDSLNo))
                             {
-                                var serviceClient = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TTChurnApplicationClient(selectedDomain.TelekomCredential.XDSLWebServiceUsernameInt, selectedDomain.TelekomCredential.XDSLWebServicePassword);
+                                var serviceClient = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionApplicationClient(selectedDomain.TelekomCredential.XDSLWebServiceUsernameInt, selectedDomain.TelekomCredential.XDSLWebServicePassword, selectedDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt);
                                 var response = serviceClient.GetOperatorByXDSLNo(registrationInfo.TransitionXDSLNo);
                                 if (response.InternalException != null)
                                 {

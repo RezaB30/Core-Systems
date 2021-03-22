@@ -12,7 +12,7 @@ namespace RadiusR.DB.BTKLogging
 {
     public static class BTKExtentions
     {
-        public static IEnumerable<string> GetIPDRLog(this IQueryable<RadiusAccounting> query, DateTime lastOperationTime)
+        public static IEnumerable<string> GetIPDRLog(this IQueryable<RadiusAccounting> query, DateTime lastOperationTime, DateTime nextOperationTime)
         {
             var finalQuery = query
                 .Include(ra => ra.Subscription)
@@ -41,7 +41,7 @@ namespace RadiusR.DB.BTKLogging
                     //$"{accountingRecord.SessionID}{accountingRecord.UniqueID}" //19.03.2021 15:07 BTK: SERDAR TANRIVERDI TEL: 03125865216
                 }));
             // this period stops
-            var thisPeriodStops = newThisPeriod.Where(accountingRecord => accountingRecord.StopTime.HasValue).AsEnumerable()
+            var thisPeriodStops = newThisPeriod.Where(accountingRecord => accountingRecord.StopTime < nextOperationTime).AsEnumerable()
                 .Select(accountingRecord => string.Join("|", new[]
                 {
                     accountingRecord.Username,
@@ -55,7 +55,7 @@ namespace RadiusR.DB.BTKLogging
                     BTKLoggingUtilities.TranslateDateTime(accountingRecord.StopTime.Value),
                     accountingRecord.UploadBytes.ToString(),
                     accountingRecord.DownloadBytes.ToString(),
-                    null,
+                    accountingRecord.TerminateCause.HasValue? ((AcctTerminateCause)accountingRecord.TerminateCause.Value).ToString():null,
                     "session_stop",
                     accountingRecord.NASPort,
                     accountingRecord.Subscription.SubscriberNo,

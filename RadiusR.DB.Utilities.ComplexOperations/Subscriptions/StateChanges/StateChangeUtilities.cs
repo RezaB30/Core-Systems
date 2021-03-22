@@ -5,8 +5,11 @@ using RadiusR.DB.TelekomOperations;
 using RadiusR.DB.Utilities.Billing;
 using RadiusR.DB.Utilities.Extentions;
 using RadiusR.DB.Utilities.Scheduler;
+using RadiusR.FileManagement;
+using RadiusR.FileManagement.SpecialFiles;
 using RadiusR.SMS;
 using RadiusR.SystemLogs;
+using RezaB.TurkTelekom.FTPOperations;
 using RezaB.TurkTelekom.WebServices;
 using RezaB.TurkTelekom.WebServices.Exceptions;
 using RezaB.TurkTelekom.WebServices.SubscriberInfo;
@@ -38,9 +41,18 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                 var oldState = subscription.State;
                 subscription.State = (short)registerOptions.NewState;
                 // check transition has xdsl no
-                if (subscription.RegistrationType == (short)Enums.SubscriptionRegistrationType.Transition && string.IsNullOrWhiteSpace(subscription.SubscriptionTelekomInfo?.SubscriptionNo))
+                IEnumerable<FileManagerClientAttachment> attachments = null;
+                if (subscription.RegistrationType == (short)SubscriptionRegistrationType.Transition)
                 {
-                    throw new Exception("Transition subscription does not have XDSL no!");
+                    if (string.IsNullOrWhiteSpace(subscription.SubscriptionTelekomInfo?.SubscriptionNo))
+                    {
+                        throw new Exception("Transition subscription does not have XDSL no!");
+                    }
+                    attachments = ValidateAttachmentsForTransition(subscription);
+                    if (attachments == null)
+                    {
+                        throw new Exception("Client attachments validation for transition operation failed.");
+                    }
                 }
                 // if needs Telekom registration
                 var domain = DomainsCache.DomainsCache.GetDomainByID(subscription.DomainID);
@@ -91,18 +103,6 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                         db.SystemLogs.Add(SystemLogProcessor.SubscriptionTransferApplied(registerOptions.AppUserID, subscriptionId, transferringSubscription.ID, subscriptionId, registerOptions.LogInterface, registerOptions.LogInterfaceUsername));
                         db.SystemLogs.Add(SystemLogProcessor.SubscriptionTransferApplied(registerOptions.AppUserID, transferringSubscription.ID, transferringSubscription.ID, subscriptionId, registerOptions.LogInterface, registerOptions.LogInterfaceUsername));
                     }
-                    // transition
-                    else if (subscription.RegistrationType == (short)SubscriptionRegistrationType.Transition)
-                    {
-                        TelekomSynchronization.TelekomSynchronizationUtilities.UpdateSubscriberTelekomInfoFromWebService(db, new TelekomSynchronization.TelekomSynchronizationOptions()
-                        {
-                            AppUserID = registerOptions.AppUserID,
-                            LogInterface = registerOptions.LogInterface,
-                            LogInterfaceUsername = registerOptions.LogInterfaceUsername,
-                            DBSubscription = subscription,
-                            DSLNo = subscription.SubscriptionTelekomInfo.SubscriptionNo
-                        });
-                    }
                     // new registration
                     else
                     {
@@ -113,7 +113,100 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                         addedTelekomWorkOrder = subscription.TelekomWorkOrders.OrderByDescending(two => two.CreationDate).FirstOrDefault();
                     }
                 }
+                // transition
+                else if (subscription.RegistrationType == (short)SubscriptionRegistrationType.Transition)
+                {
+                    // find subscriber's telekom tariff info
+                    var selectedTariff = TelekomTariffsCache.GetSpecificTariff(domain, subscription.SubscriptionTelekomInfo.PacketCode.Value, subscription.SubscriptionTelekomInfo.TariffCode.Value);
+                    // register transition to telekom
+                    var transitionClient = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionApplicationClient(domain.TelekomCredential.XDSLWebServiceUsernameInt, domain.TelekomCredential.XDSLWebServicePassword, domain.TelekomCredential.XDSLWebServiceCustomerCodeInt);
+                    var registrationResult = transitionClient.RegisterTransition(new RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionRegisterationRequest()
+                    {
+                        ConnectionInfo = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionRegisterationRequest.ChurnConnectionInfo()
+                        {
+                            DomainName = domain.Name,
+                            ISPCode = domain.TelekomCredential.OLOPortalCustomerCode,
+                            Username = subscription.Username,
+                            Password = subscription.RadiusPassword,
+                            PSTN = subscription.SubscriptionTelekomInfo.PSTN,
+                            XDSLNo = subscription.SubscriptionTelekomInfo.SubscriptionNo
+                        },
+                        TariffInfo = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionRegisterationRequest.ChurnTelekomTariffInfo()
+                        {
+                            ApplicationType = (ApplicationType)domain.AccessMethod,
+                            PacketCode = selectedTariff.PacketCode,
+                            TariffCode = selectedTariff.TariffCode,
+                            SpeedCode = selectedTariff.SpeedCode
+                        },
+                        IndividualCustomer = subscription.Customer.CustomerType == (short)CustomerType.Individual ? new RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionRegisterationRequest.IndividualCustomerInfo()
+                        {
+                            FirstName = subscription.Customer.FirstName,
+                            LastName = subscription.Customer.LastName,
+                            TCKNo = subscription.Customer.CustomerIDCard.TCKNo
+                        } : null,
+                        CorporateCustomer = subscription.Customer.CustomerType != (short)CustomerType.Individual ? new RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionRegisterationRequest.CorporateCustomerInfo()
+                        {
+                            CompanyTitle = subscription.Customer.CorporateCustomerInfo.Title,
+                            ExecutiveTCKNo = subscription.Customer.CustomerIDCard.TCKNo,
+                            TaxNo = subscription.Customer.CorporateCustomerInfo.TaxNo
+                        } : null
+                    });
 
+                    if (registrationResult.InternalException != null)
+                        throw new Exception(registrationResult.InternalException.GetShortMessage());
+                    // upload required documents
+                    TransitionFTPClient ftpClient = new TransitionFTPClient(new TelekomServiceCredentials()
+                    {
+                        CustomerCode = domain.TelekomCredential.XDSLWebServiceCustomerCodeInt,
+                        Password = domain.TelekomCredential.XDSLWebServicePassword,
+                        Username = domain.TelekomCredential.XDSLWebServiceUsernameInt
+                    },
+                    new FTPCredentials()
+                    {
+                        Username = domain.TelekomCredential.TransitionFTPUsername,
+                        Password = domain.TelekomCredential.TransitionFTPPassword,
+                        FolderNames = domain.TelekomCredential.TransitionFolderName
+                    },
+                    TransitionOperatorsCache.GetAllOperators().Select(op => new TelekomOperator()
+                    {
+                        Username = op.Username,
+                        FolderNames = op.RemoteFolders
+                    }));
+                    // get files from file manager
+                    var fileManager = new MasterISSFileManager();
+                    var relevantClientAttachments = new List<FileManagerClientAttachmentWithContent>();
+                    foreach (var file in attachments)
+                    {
+                        var fileResult = fileManager.GetClientAttachment(subscription.ID, file.ServerSideName);
+                        if (fileResult.InternalException != null)
+                            throw fileResult.InternalException;
+                        relevantClientAttachments.Add(fileResult.Result);
+                    }
+                    // upload to telekom
+                    var uploadResult = ftpClient.UploadIncomingCustomerDocuments(subscription.SubscriptionTelekomInfo?.SubscriptionNo, registrationResult.Data.TransactionId, relevantClientAttachments.Select(ca => new RezaB.TurkTelekom.FTPOperations.Inputs.IncomingCustomerDocument()
+                    {
+                        DocumentType = (RezaB.TurkTelekom.FTPOperations.Inputs.IncomingCustomerDocumentType)ca.FileDetail.AttachmentType,
+                        FileExtention = ca.FileDetail.FileExtention,
+                        FileStream = ca.Content
+                    }));
+
+                    foreach (var file in relevantClientAttachments)
+                    {
+                        file.Dispose();
+                    }
+
+                    if (uploadResult.InternalException != null)
+                        throw uploadResult.InternalException;
+
+                    //TelekomSynchronization.TelekomSynchronizationUtilities.UpdateSubscriberTelekomInfoFromWebService(db, new TelekomSynchronization.TelekomSynchronizationOptions()
+                    //{
+                    //    AppUserID = registerOptions.AppUserID,
+                    //    LogInterface = registerOptions.LogInterface,
+                    //    LogInterfaceUsername = registerOptions.LogInterfaceUsername,
+                    //    DBSubscription = subscription,
+                    //    DSLNo = subscription.SubscriptionTelekomInfo.SubscriptionNo
+                    //});
+                }
                 // set state history
                 subscription.AddStateHistory(registerOptions.NewState, registerOptions.AppUserID);
                 // add system log
@@ -609,6 +702,67 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
             to.TTCustomerCode = from.TTCustomerCode;
             to.XDSLType = from.XDSLType;
             to.IsPaperWorkNeeded = from.IsPaperWorkNeeded;
+        }
+
+        private static IEnumerable<FileManagerClientAttachment> ValidateAttachmentsForTransition(Subscription dbSubscription)
+        {
+            var customerType = (CustomerType)dbSubscription.Customer.CustomerType;
+            var fileManager = new RadiusR.FileManagement.MasterISSFileManager();
+            var results = fileManager.GetClientAttachmentsList(dbSubscription.ID);
+            if (results.InternalException != null)
+            {
+                throw results.InternalException;
+            }
+            IEnumerable<ClientAttachmentTypes> requiredAttachments;
+            switch (customerType)
+            {
+                case CustomerType.Individual:
+                    requiredAttachments = new ClientAttachmentTypes[]
+                    {
+                        ClientAttachmentTypes.IDCard,
+                        ClientAttachmentTypes.CHURN
+                    };
+                    break;
+                case CustomerType.PrivateCompany:
+                    requiredAttachments = new ClientAttachmentTypes[]
+                    {
+                        ClientAttachmentTypes.IDCard,
+                        ClientAttachmentTypes.CHURN,
+                        ClientAttachmentTypes.TaxPermit,
+                        ClientAttachmentTypes.AuthorizedSignitures
+                    };
+                    break;
+                case CustomerType.LegalCompany:
+                    requiredAttachments = new ClientAttachmentTypes[]
+                    {
+                        ClientAttachmentTypes.IDCard,
+                        ClientAttachmentTypes.CHURN,
+                        ClientAttachmentTypes.TaxPermit,
+                        ClientAttachmentTypes.AuthorizedSignitures,
+                        ClientAttachmentTypes.ActivityCertificate,
+                        ClientAttachmentTypes.TradeRegistryPaper
+                    };
+                    break;
+                case CustomerType.PublicCompany:
+                    requiredAttachments = new ClientAttachmentTypes[]
+                    {
+                        ClientAttachmentTypes.IDCard,
+                        ClientAttachmentTypes.CHURN,
+                        ClientAttachmentTypes.TaxPermit,
+                        ClientAttachmentTypes.Docket,
+                        ClientAttachmentTypes.AuthorizedSignitures
+                    };
+                    break;
+                default:
+                    throw new Exception("Invalid customer type.");
+            }
+
+            if (requiredAttachments.Except(results.Result.Select(att => att.AttachmentType)).Any())
+            {
+                return null;
+            }
+
+            return results.Result.ToArray();
         }
     }
 }

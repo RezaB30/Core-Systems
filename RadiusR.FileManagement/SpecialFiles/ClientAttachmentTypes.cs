@@ -16,6 +16,12 @@ namespace RadiusR.FileManagement.SpecialFiles
         Transport = 6,
         Transfer = 7,
         Cancellation = 8,
+        TaxPermit = 9,
+        AuthorizedSignitures = 10,
+        Docket = 11,
+        ActivityCertificate = 12,
+        TradeRegistryPaper = 13,
+        WarrantOfAttorney = 14,
         Others = 199
     }
 }

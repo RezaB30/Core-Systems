@@ -1608,4 +1608,10 @@
   <data name="TransitionOperator" xml:space="preserve">
     <value>Transition Operator</value>
   </data>
+  <data name="TransactionID" xml:space="preserve">
+    <value>Transaction Code</value>
+  </data>
+  <data name="ApprovingStaff" xml:space="preserve">
+    <value>Approving Staff</value>
+  </data>
 </root>

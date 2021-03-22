@@ -18,6 +18,8 @@ namespace RadiusR.SystemLogs.Parameters
 
         public long QueueNo { get; private set; }
 
+        public long TransactionID { get; private set; }
+
         public string TelekomSubscriberNo { get; private set; }
 
         public TelekomWorkOrderDetails(RadiusR.DB.Enums.TelekomOperations.TelekomOperationType operationType, RadiusR.DB.Enums.TelekomOperations.TelekomOperationSubType operationSubType, int managementCode, int provinceCode, long queueNo, string telekomSubscriberNo)
@@ -27,6 +29,14 @@ namespace RadiusR.SystemLogs.Parameters
             ManagementCode = managementCode;
             ProvinceCode = provinceCode;
             QueueNo = queueNo;
+            TelekomSubscriberNo = telekomSubscriberNo;
+        }
+
+        public TelekomWorkOrderDetails(RadiusR.DB.Enums.TelekomOperations.TelekomOperationSubType operationSubType, long transactionId, string telekomSubscriberNo)
+        {
+            OperationType = RadiusR.DB.Enums.TelekomOperations.TelekomOperationType.Transition;
+            OperationSubType = operationSubType;
+            TransactionID = transactionId;
             TelekomSubscriberNo = telekomSubscriberNo;
         }
     }

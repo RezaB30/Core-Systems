@@ -43,16 +43,26 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="RezaB.API.TCKValidation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.API.TCKValidation.1.0.0\lib\net452\RezaB.API.TCKValidation.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Renci.SshNet, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <HintPath>..\packages\SSH.NET.2020.0.0\lib\net40\Renci.SshNet.dll</HintPath>
     </Reference>
-    <Reference Include="RezaB.Data, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.Data.1.0.1\lib\net452\RezaB.Data.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="RezaB.API.TCKValidation, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.API.TCKValidation.1.0.1\lib\net472\RezaB.API.TCKValidation.dll</HintPath>
     </Reference>
-    <Reference Include="RezaB.TurkTelekom.WebServices, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.TurkTelekom.WebServices.1.1.1\lib\net452\RezaB.TurkTelekom.WebServices.dll</HintPath>
+    <Reference Include="RezaB.Data, Version=1.0.2.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Data.1.0.2\lib\net452\RezaB.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="RezaB.Files, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Files.1.0.1\lib\net472\RezaB.Files.dll</HintPath>
+    </Reference>
+    <Reference Include="RezaB.Files.FTP, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Files.FTP.1.0.2\lib\net472\RezaB.Files.FTP.dll</HintPath>
+    </Reference>
+    <Reference Include="RezaB.TurkTelekom.FTPOperations, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.TurkTelekom.FTPOperations.1.1.0\lib\net472\RezaB.TurkTelekom.FTPOperations.dll</HintPath>
+    </Reference>
+    <Reference Include="RezaB.TurkTelekom.WebServices, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.TurkTelekom.WebServices.1.2.0\lib\net452\RezaB.TurkTelekom.WebServices.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -139,6 +149,10 @@
     <ProjectReference Include="..\RadiusR.DB\RadiusR.DB.csproj">
       <Project>{1475b653-8eef-42d3-aa5f-d811aabca41c}</Project>
       <Name>RadiusR.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.FileManagement\RadiusR.FileManagement.csproj">
+      <Project>{e287dfab-1682-4fb3-bca3-e689f7f8cb11}</Project>
+      <Name>RadiusR.FileManagement</Name>
     </ProjectReference>
     <ProjectReference Include="..\RadiusR.SMS\RadiusR.SMS.csproj">
       <Project>{158ef52e-9fad-4f56-9726-e5fe91078abe}</Project>

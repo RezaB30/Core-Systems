@@ -98,7 +98,7 @@ namespace RadiusR_Manager.Controllers
 
             var results = viewResults
                 .Include(bill => bill.Subscription)
-                //.Include(bill => bill.Service)
+                .Include(bill => bill.AppUser)
                 .Include(bill => bill.ExternalPayment.RadiusRBillingService).Include(bill => bill.ExternalPayment.OfflinePaymentGateway)
                 .Include(bill => bill.BillFees.Select(bf => bf.FeeTypeCost.TaxRates)).Include(bill => bill.BillFees.Select(bf => bf.Discount)).Include(bill => bill.BillFees.Select(bf => bf.Fee.FeeTypeCost.TaxRates))
                 .ToList().OrderBy(bill => bill.IssueDate).ThenBy(bill => bill.Subscription.ValidDisplayName).Select(bill => new BatchEBillCSVModel()
@@ -112,7 +112,7 @@ namespace RadiusR_Manager.Controllers
                     PayDate = bill.PayDate.HasValue ? bill.PayDate.Value.ToString("yyyyMMdd") : null,
                     Total = bill.GetPayableCost().ToString("###,###,##0.00"),
                     PaymentType = new LocalizedList<PaymentType, RadiusR.Localization.Lists.PaymentType>().GetDisplayText(bill.PaymentTypeID) + (bill.ExternalPayment != null ? "(" + (bill.ExternalPayment.RadiusRBillingService != null ? bill.ExternalPayment.RadiusRBillingService.Name : bill.ExternalPayment.OfflinePaymentGateway != null ? bill.ExternalPayment.OfflinePaymentGateway.Name : "<INVALID>") + ")" : null),
-                    URL = Url.Action("Details", "Bill", new { id = bill.ID }, Request.Url.Scheme)
+                    ApprovingStaff = bill.AppUser.Name
                 });
 
             var currentTime = DateTime.Now;

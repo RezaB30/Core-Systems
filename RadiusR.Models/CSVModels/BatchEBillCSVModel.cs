@@ -60,6 +60,7 @@ namespace RadiusR_Manager.Models.CSVModels
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "PaymentType")]
         public string PaymentType { get; set; }
 
-        public string URL { get; set; }
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "ApprovingStaff")]
+        public string ApprovingStaff { get; set; }
     }
 }
