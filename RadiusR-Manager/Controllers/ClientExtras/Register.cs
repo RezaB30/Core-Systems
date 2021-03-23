@@ -408,13 +408,27 @@ namespace RadiusR_Manager.Controllers
                 UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "4", uri);
                 return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
             }
+            var domain = DomainsCache.GetDomainByID(dbSubscription.DomainID);
+            if (domain == null)
+            {
+                ViewBag.ErrorMessage = RadiusR.Localization.Pages.Common.DomainNotFound;
+                return View(viewName: "AddWizard/PrepareTransition");
+            }
+            else if (domain.TelekomCredential == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
 
             ViewBag.CustomerName = dbSubscription.ValidDisplayName;
+            ViewBag.SelectedDomain = domain;
+            var telekomTariff = TelekomTariffsCache.GetSpecificTariff(domain, dbSubscription.SubscriptionTelekomInfo?.PacketCode ?? 0, dbSubscription.SubscriptionTelekomInfo?.TariffCode ?? 0);
 
             var viewResult = new PrepareTransitionViewModel()
             {
                 TransitionPSTN = dbSubscription.SubscriptionTelekomInfo?.PSTN,
-                TransitionXDSLNo = dbSubscription.SubscriptionTelekomInfo?.SubscriptionNo
+                TransitionXDSLNo = dbSubscription.SubscriptionTelekomInfo?.SubscriptionNo,
+                TelekomTariffInfo = telekomTariff == null ? new TelekomTariffHelperViewModel() : new TelekomTariffHelperViewModel(telekomTariff)
             };
 
             return View(viewName: "AddWizard/PrepareTransition", model: viewResult);
@@ -436,13 +450,37 @@ namespace RadiusR_Manager.Controllers
                 return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
             }
 
+            var domain = DomainsCache.GetDomainByID(dbSubscription.DomainID);
+            if (domain == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+            else if (domain.TelekomCredential == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
             if (ModelState.IsValid)
             {
+                var telekomTariff = TelekomTariffsCache.GetSpecificTariff(domain, preparationModel.TelekomTariffInfo.PacketCode.Value, preparationModel.TelekomTariffInfo.TariffCode.Value);
+                if (telekomTariff == null)
+                {
+                    ViewBag.ErrorMessage = RadiusR.Localization.Validation.Common.InvalidTelekomPacket;
+                    return View(viewName: "AddWizard/PrepareTransition", model: preparationModel);
+                }
+
                 if (dbSubscription.SubscriptionTelekomInfo == null)
                     dbSubscription.SubscriptionTelekomInfo = new SubscriptionTelekomInfo();
 
                 dbSubscription.SubscriptionTelekomInfo.SubscriptionNo = preparationModel.TransitionXDSLNo;
                 dbSubscription.SubscriptionTelekomInfo.PSTN = preparationModel.TransitionPSTN;
+                dbSubscription.SubscriptionTelekomInfo.PacketCode = telekomTariff.PacketCode;
+                dbSubscription.SubscriptionTelekomInfo.TariffCode = telekomTariff.TariffCode;
+                dbSubscription.SubscriptionTelekomInfo.XDSLType = (short)telekomTariff.XDSLType;
+                dbSubscription.SubscriptionTelekomInfo.IsPaperWorkNeeded = preparationModel.TelekomTariffInfo.IsPaperworkNeeded;
+                dbSubscription.SubscriptionTelekomInfo.TTCustomerCode = domain.TelekomCredential.XDSLWebServiceCustomerCodeInt;
 
                 db.SaveChanges();
 
@@ -458,6 +496,7 @@ namespace RadiusR_Manager.Controllers
             }
 
             ViewBag.CustomerName = dbSubscription.ValidDisplayName;
+            ViewBag.SelectedDomain = domain;
             ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
 
             return View(viewName: "AddWizard/PrepareTransition", model: preparationModel);

@@ -74,7 +74,7 @@ namespace RadiusR.DB.BTKLogging
                     accountingRecord.RadiusAccountingIPInfo != null ? accountingRecord.RadiusAccountingIPInfo.PortRange != null ? accountingRecord.RadiusAccountingIPInfo.PortRange.Split('-')[0] : "0" : null,
                     accountingRecord.RadiusAccountingIPInfo != null ? accountingRecord.RadiusAccountingIPInfo.PortRange != null ? accountingRecord.RadiusAccountingIPInfo.PortRange.Split('-')[1] : "65535" : null,
                     BTKLoggingUtilities.TranslateDateTime(accountingRecord.StartTime),
-                    accountingRecord.StopTime.HasValue ? BTKLoggingUtilities.TranslateDateTime(accountingRecord.StopTime.Value) : accountingRecord.StartTime > lastOperationTime ? BTKLoggingUtilities.TranslateDateTime(accountingRecord.StartTime) : BTKLoggingUtilities.TranslateDateTime(new DateTime(lastOperationTime.Year, lastOperationTime.Month, lastOperationTime.Day, lastOperationTime.Hour, accountingRecord.StartTime.Minute, accountingRecord.StartTime.Second)),
+                    accountingRecord.StopTime.HasValue ? BTKLoggingUtilities.TranslateDateTime(accountingRecord.StopTime.Value) : accountingRecord.StartTime > lastOperationTime ? BTKLoggingUtilities.TranslateDateTime(accountingRecord.StartTime) : BTKLoggingUtilities.TranslateDateTime(new DateTime(nextOperationTime.Year, nextOperationTime.Month, nextOperationTime.Day, nextOperationTime.Hour, accountingRecord.StartTime.Minute, accountingRecord.StartTime.Second)),
                     accountingRecord.UploadBytes.ToString(),
                     accountingRecord.DownloadBytes.ToString(),
                     accountingRecord.TerminateCause.HasValue? ((AcctTerminateCause)accountingRecord.TerminateCause.Value).ToString():null,

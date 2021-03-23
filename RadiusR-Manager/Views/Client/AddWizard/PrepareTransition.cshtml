@@ -1,4 +1,6 @@
-﻿@model RadiusR_Manager.Models.ViewModels.ClientStates.PrepareTransitionViewModel
+﻿@using RadiusR.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.ClientStates.PrepareTransitionViewModel
 
 @{
     ViewBag.Title = $"{ViewBag.CustomerName}-{RadiusR.Localization.Pages.Common.SubscriptionTransition}";
@@ -9,46 +11,64 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-            <table class="input-table">
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.TransitionXDSLNo)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.TransitionXDSLNo, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.TransitionXDSLNo)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.TransitionPSTN)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.TransitionPSTN, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.TransitionPSTN)
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.Partial("_WaitTimer")
-                    </td>
-                </tr>
-                <tr id="submit-row">
-                    <td colspan="2" class="centered">
-                        <a href="@ViewBag.ReturnUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
-                        &nbsp;
-                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
-                    </td>
-                </tr>
-            </table>
+        <table class="input-table">
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.TransitionXDSLNo)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.TransitionXDSLNo, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.TransitionXDSLNo)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.TransitionPSTN)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.TransitionPSTN, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.TransitionPSTN)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.TelekomTariffInfo)
+                </td>
+                <td>
+                    @Html.TelekomTariffEditorFor(model => model.TelekomTariffInfo, ViewBag.SelectedDomain as RadiusR.DB.DomainsCache.CachedDomain)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationMessageFor(model => model.TelekomTariffInfo)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.Partial("_WaitTimer")
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-danger">
+                    @ViewBag.ErrorMessage
+                </td>
+            </tr>
+            <tr id="submit-row">
+                <td colspan="2" class="centered">
+                    <a href="@ViewBag.ReturnUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                    &nbsp;
+                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                </td>
+            </tr>
+        </table>
         }
     </div>
 </div>

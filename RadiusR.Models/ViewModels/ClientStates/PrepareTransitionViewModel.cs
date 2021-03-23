@@ -20,5 +20,9 @@ namespace RadiusR_Manager.Models.ViewModels.ClientStates
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "TransitionPSTN")]
         [PhoneNumber(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "PhoneNumber")]
         public string TransitionPSTN { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "TTPacket")]
+        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
+        public TelekomTariffHelperViewModel TelekomTariffInfo { get; set; }
     }
 }
