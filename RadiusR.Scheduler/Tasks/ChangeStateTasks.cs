@@ -40,7 +40,7 @@ namespace RadiusR.Scheduler.Tasks
                             switch ((CustomerState)task.NewState)
                             {
                                 case CustomerState.Active:
-                                    StateChangeUtilities.ChangeSubscriptionState(task.SubscriptionID, new ActivateSubscriptionOptions()
+                                    var results = StateChangeUtilities.ChangeSubscriptionState(task.SubscriptionID, new ActivateSubscriptionOptions()
                                     {
                                         AppUserID = null,
                                         ForceUnfreeze = false,
@@ -48,6 +48,10 @@ namespace RadiusR.Scheduler.Tasks
                                         LogInterfaceUsername = null,
                                         ScheduleSMSes = true
                                     });
+                                    if (!results.IsSuccess && results.InternalException != null)
+                                    {
+                                        throw results.InternalException;
+                                    }
                                     break;
                                 // invalid changes (cannot be done by the scheduler)
                                 case CustomerState.Disabled:

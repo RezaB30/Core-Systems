@@ -74,6 +74,12 @@ namespace RadiusR_Manager.Models.RadiusViewModels
         [MaxLength(10, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
         public string ProvinceCode { get; set; }
 
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "TransitionTransactionID")]
+        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
+        [PositiveInt(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "PositiveInt")]
+        [MaxLength(10, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
+        public string TransactionID { get; set; }
+
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "IsOpen")]
         public bool IsOpen { get; set; }
 
@@ -127,6 +133,37 @@ namespace RadiusR_Manager.Models.RadiusViewModels
             set
             {
                 ProvinceCode = value.ToString();
+            }
+        }
+
+        public long? _transactionID
+        {
+            get
+            {
+                long parsed;
+                if (long.TryParse(TransactionID, out parsed))
+                    return parsed;
+                return null;
+            }
+            set
+            {
+                TransactionID = value.ToString();
+            }
+        }
+
+        public bool CanRetry
+        {
+            get
+            {
+                return OperationType != (short?)RadiusR.DB.Enums.TelekomOperations.TelekomOperationType.Transition;
+            }
+        }
+
+        public bool CanFinish
+        {
+            get
+            {
+                return OperationType != (short?)RadiusR.DB.Enums.TelekomOperations.TelekomOperationType.Transition || State != (short?)RezaB.TurkTelekom.WebServices.TTApplication.RegistrationState.InProgress;
             }
         }
     }

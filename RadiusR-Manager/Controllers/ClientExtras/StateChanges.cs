@@ -1,4 +1,5 @@
-﻿using RadiusR.DB.Enums;
+﻿using NLog;
+using RadiusR.DB.Enums;
 using RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges;
 using RadiusR_Manager.Models.ViewModels.ClientStates;
 using RezaB.TurkTelekom.WebServices.Exceptions;
@@ -15,6 +16,8 @@ namespace RadiusR_Manager.Controllers
 {
     public partial class ClientController
     {
+        private static Logger stateChangesLogger = LogManager.GetLogger("client-state-changes");
+
         [AuthorizePermission(Permissions = "Subscriber State")]
         [HttpGet]
         // GET: Client/FreezeSubscription
@@ -65,30 +68,54 @@ namespace RadiusR_Manager.Controllers
                 }
                 if (ModelState.IsValid)
                 {
-                    try
+                    //try
+                    //{
+                    var results = StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new FreezeSubscriptionOptions()
                     {
-                        StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new FreezeSubscriptionOptions()
-                        {
-                            AppUserID = User.GiveUserId(),
-                            LogInterface = SystemLogInterface.MasterISS,
-                            ForceThroughWebService = force && User.HasPermission("Force Freeze"),
-                            ReleaseDate = freezeOptions.ReactivationDate.Value
-                        });
+                        AppUserID = User.GiveUserId(),
+                        LogInterface = SystemLogInterface.MasterISS,
+                        ForceThroughWebService = force && User.HasPermission("Force Freeze"),
+                        ReleaseDate = freezeOptions.ReactivationDate.Value
+                    });
 
+                    if (results.IsFatal)
+                    {
+                        throw results.InternalException;
+                    }
+                    else if (results.IsSuccess)
+                    {
                         UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
                         return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
                     }
-                    catch (TTWebServiceException ex)
+                    else if (results.InternalException is TTWebServiceException ex && User.HasPermission("Force Freeze"))
                     {
-                        if (!User.HasPermission("Force Freeze"))
-                        {
-                            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "33", uri);
-                            TempData["ErrorMessageDetails"] = ex.GetShortMessage();
-                            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
-                        }
+                        //if (!User.HasPermission("Force Freeze"))
+                        //{
+                        //    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "33", uri);
+                        //    TempData["ErrorMessageDetails"] = ex.GetShortMessage();
+                        //    return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                        //}
                         ViewBag.WebServiceError = RadiusR.Localization.Pages.ErrorMessages._33 + " -> " + ex.GetShortMessage();
                         ViewBag.IsForce = true;
                     }
+                    else
+                    {
+                        UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+                        TempData["ErrorResults"] = results;
+                        return RedirectToAction("StateChangeError", new { returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
+                    }
+                    //}
+                    //catch (TTWebServiceException ex)
+                    //{
+                    //    if (!User.HasPermission("Force Freeze"))
+                    //    {
+                    //        UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "33", uri);
+                    //        TempData["ErrorMessageDetails"] = ex.GetShortMessage();
+                    //        return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                    //    }
+                    //    ViewBag.WebServiceError = RadiusR.Localization.Pages.ErrorMessages._33 + " -> " + ex.GetShortMessage();
+                    //    ViewBag.IsForce = true;
+                    //}
                 }
             }
 
@@ -139,33 +166,58 @@ namespace RadiusR_Manager.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                //try
+                //{
+                var results = StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new CancelSubscriptionOptions()
                 {
-                    StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new CancelSubscriptionOptions()
-                    {
-                        AppUserID = User.GiveUserId(),
-                        LogInterface = SystemLogInterface.MasterISS,
-                        CancellationReason = (CancellationReason)cancelOptions.ReasonID,
-                        CancellationReasonDescription = cancelOptions.ReasonDescription,
-                        ForceCancellation = force && User.HasPermission("Force Cancellation"),
-                        DoNotCancelTelekomService = false
-                    });
+                    AppUserID = User.GiveUserId(),
+                    LogInterface = SystemLogInterface.MasterISS,
+                    CancellationReason = (CancellationReason)cancelOptions.ReasonID,
+                    CancellationReasonDescription = cancelOptions.ReasonDescription,
+                    ForceCancellation = force && User.HasPermission("Force Cancellation"),
+                    DoNotCancelTelekomService = false
+                });
 
+                if (results.IsFatal)
+                {
+                    throw results.InternalException;
+                }
+                else if (results.IsSuccess)
+                {
                     UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
                     return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
                 }
-                catch (TTWebServiceException ex)
+                else if (results.InternalException is TTWebServiceException ex && User.HasPermission("Force Cancellation"))
                 {
-                    if (!User.HasPermission("Force Cancellation"))
-                    {
-                        UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "33", uri);
-                        TempData["ErrorMessageDetails"] = ex.GetShortMessage();
-                        return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
-                    }
+                    //if (!User.HasPermission("Force Cancellation"))
+                    //{
+                    //    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "33", uri);
+                    //    TempData["ErrorMessageDetails"] = ex.GetShortMessage();
+                    //    return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                    //}
 
                     ViewBag.WebServiceError = RadiusR.Localization.Pages.ErrorMessages._33 + " -> " + ex.GetShortMessage();
                     ViewBag.IsForce = true;
                 }
+                else
+                {
+                    UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+                    TempData["ErrorResults"] = results;
+                    return RedirectToAction("StateChangeError", new { returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
+                }
+                //}
+                //catch (TTWebServiceException ex)
+                //{
+                //    if (!User.HasPermission("Force Cancellation"))
+                //    {
+                //        UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "33", uri);
+                //        TempData["ErrorMessageDetails"] = ex.GetShortMessage();
+                //        return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                //    }
+
+                //    ViewBag.WebServiceError = RadiusR.Localization.Pages.ErrorMessages._33 + " -> " + ex.GetShortMessage();
+                //    ViewBag.IsForce = true;
+                //}
             }
 
             ViewBag.SubscriberName = dbSubscription.ValidDisplayName;
@@ -209,15 +261,94 @@ namespace RadiusR_Manager.Controllers
                 return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
             }
 
-            StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new ActivateSubscriptionOptions()
+            var results = StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new ActivateSubscriptionOptions()
             {
                 AppUserID = User.GiveUserId(),
                 LogInterface = SystemLogInterface.MasterISS,
                 ForceUnfreeze = true
             });
 
-            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
-            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            if (results.IsFatal)
+            {
+                throw results.InternalException;
+            }
+            else if (results.IsSuccess)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+            else
+            {
+                UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+                TempData["ErrorResults"] = results;
+                return RedirectToAction("StateChangeError", new { returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
+            }
+        }
+
+        // GET: Client/StateChangeError
+        public ActionResult StateChangeError(string returnUrl)
+        {
+            try
+            {
+                var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+                UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+                ViewBag.BackUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            }
+            catch
+            {
+                ViewBag.BackUrl = Url.Action("Index", "Client");
+            }
+            if (TempData["ErrorResults"] is StateChangeResult errorResult)
+            {
+                ViewBag.ErrorDetails = errorResult.ErrorMessage;
+                // log errors
+                stateChangesLogger.Warn(errorResult.InternalException, errorResult.ErrorMessage);
+            }
+            return View(viewName: "StateChanges/StateChangeError");
+        }
+
+        [HttpPost]
+        [AuthorizePermission(Permissions = "Modify Clients")]
+        [AjaxCall]
+        // POST: Client/TransitionDocumentValidation
+        public ActionResult TransitionDocumentValidation(long id)
+        {
+            var viewResult = new TransitionDocumentsValidationViewModel();
+            var foundSub = db.Subscriptions.FirstOrDefault(s => s.ID == id);
+            if (foundSub == null)
+            {
+                viewResult.ValidationMessage = RadiusR.Localization.Pages.ErrorMessages._4;
+            }
+            else
+            {
+                var validationResults = StateChangeUtilities.ValidateAttachmentsForTransition(foundSub);
+                if (!validationResults.IsValid)
+                {
+                    if (validationResults.FileManagerException != null)
+                    {
+                        viewResult.ValidationMessage = RadiusR.Localization.Pages.Common.FileManagerError;
+                    }
+                    else
+                    {
+                        viewResult.ValidationMessage = RadiusR.Localization.Validation.ModelSpecific.MissingRequiredDocuments;
+                        viewResult.Documents = validationResults.RequiredDocuments.Select(rd => new TransitionDocumentsValidationViewModel.DocumentValidation()
+                        {
+                            DocumentType = (short)rd.DocumentType,
+                            IsValid = rd.IsAvailable
+                        });
+                    }
+                }
+                else
+                {
+                    viewResult.Documents = validationResults.RequiredDocuments.Select(rd => new TransitionDocumentsValidationViewModel.DocumentValidation()
+                    {
+                        DocumentType = (short)rd.DocumentType,
+                        IsValid = rd.IsAvailable
+                    });
+                }
+            }
+
+            return View(viewName: "StateChanges/TransitionDocumentValidation", model: viewResult);
         }
     }
 }

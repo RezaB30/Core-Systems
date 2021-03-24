@@ -1221,4 +1221,10 @@
   <data name="SubscriptionHasNoEMail" xml:space="preserve">
     <value>Customer has no registered e-mail.</value>
   </data>
+  <data name="CheckingDocuments" xml:space="preserve">
+    <value>Checking documents...</value>
+  </data>
+  <data name="StateChangeError" xml:space="preserve">
+    <value>State Change Error</value>
+  </data>
 </root>

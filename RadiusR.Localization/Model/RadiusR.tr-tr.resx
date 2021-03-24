@@ -1614,4 +1614,7 @@
   <data name="ApprovingStaff" xml:space="preserve">
     <value>Onaylayan Personel</value>
   </data>
+  <data name="TransitionTransactionID" xml:space="preserve">
+    <value>Geçiş İşlem Kodu</value>
+  </data>
 </root>

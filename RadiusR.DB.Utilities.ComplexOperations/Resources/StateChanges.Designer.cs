@@ -61,11 +61,92 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File Manager error.
+        /// </summary>
+        public static string FileManagerError {
+            get {
+                return ResourceManager.GetString("FileManagerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subscription attachments validation for transition operation failed..
+        /// </summary>
+        public static string InvalidAttachmentsForTransition {
+            get {
+                return ResourceManager.GetString("InvalidAttachmentsForTransition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid freeze duration..
+        /// </summary>
+        public static string InvalidFreezeDuration {
+            get {
+                return ResourceManager.GetString("InvalidFreezeDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transferring subscription domain does not match..
+        /// </summary>
+        public static string InvalidTransferringSubscriptionDomain {
+            get {
+                return ResourceManager.GetString("InvalidTransferringSubscriptionDomain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transferring subscription has no valid Telekom info..
+        /// </summary>
+        public static string InvalidTransferringSubscriptionTelekomInfo {
+            get {
+                return ResourceManager.GetString("InvalidTransferringSubscriptionTelekomInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transition subscription does not have XDSL no..
+        /// </summary>
+        public static string InvalidTransitionXDSLNo {
+            get {
+                return ResourceManager.GetString("InvalidTransitionXDSLNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transferred to {0} subscription no..
         /// </summary>
         public static string TransferCancellationReason {
             get {
                 return ResourceManager.GetString("TransferCancellationReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transferring subscription not found..
+        /// </summary>
+        public static string TransferingSubscriptionNotFound {
+            get {
+                return ResourceManager.GetString("TransferingSubscriptionNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operation was successful but transition FTP error occured. Try to upload transition files again..
+        /// </summary>
+        public static string TransitionFTPError {
+            get {
+                return ResourceManager.GetString("TransitionFTPError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transferring subscription is not active..
+        /// </summary>
+        public static string TrasferringSubscriptionNotAktive {
+            get {
+                return ResourceManager.GetString("TrasferringSubscriptionNotAktive", resourceCulture);
             }
         }
     }

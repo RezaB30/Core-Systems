@@ -1,0 +1,18 @@
+﻿@model RadiusR_Manager.Models.ViewModels.ClientStates.TransitionDocumentsValidationViewModel
+
+<div style="text-align: left;">
+    @if (Model.Documents != null)
+    {
+        foreach (var item in Model.Documents)
+        {
+            <div style="margin: 0.2em 0;">
+                @Html.DisplayFor(modelItem => item.IsValid)
+                &nbsp;
+                @Html.DisplayFor(modelItem => item.DocumentType)
+            </div>
+        }
+    }
+    <div class="text-danger">
+        @Html.DisplayFor(model => model.ValidationMessage)
+    </div>
+</div>

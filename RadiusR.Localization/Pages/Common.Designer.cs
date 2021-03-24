@@ -754,6 +754,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checking documents....
+        /// </summary>
+        public static string CheckingDocuments {
+            get {
+                return ResourceManager.GetString("CheckingDocuments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose.
         /// </summary>
         public static string Choose {
@@ -2901,6 +2910,15 @@ namespace RadiusR.Localization.Pages {
         public static string StampDuty {
             get {
                 return ResourceManager.GetString("StampDuty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to State Change Error.
+        /// </summary>
+        public static string StateChangeError {
+            get {
+                return ResourceManager.GetString("StateChangeError", resourceCulture);
             }
         }
         

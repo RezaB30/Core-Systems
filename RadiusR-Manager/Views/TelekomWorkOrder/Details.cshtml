@@ -65,30 +65,44 @@
                     @Html.DisplayFor(model => model.XDSLNo)
                 </td>
             </tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(model => model.ManagementCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.ManagementCode)
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(model => model.ProvinceCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.ProvinceCode)
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(model => model.QueueNo)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.QueueNo)
-                </td>
-            </tr>
+            @if (Model.OperationType == (short?)RadiusR.DB.Enums.TelekomOperations.TelekomOperationType.Transition)
+            {
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.TransactionID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.TransactionID)
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.ManagementCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.ManagementCode)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.ProvinceCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.ProvinceCode)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.QueueNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.QueueNo)
+                    </td>
+                </tr>
+            }
             <tr>
                 <td>
                     @Html.LabelFor(model => model.CreationDate)
@@ -135,25 +149,23 @@
         </div>
         <div id="submit-row" class="centered" style="margin-top: 1em;">
             <a href="@ViewBag.ReturnUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
-            @*@Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class = "link-button iconed-button back-button" })*@
             @if (Model.IsOpen && User.HasPermission("Telekom Work Order Edits"))
             {
-                @:&nbsp;
-                using (Html.BeginForm(null, null, FormMethod.Post, new { @style = "display: inline-block;", @confirm = "enabled" }))
+                if (Model.CanFinish)
                 {
-                    @Html.AntiForgeryToken()
-                    @Html.Hidden("id", Model.ID)
-                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Finish" class="link-button iconed-button accept-button" />
+                    @:&nbsp;
+                    using (Html.BeginForm(null, null, FormMethod.Post, new { @style = "display: inline-block;", @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", Model.ID)
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Finish" class="link-button iconed-button accept-button" />
+                    }
                 }
-                @:&nbsp;
-                @Html.ActionLink(RadiusR.Localization.Pages.Common.Retry, "Retry", new { id = Model.ID, returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button reload-button" })
-                @*using (Html.BeginForm("Retry", null, FormMethod.Post, new { @style = "display: inline-block;", @confirm = "enabled" }))
+                if (Model.CanRetry)
                 {
-                    @Html.AntiForgeryToken()
-                    @Html.Hidden("returnUrl", ViewBag.ReturnUrl as string)
-                    @Html.Hidden("id", Model.ID)
-                    <input type="submit" value="@RadiusR.Localization.Pages.Common.Retry" class="link-button iconed-button reload-button" />
-                }*@
+                    @:&nbsp;
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Retry, "Retry", new { id = Model.ID, returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button reload-button" })
+                }
             }
         </div>
     </div>

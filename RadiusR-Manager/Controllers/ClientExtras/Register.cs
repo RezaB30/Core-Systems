@@ -371,14 +371,27 @@ namespace RadiusR_Manager.Controllers
 
                     try
                     {
-                        StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new RegisterSubscriptionOptions()
+                        var results = StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new RegisterSubscriptionOptions()
                         {
                             AppUserID = User.GiveUserId(),
                             LogInterface = SystemLogInterface.MasterISS
                         });
 
-                        UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
-                        return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                        if (results.IsFatal)
+                        {
+                            throw results.InternalException;
+                        }
+                        else if (results.IsSuccess)
+                        {
+                            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                        }
+                        else
+                        {
+                            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+                            TempData["ErrorResults"] = results;
+                            return RedirectToAction("StateChangeError", new { returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -484,15 +497,28 @@ namespace RadiusR_Manager.Controllers
 
                 db.SaveChanges();
 
-                StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new RegisterSubscriptionOptions()
+                var results = StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new RegisterSubscriptionOptions()
                 {
                     AppUserID = User.GiveUserId(),
                     LogInterface = SystemLogInterface.MasterISS,
                     ScheduleSMSes = false
                 });
 
-                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
-                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                if (results.IsFatal)
+                {
+                    throw results.InternalException;
+                }
+                else if (results.IsSuccess)
+                {
+                    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                    return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                }
+                else
+                {
+                    UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+                    TempData["ErrorResults"] = results;
+                    return RedirectToAction("StateChangeError", new { returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
+                }
             }
 
             ViewBag.CustomerName = dbSubscription.ValidDisplayName;

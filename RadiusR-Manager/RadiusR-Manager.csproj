@@ -981,6 +981,8 @@
     <Content Include="Views\Client\Forms\Index.cshtml" />
     <Content Include="Views\PDFTemplates\_PDFEditContextMenu.cshtml" />
     <Content Include="Views\PDFTemplates\_PDFEditContextMenuItem.cshtml" />
+    <Content Include="Views\Client\StateChanges\StateChangeError.cshtml" />
+    <Content Include="Views\Client\StateChanges\TransitionDocumentValidation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

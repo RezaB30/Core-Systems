@@ -138,6 +138,9 @@
   <data name="MaxDateRange60Days" xml:space="preserve">
     <value>Max date range is 60 days.</value>
   </data>
+  <data name="MissingRequiredDocuments" xml:space="preserve">
+    <value>Missing required documents.</value>
+  </data>
   <data name="NoFormsSelected" xml:space="preserve">
     <value>No forms were selected.</value>
   </data>

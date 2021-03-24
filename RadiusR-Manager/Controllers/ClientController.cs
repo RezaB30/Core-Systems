@@ -172,43 +172,71 @@ namespace RadiusR_Manager.Controllers
                     // transfer
                     else
                     {
-                        StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new RegisterSubscriptionOptions()
+                        var results = StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new RegisterSubscriptionOptions()
                         {
                             AppUserID = User.GiveUserId(),
                             LogInterface = SystemLogInterface.MasterISS,
                             ScheduleSMSes = false
                         });
 
-                        UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
-                        return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                        if (results.IsFatal)
+                        {
+                            throw results.InternalException;
+                        }
+                        else if (results.IsSuccess)
+                        {
+                            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                        }
+                        else
+                        {
+                            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+                            TempData["ErrorResults"] = results;
+                            return RedirectToAction("StateChangeError", new { returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
+                        }
                     }
                 case CustomerState.Reserved:
                     return RedirectToAction("ReserveClientActions", new { redirectUrl = redirectUrl, id = id });
                 case CustomerState.Active:
-                    try
                     {
-                        StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new ActivateSubscriptionOptions()
+                        //try
+                        //{
+                        var results = StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new ActivateSubscriptionOptions()
                         {
                             AppUserID = User.GiveUserId(),
                             LogInterface = SystemLogInterface.MasterISS,
                             ForceUnfreeze = false
                         });
 
-                        UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
-                        return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
-                    }
-                    catch (TTWebServiceException ex)
-                    {
-                        // show tt error
-                        if (User.HasPermission("Force Unfreeze"))
+                        if (results.IsFatal)
                         {
-                            TempData["UnfreezeError"] = ex.GetShortMessage();
-                            return RedirectToAction("UnfreezeError", new { id = id, redirectUrl = redirectUrl });
+                            throw results.InternalException;
                         }
+                        else if (results.IsSuccess)
+                        {
+                            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                        }
+                        else
+                        {
+                            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+                            TempData["ErrorResults"] = results;
+                            return RedirectToAction("StateChangeError", new { returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
+                        }
+                        //}
+                        //catch (TTWebServiceException ex)
+                        //{
+                        //    // show tt error
+                        //    if (User.HasPermission("Force Unfreeze"))
+                        //    {
+                        //        TempData["UnfreezeError"] = ex.GetShortMessage();
+                        //        return RedirectToAction("UnfreezeError", new { id = id, redirectUrl = redirectUrl });
+                        //    }
 
-                        UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "33", uri);
-                        TempData["ErrorMessageDetails"] = ex.GetShortMessage();
-                        return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                        //    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "33", uri);
+                        //    TempData["ErrorMessageDetails"] = ex.GetShortMessage();
+                        //    return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                        //}
                     }
                 case CustomerState.Disabled:
                     return RedirectToAction("FreezeSubscription", new { redirectUrl = redirectUrl, id = id });
@@ -255,15 +283,29 @@ namespace RadiusR_Manager.Controllers
                 return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
             }
             // change state
-            StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new ReserveSubscriptionOptions()
+            var results = StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new ReserveSubscriptionOptions()
             {
                 AppUserID = User.GiveUserId(),
                 SetupServiceRequest = null,
                 LogInterface = SystemLogInterface.MasterISS
             });
 
-            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
-            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            if (results.IsFatal)
+            {
+                throw results.InternalException;
+            }
+            else if (results.IsSuccess)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+            else
+            {
+                UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+                TempData["ErrorResults"] = results;
+                return RedirectToAction("StateChangeError", new { returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
+            }
+            
         }
 
         //[AuthorizePermission(Permissions = "Modify Clients")]
@@ -433,7 +475,7 @@ namespace RadiusR_Manager.Controllers
             if (ModelState.IsValid)
             {
                 // change state
-                StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new ReserveSubscriptionOptions()
+                var results = StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new ReserveSubscriptionOptions()
                 {
                     AppUserID = User.GiveUserId(),
                     LogInterface = SystemLogInterface.MasterISS,
@@ -447,8 +489,21 @@ namespace RadiusR_Manager.Controllers
                     }
                 });
 
-                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
-                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                if (results.IsFatal)
+                {
+                    throw results.InternalException;
+                }
+                else if (results.IsSuccess)
+                {
+                    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                    return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                }
+                else
+                {
+                    UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+                    TempData["ErrorResults"] = results;
+                    return RedirectToAction("StateChangeError", new { returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
+                }
             }
 
             ViewBag.ClientID = id;

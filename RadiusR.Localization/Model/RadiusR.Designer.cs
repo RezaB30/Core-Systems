@@ -4318,6 +4318,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Transition Transaction ID.
+        /// </summary>
+        public static string TransitionTransactionID {
+            get {
+                return ResourceManager.GetString("TransitionTransactionID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transition XDSL No.
         /// </summary>
         public static string TransitionXDSLNo {

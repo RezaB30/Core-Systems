@@ -117,7 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FileManagerError" xml:space="preserve">
+    <value>Dosya Yöneticisi hatası</value>
+  </data>
+  <data name="InvalidAttachmentsForTransition" xml:space="preserve">
+    <value>Geçiş işlemi için, abonelik eklerin doğrulaması başarısız oldu.</value>
+  </data>
+  <data name="InvalidFreezeDuration" xml:space="preserve">
+    <value>Geçersiz dondurma süresi.</value>
+  </data>
+  <data name="InvalidTransferringSubscriptionDomain" xml:space="preserve">
+    <value>Devreden Aboneliğin domain'i eşleşmiyor.</value>
+  </data>
+  <data name="InvalidTransferringSubscriptionTelekomInfo" xml:space="preserve">
+    <value>Devreden aboneliğin geçerli Telekom bilgisi yok.</value>
+  </data>
+  <data name="InvalidTransitionXDSLNo" xml:space="preserve">
+    <value>Geçiş aboneliğinde XDSL no'su bulunamadı.</value>
+  </data>
   <data name="TransferCancellationReason" xml:space="preserve">
     <value>{0} abonelik numarasına devredildi.</value>
+  </data>
+  <data name="TransferingSubscriptionNotFound" xml:space="preserve">
+    <value>Devreden Aboneliği bulunamadı.</value>
+  </data>
+  <data name="TransitionFTPError" xml:space="preserve">
+    <value>İşlem yapıldı sadece Geçiş FTP Hatası oluştu. Geçiş dosyalarını tekrar yüklemeyi deneyin.</value>
+  </data>
+  <data name="TrasferringSubscriptionNotAktive" xml:space="preserve">
+    <value>Devreden Abonelik aktif değil.</value>
   </data>
 </root>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RadiusR.DB.TelekomOperations.Wrappers;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,36 +42,40 @@ namespace RadiusR.DB.TelekomOperations.Caching
                     using (RadiusREntities db = new RadiusREntities())
                     {
                         db.Configuration.AutoDetectChangesEnabled = false;
-                        var dbWorkOrders = db.TelekomWorkOrders.Where(two => two.IsOpen).OrderBy(two => two.CreationDate).Select(two => new {
-                            ID = two.ID,
-                            DomainId = two.Subscription.DomainID,
-                            TelekomCustomerCode = two.Subscription.SubscriptionTelekomInfo != null ? two.Subscription.SubscriptionTelekomInfo.TTCustomerCode : (long?)null,
-                            QueueNo = two.QueueNo,
-                            ManagementCode = two.ManagementCode,
-                            ProvinceCode = two.ProvinceCode
-                        }).ToArray();
+                        var dbWorkOrders = db.TelekomWorkOrders.Where(two => two.IsOpen).OrderBy(two => two.CreationDate)
+                            .PrepareForStatusCheck().ToArray();
+                        //    .Select(two => new {
+                        //    ID = two.ID,
+                        //    DomainId = two.Subscription.DomainID,
+                        //    TelekomCustomerCode = two.Subscription.SubscriptionTelekomInfo != null ? two.Subscription.SubscriptionTelekomInfo.TTCustomerCode : (long?)null,
+                        //    QueueNo = two.QueueNo,
+                        //    ManagementCode = two.ManagementCode,
+                        //    ProvinceCode = two.ProvinceCode
+                        //}).ToArray();
 
                         var resultsList = new ConcurrentBag<CachedTelekomWorkOrder>();
                         Parallel.ForEach(dbWorkOrders, (current) =>
                         {
-                            var currentDomain = DomainsCache.DomainsCache.GetDomainByID(current.DomainId);
-                            if (currentDomain == null || currentDomain.TelekomCredential == null)
-                            {
-                                resultsList.Add(new CachedTelekomWorkOrder(current.ID, (short)RezaB.TurkTelekom.WebServices.TTApplication.RegistrationState.Unknown));
-                            }
-                            else
-                            {
-                                var serviceClient = new RezaB.TurkTelekom.WebServices.TTApplication.TTApplicationServiceClient(currentDomain.TelekomCredential.XDSLWebServiceUsernameInt, currentDomain.TelekomCredential.XDSLWebServicePassword, current.TelekomCustomerCode ?? currentDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt);
-                                var response = serviceClient.TraceRegistration(current.ProvinceCode.Value, current.ManagementCode.Value, current.QueueNo.Value);
-                                if (response.InternalException != null)
-                                {
-                                    resultsList.Add(new CachedTelekomWorkOrder(current.ID, (short)RezaB.TurkTelekom.WebServices.TTApplication.RegistrationState.Unknown));
-                                }
-                                else
-                                {
-                                    resultsList.Add(new CachedTelekomWorkOrder(current.ID, (short)response.Data.State));
-                                }
-                            }
+                            //var currentDomain = DomainsCache.DomainsCache.GetDomainByID(current.DomainId);
+                            var statusClient = new TTWorkOrderClient();
+                            resultsList.Add(statusClient.GetWorkOrderState(current));
+                            //if (currentDomain == null || currentDomain.TelekomCredential == null)
+                            //{
+                            //    resultsList.Add(new CachedTelekomWorkOrder(current.ID, (short)RezaB.TurkTelekom.WebServices.TTApplication.RegistrationState.Unknown));
+                            //}
+                            //else
+                            //{
+                            //    var serviceClient = new RezaB.TurkTelekom.WebServices.TTApplication.TTApplicationServiceClient(currentDomain.TelekomCredential.XDSLWebServiceUsernameInt, currentDomain.TelekomCredential.XDSLWebServicePassword, current.TelekomCustomerCode ?? currentDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt);
+                            //    var response = serviceClient.TraceRegistration(current.ProvinceCode.Value, current.ManagementCode.Value, current.QueueNo.Value);
+                            //    if (response.InternalException != null)
+                            //    {
+                            //        resultsList.Add(new CachedTelekomWorkOrder(current.ID, (short)RezaB.TurkTelekom.WebServices.TTApplication.RegistrationState.Unknown));
+                            //    }
+                            //    else
+                            //    {
+                            //        resultsList.Add(new CachedTelekomWorkOrder(current.ID, (short)response.Data.State));
+                            //    }
+                            //}
                         });
                         var finalResults = resultsList.ToArray();
                         internalCache.Set("CachedList", finalResults, GetCachePolicy());

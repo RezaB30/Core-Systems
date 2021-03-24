@@ -138,6 +138,9 @@
   <data name="MaxDateRange60Days" xml:space="preserve">
     <value>Maksimum tarih aralığı 60 gündür.</value>
   </data>
+  <data name="MissingRequiredDocuments" xml:space="preserve">
+    <value>Gerekli belgeler eksik.</value>
+  </data>
   <data name="NoFormsSelected" xml:space="preserve">
     <value>Hiçbir form seçilmedi.</value>
   </data>

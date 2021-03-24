@@ -499,7 +499,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                             {
                                 SubscriptionNo = " ",
                                 PSTN = registrationInfo.TelekomDetailedInfo.PSTN,
-                                TTCustomerCode = string.IsNullOrWhiteSpace(registrationInfo.TelekomDetailedInfo.CustomerCode) ? long.Parse(registrationInfo.TelekomDetailedInfo.CustomerCode) : selectedDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt
+                                TTCustomerCode = !string.IsNullOrWhiteSpace(registrationInfo.TelekomDetailedInfo.CustomerCode) ? long.Parse(registrationInfo.TelekomDetailedInfo.CustomerCode) : selectedDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt
                             };
                         }
                     }

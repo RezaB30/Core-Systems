@@ -92,9 +92,8 @@
       <HintPath>..\packages\itext7.7.1.13\lib\net40\itext.svg.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RezaB.Data, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.Data.1.0.1\lib\net452\RezaB.Data.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="RezaB.Data, Version=1.0.2.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Data.1.0.2\lib\net452\RezaB.Data.dll</HintPath>
     </Reference>
     <Reference Include="RezaB.Files, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RezaB.Files.1.0.1\lib\net472\RezaB.Files.dll</HintPath>

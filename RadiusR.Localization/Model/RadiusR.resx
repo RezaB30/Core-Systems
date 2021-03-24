@@ -1614,4 +1614,7 @@
   <data name="ApprovingStaff" xml:space="preserve">
     <value>Approving Staff</value>
   </data>
+  <data name="TransitionTransactionID" xml:space="preserve">
+    <value>Transition Transaction ID</value>
+  </data>
 </root>

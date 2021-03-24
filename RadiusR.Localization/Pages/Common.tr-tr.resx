@@ -1218,4 +1218,10 @@
   <data name="SubscriptionHasNoEMail" xml:space="preserve">
     <value>Müşterinin kayıtlı e-postası yok.</value>
   </data>
+  <data name="CheckingDocuments" xml:space="preserve">
+    <value>Belgeler kontrol ediliyor...</value>
+  </data>
+  <data name="StateChangeError" xml:space="preserve">
+    <value>Durum Değişikliği Hatası</value>
+  </data>
 </root>

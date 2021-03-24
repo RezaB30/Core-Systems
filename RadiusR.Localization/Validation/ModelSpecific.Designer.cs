@@ -124,6 +124,15 @@ namespace RadiusR.Localization.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Missing required documents..
+        /// </summary>
+        public static string MissingRequiredDocuments {
+            get {
+                return ResourceManager.GetString("MissingRequiredDocuments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No forms were selected..
         /// </summary>
         public static string NoFormsSelected {
