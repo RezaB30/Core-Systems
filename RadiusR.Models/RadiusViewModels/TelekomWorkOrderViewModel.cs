@@ -166,5 +166,13 @@ namespace RadiusR_Manager.Models.RadiusViewModels
                 return OperationType != (short?)RadiusR.DB.Enums.TelekomOperations.TelekomOperationType.Transition || State != (short?)RezaB.TurkTelekom.WebServices.TTApplication.RegistrationState.InProgress;
             }
         }
+
+        public bool CanUploadFiles
+        {
+            get
+            {
+                return OperationType == (short?)RadiusR.DB.Enums.TelekomOperations.TelekomOperationType.Transition && State == (short?)RezaB.TurkTelekom.WebServices.TTApplication.RegistrationState.InProgress;
+            }
+        }
     }
 }

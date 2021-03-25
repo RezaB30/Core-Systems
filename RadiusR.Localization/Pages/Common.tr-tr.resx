@@ -1224,4 +1224,7 @@
   <data name="StateChangeError" xml:space="preserve">
     <value>Durum Değişikliği Hatası</value>
   </data>
+  <data name="ReuploadDocuments" xml:space="preserve">
+    <value>Belgeleri Yeniden Yükle</value>
+  </data>
 </root>

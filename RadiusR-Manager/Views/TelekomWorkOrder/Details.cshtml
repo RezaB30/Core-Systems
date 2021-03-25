@@ -166,6 +166,16 @@
                     @:&nbsp;
                     @Html.ActionLink(RadiusR.Localization.Pages.Common.Retry, "Retry", new { id = Model.ID, returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button reload-button" })
                 }
+                if (Model.CanUploadFiles)
+                {
+                    @:&nbsp;
+                    using (Html.BeginForm("ReuploadTransitionFiles", null, new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @style = "display: inline-block;", @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", Model.ID)
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.ReuploadDocuments" class="link-button iconed-button next-button" />
+                    }
+                }
             }
         </div>
     </div>

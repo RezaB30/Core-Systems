@@ -2644,6 +2644,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Re-Upload Documents.
+        /// </summary>
+        public static string ReuploadDocuments {
+            get {
+                return ResourceManager.GetString("ReuploadDocuments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Risky Clients.
         /// </summary>
         public static string RiskyClients {

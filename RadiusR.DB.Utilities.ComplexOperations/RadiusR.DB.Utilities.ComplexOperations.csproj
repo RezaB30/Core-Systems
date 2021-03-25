@@ -123,6 +123,7 @@
     <Compile Include="Subscriptions\StateChanges\StateChangeResult.cs" />
     <Compile Include="Subscriptions\StateChanges\StateChangeUtilities.cs" />
     <Compile Include="Subscriptions\StateChanges\TransitionAttachmentsControlResult.cs" />
+    <Compile Include="Subscriptions\StateChanges\TransitionDocumentUploadResult.cs" />
     <Compile Include="Subscriptions\TariffChanges\SubscriptionTariffUtilities.cs" />
     <Compile Include="Subscriptions\TariffChanges\TariffChangeOptions.cs" />
     <Compile Include="Subscriptions\TariffChanges\TariffChangeResult.cs" />

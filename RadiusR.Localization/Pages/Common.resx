@@ -1227,4 +1227,7 @@
   <data name="StateChangeError" xml:space="preserve">
     <value>State Change Error</value>
   </data>
+  <data name="ReuploadDocuments" xml:space="preserve">
+    <value>Re-Upload Documents</value>
+  </data>
 </root>
