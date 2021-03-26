@@ -124,6 +124,41 @@ namespace RadiusR_Manager.Controllers
         }
 
         [AuthorizePermission(Permissions = "Telekom Work Orders")]
+        [HttpGet]
+        // GET: TelekomWorkOrder/OutgoingIndex
+        public ActionResult OutgoingIndex(int? page)
+        {
+            var cachedResults = TelekomWorkOrderCache.GetOutgoingList();
+            var viewResults = cachedResults.OrderBy(cr => cr.CreationDate)
+                .Select(cr => new OutgoingTransitionViewModel()
+                {
+                    DomainID = cr.DomainID,
+                    DomainName = DomainsCache.GetDomainByID(cr.DomainID)?.Name ?? "-",
+                    CounterpartOperator = cr.CounterpartOperator,
+                    CreationDate = cr.CreationDate,
+                    TransactionID = cr.TransactionID,
+                    XDSLNo = cr.XDSLNo,
+                    IndividualInfo = cr.IndividualInfo != null ? new OutgoingTransitionViewModel.IndividualCustomerInfo()
+                    {
+                        FirstName = cr.IndividualInfo.FirstName,
+                        LastName = cr.IndividualInfo.LastName,
+                        TCKNo = cr.IndividualInfo.TCKNo
+                    } : null,
+                    CorporateInfo = cr.CorporateInfo != null ? new OutgoingTransitionViewModel.CorporateCustomerInfo()
+                    {
+                        CompanyTitle = cr.CorporateInfo.CompanyTitle,
+                        ExecutiveTCKNo = cr.CorporateInfo.TCKNo,
+                        TaxNo = cr.CorporateInfo.TaxNo
+
+                    } : null
+                }).AsQueryable();
+
+            SetupPages(page, ref viewResults);
+
+            return View(viewResults);
+        }
+
+        [AuthorizePermission(Permissions = "Telekom Work Orders")]
         // GET: TelekomWorkOrder/Details
         public ActionResult Details(long id, string returnUrl)
         {
@@ -168,9 +203,118 @@ namespace RadiusR_Manager.Controllers
                 var statusClient = new RadiusR.DB.TelekomOperations.Wrappers.TTWorkOrderClient();
                 var status = statusClient.GetWorkOrderState(new RadiusR.DB.TelekomOperations.Wrappers.QueryReadyWorkOrder(workOrder));
                 result.State = status.State;
+                result.CancellationReason = status.CancellationReason;
             }
 
             return View(result);
+        }
+
+        [AuthorizePermission(Permissions = "Telekom Work Orders")]
+        // GET: TelekomWorkOrder/OutgoingDetails
+        public ActionResult OutgoingDetails(long id, string returnUrl = null)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("OutgoingIndex"));
+            if (returnUrl != null)
+            {
+                uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+                UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+            }
+            ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
+
+            var currentTransition = TelekomWorkOrderCache.GetOutgoingList().FirstOrDefault(transition => transition.TransactionID == id);
+            if (currentTransition == null)
+            {
+                return RedirectToAction("OutgoingIndex", new { errorMessage = 9 });
+            }
+            var transitionViewModel = new OutgoingTransitionViewModel()
+            {
+                DomainID = currentTransition.DomainID,
+                DomainName = DomainsCache.GetDomainByID(currentTransition.DomainID)?.Name ?? "-",
+                CounterpartOperator = currentTransition.CounterpartOperator,
+                CreationDate = currentTransition.CreationDate,
+                TransactionID = currentTransition.TransactionID,
+                XDSLNo = currentTransition.XDSLNo,
+                IndividualInfo = currentTransition.IndividualInfo != null ? new OutgoingTransitionViewModel.IndividualCustomerInfo()
+                {
+                    FirstName = currentTransition.IndividualInfo.FirstName,
+                    LastName = currentTransition.IndividualInfo.LastName,
+                    TCKNo = currentTransition.IndividualInfo.TCKNo
+                } : null,
+                CorporateInfo = currentTransition.CorporateInfo != null ? new OutgoingTransitionViewModel.CorporateCustomerInfo()
+                {
+                    CompanyTitle = currentTransition.CorporateInfo.CompanyTitle,
+                    ExecutiveTCKNo = currentTransition.CorporateInfo.TCKNo,
+                    TaxNo = currentTransition.CorporateInfo.TaxNo
+
+                } : null
+            };
+
+            var foundSubscription = db.Subscriptions.Where(s => s.State == (short)RadiusR.DB.Enums.CustomerState.Active || s.State == (short)RadiusR.DB.Enums.CustomerState.Reserved).FirstOrDefault(s => s.SubscriptionTelekomInfo.SubscriptionNo == currentTransition.XDSLNo);
+            if (foundSubscription != null)
+            {
+                transitionViewModel.XDSLNoIsValid = true;
+                if (transitionViewModel.IndividualInfo != null)
+                {
+                    transitionViewModel.IndividualInfo.DBFirstName = foundSubscription.Customer.FirstName;
+                    transitionViewModel.IndividualInfo.DBLastName = foundSubscription.Customer.LastName;
+                    transitionViewModel.IndividualInfo.DBTCKNo = foundSubscription.Customer.CustomerIDCard?.TCKNo ?? string.Empty;
+                }
+                if (transitionViewModel.CorporateInfo != null)
+                {
+                    transitionViewModel.CorporateInfo.DBCompanyTitle = foundSubscription.Customer.CorporateCustomerInfo?.Title ?? string.Empty;
+                    transitionViewModel.CorporateInfo.DBExecutiveTCKNo = foundSubscription.Customer.CustomerIDCard?.TCKNo ?? string.Empty;
+                    transitionViewModel.CorporateInfo.DBTaxNo = foundSubscription.Customer.CorporateCustomerInfo?.TaxNo ?? string.Empty;
+                }
+            }
+
+            return View(transitionViewModel);
+        }
+
+        [AuthorizePermission(Permissions = "Telekom Work Orders")]
+        [AjaxCall]
+        // POST: TelekomWorkOrder/GetOutgoingDocuments
+        public ActionResult GetOutgoingDocuments(long id)
+        {
+            var currentTransition = TelekomWorkOrderCache.GetOutgoingList().FirstOrDefault(transition => transition.TransactionID == id);
+            if (currentTransition == null)
+            {
+                return Content($"<div class='text-danger centered'>{RadiusR.Localization.Validation.Common.InvalidInput}</div>");
+            }
+            var domain = DomainsCache.GetDomainByID(currentTransition.DomainID);
+            if (domain == null)
+            {
+                return Content($"<div class='text-danger centered'>{RadiusR.Localization.Pages.Common.DomainNotFound}</div>");
+            }
+
+            var transitionFTPClient = CreateTransitionFTPClient(domain);
+            var results = transitionFTPClient.GetOutgoingCustomerDocumentNames(currentTransition.XDSLNo, currentTransition.TransactionID);
+            if (results.InternalException != null)
+            {
+                return Content($"<div class='text-danger centered'>{results.ErrorMessage}</div>");
+            }
+
+            ViewBag.DomainID = domain.ID;
+            return View(results.Results);
+        }
+
+        [AuthorizePermission(Permissions = "Telekom Work Orders")]
+        // GET: TelekomWorkOrder/DownloadOutgoingDocument
+        public ActionResult DownloadOutgoingDocument(string fileName, string ownFolder, string counterpartFolder, int domainId)
+        {
+            var domain = DomainsCache.GetDomainByID(domainId);
+            var transitionFTPClient = CreateTransitionFTPClient(domain);
+            var result = transitionFTPClient.DownloadOutgoingCustomerDocument(new RezaB.TurkTelekom.FTPOperations.Inputs.OutgoingCustomerDocumentInfo()
+            {
+                FileName = fileName,
+                CounterpartFolderName = counterpartFolder,
+                OwnFolderName = ownFolder
+            });
+            if (result.InternalException != null)
+            {
+                return Content($"<div class='text-danger centered'>{result.ErrorMessage}</div>");
+            }
+
+            return File(result.Results, fileName.Contains('.') ? RadiusR.FileManagement.MIMEUtility.GetMIMETypeFromFileExtention(fileName.Substring(fileName.LastIndexOf('.') + 1)) : "Application/Unknown");
         }
 
         [AuthorizePermission(Permissions = "Telekom Work Order Edits")]
@@ -237,7 +381,7 @@ namespace RadiusR_Manager.Controllers
                     else if (status.State == (short)RegistrationState.Cancelled)
                     {
                         var serviceClient = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionApplicationClient(currentDomain.TelekomCredential.XDSLWebServiceUsernameInt, currentDomain.TelekomCredential.XDSLWebServicePassword, workOrder.Subscription.SubscriptionTelekomInfo?.TTCustomerCode ?? currentDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt);
-                        var results = serviceClient.RejectIncomingTransition( new RezaB.TurkTelekom.WebServices.TTChurnApplication.RejectIncomingTransitionRequest()
+                        var results = serviceClient.RejectIncomingTransition(new RezaB.TurkTelekom.WebServices.TTChurnApplication.RejectIncomingTransitionRequest()
                         {
                             TransactionID = workOrder.TransactionID.Value,
                             XDSLNo = workOrder.Subscription.SubscriptionTelekomInfo?.SubscriptionNo
@@ -248,7 +392,7 @@ namespace RadiusR_Manager.Controllers
                             return Redirect(Uri.Uri.PathAndQuery + Uri.Fragment);
                         }
                     }
-                    else if(status.State == (short)RegistrationState.InProgress)
+                    else if (status.State == (short)RegistrationState.InProgress)
                     {
                         UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", Uri);
                         return Redirect(Uri.Uri.PathAndQuery + Uri.Fragment);
@@ -550,6 +694,27 @@ namespace RadiusR_Manager.Controllers
             public long WorkOrderID { get; set; }
 
             public short? State { get; set; }
+        }
+
+        private RezaB.TurkTelekom.FTPOperations.TransitionFTPClient CreateTransitionFTPClient(CachedDomain domain)
+        {
+            return new RezaB.TurkTelekom.FTPOperations.TransitionFTPClient(new RezaB.TurkTelekom.FTPOperations.TelekomServiceCredentials()
+            {
+                Username = domain.TelekomCredential.XDSLWebServiceUsernameInt,
+                Password = domain.TelekomCredential.XDSLWebServicePassword,
+                CustomerCode = domain.TelekomCredential.XDSLWebServiceCustomerCodeInt
+            },
+            new RezaB.TurkTelekom.FTPOperations.FTPCredentials()
+            {
+                Username = domain.TelekomCredential.TransitionFTPUsername,
+                Password = domain.TelekomCredential.TransitionFTPPassword,
+                FolderNames = domain.TelekomCredential.TransitionFolderName
+            },
+            TransitionOperatorsCache.GetAllOperators().Select(op => new RezaB.TurkTelekom.FTPOperations.TelekomOperator()
+            {
+                Username = op.Username,
+                FolderNames = op.RemoteFolders
+            }));
         }
     }
 }

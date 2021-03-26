@@ -38,6 +38,7 @@ namespace RadiusR.DB.TelekomOperations.Wrappers
                 else
                 {
                     RezaB.TurkTelekom.WebServices.TTApplication.RegistrationState status = RezaB.TurkTelekom.WebServices.TTApplication.RegistrationState.Unknown;
+                    string cancellationReason = null;
                     switch (response.Data.Stage)
                     {
                         case RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionStages.WaitingForApproval:
@@ -49,9 +50,10 @@ namespace RadiusR.DB.TelekomOperations.Wrappers
                         case RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionStages.CancelledBySender:
                         case RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionStages.CancelledByReceiver:
                             status = RezaB.TurkTelekom.WebServices.TTApplication.RegistrationState.Cancelled;
+                            cancellationReason = $"{response.Data.CancellationCauseName}: {response.Data.CancellationDescription}";
                             break;
                     }
-                    return new Caching.CachedTelekomWorkOrder(qrWorkOrder.ID, (short)status);
+                    return new Caching.CachedTelekomWorkOrder(qrWorkOrder.ID, (short)status, cancellationReason);
                 }
             }
             // registration trace

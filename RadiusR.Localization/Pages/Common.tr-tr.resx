@@ -1227,4 +1227,22 @@
   <data name="ReuploadDocuments" xml:space="preserve">
     <value>Belgeleri Yeniden Yükle</value>
   </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Onayla</value>
+  </data>
+  <data name="AvailableData" xml:space="preserve">
+    <value>Mevcut Veri</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Saat</value>
+  </data>
+  <data name="IncomingData" xml:space="preserve">
+    <value>Gelen Veri</value>
+  </data>
+  <data name="OutgoingTransitions" xml:space="preserve">
+    <value>Geçiş İle Gitmek İsteyenler</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Reddet</value>
+  </data>
 </root>

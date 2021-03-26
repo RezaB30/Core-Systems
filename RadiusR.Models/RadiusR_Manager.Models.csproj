@@ -189,6 +189,7 @@
     <Compile Include="ViewModels\Customer\TransferHistoryViewModel.cs" />
     <Compile Include="ViewModels\EmailSettingsViewModel.cs" />
     <Compile Include="ViewModels\FileManagerSettingsViewModel.cs" />
+    <Compile Include="ViewModels\OutgoingTransitionViewModel.cs" />
     <Compile Include="ViewModels\PartnerAllowanceDetailsViewModel.cs" />
     <Compile Include="ViewModels\PartnerCollectionDetailsViewModel.cs" />
     <Compile Include="ViewModels\PDFTemplates\Coordinates.cs" />

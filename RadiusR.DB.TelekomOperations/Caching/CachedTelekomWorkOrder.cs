@@ -12,10 +12,13 @@ namespace RadiusR.DB.TelekomOperations.Caching
 
         public short State { get; private set; }
 
-        public CachedTelekomWorkOrder(long id, short state)
+        public string CancellationReason { get; private set; }
+
+        public CachedTelekomWorkOrder(long id, short state, string cancellationReason = null)
         {
             ID = id;
             State = state;
+            CancellationReason = cancellationReason;
         }
     }
 }

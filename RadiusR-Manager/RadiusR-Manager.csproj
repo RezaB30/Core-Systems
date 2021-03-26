@@ -162,6 +162,9 @@
       <HintPath>..\packages\RezaB.Networking.1.0.1\lib\net452\RezaB.Networking.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RezaB.TurkTelekom.FTPOperations, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.TurkTelekom.FTPOperations.1.1.1\lib\net472\RezaB.TurkTelekom.FTPOperations.dll</HintPath>
+    </Reference>
     <Reference Include="RezaB.TurkTelekom.WebServices, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RezaB.TurkTelekom.WebServices.1.2.0\lib\net452\RezaB.TurkTelekom.WebServices.dll</HintPath>
     </Reference>
@@ -983,6 +986,10 @@
     <Content Include="Views\PDFTemplates\_PDFEditContextMenuItem.cshtml" />
     <Content Include="Views\Client\StateChanges\StateChangeError.cshtml" />
     <Content Include="Views\Client\StateChanges\TransitionDocumentValidation.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Hours.cshtml" />
+    <Content Include="Views\TelekomWorkOrder\OutgoingIndex.cshtml" />
+    <Content Include="Views\TelekomWorkOrder\OutgoingDetails.cshtml" />
+    <Content Include="Views\TelekomWorkOrder\GetOutgoingDocuments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

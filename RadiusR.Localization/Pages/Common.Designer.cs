@@ -322,6 +322,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Approve.
+        /// </summary>
+        public static string Approve {
+            get {
+                return ResourceManager.GetString("Approve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assign To Member.
         /// </summary>
         public static string AssignToMember {
@@ -390,6 +399,15 @@ namespace RadiusR.Localization.Pages {
         public static string AutomaticPaymentReport {
             get {
                 return ResourceManager.GetString("AutomaticPaymentReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Available Data.
+        /// </summary>
+        public static string AvailableData {
+            get {
+                return ResourceManager.GetString("AvailableData", resourceCulture);
             }
         }
         
@@ -1672,6 +1690,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hours.
+        /// </summary>
+        public static string Hours {
+            get {
+                return ResourceManager.GetString("Hours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Identity Documents.
         /// </summary>
         public static string IdentityDocuments {
@@ -1686,6 +1713,15 @@ namespace RadiusR.Localization.Pages {
         public static string IncomingCallMessage {
             get {
                 return ResourceManager.GetString("IncomingCallMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incoming Data.
+        /// </summary>
+        public static string IncomingData {
+            get {
+                return ResourceManager.GetString("IncomingData", resourceCulture);
             }
         }
         
@@ -2230,6 +2266,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Outgoing Transitions.
+        /// </summary>
+        public static string OutgoingTransitions {
+            get {
+                return ResourceManager.GetString("OutgoingTransitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Overview.
         /// </summary>
         public static string Overview {
@@ -2577,6 +2622,15 @@ namespace RadiusR.Localization.Pages {
         public static string RegistrationState {
             get {
                 return ResourceManager.GetString("RegistrationState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reject.
+        /// </summary>
+        public static string Reject {
+            get {
+                return ResourceManager.GetString("Reject", resourceCulture);
             }
         }
         

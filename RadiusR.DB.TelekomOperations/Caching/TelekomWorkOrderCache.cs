@@ -44,38 +44,12 @@ namespace RadiusR.DB.TelekomOperations.Caching
                         db.Configuration.AutoDetectChangesEnabled = false;
                         var dbWorkOrders = db.TelekomWorkOrders.Where(two => two.IsOpen).OrderBy(two => two.CreationDate)
                             .PrepareForStatusCheck().ToArray();
-                        //    .Select(two => new {
-                        //    ID = two.ID,
-                        //    DomainId = two.Subscription.DomainID,
-                        //    TelekomCustomerCode = two.Subscription.SubscriptionTelekomInfo != null ? two.Subscription.SubscriptionTelekomInfo.TTCustomerCode : (long?)null,
-                        //    QueueNo = two.QueueNo,
-                        //    ManagementCode = two.ManagementCode,
-                        //    ProvinceCode = two.ProvinceCode
-                        //}).ToArray();
 
                         var resultsList = new ConcurrentBag<CachedTelekomWorkOrder>();
                         Parallel.ForEach(dbWorkOrders, (current) =>
                         {
-                            //var currentDomain = DomainsCache.DomainsCache.GetDomainByID(current.DomainId);
                             var statusClient = new TTWorkOrderClient();
                             resultsList.Add(statusClient.GetWorkOrderState(current));
-                            //if (currentDomain == null || currentDomain.TelekomCredential == null)
-                            //{
-                            //    resultsList.Add(new CachedTelekomWorkOrder(current.ID, (short)RezaB.TurkTelekom.WebServices.TTApplication.RegistrationState.Unknown));
-                            //}
-                            //else
-                            //{
-                            //    var serviceClient = new RezaB.TurkTelekom.WebServices.TTApplication.TTApplicationServiceClient(currentDomain.TelekomCredential.XDSLWebServiceUsernameInt, currentDomain.TelekomCredential.XDSLWebServicePassword, current.TelekomCustomerCode ?? currentDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt);
-                            //    var response = serviceClient.TraceRegistration(current.ProvinceCode.Value, current.ManagementCode.Value, current.QueueNo.Value);
-                            //    if (response.InternalException != null)
-                            //    {
-                            //        resultsList.Add(new CachedTelekomWorkOrder(current.ID, (short)RezaB.TurkTelekom.WebServices.TTApplication.RegistrationState.Unknown));
-                            //    }
-                            //    else
-                            //    {
-                            //        resultsList.Add(new CachedTelekomWorkOrder(current.ID, (short)response.Data.State));
-                            //    }
-                            //}
                         });
                         var finalResults = resultsList.ToArray();
                         internalCache.Set("CachedList", finalResults, GetCachePolicy());
@@ -90,6 +64,66 @@ namespace RadiusR.DB.TelekomOperations.Caching
             }
 
             return Enumerable.Empty<CachedTelekomWorkOrder>();
+        }
+
+        public static IEnumerable<CachedOutgoingTransition> GetOutgoingList()
+        {
+            var cachedList = internalCache.Get("CachedOutgoingList") as IEnumerable<CachedOutgoingTransition>;
+            if (cachedList != null)
+                return cachedList;
+
+            if (Monitor.TryEnter(_cacheLock, TimeSpan.FromSeconds(200)))
+            {
+                try
+                {
+                    cachedList = internalCache.Get("CachedOutgoingList") as IEnumerable<CachedOutgoingTransition>;
+                    if (cachedList != null)
+                        return cachedList;
+                    var resultList = new ConcurrentBag<CachedOutgoingTransition>();
+                    var cachedOperators = DomainsCache.TransitionOperatorsCache.GetAllOperators();
+                    foreach (var telekomValidDomain in DomainsCache.DomainsCache.GetTelekomDomains())
+                    {
+                        var transitionServiceClient = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionApplicationClient(telekomValidDomain.TelekomCredential.XDSLWebServiceUsernameInt, telekomValidDomain.TelekomCredential.XDSLWebServicePassword, telekomValidDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt);
+                        var serviceResults = transitionServiceClient.GetIncomingTransitions();
+                        if (serviceResults.InternalException != null)
+                        {
+                            continue;
+                        }
+                        Parallel.ForEach(serviceResults.Data, (current) =>
+                        {
+                            var statusClient = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionApplicationClient(telekomValidDomain.TelekomCredential.XDSLWebServiceUsernameInt, telekomValidDomain.TelekomCredential.XDSLWebServicePassword, telekomValidDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt);
+                            var statusResult = statusClient.GetTransitionStatus(new RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionStatusRequest()
+                            {
+                                TransactionID = current.TransactionID,
+                                XDSLNo = current.ConnectionInfo.XDSLNo
+                            });
+
+                            var operatorName = current.ReceiverOperator?.ReceiverISPCode;
+                            if (statusResult.InternalException == null)
+                            {
+                                operatorName = cachedOperators.FirstOrDefault(op => op.Username == statusResult.Data.ReceiverOperatorName)?.DisplayName ?? statusResult.Data.ReceiverOperatorName;
+                            }
+
+                            resultList.Add(new CachedOutgoingTransition(telekomValidDomain.ID, current.CreationDate, current.TransactionID, current.ConnectionInfo?.XDSLNo, operatorName, current.IndividualCustomer != null ? new CachedOutgoingTransition.IndividualCustomerInfo(current.IndividualCustomer.FirstName, current.IndividualCustomer.LastName, current.IndividualCustomer.TCKNo) : null, current.CorporateCustomer != null ? new CachedOutgoingTransition.CorporateCustomerInfo(current.CorporateCustomer.CompanyTitle, current.CorporateCustomer.ExecutiveTCKNo, current.CorporateCustomer.TaxNo) : null));
+                        });
+                    }
+                    var finalResults = resultList.ToArray();
+                    internalCache.Set("CachedOutgoingList", finalResults, GetCachePolicy());
+
+                    return finalResults;
+                }
+                finally
+                {
+                    Monitor.Exit(_cacheLock);
+                }
+            }
+
+            return Enumerable.Empty<CachedOutgoingTransition>();
+        }
+
+        public static void ClearOutgoingListCache()
+        {
+            internalCache.Remove("CachedOutgoingList");
         }
     }
 }

@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caching\CachedOutgoingTransition.cs" />
     <Compile Include="Caching\CachedTelekomWorkOrder.cs" />
     <Compile Include="Caching\TelekomWorkOrderCache.cs" />
     <Compile Include="OperationParameter.cs" />

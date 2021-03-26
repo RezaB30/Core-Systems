@@ -325,7 +325,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                         // close telekom work order
                         {
                             var currentDomain = DomainsCache.DomainsCache.GetDomainByID(billingreadySubscription.Subscription.DomainID);
-                            var openWorkOrders = billingreadySubscription.Subscription.TelekomWorkOrders.Where(two => two.IsOpen && two.OperationTypeID == (short)RadiusR.DB.Enums.TelekomOperations.TelekomOperationType.Registration).ToArray();
+                            var openWorkOrders = billingreadySubscription.Subscription.TelekomWorkOrders.Where(two => two.IsOpen && (two.OperationTypeID == (short)RadiusR.DB.Enums.TelekomOperations.TelekomOperationType.Transition || two.OperationTypeID == (short)RadiusR.DB.Enums.TelekomOperations.TelekomOperationType.Transition)).ToArray();
                             foreach (var workOrder in openWorkOrders)
                             {
                                 workOrder.IsOpen = false;

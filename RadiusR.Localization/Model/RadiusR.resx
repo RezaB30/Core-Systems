@@ -1617,4 +1617,10 @@
   <data name="TransitionTransactionID" xml:space="preserve">
     <value>Transition Transaction ID</value>
   </data>
+  <data name="ElapsedTime" xml:space="preserve">
+    <value>Elapsed Time</value>
+  </data>
+  <data name="CounterpartOperator" xml:space="preserve">
+    <value>Counterpart Operator</value>
+  </data>
 </root>

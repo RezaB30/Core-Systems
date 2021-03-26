@@ -1,0 +1,11 @@
+﻿@model IEnumerable<RezaB.TurkTelekom.FTPOperations.Inputs.OutgoingCustomerDocumentInfo>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div>
+            @Html.ActionLink(item.FileName, "DownloadOutgoingDocument", new { fileName = item.FileName, ownFolder = item.OwnFolderName, counterpartFolder = item.CounterpartFolderName, domainId = ViewBag.DomainID }, new { @class = "details-link", @target = "_blank" })
+        </div>
+    }
+}

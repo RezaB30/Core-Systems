@@ -1,0 +1,54 @@
+﻿@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.OutgoingTransitionViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.OutgoingTransitions;
+}
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CreationDate)
+            (@Html.DisplayNameFor(model => model.ElapsedTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransactionID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.XDSLNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CounterpartOperator)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+                <span class="rate-suffix">(@Html.DisplayFor(modelItem => item.ElapsedTime))</span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td class="centered">
+                @Html.ActionLink(Html.DisplayTextFor(modelItem => item.XDSLNo).ToHtmlString(), "Index", "Client", new { TelekomSubscriberNo = item.XDSLNo }, new { @class = "details-link" })
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.CounterpartOperator)
+            </td>
+            <td>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "OutgoingDetails", new { id = item.TransactionID, returnUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button details-button" })
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList()

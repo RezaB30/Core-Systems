@@ -95,6 +95,7 @@
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.CreationDate)
+            (@Html.DisplayNameFor(model => model.ElapsedTime))
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Username)
@@ -130,6 +131,7 @@
         <tr>
             <td class="centered">
                 @Html.DisplayFor(modelItem => item.CreationDate)
+                <span class="rate-suffix">(@Html.DisplayFor(modelItem => item.ElapsedTime))</span>
             </td>
             <td>
                 @Html.ActionLink(Html.DisplayTextFor(modelItem => item.Username).ToString(), "Details", "Client", new { id = item.SubscriberID }, new { @class = "details-link" })

@@ -1617,4 +1617,10 @@
   <data name="TransitionTransactionID" xml:space="preserve">
     <value>Geçiş İşlem Kodu</value>
   </data>
+  <data name="CounterpartOperator" xml:space="preserve">
+    <value>Karşılık İşletmeci</value>
+  </data>
+  <data name="ElapsedTime" xml:space="preserve">
+    <value>Geçen Zaman</value>
+  </data>
 </root>

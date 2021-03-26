@@ -91,6 +91,19 @@ namespace RadiusR_Manager.Models.RadiusViewModels
         [UIHint("TelekomWorkOrderState")]
         public short? State { get; set; }
 
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "CancellationReason")]
+        public string CancellationReason { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "ElapsedTime")]
+        [UIHint("Hours")]
+        public TimeSpan ElapsedTime
+        {
+            get
+            {
+                return DateTime.Now - CreationDate;
+            }
+        }
+
         public long? _queueNo
         {
             get

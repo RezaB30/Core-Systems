@@ -105,10 +105,20 @@
             }
             <tr>
                 <td>
-                    @Html.LabelFor(model => model.CreationDate)
+                    <div>
+                        @Html.LabelFor(model => model.CreationDate)
+                    </div>
+                    <div>
+                        (@Html.LabelFor(model => model.ElapsedTime))
+                    </div>
                 </td>
                 <td>
-                    @Html.DisplayFor(model => model.CreationDate)
+                    <div>
+                        @Html.DisplayFor(model => model.CreationDate)
+                    </div>
+                    <div>
+                        (@Html.DisplayFor(model => model.ElapsedTime))
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -143,6 +153,17 @@
                     @Html.DisplayFor(model => model.State)
                 </td>
             </tr>
+            @if (!string.IsNullOrWhiteSpace(Model.CancellationReason))
+            {
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.CancellationReason)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CancellationReason)
+                    </td>
+                </tr>
+            }
         </table>
         <div>
             @Html.Partial("_WaitTimer")

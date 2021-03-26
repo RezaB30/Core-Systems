@@ -889,6 +889,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Counterpart Operator.
+        /// </summary>
+        public static string CounterpartOperator {
+            get {
+                return ResourceManager.GetString("CounterpartOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Country Code.
         /// </summary>
         public static string CountryCode {
@@ -1308,6 +1317,15 @@ namespace RadiusR.Localization.Model {
         public static string EBillType {
             get {
                 return ResourceManager.GetString("EBillType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Elapsed Time.
+        /// </summary>
+        public static string ElapsedTime {
+            get {
+                return ResourceManager.GetString("ElapsedTime", resourceCulture);
             }
         }
         
