@@ -649,7 +649,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                                 var response = client.CancelCustomer(billingReadySubscription.Subscription.SubscriptionTelekomInfo.SubscriptionNo);
                                 if (response.InternalException != null && !cancelOptions.ForceCancellation)
                                 {
-                                    return new StateChangeResult(response.InternalException);
+                                    return new StateChangeResult(response.InternalException.GetShortMessage(), response.InternalException);
                                     //throw response.InternalException;
                                 }
                             }
