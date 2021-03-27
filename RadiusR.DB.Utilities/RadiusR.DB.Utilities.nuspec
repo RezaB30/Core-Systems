@@ -2,19 +2,19 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <title>RadiusR.DB.Utilities</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <description>MasterISS data base utilities.</description>
-    <releaseNotes>Partner update.</releaseNotes>
+    <releaseNotes>Framework update.</releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>MasterISS Database Utilities</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />
 	<dependencies>
-		<dependency id="RadiusR.DB" version="1.2.0"/>
-		<dependency id="RadiusR.Scheduler.SMS" version="1.0.0"/>
+		<dependency id="RadiusR.DB" version="1.2.4"/>
+		<dependency id="RadiusR.Scheduler.SMS" version="1.0.1"/>
 	</dependencies>
   </metadata>
 </package>

@@ -147,6 +147,9 @@
   <data name="Transfer" xml:space="preserve">
     <value>Transfer</value>
   </data>
+  <data name="Transition" xml:space="preserve">
+    <value>Transition</value>
+  </data>
   <data name="WrongOwner" xml:space="preserve">
     <value>Wrong Owner</value>
   </data>

@@ -71,7 +71,10 @@ namespace RadiusR.DB.DomainsCache
                                 OLOPortalUsername = d.TelekomAccessCredential.OLOPortalUsername,
                                 XDSLWebServiceCustomerCode = d.TelekomAccessCredential.XDSLWebServiceCustomerCode,
                                 XDSLWebServicePassword = d.TelekomAccessCredential.XDSLWebServicePassword,
-                                XDSLWebServiceUsername = d.TelekomAccessCredential.XDSLWebServiceUsername
+                                XDSLWebServiceUsername = d.TelekomAccessCredential.XDSLWebServiceUsername,
+                                TransitionFTPUsername = d.TelekomAccessCredential.TransitionFTPUsername,
+                                TransitionFTPPassword = d.TelekomAccessCredential.TransitionFTPPassword,
+                                TransitionOperatorID = d.TelekomAccessCredential.TransitionOperatorID
                             } : null
                         }).ToArray().AsEnumerable(), DateTimeOffset.Now.AddMinutes(15));
                     }

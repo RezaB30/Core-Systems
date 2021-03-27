@@ -1218,4 +1218,37 @@
   <data name="SubscriptionHasNoEMail" xml:space="preserve">
     <value>Müşterinin kayıtlı e-postası yok.</value>
   </data>
+  <data name="CheckingDocuments" xml:space="preserve">
+    <value>Belgeler kontrol ediliyor...</value>
+  </data>
+  <data name="StateChangeError" xml:space="preserve">
+    <value>Durum Değişikliği Hatası</value>
+  </data>
+  <data name="ReuploadDocuments" xml:space="preserve">
+    <value>Belgeleri Yeniden Yükle</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Onayla</value>
+  </data>
+  <data name="AvailableData" xml:space="preserve">
+    <value>Mevcut Veri</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Saat</value>
+  </data>
+  <data name="IncomingData" xml:space="preserve">
+    <value>Gelen Veri</value>
+  </data>
+  <data name="OutgoingTransitions" xml:space="preserve">
+    <value>Geçiş İle Gitmek İsteyenler</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Reddet</value>
+  </data>
+  <data name="RejectOutgoingTransition" xml:space="preserve">
+    <value>Geçiş Telebini Reddet</value>
+  </data>
+  <data name="TransitionToAnotherOperator" xml:space="preserve">
+    <value>Başka bir işletmeciye geçti: {0}.</value>
+  </data>
 </root>

@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivityCertificate" xml:space="preserve">
+    <value>Activity Certificate</value>
+  </data>
+  <data name="AuthorizedSignitures" xml:space="preserve">
+    <value>Authorized Signitures</value>
+  </data>
   <data name="Cancellation" xml:space="preserve">
     <value>Cancellation Form</value>
   </data>
@@ -125,6 +131,9 @@
   </data>
   <data name="Contract" xml:space="preserve">
     <value>Subscription Contract</value>
+  </data>
+  <data name="Docket" xml:space="preserve">
+    <value>Docket</value>
   </data>
   <data name="IDCard" xml:space="preserve">
     <value>ID Card</value>
@@ -138,10 +147,19 @@
   <data name="Setup" xml:space="preserve">
     <value>Setup Form</value>
   </data>
+  <data name="TaxPermit" xml:space="preserve">
+    <value>Tax Permit</value>
+  </data>
+  <data name="TradeRegistryPaper" xml:space="preserve">
+    <value>Trade Registry Paper</value>
+  </data>
   <data name="Transfer" xml:space="preserve">
     <value>Transfer Form</value>
   </data>
   <data name="Transport" xml:space="preserve">
     <value>Transport Form</value>
+  </data>
+  <data name="WarrantOfAttorney" xml:space="preserve">
+    <value>Warrant of Attorney</value>
   </data>
 </root>

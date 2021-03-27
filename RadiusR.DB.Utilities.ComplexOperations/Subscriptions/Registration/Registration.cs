@@ -499,7 +499,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                             {
                                 SubscriptionNo = " ",
                                 PSTN = registrationInfo.TelekomDetailedInfo.PSTN,
-                                TTCustomerCode = string.IsNullOrWhiteSpace(registrationInfo.TelekomDetailedInfo.CustomerCode) ? long.Parse(registrationInfo.TelekomDetailedInfo.CustomerCode) : selectedDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt
+                                TTCustomerCode = !string.IsNullOrWhiteSpace(registrationInfo.TelekomDetailedInfo.CustomerCode) ? long.Parse(registrationInfo.TelekomDetailedInfo.CustomerCode) : selectedDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt
                             };
                         }
                     }
@@ -525,12 +525,12 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                             };
                         }
                         // transition
-                        else if (registrationInfo.RegistrationType == Enums.SubscriptionRegistrationType.Transition)
+                        else if (registrationInfo.RegistrationType == Enums.SubscriptionRegistrationType.Transition && !string.IsNullOrEmpty(registrationInfo.TransitionXDSLNo))
                         {
                             // check with telekom if transition is valid
                             {
-                                var serviceClient = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TTChurnApplicationClient(selectedDomain.TelekomCredential.XDSLWebServiceUsernameInt, selectedDomain.TelekomCredential.XDSLWebServicePassword);
-                                var response = serviceClient.ChurnAvailability(registrationInfo.TransitionXDSLNo);
+                                var serviceClient = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionApplicationClient(selectedDomain.TelekomCredential.XDSLWebServiceUsernameInt, selectedDomain.TelekomCredential.XDSLWebServicePassword, selectedDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt);
+                                var response = serviceClient.ValidateTransition(registrationInfo.TransitionXDSLNo);
                                 if (response.InternalException != null)
                                 {
                                     // error checking churn availability
@@ -558,7 +558,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                             // get transition operator if possible
                             if (!string.IsNullOrWhiteSpace(registrationInfo.TransitionXDSLNo))
                             {
-                                var serviceClient = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TTChurnApplicationClient(selectedDomain.TelekomCredential.XDSLWebServiceUsernameInt, selectedDomain.TelekomCredential.XDSLWebServicePassword);
+                                var serviceClient = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionApplicationClient(selectedDomain.TelekomCredential.XDSLWebServiceUsernameInt, selectedDomain.TelekomCredential.XDSLWebServicePassword, selectedDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt);
                                 var response = serviceClient.GetOperatorByXDSLNo(registrationInfo.TransitionXDSLNo);
                                 if (response.InternalException != null)
                                 {

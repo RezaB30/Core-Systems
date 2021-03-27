@@ -117,7 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FileManagerError" xml:space="preserve">
+    <value>File Manager error</value>
+  </data>
+  <data name="InvalidAttachmentsForTransition" xml:space="preserve">
+    <value>Subscription attachments validation for transition operation failed.</value>
+  </data>
+  <data name="InvalidFreezeDuration" xml:space="preserve">
+    <value>Invalid freeze duration.</value>
+  </data>
+  <data name="InvalidTransferringSubscriptionDomain" xml:space="preserve">
+    <value>Transferring subscription domain does not match.</value>
+  </data>
+  <data name="InvalidTransferringSubscriptionTelekomInfo" xml:space="preserve">
+    <value>Transferring subscription has no valid Telekom info.</value>
+  </data>
+  <data name="InvalidTransitionXDSLNo" xml:space="preserve">
+    <value>Transition subscription does not have XDSL no.</value>
+  </data>
   <data name="TransferCancellationReason" xml:space="preserve">
     <value>Transferred to {0} subscription no.</value>
+  </data>
+  <data name="TransferingSubscriptionNotFound" xml:space="preserve">
+    <value>Transferring subscription not found.</value>
+  </data>
+  <data name="TransitionFTPError" xml:space="preserve">
+    <value>Operation was successful but transition FTP error occured. Try to upload transition files again.</value>
+  </data>
+  <data name="TrasferringSubscriptionNotAktive" xml:space="preserve">
+    <value>Transferring subscription is not active.</value>
   </data>
 </root>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RadiusR.FileManagement
 {
-    static class MIMEUtility
+    public static class MIMEUtility
     {
         private static Dictionary<string, string> FileExtentionMIMETypeMap = new Dictionary<string, string>()
         {

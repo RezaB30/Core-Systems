@@ -1,0 +1,67 @@
+﻿@model RadiusR_Manager.Models.ViewModels.OutgoingTransitionRejectViewModel
+
+@{
+    ViewBag.Title = $"{RadiusR.Localization.Pages.Common.RejectOutgoingTransition}-{ViewContext.RouteData.Values["id"]}";
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.RejectionReason)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.RejectionReason)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.RejectionReason)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.RejectionDescription)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.RejectionDescription, new { htmlAttributes = new { @maxlength = 300, @autocomplete = "off" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.RejectionDescription)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-danger">
+                        @ViewBag.ErrorMessage
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.Partial("_WaitTimer")
+                    </td>
+                </tr>
+                <tr id="submit-row">
+                    <td colspan="2" class="centered">
+                        <a href="@ViewBag.BackUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+@section PageScripts{
+    <script>
+        $('#submit-row').closest('form').submit(function () {
+            $('#submit-row').hide();
+            StartWaitingCounter('div.waiting-progress');
+        });
+    </script>
+}

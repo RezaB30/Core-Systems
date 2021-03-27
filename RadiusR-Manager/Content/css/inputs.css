@@ -77,6 +77,7 @@ input, select, a.link-button, textarea {
         line-height: 1.3em;
         box-sizing: content-box;
         white-space: nowrap;
+        color: black;
     }
 
         input[type=button]:hover, input[type=submit]:hover, a.link-button:hover {

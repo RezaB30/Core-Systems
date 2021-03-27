@@ -12,9 +12,6 @@ namespace RadiusR.FileManagement
     {
         private string GetClientAttachmentsPath(long subscriberId)
         {
-            //var upperStage = subscriberId / 1000;
-            //var upperPath = $"{((upperStage * 1000) + 1):0000000}-{((upperStage + 1) * 1000):0000000}";
-            //var lowerPath = $"{subscriberId:#0000}";
             var resultPathParts = PathRepository.ClientAttachments.Concat(GetIdPathPartition(subscriberId));
             var resulPath = string.Join(InternalFileManager.PathSeparator, resultPathParts);
 

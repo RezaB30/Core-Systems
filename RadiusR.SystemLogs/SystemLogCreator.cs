@@ -514,14 +514,24 @@ namespace RadiusR.SystemLogs
                 InterfaceUsername = interfaceUsername,
                 AppUserID = userID,
                 SubscriptionID = subscriptionID,
-                Parameters = HttpUtility.HtmlEncode(string.Join(ParameterSeparator, new[] {
+                Parameters = HttpUtility.HtmlEncode(string.Join(ParameterSeparator, new[] 
+                {
                     "<span class='important'>" + InsertResource(typeof(RadiusR.Localization.Lists.TelekomOperations.TelekomOperationType), details.OperationType.ToString()) + "("+ InsertResource(typeof(RadiusR.Localization.Lists.TelekomOperations.TelekomOperationSubType), details.OperationSubType.ToString()) +")" + "</span>",
                     "<a href='" + InsertLinkWithDictionary("Details", "TelekomWorkOrder", new Dictionary<string, string>() { { "id", telekomWorkOrderID.ToString() } }) + "'>" + telekomWorkOrderID + "</a>",
-                    "<span class='important'>" + string.Format("{0}: ({1}), {2}: ({3}), {4}: ({5}), {6}: ({7})",
-                    InsertResource(typeof(RadiusR.Localization.Model.RadiusR), "ManagementCode"), details.ManagementCode,
-                    InsertResource(typeof(RadiusR.Localization.Model.RadiusR), "ProvinceCode"), details.ProvinceCode,
-                    InsertResource(typeof(RadiusR.Localization.Model.RadiusR), "QueueNo"), details.QueueNo,
-                    InsertResource(typeof(RadiusR.Localization.Model.RadiusR), "TelekomSubscriberNo"), details.TelekomSubscriberNo ) + "</span>"
+                    "<span class='important'>" +
+                    (
+                        // transition
+                        details.OperationType == DB.Enums.TelekomOperations.TelekomOperationType.Transition ?
+                        string.Format("{0}: ({1})",
+                        InsertResource(typeof(RadiusR.Localization.Model.RadiusR), "TransactionID"), details.TransactionID)
+                        // other types
+                        : string.Format("{0}: ({1}), {2}: ({3}), {4}: ({5}), {6}: ({7})",
+                        InsertResource(typeof(RadiusR.Localization.Model.RadiusR), "ManagementCode"), details.ManagementCode,
+                        InsertResource(typeof(RadiusR.Localization.Model.RadiusR), "ProvinceCode"), details.ProvinceCode,
+                        InsertResource(typeof(RadiusR.Localization.Model.RadiusR), "QueueNo"), details.QueueNo,
+                        InsertResource(typeof(RadiusR.Localization.Model.RadiusR), "TelekomSubscriberNo"), details.TelekomSubscriberNo)
+                    )
+                    + "</span>"
                 }))
             };
         }
@@ -553,7 +563,8 @@ namespace RadiusR.SystemLogs
                 InterfaceUsername = interfaceUsername,
                 AppUserID = userID,
                 SubscriptionID = subscriptionID,
-                Parameters = HttpUtility.HtmlEncode(string.Join(ParameterSeparator, new[] {
+                Parameters = HttpUtility.HtmlEncode(string.Join(ParameterSeparator, new[] 
+                {
                     "<span class='important'>" + InsertResource(typeof(RadiusR.Localization.Lists.TelekomOperations.TelekomOperationType), details.OperationType.ToString()) + "("+ InsertResource(typeof(RadiusR.Localization.Lists.TelekomOperations.TelekomOperationSubType), details.OperationSubType.ToString()) +")" + "</span>",
                     "<a href='" + InsertLinkWithDictionary("Details", "TelekomWorkOrder", new Dictionary<string, string>() { { "id", telekomWorkOrderID.ToString() } }) + "'>" + telekomWorkOrderID + "</a>",
                     "<span class='important'>" + string.Format("{0}: ({1}), {2}: ({3}), {4}: ({5}), {6}: ({7})",

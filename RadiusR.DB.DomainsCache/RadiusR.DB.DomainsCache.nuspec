@@ -2,19 +2,19 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <title>RadiusR.DB.DomainsCache</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <description>MasterISS User Domain Caching Utility.</description>
-    <releaseNotes>First release.</releaseNotes>
+    <releaseNotes>Updated domains cache.</releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>MasterISS Domain Caching</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />
 	<dependencies>
-		<dependency id="RadiusR.DB" version="1.2.3"/>
-		<dependency id="RezaB.TurkTelekom.WebServices" version="1.1.0-beta2"/>
+		<dependency id="RadiusR.DB" version="1.2.4"/>
+		<dependency id="RezaB.TurkTelekom.WebServices" version="1.2.0"/>
 	</dependencies>
   </metadata>
 </package>

@@ -9,11 +9,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RadiusR.API.AddressQueryAdapter</RootNamespace>
     <AssemblyName>RadiusR.API.AddressQueryAdapter</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-	<PackageDescription>Service adapter for address query service.</PackageDescription>
+    <PackageDescription>Service adapter for address query service.</PackageDescription>
     <RepositoryUrl>https://github.com/masteriss/Core-Systems</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -89,6 +90,15 @@
     <None Include="Service References\AddressQueryServiceReference\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\AddressQueryServiceReference\RadiusR.API.AddressQueryAdapter.AddressQueryServiceReference.AddressQueryResultsOfAddressDetailsOOn8viJD.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AddressQueryServiceReference\RadiusR.API.AddressQueryAdapter.AddressQueryServiceReference.AddressQueryResultsOfArrayOfKeyValuePairOOn8viJD.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AddressQueryServiceReference\RadiusR.API.AddressQueryAdapter.AddressQueryServiceReference.AddressQueryResultsOfstring.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\AddressQueryServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

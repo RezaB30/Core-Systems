@@ -1599,4 +1599,34 @@
   <data name="RemoteFolders" xml:space="preserve">
     <value>Remote Folders</value>
   </data>
+  <data name="TransitionFTPPassword" xml:space="preserve">
+    <value>Transition FTP Password</value>
+  </data>
+  <data name="TransitionFTPUsername" xml:space="preserve">
+    <value>Transition FTP Username</value>
+  </data>
+  <data name="TransitionOperator" xml:space="preserve">
+    <value>Transition Operator</value>
+  </data>
+  <data name="TransactionID" xml:space="preserve">
+    <value>Transaction Code</value>
+  </data>
+  <data name="ApprovingStaff" xml:space="preserve">
+    <value>Approving Staff</value>
+  </data>
+  <data name="TransitionTransactionID" xml:space="preserve">
+    <value>Transition Transaction ID</value>
+  </data>
+  <data name="ElapsedTime" xml:space="preserve">
+    <value>Elapsed Time</value>
+  </data>
+  <data name="CounterpartOperator" xml:space="preserve">
+    <value>Counterpart Operator</value>
+  </data>
+  <data name="RejectionDescription" xml:space="preserve">
+    <value>Rejection Description</value>
+  </data>
+  <data name="RejectionReason" xml:space="preserve">
+    <value>Rejection Reason</value>
+  </data>
 </root>

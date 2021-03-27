@@ -336,3 +336,12 @@ v 5.09.03 '2021-03-09'
 - added transport form.
 v 5.09.04 '2021-03-10'
 - updated redback service to use clid instead.
+v 5.10.00 '2021-03-27'
+- added incoming and outgoing transitions.
+- fully support for transition operations.
+- transition FTP module.
+- updated telekom work orders cache to include outgoing transitions.
+- updated state change utilities to support transitions.
+- updated MasterISS file manager to support transition files requirements.
+- updated domains settings to include transition FTP credentials.
+- updated domains cache to reflect added properties.

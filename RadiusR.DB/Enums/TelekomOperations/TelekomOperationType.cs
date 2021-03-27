@@ -11,6 +11,7 @@ namespace RadiusR.DB.Enums.TelekomOperations
         Registration = 1,
         Transport = 2,
         TariffChange = 3,
-        Cancellation = 4
+        Cancellation = 4,
+        Transition = 5,
     }
 }

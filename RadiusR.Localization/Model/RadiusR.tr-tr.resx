@@ -1599,4 +1599,34 @@
   <data name="RemoteFolders" xml:space="preserve">
     <value>Uzak Klasörler</value>
   </data>
+  <data name="TransitionFTPPassword" xml:space="preserve">
+    <value>Geçiş FTP Şifre</value>
+  </data>
+  <data name="TransitionFTPUsername" xml:space="preserve">
+    <value>Geçiş FTP kullanıcı Adı</value>
+  </data>
+  <data name="TransitionOperator" xml:space="preserve">
+    <value>Geçiş İşletmeci</value>
+  </data>
+  <data name="TransactionID" xml:space="preserve">
+    <value>İşlem Kodu</value>
+  </data>
+  <data name="ApprovingStaff" xml:space="preserve">
+    <value>Onaylayan Personel</value>
+  </data>
+  <data name="TransitionTransactionID" xml:space="preserve">
+    <value>Geçiş İşlem Kodu</value>
+  </data>
+  <data name="CounterpartOperator" xml:space="preserve">
+    <value>Karşılık İşletmeci</value>
+  </data>
+  <data name="ElapsedTime" xml:space="preserve">
+    <value>Geçen Zaman</value>
+  </data>
+  <data name="RejectionDescription" xml:space="preserve">
+    <value>Ret Açıklaması</value>
+  </data>
+  <data name="RejectionReason" xml:space="preserve">
+    <value>Ret Sebebi</value>
+  </data>
 </root>

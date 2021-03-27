@@ -1221,4 +1221,37 @@
   <data name="SubscriptionHasNoEMail" xml:space="preserve">
     <value>Customer has no registered e-mail.</value>
   </data>
+  <data name="CheckingDocuments" xml:space="preserve">
+    <value>Checking documents...</value>
+  </data>
+  <data name="StateChangeError" xml:space="preserve">
+    <value>State Change Error</value>
+  </data>
+  <data name="ReuploadDocuments" xml:space="preserve">
+    <value>Re-Upload Documents</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Approve</value>
+  </data>
+  <data name="AvailableData" xml:space="preserve">
+    <value>Available Data</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="IncomingData" xml:space="preserve">
+    <value>Incoming Data</value>
+  </data>
+  <data name="OutgoingTransitions" xml:space="preserve">
+    <value>Outgoing Transitions</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="RejectOutgoingTransition" xml:space="preserve">
+    <value>Reject Outgoing Transition</value>
+  </data>
+  <data name="TransitionToAnotherOperator" xml:space="preserve">
+    <value>Transitioned to another operator: {0}.</value>
+  </data>
 </root>

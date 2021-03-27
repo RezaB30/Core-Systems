@@ -115,11 +115,29 @@ namespace RadiusR.Localization.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid XDSL no..
+        /// </summary>
+        public static string InvalidXDSLNo {
+            get {
+                return ResourceManager.GetString("InvalidXDSLNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Max date range is 60 days..
         /// </summary>
         public static string MaxDateRange60Days {
             get {
                 return ResourceManager.GetString("MaxDateRange60Days", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing required documents..
+        /// </summary>
+        public static string MissingRequiredDocuments {
+            get {
+                return ResourceManager.GetString("MissingRequiredDocuments", resourceCulture);
             }
         }
         

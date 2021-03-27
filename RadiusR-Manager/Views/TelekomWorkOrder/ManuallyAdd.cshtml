@@ -52,48 +52,65 @@
                         @Html.ValidationMessageFor(model => model.OperationType)
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.ManagementCode)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.ManagementCode, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.ManagementCode)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.ProvinceCode)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.ProvinceCode, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.ProvinceCode)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.QueueNo)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.QueueNo, new { htmlAttributes = new { @maxlength = 19, @autocomplete = "off" } })
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.QueueNo)
-                    </td>
-                </tr>
+                <tbody id="standard-work-orders" style="display: none;">
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.ManagementCode)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.ManagementCode, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.ManagementCode)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.ProvinceCode)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.ProvinceCode, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.ProvinceCode)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.QueueNo)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.QueueNo, new { htmlAttributes = new { @maxlength = 19, @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.QueueNo)
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody id="transition-work-orders" style="display: none;">
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.TransactionID)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.TransactionID, new { htmlAttributes = new { @maxlength = 19, @autocomplete = "off" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.TransactionID)
+                        </td>
+                    </tr>
+                </tbody>
                 <tr>
                     <td colspan="2" class="centered">
-                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Details", "Client", null, null, "faults" ,new { id = Model.SubscriberID } , new { @class = "link-button iconed-button back-button" })
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Details", "Client", null, null, "faults", new { id = Model.SubscriberID }, new { @class = "link-button iconed-button back-button" })
                         <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
                     </td>
                 </tr>
@@ -101,3 +118,24 @@
         }
     </div>
 </div>
+
+@section PageScripts{
+    <script>
+        let operationTypeInput = $('input[name=OperationType]');
+        operationTypeInput.change(function () {
+            if (operationTypeInput.val() == '') {
+                $('#transition-work-orders').hide();
+                $('#standard-work-orders').hide();
+            }
+            else if (operationTypeInput.val() == '@((short)RadiusR.DB.Enums.TelekomOperations.TelekomOperationType.Transition)') {
+                $('#transition-work-orders').show();
+                $('#standard-work-orders').hide();
+            }
+            else {
+                $('#transition-work-orders').hide();
+                $('#standard-work-orders').show();
+            }
+        });
+        operationTypeInput.trigger('change');
+    </script>
+}

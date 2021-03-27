@@ -127,13 +127,11 @@
     <Reference Include="Renci.SshNet, Version=2020.0.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>..\packages\SSH.NET.2020.0.0\lib\net40\Renci.SshNet.dll</HintPath>
     </Reference>
-    <Reference Include="RezaB.API.TCKValidation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.API.TCKValidation.1.0.0\lib\net452\RezaB.API.TCKValidation.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="RezaB.API.TCKValidation, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.API.TCKValidation.1.0.1\lib\net472\RezaB.API.TCKValidation.dll</HintPath>
     </Reference>
-    <Reference Include="RezaB.Data, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.Data.1.0.1\lib\net452\RezaB.Data.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="RezaB.Data, Version=1.0.2.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Data.1.0.2\lib\net452\RezaB.Data.dll</HintPath>
     </Reference>
     <Reference Include="RezaB.Files, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RezaB.Files.1.0.1\lib\net472\RezaB.Files.dll</HintPath>
@@ -164,17 +162,20 @@
       <HintPath>..\packages\RezaB.Networking.1.0.1\lib\net452\RezaB.Networking.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RezaB.TurkTelekom.WebServices, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.TurkTelekom.WebServices.1.1.1\lib\net452\RezaB.TurkTelekom.WebServices.dll</HintPath>
+    <Reference Include="RezaB.TurkTelekom.FTPOperations, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.TurkTelekom.FTPOperations.1.1.1\lib\net472\RezaB.TurkTelekom.FTPOperations.dll</HintPath>
     </Reference>
-    <Reference Include="RezaB.Web, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.Web.1.1.1\lib\net452\RezaB.Web.dll</HintPath>
+    <Reference Include="RezaB.TurkTelekom.WebServices, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.TurkTelekom.WebServices.1.2.0\lib\net452\RezaB.TurkTelekom.WebServices.dll</HintPath>
+    </Reference>
+    <Reference Include="RezaB.Web, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Web.1.1.5\lib\net472\RezaB.Web.dll</HintPath>
     </Reference>
     <Reference Include="RezaB.Web.Helpers, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RezaB.Web.Helpers.1.0.3\lib\net452\RezaB.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="RezaB.Web.VPOS, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.Web.VPOS.1.1.1\lib\net452\RezaB.Web.VPOS.dll</HintPath>
+    <Reference Include="RezaB.Web.VPOS, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Web.VPOS.1.1.2\lib\net452\RezaB.Web.VPOS.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -394,6 +395,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Content\css\multi-file-upload.css" />
     <Content Include="Content\Images\Buttons\paper-clip.svg" />
@@ -982,6 +984,13 @@
     <Content Include="Views\Client\Forms\Index.cshtml" />
     <Content Include="Views\PDFTemplates\_PDFEditContextMenu.cshtml" />
     <Content Include="Views\PDFTemplates\_PDFEditContextMenuItem.cshtml" />
+    <Content Include="Views\Client\StateChanges\StateChangeError.cshtml" />
+    <Content Include="Views\Client\StateChanges\TransitionDocumentValidation.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Hours.cshtml" />
+    <Content Include="Views\TelekomWorkOrder\OutgoingIndex.cshtml" />
+    <Content Include="Views\TelekomWorkOrder\OutgoingDetails.cshtml" />
+    <Content Include="Views\TelekomWorkOrder\GetOutgoingDocuments.cshtml" />
+    <Content Include="Views\TelekomWorkOrder\RejectOutgoing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

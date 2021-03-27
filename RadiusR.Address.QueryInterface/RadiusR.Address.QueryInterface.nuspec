@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <title>RadiusR.Address.QueryInterface</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <description>Interface for address query services.</description>
-    <releaseNotes>First release.</releaseNotes>
+    <releaseNotes>Framework update.</releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>RadiusR Address Interface</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />

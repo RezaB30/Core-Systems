@@ -81,7 +81,6 @@ namespace RadiusR.DB
         public virtual DbSet<CustomerIDCard> CustomerIDCards { get; set; }
         public virtual DbSet<TelekomWorkOrderParameter> TelekomWorkOrderParameters { get; set; }
         public virtual DbSet<TelekomTariff> TelekomTariffs { get; set; }
-        public virtual DbSet<TelekomWorkOrder> TelekomWorkOrders { get; set; }
         public virtual DbSet<BillFee> BillFees { get; set; }
         public virtual DbSet<Bill> Bills { get; set; }
         public virtual DbSet<Service> Services { get; set; }
@@ -90,7 +89,6 @@ namespace RadiusR.DB
         public virtual DbSet<PartnerGroup> PartnerGroups { get; set; }
         public virtual DbSet<PartnerPermission> PartnerPermissions { get; set; }
         public virtual DbSet<PartnerCredit> PartnerCredits { get; set; }
-        public virtual DbSet<TelekomAccessCredential> TelekomAccessCredentials { get; set; }
         public virtual DbSet<Domain> Domains { get; set; }
         public virtual DbSet<PartnerBillPayment> PartnerBillPayments { get; set; }
         public virtual DbSet<Partner> Partners { get; set; }
@@ -124,5 +122,7 @@ namespace RadiusR.DB
         public virtual DbSet<SubscriptionTelekomInfo> SubscriptionTelekomInfoes { get; set; }
         public virtual DbSet<TransitionOperator> TransitionOperators { get; set; }
         public virtual DbSet<PDFFormItemPlacement> PDFFormItemPlacements { get; set; }
+        public virtual DbSet<TelekomAccessCredential> TelekomAccessCredentials { get; set; }
+        public virtual DbSet<TelekomWorkOrder> TelekomWorkOrders { get; set; }
     }
 }

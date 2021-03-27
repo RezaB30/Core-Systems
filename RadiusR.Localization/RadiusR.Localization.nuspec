@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <title>RadiusR.Localization</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -13,11 +13,11 @@
     <tags>MasterISS Localization</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />
 	<dependencies>
-		<dependency id="RadiusR.Localization.Lists" version="1.0.10"/>
+		<dependency id="RadiusR.Localization.Lists" version="1.0.11"/>
 	</dependencies>
   </metadata>
   <files>
-	<file src="bin\$configuration$\**\RadiusR.Localization.dll" target="lib\net452" />
-	<file src="bin\$configuration$\**\RadiusR.Localization.resources.dll" target="lib\net452" />
+	<file src="bin\$configuration$\**\RadiusR.Localization.dll" target="lib\net472" />
+	<file src="bin\$configuration$\**\RadiusR.Localization.resources.dll" target="lib\net472" />
   </files>
 </package>

@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivityCertificate" xml:space="preserve">
+    <value>Faaliyet Belgesi</value>
+  </data>
+  <data name="AuthorizedSignitures" xml:space="preserve">
+    <value>İmza Sirkusu</value>
+  </data>
   <data name="Cancellation" xml:space="preserve">
     <value>İptal Formu</value>
   </data>
@@ -125,6 +131,9 @@
   </data>
   <data name="Contract" xml:space="preserve">
     <value>Abonelik Sözleşmesi</value>
+  </data>
+  <data name="Docket" xml:space="preserve">
+    <value>Karar Defteri</value>
   </data>
   <data name="IDCard" xml:space="preserve">
     <value>Kimlik Kartı</value>
@@ -138,10 +147,19 @@
   <data name="Setup" xml:space="preserve">
     <value>Kurulum Formu</value>
   </data>
+  <data name="TaxPermit" xml:space="preserve">
+    <value>Vergi Levhası</value>
+  </data>
+  <data name="TradeRegistryPaper" xml:space="preserve">
+    <value>Ticaret Sicil Gazetesi</value>
+  </data>
   <data name="Transfer" xml:space="preserve">
     <value>Devir Formu</value>
   </data>
   <data name="Transport" xml:space="preserve">
     <value>Nakil Formu</value>
+  </data>
+  <data name="WarrantOfAttorney" xml:space="preserve">
+    <value>Vekaletname</value>
   </data>
 </root>

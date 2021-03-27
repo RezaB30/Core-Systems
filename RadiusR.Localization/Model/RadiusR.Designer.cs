@@ -286,6 +286,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Approving Staff.
+        /// </summary>
+        public static string ApprovingStaff {
+            get {
+                return ResourceManager.GetString("ApprovingStaff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Archive No.
         /// </summary>
         public static string ArchiveNo {
@@ -880,6 +889,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Counterpart Operator.
+        /// </summary>
+        public static string CounterpartOperator {
+            get {
+                return ResourceManager.GetString("CounterpartOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Country Code.
         /// </summary>
         public static string CountryCode {
@@ -1299,6 +1317,15 @@ namespace RadiusR.Localization.Model {
         public static string EBillType {
             get {
                 return ResourceManager.GetString("EBillType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Elapsed Time.
+        /// </summary>
+        public static string ElapsedTime {
+            get {
+                return ResourceManager.GetString("ElapsedTime", resourceCulture);
             }
         }
         
@@ -3274,6 +3301,24 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rejection Description.
+        /// </summary>
+        public static string RejectionDescription {
+            get {
+                return ResourceManager.GetString("RejectionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rejection Reason.
+        /// </summary>
+        public static string RejectionReason {
+            get {
+                return ResourceManager.GetString("RejectionReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Relevant Types.
         /// </summary>
         public static string RelevantTypes {
@@ -4192,6 +4237,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Transaction Code.
+        /// </summary>
+        public static string TransactionID {
+            get {
+                return ResourceManager.GetString("TransactionID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transfer.
         /// </summary>
         public static string Transfer {
@@ -4255,6 +4309,33 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Transition FTP Password.
+        /// </summary>
+        public static string TransitionFTPPassword {
+            get {
+                return ResourceManager.GetString("TransitionFTPPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transition FTP Username.
+        /// </summary>
+        public static string TransitionFTPUsername {
+            get {
+                return ResourceManager.GetString("TransitionFTPUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transition Operator.
+        /// </summary>
+        public static string TransitionOperator {
+            get {
+                return ResourceManager.GetString("TransitionOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transition PSTN.
         /// </summary>
         public static string TransitionPSTN {
@@ -4269,6 +4350,15 @@ namespace RadiusR.Localization.Model {
         public static string TransitionSourceOperator {
             get {
                 return ResourceManager.GetString("TransitionSourceOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transition Transaction ID.
+        /// </summary>
+        public static string TransitionTransactionID {
+            get {
+                return ResourceManager.GetString("TransitionTransactionID", resourceCulture);
             }
         }
         

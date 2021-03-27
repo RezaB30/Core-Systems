@@ -61,6 +61,24 @@ namespace RadiusR.Localization.Lists {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activity Certificate.
+        /// </summary>
+        public static string ActivityCertificate {
+            get {
+                return ResourceManager.GetString("ActivityCertificate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authorized Signitures.
+        /// </summary>
+        public static string AuthorizedSignitures {
+            get {
+                return ResourceManager.GetString("AuthorizedSignitures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancellation Form.
         /// </summary>
         public static string Cancellation {
@@ -84,6 +102,15 @@ namespace RadiusR.Localization.Lists {
         public static string Contract {
             get {
                 return ResourceManager.GetString("Contract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Docket.
+        /// </summary>
+        public static string Docket {
+            get {
+                return ResourceManager.GetString("Docket", resourceCulture);
             }
         }
         
@@ -124,6 +151,24 @@ namespace RadiusR.Localization.Lists {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tax Permit.
+        /// </summary>
+        public static string TaxPermit {
+            get {
+                return ResourceManager.GetString("TaxPermit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trade Registry Paper.
+        /// </summary>
+        public static string TradeRegistryPaper {
+            get {
+                return ResourceManager.GetString("TradeRegistryPaper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transfer Form.
         /// </summary>
         public static string Transfer {
@@ -138,6 +183,15 @@ namespace RadiusR.Localization.Lists {
         public static string Transport {
             get {
                 return ResourceManager.GetString("Transport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warrant of Attorney.
+        /// </summary>
+        public static string WarrantOfAttorney {
+            get {
+                return ResourceManager.GetString("WarrantOfAttorney", resourceCulture);
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿@model RadiusR_Manager.Models.ViewModels.ClientStates.PrepareTransitionViewModel
+﻿@using RadiusR.Helpers
+
+@model RadiusR_Manager.Models.ViewModels.ClientStates.PrepareTransitionViewModel
 
 @{
     ViewBag.Title = $"{ViewBag.CustomerName}-{RadiusR.Localization.Pages.Common.SubscriptionTransition}";
@@ -37,8 +39,36 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>
+                        @Html.LabelFor(model => model.TelekomTariffInfo)
+                    </td>
+                    <td>
+                        @Html.TelekomTariffEditorFor(model => model.TelekomTariffInfo, ViewBag.SelectedDomain as RadiusR.DB.DomainsCache.CachedDomain)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.TelekomTariffInfo)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div id="document-validation-container">
+                            <div style="position: relative; min-height: 2em;">
+                                <div class="online-status-loading"></div>
+                            </div>
+                            <div class="centered">@RadiusR.Localization.Pages.Common.CheckingDocuments</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
                     <td colspan="2">
                         @Html.Partial("_WaitTimer")
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-danger">
+                        @ViewBag.ErrorMessage
                     </td>
                 </tr>
                 <tr id="submit-row">
@@ -59,5 +89,18 @@
             $('#submit-row').hide();
             StartWaitingCounter('div.waiting-progress');
         });
+
+        $.ajax({
+            url: '@Url.Action("TransitionDocumentValidation", new { id = ViewContext.RouteData.Values["id"] })',
+            method: 'POST',
+            complete: function (data, status) {
+                if (status == 'success') {
+                    $("#document-validation-container").html(data.responseText);
+                }
+                else {
+                    $("#document-validation-container").html('<div class="text-danger">' + '@RadiusR.Localization.Pages.Common.LoadingError' + '</div>');
+                }
+            }
+        })
     </script>
 }

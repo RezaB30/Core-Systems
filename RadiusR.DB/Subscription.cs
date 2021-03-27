@@ -34,12 +34,12 @@ namespace RadiusR.DB
             this.SubscriptionSupportRequests = new HashSet<SubscriptionSupportRequest>();
             this.SubscriptionTariffHistories = new HashSet<SubscriptionTariffHistory>();
             this.SystemLogs = new HashSet<SystemLog>();
-            this.TelekomWorkOrders = new HashSet<TelekomWorkOrder>();
             this.SupportRequests = new HashSet<SupportRequest>();
             this.CustomerSetupTasks = new HashSet<CustomerSetupTask>();
             this.Groups = new HashSet<Group>();
             this.SubscriptionTransferredFromHistories = new HashSet<SubscriptionTransferHistory>();
             this.SubscriptionTransferredToHistories = new HashSet<SubscriptionTransferHistory>();
+            this.TelekomWorkOrders = new HashSet<TelekomWorkOrder>();
         }
     
         public long ID { get; set; }
@@ -109,8 +109,6 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SystemLog> SystemLogs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TelekomWorkOrder> TelekomWorkOrders { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupportRequest> SupportRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerSetupTask> CustomerSetupTasks { get; set; }
@@ -122,5 +120,7 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubscriptionTransferHistory> SubscriptionTransferredToHistories { get; set; }
         public virtual SubscriptionTelekomInfo SubscriptionTelekomInfo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TelekomWorkOrder> TelekomWorkOrders { get; set; }
     }
 }

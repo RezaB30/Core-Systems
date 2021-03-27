@@ -1,0 +1,187 @@
+﻿@using RezaB.Web.Authentication
+
+@model RadiusR_Manager.Models.ViewModels.OutgoingTransitionViewModel
+
+@{
+    ViewBag.Title = $"{RadiusR.Localization.Pages.Common.OutgoingTransitions}-{RadiusR.Localization.Pages.Common.Details}";
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        <table class="details-table">
+            <tr>
+                <th></th>
+                <th>@RadiusR.Localization.Pages.Common.IncomingData</th>
+                <th>@RadiusR.Localization.Pages.Common.AvailableData</th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.TransactionID)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.TransactionID)
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.XDSLNo)
+                </td>
+                <td>
+                    @Html.ActionLink(Html.DisplayTextFor(model => model.XDSLNo).ToHtmlString(), "Index", "Client", new { TelekomSubscriberNo = Model.XDSLNo }, new { @class = "details-link" })
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.XDSLNoIsValid)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.CreationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.CreationDate)
+                    <span class="rate-suffix">(@Html.DisplayFor(model => model.ElapsedTime))</span>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.CustomerType)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.CustomerType)
+                </td>
+                <td></td>
+            </tr>
+            @if (Model.IndividualInfo != null)
+            {
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.IndividualInfo.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.IndividualInfo.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.IndividualInfo.FirstNameIsValid)
+                        @Html.DisplayFor(model => model.IndividualInfo.DBFirstName)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.IndividualInfo.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.IndividualInfo.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.IndividualInfo.LastNameIsValid)
+                        @Html.DisplayFor(model => model.IndividualInfo.DBLastName)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.IndividualInfo.TCKNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.IndividualInfo.TCKNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.IndividualInfo.TCKNoIsValid)
+                        @Html.DisplayFor(model => model.IndividualInfo.DBTCKNo)
+                    </td>
+                </tr>
+            }
+            @if (Model.CorporateInfo != null)
+            {
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.CorporateInfo.CompanyTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CorporateInfo.CompanyTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CorporateInfo.CompanyTitleIsValid)
+                        @Html.DisplayFor(model => model.CorporateInfo.DBCompanyTitle)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.CorporateInfo.ExecutiveTCKNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CorporateInfo.ExecutiveTCKNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CorporateInfo.ExecutiveTCKNoIsValid)
+                        @Html.DisplayFor(model => model.CorporateInfo.DBExecutiveTCKNo)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.CorporateInfo.TaxNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CorporateInfo.TaxNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CorporateInfo.TaxNoIsValid)
+                        @Html.DisplayFor(model => model.CorporateInfo.DBTaxNo)
+                    </td>
+                </tr>
+            }
+            <tr>
+                <th colspan="3">
+                    @RadiusR.Localization.Pages.Common.FileList
+                </th>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div id="incoming-documents-container">
+                        <div style="position: relative; min-height: 2em;">
+                            <div class="online-status-loading"></div>
+                        </div>
+                        <div class="centered">@RadiusR.Localization.Pages.Common.CheckingDocuments</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="centered" colspan="3">
+                    <a href="@ViewBag.ReturnUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                    @if (User.HasPermission("Telekom Work Order Edits"))
+                    {
+                        if (Model.XDSLNoIsValid)
+                        {
+                            @:&nbsp;
+                            using (Html.BeginForm("ApproveOutgoing", null, new { id = Model.TransactionID, returnUrl = Request.Url.PathAndQuery }, FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block;" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="submit" value="@RadiusR.Localization.Pages.Common.Approve" class="link-button iconed-button accept-button" />
+                            }
+                        }
+                        @:&nbsp;
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Reject, "RejectOutgoing", new { id = Model.TransactionID, returnUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button cancel-button" })
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+@section PageScripts{
+    <script>
+        $.ajax({
+            url: '@Url.Action("GetOutgoingDocuments", new { id = Model.TransactionID })',
+            method: 'POST',
+            complete: function (data, status) {
+                if (status != 'success') {
+                    $('#incoming-documents-container').html('<div class="text-danger centered">' + '@RadiusR.Localization.Pages.Common.LoadingError' + '</div>');
+                }
+                else {
+                    $('#incoming-documents-container').html(data.responseText);
+                }
+            }
+        })
+    </script>
+}
