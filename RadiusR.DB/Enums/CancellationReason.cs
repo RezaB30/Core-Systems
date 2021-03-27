@@ -24,5 +24,6 @@ namespace RadiusR.DB.Enums
         MissingDocuments = 10,
         AccidentalInput = 11,
         RelatedProductCancelled = 12,
+        Transition = 13,
     }
 }

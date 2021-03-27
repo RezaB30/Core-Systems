@@ -1623,4 +1623,10 @@
   <data name="CounterpartOperator" xml:space="preserve">
     <value>Counterpart Operator</value>
   </data>
+  <data name="RejectionDescription" xml:space="preserve">
+    <value>Rejection Description</value>
+  </data>
+  <data name="RejectionReason" xml:space="preserve">
+    <value>Rejection Reason</value>
+  </data>
 </root>

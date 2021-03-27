@@ -3301,6 +3301,24 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rejection Description.
+        /// </summary>
+        public static string RejectionDescription {
+            get {
+                return ResourceManager.GetString("RejectionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rejection Reason.
+        /// </summary>
+        public static string RejectionReason {
+            get {
+                return ResourceManager.GetString("RejectionReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Relevant Types.
         /// </summary>
         public static string RelevantTypes {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RadiusR.Localization.Lists {
+namespace RadiusR.Localization.Lists.TelekomOperations {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace RadiusR.Localization.Lists {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class InfrastructureType {
+    public class TransitionRejectionReason {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal InfrastructureType() {
+        internal TransitionRejectionReason() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace RadiusR.Localization.Lists {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RadiusR.Localization.Lists.InfrastructureType", typeof(InfrastructureType).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RadiusR.Localization.Lists.TelekomOperations.TransitionRejectionReason", typeof(TransitionRejectionReason).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,83 @@ namespace RadiusR.Localization.Lists {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copper.
+        ///   Looks up a localized string similar to Expired.
         /// </summary>
-        public static string Copper {
+        public static string Expired {
             get {
-                return ResourceManager.GetString("Copper", resourceCulture);
+                return ResourceManager.GetString("Expired", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fiber V1.
+        ///   Looks up a localized string similar to Fraud.
         /// </summary>
-        public static string FiberV1 {
+        public static string Fraud {
             get {
-                return ResourceManager.GetString("FiberV1", resourceCulture);
+                return ResourceManager.GetString("Fraud", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fiber V2.
+        ///   Looks up a localized string similar to Insufficient Documents.
         /// </summary>
-        public static string FiberV2 {
+        public static string InsufficientDocuments {
             get {
-                return ResourceManager.GetString("FiberV2", resourceCulture);
+                return ResourceManager.GetString("InsufficientDocuments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Company Title.
+        /// </summary>
+        public static string InvalidCompanyTitle {
+            get {
+                return ResourceManager.GetString("InvalidCompanyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Foreigner ID.
+        /// </summary>
+        public static string InvalidForeignerID {
+            get {
+                return ResourceManager.GetString("InvalidForeignerID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Tax No.
+        /// </summary>
+        public static string InvalidTaxNo {
+            get {
+                return ResourceManager.GetString("InvalidTaxNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid TCK No.
+        /// </summary>
+        public static string InvalidTCKNo {
+            get {
+                return ResourceManager.GetString("InvalidTCKNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request Form Not Valid.
+        /// </summary>
+        public static string RequestFormNotValid {
+            get {
+                return ResourceManager.GetString("RequestFormNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong Customer Info.
+        /// </summary>
+        public static string WrongCustomerInfo {
+            get {
+                return ResourceManager.GetString("WrongCustomerInfo", resourceCulture);
             }
         }
     }

@@ -117,61 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AllowanceGreaterThanTariffFee" xml:space="preserve">
-    <value>Allowance can not be greater than tariff fee ({0}).</value>
+  <data name="Expired" xml:space="preserve">
+    <value>Süresi Geçmiş</value>
   </data>
-  <data name="InvalidDomain" xml:space="preserve">
-    <value>Invalid Domain.</value>
+  <data name="Fraud" xml:space="preserve">
+    <value>Sahte Evrak</value>
   </data>
-  <data name="InvalidFTPAddress" xml:space="preserve">
-    <value>FTP Address should start with ftp:// or sftp://.</value>
+  <data name="InsufficientDocuments" xml:space="preserve">
+    <value>Yetersiz Evrak</value>
   </data>
-  <data name="InvalidSmartQuotaForBillingType" xml:space="preserve">
-    <value>Smart quota is only available for invoiced billing type.</value>
+  <data name="InvalidCompanyTitle" xml:space="preserve">
+    <value>Geçersiz Şirket Ünvanı</value>
   </data>
-  <data name="InvalidSubscriptionNo" xml:space="preserve">
-    <value>Invalid subscription no.</value>
+  <data name="InvalidForeignerID" xml:space="preserve">
+    <value>Geçersiz Yabancı Kimlik</value>
   </data>
-  <data name="InvalidSynchronizationOptions" xml:space="preserve">
-    <value>Invalid synchronization options.</value>
+  <data name="InvalidTaxNo" xml:space="preserve">
+    <value>Geçersiz Vergi No</value>
   </data>
-  <data name="InvalidXDSLNo" xml:space="preserve">
-    <value>Invalid XDSL no.</value>
+  <data name="InvalidTCKNo" xml:space="preserve">
+    <value>Geçersiz TCK No</value>
   </data>
-  <data name="MaxDateRange60Days" xml:space="preserve">
-    <value>Max date range is 60 days.</value>
+  <data name="RequestFormNotValid" xml:space="preserve">
+    <value>Geçersiz İşletmeci Formu</value>
   </data>
-  <data name="MissingRequiredDocuments" xml:space="preserve">
-    <value>Missing required documents.</value>
-  </data>
-  <data name="NoFormsSelected" xml:space="preserve">
-    <value>No forms were selected.</value>
-  </data>
-  <data name="NoTransferSelected" xml:space="preserve">
-    <value>No transfer was selected.</value>
-  </data>
-  <data name="SelfReferralDiscount" xml:space="preserve">
-    <value>Subscriber cannot use referral discount on the self.</value>
-  </data>
-  <data name="StartDateCannotBeGreaterThanEndDate" xml:space="preserve">
-    <value>Start date cannot be greater than end date.</value>
-  </data>
-  <data name="StaticDiscountNotValidForBillBaseDiscounts" xml:space="preserve">
-    <value>This discount type is not valid for bill based discounts.</value>
-  </data>
-  <data name="SubscriptionHasNoTelekomInfo" xml:space="preserve">
-    <value>Subscription does not have Telekom info.</value>
-  </data>
-  <data name="SubscriptionHasPendingTransfer" xml:space="preserve">
-    <value>Subscription has pending transfer.</value>
-  </data>
-  <data name="SubtractedAmountLessThanTotalCredits" xml:space="preserve">
-    <value>Subtracted amount cannot be greater than total of credits.</value>
-  </data>
-  <data name="TariffAlreadyAdded" xml:space="preserve">
-    <value>This tariff already added.</value>
-  </data>
-  <data name="XDSLandFiberNotSelected" xml:space="preserve">
-    <value>At least one item must be set.</value>
+  <data name="WrongCustomerInfo" xml:space="preserve">
+    <value>Yanlış Müşteri Bilgileri</value>
   </data>
 </root>

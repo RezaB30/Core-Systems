@@ -19,11 +19,13 @@ using RezaB.Web;
 using RezaB.Web.Authentication;
 using RadiusR_Manager.Models.Extentions;
 using RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges;
+using NLog;
 
 namespace RadiusR_Manager.Controllers
 {
     public class TelekomWorkOrderController : BaseController
     {
+        private static Logger stateChangesLogger = LogManager.GetLogger("client-state-changes");
         RadiusREntities db = new RadiusREntities();
 
         [AuthorizePermission(Permissions = "Telekom Work Orders")]
@@ -315,6 +317,150 @@ namespace RadiusR_Manager.Controllers
             }
 
             return File(result.Results, fileName.Contains('.') ? RadiusR.FileManagement.MIMEUtility.GetMIMETypeFromFileExtention(fileName.Substring(fileName.LastIndexOf('.') + 1)) : "Application/Unknown");
+        }
+
+        [AuthorizePermission(Permissions = "Telekom Work Order Edits")]
+        [HttpGet]
+        // GET: TelekomWorkOrder/RejectOutgoing
+        public ActionResult RejectOutgoing(long id, string returnUrl = null)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("OutgoingIndex"));
+            if (returnUrl != null)
+            {
+                uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+                UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+            }
+            ViewBag.BackUrl = uri.Uri.PathAndQuery + uri.Fragment;
+
+            var currentTransition = TelekomWorkOrderCache.GetOutgoingList().FirstOrDefault(transition => transition.TransactionID == id);
+            if (currentTransition == null)
+            {
+                return Content($"<div class='text-danger centered'>{RadiusR.Localization.Validation.Common.InvalidInput}</div>");
+            }
+            var domain = DomainsCache.GetDomainByID(currentTransition.DomainID);
+            if (domain == null)
+            {
+                return Content($"<div class='text-danger centered'>{RadiusR.Localization.Pages.Common.DomainNotFound}</div>");
+            }
+
+            return View();
+        }
+
+        [AuthorizePermission(Permissions = "Telekom Work Order Edits")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        // POST: TelekomWorkOrder/RejectOutgoing
+        public ActionResult RejectOutgoing(long id, string returnUrl, OutgoingTransitionRejectViewModel rejectModel)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("OutgoingIndex"));
+            if (returnUrl != null)
+            {
+                uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+                UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+            }
+            ViewBag.BackUrl = uri.Uri.PathAndQuery + uri.Fragment;
+
+            var currentTransition = TelekomWorkOrderCache.GetOutgoingList().FirstOrDefault(transition => transition.TransactionID == id);
+            if (currentTransition == null)
+            {
+                ViewBag.ErrorMessage = RadiusR.Localization.Validation.Common.InvalidInput;
+                return View(rejectModel);
+            }
+            var domain = DomainsCache.GetDomainByID(currentTransition.DomainID);
+            if (domain == null)
+            {
+                ViewBag.ErrorMessage = RadiusR.Localization.Pages.Common.DomainNotFound;
+                return View(rejectModel);
+            }
+
+            if (ModelState.IsValid)
+            {
+                var transitionClient = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionApplicationClient(domain.TelekomCredential.XDSLWebServiceUsernameInt, domain.TelekomCredential.XDSLWebServicePassword, domain.TelekomCredential.XDSLWebServiceCustomerCodeInt);
+                var rejectResut = transitionClient.RejectOutgoingTransition(new RezaB.TurkTelekom.WebServices.TTChurnApplication.RejectOutgoingTransitionRequest()
+                {
+                    TransactionID = currentTransition.TransactionID,
+                    XDSLNo = currentTransition.XDSLNo,
+                    CancellationReason = (RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionCancellationReasons)rejectModel.RejectionReason,
+                    CancellationDescription = rejectModel.RejectionDescription
+                });
+                if(rejectResut.InternalException != null)
+                {
+                    ViewBag.ErrorMessage = rejectResut.InternalException.GetShortMessage();
+                }
+                else
+                {
+                    TelekomWorkOrderCache.ClearOutgoingListCache();
+                    return RedirectToAction("OutgoingIndex", new { errorMessage = 0 });
+                }
+            }
+
+            return View(rejectModel);
+        }
+
+        [AuthorizePermission(Permissions = "Telekom Work Order Edits")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        // POST: TelekomWorkOrder/ApproveOutgoing
+        public ActionResult ApproveOutgoing(long id, string returnUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("OutgoingIndex"));
+            if (returnUrl != null)
+            {
+                uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+                UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+            }
+            ViewBag.BackUrl = uri.Uri.PathAndQuery + uri.Fragment;
+
+            var currentTransition = TelekomWorkOrderCache.GetOutgoingList().FirstOrDefault(transition => transition.TransactionID == id);
+            if (currentTransition == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+            var domain = DomainsCache.GetDomainByID(currentTransition.DomainID);
+            if (domain == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+            
+            var foundSubscription = db.Subscriptions.Where(s => s.State == (short)RadiusR.DB.Enums.CustomerState.Active || s.State == (short)RadiusR.DB.Enums.CustomerState.Reserved).FirstOrDefault(s => s.SubscriptionTelekomInfo.SubscriptionNo == currentTransition.XDSLNo);
+            if (foundSubscription == null)
+            {
+                return Content($"<div class='text-danger centered'>{RadiusR.Localization.Validation.ModelSpecific.InvalidXDSLNo}</div>");
+            }
+
+            var serviceClient = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionApplicationClient(domain.TelekomCredential.XDSLWebServiceUsernameInt, domain.TelekomCredential.XDSLWebServicePassword, domain.TelekomCredential.XDSLWebServiceCustomerCodeInt);
+            var approvalResult = serviceClient.ApproveOutgoingTransition(currentTransition.TransactionID);
+            if (approvalResult.InternalException != null)
+            {
+                return Content($"<div class='text-danger centered'>{approvalResult.InternalException.GetShortMessage()}</div>");
+            }
+            else
+            {
+                TelekomWorkOrderCache.ClearOutgoingListCache();
+            }
+            var stateChangeResult = StateChangeUtilities.ChangeSubscriptionState(foundSubscription.ID, new CancelSubscriptionOptions()
+            {
+                AppUserID = User.GiveUserId(),
+                CancellationReason = RadiusR.DB.Enums.CancellationReason.Transition,
+                CancellationReasonDescription = string.Format(RadiusR.Localization.Pages.Common.TransitionToAnotherOperator, currentTransition.CounterpartOperator),
+                DoNotCancelTelekomService = true,
+                ForceCancellation = true,
+                LogInterface = RadiusR.DB.Enums.SystemLogInterface.MasterISS,
+                ScheduleSMSes = false
+            });
+            if (stateChangeResult.IsFatal)
+            {
+                throw stateChangeResult.InternalException;
+            }
+            else if (!stateChangeResult.IsSuccess)
+            {
+                stateChangesLogger.Warn(stateChangeResult.InternalException, stateChangeResult.ErrorMessage);
+                return Content($"<div class='text-danger centered'>{stateChangeResult.ErrorMessage}</div>");
+            }
+
+            return RedirectToAction("OutgoingIndex", new { errorMessage = 0 });
         }
 
         [AuthorizePermission(Permissions = "Telekom Work Order Edits")]

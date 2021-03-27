@@ -151,14 +151,17 @@
                     <a href="@ViewBag.ReturnUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
                     @if (User.HasPermission("Telekom Work Order Edits"))
                     {
-                        @:&nbsp;
-                        using (Html.BeginForm("ApproveOutgoing",null, new { id = Model.TransactionID }, FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block;" }))
+                        if (Model.XDSLNoIsValid)
                         {
-                            @Html.AntiForgeryToken()
-                            <input type="submit" value="@RadiusR.Localization.Pages.Common.Approve" class="link-button iconed-button accept-button" />
+                            @:&nbsp;
+                            using (Html.BeginForm("ApproveOutgoing", null, new { id = Model.TransactionID, returnUrl = Request.Url.PathAndQuery }, FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block;" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="submit" value="@RadiusR.Localization.Pages.Common.Approve" class="link-button iconed-button accept-button" />
+                            }
                         }
                         @:&nbsp;
-                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Reject, "RejectOutgoing", new { id = Model.TransactionID }, new { @class = "link-button iconed-button cancel-button" })
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Reject, "RejectOutgoing", new { id = Model.TransactionID, returnUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button cancel-button" })
                     }
                 </td>
             </tr>

@@ -1245,4 +1245,10 @@
   <data name="Reject" xml:space="preserve">
     <value>Reddet</value>
   </data>
+  <data name="RejectOutgoingTransition" xml:space="preserve">
+    <value>Geçiş Telebini Reddet</value>
+  </data>
+  <data name="TransitionToAnotherOperator" xml:space="preserve">
+    <value>Başka bir işletmeciye geçti: {0}.</value>
+  </data>
 </root>

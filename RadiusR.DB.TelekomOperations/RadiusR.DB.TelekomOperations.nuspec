@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.2</version>
+    <version>1.1.0</version>
     <title>RadiusR.DB.TelekomOperations</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <description>Data base related Telekom operations.</description>
-    <releaseNotes>Framework Update.</releaseNotes>
+    <releaseNotes>Updated transition cache.</releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>MasterISS Telekom Database</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />

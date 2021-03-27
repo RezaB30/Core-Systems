@@ -9,11 +9,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RadiusR.Localization.Lists</RootNamespace>
     <AssemblyName>RadiusR.Localization.Lists</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PackageDescription>Localization for MasterISS Database Enums.</PackageDescription>
     <RepositoryUrl>https://github.com/masteriss/Core-Systems</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -739,6 +740,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="TelekomOperations\TransitionRejectionReason.tr-tr.Designer.cs">
+      <DependentUpon>TransitionRejectionReason.tr-tr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="TelekomOperations\TransitionRejectionReason.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TransitionRejectionReason.resx</DependentUpon>
+    </Compile>
     <Compile Include="TTLineState.Designer.cs">
       <DependentUpon>TTLineState.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1348,6 +1359,14 @@
     <EmbeddedResource Include="TelekomOperations\TelekomOperationType.tr-tr.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TelekomOperationType.tr-tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TelekomOperations\TransitionRejectionReason.tr-tr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TransitionRejectionReason.tr-tr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TelekomOperations\TransitionRejectionReason.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TransitionRejectionReason.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="TTLineState.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

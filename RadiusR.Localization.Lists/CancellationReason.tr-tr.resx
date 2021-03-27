@@ -147,6 +147,9 @@
   <data name="Transfer" xml:space="preserve">
     <value>Devir</value>
   </data>
+  <data name="Transition" xml:space="preserve">
+    <value>Geçiş</value>
+  </data>
   <data name="WrongOwner" xml:space="preserve">
     <value>Yanlış Sahip</value>
   </data>

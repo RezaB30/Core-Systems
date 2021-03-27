@@ -2635,6 +2635,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reject Outgoing Transition.
+        /// </summary>
+        public static string RejectOutgoingTransition {
+            get {
+                return ResourceManager.GetString("RejectOutgoingTransition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove.
         /// </summary>
         public static string Remove {
@@ -3306,6 +3315,15 @@ namespace RadiusR.Localization.Pages {
         public static string TransitionOperators {
             get {
                 return ResourceManager.GetString("TransitionOperators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transitioned to another operator: {0}..
+        /// </summary>
+        public static string TransitionToAnotherOperator {
+            get {
+                return ResourceManager.GetString("TransitionToAnotherOperator", resourceCulture);
             }
         }
         

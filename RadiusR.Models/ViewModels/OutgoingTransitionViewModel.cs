@@ -113,7 +113,9 @@ namespace RadiusR_Manager.Models.ViewModels
             {
                 get
                 {
-                    return FirstName.ToLower().Trim() == DBFirstName.ToLower().Trim();
+                    if(string.IsNullOrEmpty(DBFirstName))
+                        return false;
+                    return FirstName.ToLower().Trim() == (DBFirstName ?? string.Empty).ToLower().Trim();
                 }
             }
 
@@ -121,7 +123,9 @@ namespace RadiusR_Manager.Models.ViewModels
             {
                 get
                 {
-                    return LastName.ToLower().Trim() == DBLastName.ToLower().Trim();
+                    if (string.IsNullOrEmpty(DBLastName))
+                        return false;
+                    return LastName.ToLower().Trim() == (DBLastName ?? string.Empty).ToLower().Trim();
                 }
             }
 
@@ -155,7 +159,7 @@ namespace RadiusR_Manager.Models.ViewModels
             {
                 get
                 {
-                    return CompanyTitle.ToLower().Trim() == DBCompanyTitle.ToLower().Trim();
+                    return CompanyTitle.ToLower().Trim() == (DBCompanyTitle ?? string.Empty).ToLower().Trim();
                 }
             }
 

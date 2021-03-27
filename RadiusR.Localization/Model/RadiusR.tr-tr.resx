@@ -1623,4 +1623,10 @@
   <data name="ElapsedTime" xml:space="preserve">
     <value>Geçen Zaman</value>
   </data>
+  <data name="RejectionDescription" xml:space="preserve">
+    <value>Ret Açıklaması</value>
+  </data>
+  <data name="RejectionReason" xml:space="preserve">
+    <value>Ret Sebebi</value>
+  </data>
 </root>

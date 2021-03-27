@@ -1248,4 +1248,10 @@
   <data name="Reject" xml:space="preserve">
     <value>Reject</value>
   </data>
+  <data name="RejectOutgoingTransition" xml:space="preserve">
+    <value>Reject Outgoing Transition</value>
+  </data>
+  <data name="TransitionToAnotherOperator" xml:space="preserve">
+    <value>Transitioned to another operator: {0}.</value>
+  </data>
 </root>
