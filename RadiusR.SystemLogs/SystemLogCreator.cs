@@ -755,8 +755,8 @@ namespace RadiusR.SystemLogs
                 AppUserID = userID,
                 SubscriptionID = subscriptionID,
                 Parameters = HttpUtility.HtmlEncode(string.Join(ParameterSeparator, new[] {
-                    "<a href='" + InsertLinkWithDictionary("Details", "Subscription", new Dictionary<string,string>() { { "id", fromSubscriptionID.ToString() } }) + "'>" + fromSubscriptionID + "</a>",
-                    "<a href='" + InsertLinkWithDictionary("Details", "Subscription", new Dictionary<string,string>() { { "id", toSubscriptionID.ToString() } }) + "'>" + toSubscriptionID + "</a>",
+                    "<a href='" + InsertLinkWithDictionary("Details", "Client", new Dictionary<string,string>() { { "id", fromSubscriptionID.ToString() } }) + "'>" + fromSubscriptionID + "</a>",
+                    "<a href='" + InsertLinkWithDictionary("Details", "Client", new Dictionary<string,string>() { { "id", toSubscriptionID.ToString() } }) + "'>" + toSubscriptionID + "</a>",
                 }))
             };
         }

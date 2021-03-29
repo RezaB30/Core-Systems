@@ -112,7 +112,7 @@ namespace RadiusR_Manager.Controllers
                     PayDate = bill.PayDate.HasValue ? bill.PayDate.Value.ToString("yyyyMMdd") : null,
                     Total = bill.GetPayableCost().ToString("###,###,##0.00"),
                     PaymentType = new LocalizedList<PaymentType, RadiusR.Localization.Lists.PaymentType>().GetDisplayText(bill.PaymentTypeID) + (bill.ExternalPayment != null ? "(" + (bill.ExternalPayment.RadiusRBillingService != null ? bill.ExternalPayment.RadiusRBillingService.Name : bill.ExternalPayment.OfflinePaymentGateway != null ? bill.ExternalPayment.OfflinePaymentGateway.Name : "<INVALID>") + ")" : null),
-                    ApprovingStaff = bill.AppUser.Name
+                    ApprovingStaff = bill.AppUser?.Name ?? "-"
                 });
 
             var currentTime = DateTime.Now;
