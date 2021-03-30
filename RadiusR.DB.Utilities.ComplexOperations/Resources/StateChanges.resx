@@ -126,6 +126,12 @@
   <data name="InvalidFreezeDuration" xml:space="preserve">
     <value>Invalid freeze duration.</value>
   </data>
+  <data name="InvalidSubscriptionOrDomainType" xml:space="preserve">
+    <value>Invalid subscription or domain type.</value>
+  </data>
+  <data name="InvalidTelekomTariff" xml:space="preserve">
+    <value>Invalid Telekom tariff</value>
+  </data>
   <data name="InvalidTransferringSubscriptionDomain" xml:space="preserve">
     <value>Transferring subscription domain does not match.</value>
   </data>

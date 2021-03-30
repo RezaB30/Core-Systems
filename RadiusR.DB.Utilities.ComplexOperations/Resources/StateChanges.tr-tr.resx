@@ -126,6 +126,12 @@
   <data name="InvalidFreezeDuration" xml:space="preserve">
     <value>Geçersiz dondurma süresi.</value>
   </data>
+  <data name="InvalidSubscriptionOrDomainType" xml:space="preserve">
+    <value>Geçersiz abonelik veya domain tipi.</value>
+  </data>
+  <data name="InvalidTelekomTariff" xml:space="preserve">
+    <value>Geçersiz Telekom tarifesi.</value>
+  </data>
   <data name="InvalidTransferringSubscriptionDomain" xml:space="preserve">
     <value>Devreden Aboneliğin domain'i eşleşmiyor.</value>
   </data>

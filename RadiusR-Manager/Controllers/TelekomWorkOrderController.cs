@@ -785,6 +785,7 @@ namespace RadiusR_Manager.Controllers
                 return Content("<div class='text-danger centered'>" + RadiusR.Localization.Pages.ErrorMessages._9 + "</span>");
             }
 
+            // transition validation clearance
             if (workOrder.OperationType.HasValue)
             {
                 if (workOrder.OperationType == (short)RadiusR.DB.Enums.TelekomOperations.TelekomOperationType.Transition)
@@ -792,19 +793,23 @@ namespace RadiusR_Manager.Controllers
                     ModelState.Remove("ManagementCode");
                     ModelState.Remove("ProvinceCode");
                     ModelState.Remove("QueueNo");
+                    ModelState.Remove("OperationSubType");
                     workOrder._managementCode = null;
                     workOrder._provinceCode = null;
                     workOrder._queueNo = null;
-                }
-                else
-                {
-                    ModelState.Remove("TransactionID");
-                    workOrder._transactionID = null;
+                    workOrder.OperationSubType = null;
                 }
             }
 
             if (ModelState.IsValid)
             {
+                // transition
+                if (workOrder.OperationType == (short)RadiusR.DB.Enums.TelekomOperations.TelekomOperationType.Transition)
+                {
+                    // redirect to preparation
+                    return RedirectToAction("PrepareTransitionForResend", "Client", new { id = subscriber.ID, returnUrl = $"{Url.Action("Details", "Client", new { id = subscriber.ID })}#faults" });
+                }
+                // non-transition
                 var dbWorkOrder = new TelekomWorkOrder()
                 {
                     AppUserID = User.GiveUserId(),

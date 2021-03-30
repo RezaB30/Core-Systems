@@ -39,20 +39,20 @@
                         @Html.ValidationMessageFor(model => model.OperationType)
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.OperationSubType)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => model.OperationSubType)
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        @Html.ValidationMessageFor(model => model.OperationType)
-                    </td>
-                </tr>
                 <tbody id="standard-work-orders" style="display: none;">
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => model.OperationSubType)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.OperationSubType)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.OperationSubType)
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                             @Html.LabelFor(model => model.ManagementCode)
@@ -95,16 +95,8 @@
                 </tbody>
                 <tbody id="transition-work-orders" style="display: none;">
                     <tr>
-                        <td>
-                            @Html.LabelFor(model => model.TransactionID)
-                        </td>
-                        <td>
-                            @Html.EditorFor(model => model.TransactionID, new { htmlAttributes = new { @maxlength = 19, @autocomplete = "off" } })
-                        </td>
-                    </tr>
-                    <tr>
                         <td colspan="2">
-                            @Html.ValidationMessageFor(model => model.TransactionID)
+                            <span class="warning-message-hint">@RadiusR.Localization.Pages.WarningMessages.TransitionRequestCreationWarning</span>
                         </td>
                     </tr>
                 </tbody>

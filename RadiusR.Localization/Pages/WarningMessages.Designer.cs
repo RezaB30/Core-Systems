@@ -86,5 +86,14 @@ namespace RadiusR.Localization.Pages {
                 return ResourceManager.GetString("SupportRequestFinishWarning", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This action will create a new transition request..
+        /// </summary>
+        public static string TransitionRequestCreationWarning {
+            get {
+                return ResourceManager.GetString("TransitionRequestCreationWarning", resourceCulture);
+            }
+        }
     }
 }

@@ -75,9 +75,9 @@ namespace RadiusR_Manager.Models.RadiusViewModels
         public string ProvinceCode { get; set; }
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "TransitionTransactionID")]
-        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
-        [PositiveInt(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "PositiveInt")]
-        [MaxLength(10, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
+        //[Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
+        //[PositiveInt(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "PositiveInt")]
+        //[MaxLength(10, ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "MaxLength")]
         public string TransactionID { get; set; }
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "IsOpen")]

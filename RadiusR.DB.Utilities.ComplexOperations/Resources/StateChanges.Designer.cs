@@ -88,6 +88,24 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid subscription or domain type..
+        /// </summary>
+        public static string InvalidSubscriptionOrDomainType {
+            get {
+                return ResourceManager.GetString("InvalidSubscriptionOrDomainType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Telekom tariff.
+        /// </summary>
+        public static string InvalidTelekomTariff {
+            get {
+                return ResourceManager.GetString("InvalidTelekomTariff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transferring subscription domain does not match..
         /// </summary>
         public static string InvalidTransferringSubscriptionDomain {

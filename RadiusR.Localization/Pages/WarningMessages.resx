@@ -126,4 +126,7 @@
   <data name="SupportRequestFinishWarning" xml:space="preserve">
     <value>If this request is visible to customer, this message will be visible to customer.</value>
   </data>
+  <data name="TransitionRequestCreationWarning" xml:space="preserve">
+    <value>This action will create a new transition request.</value>
+  </data>
 </root>

@@ -411,6 +411,53 @@ namespace RadiusR_Manager.Controllers
         // GET: Client/PrepareTransition
         public ActionResult PrepareTransition(long id, string returnUrl)
         {
+            //var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+            //UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+            //ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
+
+            //var dbSubscription = db.Subscriptions.Find(id);
+            //if (dbSubscription == null)
+            //{
+            //    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "4", uri);
+            //    return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            //}
+            //var domain = DomainsCache.GetDomainByID(dbSubscription.DomainID);
+            //if (domain == null)
+            //{
+            //    ViewBag.ErrorMessage = RadiusR.Localization.Pages.Common.DomainNotFound;
+            //    return View(viewName: "AddWizard/PrepareTransition");
+            //}
+            //else if (domain.TelekomCredential == null)
+            //{
+            //    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+            //    return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            //}
+
+            //ViewBag.CustomerName = dbSubscription.ValidDisplayName;
+            //ViewBag.SelectedDomain = domain;
+            //var telekomTariff = TelekomTariffsCache.GetSpecificTariff(domain, dbSubscription.SubscriptionTelekomInfo?.PacketCode ?? 0, dbSubscription.SubscriptionTelekomInfo?.TariffCode ?? 0);
+
+            //var viewResult = new PrepareTransitionViewModel()
+            //{
+            //    TransitionPSTN = dbSubscription.SubscriptionTelekomInfo?.PSTN,
+            //    TransitionXDSLNo = dbSubscription.SubscriptionTelekomInfo?.SubscriptionNo,
+            //    TelekomTariffInfo = telekomTariff == null ? new TelekomTariffHelperViewModel() : new TelekomTariffHelperViewModel(telekomTariff)
+            //};
+
+            //return View(viewName: "AddWizard/PrepareTransition", model: viewResult);
+            return PrepareTransitionBase(id, returnUrl);
+        }
+
+        [AuthorizePermission(Permissions = "Subscriber State")]
+        [HttpGet]
+        // GET: Client/PrepareTransitionForResend
+        public ActionResult PrepareTransitionForResend(long id, string returnUrl)
+        {
+            return PrepareTransitionBase(id, returnUrl);
+        }
+
+        private ActionResult PrepareTransitionBase(long id, string returnUrl)
+        {
             var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
             UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
             ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
@@ -452,6 +499,93 @@ namespace RadiusR_Manager.Controllers
         [HttpPost]
         // POST: Client/PrepareTransition
         public ActionResult PrepareTransition(long id, string returnUrl, PrepareTransitionViewModel preparationModel)
+        {
+            //var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+            //UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            //var dbSubscription = db.Subscriptions.Find(id);
+            //if (dbSubscription == null)
+            //{
+            //    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "4", uri);
+            //    return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            //}
+
+            //var domain = DomainsCache.GetDomainByID(dbSubscription.DomainID);
+            //if (domain == null)
+            //{
+            //    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+            //    return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            //}
+            //else if (domain.TelekomCredential == null)
+            //{
+            //    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+            //    return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            //}
+
+            //if (ModelState.IsValid)
+            //{
+            //    var telekomTariff = TelekomTariffsCache.GetSpecificTariff(domain, preparationModel.TelekomTariffInfo.PacketCode.Value, preparationModel.TelekomTariffInfo.TariffCode.Value);
+            //    if (telekomTariff == null)
+            //    {
+            //        ViewBag.ErrorMessage = RadiusR.Localization.Validation.Common.InvalidTelekomPacket;
+            //        return View(viewName: "AddWizard/PrepareTransition", model: preparationModel);
+            //    }
+
+            //    if (dbSubscription.SubscriptionTelekomInfo == null)
+            //        dbSubscription.SubscriptionTelekomInfo = new SubscriptionTelekomInfo();
+
+            //    dbSubscription.SubscriptionTelekomInfo.SubscriptionNo = preparationModel.TransitionXDSLNo;
+            //    dbSubscription.SubscriptionTelekomInfo.PSTN = preparationModel.TransitionPSTN;
+            //    dbSubscription.SubscriptionTelekomInfo.PacketCode = telekomTariff.PacketCode;
+            //    dbSubscription.SubscriptionTelekomInfo.TariffCode = telekomTariff.TariffCode;
+            //    dbSubscription.SubscriptionTelekomInfo.XDSLType = (short)telekomTariff.XDSLType;
+            //    dbSubscription.SubscriptionTelekomInfo.IsPaperWorkNeeded = preparationModel.TelekomTariffInfo.IsPaperworkNeeded;
+            //    dbSubscription.SubscriptionTelekomInfo.TTCustomerCode = domain.TelekomCredential.XDSLWebServiceCustomerCodeInt;
+
+            //    db.SaveChanges();
+
+            //    var results = StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new RegisterSubscriptionOptions()
+            //    {
+            //        AppUserID = User.GiveUserId(),
+            //        LogInterface = SystemLogInterface.MasterISS,
+            //        ScheduleSMSes = false
+            //    });
+
+            //    if (results.IsFatal)
+            //    {
+            //        throw results.InternalException;
+            //    }
+            //    else if (results.IsSuccess)
+            //    {
+            //        UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+            //        return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            //    }
+            //    else
+            //    {
+            //        UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+            //        TempData["ErrorResults"] = results;
+            //        return RedirectToAction("StateChangeError", new { returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
+            //    }
+            //}
+
+            //ViewBag.CustomerName = dbSubscription.ValidDisplayName;
+            //ViewBag.SelectedDomain = domain;
+            //ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
+
+            //return View(viewName: "AddWizard/PrepareTransition", model: preparationModel);
+            return PrepareTransitionConfirm(id, returnUrl, preparationModel, true);
+        }
+
+        [AuthorizePermission(Permissions = "Subscriber State")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        // POST: Client/PrepareTransitionForResend
+        public ActionResult PrepareTransitionForResend(long id, string returnUrl, PrepareTransitionViewModel preparationModel)
+        {
+            return PrepareTransitionConfirm(id, returnUrl, preparationModel, false);
+        }
+
+        private ActionResult PrepareTransitionConfirm(long id, string returnUrl, PrepareTransitionViewModel preparationModel, bool shouldChangeState)
         {
             var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
             UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
@@ -496,28 +630,90 @@ namespace RadiusR_Manager.Controllers
                 dbSubscription.SubscriptionTelekomInfo.TTCustomerCode = domain.TelekomCredential.XDSLWebServiceCustomerCodeInt;
 
                 db.SaveChanges();
+                // with state change
+                if (shouldChangeState)
+                {
+                    var results = StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new RegisterSubscriptionOptions()
+                    {
+                        AppUserID = User.GiveUserId(),
+                        LogInterface = SystemLogInterface.MasterISS,
+                        ScheduleSMSes = false
+                    });
 
-                var results = StateChangeUtilities.ChangeSubscriptionState(dbSubscription.ID, new RegisterSubscriptionOptions()
-                {
-                    AppUserID = User.GiveUserId(),
-                    LogInterface = SystemLogInterface.MasterISS,
-                    ScheduleSMSes = false
-                });
-
-                if (results.IsFatal)
-                {
-                    throw results.InternalException;
+                    if (results.IsFatal)
+                    {
+                        throw results.InternalException;
+                    }
+                    else if (results.IsSuccess)
+                    {
+                        UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                        return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                    }
+                    else
+                    {
+                        UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+                        TempData["ErrorResults"] = results;
+                        return RedirectToAction("StateChangeError", new { returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
+                    }
                 }
-                else if (results.IsSuccess)
-                {
-                    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
-                    return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
-                }
+                // without state change
                 else
                 {
-                    UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
-                    TempData["ErrorResults"] = results;
-                    return RedirectToAction("StateChangeError", new { returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
+                    // send service request
+                    var transitionRegistrationResult = StateChangeUtilities.SendTransitionRegistration(dbSubscription);
+                    if (transitionRegistrationResult.IsFatal)
+                    {
+                        throw transitionRegistrationResult.InternalException;
+                    }
+                    else if (transitionRegistrationResult.IsSuccess)
+                    {
+                        // add telekom work order
+                        var addedTelekomWorkOrder = new TelekomWorkOrder()
+                        {
+                            AppUserID = User.GiveUserId(),
+                            CreationDate = DateTime.Now,
+                            IsOpen = true,
+                            OperationTypeID = (short)RadiusR.DB.Enums.TelekomOperations.TelekomOperationType.Transition,
+                            OperationSubType = (short)(dbSubscription.SubscriptionTelekomInfo.XDSLType == (short)XDSLType.Fiber ? RadiusR.DB.Enums.TelekomOperations.TelekomOperationSubType.FTTX : RadiusR.DB.Enums.TelekomOperations.TelekomOperationSubType.XDSL),
+                            SubscriptionID = dbSubscription.ID,
+                            TransactionID = transitionRegistrationResult.TransactionID.Value
+                        };
+                        dbSubscription.TelekomWorkOrders.Add(addedTelekomWorkOrder);
+                        // save
+                        db.SaveChanges();
+                        // work order log
+                        db.SystemLogs.Add(SystemLogProcessor.CreateTelekomWorkOrder(User.GiveUserId(), dbSubscription.ID, SystemLogInterface.MasterISS, null, addedTelekomWorkOrder.ID, new RadiusR.SystemLogs.Parameters.TelekomWorkOrderDetails(addedTelekomWorkOrder)));
+                        // save
+                        db.SaveChanges();
+
+                        // check attachments
+                        var validateTransitionFilesResult = StateChangeUtilities.ValidateAttachmentsForTransition(dbSubscription);
+                        if (!validateTransitionFilesResult.IsValid)
+                        {
+                            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+                            TempData["ErrorResults"] = new StateChangeResult(RadiusR.Localization.Pages.Common.FileManagerError, validateTransitionFilesResult.FileManagerException);
+                            return RedirectToAction("StateChangeError", new { returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
+                        }
+                        // upload files
+                        var attachmentUploadResult = StateChangeUtilities.UploadTransitionFiles(dbSubscription, transitionRegistrationResult.TransactionID.Value, validateTransitionFilesResult);
+                        if (attachmentUploadResult.IsSuccess)
+                        {
+                            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                        }
+                        else
+                        {
+                            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+                            TempData["ErrorResults"] = attachmentUploadResult.ErrorResult;
+                            return RedirectToAction("StateChangeError", new { returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
+                        }
+                    }
+                    else
+                    {
+                        UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+                        TempData["ErrorResults"] = transitionRegistrationResult;
+                        return RedirectToAction("StateChangeError", new { returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
+                    }
                 }
             }
 
