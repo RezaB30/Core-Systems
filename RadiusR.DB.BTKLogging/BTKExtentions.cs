@@ -38,8 +38,8 @@ namespace RadiusR.DB.BTKLogging
                     "session_start",
                     accountingRecord.NASPort,
                     accountingRecord.Subscription.SubscriberNo,
-                    accountingRecord.SessionID
-                    //$"{accountingRecord.SessionID}{accountingRecord.UniqueID}" //19.03.2021 15:07 BTK: SERDAR TANRIVERDI TEL: 03125865216
+                    //accountingRecord.SessionID
+                    $"{accountingRecord.SessionID}{accountingRecord.UniqueID}" //19.03.2021 15:07 BTK: SERDAR TANRIVERDI TEL: 03125865216
                 }));
             // this period stops
             var thisPeriodStops = newThisPeriod.Where(accountingRecord => accountingRecord.StopTime < nextOperationTime).AsEnumerable()
@@ -60,8 +60,8 @@ namespace RadiusR.DB.BTKLogging
                     "session_stop",
                     accountingRecord.NASPort,
                     accountingRecord.Subscription.SubscriberNo,
-                    accountingRecord.SessionID
-                    //$"{accountingRecord.SessionID}{accountingRecord.UniqueID}" //19.03.2021 15:07 BTK: SERDAR TANRIVERDI TEL: 03125865216
+                    //accountingRecord.SessionID
+                    $"{accountingRecord.SessionID}{accountingRecord.UniqueID}" //19.03.2021 15:07 BTK: SERDAR TANRIVERDI TEL: 03125865216
                 }));
             // previous periods and send final
             return sessionStarts.Concat(thisPeriodStops).Concat(finalQuery.Where(accountingRecord => accountingRecord.StartTime < lastOperationTime).AsEnumerable()
@@ -82,8 +82,8 @@ namespace RadiusR.DB.BTKLogging
                     accountingRecord.StopTime.HasValue? "session_stop": "interim_update",
                     accountingRecord.NASPort,
                     accountingRecord.Subscription.SubscriberNo,
-                    accountingRecord.SessionID
-                    //$"{accountingRecord.SessionID}{accountingRecord.UniqueID}" //19.03.2021 15:07 BTK: SERDAR TANRIVERDI TEL: 03125865216
+                    //accountingRecord.SessionID
+                    $"{accountingRecord.SessionID}{accountingRecord.UniqueID}" //19.03.2021 15:07 BTK: SERDAR TANRIVERDI TEL: 03125865216
                 })));
         }
 
