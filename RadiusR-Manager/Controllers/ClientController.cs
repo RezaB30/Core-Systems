@@ -219,6 +219,13 @@ namespace RadiusR_Manager.Controllers
                         }
                         else
                         {
+                            // show force if user has permission
+                            if (User.HasPermission("Force Unfreeze"))
+                            {
+                                TempData["UnfreezeError"] = results.ErrorMessage;
+                                return RedirectToAction("UnfreezeError", new { id = id, redirectUrl = redirectUrl });
+                            }
+                            // else go to error page
                             UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
                             TempData["ErrorResults"] = results;
                             return RedirectToAction("StateChangeError", new { returnUrl = uri.Uri.PathAndQuery + uri.Fragment });

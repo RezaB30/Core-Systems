@@ -383,7 +383,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                                 var response = serviceClient.ReleaseClient(billingReadySubscription.Subscription.SubscriptionTelekomInfo.SubscriptionNo, DateTime.Now);
                                 if (response.InternalException != null && !activateOptions.ForceUnfreeze)
                                 {
-                                    throw response.InternalException;
+                                    return new StateChangeResult(response.InternalException.GetShortMessage(), response.InternalException);
                                 }
                             }
                         }

@@ -345,3 +345,5 @@ v 5.10.00 '2021-03-27'
 - updated MasterISS file manager to support transition files requirements.
 - updated domains settings to include transition FTP credentials.
 - updated domains cache to reflect added properties.
+v 5.10.02 '2021-04-02'
+- fixed force unfreeze bug.
