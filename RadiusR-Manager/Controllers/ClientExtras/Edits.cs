@@ -361,9 +361,9 @@ namespace RadiusR_Manager.Controllers
 
             var username = new UsernameEditViewModel()
             {
-                Username = dbSubscription.Username.Substring(0, dbSubscription.Username.IndexOf('@')),
-                Password = dbSubscription.RadiusPassword,
-                DomainName = dbSubscription.Username.Substring(dbSubscription.Username.IndexOf('@') + 1)
+                Username = dbSubscription.RadiusAuthorization.Username.Substring(0, dbSubscription.RadiusAuthorization.Username.IndexOf('@')),
+                Password = dbSubscription.RadiusAuthorization.Password,
+                DomainName = dbSubscription.RadiusAuthorization.Username.Substring(dbSubscription.RadiusAuthorization.Username.IndexOf('@') + 1)
             };
 
             ViewBag.CustomerName = dbSubscription.ValidDisplayName;
@@ -389,21 +389,21 @@ namespace RadiusR_Manager.Controllers
 
             if (ModelState.IsValid)
             {
-                var sameUsername = usernameModel.Username == dbSubscription.Username.Split('@').FirstOrDefault();
+                var sameUsername = usernameModel.Username == dbSubscription.RadiusAuthorization.Username.Split('@').FirstOrDefault();
                 if (sameUsername || UsernameFactory.IsUsernameValid(domain, usernameModel.Username))
                 {
-                    var oldUsername = dbSubscription.Username;
-                    var oldPassword = dbSubscription.RadiusPassword;
+                    var oldUsername = dbSubscription.RadiusAuthorization.Username;
+                    var oldPassword = dbSubscription.RadiusAuthorization.Password;
 
                     if (!sameUsername)
                     {
-                        dbSubscription.Username = usernameModel.Username + "@" + domain.Name;
-                        db.SystemLogs.Add(SystemLogProcessor.ChangeSubscriberUsername(User.GiveUserId(), dbSubscription.ID, SystemLogInterface.MasterISS, null, oldUsername, dbSubscription.Username));
+                        dbSubscription.RadiusAuthorization.Username = usernameModel.Username + "@" + domain.Name;
+                        db.SystemLogs.Add(SystemLogProcessor.ChangeSubscriberUsername(User.GiveUserId(), dbSubscription.ID, SystemLogInterface.MasterISS, null, oldUsername, dbSubscription.RadiusAuthorization.Username));
                     }
                     if (oldPassword != usernameModel.Password)
                     {
-                        dbSubscription.RadiusPassword = usernameModel.Password;
-                        db.SystemLogs.Add(SystemLogProcessor.ChangeSubscriberPassword(User.GiveUserId(), dbSubscription.ID, SystemLogInterface.MasterISS, null, oldPassword, dbSubscription.RadiusPassword));
+                        dbSubscription.RadiusAuthorization.Password = usernameModel.Password;
+                        db.SystemLogs.Add(SystemLogProcessor.ChangeSubscriberPassword(User.GiveUserId(), dbSubscription.ID, SystemLogInterface.MasterISS, null, oldPassword, dbSubscription.RadiusAuthorization.Password));
                     }
 
                     db.SaveChanges();
@@ -413,7 +413,7 @@ namespace RadiusR_Manager.Controllers
                 ModelState.AddModelError("Username", RadiusR.Localization.Validation.Common.UsernameExists);
             }
 
-            usernameModel.DomainName = dbSubscription.Username.Substring(dbSubscription.Username.IndexOf('@') + 1);
+            usernameModel.DomainName = dbSubscription.RadiusAuthorization.Username.Substring(dbSubscription.RadiusAuthorization.Username.IndexOf('@') + 1);
             ViewBag.CustomerName = dbSubscription.ValidDisplayName;
             return View(viewName: "Edits/ChangeUsername", model: usernameModel);
         }
@@ -854,7 +854,7 @@ namespace RadiusR_Manager.Controllers
 
             var staticIP = new ChangeStaticIPViewModel()
             {
-                IP = subscription.StaticIP
+                IP = subscription.RadiusAuthorization.StaticIP
             };
 
             ViewBag.CustomerName = subscription.ValidDisplayName;
@@ -875,24 +875,24 @@ namespace RadiusR_Manager.Controllers
 
             if (ModelState.IsValid)
             {
-                var oldIP = subscription.StaticIP;
+                var oldIP = subscription.RadiusAuthorization.StaticIP;
 
                 if (string.IsNullOrWhiteSpace(staticIP.IP))
                 {
-                    subscription.StaticIP = null;
+                    subscription.RadiusAuthorization.StaticIP = null;
                 }
-                else if (db.Subscriptions.Any(s => s.StaticIP == staticIP.IP))
+                else if (db.Subscriptions.Any(s => s.RadiusAuthorization.StaticIP == staticIP.IP))
                 {
                     ModelState.AddModelError("IP", string.Format(RadiusR.Localization.Validation.Common.Unique, RadiusR.Localization.Model.RadiusR.StaticIP));
                 }
                 else
                 {
-                    subscription.StaticIP = staticIP.IP;
+                    subscription.RadiusAuthorization.StaticIP = staticIP.IP;
                 }
 
                 if (ModelState.IsValid)
                 {
-                    db.SystemLogs.Add(SystemLogProcessor.ChangeSubscriberStaticIP(User.GiveUserId(), subscription.ID, SystemLogInterface.MasterISS, null, oldIP ?? "[]", subscription.StaticIP ?? "[]"));
+                    db.SystemLogs.Add(SystemLogProcessor.ChangeSubscriberStaticIP(User.GiveUserId(), subscription.ID, SystemLogInterface.MasterISS, null, oldIP ?? "[]", subscription.RadiusAuthorization.StaticIP ?? "[]"));
                     db.SaveChanges();
                     return RedirectToAction("Details", new { id = subscription.ID, errorMessage = 0 });
                 }
@@ -912,13 +912,13 @@ namespace RadiusR_Manager.Controllers
             {
                 return RedirectToAction("Index", new { errorMessage = 4 });
             }
-            if (subscription.State != (short)CustomerState.Active || !subscription.LastAllowedDate.HasValue)
+            if (subscription.State != (short)CustomerState.Active || !subscription.RadiusAuthorization.ExpirationDate.HasValue)
             {
                 return RedirectToAction("Index", new { errorMessage = 9 });
             }
             var expirationDate = new ChangeExpirationDateViewModel()
             {
-                NewDate = subscription.LastAllowedDate.Value,
+                NewDate = subscription.RadiusAuthorization.ExpirationDate.Value,
             };
 
             ViewBag.CustomerName = subscription.ValidDisplayName;
@@ -936,15 +936,15 @@ namespace RadiusR_Manager.Controllers
             {
                 return RedirectToAction("Index", new { errorMessage = 4 });
             }
-            if (subscription.State != (short)CustomerState.Active || !subscription.LastAllowedDate.HasValue)
+            if (subscription.State != (short)CustomerState.Active || !subscription.RadiusAuthorization.ExpirationDate.HasValue)
             {
                 return RedirectToAction("Index", new { errorMessage = 9 });
             }
 
             if (ModelState.IsValid)
             {
-                var oldExpirationdate = subscription.LastAllowedDate.HasValue ? subscription.LastAllowedDate.Value.ToString("yyyy-MM-dd") : "-";
-                subscription.LastAllowedDate = changedDate.NewDate;
+                var oldExpirationdate = subscription.RadiusAuthorization.ExpirationDate.HasValue ? subscription.RadiusAuthorization.ExpirationDate.Value.ToString("yyyy-MM-dd") : "-";
+                subscription.RadiusAuthorization.ExpirationDate = changedDate.NewDate;
 
                 db.SystemLogs.Add(SystemLogProcessor.ExtendExpirationDate(User.GiveUserId(), subscription.ID, SystemLogInterface.MasterISS, null, oldExpirationdate, changedDate.NewDate.ToString("yyyy-MM-dd")));
 

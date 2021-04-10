@@ -366,19 +366,22 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                 Groups = dbGroups,
                 MembershipDate = DateTime.Now,
                 PaymentDay = registrationInfo.BillingPeriod.Value,
-                RadiusPassword = RandomGenerator.GenerateRadiusPassword(),
                 ServiceID = selectedTariff.ID,
-                SimultaneousUse = 1,
                 State = (short)Enums.CustomerState.Registered,
-                StaticIP = registrationInfo.StaticIP,
                 SubscriberNo = UsernameFactory.GenerateUniqueSubscriberNo(selectedDomain),
                 ReferenceNo = UsernameFactory.GenerateUniqueReferenceNo(),
+                RadiusAuthorization = new RadiusAuthorization()
+                {
+                    IsEnabled = false,
+                    Username = string.IsNullOrEmpty(registrationInfo.Username) ? UsernameFactory.GenerateUsername(selectedDomain) : registrationInfo.Username + "@" + selectedDomain.Name,
+                    Password = RandomGenerator.GenerateRadiusPassword(),
+                    StaticIP = registrationInfo.StaticIP,
+                },
                 SubscriptionCommitment = registrationInfo.CommitmentInfo != null ? new SubscriptionCommitment()
                 {
                     CommitmentLength = (short)registrationInfo.CommitmentInfo.CommitmentLength,
                     CommitmentExpirationDate = registrationInfo.CommitmentInfo.CommitmentExpirationDate.Value
                 } : null,
-                Username = string.IsNullOrEmpty(registrationInfo.Username) ? UsernameFactory.GenerateUsername(selectedDomain) : registrationInfo.Username + "@" + selectedDomain.Name,
                 PartnerRegisteredSubscription = registrationInfo.RegisteringPartner != null ? new PartnerRegisteredSubscription()
                 {
                     Allowance = selectedPartnerTariff.Allowance,

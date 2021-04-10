@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.2.4</version>
+    <version>1.3.0</version>
     <title>RadiusR.DB</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <description>MasterISS core data base.</description>
-    <releaseNotes>Updated domains and Telekom work orders.</releaseNotes>
+    <releaseNotes>Added Radius Authorization.</releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>MasterISS Database</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />

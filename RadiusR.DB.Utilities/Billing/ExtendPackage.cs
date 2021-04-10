@@ -25,7 +25,7 @@ namespace RadiusR.DB.Utilities.Billing
             var allTimeFees = dbSubscription.Fees.Where(fee => fee.FeeTypeCost.IsAllTime && fee.FeeTypeCost.FeeTypeID != (short)FeeType.Tariff);
             //var totalFee = dbSubscription.Service.Price * (decimal)addedPeriods + allTimeFees.Sum(fee => fee.FeeTypeCost.Cost ?? fee.FeeTypeVariant.Price) * (decimal)addedPeriods;
             var totalFee = dbSubscription.GetSubscriberPackageExtentionUnitPrice() * (decimal)addedPeriods;
-            dbSubscription.LastAllowedDate = (dbSubscription.LastAllowedDate.HasValue) ? (DateTime.Now > dbSubscription.LastAllowedDate) ? DateTime.Now.AddMonths(addedPeriods) : dbSubscription.LastAllowedDate.Value.AddMonths(addedPeriods) : DateTime.Now.AddMonths(addedPeriods);
+            dbSubscription.RadiusAuthorization.ExpirationDate = (dbSubscription.RadiusAuthorization.ExpirationDate.HasValue) ? (DateTime.Now > dbSubscription.RadiusAuthorization.ExpirationDate) ? DateTime.Now.AddMonths(addedPeriods) : dbSubscription.RadiusAuthorization.ExpirationDate.Value.AddMonths(addedPeriods) : DateTime.Now.AddMonths(addedPeriods);
 
             var addedBill = new Bill()
             {

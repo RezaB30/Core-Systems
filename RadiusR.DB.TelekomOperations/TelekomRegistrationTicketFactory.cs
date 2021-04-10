@@ -43,8 +43,8 @@ namespace RadiusR.DB.TelekomOperations
                 {
                     DomainName = selectedDomain.Name,
                     ISPCode = selectedDomain.TelekomCredential.OLOPortalCustomerCodeInt,
-                    Password = dbSubsciption.RadiusPassword,
-                    Username = dbSubsciption.Username.Split('@').FirstOrDefault()
+                    Password = dbSubsciption.RadiusAuthorization.Password,
+                    Username = dbSubsciption.RadiusAuthorization.Username.Split('@').FirstOrDefault()
                 },
                 TariffInfo = new TelekomRegistrationTicket.RegistrationTariffInfo()
                 {

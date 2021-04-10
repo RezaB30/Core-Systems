@@ -181,7 +181,7 @@ namespace RadiusR.BTKLogging
                     //db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
                     var query = db.RadiusAccountings
                         .GetActiveInTimeSpan(schedulerSettings.LastOperationTime, schedulerSettings.NextOperationTime.Value)
-                        .Where(ra => string.IsNullOrEmpty(ra.Subscription.StaticIP))
+                        .Where(ra => string.IsNullOrEmpty(ra.Subscription.RadiusAuthorization.StaticIP))
                         .OrderBy(ra => ra.ID).AsQueryable();
 
                     if (lastMaxAccRecordID.HasValue)
@@ -279,7 +279,7 @@ namespace RadiusR.BTKLogging
                     {
                         db.Configuration.AutoDetectChangesEnabled = false;
                         //db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-                        var query = db.RadiusAccountings.Where(ra => ra.Subscription.Service.InfrastructureType == (short)infrastructureType).GetActiveInTimeSpan(schedulerSettings.LastOperationTime, schedulerSettings.NextOperationTime.Value).OrderBy(ra => ra.ID).Where(ra => !string.IsNullOrEmpty(ra.Subscription.StaticIP)).AsQueryable();
+                        var query = db.RadiusAccountings.Where(ra => ra.Subscription.Service.InfrastructureType == (short)infrastructureType).GetActiveInTimeSpan(schedulerSettings.LastOperationTime, schedulerSettings.NextOperationTime.Value).OrderBy(ra => ra.ID).Where(ra => !string.IsNullOrEmpty(ra.Subscription.RadiusAuthorization.StaticIP)).AsQueryable();
 
                         if (lastMaxAccRecordID.HasValue)
                             query = query.Where(ra => ra.ID > lastMaxAccRecordID);

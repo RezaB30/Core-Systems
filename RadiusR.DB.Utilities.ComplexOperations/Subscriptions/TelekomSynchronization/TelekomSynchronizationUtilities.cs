@@ -85,13 +85,13 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TelekomSynchroniz
                     if (!string.IsNullOrWhiteSpace(response.Data.SubscriberUsername))
                     {
                         var newUsername = response.Data.SubscriberUsername + "@" + domain.Name;
-                        if (db.Subscriptions.Any(s => s.Username.ToLower() == newUsername && s.ID != options.DBSubscription.ID))
+                        if (db.Subscriptions.Any(s => s.RadiusAuthorization.Username.ToLower() == newUsername && s.ID != options.DBSubscription.ID))
                             return new TelekomSynchronizationResults()
                             {
                                 ResultCode = TelekomSynchronizationResultCodes.SynchronizedUsernameExists,
                                 SynchronizedUsername = newUsername
                             };
-                        options.DBSubscription.Username = newUsername;
+                        options.DBSubscription.RadiusAuthorization.Username = newUsername;
                     }
                 }
                 // Password Update
@@ -109,7 +109,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TelekomSynchroniz
                     }
                     else
                     {
-                        options.DBSubscription.RadiusPassword = secondaryResponse.Data.Password;
+                        options.DBSubscription.RadiusAuthorization.Password = secondaryResponse.Data.Password;
                     }
                 }
             }

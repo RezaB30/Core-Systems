@@ -344,7 +344,7 @@ namespace RadiusR.DB.Utilities.Billing
                 Source = (short)BillSources.System
             });
             // extend last allowed date
-            dbSubscription.LastAllowedDate = DateTime.Now.Date.AddMonths(periodCount);
+            dbSubscription.RadiusAuthorization.ExpirationDate = DateTime.Now.Date.AddMonths(periodCount);
         }
 
         public static void CreateManualBill(this Subscription subscription, IEnumerable<long> FeeIDs)

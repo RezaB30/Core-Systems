@@ -20,7 +20,7 @@ namespace RadiusR_Manager.Models.Extentions
             if (searchModel.DisabledForDebt)
             {
                 var disconnectionTimeOfDay = TimeSpan.ParseExact(db.RadiusDefaults.FirstOrDefault(def => def.Attribute == "DailyDisconnectionTime").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture);
-                query = query.Where(client => client.State == (short)CustomerState.Active && DbFunctions.AddSeconds(client.LastAllowedDate, (int)disconnectionTimeOfDay.TotalSeconds) < DateTime.Now);
+                query = query.Where(client => client.State == (short)CustomerState.Active && DbFunctions.AddSeconds(client.RadiusAuthorization.ExpirationDate, (int)disconnectionTimeOfDay.TotalSeconds) < DateTime.Now);
             }
             if (searchModel.RegistrationType.HasValue)
             {
@@ -44,7 +44,7 @@ namespace RadiusR_Manager.Models.Extentions
             }
             if (!string.IsNullOrWhiteSpace(searchModel.Username))
             {
-                query = query.Where(c => c.Username.Contains(searchModel.Username.ToLower()));
+                query = query.Where(c => c.RadiusAuthorization.Username.Contains(searchModel.Username.ToLower()));
             }
             if (!string.IsNullOrWhiteSpace(searchModel.SubscriberNo))
             {
@@ -60,7 +60,7 @@ namespace RadiusR_Manager.Models.Extentions
             }
             if (searchModel.HasStaticIP)
             {
-                query = query.Where(c => !string.IsNullOrEmpty(c.StaticIP));
+                query = query.Where(c => !string.IsNullOrEmpty(c.RadiusAuthorization.StaticIP));
             }
             if (!string.IsNullOrWhiteSpace(searchModel.ServiceName))
             {

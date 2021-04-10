@@ -215,7 +215,7 @@ namespace RadiusR_Manager.Controllers
                 ID = subscription.ID,
                 Name = subscription.Customer.CorporateCustomerInfo != null ? subscription.Customer.CorporateCustomerInfo.Title : subscription.Customer.FirstName + " " + subscription.Customer.LastName,
                 RegistrationDate = subscription.MembershipDate,
-                Username = subscription.Username
+                Username = subscription.RadiusAuthorization.Username
             }).Take(30);
 
             return View(viewName: "AjaxActions/LastRegisters", model: viewResults);

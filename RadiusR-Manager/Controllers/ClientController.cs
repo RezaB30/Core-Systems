@@ -67,7 +67,7 @@ namespace RadiusR_Manager.Controllers
             var viewResults = dbSubscriptions.Select(s => new SubscriptionListDisplayViewModel()
             {
                 Name = s.Customer.CorporateCustomerInfo != null ? s.Customer.CorporateCustomerInfo.Title : s.Customer.FirstName + " " + s.Customer.LastName,
-                Username = s.Username,
+                Username = s.RadiusAuthorization.Username,
                 SubscriberNo = s.SubscriberNo,
                 ID = s.ID,
                 ContactPhoneNo = s.Customer.ContactPhoneNo,
@@ -110,7 +110,7 @@ namespace RadiusR_Manager.Controllers
                 ServiceName = sub.Service.Name,
                 ServiceNo = sub.SubscriptionTelekomInfo != null ? sub.SubscriptionTelekomInfo.SubscriptionNo : string.Empty,
                 SubscriberNo = sub.SubscriberNo,
-                Username = sub.Username,
+                Username = sub.RadiusAuthorization.Username,
                 State = StateList.GetDisplayText(sub.State),
                 GroupName = sub.Groups.Any() ? string.Join(", ", sub.Groups.Select(g => g.Name)) : string.Empty,
                 RegistrationDate = sub.MembershipDate
@@ -890,7 +890,7 @@ namespace RadiusR_Manager.Controllers
             var viewResults = dbSubscription.Select(s => new SubscriptionListDisplayViewModel()
             {
                 Name = s.Customer.CorporateCustomerInfo != null ? s.Customer.CorporateCustomerInfo.Title : s.Customer.FirstName + " " + s.Customer.LastName,
-                Username = s.Username,
+                Username = s.RadiusAuthorization.Username,
                 SubscriberNo = s.SubscriberNo,
                 ID = s.ID,
                 ContactPhoneNo = s.Customer.ContactPhoneNo,

@@ -246,12 +246,20 @@ namespace RadiusR_Manager.Controllers
         public ActionResult ClientCount()
         {
             var disconnectionTimeOfDay = TimeSpan.ParseExact(db.RadiusDefaults.FirstOrDefault(def => def.Attribute == "DailyDisconnectionTime").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture);
+            var includedStates = new short[]
+            {
+                (short)CustomerState.Active,
+                (short)CustomerState.Reserved,
+                (short)CustomerState.Registered,
+                (short)CustomerState.Disabled,
+                (short)CustomerState.Cancelled,
+            };
             var results = new ClientCountReportViewModel()
             {
-                TotalCount = db.Subscriptions.LongCount(),
+                TotalCount = db.Subscriptions.Where(s=> includedStates.Contains(s.State)).LongCount(),
                 CancelledCount = db.Subscriptions.Where(client => client.State == (short)CustomerState.Cancelled).LongCount(),
                 FreezedCount = db.Subscriptions.Where(client => client.State == (short)CustomerState.Disabled).LongCount(),
-                PassiveCount = db.Subscriptions.Where(client => client.State == (short)CustomerState.Active && DbFunctions.AddSeconds(client.LastAllowedDate, (int)disconnectionTimeOfDay.TotalSeconds) < DateTime.Now).LongCount()
+                PassiveCount = db.Subscriptions.Where(client => client.State == (short)CustomerState.Active || client.State == (short)CustomerState.Reserved && client.RadiusAuthorization.ExpirationDate < DbFunctions.AddSeconds(DateTime.Now, -1 * (int)disconnectionTimeOfDay.TotalSeconds)).LongCount()
             };
 
             // ------- Diagram Data -------
@@ -554,10 +562,10 @@ namespace RadiusR_Manager.Controllers
         public ActionResult StaticIPReport(int? page, [Bind(Prefix = "search")]StaticIPReportSearchViewModel search)
         {
             search = search ?? new StaticIPReportSearchViewModel();
-            var baseQuery = db.Subscriptions.Where(client => !string.IsNullOrEmpty(client.StaticIP));
+            var baseQuery = db.Subscriptions.Where(client => !string.IsNullOrEmpty(client.RadiusAuthorization.StaticIP));
             if (!string.IsNullOrEmpty(search.StaticIP))
             {
-                baseQuery = baseQuery.Where(client => client.StaticIP == search.StaticIP);
+                baseQuery = baseQuery.Where(client => client.RadiusAuthorization.StaticIP == search.StaticIP);
             }
             baseQuery = baseQuery.OrderBy(client => client.ID).AsQueryable();
 
@@ -567,8 +575,8 @@ namespace RadiusR_Manager.Controllers
             {
                 ClientID = client.ID,
                 ClientName = client.ValidDisplayName,
-                Username = client.Username,
-                StaticIP = client.StaticIP
+                Username = client.RadiusAuthorization.Username,
+                StaticIP = client.RadiusAuthorization.StaticIP
             }).ToList();
 
             ViewBag.Search = search;

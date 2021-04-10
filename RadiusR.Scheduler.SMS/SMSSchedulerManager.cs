@@ -60,7 +60,7 @@ namespace RadiusR.Scheduler.SMS
                 {
                     SubscriptionID = dbSubscription.ID,
                     CreationDate = DateTime.Now,
-                    ExpirationDate = dbSubscription.LastAllowedDate,
+                    ExpirationDate = dbSubscription.RadiusAuthorization.ExpirationDate,
                     SMSType = (short)SMSType.PrePaidExpiration
                 }
             };

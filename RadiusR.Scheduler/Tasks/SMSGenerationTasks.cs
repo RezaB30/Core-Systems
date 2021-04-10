@@ -129,9 +129,10 @@ namespace RadiusR.Scheduler.Tasks
                         var baseQuery = db.Subscriptions
                             .Where(s => s.ID > minSubId)
                             .Where(s => s.Service.BillingType == (short)ServiceBillingType.PrePaid)
-                            .Where(s => !s.ScheduledSMSes.Any(ss => ss.SMSType == (short)SMSType.PrePaidExpiration && ss.CreationDate >= DbFunctions.AddDays(s.LastAllowedDate, -1 * SchedulerSettings.SMSSchedulerPrepaidReminderThreshold)))
-                            .Where(s => s.LastAllowedDate > today && DbFunctions.AddDays(s.LastAllowedDate, -1 * SchedulerSettings.SMSSchedulerPrepaidReminderThreshold) <= today)
-                            .Include(s => s.ScheduledSMSes);
+                            .Where(s => !s.ScheduledSMSes.Any(ss => ss.SMSType == (short)SMSType.PrePaidExpiration && ss.CreationDate >= DbFunctions.AddDays(s.RadiusAuthorization.ExpirationDate, -1 * SchedulerSettings.SMSSchedulerPrepaidReminderThreshold)))
+                            .Where(s => s.RadiusAuthorization.ExpirationDate > today && DbFunctions.AddDays(s.RadiusAuthorization.ExpirationDate, -1 * SchedulerSettings.SMSSchedulerPrepaidReminderThreshold) <= today)
+                            .Include(s => s.ScheduledSMSes)
+                            .Include(s => s.RadiusAuthorization);
                         // get the current batch
                         var currentBatch = baseQuery.Take(batchSize).ToArray();
                         // finish if nothing left

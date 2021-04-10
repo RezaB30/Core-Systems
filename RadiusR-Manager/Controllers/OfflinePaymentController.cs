@@ -512,7 +512,7 @@ namespace RadiusR_Manager.Controllers
         {
             subscriberNos = subscriberNos ?? string.Empty;
             var lines = subscriberNos.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Distinct().ToArray();
-            var dbSubs = db.Subscriptions.Where(s => s.ActivationDate.HasValue && s.LastAllowedDate.HasValue).Where(s => lines.Contains(s.SubscriberNo)).ToArray();
+            var dbSubs = db.Subscriptions.Include(s => s.RadiusAuthorization).Where(s => s.ActivationDate.HasValue && s.RadiusAuthorization.ExpirationDate.HasValue).Where(s => lines.Contains(s.SubscriberNo)).ToArray();
             if (dbSubs.Count() != lines.Length)
             {
                 ViewBag.ErrorMessage = RadiusR.Localization.Validation.Common.InvalidInput + " (" + (lines.Length - dbSubs.Count()) + ")";
@@ -524,11 +524,11 @@ namespace RadiusR_Manager.Controllers
             {
                 if (dbSubscription.State == (short)RadiusR.DB.Enums.CustomerState.Cancelled || dbSubscription.State == (short)RadiusR.DB.Enums.CustomerState.Disabled)
                     continue;
-                var oldLastAlloweddate = dbSubscription.LastAllowedDate.Value.Date;
-                if(oldLastAlloweddate < DateTime.Today.AddDays(5))
+                var oldLastAlloweddate = dbSubscription.RadiusAuthorization.ExpirationDate.Value.Date;
+                if (oldLastAlloweddate < DateTime.Today.AddDays(5))
                 {
-                    dbSubscription.LastAllowedDate = dbSubscription.LastAllowedDate.Value.Date.AddDays(5);
-                    db.SystemLogs.Add(SystemLogProcessor.ExtendExpirationDate(User.GiveUserId(), dbSubscription.ID, RadiusR.DB.Enums.SystemLogInterface.MasterISS, null, oldLastAlloweddate.ToString("yyyy-MM-dd"), dbSubscription.LastAllowedDate.Value.ToString("yyyy-MM-dd")));
+                    dbSubscription.RadiusAuthorization.ExpirationDate = dbSubscription.RadiusAuthorization.ExpirationDate.Value.Date.AddDays(5);
+                    db.SystemLogs.Add(SystemLogProcessor.ExtendExpirationDate(User.GiveUserId(), dbSubscription.ID, RadiusR.DB.Enums.SystemLogInterface.MasterISS, null, oldLastAlloweddate.ToString("yyyy-MM-dd"), dbSubscription.RadiusAuthorization.ExpirationDate.Value.ToString("yyyy-MM-dd")));
                 }
             }
 

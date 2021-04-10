@@ -22,6 +22,25 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
              new KeyValuePair<CustomerState, CustomerState>(CustomerState.Disabled, CustomerState.Active)
         }.ToLookup(e => e.Key, e => e.Value);
 
+        protected static Dictionary<CustomerState, bool> RadiusAuthorizationStateDictionary = new Dictionary<CustomerState, bool>() 
+        {
+            { CustomerState.Active, true },
+            { CustomerState.Disabled, false },
+            { CustomerState.Cancelled, false },
+            { CustomerState.Registered, false },
+            { CustomerState.Reserved, true },
+            { CustomerState.Dismissed, false },
+            { CustomerState.PreRegisterd, false },
+        };
+
+        public bool RadiusAuthorizationState
+        {
+            get
+            {
+                return RadiusAuthorizationStateDictionary[NewState];
+            }
+        }
+
         public int? AppUserID { get; set; }
 
         public SystemLogInterface LogInterface { get; set; }

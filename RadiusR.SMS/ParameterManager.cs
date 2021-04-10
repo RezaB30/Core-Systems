@@ -36,8 +36,8 @@ namespace RadiusR.SMS
                 {
                     { SMSParamaterRepository.SMSParameterNameCollection.SubscriberNo, SMSParamaterRepository.GetParameterFormattedValue(SMSParamaterRepository.SMSParameterNameCollection.SubscriberNo, subscription.SubscriberNo, subscription.Customer.Culture) },
                     { SMSParamaterRepository.SMSParameterNameCollection.ReferenceNo, SMSParamaterRepository.GetParameterFormattedValue(SMSParamaterRepository.SMSParameterNameCollection.ReferenceNo, subscription.ReferenceNo, subscription.Customer.Culture) },
-                    { SMSParamaterRepository.SMSParameterNameCollection.Username, SMSParamaterRepository.GetParameterFormattedValue(SMSParamaterRepository.SMSParameterNameCollection.Username, subscription.Username, subscription.Customer.Culture) },
-                    { SMSParamaterRepository.SMSParameterNameCollection.Password, SMSParamaterRepository.GetParameterFormattedValue(SMSParamaterRepository.SMSParameterNameCollection.Password, subscription.RadiusPassword, subscription.Customer.Culture) },
+                    { SMSParamaterRepository.SMSParameterNameCollection.Username, SMSParamaterRepository.GetParameterFormattedValue(SMSParamaterRepository.SMSParameterNameCollection.Username, subscription.RadiusAuthorization.Username, subscription.Customer.Culture) },
+                    { SMSParamaterRepository.SMSParameterNameCollection.Password, SMSParamaterRepository.GetParameterFormattedValue(SMSParamaterRepository.SMSParameterNameCollection.Password, subscription.RadiusAuthorization.Password, subscription.Customer.Culture) },
                     { SMSParamaterRepository.SMSParameterNameCollection.RemainingDays, SMSParamaterRepository.GetParameterFormattedValue(SMSParamaterRepository.SMSParameterNameCollection.RemainingDays, subscription.DaysRemaining, subscription.Customer.Culture) },
                     { SMSParamaterRepository.SMSParameterNameCollection.OnlinePassword, SMSParamaterRepository.GetParameterFormattedValue(SMSParamaterRepository.SMSParameterNameCollection.OnlinePassword, subscription.OnlinePassword, subscription.Customer.Culture) },
                     { SMSParamaterRepository.SMSParameterNameCollection.SubscriberName, SMSParamaterRepository.GetParameterFormattedValue(SMSParamaterRepository.SMSParameterNameCollection.SubscriberName, subscription.ValidDisplayName, subscription.Customer.Culture) },
@@ -45,7 +45,7 @@ namespace RadiusR.SMS
                     { SMSParamaterRepository.SMSParameterNameCollection.InstallationAddress, SMSParamaterRepository.GetParameterFormattedValue(SMSParamaterRepository.SMSParameterNameCollection.InstallationAddress, subscription.Address.AddressText, subscription.Customer.Culture) },
                     { SMSParamaterRepository.SMSParameterNameCollection.ResidenceAddress, SMSParamaterRepository.GetParameterFormattedValue(SMSParamaterRepository.SMSParameterNameCollection.ResidenceAddress, subscription.Customer.Address.AddressText, subscription.Customer.Culture) },
                     { SMSParamaterRepository.SMSParameterNameCollection.ContactPhoneNo, SMSParamaterRepository.GetParameterFormattedValue(SMSParamaterRepository.SMSParameterNameCollection.ContactPhoneNo, subscription.Customer.ContactPhoneNo, subscription.Customer.Culture) },
-                    { SMSParamaterRepository.SMSParameterNameCollection.ExpirationDate, SMSParamaterRepository.GetParameterFormattedValue(SMSParamaterRepository.SMSParameterNameCollection.ExpirationDate, subscription.LastAllowedDate, subscription.Customer.Culture) }
+                    { SMSParamaterRepository.SMSParameterNameCollection.ExpirationDate, SMSParamaterRepository.GetParameterFormattedValue(SMSParamaterRepository.SMSParameterNameCollection.ExpirationDate, subscription.RadiusAuthorization.ExpirationDate, subscription.Customer.Culture) }
                 };
 
             if (extendedParameters != null)

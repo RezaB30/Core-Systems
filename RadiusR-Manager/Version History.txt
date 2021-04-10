@@ -347,3 +347,5 @@ v 5.10.00 '2021-03-27'
 - updated domains cache to reflect added properties.
 v 5.10.02 '2021-04-02'
 - fixed force unfreeze bug.
+v 5.10.03 ''
+- moved some subscription values to radius authorization table.

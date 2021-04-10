@@ -42,6 +42,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                     // set subscription state
                     var oldState = subscription.State;
                     subscription.State = (short)registerOptions.NewState;
+                    subscription.RadiusAuthorization.IsEnabled = registerOptions.RadiusAuthorizationState;
                     // check transition has xdsl no
                     TransitionAttachmentsControlResult attachmentsControlResult = null;
                     if (subscription.RegistrationType == (short)SubscriptionRegistrationType.Transition)
@@ -91,8 +92,8 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                             // transfer subscription
                             CopyTelekomInfo(transferringSubscription.SubscriptionTelekomInfo, subscription.SubscriptionTelekomInfo);
                             // swap login info
-                            subscription.Username = transferringSubscription.Username;
-                            subscription.RadiusPassword = transferringSubscription.RadiusPassword;
+                            subscription.RadiusAuthorization.Username = transferringSubscription.RadiusAuthorization.Username;
+                            subscription.RadiusAuthorization.Password = transferringSubscription.RadiusAuthorization.Password;
                             // cancel transferring subscription
                             var cancellationResults = ChangeSubscriptionState(transferringSubscription.ID, new CancelSubscriptionOptions()
                             {
@@ -246,6 +247,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                     // set subscription state
                     var oldState = billingreadySubscription.Subscription.State;
                     billingreadySubscription.Subscription.State = (short)reserveOptions.NewState;
+                    billingreadySubscription.Subscription.RadiusAuthorization.IsEnabled = reserveOptions.RadiusAuthorizationState;
                     // -------last allowed date--------
                     // issue bill for pre-invoiced
                     if (SchedulerSettings.SchedulerBillingType == (short)SchedulerBillingTypes.PreInvoicing)
@@ -359,6 +361,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                     // change state
                     var oldState = billingReadySubscription.Subscription.State;
                     billingReadySubscription.Subscription.State = (short)activateOptions.NewState;
+                    billingReadySubscription.Subscription.RadiusAuthorization.IsEnabled = activateOptions.RadiusAuthorizationState;
                     // check for unfreeze
                     if (oldState == (short)CustomerState.Disabled)
                     {
@@ -492,6 +495,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                     db.SystemLogs.Add(SystemLogProcessor.ChangeClientState(freezeOptions.AppUserID, subscriptionId, freezeOptions.LogInterface, freezeOptions.LogInterfaceUsername, (CustomerState)billingReadySubscription.Subscription.State, freezeOptions.NewState));
                     // change state
                     billingReadySubscription.Subscription.State = (short)freezeOptions.NewState;
+                    billingReadySubscription.Subscription.RadiusAuthorization.IsEnabled = freezeOptions.RadiusAuthorizationState;
                     // send telekom request
                     if (billingReadySubscription.Subscription.SubscriptionTelekomInfo != null)
                     {
@@ -580,7 +584,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                     db.SystemLogs.Add(SystemLogProcessor.ChangeClientState(cancelOptions.AppUserID, subscriptionId, cancelOptions.LogInterface, cancelOptions.LogInterfaceUsername, (CustomerState)billingReadySubscription.Subscription.State, cancelOptions.NewState));
                     // change state
                     billingReadySubscription.Subscription.State = (short)cancelOptions.NewState;
-
+                    billingReadySubscription.Subscription.RadiusAuthorization.IsEnabled = cancelOptions.RadiusAuthorizationState;
                     // if has telekom info
                     if (billingReadySubscription.Subscription.SubscriptionTelekomInfo != null && !string.IsNullOrWhiteSpace(billingReadySubscription.Subscription.SubscriptionTelekomInfo.SubscriptionNo))
                     {
@@ -656,7 +660,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                     }
                     // change username to cancelled
                     var rand = new Random();
-                    billingReadySubscription.Subscription.Username += $"(c{rand.Next(9999):0000})";
+                    billingReadySubscription.Subscription.RadiusAuthorization.Username += $"(c{rand.Next(9999):0000})";
                     // save
                     db.SaveChanges();
                 }
@@ -873,8 +877,8 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                 {
                     DomainName = domain.Name,
                     ISPCode = domain.TelekomCredential.OLOPortalCustomerCode,
-                    Username = subscription.Username,
-                    Password = subscription.RadiusPassword,
+                    Username = subscription.RadiusAuthorization.Username,
+                    Password = subscription.RadiusAuthorization.Password,
                     PSTN = subscription.SubscriptionTelekomInfo.PSTN,
                     XDSLNo = subscription.SubscriptionTelekomInfo.SubscriptionNo
                 },

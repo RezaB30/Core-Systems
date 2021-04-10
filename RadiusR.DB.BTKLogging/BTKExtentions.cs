@@ -15,9 +15,9 @@ namespace RadiusR.DB.BTKLogging
         public static IEnumerable<string> GetIPDRLog(this IQueryable<RadiusAccounting> query, DateTime lastOperationTime, DateTime nextOperationTime)
         {
             var finalQuery = query
-                .Include(ra => ra.Subscription)
+                .Include(ra => ra.Subscription.RadiusAuthorization)
                 .Include(ra => ra.RadiusAccountingIPInfo)
-                .Where(ra=> ra.Subscription.StaticIP == null);
+                .Where(ra => ra.Subscription.RadiusAuthorization.StaticIP == null);
             var newThisPeriod = finalQuery.Where(accountingRecord => accountingRecord.StartTime >= lastOperationTime);
             // session starts
             var sessionStarts = newThisPeriod.AsEnumerable()
@@ -90,12 +90,13 @@ namespace RadiusR.DB.BTKLogging
         public static IEnumerable<string> GetSessionsLog(this IQueryable<RadiusAccounting> query)
         {
             var finalQuery = query
-                .Include(ra => ra.Subscription.SubscriptionTelekomInfo);
+                .Include(ra => ra.Subscription.SubscriptionTelekomInfo)
+                .Include(ra => ra.Subscription.RadiusAuthorization);
             return finalQuery.AsEnumerable()
                 .Select(accountingRecord => string.Join("|", new[]
                 {
                     accountingRecord.Username,
-                    accountingRecord.Subscription.StaticIP,
+                    accountingRecord.Subscription.RadiusAuthorization.StaticIP,
                     BTKLoggingUtilities.TranslateDateTime(accountingRecord.StartTime),
                     BTKLoggingUtilities.TranslateDateTime(DateTime.Now),
                     accountingRecord.UploadBytes.ToString(),
@@ -130,7 +131,8 @@ namespace RadiusR.DB.BTKLogging
                 .Include(subscription => subscription.Customer.CorporateCustomerInfo)
                 .Include(subscription => subscription.Address)
                 .Include(subscription => subscription.SubscriptionTelekomInfo)
-                .Include(subscription => subscription.Service);
+                .Include(subscription => subscription.Service)
+                .Include(subscription => subscription.RadiusAuthorization);
 
             return finalQuery.AsEnumerable()
                 .Select(subscription => string.Join("|;|", new string[]
@@ -146,11 +148,11 @@ namespace RadiusR.DB.BTKLogging
                     subscription.SubscriberNo,
                     subscription.ID.ToString(),
                     AppSettings.CountryPhoneCode.Substring(1) + subscription.Customer.ContactPhoneNo,
-                    subscription.Username,
+                    subscription.RadiusAuthorization.Username,
                     subscription.Service.RateLimit,
                     BTKLoggingUtilities.GetServiceType(subscription.Service.InfrastructureType),
                     subscription.SubscriptionTelekomInfo != null ? subscription.SubscriptionTelekomInfo.RedbackName ?? string.Empty : string.Empty,
-                    subscription.StaticIP,
+                    subscription.RadiusAuthorization.StaticIP,
                     subscription.Customer.Email,
                     ClearAddressText(subscription.Customer.BillingAddress.AddressText),
                     subscription.Customer.CustomerIDCard.TCKNo,
@@ -275,9 +277,9 @@ namespace RadiusR.DB.BTKLogging
                 string.Empty,
                 string.Empty,
                 string.Empty,//BTKLoggingUtilities.GetLastUpdateUser(subscription),
-                subscription.StaticIP,
+                subscription.RadiusAuthorization.StaticIP,
                 subscription.Service.RateLimit,
-                subscription.Username,
+                subscription.RadiusAuthorization.Username,
                 subscription.SubscriptionTelekomInfo != null ? subscription.SubscriptionTelekomInfo.RedbackName ?? string.Empty : string.Empty,
             });
         }

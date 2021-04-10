@@ -29,10 +29,10 @@ namespace RadiusR.DB.Utilities.Billing
             var lastUnpaidBillingPeriod = dbSubscription.GetCurrentBillingPeriod(periodCheckDate, true);
             var newLastAllowedDate = (SchedulerSettings.SchedulerBillingType == (short)SchedulerBillingTypes.PostInvoicing) ? lastUnpaidBillingPeriod.EndDate.AddDays(dbSubscription.Service.PaymentTolerance + dbSubscription.Service.ExpirationTolerance) : lastUnpaidBillingPeriod.StartDate.AddDays(dbSubscription.Service.PaymentTolerance + dbSubscription.Service.ExpirationTolerance);
 
-            if (newLastAllowedDate <= dbSubscription.LastAllowedDate && !forceChange)
+            if (newLastAllowedDate <= dbSubscription.RadiusAuthorization.ExpirationDate && !forceChange)
                 return;
 
-            dbSubscription.LastAllowedDate = newLastAllowedDate;
+            dbSubscription.RadiusAuthorization.ExpirationDate = newLastAllowedDate;
         }
     }
 }

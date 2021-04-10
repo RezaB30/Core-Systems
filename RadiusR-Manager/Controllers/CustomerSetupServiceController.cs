@@ -68,7 +68,7 @@ namespace RadiusR_Manager.Controllers
                     Name = task.Subscription.Customer.CorporateCustomerInfo != null ? task.Subscription.Customer.CorporateCustomerInfo.Title : task.Subscription.Customer.FirstName + " " + task.Subscription.Customer.LastName,
                     SubscriberNo = task.Subscription.SubscriberNo,
                     State = task.Subscription.State,
-                    Username = task.Subscription.Username
+                    Username = task.Subscription.RadiusAuthorization.Username
                 }
             });
             ViewBag.Search = search;

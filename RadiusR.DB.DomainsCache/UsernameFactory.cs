@@ -19,7 +19,7 @@ namespace RadiusR.DB.DomainsCache
             // check db
             using (RadiusREntities db = new RadiusREntities())
             {
-                if (db.Subscriptions.Any(client => client.Username.StartsWith(username + "@")))
+                if (db.Subscriptions.Any(client => client.RadiusAuthorization.Username.StartsWith(username + "@")))
                 {
                     return false;
                 }

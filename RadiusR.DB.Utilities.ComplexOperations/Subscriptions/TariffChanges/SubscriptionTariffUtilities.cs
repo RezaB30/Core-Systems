@@ -111,7 +111,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TariffChanges
                             NewBillingPeriod = options.NewBillingPeriod,
                             SchedulerTask = new SchedulerTask()
                             {
-                                ExecuteDate = dbSubscription.LastAllowedDate.Value
+                                ExecuteDate = dbSubscription.RadiusAuthorization.ExpirationDate.Value
                             }
                         });
 
@@ -144,7 +144,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TariffChanges
                     dbSubscription.ServiceID = newTariff.ID;
                     dbSubscription.PaymentDay = options.NewBillingPeriod;
                     // update last allowed date
-                    dbSubscription.LastAllowedDate = DateTime.Today;
+                    dbSubscription.RadiusAuthorization.ExpirationDate = DateTime.Today;
 
                     db.SystemLogs.Add(SystemLogProcessor.ChangeService(options.Gateway.UserID, dbSubscription.ID, options.Gateway.InterfaceType.Value, options.Gateway.InterfaceUsername, oldTariffName, newTariff.Name));
                 }

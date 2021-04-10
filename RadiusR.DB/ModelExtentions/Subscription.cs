@@ -81,9 +81,9 @@ namespace RadiusR.DB
         {
             get
             {
-                if (LastAllowedDate.HasValue)
+                if (RadiusAuthorization.ExpirationDate.HasValue)
                 {
-                    var days = (LastAllowedDate.Value <= DateTime.Now.Date) ? 0 : (LastAllowedDate.Value - DateTime.Now.Date).Days;
+                    var days = (RadiusAuthorization.ExpirationDate.Value <= DateTime.Now.Date) ? 0 : (RadiusAuthorization.ExpirationDate.Value - DateTime.Now.Date).Days;
                     return (days > 0) ? days.ToString() : "-";
                 }
                 return "-";
@@ -98,7 +98,7 @@ namespace RadiusR.DB
         {
             get
             {
-                return LastAllowedDate.HasValue ? LastAllowedDate.Value.AddDays(-1) : (DateTime?)null;
+                return RadiusAuthorization.ExpirationDate.HasValue ? RadiusAuthorization.ExpirationDate.Value.AddDays(-1) : (DateTime?)null;
             }
         }
 

@@ -621,6 +621,22 @@
           <Property Name="RealIP" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="PortRange" Type="nvarchar" MaxLength="11" Nullable="false" />
         </EntityType>
+        <EntityType Name="RadiusAuthorization">
+          <Key>
+            <PropertyRef Name="SubscriptionID" />
+          </Key>
+          <Property Name="SubscriptionID" Type="bigint" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ExpirationDate" Type="date" />
+          <Property Name="StaticIP" Type="nvarchar" MaxLength="15" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+          <Property Name="RateLimit" Type="nvarchar" MaxLength="150" />
+          <Property Name="CLID" Type="nvarchar" MaxLength="64" />
+          <Property Name="LastLogin" Type="datetime" />
+          <Property Name="LastLogout" Type="datetime" />
+          <Property Name="LastInterimUpdate" Type="datetime" />
+        </EntityType>
         <EntityType Name="RadiusDailyAccounting">
           <Key>
             <PropertyRef Name="ID" />
@@ -822,15 +838,10 @@
           <Property Name="MembershipDate" Type="datetime" Nullable="false" />
           <Property Name="EndDate" Type="datetime" />
           <Property Name="State" Type="smallint" Nullable="false" />
-          <Property Name="Username" Type="nvarchar" MaxLength="64" Nullable="false" />
           <Property Name="PaymentDay" Type="int" Nullable="false" />
           <Property Name="ServiceID" Type="int" Nullable="false" />
           <Property Name="ActivationDate" Type="datetime" />
           <Property Name="OnlinePassword" Type="nvarchar" MaxLength="50" />
-          <Property Name="RadiusPassword" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="LastAllowedDate" Type="datetime" />
-          <Property Name="SimultaneousUse" Type="smallint" Nullable="false" />
-          <Property Name="StaticIP" Type="nvarchar" MaxLength="15" />
           <Property Name="SubscriberNo" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="OnlinePasswordExpirationDate" Type="datetime" />
           <Property Name="ArchiveScanned" Type="bit" Nullable="false" />
@@ -1942,6 +1953,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RadiusAuthorization_Subscription">
+          <End Role="Subscription" Type="Self.Subscription" Multiplicity="1" />
+          <End Role="RadiusAuthorization" Type="Self.RadiusAuthorization" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Subscription">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RadiusAuthorization">
+              <PropertyRef Name="SubscriptionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RadiusDailyAccounting_Subscription">
           <End Role="Subscription" Type="Self.Subscription" Multiplicity="1" />
           <End Role="RadiusDailyAccounting" Type="Self.RadiusDailyAccounting" Multiplicity="*" />
@@ -2810,6 +2833,7 @@
           <EntitySet Name="QuotaPackage" EntityType="Self.QuotaPackage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RadiusAccounting" EntityType="Self.RadiusAccounting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RadiusAccountingIPInfo" EntityType="Self.RadiusAccountingIPInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RadiusAuthorization" EntityType="Self.RadiusAuthorization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RadiusDailyAccounting" EntityType="Self.RadiusDailyAccounting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RadiusDefaults" EntityType="Self.RadiusDefaults" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RadiusRBillingService" EntityType="Self.RadiusRBillingService" Schema="dbo" store:Type="Tables" />
@@ -3121,6 +3145,10 @@
           <AssociationSet Name="FK_RadiusAccountingIPInfo_RadiusAccounting" Association="Self.FK_RadiusAccountingIPInfo_RadiusAccounting">
             <End Role="RadiusAccounting" EntitySet="RadiusAccounting" />
             <End Role="RadiusAccountingIPInfo" EntitySet="RadiusAccountingIPInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RadiusAuthorization_Subscription" Association="Self.FK_RadiusAuthorization_Subscription">
+            <End Role="Subscription" EntitySet="Subscription" />
+            <End Role="RadiusAuthorization" EntitySet="RadiusAuthorization" />
           </AssociationSet>
           <AssociationSet Name="FK_RadiusDailyAccounting_Subscription" Association="Self.FK_RadiusDailyAccounting_Subscription">
             <End Role="Subscription" EntitySet="Subscription" />
@@ -4653,6 +4681,11 @@
             <End Role="TelekomWorkOrder" EntitySet="TelekomWorkOrders" />
             <End Role="TelekomWorkOrderParameter" EntitySet="TelekomWorkOrderParameters" />
           </AssociationSet>
+          <EntitySet Name="RadiusAuthorizations" EntityType="RadiusRModel.RadiusAuthorization" />
+          <AssociationSet Name="FK_RadiusAuthorization_Subscription" Association="RadiusRModel.FK_RadiusAuthorization_Subscription">
+            <End Role="Subscription" EntitySet="Subscriptions" />
+            <End Role="RadiusAuthorization" EntitySet="RadiusAuthorizations" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
           <Key>
@@ -5865,15 +5898,10 @@
           <Property Name="MembershipDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Precision="3" />
           <Property Name="State" Type="Int16" Nullable="false" />
-          <Property Name="Username" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="PaymentDay" Type="Int32" Nullable="false" />
           <Property Name="ServiceID" Type="Int32" Nullable="false" />
           <Property Name="ActivationDate" Type="DateTime" Precision="3" />
           <Property Name="OnlinePassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RadiusPassword" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LastAllowedDate" Type="DateTime" Precision="3" />
-          <Property Name="SimultaneousUse" Type="Int16" Nullable="false" />
-          <Property Name="StaticIP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="SubscriberNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="OnlinePasswordExpirationDate" Type="DateTime" Precision="3" />
           <Property Name="ArchiveScanned" Type="Boolean" Nullable="false" />
@@ -5915,6 +5943,7 @@
           <NavigationProperty Name="SubscriptionTransferredToHistories" Relationship="RadiusRModel.FK_SubscriptionTransferHistory_Subscription_To" FromRole="Subscription" ToRole="SubscriptionTransferHistory" />
           <NavigationProperty Name="SubscriptionTelekomInfo" Relationship="RadiusRModel.FK_SubscriptionTelekomInfo_Subscription" FromRole="Subscription" ToRole="SubscriptionTelekomInfo" />
           <NavigationProperty Name="TelekomWorkOrders" Relationship="RadiusRModel.FK_TelekomWorkOrder_Subscription" FromRole="Subscription" ToRole="TelekomWorkOrder" />
+          <NavigationProperty Name="RadiusAuthorization" Relationship="RadiusRModel.FK_RadiusAuthorization_Subscription" FromRole="Subscription" ToRole="RadiusAuthorization" />
         </EntityType>
         <Association Name="FK_Subscription_Address">
           <End Type="RadiusRModel.Address" Role="Address" Multiplicity="1" />
@@ -6879,6 +6908,35 @@
             </Principal>
             <Dependent Role="TelekomWorkOrderParameter">
               <PropertyRef Name="WorkOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RadiusAuthorization">
+          <Key>
+            <PropertyRef Name="SubscriptionID" />
+          </Key>
+          <Property Name="SubscriptionID" Type="Int64" Nullable="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="0" />
+          <Property Name="StaticIP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="RateLimit" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CLID" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="LastLogin" Type="DateTime" Precision="3" />
+          <Property Name="LastLogout" Type="DateTime" Precision="3" />
+          <Property Name="LastInterimUpdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Subscription" Relationship="RadiusRModel.FK_RadiusAuthorization_Subscription" FromRole="RadiusAuthorization" ToRole="Subscription" />
+        </EntityType>
+        <Association Name="FK_RadiusAuthorization_Subscription">
+          <End Type="RadiusRModel.Subscription" Role="Subscription" Multiplicity="1" />
+          <End Type="RadiusRModel.RadiusAuthorization" Role="RadiusAuthorization" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Subscription">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RadiusAuthorization">
+              <PropertyRef Name="SubscriptionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7877,15 +7935,10 @@
                 <ScalarProperty Name="ArchiveScanned" ColumnName="ArchiveScanned" />
                 <ScalarProperty Name="OnlinePasswordExpirationDate" ColumnName="OnlinePasswordExpirationDate" />
                 <ScalarProperty Name="SubscriberNo" ColumnName="SubscriberNo" />
-                <ScalarProperty Name="StaticIP" ColumnName="StaticIP" />
-                <ScalarProperty Name="SimultaneousUse" ColumnName="SimultaneousUse" />
-                <ScalarProperty Name="LastAllowedDate" ColumnName="LastAllowedDate" />
-                <ScalarProperty Name="RadiusPassword" ColumnName="RadiusPassword" />
                 <ScalarProperty Name="OnlinePassword" ColumnName="OnlinePassword" />
                 <ScalarProperty Name="ActivationDate" ColumnName="ActivationDate" />
                 <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
                 <ScalarProperty Name="PaymentDay" ColumnName="PaymentDay" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="MembershipDate" ColumnName="MembershipDate" />
@@ -8119,6 +8172,23 @@
                 <ScalarProperty Name="OperationSubType" ColumnName="OperationSubType" />
                 <ScalarProperty Name="OperationTypeID" ColumnName="OperationTypeID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RadiusAuthorizations">
+            <EntityTypeMapping TypeName="RadiusRModel.RadiusAuthorization">
+              <MappingFragment StoreEntitySet="RadiusAuthorization">
+                <ScalarProperty Name="LastInterimUpdate" ColumnName="LastInterimUpdate" />
+                <ScalarProperty Name="LastLogout" ColumnName="LastLogout" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="CLID" ColumnName="CLID" />
+                <ScalarProperty Name="RateLimit" ColumnName="RateLimit" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="StaticIP" ColumnName="StaticIP" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

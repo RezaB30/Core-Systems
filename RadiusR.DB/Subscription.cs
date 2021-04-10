@@ -48,15 +48,10 @@ namespace RadiusR.DB
         public System.DateTime MembershipDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
         public short State { get; set; }
-        public string Username { get; set; }
         public int PaymentDay { get; set; }
         public int ServiceID { get; set; }
         public Nullable<System.DateTime> ActivationDate { get; set; }
         public string OnlinePassword { get; set; }
-        public string RadiusPassword { get; set; }
-        public Nullable<System.DateTime> LastAllowedDate { get; set; }
-        public short SimultaneousUse { get; set; }
-        public string StaticIP { get; set; }
         public string SubscriberNo { get; set; }
         public Nullable<System.DateTime> OnlinePasswordExpirationDate { get; set; }
         public bool ArchiveScanned { get; set; }
@@ -122,5 +117,6 @@ namespace RadiusR.DB
         public virtual SubscriptionTelekomInfo SubscriptionTelekomInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TelekomWorkOrder> TelekomWorkOrders { get; set; }
+        public virtual RadiusAuthorization RadiusAuthorization { get; set; }
     }
 }
