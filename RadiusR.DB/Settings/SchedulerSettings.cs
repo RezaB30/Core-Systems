@@ -74,6 +74,14 @@ namespace RadiusR.DB
             }
         }
 
+        public static TimeSpan DailyDisconnectionTime
+        {
+            get
+            {
+                return DBSetting<RadiusREntities, AppSetting>.Retrieve<TimeSpan>(MethodBase.GetCurrentMethod().Name.Substring(4));
+            }
+        }
+
         #region METHODS
         /// <summary>
         /// Clears settings cache.

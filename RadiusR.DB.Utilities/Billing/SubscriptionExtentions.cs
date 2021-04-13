@@ -32,7 +32,7 @@ namespace RadiusR.DB.Utilities.Billing
             if (newLastAllowedDate <= dbSubscription.RadiusAuthorization.ExpirationDate && !forceChange)
                 return;
 
-            dbSubscription.RadiusAuthorization.ExpirationDate = newLastAllowedDate;
+            dbSubscription.RadiusAuthorization.ExpirationDate = newLastAllowedDate.Date.Add(SchedulerSettings.DailyDisconnectionTime);
         }
     }
 }
