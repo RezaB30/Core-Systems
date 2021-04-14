@@ -124,7 +124,7 @@ namespace RadiusR.DB
         public virtual DbSet<PDFFormItemPlacement> PDFFormItemPlacements { get; set; }
         public virtual DbSet<TelekomAccessCredential> TelekomAccessCredentials { get; set; }
         public virtual DbSet<TelekomWorkOrder> TelekomWorkOrders { get; set; }
-        public virtual DbSet<RadiusAuthorization> RadiusAuthorizations { get; set; }
         public virtual DbSet<BTKSubscriptionChange> BTKSubscriptionChanges { get; set; }
+        public virtual DbSet<RadiusAuthorization> RadiusAuthorizations { get; set; }
     }
 }

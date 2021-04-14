@@ -645,6 +645,7 @@
           <Property Name="IsHardQuotaExpired" Type="bit" />
           <Property Name="LastLogout" Type="datetime" />
           <Property Name="LastInterimUpdate" Type="datetime" />
+          <Property Name="NASIP" Type="nvarchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <EntityType Name="RadiusDailyAccounting">
           <Key>
@@ -4707,15 +4708,15 @@
             <End Role="TelekomWorkOrder" EntitySet="TelekomWorkOrders" />
             <End Role="TelekomWorkOrderParameter" EntitySet="TelekomWorkOrderParameters" />
           </AssociationSet>
-          <EntitySet Name="RadiusAuthorizations" EntityType="RadiusRModel.RadiusAuthorization" />
-          <AssociationSet Name="FK_RadiusAuthorization_Subscription" Association="RadiusRModel.FK_RadiusAuthorization_Subscription">
-            <End Role="Subscription" EntitySet="Subscriptions" />
-            <End Role="RadiusAuthorization" EntitySet="RadiusAuthorizations" />
-          </AssociationSet>
           <EntitySet Name="BTKSubscriptionChanges" EntityType="RadiusRModel.BTKSubscriptionChange" />
           <AssociationSet Name="FK_BTKSubscriptionChange_Subscription" Association="RadiusRModel.FK_BTKSubscriptionChange_Subscription">
             <End Role="Subscription" EntitySet="Subscriptions" />
             <End Role="BTKSubscriptionChange" EntitySet="BTKSubscriptionChanges" />
+          </AssociationSet>
+          <EntitySet Name="RadiusAuthorizations" EntityType="RadiusRModel.RadiusAuthorization" />
+          <AssociationSet Name="FK_RadiusAuthorization_Subscription" Association="RadiusRModel.FK_RadiusAuthorization_Subscription">
+            <End Role="Subscription" EntitySet="Subscriptions" />
+            <End Role="RadiusAuthorization" EntitySet="RadiusAuthorizations" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
@@ -5974,8 +5975,8 @@
           <NavigationProperty Name="SubscriptionTransferredToHistories" Relationship="RadiusRModel.FK_SubscriptionTransferHistory_Subscription_To" FromRole="Subscription" ToRole="SubscriptionTransferHistory" />
           <NavigationProperty Name="SubscriptionTelekomInfo" Relationship="RadiusRModel.FK_SubscriptionTelekomInfo_Subscription" FromRole="Subscription" ToRole="SubscriptionTelekomInfo" />
           <NavigationProperty Name="TelekomWorkOrders" Relationship="RadiusRModel.FK_TelekomWorkOrder_Subscription" FromRole="Subscription" ToRole="TelekomWorkOrder" />
-          <NavigationProperty Name="RadiusAuthorization" Relationship="RadiusRModel.FK_RadiusAuthorization_Subscription" FromRole="Subscription" ToRole="RadiusAuthorization" />
           <NavigationProperty Name="BTKSubscriptionChanges" Relationship="RadiusRModel.FK_BTKSubscriptionChange_Subscription" FromRole="Subscription" ToRole="BTKSubscriptionChange" />
+          <NavigationProperty Name="RadiusAuthorization" Relationship="RadiusRModel.FK_RadiusAuthorization_Subscription" FromRole="Subscription" ToRole="RadiusAuthorization" />
         </EntityType>
         <Association Name="FK_Subscription_Address">
           <End Type="RadiusRModel.Address" Role="Address" Multiplicity="1" />
@@ -6943,35 +6944,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="RadiusAuthorization">
-          <Key>
-            <PropertyRef Name="SubscriptionID" />
-          </Key>
-          <Property Name="SubscriptionID" Type="Int64" Nullable="false" />
-          <Property Name="Username" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
-          <Property Name="StaticIP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="RateLimit" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="CLID" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
-          <Property Name="LastLogout" Type="DateTime" Precision="3" />
-          <Property Name="LastInterimUpdate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Subscription" Relationship="RadiusRModel.FK_RadiusAuthorization_Subscription" FromRole="RadiusAuthorization" ToRole="Subscription" />
-          <Property Name="IsHardQuotaExpired" Type="Boolean" />
-        </EntityType>
-        <Association Name="FK_RadiusAuthorization_Subscription">
-          <End Type="RadiusRModel.Subscription" Role="Subscription" Multiplicity="1" />
-          <End Type="RadiusRModel.RadiusAuthorization" Role="RadiusAuthorization" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Subscription">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="RadiusAuthorization">
-              <PropertyRef Name="SubscriptionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="BTKSubscriptionChange">
           <Key>
             <PropertyRef Name="ID" />
@@ -6990,6 +6962,36 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="BTKSubscriptionChange">
+              <PropertyRef Name="SubscriptionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RadiusAuthorization">
+          <Key>
+            <PropertyRef Name="SubscriptionID" />
+          </Key>
+          <Property Name="SubscriptionID" Type="Int64" Nullable="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
+          <Property Name="StaticIP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="RateLimit" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CLID" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="IsHardQuotaExpired" Type="Boolean" />
+          <Property Name="LastLogout" Type="DateTime" Precision="3" />
+          <Property Name="LastInterimUpdate" Type="DateTime" Precision="3" />
+          <Property Name="NASIP" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Subscription" Relationship="RadiusRModel.FK_RadiusAuthorization_Subscription" FromRole="RadiusAuthorization" ToRole="Subscription" />
+        </EntityType>
+        <Association Name="FK_RadiusAuthorization_Subscription">
+          <End Type="RadiusRModel.Subscription" Role="Subscription" Multiplicity="1" />
+          <End Type="RadiusRModel.RadiusAuthorization" Role="RadiusAuthorization" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Subscription">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RadiusAuthorization">
               <PropertyRef Name="SubscriptionID" />
             </Dependent>
           </ReferentialConstraint>
@@ -8229,12 +8231,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="BTKSubscriptionChanges">
+            <EntityTypeMapping TypeName="RadiusRModel.BTKSubscriptionChange">
+              <MappingFragment StoreEntitySet="BTKSubscriptionChange">
+                <ScalarProperty Name="ChangeCode" ColumnName="ChangeCode" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="RadiusAuthorizations">
             <EntityTypeMapping TypeName="RadiusRModel.RadiusAuthorization">
               <MappingFragment StoreEntitySet="RadiusAuthorization">
-                <ScalarProperty Name="IsHardQuotaExpired" ColumnName="IsHardQuotaExpired" />
+                <ScalarProperty Name="NASIP" ColumnName="NASIP" />
                 <ScalarProperty Name="LastInterimUpdate" ColumnName="LastInterimUpdate" />
                 <ScalarProperty Name="LastLogout" ColumnName="LastLogout" />
+                <ScalarProperty Name="IsHardQuotaExpired" ColumnName="IsHardQuotaExpired" />
                 <ScalarProperty Name="CLID" ColumnName="CLID" />
                 <ScalarProperty Name="RateLimit" ColumnName="RateLimit" />
                 <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
@@ -8243,16 +8256,6 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BTKSubscriptionChanges">
-            <EntityTypeMapping TypeName="RadiusRModel.BTKSubscriptionChange">
-              <MappingFragment StoreEntitySet="BTKSubscriptionChange">
-                <ScalarProperty Name="ChangeCode" ColumnName="ChangeCode" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

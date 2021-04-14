@@ -22,9 +22,10 @@ namespace RadiusR.DB
         public bool IsEnabled { get; set; }
         public string RateLimit { get; set; }
         public string CLID { get; set; }
+        public Nullable<bool> IsHardQuotaExpired { get; set; }
         public Nullable<System.DateTime> LastLogout { get; set; }
         public Nullable<System.DateTime> LastInterimUpdate { get; set; }
-        public Nullable<bool> IsHardQuotaExpired { get; set; }
+        public string NASIP { get; set; }
     
         public virtual Subscription Subscription { get; set; }
     }

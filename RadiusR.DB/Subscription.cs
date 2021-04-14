@@ -118,8 +118,8 @@ namespace RadiusR.DB
         public virtual SubscriptionTelekomInfo SubscriptionTelekomInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TelekomWorkOrder> TelekomWorkOrders { get; set; }
-        public virtual RadiusAuthorization RadiusAuthorization { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BTKSubscriptionChange> BTKSubscriptionChanges { get; set; }
+        public virtual RadiusAuthorization RadiusAuthorization { get; set; }
     }
 }
