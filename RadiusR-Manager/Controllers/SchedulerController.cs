@@ -23,6 +23,7 @@ namespace RadiusR_Manager.Controllers
                 _schedulerStopTime = SchedulerSettings.SchedulerStopTime,
                 _smsSchedulerStartTime = SchedulerSettings.SMSSchedulerStartTime,
                 _smsSchedulerStopTime = SchedulerSettings.SMSSchedulerStopTime,
+                _dailyDisconnectionTime = SchedulerSettings.DailyDisconnectionTime,
                 SMSSchedulerPaymentReminderThreshold = SchedulerSettings.SMSSchedulerPaymentReminderThreshold,
                 SMSSchedulerPrepaidReminderThreshold = SchedulerSettings.SMSSchedulerPrepaidReminderThreshold,
                 SchedulerBillingType = SchedulerSettings.SchedulerBillingType

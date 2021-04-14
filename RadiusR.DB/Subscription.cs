@@ -40,6 +40,7 @@ namespace RadiusR.DB
             this.SubscriptionTransferredFromHistories = new HashSet<SubscriptionTransferHistory>();
             this.SubscriptionTransferredToHistories = new HashSet<SubscriptionTransferHistory>();
             this.TelekomWorkOrders = new HashSet<TelekomWorkOrder>();
+            this.BTKSubscriptionChanges = new HashSet<BTKSubscriptionChange>();
         }
     
         public long ID { get; set; }
@@ -118,5 +119,7 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TelekomWorkOrder> TelekomWorkOrders { get; set; }
         public virtual RadiusAuthorization RadiusAuthorization { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BTKSubscriptionChange> BTKSubscriptionChanges { get; set; }
     }
 }

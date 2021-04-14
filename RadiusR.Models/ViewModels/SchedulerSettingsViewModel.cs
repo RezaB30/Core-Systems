@@ -58,6 +58,12 @@ namespace RadiusR_Manager.Models.ViewModels
         [SettingElement]
         public short SchedulerBillingType { get; set; }
 
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "DailyDisconnectionTime")]
+        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
+        [TimeSpan(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "TimeSpan")]
+        [SettingElement]
+        public string DailyDisconnectionTime { get; set; }
+
         public TimeSpan? _schedulerStartTime
         {
             get
@@ -130,6 +136,21 @@ namespace RadiusR_Manager.Models.ViewModels
             set
             {
                 SMSSchedulerStopTime = value.Value.ToString();
+            }
+        }
+        
+        public TimeSpan? _dailyDisconnectionTime
+        {
+            get
+            {
+                TimeSpan result;
+                if (TimeSpan.TryParse(DailyDisconnectionTime, out result))
+                    return result;
+                return null;
+            }
+            set
+            {
+                DailyDisconnectionTime = value.Value.ToString();
             }
         }
     }

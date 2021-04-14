@@ -115,6 +115,19 @@
             </td>
         </tr>
         <tr>
+            <td>
+                @Html.LabelFor(model => model.DailyDisconnectionTime)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.DailyDisconnectionTime, new { @htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.ValidationMessageFor(model => model.DailyDisconnectionTime)
+            </td>
+        </tr>
+        <tr>
             <td colspan="2" class="centered">
                 @Html.ActionLink(RadiusR.Localization.Pages.Common.Reset, null, null, new { @class = "link-button iconed-button reload-button" })&nbsp;
                 <input type="submit" value="@RadiusR.Localization.Pages.Common.Save" class="link-button iconed-button save-button" />

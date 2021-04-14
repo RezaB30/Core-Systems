@@ -12,19 +12,12 @@ namespace RadiusR.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class RadiusAuthorization
+    public partial class BTKSubscriptionChange
     {
+        public long ID { get; set; }
         public long SubscriptionID { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public Nullable<System.DateTime> ExpirationDate { get; set; }
-        public string StaticIP { get; set; }
-        public bool IsEnabled { get; set; }
-        public string RateLimit { get; set; }
-        public string CLID { get; set; }
-        public Nullable<System.DateTime> LastLogout { get; set; }
-        public Nullable<System.DateTime> LastInterimUpdate { get; set; }
-        public Nullable<bool> IsHardQuotaExpired { get; set; }
+        public System.DateTime Date { get; set; }
+        public short ChangeCode { get; set; }
     
         public virtual Subscription Subscription { get; set; }
     }

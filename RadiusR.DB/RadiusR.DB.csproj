@@ -93,6 +93,9 @@
     <Compile Include="BTKSchedulerSetting.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BTKSubscriptionChange.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Cashier.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
