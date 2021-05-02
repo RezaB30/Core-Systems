@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RezaB.Web.Helpers.DataTypes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace RadiusR_Manager.Models.ViewModels
     {
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "ExpirationDate")]
         [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
-        public DateTime NewDate { get; set; }
+        [UIHint("ExactTime")]
+        public DateWithTime NewDate { get; set; }
     }
 }

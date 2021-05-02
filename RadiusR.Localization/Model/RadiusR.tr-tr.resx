@@ -1629,4 +1629,7 @@
   <data name="RejectionReason" xml:space="preserve">
     <value>Ret Sebebi</value>
   </data>
+  <data name="ConnectionProperties" xml:space="preserve">
+    <value>Bağlantı Özellikleri</value>
+  </data>
 </root>

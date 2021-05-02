@@ -585,7 +585,7 @@
         <td>
             @if (User.HasPermission("Modify Clients"))
             {
-                using (Html.BeginForm("ToggleArchiveScan", null, new { id = Model.ID }, FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block; vertical-align: middle;" }))
+                using (Html.BeginForm("ToggleArchiveScan", null, new { id = Model.SubscriptionInfo.ArchiveNo }, FormMethod.Post, new { @confirm = "enabled", @style = "display: inline-block; vertical-align: middle;" }))
                 {
                     @Html.AntiForgeryToken()
                     <input type="submit" value="@RadiusR.Localization.Pages.Common.ChangeNow" class="link-button iconed-button reload-button" />
@@ -608,30 +608,6 @@
         </td>
         <td>
             @Html.DisplayFor(model => model.SubscriptionInfo.ReferenceNo)
-        </td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>
-            @Html.DisplayNameFor(model => model.SubscriptionInfo.Username)
-        </td>
-        <td>
-            @Html.DisplayFor(model => model.SubscriptionInfo.Username)
-            @Html.HiddenFor(model => model.SubscriptionInfo.Username, new { id = "client-username" })
-        </td>
-        <td>
-            @if (User.HasPermission("Change Username"))
-            {
-                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "ChangeUsername", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button edit-button" })
-            }
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @Html.DisplayNameFor(model => model.SubscriptionInfo.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(model => model.SubscriptionInfo.Password)
         </td>
         <td></td>
     </tr>
@@ -710,6 +686,49 @@
             </td>
         </tr>
     }
+    <tr>
+        <td colspan="3" class="section-head">
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.ConnectionProperties)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.ConnectionProperties.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.ConnectionProperties.Username)
+            @Html.HiddenFor(model => model.SubscriptionInfo.ConnectionProperties.Username, new { id = "client-username" })
+        </td>
+        <td>
+            @if (User.HasPermission("Change Username"))
+            {
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "ChangeUsername", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button edit-button" })
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.ConnectionProperties.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.ConnectionProperties.Password)
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.ConnectionProperties.ExpirationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.ConnectionProperties.ExpirationDate)
+        </td>
+        <td>
+            @if (User.HasPermission("Modify Expiration Date") && Model.SubscriptionInfo.ConnectionProperties.ExpirationDate.HasValue && Model.SubscriptionInfo.State == (short)CustomerState.Active)
+            {
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.ManualEdit, "ExtendExpirationDate", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button edit-button" })
+            }
+        </td>
+    </tr>
     <tr>
         <td colspan="3" class="section-head">
             @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo)
@@ -802,20 +821,6 @@
             @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.ActivationDate)
         </td>
         <td></td>
-    </tr>
-    <tr>
-        <td>
-            @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo.ExpirationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(model => model.SubscriptionInfo.TariffInfo.ExpirationDate)
-        </td>
-        <td>
-            @if (User.HasPermission("Modify Expiration Date") && Model.SubscriptionInfo.TariffInfo.ExpirationDate.HasValue && Model.SubscriptionInfo.State == (short)CustomerState.Active)
-            {
-                @Html.ActionLink(RadiusR.Localization.Pages.Common.ManualEdit, "ExtendExpirationDate", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button edit-button" })
-            }
-        </td>
     </tr>
     <tr>
         <td>

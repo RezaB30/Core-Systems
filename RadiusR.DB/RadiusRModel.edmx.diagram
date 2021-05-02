@@ -230,7 +230,7 @@
         <AssociationConnector Association="RadiusRModel.FK_TelekomWorkOrderParameter_TelekomWorkOrderParameter" />
         <EntityTypeShape EntityType="RadiusRModel.BTKSubscriptionChange" Width="1.5" PointX="11.375" PointY="141.125" />
         <AssociationConnector Association="RadiusRModel.FK_BTKSubscriptionChange_Subscription" />
-        <EntityTypeShape EntityType="RadiusRModel.RadiusAuthorization" Width="1.5" PointX="11.375" PointY="71.75" />
+        <EntityTypeShape EntityType="RadiusRModel.RadiusAuthorization" Width="1.5" PointX="11.375" PointY="71.875" />
         <AssociationConnector Association="RadiusRModel.FK_RadiusAuthorization_Subscription" />
         </Diagram>
     </edmx:Diagrams>

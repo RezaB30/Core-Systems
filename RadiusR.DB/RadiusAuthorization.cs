@@ -26,6 +26,7 @@ namespace RadiusR.DB
         public Nullable<System.DateTime> LastLogout { get; set; }
         public Nullable<System.DateTime> LastInterimUpdate { get; set; }
         public string NASIP { get; set; }
+        public bool UsingExpiredPool { get; set; }
     
         public virtual Subscription Subscription { get; set; }
     }

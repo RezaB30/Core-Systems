@@ -871,6 +871,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connection Properties.
+        /// </summary>
+        public static string ConnectionProperties {
+            get {
+                return ResourceManager.GetString("ConnectionProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contact Phone No..
         /// </summary>
         public static string ContactPhoneNo {

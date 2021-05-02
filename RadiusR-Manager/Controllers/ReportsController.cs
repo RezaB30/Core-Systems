@@ -17,6 +17,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using static RadiusR.DB.Utilities.Billing.BillExtentions;
+using System.Data.SqlClient;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -256,7 +257,7 @@ namespace RadiusR_Manager.Controllers
             };
             var results = new ClientCountReportViewModel()
             {
-                TotalCount = db.Subscriptions.Where(s=> includedStates.Contains(s.State)).LongCount(),
+                TotalCount = db.Subscriptions.Where(s => includedStates.Contains(s.State)).LongCount(),
                 CancelledCount = db.Subscriptions.Where(client => client.State == (short)CustomerState.Cancelled).LongCount(),
                 FreezedCount = db.Subscriptions.Where(client => client.State == (short)CustomerState.Disabled).LongCount(),
                 PassiveCount = db.Subscriptions.Where(client => client.State == (short)CustomerState.Active || client.State == (short)CustomerState.Reserved && client.RadiusAuthorization.ExpirationDate < DbFunctions.AddSeconds(DateTime.Now, -1 * (int)disconnectionTimeOfDay.TotalSeconds)).LongCount()
@@ -327,7 +328,7 @@ namespace RadiusR_Manager.Controllers
         public ActionResult OnlineClients()
         {
             var NASNames = db.NAS.Select(nas => new { IP = nas.IP, Name = nas.Name }).ToDictionary(item => item.IP, item => item.Name);
-            var onlineClients = db.Database.SqlQuery<string>("SELECT NASIP FROM RadiusAccounting WHERE StopTime IS NULL;").ToArray().GroupBy( ra => ra).Select(group => new OnlineClientsReportViewModel()
+            var onlineClients = db.Database.SqlQuery<string>("SELECT NASIP FROM RadiusAuthorization WHERE LastInterimUpdate IS NOT NULL AND (LastLogout IS NULL OR LastLogout < LastInterimUpdate);").ToArray().GroupBy(ra => ra).Select(group => new OnlineClientsReportViewModel()
             {
                 ClientCount = group.LongCount(),
                 IP = group.Key
@@ -346,19 +347,34 @@ namespace RadiusR_Manager.Controllers
         // POST: Reports/CloseNASConnections
         public ActionResult CloseNASConnections(string IP)
         {
-            var validRecordsQuery = db.RadiusAccountings.Where(ra => !ra.StopTime.HasValue);
-            if (!string.IsNullOrEmpty(IP))
+            var temp = new RadiusAuthorization()
             {
-                validRecordsQuery = validRecordsQuery.Where(ra => ra.NASIP == IP);
-            }
-            var validRecords = validRecordsQuery.ToArray();
+                LastInterimUpdate = DateTime.Now,
+                LastLogout = DateTime.Now,
+                NASIP = ""
+            };
             var currentTime = DateTime.Now;
-            foreach (var record in validRecords)
+            if (!string.IsNullOrWhiteSpace(IP))
             {
-                record.StopTime = currentTime;
+                db.Database.ExecuteSqlCommand("UPDATE RadiusAuthorization SET LastLogout = @currentTime WHERE LastInterimUpdate IS NOT NULL AND (LastLogout IS NULL OR LastLogout < LastInterimUpdate) AND NASIP = @nasIP;", new[] { new SqlParameter("@currentTime", currentTime), new SqlParameter("@nasIP", IP) });
             }
+            else
+            {
+                db.Database.ExecuteSqlCommand("UPDATE RadiusAuthorization SET LastLogout = @currentTime WHERE LastInterimUpdate IS NOT NULL AND (LastLogout IS NULL OR LastLogout < LastInterimUpdate);", new[] { new SqlParameter("@currentTime", currentTime) });
+            }
+            //var validRecordsQuery = db.RadiusAccountings.Where(ra => !ra.StopTime.HasValue);
+            //if (!string.IsNullOrEmpty(IP))
+            //{
+            //    validRecordsQuery = validRecordsQuery.Where(ra => ra.NASIP == IP);
+            //}
+            //var validRecords = validRecordsQuery.ToArray();
+            //var currentTime = DateTime.Now;
+            //foreach (var record in validRecords)
+            //{
+            //    record.StopTime = currentTime;
+            //}
 
-            db.SaveChanges();
+            //db.SaveChanges();
 
             return RedirectToAction("OnlineClients");
         }
@@ -417,7 +433,7 @@ namespace RadiusR_Manager.Controllers
         [AuthorizePermission(Permissions = "Cancelled Clients Unpaid Bills")]
         [HttpGet]
         // GET: Reports/CancelledClientsUnpaidBills
-        public ActionResult CancelledClientsUnpaidBills(int? page, [Bind(Prefix = "search")]CancelledUnpaidBillsSearchViewModel search)
+        public ActionResult CancelledClientsUnpaidBills(int? page, [Bind(Prefix = "search")] CancelledUnpaidBillsSearchViewModel search)
         {
             search = search ?? new CancelledUnpaidBillsSearchViewModel();
 
@@ -461,7 +477,7 @@ namespace RadiusR_Manager.Controllers
         [ActionName("CancelledClientsUnpaidBills")]
         [ValidateAntiForgeryToken]
         // POST: Reports/CancelledClientsUnpaidBills
-        public ActionResult CancelledClientsUnpaidBillsCSV(int? page, [Bind(Prefix = "search")]CancelledUnpaidBillsSearchViewModel search)
+        public ActionResult CancelledClientsUnpaidBillsCSV(int? page, [Bind(Prefix = "search")] CancelledUnpaidBillsSearchViewModel search)
         {
             search = search ?? new CancelledUnpaidBillsSearchViewModel();
 
@@ -519,7 +535,7 @@ namespace RadiusR_Manager.Controllers
         [AuthorizePermission(Permissions = "Total Download Upload")]
         [HttpGet]
         // GET: Reports/TotalDownloadUpload
-        public ActionResult TotalDownloadUpload(int? page, [Bind(Prefix = "search")]TotalDownloadUploadSearchViewModel search)
+        public ActionResult TotalDownloadUpload(int? page, [Bind(Prefix = "search")] TotalDownloadUploadSearchViewModel search)
         {
             search = search ?? new TotalDownloadUploadSearchViewModel();
             var baseQuery = db.RadiusDailyAccountings.AsQueryable();
@@ -559,7 +575,7 @@ namespace RadiusR_Manager.Controllers
         [AuthorizePermission(Permissions = "Static IP Report")]
         [HttpGet]
         // GET: Reports/StaticIPReport
-        public ActionResult StaticIPReport(int? page, [Bind(Prefix = "search")]StaticIPReportSearchViewModel search)
+        public ActionResult StaticIPReport(int? page, [Bind(Prefix = "search")] StaticIPReportSearchViewModel search)
         {
             search = search ?? new StaticIPReportSearchViewModel();
             var baseQuery = db.Subscriptions.Where(client => !string.IsNullOrEmpty(client.RadiusAuthorization.StaticIP));
@@ -762,7 +778,7 @@ namespace RadiusR_Manager.Controllers
             }
             if (!string.IsNullOrWhiteSpace(search.LocalIP))
             {
-                baseQuery = baseQuery.Where(ra => (ra.RadiusAccountingIPInfo != null && ra.RadiusAccountingIPInfo.LocalIP== search.LocalIP) || ra.FramedIPAddress == search.LocalIP);
+                baseQuery = baseQuery.Where(ra => (ra.RadiusAccountingIPInfo != null && ra.RadiusAccountingIPInfo.LocalIP == search.LocalIP) || ra.FramedIPAddress == search.LocalIP);
             }
             if (!string.IsNullOrWhiteSpace(search.RealIP))
             {
@@ -801,7 +817,7 @@ namespace RadiusR_Manager.Controllers
         [AuthorizePermission(Permissions = "Discount Report")]
         [HttpGet]
         // GET: Reports/Discounts
-        public ActionResult Discounts(int? page, [Bind(Prefix = "search")]DiscountReportSearchViewModel search)
+        public ActionResult Discounts(int? page, [Bind(Prefix = "search")] DiscountReportSearchViewModel search)
         {
             search = search ?? new DiscountReportSearchViewModel();
             if (search.StartDate == null || search.EndDate == null || search.StartDate > search.EndDate || (search.EndDate.Value - search.StartDate.Value).Days > 60)

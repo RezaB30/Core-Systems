@@ -34,7 +34,7 @@ namespace RadiusR.DB.ModelExtentions
                 var periodUsage = usage.Where(u => u.Date >= currentPeriod.StartDate && u.Date < currentPeriod.EndDate).Select(u => u.DownloadBytes + u.UploadBytes).DefaultIfEmpty(0).Sum();
                 if (periodUsage > subscription.Service.BaseQuota)
                 {
-                    var proportionalAddedPrice = (periodUsage - (subscription.Service.BaseQuota ?? 0)) * (DB.Settings.QuotaSettings.QuotaUnitPrice / (decimal)DB.Settings.QuotaSettings.QuotaUnit);
+                    var proportionalAddedPrice = (periodUsage - (subscription.Service.BaseQuota ?? 0)) * (QuotaSettings.QuotaUnitPrice / (decimal)QuotaSettings.QuotaUnit);
                     var proportionaltariffPrice = baseTariffFee + proportionalAddedPrice;
                     if (proportionaltariffPrice > subscription.Service.SmartQuotaMaxPrice)
                     {
@@ -163,7 +163,7 @@ namespace RadiusR.DB.ModelExtentions
                 {
                     SubID = sub.ID,
                     Quota = sub.SubscriptionQuotas.Where(q => DbFunctions.TruncateTime(q.AddDate) >= startDate && DbFunctions.TruncateTime(q.AddDate) < endDate).Select(q => q.Amount).DefaultIfEmpty(0).Sum(),
-                    Usage = sub.RadiusDailyAccountings.Where(rda => rda.Date >= startDate && rda.Date < endDate).Select(rda => rda.DownloadBytes + rda.UploadBytes).DefaultIfEmpty(0).Sum(),
+                    Usage = sub.RadiusDailyAccountings.Where(rda => rda.Date >= startDate && rda.Date < endDate).Select(rda => new { Usage = rda.DownloadBytes + rda.UploadBytes, Date = rda.Date }),
                     LastQuota = sub.SubscriptionQuotas.OrderByDescending(q => q.AddDate).FirstOrDefault()
                 }).FirstOrDefault();
 
@@ -171,10 +171,11 @@ namespace RadiusR.DB.ModelExtentions
                 {
                     PeriodStart = currentPeriod.StartDate,
                     PeriodEnd = currentPeriod.EndDate,
-                    PeriodUsage = usageInfo.Usage,
+                    PeriodUsage = usageInfo.Usage.Select(u => u.Usage).DefaultIfEmpty(0).Sum(),
                     PeriodQuota = usageInfo.Quota + subscription.Service.BaseQuota ?? 0,
                     LastQuotaChangeDate = usageInfo.LastQuota != null ? usageInfo.LastQuota.AddDate : startDate,
-                    LastQuotaAmount = usageInfo.LastQuota != null ? usageInfo.LastQuota.Amount : subscription.Service.BaseQuota
+                    LastQuotaAmount = usageInfo.LastQuota != null ? usageInfo.LastQuota.Amount : subscription.Service.BaseQuota ?? 0,
+                    LastQuotaUsage = usageInfo.Usage.Where(u => u.Date >= (usageInfo.LastQuota != null ? usageInfo.LastQuota.AddDate : startDate)).Select(u => u.Usage).DefaultIfEmpty(0).Sum()
                 };
             }
         }
@@ -316,7 +317,11 @@ namespace RadiusR.DB.ModelExtentions
             /// <summary>
             /// Last added quota amount if available.
             /// </summary>
-            public long? LastQuotaAmount { get; internal set; }
+            public long LastQuotaAmount { get; internal set; }
+            /// <summary>
+            /// Last quota usage.
+            /// </summary>
+            public long LastQuotaUsage { get; internal set; }
             /// <summary>
             /// The unused amount of quota for this period.
             /// </summary>

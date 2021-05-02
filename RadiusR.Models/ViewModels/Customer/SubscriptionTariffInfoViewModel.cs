@@ -11,6 +11,8 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
     {
         public int TariffID { get; set; }
 
+        public RadiusR.DB.Enums.QuotaType? QuotaType { get; set; }
+
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "TariffName")]
         public string TariffName { get; set; }
 
@@ -27,8 +29,8 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "ActivationDate")]
         public DateTime? ActivationDate { get; set; }
 
-        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "ExpirationDate")]
-        public DateTime? ExpirationDate { get; set; }
+        //[Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "ExpirationDate")]
+        //public DateTime? ExpirationDate { get; set; }
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "CancellationDate")]
         public DateTime? CancellationDate { get; set; }

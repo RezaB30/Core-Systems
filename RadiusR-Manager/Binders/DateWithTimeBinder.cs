@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RezaB.Web.Helpers.DataTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -18,16 +19,16 @@ namespace RadiusR_Manager.Binders
                 return null;
             }
 
-            if (bindingContext.ModelType == typeof(DateTime?) && string.IsNullOrWhiteSpace(result.AttemptedValue))
+            if (bindingContext.ModelType == typeof(DateWithTime) && string.IsNullOrWhiteSpace(result.AttemptedValue))
             {
                 return null;
             }
 
             DateTime value;
 
-            if (DateTime.TryParse(result.AttemptedValue, Thread.CurrentThread.CurrentCulture, System.Globalization.DateTimeStyles.AllowWhiteSpaces, out value))
+            if (DateTime.TryParseExact(result.AttemptedValue, "MM/dd/yyyy HH:mm", Thread.CurrentThread.CurrentCulture, System.Globalization.DateTimeStyles.AllowWhiteSpaces, out value))
             {
-                return value;
+                return new DateWithTime() { InternalValue = value };
             }
 
             bindingContext.ModelState.AddModelError(key, string.Format(RadiusR.Localization.Validation.Common.DateBinder, bindingContext.ModelMetadata.DisplayName));

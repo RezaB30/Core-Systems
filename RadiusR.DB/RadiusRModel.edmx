@@ -645,7 +645,8 @@
           <Property Name="IsHardQuotaExpired" Type="bit" />
           <Property Name="LastLogout" Type="datetime" />
           <Property Name="LastInterimUpdate" Type="datetime" />
-          <Property Name="NASIP" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="NASIP" Type="nvarchar" MaxLength="15" />
+          <Property Name="UsingExpiredPool" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="RadiusDailyAccounting">
           <Key>
@@ -6981,7 +6982,8 @@
           <Property Name="IsHardQuotaExpired" Type="Boolean" />
           <Property Name="LastLogout" Type="DateTime" Precision="3" />
           <Property Name="LastInterimUpdate" Type="DateTime" Precision="3" />
-          <Property Name="NASIP" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="NASIP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="UsingExpiredPool" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Subscription" Relationship="RadiusRModel.FK_RadiusAuthorization_Subscription" FromRole="RadiusAuthorization" ToRole="Subscription" />
         </EntityType>
         <Association Name="FK_RadiusAuthorization_Subscription">
@@ -8244,6 +8246,7 @@
           <EntitySetMapping Name="RadiusAuthorizations">
             <EntityTypeMapping TypeName="RadiusRModel.RadiusAuthorization">
               <MappingFragment StoreEntitySet="RadiusAuthorization">
+                <ScalarProperty Name="UsingExpiredPool" ColumnName="UsingExpiredPool" />
                 <ScalarProperty Name="NASIP" ColumnName="NASIP" />
                 <ScalarProperty Name="LastInterimUpdate" ColumnName="LastInterimUpdate" />
                 <ScalarProperty Name="LastLogout" ColumnName="LastLogout" />

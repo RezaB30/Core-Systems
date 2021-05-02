@@ -877,7 +877,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                 {
                     DomainName = domain.Name,
                     ISPCode = domain.TelekomCredential.OLOPortalCustomerCode,
-                    Username = subscription.RadiusAuthorization.Username,
+                    Username = subscription.RadiusAuthorization.Username.Substring(0, subscription.RadiusAuthorization.Username.IndexOf('@')),
                     Password = subscription.RadiusAuthorization.Password,
                     PSTN = subscription.SubscriptionTelekomInfo.PSTN,
                     XDSLNo = subscription.SubscriptionTelekomInfo.SubscriptionNo

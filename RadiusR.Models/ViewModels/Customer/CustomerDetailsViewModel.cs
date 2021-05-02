@@ -133,11 +133,15 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
                 InstallationAddress = new AddressViewModel(dbSubscription.Address),
                 IsScanned = dbSubscription.ArchiveScanned,
                 OnlinePassword = dbSubscription.OnlinePassword,
-                Password = dbSubscription.RadiusAuthorization.Password,
-                Username = dbSubscription.RadiusAuthorization.Username,
                 State = dbSubscription.State,
                 SubscriberNo = dbSubscription.SubscriberNo,
                 ReferenceNo = dbSubscription.ReferenceNo,
+                ConnectionProperties = new SubscriptionConnectionProperties()
+                {
+                    Password = dbSubscription.RadiusAuthorization.Password,
+                    Username = dbSubscription.RadiusAuthorization.Username,
+                    ExpirationDate = dbSubscription.RadiusAuthorization.ExpirationDate
+                },
                 TariffInfo = new SubscriptionTariffInfoViewModel()
                 {
                     ActivationDate = dbSubscription.ActivationDate,
@@ -145,10 +149,10 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
                     CancellationDate = dbSubscription.EndDate,
                     DaysRemaining = dbSubscription.DaysRemaining,
                     DomainName = dbSubscription.Domain.Name,
-                    ExpirationDate = dbSubscription.RadiusAuthorization.ExpirationDate,
                     RegistrationDate = dbSubscription.MembershipDate,
                     StaticIP = dbSubscription.RadiusAuthorization.StaticIP,
                     TariffID = dbSubscription.ServiceID,
+                    QuotaType = (QuotaType?)dbSubscription.Service.QuotaType,
                     TariffName = dbSubscription.Service.Name,
                     RemainingQuota = currentQoutaAndUsage != null ? currentQoutaAndUsage.RemainingQuota : (long?)null,
                     ReactivationDate = (dbSubscription.State == (short)CustomerState.Disabled && dbSubscription.ChangeStateTasks.FirstOrDefault() != null) ? dbSubscription.ChangeStateTasks.FirstOrDefault().SchedulerTask.ExecuteDate : (DateTime?)null,

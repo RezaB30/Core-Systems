@@ -26,7 +26,7 @@ namespace RadiusR.DB
                             cachedValue = MemoryCache.Default.Get("Context_OnlineSubscriptionCount") as int?;
                             if (cachedValue.HasValue)
                                 return cachedValue;
-                            cachedValue = RadiusAccountings.Where(ra => !ra.StopTime.HasValue).Count();
+                            cachedValue = RadiusAuthorizations.Where(ra => ra.LastInterimUpdate.HasValue && (!ra.LastLogout.HasValue || ra.LastLogout < ra.LastInterimUpdate)).Count();
                             MemoryCache.Default.Set("Context_OnlineSubscriptionCount", cachedValue, DateTimeOffset.Now.AddSeconds(15));
                         }
                         finally

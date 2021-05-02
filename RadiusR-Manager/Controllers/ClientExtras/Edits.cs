@@ -943,10 +943,10 @@ namespace RadiusR_Manager.Controllers
 
             if (ModelState.IsValid)
             {
-                var oldExpirationdate = subscription.RadiusAuthorization.ExpirationDate.HasValue ? subscription.RadiusAuthorization.ExpirationDate.Value.ToString("yyyy-MM-dd") : "-";
+                var oldExpirationdate = subscription.RadiusAuthorization.ExpirationDate.HasValue ? subscription.RadiusAuthorization.ExpirationDate.Value.ToString("yyyy-MM-dd HH:mm") : "-";
                 subscription.RadiusAuthorization.ExpirationDate = changedDate.NewDate;
 
-                db.SystemLogs.Add(SystemLogProcessor.ExtendExpirationDate(User.GiveUserId(), subscription.ID, SystemLogInterface.MasterISS, null, oldExpirationdate, changedDate.NewDate.ToString("yyyy-MM-dd")));
+                db.SystemLogs.Add(SystemLogProcessor.ExtendExpirationDate(User.GiveUserId(), subscription.ID, SystemLogInterface.MasterISS, null, oldExpirationdate, changedDate.NewDate.ToString("yyyy-MM-dd HH:mm")));
 
                 db.SaveChanges();
 

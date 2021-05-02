@@ -1,4 +1,5 @@
 ﻿using RadiusR_Manager.Binders;
+using RezaB.Web.Helpers.DataTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace RadiusR_Manager
             AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
             ModelBinders.Binders[typeof(DateTime?)] = new DateBinder();
             ModelBinders.Binders[typeof(DateTime)] = new DateBinder();
+            ModelBinders.Binders[typeof(DateWithTime)] = new DateWithTimeBinder();
             ModelBinders.Binders[typeof(bool)] = new BooleanBinder();
             ModelBinders.Binders[typeof(bool?)] = new BooleanBinder();
             ModelBinders.Binders[typeof(Models.ViewModels.PDFTemplates.InvariantDecimal)] = new InvariantCultureDecimalBinder();

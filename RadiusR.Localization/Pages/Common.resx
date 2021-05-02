@@ -1254,4 +1254,7 @@
   <data name="TransitionToAnotherOperator" xml:space="preserve">
     <value>Transitioned to another operator: {0}.</value>
   </data>
+  <data name="QuotaExpired" xml:space="preserve">
+    <value>Quota Expired</value>
+  </data>
 </root>

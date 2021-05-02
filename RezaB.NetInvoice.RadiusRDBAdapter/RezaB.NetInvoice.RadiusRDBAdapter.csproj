@@ -77,8 +77,8 @@
       <HintPath>..\packages\RezaB.NetInvoice.Wrapper.1.0.0\lib\net452\RezaB.NetInvoice.Wrapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RezaB.Web, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.Web.1.1.5\lib\net472\RezaB.Web.dll</HintPath>
+    <Reference Include="RezaB.Web, Version=1.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Web.1.1.6\lib\net472\RezaB.Web.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />

@@ -27,11 +27,11 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "ReferenceNo")]
         public string ReferenceNo { get; set; }
 
-        [Display(ResourceType = typeof(RadiusR.Localization.Model.FreeRadius), Name = "Username")]
-        public string Username { get; set; }
+        //[Display(ResourceType = typeof(RadiusR.Localization.Model.FreeRadius), Name = "Username")]
+        //public string Username { get; set; }
 
-        [Display(ResourceType = typeof(RadiusR.Localization.Model.FreeRadius), Name = "Password")]
-        public string Password { get; set; }
+        //[Display(ResourceType = typeof(RadiusR.Localization.Model.FreeRadius), Name = "Password")]
+        //public string Password { get; set; }
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "OnlinePassword")]
         public string OnlinePassword { get; set; }
@@ -60,5 +60,8 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "CancellationReason")]
         public ClientCancellationViewModel CancellationInfo { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "ConnectionProperties")]
+        public SubscriptionConnectionProperties ConnectionProperties { get; set; }
     }
 }

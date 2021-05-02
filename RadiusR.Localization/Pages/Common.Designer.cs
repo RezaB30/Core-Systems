@@ -2518,6 +2518,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quota Expired.
+        /// </summary>
+        public static string QuotaExpired {
+            get {
+                return ResourceManager.GetString("QuotaExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quota Packages.
         /// </summary>
         public static string QuotaPackages {

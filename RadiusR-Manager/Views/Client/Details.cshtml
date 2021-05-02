@@ -140,7 +140,7 @@
                         </div>
                     </div>
                     <div class="client-details-box">
-                        @Html.HiddenFor(model => model.SubscriptionInfo.Username, new { @class = "ajax-username" })
+                        @Html.HiddenFor(model => model.SubscriptionInfo.ConnectionProperties.Username, new { @class = "ajax-username" })
                         <div class="detail-box-title">
                             @RadiusR.Localization.Pages.Common.Connection
                         </div>
@@ -175,6 +175,14 @@
                     <div class="client-cancellation-container">
                         <div>
                             <span class="reason-title">@RadiusR.Localization.Pages.Common.Passive</span>
+                        </div>
+                    </div>
+                }
+                else if (Model.SubscriptionInfo.TariffInfo.QuotaType == QuotaType.HardQuota && Model.SubscriptionInfo.TariffInfo.RemainingQuota <= 0)
+                {
+                    <div class="client-cancellation-container">
+                        <div>
+                            <span class="reason-title">@RadiusR.Localization.Pages.Common.QuotaExpired</span>
                         </div>
                     </div>
                 }
