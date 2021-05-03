@@ -508,7 +508,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.StateChanges
                             {
                                 if (!freezeOptions.ForceThroughWebService)
                                 {
-                                    return new StateChangeResult(response.InternalException);
+                                    return new StateChangeResult(response.InternalException.GetShortMessage(), response.InternalException);
                                     //throw response.InternalException;
                                 }
                             }
