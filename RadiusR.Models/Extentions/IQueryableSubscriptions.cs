@@ -19,8 +19,8 @@ namespace RadiusR_Manager.Models.Extentions
             // apply searchModel to sql rows
             if (searchModel.DisabledForDebt)
             {
-                var disconnectionTimeOfDay = TimeSpan.ParseExact(db.RadiusDefaults.FirstOrDefault(def => def.Attribute == "DailyDisconnectionTime").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture);
-                query = query.Where(client => client.State == (short)CustomerState.Active && DbFunctions.AddSeconds(client.RadiusAuthorization.ExpirationDate, (int)disconnectionTimeOfDay.TotalSeconds) < DateTime.Now);
+                //var disconnectionTimeOfDay = TimeSpan.ParseExact(db.RadiusDefaults.FirstOrDefault(def => def.Attribute == "DailyDisconnectionTime").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture);
+                query = query.Where(client => client.State == (short)CustomerState.Active && client.RadiusAuthorization.ExpirationDate < DateTime.Now);
             }
             if (searchModel.RegistrationType.HasValue)
             {

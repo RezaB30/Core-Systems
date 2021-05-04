@@ -246,7 +246,7 @@ namespace RadiusR_Manager.Controllers
         // GET: Reports/ClientCount
         public ActionResult ClientCount()
         {
-            var disconnectionTimeOfDay = TimeSpan.ParseExact(db.RadiusDefaults.FirstOrDefault(def => def.Attribute == "DailyDisconnectionTime").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture);
+            //var disconnectionTimeOfDay = TimeSpan.ParseExact(db.RadiusDefaults.FirstOrDefault(def => def.Attribute == "DailyDisconnectionTime").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture);
             var includedStates = new short[]
             {
                 (short)CustomerState.Active,
@@ -260,7 +260,7 @@ namespace RadiusR_Manager.Controllers
                 TotalCount = db.Subscriptions.Where(s => includedStates.Contains(s.State)).LongCount(),
                 CancelledCount = db.Subscriptions.Where(client => client.State == (short)CustomerState.Cancelled).LongCount(),
                 FreezedCount = db.Subscriptions.Where(client => client.State == (short)CustomerState.Disabled).LongCount(),
-                PassiveCount = db.Subscriptions.Where(client => client.State == (short)CustomerState.Active || client.State == (short)CustomerState.Reserved && client.RadiusAuthorization.ExpirationDate < DbFunctions.AddSeconds(DateTime.Now, -1 * (int)disconnectionTimeOfDay.TotalSeconds)).LongCount()
+                PassiveCount = db.Subscriptions.Where(client => (client.State == (short)CustomerState.Active || client.State == (short)CustomerState.Reserved) && client.RadiusAuthorization.ExpirationDate < DateTime.Now).LongCount()
             };
 
             // ------- Diagram Data -------
@@ -328,7 +328,7 @@ namespace RadiusR_Manager.Controllers
         public ActionResult OnlineClients()
         {
             var NASNames = db.NAS.Select(nas => new { IP = nas.IP, Name = nas.Name }).ToDictionary(item => item.IP, item => item.Name);
-            var onlineClients = db.Database.SqlQuery<string>("SELECT NASIP FROM RadiusAuthorization WHERE LastInterimUpdate IS NOT NULL AND (LastLogout IS NULL OR LastLogout < LastInterimUpdate);").ToArray().GroupBy(ra => ra).Select(group => new OnlineClientsReportViewModel()
+            var onlineClients = db.Database.SqlQuery<string>("SELECT NASIP FROM RadiusAuthorization WHERE LastInterimUpdate IS NOT NULL AND (LastLogout IS NULL OR LastLogout < LastInterimUpdate) AND NASIP IS NOT NULL;").ToArray().GroupBy(ra => ra).Select(group => new OnlineClientsReportViewModel()
             {
                 ClientCount = group.LongCount(),
                 IP = group.Key
