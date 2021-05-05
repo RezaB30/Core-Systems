@@ -120,6 +120,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TelekomSynchroniz
                 if (response.InternalException == null)
                 {
                     options.DBSubscription.SubscriptionTelekomInfo.RedbackName = response.Data.RedbackName;
+                    options.DBSubscription.RadiusAuthorization.CLID = response.Data.CLID;
                 }
                 else
                 {

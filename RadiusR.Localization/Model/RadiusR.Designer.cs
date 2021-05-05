@@ -763,6 +763,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CLID.
+        /// </summary>
+        public static string CLID {
+            get {
+                return ResourceManager.GetString("CLID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Client Count.
         /// </summary>
         public static string ClientCount {

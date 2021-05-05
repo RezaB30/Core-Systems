@@ -730,6 +730,20 @@
         </td>
     </tr>
     <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.SubscriptionInfo.ConnectionProperties.CLID)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.SubscriptionInfo.ConnectionProperties.CLID)
+        </td>
+        <td>
+            @if (User.HasPermission("Change CLID"))
+            {
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.ManualEdit, "ChangeCLID", new { id = Model.SubscriptionInfo.ArchiveNo }, new { @class = "link-button iconed-button edit-button" })
+            }
+        </td>
+    </tr>
+    <tr>
         <td colspan="3" class="section-head">
             @Html.DisplayNameFor(model => model.SubscriptionInfo.TariffInfo)
         </td>

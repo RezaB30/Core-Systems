@@ -351,3 +351,5 @@ v 5.10.03 '2021-05-02'
 - moved some subscription values to radius authorization table.
 - added time to expiration date.
 - fixed customer count report.
+v 5.11.00 '2021-05-05'
+- added CLID to sync and subscriber.

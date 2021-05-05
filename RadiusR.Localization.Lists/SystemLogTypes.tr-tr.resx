@@ -264,4 +264,7 @@
   <data name="SentFormViaEmail" xml:space="preserve">
     <value>E-posta ile Form Gönderme</value>
   </data>
+  <data name="ChangeCLID" xml:space="preserve">
+    <value>CLID Değiştirme</value>
+  </data>
 </root>

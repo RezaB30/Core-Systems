@@ -1257,4 +1257,7 @@
   <data name="QuotaExpired" xml:space="preserve">
     <value>Quota Expired</value>
   </data>
+  <data name="ChangeCLID" xml:space="preserve">
+    <value>Change CLID</value>
+  </data>
 </root>

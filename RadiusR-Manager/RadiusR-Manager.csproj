@@ -991,6 +991,7 @@
     <Content Include="Views\TelekomWorkOrder\OutgoingDetails.cshtml" />
     <Content Include="Views\TelekomWorkOrder\GetOutgoingDocuments.cshtml" />
     <Content Include="Views\TelekomWorkOrder\RejectOutgoing.cshtml" />
+    <Content Include="Views\Client\Edits\ChangeCLID.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

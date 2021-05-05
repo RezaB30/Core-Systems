@@ -514,7 +514,7 @@ namespace RadiusR.SystemLogs
                 InterfaceUsername = interfaceUsername,
                 AppUserID = userID,
                 SubscriptionID = subscriptionID,
-                Parameters = HttpUtility.HtmlEncode(string.Join(ParameterSeparator, new[] 
+                Parameters = HttpUtility.HtmlEncode(string.Join(ParameterSeparator, new[]
                 {
                     "<span class='important'>" + InsertResource(typeof(RadiusR.Localization.Lists.TelekomOperations.TelekomOperationType), details.OperationType.ToString()) + "("+ InsertResource(typeof(RadiusR.Localization.Lists.TelekomOperations.TelekomOperationSubType), details.OperationSubType.ToString()) +")" + "</span>",
                     "<a href='" + InsertLinkWithDictionary("Details", "TelekomWorkOrder", new Dictionary<string, string>() { { "id", telekomWorkOrderID.ToString() } }) + "'>" + telekomWorkOrderID + "</a>",
@@ -563,7 +563,7 @@ namespace RadiusR.SystemLogs
                 InterfaceUsername = interfaceUsername,
                 AppUserID = userID,
                 SubscriptionID = subscriptionID,
-                Parameters = HttpUtility.HtmlEncode(string.Join(ParameterSeparator, new[] 
+                Parameters = HttpUtility.HtmlEncode(string.Join(ParameterSeparator, new[]
                 {
                     "<span class='important'>" + InsertResource(typeof(RadiusR.Localization.Lists.TelekomOperations.TelekomOperationType), details.OperationType.ToString()) + "("+ InsertResource(typeof(RadiusR.Localization.Lists.TelekomOperations.TelekomOperationSubType), details.OperationSubType.ToString()) +")" + "</span>",
                     "<a href='" + InsertLinkWithDictionary("Details", "TelekomWorkOrder", new Dictionary<string, string>() { { "id", telekomWorkOrderID.ToString() } }) + "'>" + telekomWorkOrderID + "</a>",
@@ -651,6 +651,23 @@ namespace RadiusR.SystemLogs
                 Parameters = HttpUtility.HtmlEncode(string.Join(ParameterSeparator, new[] {
                     "<span class='important'>" + oldIP + "</span>",
                     "<span class='important'>" + newIP + "</span>"
+                }))
+            };
+        }
+
+        public static SystemLog ChangeCLID(int? userID, long subscriptionID, SystemLogInterface interfaceType, string interfaceUsername, string oldCLID, string newCLID)
+        {
+            return new SystemLog()
+            {
+                Date = DateTime.Now,
+                LogType = (int)SystemLogTypes.ChangeCLID,
+                Interface = (short)interfaceType,
+                InterfaceUsername = interfaceUsername,
+                AppUserID = userID,
+                SubscriptionID = subscriptionID,
+                Parameters = HttpUtility.HtmlEncode(string.Join(ParameterSeparator, new[] {
+                    "<span class='important'>" + oldCLID + "</span>",
+                    "<span class='important'>" + newCLID + "</span>"
                 }))
             };
         }

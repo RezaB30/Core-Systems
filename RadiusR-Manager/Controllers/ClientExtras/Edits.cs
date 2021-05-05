@@ -820,7 +820,7 @@ namespace RadiusR_Manager.Controllers
                     });
                     if (results.ResultCode != TelekomSynchronizationResultCodes.Success)
                     {
-                        ViewBag.TelekomError = results.ResultCode == TelekomSynchronizationResultCodes.TelekomError ? string.Join(Environment.NewLine, results.TelekomExceptions.Select(tte => tte.GetShortMessage())) : GetSynchronizationErrorMessage(results.ResultCode) ;
+                        ViewBag.TelekomError = results.ResultCode == TelekomSynchronizationResultCodes.TelekomError ? string.Join(Environment.NewLine, results.TelekomExceptions.Select(tte => tte.GetShortMessage())) : GetSynchronizationErrorMessage(results.ResultCode);
                     }
                     else
                     {
@@ -929,7 +929,7 @@ namespace RadiusR_Manager.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         // POST: Client/ExtendExpirationDate
-        public ActionResult ExtendExpirationDate(long id, [Bind(Include = "NewDate")]ChangeExpirationDateViewModel changedDate)
+        public ActionResult ExtendExpirationDate(long id, [Bind(Include = "NewDate")] ChangeExpirationDateViewModel changedDate)
         {
             var subscription = db.Subscriptions.Find(id);
             if (subscription == null)
@@ -1157,7 +1157,7 @@ namespace RadiusR_Manager.Controllers
                     ReferenceNo = referralDiscount.ReferenceNo,
                     SpecialOfferID = referralDiscount.SpecialOfferID
                 }, dbSubscription.Service, out referrerSubscription, out specialOffer);
-                if(validationResults != null)
+                if (validationResults != null)
                 {
                     foreach (var item in validationResults)
                     {
@@ -1263,6 +1263,53 @@ namespace RadiusR_Manager.Controllers
             }).ToArray(), "Value", "Name", specialOffer.SpecialOfferID);
 
             return View(viewName: "Edits/AddSpecialOffer", model: specialOffer);
+        }
+
+        [AuthorizePermission(Permissions = "Change CLID")]
+        [HttpGet]
+        // GET: Client/ChangeCLID
+        public ActionResult ChangeCLID(long id)
+        {
+            var subscription = db.Subscriptions.Find(id);
+            if (subscription == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 4 });
+            }
+
+            var CLIDModel = new ChangeCLIDViewModel()
+            {
+                CLID = subscription.RadiusAuthorization.CLID
+            };
+
+            ViewBag.CustomerName = subscription.ValidDisplayName;
+            return View(viewName: "Edits/ChangeCLID", model: CLIDModel);
+        }
+
+        [AuthorizePermission(Permissions = "Add Special Offer")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST: Client/ChangeCLID
+        public ActionResult ChangeCLID(long id, ChangeCLIDViewModel CLIDModel)
+        {
+            var subscription = db.Subscriptions.Find(id);
+            if (subscription == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 4 });
+            }
+
+            if (ModelState.IsValid)
+            {
+                var oldCLID = subscription.RadiusAuthorization.CLID;
+                var newCLID = string.IsNullOrWhiteSpace(CLIDModel.CLID) ? null : CLIDModel.CLID;
+                subscription.RadiusAuthorization.CLID = newCLID;
+                db.SystemLogs.Add(SystemLogProcessor.ChangeCLID(User.GiveUserId(), subscription.ID, SystemLogInterface.MasterISS, null, oldCLID, newCLID));
+                db.SaveChanges();
+
+                return RedirectToAction("Details", new { id = subscription.ID, errorMessage = 0 });
+            }
+
+            ViewBag.CustomerName = subscription.ValidDisplayName;
+            return View(viewName: "Edits/ChangeCLID", model: CLIDModel);
         }
     }
 }

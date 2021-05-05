@@ -486,4 +486,7 @@
   <data name="SubscriptionForms" xml:space="preserve">
     <value>Abonelik Formları</value>
   </data>
+  <data name="ChangeCLID" xml:space="preserve">
+    <value>CLID Değiştirme</value>
+  </data>
 </root>

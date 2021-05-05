@@ -1254,4 +1254,7 @@
   <data name="QuotaExpired" xml:space="preserve">
     <value>Kotası Doldu</value>
   </data>
+  <data name="ChangeCLID" xml:space="preserve">
+    <value>CLID'i Değiştir</value>
+  </data>
 </root>

@@ -178,6 +178,15 @@ namespace RadiusR.Localization.Lists {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CLID Change.
+        /// </summary>
+        public static string ChangeCLID {
+            get {
+                return ResourceManager.GetString("ChangeCLID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change Client State.
         /// </summary>
         public static string ChangeClientState {

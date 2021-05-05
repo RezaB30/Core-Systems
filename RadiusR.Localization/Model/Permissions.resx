@@ -486,4 +486,7 @@
   <data name="SubscriptionForms" xml:space="preserve">
     <value>Subscription Forms</value>
   </data>
+  <data name="ChangeCLID" xml:space="preserve">
+    <value>Change CLID</value>
+  </data>
 </root>

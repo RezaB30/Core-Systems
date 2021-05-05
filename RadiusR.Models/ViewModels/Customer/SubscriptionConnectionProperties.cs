@@ -18,5 +18,8 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "ExpirationDate")]
         [UIHint("ExactTime")]
         public DateTime? ExpirationDate { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "CLID")]
+        public string CLID { get; set; }
     }
 }

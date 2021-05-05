@@ -58,5 +58,6 @@ namespace RadiusR.DB.Enums
         CloseWorkOrder = 48,
         SubscriptionTransferApplied = 49,
         SentFormViaEmail = 50,
+        ChangeCLID = 51,
     }
 }

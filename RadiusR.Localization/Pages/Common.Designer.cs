@@ -664,6 +664,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change CLID.
+        /// </summary>
+        public static string ChangeCLID {
+            get {
+                return ResourceManager.GetString("ChangeCLID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change DSL No.
         /// </summary>
         public static string ChangeDSLNo {

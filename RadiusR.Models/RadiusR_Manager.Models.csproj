@@ -181,6 +181,7 @@
     <Compile Include="RadiusViewModels\SupportGroupUserViewModel.cs" />
     <Compile Include="RadiusViewModels\SupportGroupViewModel.cs" />
     <Compile Include="RadiusViewModels\TransitionOperatorViewModel.cs" />
+    <Compile Include="ViewModels\ChangeCLIDViewModel.cs" />
     <Compile Include="ViewModels\ClientStates\PrepareTransitionViewModel.cs" />
     <Compile Include="ViewModels\ClientStates\TransitionDocumentsValidationViewModel.cs" />
     <Compile Include="ViewModels\ClientStates\UpdateTelekomInfoBeforeSendViewModel.cs" />

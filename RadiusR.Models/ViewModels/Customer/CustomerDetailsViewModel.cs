@@ -140,7 +140,8 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
                 {
                     Password = dbSubscription.RadiusAuthorization.Password,
                     Username = dbSubscription.RadiusAuthorization.Username,
-                    ExpirationDate = dbSubscription.RadiusAuthorization.ExpirationDate
+                    ExpirationDate = dbSubscription.RadiusAuthorization.ExpirationDate,
+                    CLID = dbSubscription.RadiusAuthorization.CLID
                 },
                 TariffInfo = new SubscriptionTariffInfoViewModel()
                 {

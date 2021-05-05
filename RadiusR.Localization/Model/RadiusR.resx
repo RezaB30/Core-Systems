@@ -1632,4 +1632,7 @@
   <data name="ConnectionProperties" xml:space="preserve">
     <value>Connection Properties</value>
   </data>
+  <data name="CLID" xml:space="preserve">
+    <value>CLID</value>
+  </data>
 </root>
