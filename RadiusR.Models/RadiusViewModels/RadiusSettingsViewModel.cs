@@ -40,43 +40,22 @@ namespace RadiusR_Manager.Models.RadiusViewModels
         [UIHint("LocalizedList")]
         public short FramedProtocol { get; set; }
 
-        //[Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "DailyDisconnectionTime")]
-        //[Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
-        //[TimeSpan(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "TimeSpan")]
-        //public string DailyDisconnectionTime
-        //{
-        //    get
-        //    {
-        //        return _dailyDisconnectionTime.ToString("hh\\:mm\\:ss");
-        //    }
-        //    set
-        //    {
-        //        TimeSpan parsed;
-        //        if (TimeSpan.TryParseExact(value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture, out parsed))
-        //        {
-        //            _dailyDisconnectionTime = parsed;
-        //        }
-        //    }
-        //}
-
-        //private TimeSpan _dailyDisconnectionTime;
-
-        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "IncludeICMP")]
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "CheckCLID")]
         [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
-        public bool IncludeICMP { get; set; }
+        public bool CheckCLID { get; set; }
 
-        public string _includeICMP
+        public string _checkCLID
         {
             get
             {
-                return IncludeICMP.ToString();
+                return CheckCLID.ToString();
             }
             set
             {
                 bool parsed;
                 if (bool.TryParse(value, out parsed))
                 {
-                    IncludeICMP = parsed;
+                    CheckCLID = parsed;
                 }
             }
         }

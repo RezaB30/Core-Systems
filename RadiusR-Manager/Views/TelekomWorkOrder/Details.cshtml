@@ -187,6 +187,16 @@
                     @:&nbsp;
                     @Html.ActionLink(RadiusR.Localization.Pages.Common.Retry, "Retry", new { id = Model.ID, returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button reload-button" })
                 }
+                if (Model.CanCancel)
+                {
+                    @:&nbsp;
+                    using (Html.BeginForm("CancelWorkOrder", null, new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @style = "display: inline-block;", @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", Model.ID)
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Cancel" class="link-button iconed-button cancel-button" />
+                    }
+                }
                 if (Model.CanUploadFiles)
                 {
                     @:&nbsp;

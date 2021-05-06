@@ -36,30 +36,12 @@
                 @Html.ValidationMessageFor(model => model.FramedProtocol)
             </td>
         </tr>
-        @*<tr>
-            <td>
-                @Html.LabelFor(model => model.DailyDisconnectionTime)
-            </td>
-            <td>
-                @Html.EditorFor(model => model.DailyDisconnectionTime, new { @htmlAttributes = new { @maxlength = 8, @autocomplete = "off" } })
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                @Html.ValidationMessageFor(model => model.DailyDisconnectionTime)
-            </td>
-        </tr>*@
         <tr>
             <td>
-                @Html.LabelFor(model => model.IncludeICMP)
+                @Html.LabelFor(model => model.CheckCLID)
             </td>
             <td>
-                @Html.CheckButton(model => model.IncludeICMP, Html.DisplayNameFor(model => model.IncludeICMP).ToString())
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                @Html.ValidationMessageFor(model => model.IncludeICMP)
+                @Html.CheckButton(model => model.CheckCLID, Html.DisplayNameFor(model => model.CheckCLID).ToString())
             </td>
         </tr>
         <tr>

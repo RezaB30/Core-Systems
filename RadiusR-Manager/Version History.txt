@@ -353,3 +353,6 @@ v 5.10.03 '2021-05-02'
 - fixed customer count report.
 v 5.11.00 '2021-05-05'
 - added CLID to sync and subscriber.
+v 5.11.01 '2021-05-06'
+- added CLID check setting to Radius settings.
+- added cancellation to incoming transition work orders.

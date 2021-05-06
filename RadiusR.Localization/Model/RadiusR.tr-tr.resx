@@ -1635,4 +1635,7 @@
   <data name="CLID" xml:space="preserve">
     <value>CLID</value>
   </data>
+  <data name="CheckCLID" xml:space="preserve">
+    <value>CLID'i Kontrol Etsin</value>
+  </data>
 </root>

@@ -736,6 +736,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check CLID.
+        /// </summary>
+        public static string CheckCLID {
+            get {
+                return ResourceManager.GetString("CheckCLID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cities.
         /// </summary>
         public static string Cities {

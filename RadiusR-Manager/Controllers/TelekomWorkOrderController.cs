@@ -481,7 +481,6 @@ namespace RadiusR_Manager.Controllers
             {
                 UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", Uri);
                 return Redirect(Uri.Uri.PathAndQuery + Uri.Fragment);
-                //return RedirectToAction("Index", new { errorMessage = 9 });
             }
             // registration
             if (workOrder.OperationTypeID == (short)RadiusR.DB.Enums.TelekomOperations.TelekomOperationType.Registration)
@@ -838,6 +837,55 @@ namespace RadiusR_Manager.Controllers
             workOrder.PhoneNo = subscriber.Customer.ContactPhoneNo;
 
             return View(workOrder);
+        }
+
+        [AuthorizePermission(Permissions = "Telekom Work Order Edits")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        // POST: TelekomWorkOrder/CancelWorkOrder
+        public ActionResult CancelWorkOrder(long id, string returnUrl)
+        {
+            // return URL
+            var Uri = new UriBuilder(Url.Action("Index", null, null, Request.Url.Scheme));
+            if (!string.IsNullOrEmpty(returnUrl))
+                Uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", Uri);
+            ViewBag.ReturnUrl = Uri.Uri.PathAndQuery + Uri.Fragment;
+
+            var workOrder = db.TelekomWorkOrders.Find(id);
+            if (workOrder == null || workOrder.Subscription.SubscriptionTelekomInfo == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", Uri);
+                return Redirect(Uri.Uri.PathAndQuery + Uri.Fragment);
+            }
+
+            var currentDomain = DomainsCache.GetDomainByID(workOrder.Subscription.DomainID);
+            if (currentDomain == null || currentDomain.TelekomCredential == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", Uri);
+                return Redirect(Uri.Uri.PathAndQuery + Uri.Fragment);
+            }
+
+            var serviceClient = new RezaB.TurkTelekom.WebServices.TTChurnApplication.TransitionApplicationClient(currentDomain.TelekomCredential.XDSLWebServiceUsernameInt, currentDomain.TelekomCredential.XDSLWebServicePassword, workOrder.Subscription.SubscriptionTelekomInfo?.TTCustomerCode ?? currentDomain.TelekomCredential.XDSLWebServiceCustomerCodeInt);
+            var results = serviceClient.RejectIncomingTransition(new RezaB.TurkTelekom.WebServices.TTChurnApplication.RejectIncomingTransitionRequest()
+            {
+                TransactionID = workOrder.TransactionID.Value,
+                XDSLNo = workOrder.Subscription.SubscriptionTelekomInfo?.SubscriptionNo
+            });
+            if (results.InternalException != null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "33", Uri);
+                return Redirect(Uri.Uri.PathAndQuery + Uri.Fragment);
+            }
+
+            workOrder.ClosingDate = DateTime.Now;
+            workOrder.IsOpen = false;
+
+            db.SystemLogs.Add(SystemLogProcessor.CloseTelekomWorkOrder(User.GiveUserId(), workOrder.SubscriptionID, RadiusR.DB.Enums.SystemLogInterface.MasterISS, null, workOrder.ID, (RadiusR.DB.Enums.TelekomOperations.TelekomOperationType)workOrder.OperationTypeID, (RadiusR.DB.Enums.TelekomOperations.TelekomOperationSubType)workOrder.OperationSubType));
+
+            db.SaveChanges();
+
+            return RedirectToAction("Details", new { id = workOrder.ID, errorMessage = 0, returnUrl = Uri.Uri.PathAndQuery + Uri.Fragment });
         }
 
         class WorkOrderState
