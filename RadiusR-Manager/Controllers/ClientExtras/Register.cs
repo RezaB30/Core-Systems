@@ -295,25 +295,18 @@ namespace RadiusR_Manager.Controllers
                 {
                     selectedPacket = new
                     {
-                        PacketCode = dbSubscription.SubscriptionTelekomInfo.PacketCode.Value,
-                        TariffCode = dbSubscription.SubscriptionTelekomInfo.TariffCode.Value
+                        PacketCode = dbSubscription.SubscriptionTelekomInfo.PacketCode ?? 0,
+                        TariffCode = dbSubscription.SubscriptionTelekomInfo.TariffCode ?? 0
                     };
                 }
                 var telekomTariff = TelekomTariffsCache.GetSpecificTariff(domain, selectedPacket.PacketCode, selectedPacket.TariffCode);
-                if (telekomTariff == null)
-                {
-                    return View(viewName: "AddWizard/SendTelekomRegistration");
-                }
-                else
-                {
-                    var telekomTariffViewModel = new UpdateTelekomInfoBeforeSendViewModel()
-                    {
-                        TelekomTariffInfo = new TelekomTariffHelperViewModel(telekomTariff),
-                        PSTN = dbSubscription.SubscriptionTelekomInfo.PSTN
-                    };
-                    return View(viewName: "AddWizard/SendTelekomRegistration", model: telekomTariffViewModel);
-                }
 
+                var telekomTariffViewModel = new UpdateTelekomInfoBeforeSendViewModel()
+                {
+                    TelekomTariffInfo = telekomTariff != null ? new TelekomTariffHelperViewModel(telekomTariff) : new TelekomTariffHelperViewModel(),
+                    PSTN = dbSubscription.SubscriptionTelekomInfo.PSTN
+                };
+                return View(viewName: "AddWizard/SendTelekomRegistration", model: telekomTariffViewModel);
             }
         }
 
