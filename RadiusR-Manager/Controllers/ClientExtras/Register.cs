@@ -304,7 +304,7 @@ namespace RadiusR_Manager.Controllers
                 var telekomTariffViewModel = new UpdateTelekomInfoBeforeSendViewModel()
                 {
                     TelekomTariffInfo = telekomTariff != null ? new TelekomTariffHelperViewModel(telekomTariff) : new TelekomTariffHelperViewModel(),
-                    PSTN = dbSubscription.SubscriptionTelekomInfo.PSTN
+                    PSTN = dbSubscription.SubscriptionTelekomInfo?.PSTN
                 };
                 return View(viewName: "AddWizard/SendTelekomRegistration", model: telekomTariffViewModel);
             }
