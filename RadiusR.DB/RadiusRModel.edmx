@@ -569,6 +569,13 @@
           <Property Name="Email" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="PartnerWorkArea">
+          <Key>
+            <PropertyRef Name="WorkAreaID" />
+          </Key>
+          <Property Name="WorkAreaID" Type="bigint" Nullable="false" />
+          <Property Name="PartnerID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="PDFFormItemPlacement">
           <Key>
             <PropertyRef Name="ID" />
@@ -1163,7 +1170,6 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PartnerID" Type="int" Nullable="false" />
           <Property Name="ProvinceID" Type="bigint" Nullable="false" />
           <Property Name="DistrictID" Type="bigint" />
           <Property Name="RuralCode" Type="bigint" />
@@ -1937,6 +1943,30 @@
             </Principal>
             <Dependent Role="PartnerSubUser">
               <PropertyRef Name="PartnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerWorkArea_Partner">
+          <End Role="Partner" Type="Self.Partner" Multiplicity="1" />
+          <End Role="PartnerWorkArea" Type="Self.PartnerWorkArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partner">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PartnerWorkArea">
+              <PropertyRef Name="PartnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartnerWorkArea_WorkArea">
+          <End Role="WorkArea" Type="Self.WorkArea" Multiplicity="1" />
+          <End Role="PartnerWorkArea" Type="Self.PartnerWorkArea" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="WorkArea">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PartnerWorkArea">
+              <PropertyRef Name="WorkAreaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2792,18 +2822,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_WorkArea_Partner">
-          <End Role="Partner" Type="Self.Partner" Multiplicity="1" />
-          <End Role="WorkArea" Type="Self.WorkArea" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Partner">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="WorkArea">
-              <PropertyRef Name="PartnerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="RadiusRModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppliedRecurringDiscount" EntityType="Self.AppliedRecurringDiscount" Schema="dbo" store:Type="Tables" />
@@ -2852,6 +2870,7 @@
           <EntitySet Name="PartnerPermission" EntityType="Self.PartnerPermission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PartnerRegisteredSubscription" EntityType="Self.PartnerRegisteredSubscription" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PartnerSubUser" EntityType="Self.PartnerSubUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PartnerWorkArea" EntityType="Self.PartnerWorkArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PDFFormItemPlacement" EntityType="Self.PDFFormItemPlacement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuotaPackage" EntityType="Self.QuotaPackage" Schema="dbo" store:Type="Tables" />
@@ -3162,6 +3181,14 @@
             <End Role="Partner" EntitySet="Partner" />
             <End Role="PartnerSubUser" EntitySet="PartnerSubUser" />
           </AssociationSet>
+          <AssociationSet Name="FK_PartnerWorkArea_Partner" Association="Self.FK_PartnerWorkArea_Partner">
+            <End Role="Partner" EntitySet="Partner" />
+            <End Role="PartnerWorkArea" EntitySet="PartnerWorkArea" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartnerWorkArea_WorkArea" Association="Self.FK_PartnerWorkArea_WorkArea">
+            <End Role="WorkArea" EntitySet="WorkArea" />
+            <End Role="PartnerWorkArea" EntitySet="PartnerWorkArea" />
+          </AssociationSet>
           <AssociationSet Name="FK_Permission_Permission" Association="Self.FK_Permission_Permission">
             <End Role="Permission" EntitySet="Permission" />
             <End Role="Permission1" EntitySet="Permission" />
@@ -3445,10 +3472,6 @@
           <AssociationSet Name="FK_TelekomWorkOrderParameter_TelekomWorkOrderParameter" Association="Self.FK_TelekomWorkOrderParameter_TelekomWorkOrderParameter">
             <End Role="TelekomWorkOrder" EntitySet="TelekomWorkOrder" />
             <End Role="TelekomWorkOrderParameter" EntitySet="TelekomWorkOrderParameter" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WorkArea_Partner" Association="Self.FK_WorkArea_Partner">
-            <End Role="Partner" EntitySet="Partner" />
-            <End Role="WorkArea" EntitySet="WorkArea" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -4294,7 +4317,6 @@
             <End Role="FeeTypeVariant" EntitySet="FeeTypeVariants" />
             <End Role="Fee" EntitySet="Fees" />
           </AssociationSet>
-          <EntitySet Name="WorkAreas" EntityType="RadiusRModel.WorkArea" />
           <EntitySet Name="PartnerGroups" EntityType="RadiusRModel.PartnerGroup" />
           <EntitySet Name="PartnerPermissions" EntityType="RadiusRModel.PartnerPermission" />
           <EntitySet Name="PartnerCredits" EntityType="RadiusRModel.PartnerCredit" />
@@ -4336,10 +4358,6 @@
           <AssociationSet Name="FK_PartnerPermission_Partner" Association="RadiusRModel.FK_PartnerPermission_Partner">
             <End Role="Partner" EntitySet="Partners" />
             <End Role="PartnerPermission" EntitySet="PartnerPermissions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WorkArea_Partner" Association="RadiusRModel.FK_WorkArea_Partner">
-            <End Role="Partner" EntitySet="Partners" />
-            <End Role="WorkArea" EntitySet="WorkAreas" />
           </AssociationSet>
           <EntitySet Name="PartnerSubUsers" EntityType="RadiusRModel.PartnerSubUser" />
           <AssociationSet Name="FK_PartnerSubUser_Partner" Association="RadiusRModel.FK_PartnerSubUser_Partner">
@@ -4718,6 +4736,11 @@
           <AssociationSet Name="FK_RadiusAuthorization_Subscription" Association="RadiusRModel.FK_RadiusAuthorization_Subscription">
             <End Role="Subscription" EntitySet="Subscriptions" />
             <End Role="RadiusAuthorization" EntitySet="RadiusAuthorizations" />
+          </AssociationSet>
+          <EntitySet Name="WorkAreas" EntityType="RadiusRModel.WorkArea" />
+          <AssociationSet Name="PartnerWorkArea" Association="RadiusRModel.PartnerWorkArea">
+            <End Role="Partner" EntitySet="Partners" />
+            <End Role="WorkArea" EntitySet="WorkAreas" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
@@ -5212,21 +5235,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="WorkArea">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PartnerID" Type="Int32" Nullable="false" />
-          <Property Name="ProvinceID" Type="Int64" Nullable="false" />
-          <Property Name="DistrictID" Type="Int64" />
-          <Property Name="RuralCode" Type="Int64" />
-          <Property Name="NeighbourhoodID" Type="Int64" />
-          <Property Name="ProvinceName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="DistrictName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="NeighbourhoodName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Partner" Relationship="RadiusRModel.FK_WorkArea_Partner" FromRole="WorkArea" ToRole="Partner" />
-        </EntityType>
         <EntityType Name="PartnerGroup">
           <Key>
             <PropertyRef Name="ID" />
@@ -5342,10 +5350,10 @@
           <NavigationProperty Name="PartnerBillPayments" Relationship="RadiusRModel.FK_PartnerBillPayment_Partner" FromRole="Partner" ToRole="PartnerBillPayment" />
           <NavigationProperty Name="PartnerCredits" Relationship="RadiusRModel.FK_PartnerCredit_Partner" FromRole="Partner" ToRole="PartnerCredit" />
           <NavigationProperty Name="PartnerPermissions" Relationship="RadiusRModel.FK_PartnerPermission_Partner" FromRole="Partner" ToRole="PartnerPermission" />
-          <NavigationProperty Name="WorkAreas" Relationship="RadiusRModel.FK_WorkArea_Partner" FromRole="Partner" ToRole="WorkArea" />
           <NavigationProperty Name="PartnerSubUsers" Relationship="RadiusRModel.FK_PartnerSubUser_Partner" FromRole="Partner" ToRole="PartnerSubUser" />
           <NavigationProperty Name="PartnerCollections" Relationship="RadiusRModel.FK_PartnerCollection_Partner" FromRole="Partner" ToRole="PartnerCollection" />
           <NavigationProperty Name="PartnerRegisteredSubscriptions" Relationship="RadiusRModel.FK_PartnerRegisteredSubscription_Partner" FromRole="Partner" ToRole="PartnerRegisteredSubscription" />
+          <NavigationProperty Name="WorkAreas" Relationship="RadiusRModel.PartnerWorkArea" FromRole="Partner" ToRole="WorkArea" />
         </EntityType>
         <Association Name="FK_Partner_Address">
           <End Type="RadiusRModel.Address" Role="Address" Multiplicity="1" />
@@ -5415,18 +5423,6 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PartnerPermission">
-              <PropertyRef Name="PartnerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WorkArea_Partner">
-          <End Type="RadiusRModel.Partner" Role="Partner" Multiplicity="1" />
-          <End Type="RadiusRModel.WorkArea" Role="WorkArea" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Partner">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="WorkArea">
               <PropertyRef Name="PartnerID" />
             </Dependent>
           </ReferentialConstraint>
@@ -6998,6 +6994,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="WorkArea">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProvinceID" Type="Int64" Nullable="false" />
+          <Property Name="DistrictID" Type="Int64" />
+          <Property Name="RuralCode" Type="Int64" />
+          <Property Name="NeighbourhoodID" Type="Int64" />
+          <Property Name="ProvinceName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DistrictName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="NeighbourhoodName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Partner" Relationship="RadiusRModel.PartnerWorkArea" FromRole="WorkArea" ToRole="Partner" />
+        </EntityType>
+        <Association Name="PartnerWorkArea">
+          <End Type="RadiusRModel.Partner" Role="Partner" Multiplicity="0..1" />
+          <End Type="RadiusRModel.WorkArea" Role="WorkArea" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7683,21 +7697,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="WorkAreas">
-            <EntityTypeMapping TypeName="RadiusRModel.WorkArea">
-              <MappingFragment StoreEntitySet="WorkArea">
-                <ScalarProperty Name="NeighbourhoodName" ColumnName="NeighbourhoodName" />
-                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
-                <ScalarProperty Name="ProvinceName" ColumnName="ProvinceName" />
-                <ScalarProperty Name="NeighbourhoodID" ColumnName="NeighbourhoodID" />
-                <ScalarProperty Name="RuralCode" ColumnName="RuralCode" />
-                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
-                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
-                <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PartnerGroups">
             <EntityTypeMapping TypeName="RadiusRModel.PartnerGroup">
               <MappingFragment StoreEntitySet="PartnerGroup">
@@ -8262,6 +8261,29 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="WorkAreas">
+            <EntityTypeMapping TypeName="RadiusRModel.WorkArea">
+              <MappingFragment StoreEntitySet="WorkArea">
+                <ScalarProperty Name="NeighbourhoodName" ColumnName="NeighbourhoodName" />
+                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+                <ScalarProperty Name="ProvinceName" ColumnName="ProvinceName" />
+                <ScalarProperty Name="NeighbourhoodID" ColumnName="NeighbourhoodID" />
+                <ScalarProperty Name="RuralCode" ColumnName="RuralCode" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PartnerWorkArea" TypeName="RadiusRModel.PartnerWorkArea" StoreEntitySet="PartnerWorkArea">
+            <EndProperty Name="WorkArea">
+              <ScalarProperty Name="ID" ColumnName="WorkAreaID" />
+            </EndProperty>
+            <EndProperty Name="Partner">
+              <ScalarProperty Name="ID" ColumnName="PartnerID" />
+            </EndProperty>
+            <Condition ColumnName="PartnerID" IsNull="false" />
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

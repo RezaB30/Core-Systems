@@ -24,6 +24,7 @@ namespace RadiusR.BTKLogging
         public DateTime LastUploadTime { get; set; }
         public DateTime CurrentOperationTime { get; private set; }
         public DateTime? NextOperationTime { get; private set; }
+        public DateTime? NextUploadTime { get; set; }
 
         public SchedulerSettings(BTKSchedulerSetting dbSetting)
         {
@@ -41,7 +42,8 @@ namespace RadiusR.BTKLogging
             LastUploadTime = dbSetting.LastUploadTime ?? LastOperationTime;
 
             CurrentOperationTime = DateTime.Now;
-            NextOperationTime = GetNextDate();
+            NextOperationTime = GetNextDate(LastOperationTime);
+            NextUploadTime = GetNextDate(LastUploadTime);
         }
 
         public bool IsActTime()
@@ -49,26 +51,7 @@ namespace RadiusR.BTKLogging
             if (!IsActive)
                 return false;
 
-            return NextOperationTime.HasValue;
-
-            //var checkTime = LastOperationTime;
-            //switch (SchedulerWorkPeriod)
-            //{
-            //    case SchedulerWorkPeriods.Hourly:
-            //        return DateTime.Now.Day > checkTime.Day || DateTime.Now.Hour > checkTime.Hour;
-
-            //    case SchedulerWorkPeriods.Daily:
-            //        return DateTime.Now.Day > checkTime.Day && DateTime.Now.TimeOfDay > SchedulerStartTime;
-
-            //    case SchedulerWorkPeriods.Weekly:
-            //        return DateTime.Now.Day > checkTime.Day && StartDays.Contains((int)DateTime.Now.DayOfWeek + 1) && DateTime.Now.TimeOfDay > SchedulerStartTime;
-
-            //    case SchedulerWorkPeriods.Monthly:
-            //        return DateTime.Now.Day > checkTime.Day && StartDays.Contains(DateTime.Now.Day) && DateTime.Now.TimeOfDay > SchedulerStartTime;
-
-            //    default:
-            //        return false;
-            //}
+            return NextOperationTime.HasValue || NextUploadTime.HasValue;
         }
 
         public IEnumerable<int> StartDays
@@ -79,19 +62,19 @@ namespace RadiusR.BTKLogging
             }
         }
 
-        private DateTime? GetNextDate()
+        private DateTime? GetNextDate(DateTime date)
         {
             switch (SchedulerWorkPeriod)
             {
                 case SchedulerWorkPeriods.Hourly:
                     {
-                        var tempTime = LastOperationTime.AddHours(1);
+                        var tempTime = date.AddHours(1);
                         var nextOperationTime = new DateTime(tempTime.Year, tempTime.Month, tempTime.Day, tempTime.Hour, 0, 0);
                         return (nextOperationTime < CurrentOperationTime) ? nextOperationTime : (DateTime?)null;
                     }
                 case SchedulerWorkPeriods.Daily:
                     {
-                        var tempTime = LastOperationTime.AddDays(1);
+                        var tempTime = date.AddDays(1);
                         var nextOperationTime = new DateTime(tempTime.Year, tempTime.Month, tempTime.Day, 0, 0, 0);
                         return (nextOperationTime < CurrentOperationTime) ? nextOperationTime : (DateTime?)null;
                     }
@@ -99,7 +82,7 @@ namespace RadiusR.BTKLogging
                     {
                         if (StartDays.Count() < 1)
                             return null;
-                        var tempTime = LastOperationTime.AddDays(1);
+                        var tempTime = date.AddDays(1);
                         while (true)
                         {
                             if (StartDays.Contains((int)tempTime.DayOfWeek))
@@ -114,7 +97,7 @@ namespace RadiusR.BTKLogging
                     {
                         if (StartDays.Count() < 1)
                             return null;
-                        var tempTime = LastOperationTime.AddDays(1);
+                        var tempTime = date.AddDays(1);
                         while (true)
                         {
                             if (StartDays.Contains(tempTime.Day))

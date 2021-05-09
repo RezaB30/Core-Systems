@@ -85,7 +85,6 @@ namespace RadiusR.DB
         public virtual DbSet<Bill> Bills { get; set; }
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<Fee> Fees { get; set; }
-        public virtual DbSet<WorkArea> WorkAreas { get; set; }
         public virtual DbSet<PartnerGroup> PartnerGroups { get; set; }
         public virtual DbSet<PartnerPermission> PartnerPermissions { get; set; }
         public virtual DbSet<PartnerCredit> PartnerCredits { get; set; }
@@ -126,5 +125,6 @@ namespace RadiusR.DB
         public virtual DbSet<TelekomWorkOrder> TelekomWorkOrders { get; set; }
         public virtual DbSet<BTKSubscriptionChange> BTKSubscriptionChanges { get; set; }
         public virtual DbSet<RadiusAuthorization> RadiusAuthorizations { get; set; }
+        public virtual DbSet<WorkArea> WorkAreas { get; set; }
     }
 }

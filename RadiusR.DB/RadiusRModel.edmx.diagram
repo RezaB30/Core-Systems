@@ -95,7 +95,6 @@
         <AssociationConnector Association="RadiusRModel.FK_BillFee_Fee" />
         <AssociationConnector Association="RadiusRModel.FK_Fee_FeeTypeCost" />
         <AssociationConnector Association="RadiusRModel.FK_Fee_FeeTypeVariant" />
-        <EntityTypeShape EntityType="RadiusRModel.WorkArea" Width="1.5" PointX="5.625" PointY="93.75" />
         <EntityTypeShape EntityType="RadiusRModel.PartnerGroup" Width="1.5" PointX="1.125" PointY="86" />
         <EntityTypeShape EntityType="RadiusRModel.PartnerPermission" Width="1.5" PointX="5.625" PointY="91.375" />
         <EntityTypeShape EntityType="RadiusRModel.PartnerCredit" Width="1.5" PointX="22.625" PointY="85" />
@@ -111,7 +110,6 @@
         <AssociationConnector Association="RadiusRModel.FK_PartnerBillPayment_Partner" />
         <AssociationConnector Association="RadiusRModel.FK_PartnerCredit_Partner" />
         <AssociationConnector Association="RadiusRModel.FK_PartnerPermission_Partner" />
-        <AssociationConnector Association="RadiusRModel.FK_WorkArea_Partner" />
         <EntityTypeShape EntityType="RadiusRModel.PartnerSubUser" Width="1.5" PointX="5.625" PointY="82.125" />
         <AssociationConnector Association="RadiusRModel.FK_PartnerSubUser_Partner" />
         <AssociationConnector Association="RadiusRModel.FK_PartnerBillPayment_PartnerSubUser" />
@@ -232,6 +230,8 @@
         <AssociationConnector Association="RadiusRModel.FK_BTKSubscriptionChange_Subscription" />
         <EntityTypeShape EntityType="RadiusRModel.RadiusAuthorization" Width="1.5" PointX="11.375" PointY="71.875" />
         <AssociationConnector Association="RadiusRModel.FK_RadiusAuthorization_Subscription" />
+        <EntityTypeShape EntityType="RadiusRModel.WorkArea" Width="1.5" PointX="5.625" PointY="94" />
+        <AssociationConnector Association="RadiusRModel.PartnerWorkArea" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

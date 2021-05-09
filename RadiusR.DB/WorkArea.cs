@@ -15,7 +15,6 @@ namespace RadiusR.DB
     public partial class WorkArea
     {
         public long ID { get; set; }
-        public int PartnerID { get; set; }
         public long ProvinceID { get; set; }
         public Nullable<long> DistrictID { get; set; }
         public Nullable<long> RuralCode { get; set; }

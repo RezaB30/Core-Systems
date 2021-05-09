@@ -338,7 +338,7 @@ namespace RadiusR_Manager.Controllers
 
             UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
 
-            var viewResults = db.WorkAreas.Where(wa => wa.PartnerID == dbPartner.ID).OrderBy(wa => wa.ID).Select(wa => new PartnerWorkAreaViewModel()
+            var viewResults = db.WorkAreas.Where(wa => wa.Partner.ID == dbPartner.ID).OrderBy(wa => wa.ID).Select(wa => new PartnerWorkAreaViewModel()
             {
                 ID = wa.ID,
                 ProvinceID = wa.ProvinceID,

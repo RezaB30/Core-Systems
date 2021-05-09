@@ -43,28 +43,34 @@ namespace RadiusR.BTKLogging
                         {
                             logger.Trace("Started logging for {0}.", settings[i].LogType.ToString());
 
-                            while (settings[i].NextOperationTime.HasValue)
+                            while (settings[i].NextOperationTime.HasValue || settings[i].NextUploadTime.HasValue)
                             {
                                 try
                                 {
-                                    BTKLogManager.CreateLogs(settings[i]);
-                                    using (RadiusREntities db = new RadiusREntities())
+                                    if (settings[i].NextOperationTime.HasValue)
                                     {
-                                        var dbSettings = db.BTKSchedulerSettings.Find((short)settings[i].LogType);
-                                        dbSettings.LastOperationTime = settings[i].NextOperationTime;
-                                        db.SaveChanges();
+                                        BTKLogManager.CreateLogs(settings[i]);
+                                        using (RadiusREntities db = new RadiusREntities())
+                                        {
+                                            var dbSettings = db.BTKSchedulerSettings.Find((short)settings[i].LogType);
+                                            dbSettings.LastOperationTime = settings[i].NextOperationTime;
+                                            db.SaveChanges();
+                                        }
+                                        logger.Trace("Log files created for {0}.", settings[i].LogType.ToString());
                                     }
-                                    logger.Trace("Log files created for {0}.", settings[i].LogType.ToString());
 
-                                    logger.Trace("Uploading files for {0}.", settings[i].LogType.ToString());
-                                    BTKLogManager.UploadCreatedFiles(settings[i]);
-                                    using (RadiusREntities db = new RadiusREntities())
+                                    if (settings[i].NextUploadTime.HasValue)
                                     {
-                                        var dbSettings = db.BTKSchedulerSettings.Find((short)settings[i].LogType);
-                                        dbSettings.LastUploadTime = settings[i].LastUploadTime;
-                                        db.SaveChanges();
+                                        logger.Trace("Uploading files for {0}.", settings[i].LogType.ToString());
+                                        BTKLogManager.UploadCreatedFiles(settings[i]);
+                                        using (RadiusREntities db = new RadiusREntities())
+                                        {
+                                            var dbSettings = db.BTKSchedulerSettings.Find((short)settings[i].LogType);
+                                            dbSettings.LastUploadTime = settings[i].LastUploadTime;
+                                            db.SaveChanges();
+                                        }
+                                        logger.Trace("Files for {0} uploaded.", settings[i].LogType.ToString());
                                     }
-                                    logger.Trace("Files for {0} uploaded.", settings[i].LogType.ToString());
                                 }
                                 catch (Exception ex)
                                 {
