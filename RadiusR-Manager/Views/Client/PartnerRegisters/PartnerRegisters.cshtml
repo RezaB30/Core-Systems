@@ -1,0 +1,116 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Helpers
+@using RezaB.Web.Authentication
+@using RadiusR.DB.Enums
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.PartnerRegisters.PartnerRegisteredSubscriptionViewModel>
+
+@{
+    ViewBag.Title = "PartnerRegisters";
+    var search = ViewBag.Search as RadiusR_Manager.Models.ViewModels.PartnerRegisters.PartnerRegistersSearchViewModel ?? new RadiusR_Manager.Models.ViewModels.PartnerRegisters.PartnerRegistersSearchViewModel();
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm(null, null, FormMethod.Get))
+        {
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => search.SubscriberNo)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => search.SubscriberNo, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+                    </td>
+                    <td>
+                        @Html.LabelFor(model => search.PartnerID)
+                    </td>
+                    <td>
+                        @Html.Select(model => search.PartnerID, (SelectList)ViewBag.Partners, RadiusR.Localization.Pages.Common.Choose)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => search.RegistrationStartDate)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => search.RegistrationStartDate)
+                        -
+                        @Html.EditorFor(model => search.RegistrationEndDate)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => search.State)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => search.State)
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td class="centered" colspan="4">
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                        <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SubscriberNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegistrationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.State)
+        </th>
+        <th>
+            @RadiusR.Localization.Pages.Common.FileList
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PartnerName)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="centered">
+                @Html.ActionLink(Html.DisplayTextFor(modelItem => item.SubscriberNo).ToString(), "Details", "Client", new { id = item.SubscriptionID }, new { @class = "details-link" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.RegistrationDate)
+            </td>
+            <td class="centered">
+                @if (User.HasPermission("Subscriber State"))
+                {
+                    @Html.ClientStateSelector(modelItem => item.ValidStateChanges, item.SubscriptionID, (CustomerState)item.State, "ChangeStatus")
+                }
+                else
+                {
+                    @Html.ClientStateDisplay(modelItem => item.State)
+                }
+            </td>
+            <td class="centered">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Show, "Files", "Client", new { id = item.SubscriptionID }, new { @class = "link-button iconed-button browse-button", @target = "_blank" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PartnerName)
+            </td>
+            <td></td>
+        </tr>
+    }
+</table>
+@Html.PagedList()

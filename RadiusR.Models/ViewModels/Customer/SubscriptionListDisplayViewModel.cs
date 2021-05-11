@@ -34,6 +34,7 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
         public short State { get; set; }
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "RegistrationDate")]
+        [UIHint("ExactTime")]
         public DateTime? RegistrationDate { get; set; }
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "CancellationDate")]

@@ -1638,4 +1638,7 @@
   <data name="CheckCLID" xml:space="preserve">
     <value>CLID'i Kontrol Etsin</value>
   </data>
+  <data name="Partner" xml:space="preserve">
+    <value>Bayi</value>
+  </data>
 </root>

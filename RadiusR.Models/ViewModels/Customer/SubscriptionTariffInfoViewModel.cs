@@ -24,15 +24,15 @@ namespace RadiusR_Manager.Models.ViewModels.Customer
         public string DomainName { get; set; }
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "RegistrationDate")]
+        [UIHint("ExactTime")]
         public DateTime RegistrationDate { get; set; }
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "ActivationDate")]
+        [UIHint("ExactTime")]
         public DateTime? ActivationDate { get; set; }
 
-        //[Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "ExpirationDate")]
-        //public DateTime? ExpirationDate { get; set; }
-
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "CancellationDate")]
+        [UIHint("ExactTime")]
         public DateTime? CancellationDate { get; set; }
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "BillingPeriod")]

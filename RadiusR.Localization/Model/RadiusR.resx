@@ -1638,4 +1638,7 @@
   <data name="CheckCLID" xml:space="preserve">
     <value>Check CLID</value>
   </data>
+  <data name="Partner" xml:space="preserve">
+    <value>Partner</value>
+  </data>
 </root>

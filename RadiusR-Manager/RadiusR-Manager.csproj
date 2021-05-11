@@ -310,6 +310,7 @@
     <Compile Include="Controllers\ClientExtras\DetailsTabs.cs" />
     <Compile Include="Controllers\ClientExtras\Edits.cs" />
     <Compile Include="Controllers\ClientExtras\Forms.cs" />
+    <Compile Include="Controllers\ClientExtras\PartnerRegisters.cs" />
     <Compile Include="Controllers\ClientExtras\PrivateMethods.cs" />
     <Compile Include="Controllers\ClientExtras\Register.cs" />
     <Compile Include="Controllers\ClientExtras\StateChanges.cs" />
@@ -992,6 +993,7 @@
     <Content Include="Views\TelekomWorkOrder\GetOutgoingDocuments.cshtml" />
     <Content Include="Views\TelekomWorkOrder\RejectOutgoing.cshtml" />
     <Content Include="Views\Client\Edits\ChangeCLID.cshtml" />
+    <Content Include="Views\Client\PartnerRegisters\PartnerRegisters.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

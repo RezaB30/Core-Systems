@@ -1260,4 +1260,7 @@
   <data name="ChangeCLID" xml:space="preserve">
     <value>Change CLID</value>
   </data>
+  <data name="PartnerRegisters" xml:space="preserve">
+    <value>Partner Registers</value>
+  </data>
 </root>

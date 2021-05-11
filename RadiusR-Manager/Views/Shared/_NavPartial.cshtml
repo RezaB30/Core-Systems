@@ -18,6 +18,12 @@
                     <li>
                         @Html.ActionLink(RadiusR.Localization.Pages.Common.AddClient, "Register", "Client")
                     </li>
+                    if (User.HasPermission("Partner Registers"))
+                    {
+                        <li>
+                            @Html.ActionLink(RadiusR.Localization.Pages.Common.PartnerRegisters, "PartnerRegisters", "Client")
+                        </li>
+                    }
                 }
                 @if (User.HasPermission("Groups"))
                 {

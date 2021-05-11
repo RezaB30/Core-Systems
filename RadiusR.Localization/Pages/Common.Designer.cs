@@ -2338,6 +2338,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Partner Registers.
+        /// </summary>
+        public static string PartnerRegisters {
+            get {
+                return ResourceManager.GetString("PartnerRegisters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Partners.
         /// </summary>
         public static string Partners {

@@ -195,6 +195,8 @@
     <Compile Include="ViewModels\OutgoingTransitionViewModel.cs" />
     <Compile Include="ViewModels\PartnerAllowanceDetailsViewModel.cs" />
     <Compile Include="ViewModels\PartnerCollectionDetailsViewModel.cs" />
+    <Compile Include="ViewModels\PartnerRegisters\PartnerRegisteredSubscriptionViewModel.cs" />
+    <Compile Include="ViewModels\PartnerRegisters\PartnerRegistersSearchViewModel.cs" />
     <Compile Include="ViewModels\PDFTemplates\Coordinates.cs" />
     <Compile Include="ViewModels\PDFTemplates\InvariantDecimal.cs" />
     <Compile Include="ViewModels\PDFTemplates\PDFEditContextMenuViewModel.cs" />

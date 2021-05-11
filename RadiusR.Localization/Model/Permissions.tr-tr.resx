@@ -489,4 +489,7 @@
   <data name="ChangeCLID" xml:space="preserve">
     <value>CLID Değiştirme</value>
   </data>
+  <data name="PartnerRegisters" xml:space="preserve">
+    <value>Bayiden Kayıtları</value>
+  </data>
 </root>
