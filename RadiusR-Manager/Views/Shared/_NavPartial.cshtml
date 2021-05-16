@@ -516,6 +516,26 @@
             </ul>
         </li>
     }
+    @if (User.HasPermission("Agents"))
+    {
+
+        <li>
+            <div class="nav-menu-title" tabindex="0">
+                @RadiusR.Localization.Pages.Common.Agents
+            </div>
+            <ul class="nav-list-sub">
+                <li>
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.AgentsList, "Index", "Agent")
+                </li>
+                @if (User.HasPermission("Modify Agents"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.AddAgent, "Add", "Agent")
+                    </li>
+                }
+            </ul>
+        </li>
+    }
     @if (User.HasPermission("Other Settings"))
     {
         <li>

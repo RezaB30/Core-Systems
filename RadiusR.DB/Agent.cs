@@ -12,27 +12,36 @@ namespace RadiusR.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class CustomerSetupUser
+    public partial class Agent
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CustomerSetupUser()
+        public Agent()
         {
-            this.Partners = new HashSet<Partner>();
-            this.CustomerSetupTasks = new HashSet<CustomerSetupTask>();
-            this.Agents = new HashSet<Agent>();
+            this.AgentRelatedPayments = new HashSet<AgentRelatedPayment>();
+            this.Subscriptions = new HashSet<Subscription>();
+            this.WorkAreas = new HashSet<WorkArea>();
         }
     
         public int ID { get; set; }
-        public string Name { get; set; }
-        public string Username { get; set; }
+        public string ExecutiveName { get; set; }
+        public string CompanyTitle { get; set; }
+        public string TaxOffice { get; set; }
+        public string TaxNo { get; set; }
+        public long AddressID { get; set; }
+        public string PhoneNo { get; set; }
+        public string Email { get; set; }
+        public decimal Allowance { get; set; }
         public string Password { get; set; }
-        public bool IsEnabled { get; set; }
+        public bool IsEnanbled { get; set; }
+        public int CustomerSetupUserID { get; set; }
     
+        public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Partner> Partners { get; set; }
+        public virtual ICollection<AgentRelatedPayment> AgentRelatedPayments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CustomerSetupTask> CustomerSetupTasks { get; set; }
+        public virtual ICollection<Subscription> Subscriptions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Agent> Agents { get; set; }
+        public virtual ICollection<WorkArea> WorkAreas { get; set; }
+        public virtual CustomerSetupUser CustomerSetupUser { get; set; }
     }
 }

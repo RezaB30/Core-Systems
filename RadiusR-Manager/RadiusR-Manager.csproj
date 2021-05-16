@@ -298,6 +298,7 @@
     <Compile Include="Binders\InvariantCultureDecimalBinder.cs" />
     <Compile Include="Controllers\AdditionalFeeController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\AgentController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BackgroundServicesController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -994,6 +995,9 @@
     <Content Include="Views\TelekomWorkOrder\RejectOutgoing.cshtml" />
     <Content Include="Views\Client\Edits\ChangeCLID.cshtml" />
     <Content Include="Views\Client\PartnerRegisters\PartnerRegisters.cshtml" />
+    <Content Include="Views\Agent\Index.cshtml" />
+    <Content Include="Views\Agent\Add.cshtml" />
+    <Content Include="Views\Agent\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

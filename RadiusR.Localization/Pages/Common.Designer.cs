@@ -97,6 +97,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Agent.
+        /// </summary>
+        public static string AddAgent {
+            get {
+                return ResourceManager.GetString("AddAgent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Cashier.
         /// </summary>
         public static string AddCashier {
@@ -291,6 +300,24 @@ namespace RadiusR.Localization.Pages {
         public static string AddUser {
             get {
                 return ResourceManager.GetString("AddUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Agents.
+        /// </summary>
+        public static string Agents {
+            get {
+                return ResourceManager.GetString("Agents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Agents List.
+        /// </summary>
+        public static string AgentsList {
+            get {
+                return ResourceManager.GetString("AgentsList", resourceCulture);
             }
         }
         

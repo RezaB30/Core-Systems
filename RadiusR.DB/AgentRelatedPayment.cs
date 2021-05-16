@@ -12,18 +12,14 @@ namespace RadiusR.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class WorkArea
+    public partial class AgentRelatedPayment
     {
-        public long ID { get; set; }
-        public long ProvinceID { get; set; }
-        public Nullable<long> DistrictID { get; set; }
-        public Nullable<long> RuralCode { get; set; }
-        public Nullable<long> NeighbourhoodID { get; set; }
-        public string ProvinceName { get; set; }
-        public string DistrictName { get; set; }
-        public string NeighbourhoodName { get; set; }
+        public int AgentID { get; set; }
+        public long BillID { get; set; }
+        public decimal Allowance { get; set; }
+        public decimal ExtraCommission { get; set; }
     
-        public virtual Partner Partner { get; set; }
         public virtual Agent Agent { get; set; }
+        public virtual Bill Bill { get; set; }
     }
 }

@@ -1,0 +1,153 @@
+﻿@model RadiusR_Manager.Models.RadiusViewModels.AgentViewModel
+
+@{
+    var isEdit = ViewContext.RouteData.Values.ContainsKey("id");
+    ViewBag.Title = $"{RadiusR.Localization.Pages.Common.Agents}-{(isEdit ? Model.CompanyTitle : RadiusR.Localization.Pages.Common.Add)}";
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.CompanyTitle)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.CompanyTitle, new { htmlAttributes = new { @maxlength = 300, @autocomplete = "off" } })
+                    </td>
+                    <td>
+                        @Html.LabelFor(model => model.ExecutiveName)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.ExecutiveName, new { htmlAttributes = new { @maxlength = 300, @autocomplete = "off" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.CompanyTitle)
+                    </td>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.ExecutiveName)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.TaxOffice)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.TaxOffice, new { htmlAttributes = new { @maxlength = 150, @autocomplete = "off" } })
+                    </td>
+                    <td>
+                        @Html.LabelFor(model => model.TaxNo)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.TaxNo, new { htmlAttributes = new { @maxlength = 11, @autocomplete = "off" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.TaxOffice)
+                    </td>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.TaxNo)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="input-table-row-group-separator"></td>
+                </tr>
+                <tr>
+                    <td style="border-right: 1px solid grey;">
+                        @Html.LabelFor(model => model.Address)
+                    </td>
+                    <td colspan="3">
+                        <div id="billing-address-editor-container">
+                            @Html.EditorFor(model => model.Address)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        @Html.ValidationMessageFor(model => model.Address)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="input-table-row-group-separator"></td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.PhoneNo)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.PhoneNo, new { htmlAttributes = new { @maxlength = 10, @autocomplete = "off" } })
+                    </td>
+                    <td>
+                        @Html.LabelFor(model => model.Email)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @maxlength = 250, @autocomplete = "off" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.PhoneNo)
+                    </td>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Allowance)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.Allowance, new { htmlAttributes = new { @autocomplete = "off" } })
+                    </td>
+                    @if (isEdit)
+                    {
+                        <td colspan="2"></td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.LabelFor(model => model.Password)
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @maxlength = 100, @autocomplete = "off" } })
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(model => model.Allowance)
+                    </td>
+                    @if (isEdit)
+                    {
+                        <td colspan="2"></td>
+                    }
+                    else
+                    {
+                        <td colspan="2">
+                            @Html.ValidationMessageFor(model => model.Password)
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td colspan="4" class="centered">
+                        @if (isEdit)
+                        {
+                            <a href="@ViewBag.BackUrl" class="link-button iconed-button back-button">@RadiusR.Localization.Pages.Common.Back</a>
+                        }
+                        else
+                        {
+                            @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class = "link-button iconed-button back-button" })
+                        }
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

@@ -23,5 +23,10 @@ namespace RadiusR_Manager.Models.ViewModels
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "Details")]
         public IEnumerable<string> DetailedList { get; set; }
+
+        public override string ToString()
+        {
+            return $"[Gateway: {Gateway}],[Stage: {Stage}],[Results: {Results}],[Success: {IsSuccess}],[DetailedList: {string.Join("|", DetailedList ?? Enumerable.Empty<string>())}]";
+        }
     }
 }

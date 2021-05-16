@@ -86,7 +86,8 @@ namespace RadiusR_Manager.Controllers
                 Name = user.Name,
                 Username = user.Username,
                 IsEnabled = user.IsEnabled,
-                HasAssignedTasks = user.CustomerSetupTasks.Any()
+                HasAssignedTasks = user.CustomerSetupTasks.Any(),
+                IsAgentUser = user.Agents.Any()
             });
 
             SetupPages(page, ref viewResults);
@@ -120,7 +121,7 @@ namespace RadiusR_Manager.Controllers
         public ActionResult Remove(int id)
         {
             var user = db.CustomerSetupUsers.Find(id);
-            if (user == null || user.CustomerSetupTasks.Any())
+            if (user == null || user.CustomerSetupTasks.Any() || user.Agents.Any())
             {
                 return RedirectToAction("Users", new { errorMessage = 9 });
             }

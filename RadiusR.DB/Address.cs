@@ -22,6 +22,7 @@ namespace RadiusR.DB
             this.BillingCustomers = new HashSet<Customer>();
             this.Partners = new HashSet<Partner>();
             this.Subscriptions = new HashSet<Subscription>();
+            this.Agents = new HashSet<Agent>();
         }
     
         public long ID { get; set; }
@@ -54,5 +55,7 @@ namespace RadiusR.DB
         public virtual ICollection<Partner> Partners { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Subscription> Subscriptions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Agent> Agents { get; set; }
     }
 }

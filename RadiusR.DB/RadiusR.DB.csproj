@@ -72,6 +72,12 @@
     <Compile Include="Address.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Agent.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AgentRelatedPayment.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="AppliedRecurringDiscount.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
@@ -302,6 +308,7 @@
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="RandomCode\CodeGenerator.cs" />
+    <Compile Include="RandomCode\RandomUsernameGenerator.cs" />
     <Compile Include="RecurringDiscount.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>

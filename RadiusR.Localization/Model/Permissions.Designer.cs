@@ -97,6 +97,42 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Agent Allowance Collections.
+        /// </summary>
+        public static string AgentAllowanceCollections {
+            get {
+                return ResourceManager.GetString("AgentAllowanceCollections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Agent Allowances.
+        /// </summary>
+        public static string AgentAllowances {
+            get {
+                return ResourceManager.GetString("AgentAllowances", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Agents.
+        /// </summary>
+        public static string Agents {
+            get {
+                return ResourceManager.GetString("Agents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Agent Settings.
+        /// </summary>
+        public static string AgentSettings {
+            get {
+                return ResourceManager.GetString("AgentSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Archive Access.
         /// </summary>
         public static string ArchiveAccess {
@@ -660,6 +696,15 @@ namespace RadiusR.Localization.Model {
         public static string MobilExpressSettings {
             get {
                 return ResourceManager.GetString("MobilExpressSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modify Agents.
+        /// </summary>
+        public static string ModifyAgents {
+            get {
+                return ResourceManager.GetString("ModifyAgents", resourceCulture);
             }
         }
         

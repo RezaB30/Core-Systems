@@ -31,5 +31,7 @@ namespace RadiusR_Manager.Models.RadiusViewModels
         public bool IsEnabled { get; set; }
 
         public bool HasAssignedTasks { get; set; }
+
+        public bool IsAgentUser { get; set; }
     }
 }

@@ -1263,4 +1263,13 @@
   <data name="PartnerRegisters" xml:space="preserve">
     <value>Partner Registers</value>
   </data>
+  <data name="AddAgent" xml:space="preserve">
+    <value>Add Agent</value>
+  </data>
+  <data name="Agents" xml:space="preserve">
+    <value>Agents</value>
+  </data>
+  <data name="AgentsList" xml:space="preserve">
+    <value>Agents List</value>
+  </data>
 </root>

@@ -60,6 +60,7 @@ namespace RadiusR.DB
         public string ReferenceNo { get; set; }
         public Nullable<System.DateTime> LastTariffChangeDate { get; set; }
         public short RegistrationType { get; set; }
+        public Nullable<int> AgentID { get; set; }
     
         public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -121,5 +122,6 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BTKSubscriptionChange> BTKSubscriptionChanges { get; set; }
         public virtual RadiusAuthorization RadiusAuthorization { get; set; }
+        public virtual Agent Agent { get; set; }
     }
 }

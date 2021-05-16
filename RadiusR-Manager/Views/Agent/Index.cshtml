@@ -1,0 +1,117 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Authentication
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.AgentsListViewModel>
+
+@{
+    var search = ViewBag.Search as RadiusR_Manager.Models.ViewModels.Search.AgentSearchViewModel ?? new RadiusR_Manager.Models.ViewModels.Search.AgentSearchViewModel();
+    ViewBag.Title = RadiusR.Localization.Pages.Common.AgentsList;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm(null, null, FormMethod.Get))
+        {
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => search.CompanyTitle)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => search.CompanyTitle, new { htmlAttributes = new { @maxlength = 300, @autocomplete = "off" } })
+                    </td>
+                    <td colspan="2">
+                        @Html.EditorFor(model => search.ShowDisabled)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="centered">
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                        <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CompanyTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExecutiveName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaxOffice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaxNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Allowance)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExecutiveName)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.PhoneNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxOffice)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.TaxNo)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.Allowance)
+            </td>
+            <td>
+                @if (User.HasPermission("Modify Agents"))
+                {
+                    using (Html.BeginForm("ToggleState", null, new { id = item.ID, returnUrl = Request.Url.PathAndQuery }, FormMethod.Post, new { @confirm = "enabled" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        if (item.IsEnabled)
+                        {
+                            <input type="submit" value="@RadiusR.Localization.Pages.Common.Deactivate" class="link-button iconed-button lock-button" />
+                        }
+                        else
+                        {
+                            <input type="submit" value="@RadiusR.Localization.Pages.Common.Activate" class="link-button iconed-button unlock-button" />
+                        }
+                    }
+                    @:&nbsp;
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.ResetPassword, "ChangePassword", new { id = item.ID, returnUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button reload-button" })
+                    @:&nbsp;
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "Edit", new { id = item.ID, returnUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button edit-button" })
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList()

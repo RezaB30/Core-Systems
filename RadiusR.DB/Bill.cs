@@ -23,6 +23,7 @@ namespace RadiusR.DB
             this.SubscriptionCredits = new HashSet<SubscriptionCredit>();
             this.PartnerCredits = new HashSet<PartnerCredit>();
             this.AppliedRecurringDiscounts = new HashSet<AppliedRecurringDiscount>();
+            this.AgentRelatedPayments = new HashSet<AgentRelatedPayment>();
         }
     
         public long ID { get; set; }
@@ -54,5 +55,7 @@ namespace RadiusR.DB
         public virtual ICollection<AppliedRecurringDiscount> AppliedRecurringDiscounts { get; set; }
         public virtual ExternalPayment ExternalPayment { get; set; }
         public virtual Subscription Subscription { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AgentRelatedPayment> AgentRelatedPayments { get; set; }
     }
 }

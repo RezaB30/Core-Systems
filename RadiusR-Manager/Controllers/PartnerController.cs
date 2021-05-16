@@ -550,7 +550,7 @@ namespace RadiusR_Manager.Controllers
                         {
                             IsEnabled = true,
                             Name = new string(dbPartner.Title.Take(100).ToArray()),
-                            Username = GenerateUniqueSetupServiceUsername(32),
+                            Username = RadiusR.DB.RandomCode.RandomUsernameGenerator.GenerateUniqueSetupServiceUsername(32),
                             Password = RadiusR.DB.Passwords.PasswordUtilities.HashLowSecurityPassword(RadiusR.DB.Passwords.PasswordUtilities.GenerateSecurePassword(16))
                         };
                     }
@@ -1375,24 +1375,24 @@ namespace RadiusR_Manager.Controllers
             return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
         }
 
-        private string GenerateUniqueSetupServiceUsername(int length)
-        {
-            var palette = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            var rand = new Random();
+        //private string GenerateUniqueSetupServiceUsername(int length)
+        //{
+        //    var palette = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        //    var rand = new Random();
 
-            string results = string.Empty;
-            do
-            {
-                var generatedText = new StringBuilder();
+        //    string results = string.Empty;
+        //    do
+        //    {
+        //        var generatedText = new StringBuilder();
 
-                for (int i = 0; i < length; i++)
-                {
-                    generatedText.Append(palette[rand.Next(palette.Length)]);
-                }
-                results = generatedText.ToString();
-            } while (db.CustomerSetupUsers.Any(csu => csu.Username == results));
+        //        for (int i = 0; i < length; i++)
+        //        {
+        //            generatedText.Append(palette[rand.Next(palette.Length)]);
+        //        }
+        //        results = generatedText.ToString();
+        //    } while (db.CustomerSetupUsers.Any(csu => csu.Username == results));
 
-            return results;
-        }
+        //    return results;
+        //}
     }
 }

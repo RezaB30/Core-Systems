@@ -15,6 +15,7 @@ using System.Data.Entity;
 using RadiusR.SystemLogs;
 using System.Runtime.Caching;
 using RezaB.Web.Authentication;
+using NLog;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -22,6 +23,7 @@ namespace RadiusR_Manager.Controllers
     {
         RadiusREntities db = new RadiusREntities();
         private static MemoryCache statusCache = new MemoryCache("OfflinePaymentStatus");
+        private static Logger offlinePaymentLogger = LogManager.GetLogger("offline-payments");
 
         [AuthorizePermission(Permissions = "Offline Payment Gateways")]
         // GET: OfflinePayment
@@ -190,8 +192,11 @@ namespace RadiusR_Manager.Controllers
         // GET: OfflinePayment/ProcessPayments
         public ActionResult ProcessPaymentsConfirm()
         {
+            offlinePaymentLogger.Debug("payment started.");
+
             var results = new List<OfflinePaymentStatusReportViewModel>();
             // load payment files list
+            offlinePaymentLogger.Debug("getting payment file list.");
             var fileList = GetPaymentFileList();
             foreach (var item in fileList)
             {
@@ -203,6 +208,7 @@ namespace RadiusR_Manager.Controllers
                         IsSuccess = false,
                         Results = item.FileNames.Any() ? item.FileNames.FirstOrDefault() : null
                     });
+                    offlinePaymentLogger.Warn($"loading payment files was unsuccessful {results.LastOrDefault()}");
                 }
                 else
                 {
@@ -212,6 +218,7 @@ namespace RadiusR_Manager.Controllers
                         IsSuccess = true,
                         Results = RadiusR.Localization.Pages.OfflinePaymentReportStages.Success
                     });
+                    offlinePaymentLogger.Trace($"loading payment files was successful {results.LastOrDefault()}");
                     // load gateway settings
                     var currentGateway = db.OfflinePaymentGateways.Find(item.ID);
                     if (currentGateway == null)
@@ -223,6 +230,7 @@ namespace RadiusR_Manager.Controllers
                             Results = RadiusR.Localization.Pages.OfflinePaymentReportStages.GatewaySettingsNotFound,
                             IsSuccess = false
                         });
+                        offlinePaymentLogger.Warn($"error loading gateway settings {results.LastOrDefault()}");
                     }
                     else
                     {
@@ -244,6 +252,7 @@ namespace RadiusR_Manager.Controllers
                                     Results = "Invalid Gateway Type",
                                     IsSuccess = false
                                 });
+                                offlinePaymentLogger.Warn($"invalid gateway type {results.LastOrDefault()}");
                                 continue;
                         }
                         // fatal error switch
@@ -256,6 +265,7 @@ namespace RadiusR_Manager.Controllers
                             IsSuccess = true,
                             Results = RadiusR.Localization.Pages.OfflinePaymentReportStages.Success
                         });
+                        offlinePaymentLogger.Trace($"loading gateway settings was successful {results.LastOrDefault()}");
                         // access files
                         var ftpClient = FTPClientFactory.CreateFTPClient(currentGateway.FTPAddress, currentGateway.FTPUsername, currentGateway.FTPPassword);
                         var response = ftpClient.EnterDirectoryPath(currentGateway.ReceiveFolder);
@@ -268,6 +278,7 @@ namespace RadiusR_Manager.Controllers
                                 Results = response.InternalException.Message,
                                 IsSuccess = false
                             });
+                            offlinePaymentLogger.Warn(response.InternalException, $"ftp error {results.LastOrDefault()}");
                         }
                         else
                         {
@@ -284,6 +295,7 @@ namespace RadiusR_Manager.Controllers
                                         IsSuccess = false,
                                         DetailedList = new[] { fileName }
                                     });
+                                    offlinePaymentLogger.Warn($"skipped loading files {results.LastOrDefault()}");
                                     break;
                                 }
                                 using (var fileResponse = ftpClient.GetFile(fileName))
@@ -298,17 +310,20 @@ namespace RadiusR_Manager.Controllers
                                             IsSuccess = false,
                                             DetailedList = new[] { fileName }
                                         });
+                                        offlinePaymentLogger.Warn(response.InternalException, $"ftp error {results.LastOrDefault()}");
                                     }
                                     else
                                     {
                                         // prepare for processing
                                         IEnumerable<RadiusR.OfflinePayment.Receiving.BatchPaidBill> processResults = null;
                                         // processing file
+                                        offlinePaymentLogger.Debug("processing file.");
                                         try
                                         {
                                             fileResponse.Result.Seek(0, SeekOrigin.Begin);
                                             processResults = BatchProcessor.ProcessStream(fileResponse.Result, format);
                                             processResults = processResults.ToArray();
+                                            offlinePaymentLogger.Debug("file process successful.");
                                         }
                                         catch (Exception ex)
                                         {
@@ -320,10 +335,12 @@ namespace RadiusR_Manager.Controllers
                                                 IsSuccess = false,
                                                 DetailedList = new[] { fileName }
                                             });
+                                            offlinePaymentLogger.Warn(response.InternalException, $"process file error {results.LastOrDefault()}");
                                             shouldSkip = true;
                                             continue;
                                         }
                                         // load bills from db
+                                        offlinePaymentLogger.Debug("loading bills from DB.");
                                         var billIds = processResults.Select(pr => Convert.ToInt64(pr.BillNo)).ToArray();
                                         IEnumerable<Bill> dbBills = null;
                                         try
@@ -333,6 +350,7 @@ namespace RadiusR_Manager.Controllers
                                             .Include(b => b.PartnerBillPayment).Include(b => b.ScheduledSMSes)
                                             .Include(b => b.BillFees.Select(bf => bf.Discount))
                                             .ToArray();
+                                            offlinePaymentLogger.Debug("loading bills successful.");
                                         }
                                         catch (Exception ex)
                                         {
@@ -343,6 +361,7 @@ namespace RadiusR_Manager.Controllers
                                                 Results = ex.Message,
                                                 IsSuccess = false
                                             });
+                                            offlinePaymentLogger.Warn(response.InternalException, $"error loading bills from db {results.LastOrDefault()}");
                                             shouldSkip = true;
                                             continue;
                                         }
@@ -381,10 +400,12 @@ namespace RadiusR_Manager.Controllers
                                             IsSuccess = true,
                                             Results = string.Format(RadiusR.Localization.Pages.OfflinePaymentReportStages.PaymentResult, dbBills.Count() - failedPays.Count(), alreadyPaid.Count(), notFound.Count(), failedPays.Count())
                                         });
+                                        offlinePaymentLogger.Debug($"payment successful {results.LastOrDefault()}");
                                         // update gateway's last operation
                                         currentGateway.LastOperationTime = DateTime.Now;
                                         currentGateway.LastProcessedFileName = fileName;
                                         // save to db
+                                        offlinePaymentLogger.Debug("saving changes to DB.");
                                         try
                                         {
                                             db.SaveChanges();
@@ -395,6 +416,7 @@ namespace RadiusR_Manager.Controllers
                                                 IsSuccess = true,
                                                 Results = RadiusR.Localization.Pages.OfflinePaymentReportStages.Success
                                             });
+                                            offlinePaymentLogger.Debug($"saving to DB successful {results.LastOrDefault()}");
                                         }
                                         catch (Exception ex)
                                         {
@@ -405,6 +427,7 @@ namespace RadiusR_Manager.Controllers
                                                 IsSuccess = false,
                                                 Results = ex.Message
                                             });
+                                            offlinePaymentLogger.Warn(response.InternalException, $"error saving to DB {results.LastOrDefault()}");
                                             shouldSkip = true;
                                             continue;
                                         }

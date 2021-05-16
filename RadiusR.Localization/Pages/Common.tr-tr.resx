@@ -1260,4 +1260,13 @@
   <data name="PartnerRegisters" xml:space="preserve">
     <value>Bayiden Kayıtları</value>
   </data>
+  <data name="AddAgent" xml:space="preserve">
+    <value>Acente Ekle</value>
+  </data>
+  <data name="Agents" xml:space="preserve">
+    <value>Acenteler</value>
+  </data>
+  <data name="AgentsList" xml:space="preserve">
+    <value>Acenteler Listesi</value>
+  </data>
 </root>
