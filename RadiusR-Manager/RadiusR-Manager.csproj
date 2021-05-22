@@ -1000,6 +1000,8 @@
     <Content Include="Views\Agent\ChangePassword.cshtml" />
     <Content Include="Views\Agent\Settings.cshtml" />
     <Content Include="Views\Agent\Allowances.cshtml" />
+    <Content Include="Views\Agent\WorkAreas.cshtml" />
+    <Content Include="Views\Agent\AddWorkArea.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

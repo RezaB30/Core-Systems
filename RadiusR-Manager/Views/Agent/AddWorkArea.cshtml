@@ -1,0 +1,27 @@
+﻿@using RadiusR.Helpers
+
+@model RadiusR_Manager.Models.RadiusViewModels.PartnerWorkAreaViewModel
+
+@{
+    ViewBag.Title = ViewBag.AgentName + "-" + RadiusR.Localization.Pages.Common.WorkAreas + "-" + RadiusR.Localization.Pages.Common.Add;
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.PartnerWorkAreaEditorFor(model => model)
+
+            <div class="text-danger centered button-row">
+                @ViewBag.ConflictError
+            </div>
+
+            <div class="centered">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "WorkAreas", new { id = Request.RequestContext.RouteData.Values["id"], returnUrl = ViewBag.ReturnUrl }, new { @class = "link-button iconed-button back-button" })
+                <input type="submit" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button accept-button" />
+            </div>
+        }
+    </div>
+</div>

@@ -33,8 +33,8 @@ namespace RadiusR.DB
         public string Email { get; set; }
         public decimal Allowance { get; set; }
         public string Password { get; set; }
-        public bool IsEnanbled { get; set; }
         public int CustomerSetupUserID { get; set; }
+        public bool IsEnabled { get; set; }
     
         public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

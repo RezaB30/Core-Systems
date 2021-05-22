@@ -119,10 +119,10 @@ textarea {
     background-repeat: no-repeat;
 }
 
-textarea.wide-input{
-    min-width: 90%;
-    box-sizing: border-box;
-}
+    textarea.wide-input {
+        min-width: 90%;
+        box-sizing: border-box;
+    }
 
 input[readonly=readonly] {
     background-color: #eaeaea;
@@ -511,7 +511,7 @@ div.traffic-limit-wrapper input.traffic-limit-text {
     font-weight: bold;
 }
 
-.currency-symbol, .percent-symbol-left, .percent-symbol-right, .percent-symbol {
+.currency-symbol, .percent-symbol-left, .percent-symbol-right, .percent-symbol, .work-area-container > span {
     font-size: 1.2em;
     color: #2bb427;
 }

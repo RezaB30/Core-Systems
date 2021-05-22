@@ -452,7 +452,7 @@ namespace RadiusR_Manager.Controllers
                 return Redirect(backUri.Uri.PathAndQuery + backUri.Fragment);
             }
 
-            ViewBag.ServiceUsers = new SelectList(db.CustomerSetupUsers.ActiveUsers().ValidPartnersForArea(dbSubscription.Address).Select(user => new { ID = user.ID, Name = user.Name }).ToList(), "ID", "Name");
+            ViewBag.ServiceUsers = new SelectList(db.CustomerSetupUsers.ActiveUsers().ValidPartnersForArea(dbSubscription.Address).ValidAgents(dbSubscription.AgentID).Select(user => new { ID = user.ID, Name = user.Name }).ToList(), "ID", "Name");
 
             return View(new NewSetupServiceTaskViewModel());
         }
@@ -475,7 +475,7 @@ namespace RadiusR_Manager.Controllers
                 return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
             }
 
-            if (!db.CustomerSetupUsers.ActiveUsers().ValidPartnersForArea(dbSubscription.Address).Any(user => user.ID == task.SetupUserID))
+            if (!db.CustomerSetupUsers.ActiveUsers().ValidPartnersForArea(dbSubscription.Address).ValidAgents(dbSubscription.AgentID).Any(user => user.ID == task.SetupUserID))
             {
                 ModelState.AddModelError("SetupUserID", RadiusR.Localization.Pages.ErrorMessages._9);
             }
@@ -521,7 +521,7 @@ namespace RadiusR_Manager.Controllers
             UrlUtilities.RemoveQueryStringParameter("errorMessage", backUri);
             ViewBag.BackLink = backUri.Uri.PathAndQuery;
 
-            ViewBag.ServiceUsers = new SelectList(db.CustomerSetupUsers.ActiveUsers().ValidPartnersForArea(dbSubscription.Address).Select(user => new { ID = user.ID, Name = user.Name }).ToList(), "ID", "Name");
+            ViewBag.ServiceUsers = new SelectList(db.CustomerSetupUsers.ActiveUsers().ValidPartnersForArea(dbSubscription.Address).ValidAgents(dbSubscription.AgentID).Select(user => new { ID = user.ID, Name = user.Name }).ToList(), "ID", "Name");
 
             return View(task);
         }
@@ -1090,7 +1090,7 @@ namespace RadiusR_Manager.Controllers
             }
 
             ViewBag.ClientID = dbSubscription.ID;
-            ViewBag.SetupServiceOperators = new SelectList(db.CustomerSetupUsers.ActiveUsers().ValidPartnersForArea(dbSubscription.Address).OrderBy(user => user.Name).Select(user => new { ID = user.ID, Name = user.Name }), "ID", "Name");
+            ViewBag.SetupServiceOperators = new SelectList(db.CustomerSetupUsers.ActiveUsers().ValidPartnersForArea(dbSubscription.Address).ValidAgents(dbSubscription.AgentID).OrderBy(user => user.Name).Select(user => new { ID = user.ID, Name = user.Name }), "ID", "Name");
             var task = new EditSetupServiceTaskViewModel()
             {
                 ClientName = dbSubscription.ValidDisplayName,
@@ -1146,7 +1146,7 @@ namespace RadiusR_Manager.Controllers
             }
 
             ViewBag.ClientID = dbSubscription.ID;
-            ViewBag.SetupServiceOperators = new SelectList(db.CustomerSetupUsers.ActiveUsers().ValidPartnersForArea(dbSubscription.Address).OrderBy(user => user.Name).Select(user => new { ID = user.ID, Name = user.Name }), "ID", "Name", task.SetupUserID);
+            ViewBag.SetupServiceOperators = new SelectList(db.CustomerSetupUsers.ActiveUsers().ValidPartnersForArea(dbSubscription.Address).ValidAgents(dbSubscription.AgentID).OrderBy(user => user.Name).Select(user => new { ID = user.ID, Name = user.Name }), "ID", "Name", task.SetupUserID);
             task.ClientName = dbSubscription.ValidDisplayName;
 
             return View(task);

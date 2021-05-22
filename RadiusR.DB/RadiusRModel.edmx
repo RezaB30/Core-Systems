@@ -43,7 +43,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="Allowance" Type="decimal" Precision="5" Scale="4" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="IsEnanbled" Type="bit" Nullable="false" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
           <Property Name="CustomerSetupUserID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="AgentCollection">
@@ -7328,7 +7328,6 @@
           <Property Name="Email" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Allowance" Type="Decimal" Nullable="false" Precision="5" Scale="4" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="IsEnanbled" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Address" Relationship="RadiusRModel.FK_Agent_Address" FromRole="Agent" ToRole="Address" />
           <NavigationProperty Name="AgentRelatedPayments" Relationship="RadiusRModel.FK_AgentRelatedPayment_Agent" FromRole="Agent" ToRole="AgentRelatedPayment" />
           <NavigationProperty Name="Subscriptions" Relationship="RadiusRModel.FK_Subscription_Agent" FromRole="Agent" ToRole="Subscription" />
@@ -7336,6 +7335,7 @@
           <Property Name="CustomerSetupUserID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CustomerSetupUser" Relationship="RadiusRModel.FK_Agent_CustomerSetupUser" FromRole="Agent" ToRole="CustomerSetupUser" />
           <NavigationProperty Name="AgentCollections" Relationship="RadiusRModel.FK_AgentCollection_Agent" FromRole="Agent" ToRole="AgentCollection" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="AgentRelatedPayment">
           <Key>
@@ -8744,8 +8744,8 @@
           <EntitySetMapping Name="Agents">
             <EntityTypeMapping TypeName="RadiusRModel.Agent">
               <MappingFragment StoreEntitySet="Agent">
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
                 <ScalarProperty Name="CustomerSetupUserID" ColumnName="CustomerSetupUserID" />
-                <ScalarProperty Name="IsEnanbled" ColumnName="IsEnanbled" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Allowance" ColumnName="Allowance" />
                 <ScalarProperty Name="Email" ColumnName="Email" />

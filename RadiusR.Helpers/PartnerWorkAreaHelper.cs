@@ -223,11 +223,11 @@ namespace RadiusR.Helpers
             container.InnerHtml = Model.ProvinceName;
             if (!string.IsNullOrWhiteSpace(Model.DistrictName))
             {
-                container.InnerHtml += "&nbsp;&gt;&nbsp;" + Model.DistrictName;
+                container.InnerHtml += "&nbsp;<span>&gt;</span>&nbsp;" + Model.DistrictName;
             }
             if (!string.IsNullOrWhiteSpace(Model.NeighbourhoodName))
             {
-                container.InnerHtml += "&nbsp;&gt;&nbsp;" + Model.NeighbourhoodName;
+                container.InnerHtml += "&nbsp;<span>&gt;</span>&nbsp;" + Model.NeighbourhoodName;
             }
 
             return new MvcHtmlString(container.ToString(TagRenderMode.Normal));

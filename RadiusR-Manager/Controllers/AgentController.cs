@@ -30,12 +30,12 @@ namespace RadiusR_Manager.Controllers
                 }
                 if (!search.ShowDisabled)
                 {
-                    baseQuery = baseQuery.Where(a => a.IsEnanbled);
+                    baseQuery = baseQuery.Where(a => a.IsEnabled);
                 }
             }
             else
             {
-                baseQuery = baseQuery.Where(a => a.IsEnanbled);
+                baseQuery = baseQuery.Where(a => a.IsEnabled);
             }
 
             SetupPages(page, ref baseQuery);
@@ -47,7 +47,7 @@ namespace RadiusR_Manager.Controllers
                 CompanyTitle = a.CompanyTitle,
                 Email = a.Email,
                 ExecutiveName = a.ExecutiveName,
-                IsEnabled = a.IsEnanbled,
+                IsEnabled = a.IsEnabled,
                 PhoneNo = a.PhoneNo,
                 TaxOffice = a.TaxOffice,
                 TaxNo = a.TaxNo,
@@ -87,7 +87,7 @@ namespace RadiusR_Manager.Controllers
                     CompanyTitle = agentModel.CompanyTitle,
                     Email = agentModel.Email,
                     ExecutiveName = agentModel.ExecutiveName,
-                    IsEnanbled = true,
+                    IsEnabled = true,
                     Password = RadiusR.DB.Passwords.PasswordUtilities.HashPassword(agentModel.Password),
                     PhoneNo = agentModel.PhoneNo,
                     TaxNo = agentModel.TaxNo,
@@ -200,8 +200,8 @@ namespace RadiusR_Manager.Controllers
                 return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
             }
 
-            agent.IsEnanbled = !agent.IsEnanbled;
-            agent.CustomerSetupUser.IsEnabled = agent.IsEnanbled;
+            agent.IsEnabled = !agent.IsEnabled;
+            agent.CustomerSetupUser.IsEnabled = agent.IsEnabled;
 
             db.SaveChanges();
 
@@ -289,6 +289,7 @@ namespace RadiusR_Manager.Controllers
         }
 
         [AuthorizePermission(Permissions = "Agent Allowances")]
+        [HttpGet]
         // GET: Agent/Allowances
         public ActionResult Allowances(int? page, AgentAllowancesSearchViewModel search)
         {
@@ -334,6 +335,149 @@ namespace RadiusR_Manager.Controllers
             ViewBag.Agents = new SelectList(db.Agents.OrderBy(a => a.CompanyTitle).Select(a => new { Name = a.CompanyTitle, Value = a.ID }), "Value", "Name", search?.AgentID);
 
             return View(viewResults);
+        }
+
+        [AuthorizePermission(Permissions = "Modify Agents")]
+        [HttpGet]
+        // GET: Agent/WorkAreas
+        public ActionResult WorkAreas(int id, string returnUrl, int? page)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+
+            var dbAgent = db.Agents.Find(id);
+            if (dbAgent == null)
+                return RedirectToAction("Index", new { errorMessage = 9 });
+
+            var viewResults = db.WorkAreas.Where(wa => wa.Agent.ID == dbAgent.ID).OrderBy(wa => wa.ID).Select(wa => new PartnerWorkAreaViewModel()
+            {
+                ID = wa.ID,
+                ProvinceID = wa.ProvinceID,
+                DistrictID = wa.DistrictID,
+                RuralCode = wa.RuralCode,
+                NeighbourhoodID = wa.NeighbourhoodID,
+                DistrictName = wa.DistrictName,
+                NeighbourhoodName = wa.NeighbourhoodName,
+                ProvinceName = wa.ProvinceName
+            });
+
+            SetupPages(page, ref viewResults);
+
+            ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            ViewBag.AgentName = dbAgent.CompanyTitle;
+
+            return View(viewResults.ToArray());
+        }
+
+        [AuthorizePermission(Permissions = "Modify Agents")]
+        [HttpGet]
+        // GET: Agent/AddWorkArea
+        public ActionResult AddWorkArea(int id, string returnUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+
+            var dbAgent = db.Agents.Find(id);
+            if (dbAgent == null)
+                return RedirectToAction("Index", new { errorMessage = 9 });
+
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            ViewBag.AgentName = dbAgent.CompanyTitle;
+
+            return View();
+        }
+
+        [AuthorizePermission(Permissions = "Modify Agents")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        // POST: Agent/AddWorkArea
+        public ActionResult AddWorkArea(int id, string returnUrl, PartnerWorkAreaViewModel workArea)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+
+            var dbAgent = db.Agents.Find(id);
+            if (dbAgent == null)
+                return RedirectToAction("Index", new { errorMessage = 9 });
+
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            if (ModelState.IsValid)
+            {
+                if (dbAgent.WorkAreas.Any(wa => wa.ProvinceID == workArea.ProvinceID && !wa.DistrictID.HasValue && !wa.RuralCode.HasValue && !wa.NeighbourhoodID.HasValue) ||
+                    (workArea.DistrictID.HasValue && dbAgent.WorkAreas.Any(wa => wa.DistrictID == workArea.DistrictID && !wa.RuralCode.HasValue && !wa.NeighbourhoodID.HasValue)) ||
+                    (workArea.RuralCode.HasValue && dbAgent.WorkAreas.Any(wa => wa.RuralCode == workArea.RuralCode && !wa.NeighbourhoodID.HasValue)) ||
+                    (workArea.NeighbourhoodID.HasValue && dbAgent.WorkAreas.Any(wa => wa.NeighbourhoodID == workArea.NeighbourhoodID)))
+                {
+                    ViewBag.ConflictError = RadiusR.Localization.Validation.Common.PartnerWorkAreaConflict;
+                }
+                else
+                {
+                    // remove inclusive areas
+                    {
+                        IEnumerable<WorkArea> inclusiveAreas = Enumerable.Empty<WorkArea>();
+                        if (!workArea.DistrictID.HasValue)
+                        {
+                            inclusiveAreas = dbAgent.WorkAreas.Where(wa => wa.ProvinceID == workArea.ProvinceID).ToArray();
+                        }
+                        else if (!workArea.RuralCode.HasValue)
+                        {
+                            inclusiveAreas = dbAgent.WorkAreas.Where(wa => wa.DistrictID == workArea.DistrictID).ToArray();
+                        }
+                        else if (!workArea.NeighbourhoodID.HasValue)
+                        {
+                            inclusiveAreas = dbAgent.WorkAreas.Where(wa => wa.RuralCode == workArea.RuralCode).ToArray();
+                        }
+
+                        if (inclusiveAreas.Any())
+                            db.WorkAreas.RemoveRange(inclusiveAreas);
+                    }
+
+                    // add new work area
+                    dbAgent.WorkAreas.Add(new WorkArea()
+                    {
+                        DistrictID = workArea.DistrictID,
+                        DistrictName = workArea.DistrictName,
+                        NeighbourhoodID = workArea.NeighbourhoodID,
+                        NeighbourhoodName = workArea.NeighbourhoodName,
+                        ProvinceID = workArea.ProvinceID,
+                        ProvinceName = workArea.ProvinceName,
+                        RuralCode = workArea.RuralCode
+                    });
+
+                    db.SaveChanges();
+
+                    return RedirectToAction("WorkAreas", new { id = dbAgent.ID, returnUrl = uri.Uri.PathAndQuery + uri.Fragment, errorMessage = 0 });
+                }
+            }
+
+            ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            ViewBag.PartnerName = dbAgent.CompanyTitle;
+
+            return View(workArea);
+        }
+
+        [AuthorizePermission(Permissions = "Modify Agents")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        // POST: Agent/RemoveWorkArea
+        public ActionResult RemoveWorkArea(int id, string returnUrl, long workAreaID)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+
+            var dbAgent = db.Agents.Find(id);
+            if (dbAgent == null)
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            var dbWorkArea = db.WorkAreas.Find(workAreaID);
+            if (dbWorkArea == null)
+                return RedirectToAction("WorkAreas", new { id = dbAgent.ID, returnUrl = uri.Uri.PathAndQuery + uri.Fragment, errorMessage = 9 });
+
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            db.WorkAreas.Remove(dbWorkArea);
+
+            db.SaveChanges();
+
+            return RedirectToAction("WorkAreas", new { id = dbAgent.ID, returnUrl = uri.Uri.PathAndQuery + uri.Fragment, errorMessage = 0 });
         }
     }
 }
