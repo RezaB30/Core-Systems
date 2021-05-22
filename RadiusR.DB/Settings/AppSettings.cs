@@ -18,7 +18,6 @@ namespace RadiusR.DB
     /// </summary>
     public static class AppSettings
     {
-        private static object cache_lock = new object();
         /// <summary>
         /// Number of rows in a data table.
         /// </summary>

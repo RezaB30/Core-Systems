@@ -83,5 +83,8 @@ namespace RadiusR_Manager.Models.ViewModels
         [EnumType(typeof(SubscriptionRegistrationType), typeof(RadiusR.Localization.Lists.SubscriptionRegistrationType))]
         [UIHint("LocalizedList")]
         public short? RegistrationType { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "Agent")]
+        public int? AgentID { get; set; }
     }
 }

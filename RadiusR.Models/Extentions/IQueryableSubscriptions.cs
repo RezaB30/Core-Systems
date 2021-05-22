@@ -106,6 +106,10 @@ namespace RadiusR_Manager.Models.Extentions
             {
                 query = query.Where(c => c.PaymentDay == searchModel.BillingPeriod);
             }
+            if (searchModel.AgentID.HasValue)
+            {
+                query = query.Where(c => c.AgentID == searchModel.AgentID);
+            }
 
             return query;
         }

@@ -998,6 +998,8 @@
     <Content Include="Views\Agent\Index.cshtml" />
     <Content Include="Views\Agent\Add.cshtml" />
     <Content Include="Views\Agent\ChangePassword.cshtml" />
+    <Content Include="Views\Agent\Settings.cshtml" />
+    <Content Include="Views\Agent\Allowances.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

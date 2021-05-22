@@ -61,6 +61,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Allowance)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubCount)
+        </th>
         <th></th>
     </tr>
     @foreach (var item in Model)
@@ -89,6 +92,9 @@
             </td>
             <td class="centered">
                 @Html.DisplayFor(modelItem => item.Allowance)
+            </td>
+            <td class="centered">
+                @Html.ActionLink(Html.DisplayTextFor(modelItem => item.SubCount).ToString(), "Index", "Client", new { AgentID = item.ID }, new { @class = "details-link" })
             </td>
             <td>
                 @if (User.HasPermission("Modify Agents"))

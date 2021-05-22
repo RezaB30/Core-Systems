@@ -57,5 +57,8 @@ namespace RadiusR_Manager.Models.ViewModels
         }
 
         public bool IsEnabled { get; set; }
+
+        [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "Subscribers")]
+        public long SubCount { get; set; }
     }
 }

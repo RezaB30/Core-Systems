@@ -46,6 +46,24 @@
           <Property Name="IsEnanbled" Type="bit" Nullable="false" />
           <Property Name="CustomerSetupUserID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="AgentCollection">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AgentID" Type="int" Nullable="false" />
+          <Property Name="CreatorID" Type="int" Nullable="false" />
+          <Property Name="PayerID" Type="int" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="PaymentDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AgentCollectionBill">
+          <Key>
+            <PropertyRef Name="BillID" />
+          </Key>
+          <Property Name="BillID" Type="bigint" Nullable="false" />
+          <Property Name="AgentCollectionID" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="AgentRelatedPayment">
           <Key>
             <PropertyRef Name="AgentID" />
@@ -1234,6 +1252,66 @@
             </Principal>
             <Dependent Role="Agent">
               <PropertyRef Name="CustomerSetupUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgentCollection_Agent">
+          <End Role="Agent" Type="Self.Agent" Multiplicity="1" />
+          <End Role="AgentCollection" Type="Self.AgentCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AgentCollection">
+              <PropertyRef Name="AgentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgentCollection_AppUser">
+          <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+          <End Role="AgentCollection" Type="Self.AgentCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AgentCollection">
+              <PropertyRef Name="CreatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgentCollection_AppUser1">
+          <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
+          <End Role="AgentCollection" Type="Self.AgentCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AgentCollection">
+              <PropertyRef Name="PayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgentCollectionBill_AgentCollection">
+          <End Role="AgentCollection" Type="Self.AgentCollection" Multiplicity="1" />
+          <End Role="AgentCollectionBill" Type="Self.AgentCollectionBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgentCollection">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AgentCollectionBill">
+              <PropertyRef Name="AgentCollectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgentCollectionBill_Bill">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="AgentCollectionBill" Type="Self.AgentCollectionBill" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AgentCollectionBill">
+              <PropertyRef Name="BillID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2944,6 +3022,8 @@
         <EntityContainer Name="RadiusRModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Agent" EntityType="Self.Agent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgentCollection" EntityType="Self.AgentCollection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgentCollectionBill" EntityType="Self.AgentCollectionBill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AgentRelatedPayment" EntityType="Self.AgentRelatedPayment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AgentWorkArea" EntityType="Self.AgentWorkArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppliedRecurringDiscount" EntityType="Self.AppliedRecurringDiscount" Schema="dbo" store:Type="Tables" />
@@ -3054,6 +3134,26 @@
           <AssociationSet Name="FK_Agent_CustomerSetupUser" Association="Self.FK_Agent_CustomerSetupUser">
             <End Role="CustomerSetupUser" EntitySet="CustomerSetupUser" />
             <End Role="Agent" EntitySet="Agent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentCollection_Agent" Association="Self.FK_AgentCollection_Agent">
+            <End Role="Agent" EntitySet="Agent" />
+            <End Role="AgentCollection" EntitySet="AgentCollection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentCollection_AppUser" Association="Self.FK_AgentCollection_AppUser">
+            <End Role="AppUser" EntitySet="AppUser" />
+            <End Role="AgentCollection" EntitySet="AgentCollection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentCollection_AppUser1" Association="Self.FK_AgentCollection_AppUser1">
+            <End Role="AppUser" EntitySet="AppUser" />
+            <End Role="AgentCollection" EntitySet="AgentCollection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentCollectionBill_AgentCollection" Association="Self.FK_AgentCollectionBill_AgentCollection">
+            <End Role="AgentCollection" EntitySet="AgentCollection" />
+            <End Role="AgentCollectionBill" EntitySet="AgentCollectionBill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentCollectionBill_Bill" Association="Self.FK_AgentCollectionBill_Bill">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="AgentCollectionBill" EntitySet="AgentCollectionBill" />
           </AssociationSet>
           <AssociationSet Name="FK_AgentRelatedPayment_Agent" Association="Self.FK_AgentRelatedPayment_Agent">
             <End Role="Agent" EntitySet="Agent" />
@@ -3693,6 +3793,8 @@
           <NavigationProperty Name="PartnerCollectionCreations" Relationship="RadiusRModel.FK_PartnerCollection_AppUser" FromRole="AppUser" ToRole="PartnerCollection" />
           <NavigationProperty Name="PartnerCollectionPayments" Relationship="RadiusRModel.FK_PartnerCollection_AppUser1" FromRole="AppUser" ToRole="PartnerCollection" />
           <NavigationProperty Name="TelekomWorkOrders" Relationship="RadiusRModel.FK_TelekomWorkOrder_AppUser" FromRole="AppUser" ToRole="TelekomWorkOrder" />
+          <NavigationProperty Name="CreatedAgentCollections" Relationship="RadiusRModel.FK_AgentCollection_AppUser" FromRole="AppUser" ToRole="AgentCollection" />
+          <NavigationProperty Name="PayedAgentCollections" Relationship="RadiusRModel.FK_AgentCollection_AppUser1" FromRole="AppUser" ToRole="AgentCollection" />
         </EntityType>
         <EntityType Name="BTKIPBlock">
           <Key>
@@ -4920,6 +5022,23 @@
             <End Role="CustomerSetupUser" EntitySet="CustomerSetupUsers" />
             <End Role="Agent" EntitySet="Agents" />
           </AssociationSet>
+          <EntitySet Name="AgentCollections" EntityType="RadiusRModel.AgentCollection" />
+          <AssociationSet Name="FK_AgentCollection_Agent" Association="RadiusRModel.FK_AgentCollection_Agent">
+            <End Role="Agent" EntitySet="Agents" />
+            <End Role="AgentCollection" EntitySet="AgentCollections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentCollection_AppUser" Association="RadiusRModel.FK_AgentCollection_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="AgentCollection" EntitySet="AgentCollections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentCollection_AppUser1" Association="RadiusRModel.FK_AgentCollection_AppUser1">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="AgentCollection" EntitySet="AgentCollections" />
+          </AssociationSet>
+          <AssociationSet Name="AgentCollectionBill" Association="RadiusRModel.AgentCollectionBill">
+            <End Role="AgentCollection" EntitySet="AgentCollections" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
           <Key>
@@ -5220,6 +5339,7 @@
           <NavigationProperty Name="ExternalPayment" Relationship="RadiusRModel.FK_ExternalPayments_Bill" FromRole="Bill" ToRole="ExternalPayment" />
           <NavigationProperty Name="Subscription" Relationship="RadiusRModel.FK_Bill_Subscription" FromRole="Bill" ToRole="Subscription" />
           <NavigationProperty Name="AgentRelatedPayments" Relationship="RadiusRModel.FK_AgentRelatedPayment_Bill" FromRole="Bill" ToRole="AgentRelatedPayment" />
+          <NavigationProperty Name="AgentCollection" Relationship="RadiusRModel.AgentCollectionBill" FromRole="Bill" ToRole="AgentCollection" />
         </EntityType>
         <Association Name="FK_Bill_AppUser">
           <End Type="RadiusRModel.AppUser" Role="AppUser" Multiplicity="0..1" />
@@ -7215,6 +7335,7 @@
           <NavigationProperty Name="WorkAreas" Relationship="RadiusRModel.AgentWorkArea" FromRole="Agent" ToRole="WorkArea" />
           <Property Name="CustomerSetupUserID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CustomerSetupUser" Relationship="RadiusRModel.FK_Agent_CustomerSetupUser" FromRole="Agent" ToRole="CustomerSetupUser" />
+          <NavigationProperty Name="AgentCollections" Relationship="RadiusRModel.FK_AgentCollection_Agent" FromRole="Agent" ToRole="AgentCollection" />
         </EntityType>
         <EntityType Name="AgentRelatedPayment">
           <Key>
@@ -7291,6 +7412,61 @@
               <PropertyRef Name="CustomerSetupUserID" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AgentCollection">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AgentID" Type="Int32" Nullable="false" />
+          <Property Name="CreatorID" Type="Int32" Nullable="false" />
+          <Property Name="PayerID" Type="Int32" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Agent" Relationship="RadiusRModel.FK_AgentCollection_Agent" FromRole="AgentCollection" ToRole="Agent" />
+          <NavigationProperty Name="Creator" Relationship="RadiusRModel.FK_AgentCollection_AppUser" FromRole="AgentCollection" ToRole="AppUser" />
+          <NavigationProperty Name="Payer" Relationship="RadiusRModel.FK_AgentCollection_AppUser1" FromRole="AgentCollection" ToRole="AppUser" />
+          <NavigationProperty Name="Bills" Relationship="RadiusRModel.AgentCollectionBill" FromRole="AgentCollection" ToRole="Bill" />
+        </EntityType>
+        <Association Name="FK_AgentCollection_Agent">
+          <End Type="RadiusRModel.Agent" Role="Agent" Multiplicity="1" />
+          <End Type="RadiusRModel.AgentCollection" Role="AgentCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AgentCollection">
+              <PropertyRef Name="AgentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgentCollection_AppUser">
+          <End Type="RadiusRModel.AppUser" Role="AppUser" Multiplicity="1" />
+          <End Type="RadiusRModel.AgentCollection" Role="AgentCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AgentCollection">
+              <PropertyRef Name="CreatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgentCollection_AppUser1">
+          <End Type="RadiusRModel.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="RadiusRModel.AgentCollection" Role="AgentCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AgentCollection">
+              <PropertyRef Name="PayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AgentCollectionBill">
+          <End Type="RadiusRModel.AgentCollection" Role="AgentCollection" Multiplicity="0..1" />
+          <End Type="RadiusRModel.Bill" Role="Bill" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -8601,6 +8777,27 @@
               <ScalarProperty Name="ID" ColumnName="AgentID" />
             </EndProperty>
             <Condition ColumnName="AgentID" IsNull="false" />
+          </AssociationSetMapping>
+          <EntitySetMapping Name="AgentCollections">
+            <EntityTypeMapping TypeName="RadiusRModel.AgentCollection">
+              <MappingFragment StoreEntitySet="AgentCollection">
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="PayerID" ColumnName="PayerID" />
+                <ScalarProperty Name="CreatorID" ColumnName="CreatorID" />
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AgentCollectionBill" TypeName="RadiusRModel.AgentCollectionBill" StoreEntitySet="AgentCollectionBill">
+            <EndProperty Name="Bill">
+              <ScalarProperty Name="ID" ColumnName="BillID" />
+            </EndProperty>
+            <EndProperty Name="AgentCollection">
+              <ScalarProperty Name="ID" ColumnName="AgentCollectionID" />
+            </EndProperty>
+            <Condition ColumnName="AgentCollectionID" IsNull="false" />
           </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>

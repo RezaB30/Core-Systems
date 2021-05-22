@@ -304,6 +304,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Agent Allowances.
+        /// </summary>
+        public static string AgentAllowances {
+            get {
+                return ResourceManager.GetString("AgentAllowances", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Agents.
         /// </summary>
         public static string Agents {

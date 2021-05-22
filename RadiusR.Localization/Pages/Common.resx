@@ -1272,4 +1272,7 @@
   <data name="AgentsList" xml:space="preserve">
     <value>Agents List</value>
   </data>
+  <data name="AgentAllowances" xml:space="preserve">
+    <value>Agent Allowances</value>
+  </data>
 </root>

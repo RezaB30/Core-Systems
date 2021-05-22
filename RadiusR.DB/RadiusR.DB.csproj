@@ -75,6 +75,9 @@
     <Compile Include="Agent.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="AgentCollection.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="AgentRelatedPayment.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
@@ -334,6 +337,7 @@
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Settings\AddressAPISettings.cs" />
+    <Compile Include="Settings\AgentsSettings.cs" />
     <Compile Include="Settings\AppSettings.cs" />
     <Compile Include="Enums\BillSources.cs" />
     <Compile Include="Enums\BloodTypes.cs" />

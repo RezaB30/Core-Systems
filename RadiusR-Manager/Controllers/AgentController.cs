@@ -259,5 +259,81 @@ namespace RadiusR_Manager.Controllers
             ViewBag.BackUrl = uri.Uri.PathAndQuery + uri.Fragment;
             return View(passwordModel);
         }
+
+        [AuthorizePermission(Permissions = "Agent Settings")]
+        [HttpGet]
+        // GET: Agent/Settings
+        public ActionResult Settings()
+        {
+            var settingsModel = new AgentsSettingsViewModel()
+            {
+                AgentsNonCashPaymentCommission = AgentsSettings.AgentsNonCashPaymentCommission
+            };
+
+            return View(settingsModel);
+        }
+
+        [AuthorizePermission(Permissions = "Agent Settings")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        // POST: Agent/Settings
+        public ActionResult Settings(AgentsSettingsViewModel settingsModel)
+        {
+            if (ModelState.IsValid)
+            {
+                AgentsSettings.Update(settingsModel);
+                return RedirectToAction("Settings", new { errorMessage = 0 });
+            }
+
+            return View(settingsModel);
+        }
+
+        [AuthorizePermission(Permissions = "Agent Allowances")]
+        // GET: Agent/Allowances
+        public ActionResult Allowances(int? page, AgentAllowancesSearchViewModel search)
+        {
+            var baseQuery = db.AgentCollections.OrderByDescending(ac => ac.CreationDate).AsQueryable();
+            if (search != null)
+            {
+                if (search.CreationDateStart.HasValue)
+                {
+                    baseQuery = baseQuery.Where(ac => ac.CreationDate >= search.CreationDateStart);
+                }
+                if (search.CreationDateEnd.HasValue)
+                {
+                    baseQuery = baseQuery.Where(ac => ac.CreationDate <= search.CreationDateEnd);
+                }
+                if (search.PaymentDateStart.HasValue)
+                {
+                    baseQuery = baseQuery.Where(ac => ac.PaymentDate >= search.PaymentDateStart);
+                }
+                if (search.PaymentDateEnd.HasValue)
+                {
+                    baseQuery = baseQuery.Where(ac => ac.PaymentDate <= search.PaymentDateEnd);
+                }
+                if (search.AgentID.HasValue)
+                {
+                    baseQuery = baseQuery.Where(ac => ac.AgentID == search.AgentID);
+                }
+            }
+
+            var viewResults = baseQuery.Select(ac => new AgentCollectionViewModel()
+            {
+                ID = ac.ID,
+                AgentName = ac.Agent.CompanyTitle,
+                CreationDate = ac.CreationDate,
+                CreatorName = ac.Creator.Name,
+                PaymentDate = ac.PaymentDate,
+                PayerName = ac.Payer.Name,
+                _allowanceAmount = ac.Bills.SelectMany(b => b.BillFees.Where(bf => bf.FeeTypeID == (short)RadiusR.DB.Enums.FeeType.Tariff)).Select(bf => bf.CurrentCost - (bf.Discount != null ? bf.Discount.Amount : 0m)).DefaultIfEmpty(0m).Sum()
+            });
+
+            SetupPages(page, ref viewResults);
+
+            ViewBag.Search = search;
+            ViewBag.Agents = new SelectList(db.Agents.OrderBy(a => a.CompanyTitle).Select(a => new { Name = a.CompanyTitle, Value = a.ID }), "Value", "Name", search?.AgentID);
+
+            return View(viewResults);
+        }
     }
 }

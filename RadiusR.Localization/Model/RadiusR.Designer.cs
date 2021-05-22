@@ -178,6 +178,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Agent.
+        /// </summary>
+        public static string Agent {
+            get {
+                return ResourceManager.GetString("Agent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Allocation Date.
         /// </summary>
         public static string AllocationDate {
@@ -2550,6 +2559,15 @@ namespace RadiusR.Localization.Model {
         public static string NoCommitment {
             get {
                 return ResourceManager.GetString("NoCommitment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Non-Cash Payment Commission.
+        /// </summary>
+        public static string NonCashPaymentCommission {
+            get {
+                return ResourceManager.GetString("NonCashPaymentCommission", resourceCulture);
             }
         }
         

@@ -1,0 +1,104 @@
+﻿@using RadiusR_Manager.Helpers
+@using RezaB.Web.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.AgentCollectionViewModel>
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.AgentAllowances;
+    var search = ViewBag.Search as RadiusR_Manager.Models.ViewModels.Search.AgentAllowancesSearchViewModel ?? new RadiusR_Manager.Models.ViewModels.Search.AgentAllowancesSearchViewModel();
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm(null, null, FormMethod.Get))
+        {
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => search.CreationDateStart)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => search.CreationDateStart)
+                        -
+                        @Html.EditorFor(model => search.CreationDateEnd)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => search.PaymentDateStart)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => search.PaymentDateStart)
+                        -
+                        @Html.EditorFor(model => search.PaymentDateEnd)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => search.AgentID)
+                    </td>
+                    <td>
+                        @Html.Select(model => search.AgentID, (SelectList)ViewBag.Agents, RadiusR.Localization.Pages.Common.Choose)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="centered">
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                        <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AgentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PayerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowanceAmount)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AllowanceAmount)
+            </td>
+            <td>
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "CollectionDetails", new { id = item.ID, returnUrl = Request.Url.PathAndQuery })
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedList()

@@ -76,8 +76,9 @@ namespace RadiusR_Manager.Controllers
                 State = s.State
             }).ToArray();
 
-            ViewBag.Services = new SelectList(db.Services.ToArray(), "Name", "Name", search.ServiceName);
-            ViewBag.Groups = new SelectList(db.Groups.ToArray(), "ID", "Name", search.GroupID);
+            ViewBag.Services = new SelectList(db.Services.OrderBy(s => s.Name).ToArray(), "Name", "Name", search.ServiceName);
+            ViewBag.Groups = new SelectList(db.Groups.OrderBy(g => g.Name).ToArray(), "ID", "Name", search.GroupID);
+            ViewBag.Agents = new SelectList(db.Agents.OrderBy(g => g.CompanyTitle).ToArray(), "ID", "CompanyTitle", search.AgentID);
 
             ViewBag.Search = search;
             return View(viewResults);
@@ -312,7 +313,7 @@ namespace RadiusR_Manager.Controllers
                 TempData["ErrorResults"] = results;
                 return RedirectToAction("StateChangeError", new { returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
             }
-            
+
         }
 
         //[AuthorizePermission(Permissions = "Modify Clients")]
@@ -967,7 +968,7 @@ namespace RadiusR_Manager.Controllers
             {
                 return Content(RadiusR.Localization.Pages.Common.FileManagerError);
             }
-            
+
             var viewResults = result.Result.Select(file => new SavedFileViewModel()
             {
                 FileName = file.ServerSideName,

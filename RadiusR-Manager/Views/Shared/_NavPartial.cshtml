@@ -533,6 +533,18 @@
                         @Html.ActionLink(RadiusR.Localization.Pages.Common.AddAgent, "Add", "Agent")
                     </li>
                 }
+                @if (User.HasPermission("Agent Allowances"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.AgentAllowances, "Allowances", "Agent")
+                    </li>
+                }
+                @if (User.HasPermission("Agent Settings"))
+                {
+                    <li>
+                        @Html.ActionLink(RadiusR.Localization.Pages.Common.Settings, "Settings", "Agent")
+                    </li>
+                }
             </ul>
         </li>
     }

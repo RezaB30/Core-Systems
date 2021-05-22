@@ -1641,4 +1641,10 @@
   <data name="Partner" xml:space="preserve">
     <value>Bayi</value>
   </data>
+  <data name="Agent" xml:space="preserve">
+    <value>Acente</value>
+  </data>
+  <data name="NonCashPaymentCommission" xml:space="preserve">
+    <value>Nakit Olmayan Ödeme Komisyonu</value>
+  </data>
 </root>

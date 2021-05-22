@@ -1641,4 +1641,10 @@
   <data name="Partner" xml:space="preserve">
     <value>Partner</value>
   </data>
+  <data name="Agent" xml:space="preserve">
+    <value>Agent</value>
+  </data>
+  <data name="NonCashPaymentCommission" xml:space="preserve">
+    <value>Non-Cash Payment Commission</value>
+  </data>
 </root>

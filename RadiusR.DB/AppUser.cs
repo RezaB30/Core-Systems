@@ -31,6 +31,8 @@ namespace RadiusR.DB
             this.PartnerCollectionCreations = new HashSet<PartnerCollection>();
             this.PartnerCollectionPayments = new HashSet<PartnerCollection>();
             this.TelekomWorkOrders = new HashSet<TelekomWorkOrder>();
+            this.CreatedAgentCollections = new HashSet<AgentCollection>();
+            this.PayedAgentCollections = new HashSet<AgentCollection>();
         }
     
         public int ID { get; set; }
@@ -72,5 +74,9 @@ namespace RadiusR.DB
         public virtual ICollection<PartnerCollection> PartnerCollectionPayments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TelekomWorkOrder> TelekomWorkOrders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AgentCollection> CreatedAgentCollections { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AgentCollection> PayedAgentCollections { get; set; }
     }
 }

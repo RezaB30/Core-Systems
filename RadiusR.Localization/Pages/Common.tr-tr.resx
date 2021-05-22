@@ -1269,4 +1269,7 @@
   <data name="AgentsList" xml:space="preserve">
     <value>Acenteler Listesi</value>
   </data>
+  <data name="AgentAllowances" xml:space="preserve">
+    <value>Acente Hakedişleri</value>
+  </data>
 </root>

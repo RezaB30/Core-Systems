@@ -135,6 +135,7 @@
     <Compile Include="RadiusViewModels\AccountingRecord.cs" />
     <Compile Include="RadiusViewModels\AdditionalFeeViewModel.cs" />
     <Compile Include="RadiusViewModels\AddressViewModel.cs" />
+    <Compile Include="RadiusViewModels\AgentCollectionViewModel.cs" />
     <Compile Include="RadiusViewModels\AgentViewModel.cs" />
     <Compile Include="RadiusViewModels\AllTimeFeeViewModel.cs" />
     <Compile Include="RadiusViewModels\AppUserViewModel.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="RadiusViewModels\TransitionOperatorViewModel.cs" />
     <Compile Include="ViewModels\AgentPasswordUpdateViewModel.cs" />
     <Compile Include="ViewModels\AgentsListViewModel.cs" />
+    <Compile Include="ViewModels\AgentsSettingsViewModel.cs" />
     <Compile Include="ViewModels\ChangeCLIDViewModel.cs" />
     <Compile Include="ViewModels\ClientStates\PrepareTransitionViewModel.cs" />
     <Compile Include="ViewModels\ClientStates\TransitionDocumentsValidationViewModel.cs" />
@@ -204,6 +206,7 @@
     <Compile Include="ViewModels\PDFTemplates\InvariantDecimal.cs" />
     <Compile Include="ViewModels\PDFTemplates\PDFEditContextMenuViewModel.cs" />
     <Compile Include="ViewModels\PDFTemplates\PDFItemPlacementViewModel.cs" />
+    <Compile Include="ViewModels\Search\AgentAllowancesSearchViewModel.cs" />
     <Compile Include="ViewModels\Search\AgentSearchViewModel.cs" />
     <Compile Include="ViewModels\Search\GroupSearchViewModel.cs" />
     <Compile Include="ViewModels\SubscriptionFormEmailListViewModel.cs" />

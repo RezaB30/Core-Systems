@@ -92,6 +92,7 @@ namespace RadiusR_Manager.Controllers
             ViewBag.SelectedClientsCount = db.Subscriptions.AsQueryable().FilterBySearchViewModel(search, db, User).Count();
             ViewBag.Services = new SelectList(db.Services.ToArray(), "Name", "Name", search.ServiceName);
             ViewBag.Groups = new SelectList(db.Groups.ToArray(), "ID", "Name", search.GroupID);
+            ViewBag.Agents = new SelectList(db.Agents.OrderBy(g => g.CompanyTitle).ToArray(), "ID", "CompanyTitle", search.AgentID);
 
             var rm = new ResourceManager(typeof(RadiusR.Localization.Pages.SMSHints));
             var sms = new GroupSMSViewModel()
@@ -151,6 +152,7 @@ namespace RadiusR_Manager.Controllers
             ViewBag.SelectedClientsCount = db.Subscriptions.AsQueryable().FilterBySearchViewModel(search, db, User).Count();
             ViewBag.Services = new SelectList(db.Services.ToArray(), "Name", "Name", search.ServiceName);
             ViewBag.Groups = new SelectList(db.Groups.ToArray(), "ID", "Name", search.GroupID);
+            ViewBag.Agents = new SelectList(db.Agents.OrderBy(g => g.CompanyTitle).ToArray(), "ID", "CompanyTitle", search.AgentID);
 
             var rm = new ResourceManager(typeof(RadiusR.Localization.Pages.SMSHints));
             sms.ValidParameters = SMSParamaterRepository.GetValidSMSParameters(null).Select(par => new SMSParameterViewModel() { Name = par.Name, DisplayName = rm.GetString(SMSParameterRegex.Matches(par.Name)[0].Groups[1].Value) });

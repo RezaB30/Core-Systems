@@ -57,5 +57,6 @@ namespace RadiusR.DB
         public virtual Subscription Subscription { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AgentRelatedPayment> AgentRelatedPayments { get; set; }
+        public virtual AgentCollection AgentCollection { get; set; }
     }
 }
