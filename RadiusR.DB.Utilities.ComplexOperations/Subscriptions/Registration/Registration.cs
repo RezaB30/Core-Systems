@@ -302,6 +302,28 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                     };
                 }
             }
+            // validate agent
+            if (registrationInfo.AgentID.HasValue)
+            {
+                var dbAgent = db.Agents.Find(registrationInfo.AgentID);
+                if (dbAgent == null)
+                {
+                    // invalid agent
+                    return new RegistrationResult()
+                    {
+                        ValidationMessages = new[] { new { Key = "AgentID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidAgent } }.ToLookup(item => item.Key, item => item.ErrorMessage)
+                    };
+                }
+                var selectedAgentTarif = dbAgent.Services.FirstOrDefault(s => s.ID == registrationInfo.ServiceID);
+                if (selectedAgentTarif == null)
+                {
+                    // invalid tariff for agent
+                    return new RegistrationResult()
+                    {
+                        ValidationMessages = new[] { new { Key = "ServiceID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidTariffForAgent } }.ToLookup(item => item.Key, item => item.ErrorMessage)
+                    };
+                }
+            }
             // validate partner info
             PartnerAvailableTariff selectedPartnerTariff = null;
             if (registrationInfo.RegisteringPartner != null)
@@ -370,6 +392,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                 State = (short)Enums.CustomerState.Registered,
                 SubscriberNo = UsernameFactory.GenerateUniqueSubscriberNo(selectedDomain),
                 ReferenceNo = UsernameFactory.GenerateUniqueReferenceNo(),
+                AgentID = registrationInfo.AgentID,
                 RadiusAuthorization = new RadiusAuthorization()
                 {
                     IsEnabled = false,

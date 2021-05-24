@@ -15,5 +15,7 @@ namespace RadiusR.DB.Utilities.Billing
         public PartnerSubUser PaymentPartnerSubUser { get; set; }
 
         public OfflinePaymentGateway OfflineGateway { get; set; }
+
+        public Agent PaymentAgent { get; set; }
     }
 }

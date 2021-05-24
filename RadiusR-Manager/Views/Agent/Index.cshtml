@@ -112,11 +112,11 @@
                         }
                     }
                     @:&nbsp;
-                    @Html.ActionLink(RadiusR.Localization.Pages.Common.ResetPassword, "ChangePassword", new { id = item.ID, returnUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button reload-button" })
-                    @:&nbsp;
                     @Html.ActionLink(RadiusR.Localization.Pages.Common.Edit, "Edit", new { id = item.ID, returnUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button edit-button" })
                     @:&nbsp;
                     @Html.ActionLink(RadiusR.Localization.Pages.Common.WorkAreas, "WorkAreas", new { id = item.ID, returnUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button location-button" })
+                    @:&nbsp;
+                    @Html.ActionLink(RadiusR.Localization.Pages.Common.ServiceList, "Tariffs", new { id = item.ID, returnUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button next-button" })
                 }
             </td>
         </tr>

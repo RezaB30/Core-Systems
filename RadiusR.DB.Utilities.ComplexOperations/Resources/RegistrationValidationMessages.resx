@@ -126,6 +126,9 @@
   <data name="InvalidAddedFees" xml:space="preserve">
     <value>Invalid added fees.</value>
   </data>
+  <data name="InvalidAgent" xml:space="preserve">
+    <value>Invalid Agent.</value>
+  </data>
   <data name="InvalidBillingPeriod" xml:space="preserve">
     <value>Invalid billing period.</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="InvalidTariff" xml:space="preserve">
     <value>Invalid tariff.</value>
+  </data>
+  <data name="InvalidTariffForAgent" xml:space="preserve">
+    <value>Invalid tariff for agent.</value>
   </data>
   <data name="InvalidTariffForPartner" xml:space="preserve">
     <value>Invalid tariff for partner.</value>

@@ -183,6 +183,7 @@
     <Compile Include="RadiusViewModels\SupportGroupUserViewModel.cs" />
     <Compile Include="RadiusViewModels\SupportGroupViewModel.cs" />
     <Compile Include="RadiusViewModels\TransitionOperatorViewModel.cs" />
+    <Compile Include="ViewModels\AddAgentTariffViewModel.cs" />
     <Compile Include="ViewModels\AgentPasswordUpdateViewModel.cs" />
     <Compile Include="ViewModels\AgentsListViewModel.cs" />
     <Compile Include="ViewModels\AgentsSettingsViewModel.cs" />

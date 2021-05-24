@@ -28,8 +28,6 @@ namespace RadiusR_Manager.Models.RadiusViewModels
         public string TaxNo { get; set; }
 
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "PhoneNo")]
-        [Required(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "Required")]
-        [PhoneNumber(ErrorMessageResourceType = typeof(RadiusR.Localization.Validation.Common), ErrorMessageResourceName = "PhoneNumber")]
         public string PhoneNo
         {
             get
@@ -51,7 +49,7 @@ namespace RadiusR_Manager.Models.RadiusViewModels
         {
             get
             {
-                return _profitCut.ToString("###,###,##0.00");
+                return _profitCut.ToString("###,##0.00");
             }
             set
             {

@@ -88,6 +88,15 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Agent..
+        /// </summary>
+        public static string InvalidAgent {
+            get {
+                return ResourceManager.GetString("InvalidAgent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid billing period..
         /// </summary>
         public static string InvalidBillingPeriod {
@@ -165,6 +174,15 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Resources {
         public static string InvalidTariff {
             get {
                 return ResourceManager.GetString("InvalidTariff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid tariff for agent..
+        /// </summary>
+        public static string InvalidTariffForAgent {
+            get {
+                return ResourceManager.GetString("InvalidTariffForAgent", resourceCulture);
             }
         }
         

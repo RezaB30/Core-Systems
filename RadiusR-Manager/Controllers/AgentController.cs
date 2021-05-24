@@ -11,6 +11,7 @@ using System.Data.Entity;
 using RadiusR_Manager.Models.RadiusViewModels;
 using RadiusR_Manager.Models.Extentions;
 using RezaB.Web;
+using RadiusR.DB.QueryExtentions;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -478,6 +479,125 @@ namespace RadiusR_Manager.Controllers
             db.SaveChanges();
 
             return RedirectToAction("WorkAreas", new { id = dbAgent.ID, returnUrl = uri.Uri.PathAndQuery + uri.Fragment, errorMessage = 0 });
+        }
+
+        [AuthorizePermission(Permissions = "Modify Agents")]
+        [HttpGet]
+        // GET: Agent/Tariffs
+        public ActionResult Tariffs(int id, string returnUrl, int? page)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            var dbAgent = db.Agents.Find(id);
+            if (dbAgent == null)
+                return RedirectToAction("Index", new { errorMessage = 9 });
+
+            var viewResults = db.Services.OrderBy(s => s.Name).Where(s => s.Agents.Any(a => a.ID == dbAgent.ID)).Select(s => new ServiceViewModel()
+            {
+                ID = s.ID,
+                Name = s.Name,
+                _price = s.Price,
+                IsActive = s.IsActive
+            });
+
+            SetupPages(page, ref viewResults);
+
+            ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            ViewBag.AgentName = dbAgent.CompanyTitle;
+
+            return View(viewResults.ToArray());
+        }
+
+        [AuthorizePermission(Permissions = "Modify Agents")]
+        [HttpGet]
+        // GET: Agent/AddTariff
+        public ActionResult AddTariff(int id, string returnUrl)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+
+            var dbAgent = db.Agents.Find(id);
+            if (dbAgent == null)
+                return RedirectToAction("Index", new { errorMessage = 9 });
+
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            ViewBag.AgentName = dbAgent.CompanyTitle;
+            ViewBag.DomainList = new SelectList(db.Domains.ToArray(), "ID", "Name");
+            //ViewBag.Tariffs = new SelectList(db.Services.OrderBy(s => s.Name).FilterActiveServices().Where(s => !s.Agents.Any(a => a.ID == dbAgent.ID)).Select(s => new { Name = s.Name, Value = s.ID }), "Value", "Name");
+
+            return View();
+        }
+
+        [AuthorizePermission(Permissions = "Modify Agents")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        // POST: Agent/AddTariff
+        public ActionResult AddTariff(int id, string returnUrl, AddAgentTariffViewModel tariff)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+
+            var dbAgent = db.Agents.Find(id);
+            if (dbAgent == null)
+                return RedirectToAction("Index", new { errorMessage = 9 });
+
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            if (ModelState.IsValid)
+            {
+                var dbTariff = db.Services.Find(tariff.TariffID);
+                if (dbAgent.Services.Any(s => s.ID == tariff.TariffID))
+                {
+                    ModelState.AddModelError("TariffID", RadiusR.Localization.Validation.Common.ValueAlreadyExists);
+                }
+                else
+                {
+                    if (dbTariff == null || !dbTariff.IsActive)
+                    {
+                        UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                        return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                    }
+
+                    dbAgent.Services.Add(dbTariff);
+                    db.SaveChanges();
+
+                    UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+                    return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+                }
+            }
+
+            ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            ViewBag.AgentName = dbAgent.CompanyTitle;
+            ViewBag.DomainList = new SelectList(db.Domains.ToArray(), "ID", "Name", tariff.DomianID);
+            //ViewBag.Tariffs = new SelectList(db.Services.OrderBy(s => s.Name).FilterActiveServices().Where(s => !s.Agents.Any(a => a.ID == dbAgent.ID)).Select(s => new { Name = s.Name, Value = s.ID }), "Value", "Name", tariff?.TariffID);
+
+            return View(tariff);
+        }
+
+        [AuthorizePermission(Permissions = "Modify Agents")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        // POST: Agent/RemoveTariff
+        public ActionResult RemoveTariff(int id, string returnUrl, int tariffId)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+
+            var dbAgent = db.Agents.Find(id);
+            if (dbAgent == null)
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            var dbTariff = db.Services.Find(tariffId);
+            if (dbTariff == null)
+                return RedirectToAction("Index", new { errorMessage = 9 });
+
+
+            dbAgent.Services.Remove(dbTariff);
+            db.SaveChanges();
+
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+
+            return RedirectToAction("Tariffs", new { errorMessage = 0, id = id, returnUrl = uri.Uri.PathAndQuery + uri.Fragment });
         }
     }
 }

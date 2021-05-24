@@ -105,15 +105,17 @@
                     <td>
                         @Html.EditorFor(model => model.Allowance, new { htmlAttributes = new { @autocomplete = "off" } })
                     </td>
+                    <td>
+                        @Html.LabelFor(model => model.Password)
+                    </td>
                     @if (isEdit)
                     {
-                        <td colspan="2"></td>
+                        <td>
+                            @Html.ActionLink(RadiusR.Localization.Pages.Common.ResetPassword, "ChangePassword", new { id = ViewContext.RouteData.Values["id"], returnUrl = ViewBag.BackUrl }, new { @class = "link-button iconed-button reload-button" })
+                        </td>
                     }
                     else
                     {
-                        <td>
-                            @Html.LabelFor(model => model.Password)
-                        </td>
                         <td>
                             @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @maxlength = 100, @autocomplete = "off" } })
                         </td>

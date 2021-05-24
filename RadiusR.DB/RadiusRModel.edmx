@@ -74,6 +74,14 @@
           <Property Name="Allowance" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="ExtraCommission" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="AgentTariff">
+          <Key>
+            <PropertyRef Name="AgentID" />
+            <PropertyRef Name="TariffID" />
+          </Key>
+          <Property Name="AgentID" Type="int" Nullable="false" />
+          <Property Name="TariffID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="AgentWorkArea">
           <Key>
             <PropertyRef Name="WorkAreaID" />
@@ -1336,6 +1344,30 @@
             </Principal>
             <Dependent Role="AgentRelatedPayment">
               <PropertyRef Name="BillID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgentTariff_Agent">
+          <End Role="Agent" Type="Self.Agent" Multiplicity="1" />
+          <End Role="AgentTariff" Type="Self.AgentTariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AgentTariff">
+              <PropertyRef Name="AgentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgentTariff_Service">
+          <End Role="Service" Type="Self.Service" Multiplicity="1" />
+          <End Role="AgentTariff" Type="Self.AgentTariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AgentTariff">
+              <PropertyRef Name="TariffID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3025,6 +3057,7 @@
           <EntitySet Name="AgentCollection" EntityType="Self.AgentCollection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AgentCollectionBill" EntityType="Self.AgentCollectionBill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AgentRelatedPayment" EntityType="Self.AgentRelatedPayment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgentTariff" EntityType="Self.AgentTariff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AgentWorkArea" EntityType="Self.AgentWorkArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppliedRecurringDiscount" EntityType="Self.AppliedRecurringDiscount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppSettings" EntityType="Self.AppSettings" Schema="dbo" store:Type="Tables" />
@@ -3162,6 +3195,14 @@
           <AssociationSet Name="FK_AgentRelatedPayment_Bill" Association="Self.FK_AgentRelatedPayment_Bill">
             <End Role="Bill" EntitySet="Bill" />
             <End Role="AgentRelatedPayment" EntitySet="AgentRelatedPayment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentTariff_Agent" Association="Self.FK_AgentTariff_Agent">
+            <End Role="Agent" EntitySet="Agent" />
+            <End Role="AgentTariff" EntitySet="AgentTariff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentTariff_Service" Association="Self.FK_AgentTariff_Service">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="AgentTariff" EntitySet="AgentTariff" />
           </AssociationSet>
           <AssociationSet Name="FK_AgentWorkArea_Agent" Association="Self.FK_AgentWorkArea_Agent">
             <End Role="Agent" EntitySet="Agent" />
@@ -5039,6 +5080,10 @@
             <End Role="AgentCollection" EntitySet="AgentCollections" />
             <End Role="Bill" EntitySet="Bills" />
           </AssociationSet>
+          <AssociationSet Name="AgentTariff" Association="RadiusRModel.AgentTariff">
+            <End Role="Agent" EntitySet="Agents" />
+            <End Role="Service" EntitySet="Services" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
           <Key>
@@ -5441,6 +5486,7 @@
           <NavigationProperty Name="ExternalTariff" Relationship="RadiusRModel.FK_ExternalTariff_Service" FromRole="Service" ToRole="ExternalTariff" />
           <NavigationProperty Name="PartnerAvailableTariffs" Relationship="RadiusRModel.FK_PartnerAvailableTariff_Service" FromRole="Service" ToRole="PartnerAvailableTariff" />
           <NavigationProperty Name="PartnerRegisteredSubscriptions" Relationship="RadiusRModel.FK_PartnerRegisteredSubscription_Service" FromRole="Service" ToRole="PartnerRegisteredSubscription" />
+          <NavigationProperty Name="Agents" Relationship="RadiusRModel.AgentTariff" FromRole="Service" ToRole="Agent" />
         </EntityType>
         <Association Name="FK_ChangeServiceTypeTask_Service">
           <End Type="RadiusRModel.Service" Role="Service" Multiplicity="1" />
@@ -7336,6 +7382,7 @@
           <NavigationProperty Name="CustomerSetupUser" Relationship="RadiusRModel.FK_Agent_CustomerSetupUser" FromRole="Agent" ToRole="CustomerSetupUser" />
           <NavigationProperty Name="AgentCollections" Relationship="RadiusRModel.FK_AgentCollection_Agent" FromRole="Agent" ToRole="AgentCollection" />
           <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Services" Relationship="RadiusRModel.AgentTariff" FromRole="Agent" ToRole="Service" />
         </EntityType>
         <EntityType Name="AgentRelatedPayment">
           <Key>
@@ -7467,6 +7514,10 @@
         <Association Name="AgentCollectionBill">
           <End Type="RadiusRModel.AgentCollection" Role="AgentCollection" Multiplicity="0..1" />
           <End Type="RadiusRModel.Bill" Role="Bill" Multiplicity="*" />
+        </Association>
+        <Association Name="AgentTariff">
+          <End Type="RadiusRModel.Agent" Role="Agent" Multiplicity="*" />
+          <End Type="RadiusRModel.Service" Role="Service" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -8798,6 +8849,14 @@
               <ScalarProperty Name="ID" ColumnName="AgentCollectionID" />
             </EndProperty>
             <Condition ColumnName="AgentCollectionID" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AgentTariff" TypeName="RadiusRModel.AgentTariff" StoreEntitySet="AgentTariff">
+            <EndProperty Name="Service">
+              <ScalarProperty Name="ID" ColumnName="TariffID" />
+            </EndProperty>
+            <EndProperty Name="Agent">
+              <ScalarProperty Name="ID" ColumnName="AgentID" />
+            </EndProperty>
           </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>

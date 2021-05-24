@@ -227,10 +227,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
 
             public ReferralDiscountInfo ReferralDiscount { get; set; }
 
-            //[RegularExpression(@"^[A-Z0-9]{6}$", ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "RegexValidation")]
-            //public string ReferenceNo { get; set; }
-
-            //public int? SpecialOfferID { get; set; }
+            public int? AgentID { get; set; }
         }
 
         public class SubscriptionTelekomTariffInfo
@@ -437,9 +434,6 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
         {
             [Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
             public int? PartnerID { get; set; }
-
-            //[Required(ErrorMessageResourceType = typeof(Resources.ValidationMessages), ErrorMessageResourceName = "Required")]
-            //public decimal? Allowance { get; set; }
         }
 
         public class ReferralDiscountInfo

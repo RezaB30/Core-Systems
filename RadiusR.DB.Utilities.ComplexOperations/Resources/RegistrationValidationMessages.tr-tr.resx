@@ -126,6 +126,9 @@
   <data name="InvalidAddedFees" xml:space="preserve">
     <value>Geçersiz ek ücretler.</value>
   </data>
+  <data name="InvalidAgent" xml:space="preserve">
+    <value>Geçersiz Acente.</value>
+  </data>
   <data name="InvalidBillingPeriod" xml:space="preserve">
     <value>Geçersiz fatura dönemi.</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="InvalidTariff" xml:space="preserve">
     <value>Geçersiz tarife.</value>
+  </data>
+  <data name="InvalidTariffForAgent" xml:space="preserve">
+    <value>Acente için geçersiz bir tarife.</value>
   </data>
   <data name="InvalidTariffForPartner" xml:space="preserve">
     <value>Bayi için geçersiz bir tarife.</value>

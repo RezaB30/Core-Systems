@@ -29,6 +29,11 @@ namespace RadiusR.DB.Utilities.Billing
                     bill.PaymentTypeID = (short)paymentType;
                     bill.PayDate = DateTime.Now;
                     bill.AccountantID = accountantId;
+                    // agent control
+                    if (bill.Subscription.AgentID.HasValue && paymentType == PaymentType.Cash && bill.Subscription.AgentID != gateway?.PaymentAgent?.ID)
+                    {
+                        return ResponseType.CannotPayForAgentSubscriptionInCash;
+                    }
                     // gateway check and set
                     if (gateway != null)
                     {
@@ -36,9 +41,36 @@ namespace RadiusR.DB.Utilities.Billing
                         if (gateway.OfflineGateway != null) gatewayCount++;
                         if (gateway.PaymentPartner != null) gatewayCount++;
                         if (gateway.PaymentServiceUser != null) gatewayCount++;
+                        if (gateway.PaymentAgent != null) gatewayCount++;
 
                         if (gatewayCount != 1)
                             return ResponseType.OnlyOneGatewayAllowed;
+
+                        // agent allowance and commission
+                        if (gateway.PaymentAgent != null)
+                        {
+                            if (gateway.PaymentAgent.ID != bill.Subscription.AgentID)
+                            {
+                                return ResponseType.SubscriptionDoesNotBelongToAgent;
+                            }
+                            var tariffFees = bill.BillFees.Where(bf => bf.FeeTypeID == (short)FeeType.Tariff).ToArray();
+                            if (tariffFees.Length > 0)
+                            {
+                                var totalTariffPayableFee = tariffFees.Select(tf => tf.CurrentCost - (tf.Discount != null ? tf.Discount.Amount : 0m)).Sum();
+                                var allowance = gateway.PaymentAgent.Allowance * totalTariffPayableFee;
+                                if (paymentType == PaymentType.Cash)
+                                    allowance -= bill.GetPayableCost();
+                                var commission = 0m;
+                                if (paymentType == PaymentType.MobilExpress || paymentType == PaymentType.VirtualPos || paymentType == PaymentType.PhysicalPos)
+                                    commission = AgentsSettings.AgentsNonCashPaymentCommission;
+                                bill.AgentRelatedPayments.Add(new AgentRelatedPayment()
+                                {
+                                    AgentID = gateway.PaymentAgent.ID,
+                                    Allowance = allowance,
+                                    ExtraCommission = commission,
+                                });
+                            }
+                        }
 
                         if (gateway.PaymentPartner != null)
                             bill.PartnerBillPayment = gateway != null && gateway.PaymentPartner != null ? new PartnerBillPayment() { Partner = gateway.PaymentPartner, PartnerSubUser = gateway.PaymentPartnerSubUser } : null;
@@ -177,7 +209,7 @@ namespace RadiusR.DB.Utilities.Billing
                     bill.PaymentTypeID = (short)PaymentType.None;
                     bill.AccountantID = null;
                     bill.BillStatusID = (short)BillState.Unpaid;
-                    if(bill.ExternalPayment != null)
+                    if (bill.ExternalPayment != null)
                         entities.ExternalPayments.Remove(bill.ExternalPayment);
                     if (bill.PartnerBillPayment != null)
                         entities.PartnerBillPayments.Remove(bill.PartnerBillPayment);
@@ -198,20 +230,23 @@ namespace RadiusR.DB.Utilities.Billing
                     }
                 }
 
+                // remove agent allowances
+                var agentAllowances = bills.SelectMany(b => b.AgentRelatedPayments).ToArray();
+                if (agentAllowances.Any())
+                {
+                    if (bills.Any(b => b.AgentCollection != null))
+                    {
+                        return ResponseType.CannotCancelBillsInAgentCollections;
+                    }
+                    entities.AgentRelatedPayments.RemoveRange(agentAllowances);
+                }
                 // set last allowed date
                 var dbBillGroups = bills.GroupBy(bill => bill.Subscription);
                 foreach (var group in dbBillGroups)
                 {
-                    //var firstUnpaidBillLastPaymentDate = group.Where(bill => bill.Source == (short)BillSources.System).Select(bill => bill.DueDate).DefaultIfEmpty(DateTime.MaxValue).Min();
                     var dbSubscription = group.Key;
                     dbSubscription.UpdateLastAllowedDate(true);
                     entities.Entry(dbSubscription).State = EntityState.Modified;
-                    //if (dbSubscription.LastAllowedDate.HasValue)
-                    //{
-                    //    var lastAllowedDateBasedOnBill = firstUnpaidBillLastPaymentDate.AddDays(AppSettings.ExpirationTolerance);
-                    //    dbSubscription.LastAllowedDate = new DateTime(Math.Min(lastAllowedDateBasedOnBill.Ticks, dbSubscription.LastAllowedDate.Value.Date.Ticks));
-                    //    entities.Entry(dbSubscription).State = EntityState.Modified;
-                    //}
                 }
 
                 return ResponseType.Success;
@@ -255,7 +290,10 @@ namespace RadiusR.DB.Utilities.Billing
             InvalidPaymentAmount,
             HasCashierPays,
             InvalidBillState,
-            OnlyOneGatewayAllowed
+            OnlyOneGatewayAllowed,
+            CannotPayForAgentSubscriptionInCash,
+            SubscriptionDoesNotBelongToAgent,
+            CannotCancelBillsInAgentCollections
         }
     }
 }

@@ -1002,6 +1002,8 @@
     <Content Include="Views\Agent\Allowances.cshtml" />
     <Content Include="Views\Agent\WorkAreas.cshtml" />
     <Content Include="Views\Agent\AddWorkArea.cshtml" />
+    <Content Include="Views\Agent\Tariffs.cshtml" />
+    <Content Include="Views\Agent\AddTariff.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
