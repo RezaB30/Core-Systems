@@ -136,6 +136,7 @@
     <Compile Include="RadiusViewModels\AdditionalFeeViewModel.cs" />
     <Compile Include="RadiusViewModels\AddressViewModel.cs" />
     <Compile Include="RadiusViewModels\AgentCollectionViewModel.cs" />
+    <Compile Include="RadiusViewModels\AgentTariffViewModel.cs" />
     <Compile Include="RadiusViewModels\AgentViewModel.cs" />
     <Compile Include="RadiusViewModels\AllTimeFeeViewModel.cs" />
     <Compile Include="RadiusViewModels\AppUserViewModel.cs" />

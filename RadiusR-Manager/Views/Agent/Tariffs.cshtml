@@ -1,6 +1,6 @@
 ﻿@using RadiusR_Manager.Helpers
 
-@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.ServiceViewModel>
+@model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.AgentTariffViewModel>
 
 @{
     ViewBag.Title = $"{ViewBag.AgentName}-{RadiusR.Localization.Pages.Common.ServiceList}";
@@ -9,13 +9,16 @@
 <table class="data-table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.TariffName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DomainName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Price)
         </th>
         <th>
-            @RadiusR.Localization.Model.RadiusR.IsActive
+            @Html.DisplayNameFor(model => model.IsActive)
         </th>
         <th></th>
     </tr>
@@ -23,7 +26,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.TariffName)
+            </td>
+            <td class="centered">
+                @Html.DisplayFor(modelItem => item.DomainName)
             </td>
             <td class="centered">
                 @Html.DisplayFor(modelItem => item.Price)
@@ -35,7 +41,8 @@
                 @using (Html.BeginForm("RemoveTariff", null, FormMethod.Post, new { @confirm = "enabled" }))
                 {
                     @Html.AntiForgeryToken()
-                    @Html.Hidden("tariffId", item.ID)
+                    @Html.Hidden("tariffId", item.TariffID)
+                    @Html.Hidden("domainId", item.DomainID)
                     @Html.Hidden("id", Request.RequestContext.RouteData.Values["id"])
                     @Html.Hidden("returnUrl", ViewBag.ReturnUrl as string)
                     <input type="submit" value="@RadiusR.Localization.Pages.Common.Remove" class="link-button iconed-button remove-button" />

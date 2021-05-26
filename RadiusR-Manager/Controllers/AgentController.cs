@@ -511,12 +511,14 @@ namespace RadiusR_Manager.Controllers
             if (dbAgent == null)
                 return RedirectToAction("Index", new { errorMessage = 9 });
 
-            var viewResults = db.Services.OrderBy(s => s.Name).Where(s => s.Agents.Any(a => a.ID == dbAgent.ID)).Select(s => new ServiceViewModel()
+            var viewResults = db.AgentTariffs.OrderBy(at => at.Service.Name).Where(at => at.AgentID == dbAgent.ID).Select(at => new AgentTariffViewModel()
             {
-                ID = s.ID,
-                Name = s.Name,
-                _price = s.Price,
-                IsActive = s.IsActive
+                TariffID = at.TariffID,
+                TariffName = at.Service.Name,
+                _price = at.Service.Price,
+                IsActive = at.Service.IsActive,
+                DomainID = at.DomainID,
+                DomainName = at.Domain.Name
             });
 
             SetupPages(page, ref viewResults);
@@ -565,7 +567,7 @@ namespace RadiusR_Manager.Controllers
             if (ModelState.IsValid)
             {
                 var dbTariff = db.Services.Find(tariff.TariffID);
-                if (dbAgent.Services.Any(s => s.ID == tariff.TariffID))
+                if (dbAgent.AgentTariffs.Any(at => at.TariffID == tariff.TariffID && at.DomainID == tariff.DomianID))
                 {
                     ModelState.AddModelError("TariffID", RadiusR.Localization.Validation.Common.ValueAlreadyExists);
                 }
@@ -577,7 +579,11 @@ namespace RadiusR_Manager.Controllers
                         return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
                     }
 
-                    dbAgent.Services.Add(dbTariff);
+                    dbAgent.AgentTariffs.Add(new AgentTariff()
+                    {
+                        DomainID = tariff.DomianID.Value,
+                        TariffID = tariff.TariffID.Value
+                    });
                     db.SaveChanges();
 
                     UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
@@ -588,7 +594,8 @@ namespace RadiusR_Manager.Controllers
             ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
             ViewBag.AgentName = dbAgent.CompanyTitle;
             ViewBag.DomainList = new SelectList(db.Domains.ToArray(), "ID", "Name", tariff.DomianID);
-            //ViewBag.Tariffs = new SelectList(db.Services.OrderBy(s => s.Name).FilterActiveServices().Where(s => !s.Agents.Any(a => a.ID == dbAgent.ID)).Select(s => new { Name = s.Name, Value = s.ID }), "Value", "Name", tariff?.TariffID);
+            //if (tariff.DomianID.HasValue)
+            //    ViewBag.Tariffs = new SelectList(db.Services.OrderBy(s => s.Name).FilterActiveServices().Where(s => s.Domains.Select(d => d.ID).Contains(tariff.DomianID)).Where(s => !s.AgentTariffs.Any(at => at.AgentID == dbAgent.ID)).Select(s => new { Name = s.Name, Value = s.ID }), "Value", "Name", tariff?.TariffID);
 
             return View(tariff);
         }
@@ -597,19 +604,19 @@ namespace RadiusR_Manager.Controllers
         [ValidateAntiForgeryToken]
         [HttpPost]
         // POST: Agent/RemoveTariff
-        public ActionResult RemoveTariff(int id, string returnUrl, int tariffId)
+        public ActionResult RemoveTariff(int id, string returnUrl, int tariffId, int domainId)
         {
             var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
 
             var dbAgent = db.Agents.Find(id);
             if (dbAgent == null)
                 return RedirectToAction("Index", new { errorMessage = 9 });
-            var dbTariff = db.Services.Find(tariffId);
-            if (dbTariff == null)
+            var dbAgentTariff = db.AgentTariffs.FirstOrDefault(at => at.TariffID == tariffId && at.DomainID == domainId && at.AgentID == id);
+            if (dbAgentTariff == null)
                 return RedirectToAction("Index", new { errorMessage = 9 });
 
 
-            dbAgent.Services.Remove(dbTariff);
+            dbAgent.AgentTariffs.Remove(dbAgentTariff);
             db.SaveChanges();
 
             UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);

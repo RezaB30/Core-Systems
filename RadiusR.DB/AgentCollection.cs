@@ -27,10 +27,10 @@ namespace RadiusR.DB
         public System.DateTime CreationDate { get; set; }
         public Nullable<System.DateTime> PaymentDate { get; set; }
     
-        public virtual Agent Agent { get; set; }
         public virtual AppUser Creator { get; set; }
         public virtual AppUser Payer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bill> Bills { get; set; }
+        public virtual Agent Agent { get; set; }
     }
 }

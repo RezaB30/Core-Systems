@@ -314,7 +314,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.Registration
                         ValidationMessages = new[] { new { Key = "AgentID", ErrorMessage = Resources.RegistrationValidationMessages.InvalidAgent } }.ToLookup(item => item.Key, item => item.ErrorMessage)
                     };
                 }
-                var selectedAgentTarif = dbAgent.Services.FirstOrDefault(s => s.ID == registrationInfo.ServiceID);
+                var selectedAgentTarif = dbAgent.AgentTariffs.FirstOrDefault(at => at.TariffID == registrationInfo.ServiceID && at.DomainID == registrationInfo.DomainID);
                 if (selectedAgentTarif == null)
                 {
                     // invalid tariff for agent

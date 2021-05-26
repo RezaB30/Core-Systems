@@ -81,6 +81,9 @@
     <Compile Include="AgentRelatedPayment.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="AgentTariff.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="AppliedRecurringDiscount.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>

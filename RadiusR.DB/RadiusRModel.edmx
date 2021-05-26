@@ -78,9 +78,11 @@
           <Key>
             <PropertyRef Name="AgentID" />
             <PropertyRef Name="TariffID" />
+            <PropertyRef Name="DomainID" />
           </Key>
           <Property Name="AgentID" Type="int" Nullable="false" />
           <Property Name="TariffID" Type="int" Nullable="false" />
+          <Property Name="DomainID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="AgentWorkArea">
           <Key>
@@ -1356,6 +1358,18 @@
             </Principal>
             <Dependent Role="AgentTariff">
               <PropertyRef Name="AgentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgentTariff_Domain">
+          <End Role="Domain" Type="Self.Domain" Multiplicity="1" />
+          <End Role="AgentTariff" Type="Self.AgentTariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domain">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AgentTariff">
+              <PropertyRef Name="DomainID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3200,6 +3214,10 @@
             <End Role="Agent" EntitySet="Agent" />
             <End Role="AgentTariff" EntitySet="AgentTariff" />
           </AssociationSet>
+          <AssociationSet Name="FK_AgentTariff_Domain" Association="Self.FK_AgentTariff_Domain">
+            <End Role="Domain" EntitySet="Domain" />
+            <End Role="AgentTariff" EntitySet="AgentTariff" />
+          </AssociationSet>
           <AssociationSet Name="FK_AgentTariff_Service" Association="Self.FK_AgentTariff_Service">
             <End Role="Service" EntitySet="Service" />
             <End Role="AgentTariff" EntitySet="AgentTariff" />
@@ -5037,37 +5055,12 @@
             <End Role="Partner" EntitySet="Partners" />
             <End Role="WorkArea" EntitySet="WorkAreas" />
           </AssociationSet>
-          <EntitySet Name="Agents" EntityType="RadiusRModel.Agent" />
           <EntitySet Name="AgentRelatedPayments" EntityType="RadiusRModel.AgentRelatedPayment" />
-          <AssociationSet Name="FK_Agent_Address" Association="RadiusRModel.FK_Agent_Address">
-            <End Role="Address" EntitySet="Addresses" />
-            <End Role="Agent" EntitySet="Agents" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AgentRelatedPayment_Agent" Association="RadiusRModel.FK_AgentRelatedPayment_Agent">
-            <End Role="Agent" EntitySet="Agents" />
-            <End Role="AgentRelatedPayment" EntitySet="AgentRelatedPayments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Subscription_Agent" Association="RadiusRModel.FK_Subscription_Agent">
-            <End Role="Agent" EntitySet="Agents" />
-            <End Role="Subscription" EntitySet="Subscriptions" />
-          </AssociationSet>
           <AssociationSet Name="FK_AgentRelatedPayment_Bill" Association="RadiusRModel.FK_AgentRelatedPayment_Bill">
             <End Role="Bill" EntitySet="Bills" />
             <End Role="AgentRelatedPayment" EntitySet="AgentRelatedPayments" />
           </AssociationSet>
-          <AssociationSet Name="AgentWorkArea" Association="RadiusRModel.AgentWorkArea">
-            <End Role="Agent" EntitySet="Agents" />
-            <End Role="WorkArea" EntitySet="WorkAreas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Agent_CustomerSetupUser" Association="RadiusRModel.FK_Agent_CustomerSetupUser">
-            <End Role="CustomerSetupUser" EntitySet="CustomerSetupUsers" />
-            <End Role="Agent" EntitySet="Agents" />
-          </AssociationSet>
           <EntitySet Name="AgentCollections" EntityType="RadiusRModel.AgentCollection" />
-          <AssociationSet Name="FK_AgentCollection_Agent" Association="RadiusRModel.FK_AgentCollection_Agent">
-            <End Role="Agent" EntitySet="Agents" />
-            <End Role="AgentCollection" EntitySet="AgentCollections" />
-          </AssociationSet>
           <AssociationSet Name="FK_AgentCollection_AppUser" Association="RadiusRModel.FK_AgentCollection_AppUser">
             <End Role="AppUser" EntitySet="AppUsers" />
             <End Role="AgentCollection" EntitySet="AgentCollections" />
@@ -5080,9 +5073,43 @@
             <End Role="AgentCollection" EntitySet="AgentCollections" />
             <End Role="Bill" EntitySet="Bills" />
           </AssociationSet>
-          <AssociationSet Name="AgentTariff" Association="RadiusRModel.AgentTariff">
+          <EntitySet Name="Agents" EntityType="RadiusRModel.Agent" />
+          <EntitySet Name="AgentTariffs" EntityType="RadiusRModel.AgentTariff" />
+          <AssociationSet Name="FK_Agent_Address" Association="RadiusRModel.FK_Agent_Address">
+            <End Role="Address" EntitySet="Addresses" />
             <End Role="Agent" EntitySet="Agents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Agent_CustomerSetupUser" Association="RadiusRModel.FK_Agent_CustomerSetupUser">
+            <End Role="CustomerSetupUser" EntitySet="CustomerSetupUsers" />
+            <End Role="Agent" EntitySet="Agents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentCollection_Agent" Association="RadiusRModel.FK_AgentCollection_Agent">
+            <End Role="Agent" EntitySet="Agents" />
+            <End Role="AgentCollection" EntitySet="AgentCollections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentRelatedPayment_Agent" Association="RadiusRModel.FK_AgentRelatedPayment_Agent">
+            <End Role="Agent" EntitySet="Agents" />
+            <End Role="AgentRelatedPayment" EntitySet="AgentRelatedPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentTariff_Agent" Association="RadiusRModel.FK_AgentTariff_Agent">
+            <End Role="Agent" EntitySet="Agents" />
+            <End Role="AgentTariff" EntitySet="AgentTariffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subscription_Agent" Association="RadiusRModel.FK_Subscription_Agent">
+            <End Role="Agent" EntitySet="Agents" />
+            <End Role="Subscription" EntitySet="Subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentTariff_Domain" Association="RadiusRModel.FK_AgentTariff_Domain">
+            <End Role="Domain" EntitySet="Domains" />
+            <End Role="AgentTariff" EntitySet="AgentTariffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentTariff_Service" Association="RadiusRModel.FK_AgentTariff_Service">
             <End Role="Service" EntitySet="Services" />
+            <End Role="AgentTariff" EntitySet="AgentTariffs" />
+          </AssociationSet>
+          <AssociationSet Name="AgentWorkArea" Association="RadiusRModel.AgentWorkArea">
+            <End Role="Agent" EntitySet="Agents" />
+            <End Role="WorkArea" EntitySet="WorkAreas" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
@@ -5486,7 +5513,7 @@
           <NavigationProperty Name="ExternalTariff" Relationship="RadiusRModel.FK_ExternalTariff_Service" FromRole="Service" ToRole="ExternalTariff" />
           <NavigationProperty Name="PartnerAvailableTariffs" Relationship="RadiusRModel.FK_PartnerAvailableTariff_Service" FromRole="Service" ToRole="PartnerAvailableTariff" />
           <NavigationProperty Name="PartnerRegisteredSubscriptions" Relationship="RadiusRModel.FK_PartnerRegisteredSubscription_Service" FromRole="Service" ToRole="PartnerRegisteredSubscription" />
-          <NavigationProperty Name="Agents" Relationship="RadiusRModel.AgentTariff" FromRole="Service" ToRole="Agent" />
+          <NavigationProperty Name="AgentTariffs" Relationship="RadiusRModel.FK_AgentTariff_Service" FromRole="Service" ToRole="AgentTariff" />
         </EntityType>
         <Association Name="FK_ChangeServiceTypeTask_Service">
           <End Type="RadiusRModel.Service" Role="Service" Multiplicity="1" />
@@ -5639,6 +5666,7 @@
           <NavigationProperty Name="ExternalTariffs" Relationship="RadiusRModel.FK_ExternalTariff_Domain" FromRole="Domain" ToRole="ExternalTariff" />
           <NavigationProperty Name="PartnerAvailableTariffs" Relationship="RadiusRModel.FK_PartnerAvailableTariff_DomainID" FromRole="Domain" ToRole="PartnerAvailableTariff" />
           <NavigationProperty Name="TelekomAccessCredential" Relationship="RadiusRModel.FK_TelekomAccessCredential_Domain" FromRole="Domain" ToRole="TelekomAccessCredential" />
+          <NavigationProperty Name="AgentTariffs" Relationship="RadiusRModel.FK_AgentTariff_Domain" FromRole="Domain" ToRole="AgentTariff" />
         </EntityType>
         <Association Name="ServiceDomain">
           <End Type="RadiusRModel.Domain" Role="Domain" Multiplicity="*" />
@@ -7360,30 +7388,6 @@
           <End Type="RadiusRModel.Partner" Role="Partner" Multiplicity="0..1" />
           <End Type="RadiusRModel.WorkArea" Role="WorkArea" Multiplicity="*" />
         </Association>
-        <EntityType Name="Agent">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ExecutiveName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyTitle" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="TaxOffice" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="TaxNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AddressID" Type="Int64" Nullable="false" />
-          <Property Name="PhoneNo" Type="String" Nullable="false" MaxLength="17" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Allowance" Type="Decimal" Nullable="false" Precision="5" Scale="4" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Address" Relationship="RadiusRModel.FK_Agent_Address" FromRole="Agent" ToRole="Address" />
-          <NavigationProperty Name="AgentRelatedPayments" Relationship="RadiusRModel.FK_AgentRelatedPayment_Agent" FromRole="Agent" ToRole="AgentRelatedPayment" />
-          <NavigationProperty Name="Subscriptions" Relationship="RadiusRModel.FK_Subscription_Agent" FromRole="Agent" ToRole="Subscription" />
-          <NavigationProperty Name="WorkAreas" Relationship="RadiusRModel.AgentWorkArea" FromRole="Agent" ToRole="WorkArea" />
-          <Property Name="CustomerSetupUserID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CustomerSetupUser" Relationship="RadiusRModel.FK_Agent_CustomerSetupUser" FromRole="Agent" ToRole="CustomerSetupUser" />
-          <NavigationProperty Name="AgentCollections" Relationship="RadiusRModel.FK_AgentCollection_Agent" FromRole="Agent" ToRole="AgentCollection" />
-          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Services" Relationship="RadiusRModel.AgentTariff" FromRole="Agent" ToRole="Service" />
-        </EntityType>
         <EntityType Name="AgentRelatedPayment">
           <Key>
             <PropertyRef Name="AgentID" />
@@ -7393,45 +7397,9 @@
           <Property Name="BillID" Type="Int64" Nullable="false" />
           <Property Name="Allowance" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="ExtraCommission" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <NavigationProperty Name="Agent" Relationship="RadiusRModel.FK_AgentRelatedPayment_Agent" FromRole="AgentRelatedPayment" ToRole="Agent" />
           <NavigationProperty Name="Bill" Relationship="RadiusRModel.FK_AgentRelatedPayment_Bill" FromRole="AgentRelatedPayment" ToRole="Bill" />
+          <NavigationProperty Name="Agent" Relationship="RadiusRModel.FK_AgentRelatedPayment_Agent" FromRole="AgentRelatedPayment" ToRole="Agent" />
         </EntityType>
-        <Association Name="FK_Agent_Address">
-          <End Type="RadiusRModel.Address" Role="Address" Multiplicity="1" />
-          <End Type="RadiusRModel.Agent" Role="Agent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Address">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Agent">
-              <PropertyRef Name="AddressID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AgentRelatedPayment_Agent">
-          <End Type="RadiusRModel.Agent" Role="Agent" Multiplicity="1" />
-          <End Type="RadiusRModel.AgentRelatedPayment" Role="AgentRelatedPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Agent">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="AgentRelatedPayment">
-              <PropertyRef Name="AgentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Subscription_Agent">
-          <End Type="RadiusRModel.Agent" Role="Agent" Multiplicity="0..1" />
-          <End Type="RadiusRModel.Subscription" Role="Subscription" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Agent">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Subscription">
-              <PropertyRef Name="AgentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AgentRelatedPayment_Bill">
           <End Type="RadiusRModel.Bill" Role="Bill" Multiplicity="1" />
           <End Type="RadiusRModel.AgentRelatedPayment" Role="AgentRelatedPayment" Multiplicity="*" />
@@ -7441,22 +7409,6 @@
             </Principal>
             <Dependent Role="AgentRelatedPayment">
               <PropertyRef Name="BillID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="AgentWorkArea">
-          <End Type="RadiusRModel.Agent" Role="Agent" Multiplicity="0..1" />
-          <End Type="RadiusRModel.WorkArea" Role="WorkArea" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_Agent_CustomerSetupUser">
-          <End Type="RadiusRModel.CustomerSetupUser" Role="CustomerSetupUser" Multiplicity="1" />
-          <End Type="RadiusRModel.Agent" Role="Agent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CustomerSetupUser">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Agent">
-              <PropertyRef Name="CustomerSetupUserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7470,23 +7422,11 @@
           <Property Name="PayerID" Type="Int32" />
           <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PaymentDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Agent" Relationship="RadiusRModel.FK_AgentCollection_Agent" FromRole="AgentCollection" ToRole="Agent" />
           <NavigationProperty Name="Creator" Relationship="RadiusRModel.FK_AgentCollection_AppUser" FromRole="AgentCollection" ToRole="AppUser" />
           <NavigationProperty Name="Payer" Relationship="RadiusRModel.FK_AgentCollection_AppUser1" FromRole="AgentCollection" ToRole="AppUser" />
           <NavigationProperty Name="Bills" Relationship="RadiusRModel.AgentCollectionBill" FromRole="AgentCollection" ToRole="Bill" />
+          <NavigationProperty Name="Agent" Relationship="RadiusRModel.FK_AgentCollection_Agent" FromRole="AgentCollection" ToRole="Agent" />
         </EntityType>
-        <Association Name="FK_AgentCollection_Agent">
-          <End Type="RadiusRModel.Agent" Role="Agent" Multiplicity="1" />
-          <End Type="RadiusRModel.AgentCollection" Role="AgentCollection" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Agent">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="AgentCollection">
-              <PropertyRef Name="AgentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AgentCollection_AppUser">
           <End Type="RadiusRModel.AppUser" Role="AppUser" Multiplicity="1" />
           <End Type="RadiusRModel.AgentCollection" Role="AgentCollection" Multiplicity="*" />
@@ -7515,9 +7455,142 @@
           <End Type="RadiusRModel.AgentCollection" Role="AgentCollection" Multiplicity="0..1" />
           <End Type="RadiusRModel.Bill" Role="Bill" Multiplicity="*" />
         </Association>
-        <Association Name="AgentTariff">
+        <EntityType Name="Agent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExecutiveName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyTitle" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="TaxOffice" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="TaxNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressID" Type="Int64" Nullable="false" />
+          <Property Name="PhoneNo" Type="String" Nullable="false" MaxLength="17" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Allowance" Type="Decimal" Nullable="false" Precision="5" Scale="4" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="CustomerSetupUserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Address" Relationship="RadiusRModel.FK_Agent_Address" FromRole="Agent" ToRole="Address" />
+          <NavigationProperty Name="CustomerSetupUser" Relationship="RadiusRModel.FK_Agent_CustomerSetupUser" FromRole="Agent" ToRole="CustomerSetupUser" />
+          <NavigationProperty Name="AgentCollections" Relationship="RadiusRModel.FK_AgentCollection_Agent" FromRole="Agent" ToRole="AgentCollection" />
+          <NavigationProperty Name="AgentRelatedPayments" Relationship="RadiusRModel.FK_AgentRelatedPayment_Agent" FromRole="Agent" ToRole="AgentRelatedPayment" />
+          <NavigationProperty Name="AgentTariffs" Relationship="RadiusRModel.FK_AgentTariff_Agent" FromRole="Agent" ToRole="AgentTariff" />
+          <NavigationProperty Name="Subscriptions" Relationship="RadiusRModel.FK_Subscription_Agent" FromRole="Agent" ToRole="Subscription" />
+          <NavigationProperty Name="WorkAreas" Relationship="RadiusRModel.AgentWorkArea" FromRole="Agent" ToRole="WorkArea" />
+        </EntityType>
+        <EntityType Name="AgentTariff">
+          <Key>
+            <PropertyRef Name="AgentID" />
+            <PropertyRef Name="TariffID" />
+            <PropertyRef Name="DomainID" />
+          </Key>
+          <Property Name="AgentID" Type="Int32" Nullable="false" />
+          <Property Name="TariffID" Type="Int32" Nullable="false" />
+          <Property Name="DomainID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Agent" Relationship="RadiusRModel.FK_AgentTariff_Agent" FromRole="AgentTariff" ToRole="Agent" />
+          <NavigationProperty Name="Domain" Relationship="RadiusRModel.FK_AgentTariff_Domain" FromRole="AgentTariff" ToRole="Domain" />
+          <NavigationProperty Name="Service" Relationship="RadiusRModel.FK_AgentTariff_Service" FromRole="AgentTariff" ToRole="Service" />
+        </EntityType>
+        <Association Name="FK_Agent_Address">
+          <End Type="RadiusRModel.Address" Role="Address" Multiplicity="1" />
           <End Type="RadiusRModel.Agent" Role="Agent" Multiplicity="*" />
-          <End Type="RadiusRModel.Service" Role="Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Agent">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Agent_CustomerSetupUser">
+          <End Type="RadiusRModel.CustomerSetupUser" Role="CustomerSetupUser" Multiplicity="1" />
+          <End Type="RadiusRModel.Agent" Role="Agent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerSetupUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Agent">
+              <PropertyRef Name="CustomerSetupUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgentCollection_Agent">
+          <End Type="RadiusRModel.Agent" Role="Agent" Multiplicity="1" />
+          <End Type="RadiusRModel.AgentCollection" Role="AgentCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AgentCollection">
+              <PropertyRef Name="AgentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgentRelatedPayment_Agent">
+          <End Type="RadiusRModel.Agent" Role="Agent" Multiplicity="1" />
+          <End Type="RadiusRModel.AgentRelatedPayment" Role="AgentRelatedPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AgentRelatedPayment">
+              <PropertyRef Name="AgentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgentTariff_Agent">
+          <End Type="RadiusRModel.Agent" Role="Agent" Multiplicity="1" />
+          <End Type="RadiusRModel.AgentTariff" Role="AgentTariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AgentTariff">
+              <PropertyRef Name="AgentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subscription_Agent">
+          <End Type="RadiusRModel.Agent" Role="Agent" Multiplicity="0..1" />
+          <End Type="RadiusRModel.Subscription" Role="Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Subscription">
+              <PropertyRef Name="AgentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgentTariff_Domain">
+          <End Type="RadiusRModel.Domain" Role="Domain" Multiplicity="1" />
+          <End Type="RadiusRModel.AgentTariff" Role="AgentTariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domain">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AgentTariff">
+              <PropertyRef Name="DomainID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgentTariff_Service">
+          <End Type="RadiusRModel.Service" Role="Service" Multiplicity="1" />
+          <End Type="RadiusRModel.AgentTariff" Role="AgentTariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AgentTariff">
+              <PropertyRef Name="TariffID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AgentWorkArea">
+          <End Type="RadiusRModel.Agent" Role="Agent" Multiplicity="0..1" />
+          <End Type="RadiusRModel.WorkArea" Role="WorkArea" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -8792,24 +8865,6 @@
             </EndProperty>
             <Condition ColumnName="PartnerID" IsNull="false" />
           </AssociationSetMapping>
-          <EntitySetMapping Name="Agents">
-            <EntityTypeMapping TypeName="RadiusRModel.Agent">
-              <MappingFragment StoreEntitySet="Agent">
-                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
-                <ScalarProperty Name="CustomerSetupUserID" ColumnName="CustomerSetupUserID" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Allowance" ColumnName="Allowance" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
-                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
-                <ScalarProperty Name="TaxNo" ColumnName="TaxNo" />
-                <ScalarProperty Name="TaxOffice" ColumnName="TaxOffice" />
-                <ScalarProperty Name="CompanyTitle" ColumnName="CompanyTitle" />
-                <ScalarProperty Name="ExecutiveName" ColumnName="ExecutiveName" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AgentRelatedPayments">
             <EntityTypeMapping TypeName="RadiusRModel.AgentRelatedPayment">
               <MappingFragment StoreEntitySet="AgentRelatedPayment">
@@ -8820,15 +8875,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AgentWorkArea" TypeName="RadiusRModel.AgentWorkArea" StoreEntitySet="AgentWorkArea">
-            <EndProperty Name="WorkArea">
-              <ScalarProperty Name="ID" ColumnName="WorkAreaID" />
-            </EndProperty>
-            <EndProperty Name="Agent">
-              <ScalarProperty Name="ID" ColumnName="AgentID" />
-            </EndProperty>
-            <Condition ColumnName="AgentID" IsNull="false" />
-          </AssociationSetMapping>
           <EntitySetMapping Name="AgentCollections">
             <EntityTypeMapping TypeName="RadiusRModel.AgentCollection">
               <MappingFragment StoreEntitySet="AgentCollection">
@@ -8850,13 +8896,41 @@
             </EndProperty>
             <Condition ColumnName="AgentCollectionID" IsNull="false" />
           </AssociationSetMapping>
-          <AssociationSetMapping Name="AgentTariff" TypeName="RadiusRModel.AgentTariff" StoreEntitySet="AgentTariff">
-            <EndProperty Name="Service">
-              <ScalarProperty Name="ID" ColumnName="TariffID" />
+          <EntitySetMapping Name="Agents">
+            <EntityTypeMapping TypeName="RadiusRModel.Agent">
+              <MappingFragment StoreEntitySet="Agent">
+                <ScalarProperty Name="CustomerSetupUserID" ColumnName="CustomerSetupUserID" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Allowance" ColumnName="Allowance" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="TaxNo" ColumnName="TaxNo" />
+                <ScalarProperty Name="TaxOffice" ColumnName="TaxOffice" />
+                <ScalarProperty Name="CompanyTitle" ColumnName="CompanyTitle" />
+                <ScalarProperty Name="ExecutiveName" ColumnName="ExecutiveName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AgentTariffs">
+            <EntityTypeMapping TypeName="RadiusRModel.AgentTariff">
+              <MappingFragment StoreEntitySet="AgentTariff">
+                <ScalarProperty Name="DomainID" ColumnName="DomainID" />
+                <ScalarProperty Name="TariffID" ColumnName="TariffID" />
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AgentWorkArea" TypeName="RadiusRModel.AgentWorkArea" StoreEntitySet="AgentWorkArea">
+            <EndProperty Name="WorkArea">
+              <ScalarProperty Name="ID" ColumnName="WorkAreaID" />
             </EndProperty>
             <EndProperty Name="Agent">
               <ScalarProperty Name="ID" ColumnName="AgentID" />
             </EndProperty>
+            <Condition ColumnName="AgentID" IsNull="false" />
           </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>

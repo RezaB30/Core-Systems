@@ -126,8 +126,9 @@ namespace RadiusR.DB
         public virtual DbSet<BTKSubscriptionChange> BTKSubscriptionChanges { get; set; }
         public virtual DbSet<RadiusAuthorization> RadiusAuthorizations { get; set; }
         public virtual DbSet<WorkArea> WorkAreas { get; set; }
-        public virtual DbSet<Agent> Agents { get; set; }
         public virtual DbSet<AgentRelatedPayment> AgentRelatedPayments { get; set; }
         public virtual DbSet<AgentCollection> AgentCollections { get; set; }
+        public virtual DbSet<Agent> Agents { get; set; }
+        public virtual DbSet<AgentTariff> AgentTariffs { get; set; }
     }
 }

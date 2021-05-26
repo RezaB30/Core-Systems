@@ -17,11 +17,11 @@ namespace RadiusR.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Agent()
         {
+            this.AgentCollections = new HashSet<AgentCollection>();
             this.AgentRelatedPayments = new HashSet<AgentRelatedPayment>();
+            this.AgentTariffs = new HashSet<AgentTariff>();
             this.Subscriptions = new HashSet<Subscription>();
             this.WorkAreas = new HashSet<WorkArea>();
-            this.AgentCollections = new HashSet<AgentCollection>();
-            this.Services = new HashSet<Service>();
         }
     
         public int ID { get; set; }
@@ -34,20 +34,20 @@ namespace RadiusR.DB
         public string Email { get; set; }
         public decimal Allowance { get; set; }
         public string Password { get; set; }
-        public int CustomerSetupUserID { get; set; }
         public bool IsEnabled { get; set; }
+        public int CustomerSetupUserID { get; set; }
     
         public virtual Address Address { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AgentRelatedPayment> AgentRelatedPayments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Subscription> Subscriptions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WorkArea> WorkAreas { get; set; }
         public virtual CustomerSetupUser CustomerSetupUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AgentCollection> AgentCollections { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Service> Services { get; set; }
+        public virtual ICollection<AgentRelatedPayment> AgentRelatedPayments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AgentTariff> AgentTariffs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Subscription> Subscriptions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WorkArea> WorkAreas { get; set; }
     }
 }

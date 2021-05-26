@@ -15,16 +15,29 @@ namespace RadiusR_Scheduler_Test_Suit
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Automatic payments started...");
+            Console.WriteLine("Started.");
 
-            //var issueBillsTask = new IssueBillTasks();
-            //var result = issueBillsTask.Run();
-            //var autoPayTask = new AutomaticPaymentTasks();
-            //var result = autoPayTask.Run();
+            IssueBillTasks task = new IssueBillTasks();
 
-            //Console.WriteLine("Done with {0} code.", result);
+            task.Run();
+
+            Console.WriteLine("Done.");
             Console.ReadKey();
+            return;
         }
+
+        //static void Main(string[] args)
+        //{
+        //    Console.WriteLine("Automatic payments started...");
+
+        //    //var issueBillsTask = new IssueBillTasks();
+        //    //var result = issueBillsTask.Run();
+        //    //var autoPayTask = new AutomaticPaymentTasks();
+        //    //var result = autoPayTask.Run();
+
+        //    //Console.WriteLine("Done with {0} code.", result);
+        //    Console.ReadKey();
+        //}
 
         //static void Main(string[] args)
         //{
