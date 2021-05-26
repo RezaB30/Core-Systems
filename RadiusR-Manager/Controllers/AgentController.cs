@@ -39,8 +39,24 @@ namespace RadiusR_Manager.Controllers
                 baseQuery = baseQuery.Where(a => a.IsEnabled);
             }
 
-            SetupPages(page, ref baseQuery);
-            var viewResults = baseQuery.ToArray().Select(a => new AgentsListViewModel()
+            var intermediateQuery = baseQuery.Select(a => new
+            {
+                ID = a.ID,
+                Address = a.Address,
+                Allowance = a.Allowance,
+                CompanyTitle = a.CompanyTitle,
+                Email = a.Email,
+                ExecutiveName = a.ExecutiveName,
+                IsEnabled = a.IsEnabled,
+                PhoneNo = a.PhoneNo,
+                TaxOffice = a.TaxOffice,
+                TaxNo = a.TaxNo,
+                SubCount = a.Subscriptions.Count()
+            }).OrderByDescending(a => a.SubCount).AsQueryable();
+
+            SetupPages(page, ref intermediateQuery);
+
+            var viewResults = intermediateQuery.ToArray().Select(a => new AgentsListViewModel()
             {
                 ID = a.ID,
                 Address = new AddressViewModel(a.Address),
@@ -52,6 +68,7 @@ namespace RadiusR_Manager.Controllers
                 PhoneNo = a.PhoneNo,
                 TaxOffice = a.TaxOffice,
                 TaxNo = a.TaxNo,
+                SubCount = a.SubCount
             });
 
             ViewBag.Search = search;

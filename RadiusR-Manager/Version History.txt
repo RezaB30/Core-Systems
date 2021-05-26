@@ -356,3 +356,7 @@ v 5.11.00 '2021-05-05'
 v 5.11.01 '2021-05-06'
 - added CLID check setting to Radius settings.
 - added cancellation to incoming transition work orders.
+v 6.00.00 '2021-05-24'
+- added agents.
+- added agent tariffs.
+- added agent work areas.
