@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.1.5-alpha1</version>
+    <version>1.1.5-alpha2</version>
     <title>RadiusR.DB.Utilities</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

@@ -166,11 +166,22 @@ namespace RadiusR.DB.Utilities.Billing
                     foreach (var bill in bills)
                     {
                         var payedAmountWithoutCredit = bill.GetPayableCost() - (bill.SubscriptionCredits.Any() ? bill.SubscriptionCredits.Sum(sc => sc.Amount) : 0m);
+                        // pay with allowance
                         if (payedAmountWithoutCredit > Math.Max(gateway.PaymentPartner.PaymentAllowance, gateway.PaymentPartner.MinAmountForAllowance))
                         {
                             gateway.PaymentPartner.PartnerCredits.Add(new PartnerCredit()
                             {
                                 Amount = (-1m * payedAmountWithoutCredit) + gateway.PaymentPartner.PaymentAllowance,
+                                BillID = bill.ID,
+                                Date = DateTime.Now
+                            });
+                        }
+                        // pay without allowance
+                        else
+                        {
+                            gateway.PaymentPartner.PartnerCredits.Add(new PartnerCredit()
+                            {
+                                Amount = (-1m * payedAmountWithoutCredit),
                                 BillID = bill.ID,
                                 Date = DateTime.Now
                             });

@@ -1303,7 +1303,7 @@
     <value>Bayi Sayısı</value>
   </data>
   <data name="ShowDisabled" xml:space="preserve">
-    <value>Devre Dişileri Göster</value>
+    <value>Devre Dışı Olanları Göster</value>
   </data>
   <data name="Permission" xml:space="preserve">
     <value>Yetki</value>
