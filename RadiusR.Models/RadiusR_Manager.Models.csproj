@@ -72,8 +72,8 @@
       <HintPath>..\packages\RezaB.DBUtilities.1.0.0\lib\net452\RezaB.DBUtilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RezaB.TurkTelekom.WebServices, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.TurkTelekom.WebServices.1.2.0\lib\net452\RezaB.TurkTelekom.WebServices.dll</HintPath>
+    <Reference Include="RezaB.TurkTelekom.WebServices, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.TurkTelekom.WebServices.1.2.1\lib\net452\RezaB.TurkTelekom.WebServices.dll</HintPath>
     </Reference>
     <Reference Include="RezaB.Web, Version=1.1.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RezaB.Web.1.1.6\lib\net472\RezaB.Web.dll</HintPath>
@@ -184,6 +184,7 @@
     <Compile Include="RadiusViewModels\SupportGroupUserViewModel.cs" />
     <Compile Include="RadiusViewModels\SupportGroupViewModel.cs" />
     <Compile Include="RadiusViewModels\TransitionOperatorViewModel.cs" />
+    <Compile Include="ViewModels\VerticalDSLIPMapViewModel.cs" />
     <Compile Include="ViewModels\AddAgentTariffViewModel.cs" />
     <Compile Include="ViewModels\AgentPasswordUpdateViewModel.cs" />
     <Compile Include="ViewModels\AgentsListViewModel.cs" />

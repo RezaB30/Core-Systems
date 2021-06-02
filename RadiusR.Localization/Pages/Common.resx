@@ -1275,4 +1275,7 @@
   <data name="AgentAllowances" xml:space="preserve">
     <value>Agent Allowances</value>
   </data>
+  <data name="EditVerticalDSLIPMaps" xml:space="preserve">
+    <value>Edit Vertical DSL IP Maps</value>
+  </data>
 </root>

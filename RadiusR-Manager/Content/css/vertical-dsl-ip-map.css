@@ -1,0 +1,21 @@
+﻿div.vertical-dsl-ip-map-wrapper {
+    white-space: nowrap;
+}
+
+    div.vertical-dsl-ip-map-wrapper div.vertical-dsl-ip-map-part {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 0.2em;
+        padding: 0 0.2em;
+    }
+
+        div.vertical-dsl-ip-map-wrapper div.vertical-dsl-ip-map-part:first-of-type {
+            border-right: 1px solid #999;
+        }
+
+        div.vertical-dsl-ip-map-wrapper div.vertical-dsl-ip-map-part:last-of-type {
+            border-left: 1px solid #999;
+        }
+
+        div.vertical-dsl-ip-map-wrapper div.vertical-dsl-ip-map-part div.row-item {
+        }

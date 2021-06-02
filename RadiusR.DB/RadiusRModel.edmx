@@ -502,6 +502,14 @@
           <Property Name="PortCount" Type="int" Nullable="false" />
           <Property Name="PreserveLastByte" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="NASVerticalDSLIPMap">
+          <Key>
+            <PropertyRef Name="NASID" />
+          </Key>
+          <Property Name="NASID" Type="int" Nullable="false" />
+          <Property Name="LocalIPPools" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DSLLineIPs" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="NASVerticalIPMap">
           <Key>
             <PropertyRef Name="ID" />
@@ -1925,6 +1933,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_NASVerticalDSLIPMap_NAS">
+          <End Role="NAS" Type="Self.NAS" Multiplicity="1" />
+          <End Role="NASVerticalDSLIPMap" Type="Self.NASVerticalDSLIPMap" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="NAS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="NASVerticalDSLIPMap">
+              <PropertyRef Name="NASID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_NASVerticalIPMap_NAS">
           <End Role="NAS" Type="Self.NAS" Multiplicity="1" />
           <End Role="NASVerticalIPMap" Type="Self.NASVerticalIPMap" Multiplicity="*" />
@@ -3108,6 +3128,7 @@
           <EntitySet Name="NAS" EntityType="Self.NAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NASExpiredPool" EntityType="Self.NASExpiredPool" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NASNetmap" EntityType="Self.NASNetmap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NASVerticalDSLIPMap" EntityType="Self.NASVerticalDSLIPMap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NASVerticalIPMap" EntityType="Self.NASVerticalIPMap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OfflinePaymentGateway" EntityType="Self.OfflinePaymentGateway" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Partner" EntityType="Self.Partner" Schema="dbo" store:Type="Tables" />
@@ -3401,6 +3422,10 @@
           <AssociationSet Name="FK_NASNetmap_NAS" Association="Self.FK_NASNetmap_NAS">
             <End Role="NAS" EntitySet="NAS" />
             <End Role="NASNetmap" EntitySet="NASNetmap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NASVerticalDSLIPMap_NAS" Association="Self.FK_NASVerticalDSLIPMap_NAS">
+            <End Role="NAS" EntitySet="NAS" />
+            <End Role="NASVerticalDSLIPMap" EntitySet="NASVerticalDSLIPMap" />
           </AssociationSet>
           <AssociationSet Name="FK_NASVerticalIPMap_NAS" Association="Self.FK_NASVerticalIPMap_NAS">
             <End Role="NAS" EntitySet="NAS" />
@@ -5111,6 +5136,11 @@
             <End Role="Agent" EntitySet="Agents" />
             <End Role="WorkArea" EntitySet="WorkAreas" />
           </AssociationSet>
+          <EntitySet Name="NASVerticalDSLIPMaps" EntityType="RadiusRModel.NASVerticalDSLIPMap" />
+          <AssociationSet Name="FK_NASVerticalDSLIPMap_NAS" Association="RadiusRModel.FK_NASVerticalDSLIPMap_NAS">
+            <End Role="NAS" EntitySet="NAS" />
+            <End Role="NASVerticalDSLIPMap" EntitySet="NASVerticalDSLIPMaps" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="RecurringPaymentSubscription">
           <Key>
@@ -6096,6 +6126,7 @@
           <NavigationProperty Name="NASExpiredPools" Relationship="RadiusRModel.FK_NASExpiredPool_NAS" FromRole="NA" ToRole="NASExpiredPool" />
           <NavigationProperty Name="NASNetmaps" Relationship="RadiusRModel.FK_NASNetmap_NAS" FromRole="NA" ToRole="NASNetmap" />
           <NavigationProperty Name="NASVerticalIPMaps" Relationship="RadiusRModel.FK_NASVerticalIPMap_NAS" FromRole="NA" ToRole="NASVerticalIPMap" />
+          <NavigationProperty Name="NASVerticalDSLIPMap" Relationship="RadiusRModel.FK_NASVerticalDSLIPMap_NAS" FromRole="NAS" ToRole="NASVerticalDSLIPMap" />
         </EntityType>
         <Association Name="FK_NAS_NAS">
           <End Type="RadiusRModel.NAS" Role="NA" Multiplicity="0..1" />
@@ -7592,6 +7623,27 @@
           <End Type="RadiusRModel.Agent" Role="Agent" Multiplicity="0..1" />
           <End Type="RadiusRModel.WorkArea" Role="WorkArea" Multiplicity="*" />
         </Association>
+        <EntityType Name="NASVerticalDSLIPMap">
+          <Key>
+            <PropertyRef Name="NASID" />
+          </Key>
+          <Property Name="NASID" Type="Int32" Nullable="false" />
+          <Property Name="LocalIPPools" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DSLLineIPs" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NAS" Relationship="RadiusRModel.FK_NASVerticalDSLIPMap_NAS" FromRole="NASVerticalDSLIPMap" ToRole="NAS" />
+        </EntityType>
+        <Association Name="FK_NASVerticalDSLIPMap_NAS">
+          <End Type="RadiusRModel.NAS" Role="NAS" Multiplicity="1" />
+          <End Type="RadiusRModel.NASVerticalDSLIPMap" Role="NASVerticalDSLIPMap" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="NAS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="NASVerticalDSLIPMap">
+              <PropertyRef Name="NASID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -8932,6 +8984,15 @@
             </EndProperty>
             <Condition ColumnName="AgentID" IsNull="false" />
           </AssociationSetMapping>
+          <EntitySetMapping Name="NASVerticalDSLIPMaps">
+            <EntityTypeMapping TypeName="RadiusRModel.NASVerticalDSLIPMap">
+              <MappingFragment StoreEntitySet="NASVerticalDSLIPMap">
+                <ScalarProperty Name="DSLLineIPs" ColumnName="DSLLineIPs" />
+                <ScalarProperty Name="LocalIPPools" ColumnName="LocalIPPools" />
+                <ScalarProperty Name="NASID" ColumnName="NASID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

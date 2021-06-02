@@ -1303,6 +1303,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DSL Line IPs.
+        /// </summary>
+        public static string DSLLineIPs {
+            get {
+                return ResourceManager.GetString("DSLLineIPs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DSL Max Speed.
         /// </summary>
         public static string DSLMaxSpeed {
@@ -2235,6 +2244,15 @@ namespace RadiusR.Localization.Model {
         public static string LocalIPPool {
             get {
                 return ResourceManager.GetString("LocalIPPool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Local IP Pools.
+        /// </summary>
+        public static string LocalIPPools {
+            get {
+                return ResourceManager.GetString("LocalIPPools", resourceCulture);
             }
         }
         

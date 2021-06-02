@@ -130,5 +130,6 @@ namespace RadiusR.DB
         public virtual DbSet<AgentCollection> AgentCollections { get; set; }
         public virtual DbSet<Agent> Agents { get; set; }
         public virtual DbSet<AgentTariff> AgentTariffs { get; set; }
+        public virtual DbSet<NASVerticalDSLIPMap> NASVerticalDSLIPMaps { get; set; }
     }
 }

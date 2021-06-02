@@ -45,5 +45,6 @@ namespace RadiusR.DB
         public virtual ICollection<NASNetmap> NASNetmaps { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NASVerticalIPMap> NASVerticalIPMaps { get; set; }
+        public virtual NASVerticalDSLIPMap NASVerticalDSLIPMap { get; set; }
     }
 }

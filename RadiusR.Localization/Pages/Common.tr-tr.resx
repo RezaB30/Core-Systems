@@ -1272,4 +1272,7 @@
   <data name="AgentAllowances" xml:space="preserve">
     <value>Acente Hakedişleri</value>
   </data>
+  <data name="EditVerticalDSLIPMaps" xml:space="preserve">
+    <value>Dikey DSL IP Haritaları Düzenle</value>
+  </data>
 </root>

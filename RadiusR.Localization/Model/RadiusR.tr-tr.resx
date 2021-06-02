@@ -1647,4 +1647,10 @@
   <data name="NonCashPaymentCommission" xml:space="preserve">
     <value>Nakit Olmayan Ödeme Komisyonu</value>
   </data>
+  <data name="DSLLineIPs" xml:space="preserve">
+    <value>DSL Hat IP'leri</value>
+  </data>
+  <data name="LocalIPPools" xml:space="preserve">
+    <value>Yerel IP Havuzları</value>
+  </data>
 </root>

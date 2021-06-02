@@ -1,0 +1,52 @@
+﻿@model RadiusR_Manager.Models.ViewModels.VerticalDSLIPMapViewModel
+
+@{
+    ViewBag.Title = RadiusR.Localization.Pages.Common.NAS + "-" + RadiusR.Localization.Pages.Common.EditVerticalDSLIPMaps;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table id="ip-map-table" class="input-table" style="min-width: 34em;">
+        <tr>
+            <td colspan="3" class="centered">
+                @RadiusR.Localization.Model.FreeRadius.NasName:&nbsp;
+                @ViewBag.NASName
+            </td>
+        </tr>
+        @Html.EditorFor(model => model)
+        <tr>
+            <td colspan="3">
+                <div>@Html.ValidationMessageFor(model => model.LocalIPSubnets)</div>
+                <div>@Html.ValidationMessageFor(model => model.DSLLines)</div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="centered">
+                @Html.ValidationMessage("Router")
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="centered">
+                @Html.Partial("_WaitTimer")
+            </td>
+        </tr>
+        <tr id="submit-row">
+            <td class="centered" colspan="3">
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Back, "Index", null, new { @class = "link-button iconed-button back-button" })
+                &nbsp;
+                <input type="submit" name="" value="@RadiusR.Localization.Pages.Common.Accept" class="link-button iconed-button new-button" />
+            </td>
+        </tr>
+    </table>
+}
+
+@section PageScripts{
+    <script type="text/javascript">
+        SetupDSLIPMap('#ip-map-table');
+        $('#ip-map-table').closest('form').submit(function () {
+            $('#submit-row').hide();
+            StartWaitingCounter('div.waiting-progress');
+        });
+    </script>
+}

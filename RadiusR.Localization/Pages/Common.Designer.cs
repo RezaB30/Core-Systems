@@ -1429,6 +1429,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Vertical DSL IP Maps.
+        /// </summary>
+        public static string EditVerticalDSLIPMaps {
+            get {
+                return ResourceManager.GetString("EditVerticalDSLIPMaps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Vertical IP Maps.
         /// </summary>
         public static string EditVerticalIPMaps {

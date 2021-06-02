@@ -146,9 +146,8 @@
       <HintPath>..\packages\RezaB.Mikrotik.1.0.0\lib\net452\RezaB.Mikrotik.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RezaB.Mikrotik.Extentions, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.Mikrotik.Extentions.1.2.0\lib\net452\RezaB.Mikrotik.Extentions.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="RezaB.Mikrotik.Extentions, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Mikrotik.Extentions.1.2.3\lib\net452\RezaB.Mikrotik.Extentions.dll</HintPath>
     </Reference>
     <Reference Include="RezaB.NetInvoice, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RezaB.NetInvoice.1.0.0\lib\net452\RezaB.NetInvoice.dll</HintPath>
@@ -158,15 +157,14 @@
       <HintPath>..\packages\RezaB.NetInvoice.Wrapper.1.0.0\lib\net452\RezaB.NetInvoice.Wrapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RezaB.Networking, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.Networking.1.0.1\lib\net452\RezaB.Networking.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="RezaB.Networking, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Networking.1.0.3\lib\net452\RezaB.Networking.dll</HintPath>
     </Reference>
     <Reference Include="RezaB.TurkTelekom.FTPOperations, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RezaB.TurkTelekom.FTPOperations.1.1.2\lib\net472\RezaB.TurkTelekom.FTPOperations.dll</HintPath>
     </Reference>
-    <Reference Include="RezaB.TurkTelekom.WebServices, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RezaB.TurkTelekom.WebServices.1.2.0\lib\net452\RezaB.TurkTelekom.WebServices.dll</HintPath>
+    <Reference Include="RezaB.TurkTelekom.WebServices, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.TurkTelekom.WebServices.1.2.1\lib\net452\RezaB.TurkTelekom.WebServices.dll</HintPath>
     </Reference>
     <Reference Include="RezaB.Web, Version=1.1.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RezaB.Web.1.1.6\lib\net472\RezaB.Web.dll</HintPath>
@@ -369,6 +367,7 @@
     <Compile Include="Helpers\RelatedSubscriptionsHelper.cs" />
     <Compile Include="Helpers\ServiceDomainHelper.cs" />
     <Compile Include="Helpers\SMSParameterEditorHelper.cs" />
+    <Compile Include="Helpers\VerticalDSLIPMapListHelper.cs" />
     <Compile Include="Helpers\VerticalIPMapListHelper.cs" />
     <Compile Include="Helpers\LanguageLinkHelper.cs" />
     <Compile Include="Helpers\CaptchaHelper.cs" />
@@ -397,10 +396,12 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\vertical-dsl-ip-map.css" />
     <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Content\css\multi-file-upload.css" />
     <Content Include="Content\Images\Buttons\paper-clip.svg" />
+    <Content Include="Scripts\Custom\dsl-ip-map.js" />
     <Content Include="Scripts\Custom\multi-file-upload.js" />
     <Content Include="Scripts\Custom\multi-text-editor.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
@@ -1004,6 +1005,9 @@
     <Content Include="Views\Agent\AddWorkArea.cshtml" />
     <Content Include="Views\Agent\Tariffs.cshtml" />
     <Content Include="Views\Agent\AddTariff.cshtml" />
+    <Content Include="Views\NAS\EditVerticalDSLIPMaps.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\VerticalDSLIPMapViewModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\VerticalDSLIPMapViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

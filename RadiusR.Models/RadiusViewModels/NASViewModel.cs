@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using RadiusR_Manager.Models.ViewModels;
 
 namespace RadiusR_Manager.Models.RadiusViewModels
 {
@@ -103,7 +104,6 @@ namespace RadiusR_Manager.Models.RadiusViewModels
                     case (short)RadiusR.DB.Enums.NATType.Horizontal:
                         return NetmapInfo;
                     case (short)RadiusR.DB.Enums.NATType.Vertical:
-                    case (short)RadiusR.DB.Enums.NATType.VerticalDSL:
                         return IPMapInfo;
                     default:
                         return "-";
@@ -130,5 +130,7 @@ namespace RadiusR_Manager.Models.RadiusViewModels
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "NetmapList")]
         [UIHint("Netmap")]
         public IEnumerable<NASNetmapViewModel> NASNetmaps { get; set; }
+
+        public VerticalDSLIPMapViewModel VerticalDSLIPMaps { get; set; }
     }
 }

@@ -53,7 +53,12 @@ namespace RadiusR_Manager.Controllers
                     LocalIPSubnet = netmap.LocalIPSubnet,
                     RealIPSubnet = netmap.RealIPSubnet,
                     _PortCount = netmap.PortCount
-                })
+                }),
+                VerticalDSLIPMaps = nas.NASVerticalDSLIPMap != null ? new VerticalDSLIPMapViewModel()
+                {
+                    DSLLinesStringValue = nas.NASVerticalDSLIPMap.DSLLineIPs,
+                    LocalIPSubnetsStringValue = nas.NASVerticalDSLIPMap.LocalIPPools
+                } : null
             });
             SetupPages(page, ref viewResults);
             return View(viewResults);
@@ -184,25 +189,25 @@ namespace RadiusR_Manager.Controllers
                 else
                 {
                     // changes in NAT rules ------------
-                    if (dbNas.NATType != nas.NATType)
-                    {
-                        var router = new MikrotikRouter(new MikrotikApiCredentials(dbNas.IP, dbNas.ApiPort, dbNas.ApiUsername, dbNas.ApiPassword), 10000);
-                        if (!router.ConfirmVerticalNAT(true) || !router.ClearActiveVerticalNATs())
-                        {
-                            ModelState.AddModelError("Router", RadiusR.Localization.Pages.ErrorMessages._19);
-                            logger.Error(router.ExceptionLog);
-                        }
-                        if (!router.ConfirmNetmapChanges(true) || !router.ClearActiveNetmaps())
-                        {
-                            ModelState.AddModelError("Router", RadiusR.Localization.Pages.ErrorMessages._19);
-                            logger.Error(router.ExceptionLog);
-                        }
-                        if (ModelState.IsValid)
-                        {
-                            db.NASVerticalIPMaps.RemoveRange(dbNas.NASVerticalIPMaps);
-                            db.NASNetmaps.RemoveRange(dbNas.NASNetmaps);
-                        }
-                    }
+                    //if (dbNas.NATType != nas.NATType)
+                    //{
+                    //    var router = new MikrotikRouter(new MikrotikApiCredentials(dbNas.IP, dbNas.ApiPort, dbNas.ApiUsername, dbNas.ApiPassword), 10000);
+                    //    if (!router.ConfirmVerticalNAT(true) || !router.ClearActiveVerticalNATs())
+                    //    {
+                    //        ModelState.AddModelError("Router", RadiusR.Localization.Pages.ErrorMessages._19);
+                    //        logger.Error(router.ExceptionLog);
+                    //    }
+                    //    if (!router.ConfirmNetmapChanges(true) || !router.ClearActiveNetmaps())
+                    //    {
+                    //        ModelState.AddModelError("Router", RadiusR.Localization.Pages.ErrorMessages._19);
+                    //        logger.Error(router.ExceptionLog);
+                    //    }
+                    //    if (ModelState.IsValid)
+                    //    {
+                    //        db.NASVerticalIPMaps.RemoveRange(dbNas.NASVerticalIPMaps);
+                    //        db.NASNetmaps.RemoveRange(dbNas.NASNetmaps);
+                    //    }
+                    //}
                     //----------------------------------
                     if (ModelState.IsValid)
                     {
@@ -215,6 +220,12 @@ namespace RadiusR_Manager.Controllers
                         dbNas.ApiUsername = nas.ApiUsername;
                         dbNas.ApiPassword = nas.ApiPassword;
                         dbNas.ApiPort = int.Parse(nas.ApiPort);
+                        if(dbNas.NATType != nas.NATType)
+                        {
+                            db.NASVerticalIPMaps.RemoveRange(dbNas.NASVerticalIPMaps);
+                            db.NASNetmaps.RemoveRange(dbNas.NASNetmaps);
+                            db.NASVerticalDSLIPMaps.Remove(dbNas.NASVerticalDSLIPMap);
+                        }
                         dbNas.NATType = nas.NATType;
 
                         db.SaveChanges();
@@ -258,11 +269,115 @@ namespace RadiusR_Manager.Controllers
                 case (int)NATType.Horizontal:
                     return RedirectToAction("EditNetmap", new { id = dbNAS.ID });
                 case (int)NATType.Vertical:
-                case (int)NATType.VerticalDSL:
                     return RedirectToAction("EditVerticalIPMaps", new { id = dbNAS.ID });
+                case (int)NATType.VerticalDSL:
+                    return RedirectToAction("EditVerticalDSLIPMaps", new { id = dbNAS.ID });
                 default:
                     return RedirectToAction("Index", new { errorMessage = 9 });
             }
+        }
+
+        [HttpGet]
+        // GET: NAS/EditVerticalDSLIPMaps
+        public ActionResult EditVerticalDSLIPMaps(int id)
+        {
+            var validNATTypes = new List<NATType>()
+            {
+                NATType.VerticalDSL,
+            };
+
+            var dbNAS = db.NAS.Find(id);
+            if (dbNAS == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 20 });
+            }
+            if (!validNATTypes.Contains((NATType)dbNAS.NATType))
+            {
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            }
+
+            var ipMap = new VerticalDSLIPMapViewModel()
+            {
+                DSLLines = new VerticalDSLIPMapViewModel.IP[0],
+                LocalIPSubnets = new VerticalDSLIPMapViewModel.IPSubnet[0]
+            };
+
+            if (dbNAS.NASVerticalDSLIPMap != null)
+            {
+                ipMap.DSLLinesStringValue = dbNAS.NASVerticalDSLIPMap.DSLLineIPs;
+                ipMap.LocalIPSubnetsStringValue = dbNAS.NASVerticalDSLIPMap.LocalIPPools;
+            }
+
+            ViewBag.NASName = dbNAS.Name;
+            return View(ipMap);
+        }
+
+        // POST: NAS/EditVerticalDSLIPMaps
+        public ActionResult EditVerticalDSLIPMaps(int id, VerticalDSLIPMapViewModel ipMap)
+        {
+            var validNATTypes = new List<NATType>()
+            {
+                NATType.VerticalDSL,
+            };
+
+            var dbNAS = db.NAS.Find(id);
+            if (dbNAS == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = 20 });
+            }
+            if (!validNATTypes.Contains((NATType)dbNAS.NATType))
+            {
+                return RedirectToAction("Index", new { errorMessage = 9 });
+            }
+
+            if (ModelState.IsValid)
+            {
+                ipMap.LocalIPSubnets = ipMap.LocalIPSubnets ?? new VerticalDSLIPMapViewModel.IPSubnet[0];
+                ipMap.DSLLines = ipMap.DSLLines ?? new VerticalDSLIPMapViewModel.IP[0];
+                if (ipMap.LocalIPSubnets.Any() ^ ipMap.DSLLines.Any() )
+                {
+                    if (ipMap.LocalIPSubnets.Any())
+                    {
+                        ModelState.AddModelError("DSLLines", string.Format(RadiusR.Localization.Validation.Common.Required, RadiusR.Localization.Model.RadiusR.DSLLineIPs));
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("LocalIPSubnets", string.Format(RadiusR.Localization.Validation.Common.Required, RadiusR.Localization.Model.RadiusR.LocalIPPools));
+                    }
+                }
+                else if(!ipMap.LocalIPSubnets.Any() && !ipMap.DSLLines.Any())
+                {
+                    if (dbNAS.NASVerticalDSLIPMap != null)
+                    {
+                        db.NASVerticalDSLIPMaps.Remove(dbNAS.NASVerticalDSLIPMap);
+                        db.SaveChanges();
+                    }
+                    return RedirectToAction("Index", new { errorMessage = 0 });
+                }
+                else
+                {
+                    if (dbNAS.NASVerticalDSLIPMap == null)
+                    {
+                        dbNAS.NASVerticalDSLIPMap = new NASVerticalDSLIPMap()
+                        {
+                            DSLLineIPs = ipMap.DSLLinesStringValue,
+                            LocalIPPools = ipMap.LocalIPSubnetsStringValue
+                        };
+                    }
+                    else
+                    {
+                        dbNAS.NASVerticalDSLIPMap.DSLLineIPs = ipMap.DSLLinesStringValue;
+                        dbNAS.NASVerticalDSLIPMap.LocalIPPools = ipMap.LocalIPSubnetsStringValue;
+                    }
+
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index", new { errorMessage = 0 });
+                }
+            }
+
+            ViewBag.NASName = dbNAS.Name;
+            return View(ipMap);
         }
 
         [HttpGet]
@@ -272,7 +387,6 @@ namespace RadiusR_Manager.Controllers
             var validNATTypes = new List<NATType>()
             {
                 NATType.Vertical,
-                NATType.VerticalDSL
             };
 
             var dbNAS = db.NAS.Find(id);

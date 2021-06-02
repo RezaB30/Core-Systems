@@ -47,7 +47,16 @@
                 <td class="centered">
                     @Html.DisplayFor(modelItem => item.NATType)
                 </td>
-                <td class="centered" style="white-space: pre-line;">@Html.DisplayFor(modelItem => item.NATInfo)</td>
+                @if (item.NATType == (short)RadiusR.DB.Enums.NATType.VerticalDSL)
+                {
+                    <td class="centered">
+                        @Html.DisplayFor(modelItem => item.VerticalDSLIPMaps)
+                    </td>
+                }
+                else
+                {
+                    <td class="centered" style="white-space: pre-line;">@Html.DisplayFor(modelItem => item.NATInfo)</td>
+                }
                 <td>
                     @using (Html.BeginForm("Toggle", null, FormMethod.Post, new { @confirm = "enabled" }))
                     {

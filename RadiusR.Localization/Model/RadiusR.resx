@@ -1647,4 +1647,10 @@
   <data name="NonCashPaymentCommission" xml:space="preserve">
     <value>Non-Cash Payment Commission</value>
   </data>
+  <data name="DSLLineIPs" xml:space="preserve">
+    <value>DSL Line IPs</value>
+  </data>
+  <data name="LocalIPPools" xml:space="preserve">
+    <value>Local IP Pools</value>
+  </data>
 </root>

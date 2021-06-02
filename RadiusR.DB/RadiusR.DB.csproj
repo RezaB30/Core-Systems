@@ -228,6 +228,9 @@
     <Compile Include="NASNetmap.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="NASVerticalDSLIPMap.cs">
+      <DependentUpon>RadiusRModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="NASVerticalIPMap.cs">
       <DependentUpon>RadiusRModel.tt</DependentUpon>
     </Compile>
