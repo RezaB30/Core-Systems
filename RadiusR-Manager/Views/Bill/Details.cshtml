@@ -91,7 +91,7 @@
             }
             else if(Model.StateID == (short)BillState.Paid)
             {
-                @Html.ActionLink(RadiusR.Localization.Pages.Common.Print, "Receipt", new { billId = Model.ID, redirectUrl = Request.Url.Host + backUrl }, new { @class = "link-button iconed-button print-button", @style = "float: right;" })
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Print, "Receipt", new { billId = Model.ID, redirectUrl = Request.Url.Host + backUrl }, new { @class = "link-button iconed-button print-button", @style = "float: right;", @target = "_blank" })
                 if (User.HasPermission("Cancel Payment") && Model.PaymentTypeID != (short)PaymentType.OnlineBanking)
                 {
                     using (Html.BeginForm("CancelPayment", null, null, FormMethod.Post, new { @style = "display: inline-block; float: right; margin-right: 0.5em;", @confirm = "enabled" }))

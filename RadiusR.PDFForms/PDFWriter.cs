@@ -18,6 +18,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RadiusR.DB.Localization.Bills;
 
 namespace RadiusR.PDFForms
 {
@@ -93,7 +94,7 @@ namespace RadiusR.PDFForms
         {
             var subscription = db.Subscriptions.Find(SubscriptionID);
             var formType = subscription.Customer.CustomerType == (short)CustomerType.Individual ? PDFFormType.IndividualContract : PDFFormType.CorporateContract;
-            var elementList = LoadFormItems(db, formType, SubscriptionID, null, null, culture);
+            var elementList = LoadFormItems(db, formType, SubscriptionID, null, null, null, culture);
             var fileManager = new MasterISSFileManager();
             using (var pdfFormResult = fileManager.GetPDFForm(formType))
             using (var formAppendixResult = fileManager.GetContractAppendix())
@@ -110,7 +111,7 @@ namespace RadiusR.PDFForms
         {
             var subscription = db.Subscriptions.Find(subscriptionID);
             var formType = subscription.Customer.CustomerType == (short)CustomerType.Individual ? PDFFormType.IndividualTransition : PDFFormType.CorporateTransition;
-            var elementList = LoadFormItems(db, formType, subscriptionID, null, null, culture);
+            var elementList = LoadFormItems(db, formType, subscriptionID, null, null, null, culture);
             var fileManager = new MasterISSFileManager();
             using (var pdfFormResult = fileManager.GetPDFForm(formType))
             {
@@ -124,7 +125,7 @@ namespace RadiusR.PDFForms
 
         public static FileManagerResult<Stream> GetPSTNtoNakedPDF(RadiusREntities db, long subscriptionID, CultureInfo culture = null)
         {
-            var elementList = LoadFormItems(db, PDFFormType.PSTNtoNaked, subscriptionID, null, null, culture);
+            var elementList = LoadFormItems(db, PDFFormType.PSTNtoNaked, subscriptionID, null, null, null, culture);
             var fileManager = new MasterISSFileManager();
             using (var pdfFormResult = fileManager.GetPDFForm(PDFFormType.PSTNtoNaked))
             {
@@ -138,7 +139,7 @@ namespace RadiusR.PDFForms
 
         public static FileManagerResult<Stream> GetTransferPDF(RadiusREntities db, long transferringSubscriptionID, long transferredSubscriptionID, CultureInfo culture = null)
         {
-            var elementList = LoadFormItems(db, PDFFormType.Transfer, null, transferringSubscriptionID, transferredSubscriptionID, culture);
+            var elementList = LoadFormItems(db, PDFFormType.Transfer, null, transferringSubscriptionID, transferredSubscriptionID, null, culture);
             var fileManager = new MasterISSFileManager();
             using (var pdfFormResult = fileManager.GetPDFForm(PDFFormType.Transfer))
             {
@@ -152,7 +153,7 @@ namespace RadiusR.PDFForms
 
         public static FileManagerResult<Stream> GetTransportPDF(RadiusREntities db, long subscriptionID, CultureInfo culture = null)
         {
-            var elementList = LoadFormItems(db, PDFFormType.Transport, subscriptionID, null, null, culture);
+            var elementList = LoadFormItems(db, PDFFormType.Transport, subscriptionID, null, null, null, culture);
             var fileManager = new MasterISSFileManager();
             using (var pdfFormResult = fileManager.GetPDFForm(PDFFormType.Transport))
             {
@@ -164,9 +165,24 @@ namespace RadiusR.PDFForms
             }
         }
 
-        private static IEnumerable<PDFElement> LoadFormItems(RadiusREntities db, PDFFormType formType, long? subscriptionId, long? transferringSubscriptionId, long? transferredSubscriptionId, CultureInfo culture = null)
+        public static FileManagerResult<Stream> GetBillReceiptPDF(RadiusREntities db, long subscriptionID, long billId, CultureInfo culture = null)
+        {
+            var elementList = LoadFormItems(db, PDFFormType.BillReceipt, subscriptionID, null, null, billId, culture);
+            var fileManager = new MasterISSFileManager();
+            using (var pdfFormResult = fileManager.GetPDFForm(PDFFormType.BillReceipt))
+            {
+                if (pdfFormResult.InternalException != null)
+                {
+                    return new FileManagerResult<Stream>(pdfFormResult.InternalException);
+                }
+                return new FileManagerResult<Stream>(CreatePDF(pdfFormResult.Result.Content, null, elementList));
+            }
+        }
+
+        private static IEnumerable<PDFElement> LoadFormItems(RadiusREntities db, PDFFormType formType, long? subscriptionId, long? transferringSubscriptionId, long? transferredSubscriptionId, long? billId, CultureInfo culture = null)
         {
             var subscription = subscriptionId.HasValue ? db.Subscriptions.Find(subscriptionId) : null;
+            var bill = billId.HasValue ? db.Bills.Find(billId) : null;
             var transferringSubscription = transferringSubscriptionId.HasValue ? db.Subscriptions.Find(transferringSubscriptionId) : null;
             var transferredSubscription = transferredSubscriptionId.HasValue ? db.Subscriptions.Find(transferredSubscriptionId) : null;
             var placeList = db.PDFFormItemPlacements.Where(item => item.FormType == (int)formType).ToList();
@@ -531,6 +547,278 @@ namespace RadiusR.PDFForms
                             elementList.Add(new PDFElement
                             {
                                 Text = transferringSubscription.Customer.CustomerType == (short)CustomerType.Individual ? transferringSubscription.Customer.CustomerIDCard.TCKNo : transferringSubscription.Customer.CorporateCustomerInfo?.TaxNo,
+                                Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                            });
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if (bill != null)
+                {
+                    var billFees = bill.BillFees.Select(bf => new { Name = bf.GetDisplayName(enforcedCulture: culture), Cost = bf.CurrentCost, Discount = bf.Discount?.Amount ?? 0m }).ToArray();
+                    var tlSign = CultureInfo.CreateSpecificCulture("tr-tr").NumberFormat.CurrencySymbol;
+                    switch ((PDFItemIDs)item.ItemID)
+                    {
+                        case PDFItemIDs.Bill_IssueDate:
+                            elementList.Add(new PDFElement()
+                            {
+                                Text = bill.IssueDate.ToString("dd MMMM yyyy", culture),
+                                Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                            });
+                            break;
+                        case PDFItemIDs.Bill_PaymentDate:
+                            if (bill.PayDate.HasValue)
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = bill.PayDate.Value.ToString("dd MMMM yyyy", culture),
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            break;
+                        case PDFItemIDs.Bill_FeeItems_1:
+                            if (billFees.Length > 0)
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = billFees[0].Name,
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            break;
+                        case PDFItemIDs.Bill_FeeItems_2:
+                            if (billFees.Length > 1)
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = billFees[1].Name,
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            break;
+                        case PDFItemIDs.Bill_FeeItems_3:
+                            if (billFees.Length > 2)
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = billFees[2].Name,
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            break;
+                        case PDFItemIDs.Bill_FeeItems_4:
+                            if (billFees.Length > 3)
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = billFees[3].Name,
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            break;
+                        case PDFItemIDs.Bill_FeeItems_5:
+                            if (billFees.Length > 4)
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = billFees[4].Name,
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            break;
+                        case PDFItemIDs.Bill_FeeItems_6:
+                            if (billFees.Length > 5)
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = billFees[5].Name,
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            break;
+                        case PDFItemIDs.Bill_FeeItems_7:
+                            if (billFees.Length > 6)
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = billFees[6].Name,
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            break;
+                        case PDFItemIDs.Bill_FeeItems_8:
+                            if (billFees.Length > 7)
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = billFees[7].Name,
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            break;
+                        case PDFItemIDs.Bill_FeeItems_9:
+                            if (billFees.Length > 8)
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = billFees[8].Name,
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            break;
+                        case PDFItemIDs.Bill_FeeItems_10:
+                            if (billFees.Length > 9)
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = billFees[9].Name,
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            break;
+                        case PDFItemIDs.Bill_FeeItems_11:
+                            if (billFees.Length > 10)
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = billFees[10].Name,
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            break;
+                        case PDFItemIDs.Bill_FeeItems_12:
+                            if (billFees.Length > 11)
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = billFees[11].Name,
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            break;
+                        case PDFItemIDs.Bill_FeeAmount_1:
+                            if (billFees.Length > 0)
+                            {
+                                var text = $"{billFees[0].Cost.ToString("###,##0,00", culture)}{tlSign}";
+                                var discountText = billFees[0].Discount > 0m ? $" - {billFees[0].Discount.ToString("###,##0,00", culture)}{tlSign}" : null;
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = $"{text}{discountText}",
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            }
+                            break;
+                        case PDFItemIDs.Bill_FeeAmount_2:
+                            if (billFees.Length > 1)
+                            {
+                                var text = $"{billFees[1].Cost.ToString("###,##0,00", culture)}{tlSign}";
+                                var discountText = billFees[1].Discount > 0m ? $" - {billFees[1].Discount.ToString("###,##0,00", culture)}{tlSign}" : null;
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = $"{text}{discountText}",
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            }
+                            break;
+                        case PDFItemIDs.Bill_FeeAmount_3:
+                            if (billFees.Length > 2)
+                            {
+                                var text = $"{billFees[2].Cost.ToString("###,##0,00", culture)}{tlSign}";
+                                var discountText = billFees[2].Discount > 0m ? $" - {billFees[2].Discount.ToString("###,##0,00", culture)}{tlSign}" : null;
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = $"{text}{discountText}",
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            }
+                            break;
+                        case PDFItemIDs.Bill_FeeAmount_4:
+                            if (billFees.Length > 3)
+                            {
+                                var text = $"{billFees[3].Cost.ToString("###,##0,00", culture)}{tlSign}";
+                                var discountText = billFees[3].Discount > 0m ? $" - {billFees[3].Discount.ToString("###,##0,00", culture)}{tlSign}" : null;
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = $"{text}{discountText}",
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            }
+                            break;
+                        case PDFItemIDs.Bill_FeeAmount_5:
+                            if (billFees.Length > 4)
+                            {
+                                var text = $"{billFees[4].Cost.ToString("###,##0,00", culture)}{tlSign}";
+                                var discountText = billFees[4].Discount > 0m ? $" - {billFees[4].Discount.ToString("###,##0,00", culture)}{tlSign}" : null;
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = $"{text}{discountText}",
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            }
+                            break;
+                        case PDFItemIDs.Bill_FeeAmount_6:
+                            if (billFees.Length > 5)
+                            {
+                                var text = $"{billFees[5].Cost.ToString("###,##0,00", culture)}{tlSign}";
+                                var discountText = billFees[5].Discount > 0m ? $" - {billFees[5].Discount.ToString("###,##0,00", culture)}{tlSign}" : null;
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = $"{text}{discountText}",
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            }
+                            break;
+                        case PDFItemIDs.Bill_FeeAmount_7:
+                            if (billFees.Length > 6)
+                            {
+                                var text = $"{billFees[6].Cost.ToString("###,##0,00", culture)}{tlSign}";
+                                var discountText = billFees[6].Discount > 0m ? $" - {billFees[6].Discount.ToString("###,##0,00", culture)}{tlSign}" : null;
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = $"{text}{discountText}",
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            }
+                            break;
+                        case PDFItemIDs.Bill_FeeAmount_8:
+                            if (billFees.Length > 7)
+                            {
+                                var text = $"{billFees[7].Cost.ToString("###,##0,00", culture)}{tlSign}";
+                                var discountText = billFees[7].Discount > 0m ? $" - {billFees[7].Discount.ToString("###,##0,00", culture)}{tlSign}" : null;
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = $"{text}{discountText}",
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            }
+                            break;
+                        case PDFItemIDs.Bill_FeeAmount_9:
+                            if (billFees.Length > 8)
+                            {
+                                var text = $"{billFees[8].Cost.ToString("###,##0,00", culture)}{tlSign}";
+                                var discountText = billFees[8].Discount > 0m ? $" - {billFees[8].Discount.ToString("###,##0,00", culture)}{tlSign}" : null;
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = $"{text}{discountText}",
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            }
+                            break;
+                        case PDFItemIDs.Bill_FeeAmount_10:
+                            if (billFees.Length > 9)
+                            {
+                                var text = $"{billFees[9].Cost.ToString("###,##0,00", culture)}{tlSign}";
+                                var discountText = billFees[9].Discount > 0m ? $" - {billFees[9].Discount.ToString("###,##0,00", culture)}{tlSign}" : null;
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = $"{text}{discountText}",
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            }
+                            break;
+                        case PDFItemIDs.Bill_FeeAmount_11:
+                            if (billFees.Length > 10)
+                            {
+                                var text = $"{billFees[10].Cost.ToString("###,##0,00", culture)}{tlSign}";
+                                var discountText = billFees[10].Discount > 0m ? $" - {billFees[10].Discount.ToString("###,##0,00", culture)}{tlSign}" : null;
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = $"{text}{discountText}",
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            }
+                            break;
+                        case PDFItemIDs.Bill_FeeAmount_12:
+                            if (billFees.Length > 11)
+                            {
+                                var text = $"{billFees[11].Cost.ToString("###,##0,00", culture)}{tlSign}";
+                                var discountText = billFees[11].Discount > 0m ? $" - {billFees[11].Discount.ToString("###,##0,00", culture)}{tlSign}" : null;
+                                elementList.Add(new PDFElement()
+                                {
+                                    Text = $"{text}{discountText}",
+                                    Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
+                                });
+                            }
+                            break;
+                        case PDFItemIDs.Bill_TotalFee:
+                            elementList.Add(new PDFElement()
+                            {
+                                Text = $"{billFees.Select(bf => bf.Cost - bf.Discount).DefaultIfEmpty(0m).Sum().ToString("###,###,##0.00", culture)}{tlSign}",
                                 Coords = new PointF(Convert.ToSingle(item.CoordsX), Convert.ToSingle(item.CoordsY))
                             });
                             break;

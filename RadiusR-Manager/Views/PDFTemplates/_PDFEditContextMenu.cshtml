@@ -7,6 +7,43 @@
 <!--Context menu-->
 <div class="pdf-context-menu-container" id="context-menu-root">
     <div class="pdf-context-menu-item root-item">
+        <span>@Html.DisplayNameFor(model => contextModel.Bills)</span>
+        <div class="pdf-context-menu-container">
+            @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillIssueDate)
+            @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillPaymentDate)
+            <div class="pdf-context-menu-item root-item">
+                <span>@Html.DisplayNameFor(model => contextModel.Bills.BillFees)</span>
+                <div class="pdf-context-menu-container">
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item1Name)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item2Name)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item3Name)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item4Name)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item5Name)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item6Name)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item7Name)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item8Name)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item9Name)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item10Name)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item11Name)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item12Name)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item1Fee)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item2Fee)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item3Fee)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item4Fee)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item5Fee)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item6Fee)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item7Fee)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item8Fee)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item9Fee)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item10Fee)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item11Fee)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.Item12Fee)
+                    @Html.PDFContextMenuItemFor(model => contextModel.Bills.BillFees.TotalFee)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pdf-context-menu-item root-item">
         <span>@Html.DisplayNameFor(model => contextModel.TransferAction)</span>
         <div class="pdf-context-menu-container">
             <div class="pdf-context-menu-item root-item">

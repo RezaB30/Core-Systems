@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Billing\AgentPayments\AgentPaymentTypes.cs" />
     <Compile Include="Billing\BillExtentions.cs" />
     <Compile Include="Billing\BillFeeExtentions.cs" />
     <Compile Include="Billing\BillingExtraFee.cs" />

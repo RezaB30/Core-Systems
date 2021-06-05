@@ -120,6 +120,90 @@
   <data name="BillingAddress" xml:space="preserve">
     <value>Billing Address</value>
   </data>
+  <data name="Bills" xml:space="preserve">
+    <value>Bills</value>
+  </data>
+  <data name="Bill_FeeAmount_1" xml:space="preserve">
+    <value>1st Item Fee</value>
+  </data>
+  <data name="Bill_FeeAmount_10" xml:space="preserve">
+    <value>10th Item Fee</value>
+  </data>
+  <data name="Bill_FeeAmount_11" xml:space="preserve">
+    <value>11th Item Fee</value>
+  </data>
+  <data name="Bill_FeeAmount_12" xml:space="preserve">
+    <value>12th Item Fee</value>
+  </data>
+  <data name="Bill_FeeAmount_2" xml:space="preserve">
+    <value>2nd Item Fee</value>
+  </data>
+  <data name="Bill_FeeAmount_3" xml:space="preserve">
+    <value>3rd Item Fee</value>
+  </data>
+  <data name="Bill_FeeAmount_4" xml:space="preserve">
+    <value>4th Item Fee</value>
+  </data>
+  <data name="Bill_FeeAmount_5" xml:space="preserve">
+    <value>5th Item Fee</value>
+  </data>
+  <data name="Bill_FeeAmount_6" xml:space="preserve">
+    <value>6th Item Fee</value>
+  </data>
+  <data name="Bill_FeeAmount_7" xml:space="preserve">
+    <value>7th Item Fee</value>
+  </data>
+  <data name="Bill_FeeAmount_8" xml:space="preserve">
+    <value>8th Item Fee</value>
+  </data>
+  <data name="Bill_FeeAmount_9" xml:space="preserve">
+    <value>9th Item Fee</value>
+  </data>
+  <data name="Bill_FeeItems_1" xml:space="preserve">
+    <value>1st Item Name</value>
+  </data>
+  <data name="Bill_FeeItems_10" xml:space="preserve">
+    <value>10th Item Name</value>
+  </data>
+  <data name="Bill_FeeItems_11" xml:space="preserve">
+    <value>11th Item Name</value>
+  </data>
+  <data name="Bill_FeeItems_12" xml:space="preserve">
+    <value>12th Item Name</value>
+  </data>
+  <data name="Bill_FeeItems_2" xml:space="preserve">
+    <value>2nd Item Name</value>
+  </data>
+  <data name="Bill_FeeItems_3" xml:space="preserve">
+    <value>3rd Item Name</value>
+  </data>
+  <data name="Bill_FeeItems_4" xml:space="preserve">
+    <value>4th Item Name</value>
+  </data>
+  <data name="Bill_FeeItems_5" xml:space="preserve">
+    <value>5th Item Name</value>
+  </data>
+  <data name="Bill_FeeItems_6" xml:space="preserve">
+    <value>6th Item Name</value>
+  </data>
+  <data name="Bill_FeeItems_7" xml:space="preserve">
+    <value>7th Item Name</value>
+  </data>
+  <data name="Bill_FeeItems_8" xml:space="preserve">
+    <value>8th Item Name</value>
+  </data>
+  <data name="Bill_FeeItems_9" xml:space="preserve">
+    <value>9th Item Name</value>
+  </data>
+  <data name="Bill_IssueDate" xml:space="preserve">
+    <value>Bill Issue Date</value>
+  </data>
+  <data name="Bill_PaymentDate" xml:space="preserve">
+    <value>Bill Payment Date</value>
+  </data>
+  <data name="Bill_TotalFee" xml:space="preserve">
+    <value>Total Fee</value>
+  </data>
   <data name="BirthDate" xml:space="preserve">
     <value>Birth Date</value>
   </data>
@@ -149,6 +233,9 @@
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>First Name</value>
+  </data>
+  <data name="InvoiceItems" xml:space="preserve">
+    <value>Invoice Items</value>
   </data>
   <data name="LandPhone_No" xml:space="preserve">
     <value>Land Phone No</value>

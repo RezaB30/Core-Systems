@@ -61,11 +61,263 @@ namespace RadiusR.Localization.Lists {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 1st Item Fee.
+        /// </summary>
+        public static string Bill_FeeAmount_1 {
+            get {
+                return ResourceManager.GetString("Bill_FeeAmount_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 10th Item Fee.
+        /// </summary>
+        public static string Bill_FeeAmount_10 {
+            get {
+                return ResourceManager.GetString("Bill_FeeAmount_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 11th Item Fee.
+        /// </summary>
+        public static string Bill_FeeAmount_11 {
+            get {
+                return ResourceManager.GetString("Bill_FeeAmount_11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 12th Item Fee.
+        /// </summary>
+        public static string Bill_FeeAmount_12 {
+            get {
+                return ResourceManager.GetString("Bill_FeeAmount_12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2nd Item Fee.
+        /// </summary>
+        public static string Bill_FeeAmount_2 {
+            get {
+                return ResourceManager.GetString("Bill_FeeAmount_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3rd Item Fee.
+        /// </summary>
+        public static string Bill_FeeAmount_3 {
+            get {
+                return ResourceManager.GetString("Bill_FeeAmount_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 4th Item Fee.
+        /// </summary>
+        public static string Bill_FeeAmount_4 {
+            get {
+                return ResourceManager.GetString("Bill_FeeAmount_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 5th Item Fee.
+        /// </summary>
+        public static string Bill_FeeAmount_5 {
+            get {
+                return ResourceManager.GetString("Bill_FeeAmount_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 6th Item Fee.
+        /// </summary>
+        public static string Bill_FeeAmount_6 {
+            get {
+                return ResourceManager.GetString("Bill_FeeAmount_6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 7th Item Fee.
+        /// </summary>
+        public static string Bill_FeeAmount_7 {
+            get {
+                return ResourceManager.GetString("Bill_FeeAmount_7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 8th Item Fee.
+        /// </summary>
+        public static string Bill_FeeAmount_8 {
+            get {
+                return ResourceManager.GetString("Bill_FeeAmount_8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 9th Item Fee.
+        /// </summary>
+        public static string Bill_FeeAmount_9 {
+            get {
+                return ResourceManager.GetString("Bill_FeeAmount_9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1st Item Name.
+        /// </summary>
+        public static string Bill_FeeItems_1 {
+            get {
+                return ResourceManager.GetString("Bill_FeeItems_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 10th Item Name.
+        /// </summary>
+        public static string Bill_FeeItems_10 {
+            get {
+                return ResourceManager.GetString("Bill_FeeItems_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 11th Item Name.
+        /// </summary>
+        public static string Bill_FeeItems_11 {
+            get {
+                return ResourceManager.GetString("Bill_FeeItems_11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 12th Item Name.
+        /// </summary>
+        public static string Bill_FeeItems_12 {
+            get {
+                return ResourceManager.GetString("Bill_FeeItems_12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2nd Item Name.
+        /// </summary>
+        public static string Bill_FeeItems_2 {
+            get {
+                return ResourceManager.GetString("Bill_FeeItems_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3rd Item Name.
+        /// </summary>
+        public static string Bill_FeeItems_3 {
+            get {
+                return ResourceManager.GetString("Bill_FeeItems_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 4th Item Name.
+        /// </summary>
+        public static string Bill_FeeItems_4 {
+            get {
+                return ResourceManager.GetString("Bill_FeeItems_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 5th Item Name.
+        /// </summary>
+        public static string Bill_FeeItems_5 {
+            get {
+                return ResourceManager.GetString("Bill_FeeItems_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 6th Item Name.
+        /// </summary>
+        public static string Bill_FeeItems_6 {
+            get {
+                return ResourceManager.GetString("Bill_FeeItems_6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 7th Item Name.
+        /// </summary>
+        public static string Bill_FeeItems_7 {
+            get {
+                return ResourceManager.GetString("Bill_FeeItems_7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 8th Item Name.
+        /// </summary>
+        public static string Bill_FeeItems_8 {
+            get {
+                return ResourceManager.GetString("Bill_FeeItems_8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 9th Item Name.
+        /// </summary>
+        public static string Bill_FeeItems_9 {
+            get {
+                return ResourceManager.GetString("Bill_FeeItems_9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bill Issue Date.
+        /// </summary>
+        public static string Bill_IssueDate {
+            get {
+                return ResourceManager.GetString("Bill_IssueDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bill Payment Date.
+        /// </summary>
+        public static string Bill_PaymentDate {
+            get {
+                return ResourceManager.GetString("Bill_PaymentDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Fee.
+        /// </summary>
+        public static string Bill_TotalFee {
+            get {
+                return ResourceManager.GetString("Bill_TotalFee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Billing Address.
         /// </summary>
         public static string BillingAddress {
             get {
                 return ResourceManager.GetString("BillingAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bills.
+        /// </summary>
+        public static string Bills {
+            get {
+                return ResourceManager.GetString("Bills", resourceCulture);
             }
         }
         
@@ -156,6 +408,15 @@ namespace RadiusR.Localization.Lists {
         public static string FirstName {
             get {
                 return ResourceManager.GetString("FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoice Items.
+        /// </summary>
+        public static string InvoiceItems {
+            get {
+                return ResourceManager.GetString("InvoiceItems", resourceCulture);
             }
         }
         

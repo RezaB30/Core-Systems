@@ -1,4 +1,5 @@
 ﻿using RadiusR.DB.Enums;
+using RadiusR.DB.Utilities.Billing.AgentPayments;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -30,7 +31,7 @@ namespace RadiusR.DB.Utilities.Billing
                     bill.PayDate = DateTime.Now;
                     bill.AccountantID = accountantId;
                     // agent control
-                    if (bill.Subscription.AgentID.HasValue && paymentType == PaymentType.Cash && bill.Subscription.AgentID != gateway?.PaymentAgent?.ID)
+                    if (bill.Subscription.AgentID.HasValue && AgentPaymentTypes.NegativeAllowancePayments.Contains(paymentType) && bill.Subscription.AgentID != gateway?.PaymentAgent?.ID)
                     {
                         return ResponseType.CannotPayForAgentSubscriptionInCash;
                     }
@@ -58,10 +59,10 @@ namespace RadiusR.DB.Utilities.Billing
                             {
                                 var totalTariffPayableFee = tariffFees.Select(tf => tf.CurrentCost - (tf.Discount != null ? tf.Discount.Amount : 0m)).Sum();
                                 var allowance = gateway.PaymentAgent.Allowance * totalTariffPayableFee;
-                                if (paymentType == PaymentType.Cash)
+                                if (AgentPaymentTypes.NegativeAllowancePayments.Contains(paymentType))
                                     allowance -= bill.GetPayableCost();
                                 var commission = 0m;
-                                if (paymentType == PaymentType.MobilExpress || paymentType == PaymentType.VirtualPos || paymentType == PaymentType.PhysicalPos)
+                                if (AgentPaymentTypes.CommissionedPayments.Contains(paymentType))
                                     commission = AgentsSettings.AgentsNonCashPaymentCommission;
                                 bill.AgentRelatedPayments.Add(new AgentRelatedPayment()
                                 {

@@ -122,6 +122,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RadiusR.DB.Localization\RadiusR.DB.Localization.csproj">
+      <Project>{c984a181-77b1-4bc8-bbe0-27300753ae9f}</Project>
+      <Name>RadiusR.DB.Localization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RadiusR.DB\RadiusR.DB.csproj">
       <Project>{1475b653-8eef-42d3-aa5f-d811aabca41c}</Project>
       <Name>RadiusR.DB</Name>

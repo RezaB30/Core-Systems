@@ -12,9 +12,9 @@ namespace RadiusR.DB.Localization.Bills
 {
     public static class BillFeeExtentions
     {
-        public static string GetDisplayName(this BillFee billFee, bool useClientCulture = false)
+        public static string GetDisplayName(this BillFee billFee, bool useClientCulture = false, CultureInfo enforcedCulture =  null)
         {
-            var culture = useClientCulture ? CultureInfo.CreateSpecificCulture(billFee.Bill.Subscription.Customer.Culture) : Thread.CurrentThread.CurrentCulture;
+            var culture = useClientCulture ? CultureInfo.CreateSpecificCulture(billFee.Bill.Subscription.Customer.Culture) : enforcedCulture != null ? enforcedCulture : Thread.CurrentThread.CurrentCulture;
 
             var results = new LocalizedList<FeeType, RadiusR.Localization.Lists.FeeType>().GetDisplayText(billFee.FeeTypeID ?? billFee.Fee.FeeTypeID, culture);
             if (billFee.Fee != null && billFee.Fee.FeeTypeVariant != null)

@@ -120,6 +120,90 @@
   <data name="BillingAddress" xml:space="preserve">
     <value>Fatura Adresi</value>
   </data>
+  <data name="Bills" xml:space="preserve">
+    <value>Faturalar</value>
+  </data>
+  <data name="Bill_FeeAmount_1" xml:space="preserve">
+    <value>1. Kalem Fiyatı</value>
+  </data>
+  <data name="Bill_FeeAmount_10" xml:space="preserve">
+    <value>10. Kalem Fiyatı</value>
+  </data>
+  <data name="Bill_FeeAmount_11" xml:space="preserve">
+    <value>11. Kalem Fiyatı</value>
+  </data>
+  <data name="Bill_FeeAmount_12" xml:space="preserve">
+    <value>12. Kalem Fiyatı</value>
+  </data>
+  <data name="Bill_FeeAmount_2" xml:space="preserve">
+    <value>2. Kalem Fiyatı</value>
+  </data>
+  <data name="Bill_FeeAmount_3" xml:space="preserve">
+    <value>3. Kalem Fiyatı</value>
+  </data>
+  <data name="Bill_FeeAmount_4" xml:space="preserve">
+    <value>4. Kalem Fiyatı</value>
+  </data>
+  <data name="Bill_FeeAmount_5" xml:space="preserve">
+    <value>5. Kalem Fiyatı</value>
+  </data>
+  <data name="Bill_FeeAmount_6" xml:space="preserve">
+    <value>6. Kalem Fiyatı</value>
+  </data>
+  <data name="Bill_FeeAmount_7" xml:space="preserve">
+    <value>7. Kalem Fiyatı</value>
+  </data>
+  <data name="Bill_FeeAmount_8" xml:space="preserve">
+    <value>8. Kalem Fiyatı</value>
+  </data>
+  <data name="Bill_FeeAmount_9" xml:space="preserve">
+    <value>9. Kalem Fiyatı</value>
+  </data>
+  <data name="Bill_FeeItems_1" xml:space="preserve">
+    <value>1. Kalem Adı</value>
+  </data>
+  <data name="Bill_FeeItems_10" xml:space="preserve">
+    <value>10. Kalem Adı</value>
+  </data>
+  <data name="Bill_FeeItems_11" xml:space="preserve">
+    <value>11. Kalem Adı</value>
+  </data>
+  <data name="Bill_FeeItems_12" xml:space="preserve">
+    <value>12. Kalem Adı</value>
+  </data>
+  <data name="Bill_FeeItems_2" xml:space="preserve">
+    <value>2. Kalem Adı</value>
+  </data>
+  <data name="Bill_FeeItems_3" xml:space="preserve">
+    <value>3. Kalem Adı</value>
+  </data>
+  <data name="Bill_FeeItems_4" xml:space="preserve">
+    <value>4. Kalem Adı</value>
+  </data>
+  <data name="Bill_FeeItems_5" xml:space="preserve">
+    <value>5. Kalem Adı</value>
+  </data>
+  <data name="Bill_FeeItems_6" xml:space="preserve">
+    <value>6. Kalem Adı</value>
+  </data>
+  <data name="Bill_FeeItems_7" xml:space="preserve">
+    <value>7. Kalem Adı</value>
+  </data>
+  <data name="Bill_FeeItems_8" xml:space="preserve">
+    <value>8. Kalem Adı</value>
+  </data>
+  <data name="Bill_FeeItems_9" xml:space="preserve">
+    <value>9. Kalem Adı</value>
+  </data>
+  <data name="Bill_IssueDate" xml:space="preserve">
+    <value>Fatura Oluşturma Tarihi</value>
+  </data>
+  <data name="Bill_PaymentDate" xml:space="preserve">
+    <value>Fatura Ödeme Tarihi</value>
+  </data>
+  <data name="Bill_TotalFee" xml:space="preserve">
+    <value>Toplam Fiyat</value>
+  </data>
   <data name="BirthDate" xml:space="preserve">
     <value>Doğum Tarihi</value>
   </data>
@@ -149,6 +233,9 @@
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>Adı</value>
+  </data>
+  <data name="InvoiceItems" xml:space="preserve">
+    <value>Fatura Kalemleri</value>
   </data>
   <data name="LandPhone_No" xml:space="preserve">
     <value>Sabit Telefon Yok</value>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RadiusR.DB.Utilities.Billing;
 using RadiusR.DB.Enums;
+using RadiusR.DB.Utilities.Billing.AgentPayments;
 
 namespace RadiusR.DB.Utilities.Billing
 {
@@ -36,7 +37,7 @@ namespace RadiusR.DB.Utilities.Billing
                 PayDate = DateTime.Now,
                 PaymentTypeID = (short)paymentType,
                 Source = (short)BillSources.Manual,
-                ExternalPayment = paymentServiceUser != null ? new ExternalPayment() { RadiusRBillingService = paymentServiceUser } :null,
+                ExternalPayment = paymentServiceUser != null ? new ExternalPayment() { RadiusRBillingService = paymentServiceUser } : null,
                 BillFees = allTimeFees.Select(fee => new BillFee()
                 {
                     CurrentCost = (fee.FeeTypeCost.Cost ?? fee.FeeTypeVariant.Price) * (decimal)addedPeriods,
@@ -76,6 +77,25 @@ namespace RadiusR.DB.Utilities.Billing
                 {
                     Date = DateTime.Now,
                     Amount = (-1m * totalFee) + cashierProfitCut
+                });
+            }
+
+            if (dbSubscription.Agent != null)
+            {
+                var currentTariffCost = addedBill.BillFees.Select(tf => tf.CurrentCost - (tf.Discount != null ? tf.Discount.Amount : 0m)).Sum();
+                var allowance = currentTariffCost * dbSubscription.Agent.Allowance;
+                if (AgentPaymentTypes.NegativeAllowancePayments.Contains(paymentType))
+                {
+                    allowance -= addedBill.GetPayableCost();
+                }
+                var commission = 0m;
+                if (AgentPaymentTypes.CommissionedPayments.Contains(paymentType))
+                    commission = AgentsSettings.AgentsNonCashPaymentCommission;
+                addedBill.AgentRelatedPayments.Add(new AgentRelatedPayment()
+                {
+                    AgentID = dbSubscription.AgentID.Value,
+                    Allowance = allowance,
+                    ExtraCommission = commission,
                 });
             }
 

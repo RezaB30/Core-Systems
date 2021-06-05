@@ -61,6 +61,15 @@ namespace RadiusR.Localization.Lists {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bill Receipt.
+        /// </summary>
+        public static string BillReceipt {
+            get {
+                return ResourceManager.GetString("BillReceipt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Corporate Subscription Application Form.
         /// </summary>
         public static string CorporateContract {

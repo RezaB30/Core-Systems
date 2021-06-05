@@ -103,6 +103,9 @@ namespace RadiusR_Manager.Models.ViewModels.PDFTemplates
         [Display(ResourceType = typeof(RadiusR.Localization.Model.RadiusR), Name = "Transfer")]
         public Transfer TransferAction { get { return new Transfer(); } }
 
+        [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bills")]
+        public BillInfo Bills { get { return new BillInfo(); } }
+
         #region Subclasses
         public class ResidencyAddress
         {
@@ -257,6 +260,97 @@ namespace RadiusR_Manager.Models.ViewModels.PDFTemplates
 
             [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "LandPhone_No")]
             public int No { get { return (int)PDFItemIDs.LandPhone_No; } }
+        }
+
+        public class BillInfo
+        {
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_IssueDate")]
+            public int BillIssueDate { get { return (int)PDFItemIDs.Bill_IssueDate; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_PaymentDate")]
+            public int BillPaymentDate { get { return (int)PDFItemIDs.Bill_PaymentDate; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "InvoiceItems")]
+            public BillFeeInfo BillFees { get { return new BillFeeInfo(); } }
+        }
+
+        public class BillFeeInfo
+        {
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeItems_1")]
+            public int Item1Name { get { return (int)PDFItemIDs.Bill_FeeItems_1; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeItems_2")]
+            public int Item2Name { get { return (int)PDFItemIDs.Bill_FeeItems_2; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeItems_3")]
+            public int Item3Name { get { return (int)PDFItemIDs.Bill_FeeItems_3; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeItems_4")]
+            public int Item4Name { get { return (int)PDFItemIDs.Bill_FeeItems_4; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeItems_5")]
+            public int Item5Name { get { return (int)PDFItemIDs.Bill_FeeItems_5; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeItems_6")]
+            public int Item6Name { get { return (int)PDFItemIDs.Bill_FeeItems_6; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeItems_7")]
+            public int Item7Name { get { return (int)PDFItemIDs.Bill_FeeItems_7; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeItems_8")]
+            public int Item8Name { get { return (int)PDFItemIDs.Bill_FeeItems_8; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeItems_9")]
+            public int Item9Name { get { return (int)PDFItemIDs.Bill_FeeItems_9; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeItems_10")]
+            public int Item10Name { get { return (int)PDFItemIDs.Bill_FeeItems_10; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeItems_11")]
+            public int Item11Name { get { return (int)PDFItemIDs.Bill_FeeItems_11; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeItems_12")]
+            public int Item12Name { get { return (int)PDFItemIDs.Bill_FeeItems_12; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeAmount_1")]
+            public int Item1Fee { get { return (int)PDFItemIDs.Bill_FeeAmount_1; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeAmount_2")]
+            public int Item2Fee { get { return (int)PDFItemIDs.Bill_FeeAmount_2; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeAmount_3")]
+            public int Item3Fee { get { return (int)PDFItemIDs.Bill_FeeAmount_3; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeAmount_4")]
+            public int Item4Fee { get { return (int)PDFItemIDs.Bill_FeeAmount_4; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeAmount_5")]
+            public int Item5Fee { get { return (int)PDFItemIDs.Bill_FeeAmount_5; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeAmount_6")]
+            public int Item6Fee { get { return (int)PDFItemIDs.Bill_FeeAmount_6; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeAmount_7")]
+            public int Item7Fee { get { return (int)PDFItemIDs.Bill_FeeAmount_7; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeAmount_8")]
+            public int Item8Fee { get { return (int)PDFItemIDs.Bill_FeeAmount_8; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeAmount_9")]
+            public int Item9Fee { get { return (int)PDFItemIDs.Bill_FeeAmount_9; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeAmount_10")]
+            public int Item10Fee { get { return (int)PDFItemIDs.Bill_FeeAmount_10; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeAmount_11")]
+            public int Item11Fee { get { return (int)PDFItemIDs.Bill_FeeAmount_11; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_FeeAmount_12")]
+            public int Item12Fee { get { return (int)PDFItemIDs.Bill_FeeAmount_12; } }
+
+            [Display(ResourceType = typeof(RadiusR.Localization.Lists.PDFItemIDs), Name = "Bill_TotalFee")]
+            public int TotalFee { get { return (int)PDFItemIDs.Bill_TotalFee; } }
+
         }
         #endregion
     }

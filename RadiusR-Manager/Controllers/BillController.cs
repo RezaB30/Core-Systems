@@ -531,6 +531,13 @@ namespace RadiusR_Manager.Controllers
                 return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
             }
 
+            var results = RadiusR.PDFForms.PDFWriter.GetBillReceiptPDF(db, dbBill.SubscriptionID, dbBill.ID);
+            if (results.InternalException != null)
+            {
+                return Content($"<div class='text-danger centered'>{RadiusR.Localization.Pages.Common.FileManagerError}</div>");
+            }
+            return File(results.Result, "application/pdf");
+
             ReceiptViewModel receipt = new ReceiptViewModel()
             {
                 ClientName = dbBill.Subscription.ValidDisplayName,

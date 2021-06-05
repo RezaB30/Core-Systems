@@ -15,5 +15,6 @@ namespace RadiusR.DB.Enums
         PSTNtoNaked = 5,
         Transfer = 6,
         Transport = 7,
+        BillReceipt = 8,
     }
 }

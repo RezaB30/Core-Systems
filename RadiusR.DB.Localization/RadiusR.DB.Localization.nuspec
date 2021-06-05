@@ -2,18 +2,19 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.4.1</version>
-    <title>RadiusR.DB</title>
+    <version>1.0.2</version>
+    <title>RadiusR.DB.Localization</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
-    <description>MasterISS core data base.</description>
-    <releaseNotes>update.</releaseNotes>
+    <description>Database localization extention for MasterISS.</description>
+    <releaseNotes>First release.</releaseNotes>
     <copyright>$copyright$</copyright>
-    <tags>MasterISS Database</tags>
+    <tags>MasterISS Database Localization</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />
 	<dependencies>
-		<dependency id="RezaB.DBUtilities" version="1.0.0"/>
+		<dependency id="RadiusR.Localization" version="1.0.9"/>
+		<dependency id="RadiusR.DB" version="1.4.1"/>
 	</dependencies>
   </metadata>
 </package>

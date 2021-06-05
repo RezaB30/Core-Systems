@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <title>RadiusR.PDFForms</title>
     <authors>Reza Barzegaran</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -13,8 +13,9 @@
     <tags>MasterISS PDF Forms</tags>
 	<repository type="git" url="https://github.com/masteriss/Core-Systems" branch="master" />
 	<dependencies>
+		<dependency id="RadiusR.DB.Localization" version="1.0.2"/>
+		<dependency id="RadiusR.DB" version="1.4.1"/>
 		<dependency id="RadiusR.FileManagement" version="1.1.4"/>
-		<dependency id="RadiusR.Localization" version="1.0.5"/>
 		<dependency id="RezaB.Data" version="1.0.1"/>
 	</dependencies>
   </metadata>

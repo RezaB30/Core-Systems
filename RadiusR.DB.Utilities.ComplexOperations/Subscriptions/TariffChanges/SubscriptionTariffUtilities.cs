@@ -187,7 +187,7 @@ namespace RadiusR.DB.Utilities.ComplexOperations.Subscriptions.TariffChanges
                         SubscriptionID = dbSubscription.ID
                     });
                     // change tariff
-                    dbSubscription.ServiceID = newTariff.ID;
+                    dbSubscription.Service = newTariff;
                     dbSubscription.PaymentDay = options.NewBillingPeriod;
                     // update last allowed date
                     dbSubscription.UpdateLastAllowedDate();
