@@ -1,4 +1,4 @@
-﻿function SetupIPPoolList(containersId) {
+﻿function SetupIPPoolList(containersId, rowCount) {
     var containers = $(containersId);
 
     containers.each(function () {
@@ -72,8 +72,8 @@
                     var currentName = currentInput.attr('name');
                     var label = currentInput.closest('td').prev('td').find('label').first();
                     var suffix = currentName.split('.').pop();
-                    currentInput.attr('name', modelName + '[' + Math.floor(i / 3) + '].' + suffix);
-                    currentInput.attr('id', modelName + '_' + Math.floor(i / 3) + '__' + suffix);
+                    currentInput.attr('name', modelName + '[' + Math.floor(i / rowCount) + '].' + suffix);
+                    currentInput.attr('id', modelName + '_' + Math.floor(i / rowCount) + '__' + suffix);
                     label.attr('for', currentInput.attr('id'));
                 });
             });

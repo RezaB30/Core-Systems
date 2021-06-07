@@ -220,11 +220,12 @@ namespace RadiusR_Manager.Controllers
                         dbNas.ApiUsername = nas.ApiUsername;
                         dbNas.ApiPassword = nas.ApiPassword;
                         dbNas.ApiPort = int.Parse(nas.ApiPort);
-                        if(dbNas.NATType != nas.NATType)
+                        if (dbNas.NATType != nas.NATType)
                         {
                             db.NASVerticalIPMaps.RemoveRange(dbNas.NASVerticalIPMaps);
                             db.NASNetmaps.RemoveRange(dbNas.NASNetmaps);
-                            db.NASVerticalDSLIPMaps.Remove(dbNas.NASVerticalDSLIPMap);
+                            if (dbNas.NASVerticalDSLIPMap != null)
+                                db.NASVerticalDSLIPMaps.Remove(dbNas.NASVerticalDSLIPMap);
                         }
                         dbNas.NATType = nas.NATType;
 
@@ -334,7 +335,7 @@ namespace RadiusR_Manager.Controllers
             {
                 ipMap.LocalIPSubnets = ipMap.LocalIPSubnets ?? new VerticalDSLIPMapViewModel.IPSubnet[0];
                 ipMap.DSLLines = ipMap.DSLLines ?? new VerticalDSLIPMapViewModel.IP[0];
-                if (ipMap.LocalIPSubnets.Any() ^ ipMap.DSLLines.Any() )
+                if (ipMap.LocalIPSubnets.Any() ^ ipMap.DSLLines.Any())
                 {
                     if (ipMap.LocalIPSubnets.Any())
                     {
@@ -345,7 +346,7 @@ namespace RadiusR_Manager.Controllers
                         ModelState.AddModelError("LocalIPSubnets", string.Format(RadiusR.Localization.Validation.Common.Required, RadiusR.Localization.Model.RadiusR.LocalIPPools));
                     }
                 }
-                else if(!ipMap.LocalIPSubnets.Any() && !ipMap.DSLLines.Any())
+                else if (!ipMap.LocalIPSubnets.Any() && !ipMap.DSLLines.Any())
                 {
                     if (dbNAS.NASVerticalDSLIPMap != null)
                     {

@@ -50,7 +50,7 @@
 
 @section PageScripts{
     <script type="text/javascript">
-        SetupIPPoolList('tbody.ip-map-container');
+        SetupIPPoolList('tbody.ip-map-container', 5);
         $('#ip-map-table').closest('form').submit(function () {
             $('#submit-row').hide();
             StartWaitingCounter('div.waiting-progress');
