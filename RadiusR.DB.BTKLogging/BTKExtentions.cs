@@ -175,12 +175,12 @@ namespace RadiusR.DB.BTKLogging
                 .Include(subscription => subscription.SubscriptionTelekomInfo)
                 .Include(subscription => subscription.SubscriptionCancellation)
                 .Include(subscription => subscription.SystemLogs.Select(log => log.AppUser));
-            if (logType == ClientLogTypes.Changes)
+            if (from.HasValue)
                 finalQuery = finalQuery.Include(subscription => subscription.SubscriptionStateHistories);
 
             var queryResults = finalQuery.ToArray();
 
-            if (logType == ClientLogTypes.Changes)
+            if (from.HasValue)
             {
                 var multiLineLogs = queryResults.Select(subscription => new
                 {
@@ -188,16 +188,28 @@ namespace RadiusR.DB.BTKLogging
                     LogDescriptions = BTKLoggingUtilities.GetChangeCodes(subscription, from.Value)
                 });
 
-                return multiLineLogs.SelectMany(line => line.LogDescriptions.Select(description => line.Subscription.CreateClientLogLine(description)));
+                if (logType == ClientLogTypes.Catalog)
+                {
+                    return multiLineLogs.SelectMany(line =>
+                        line.LogDescriptions.Any() ? line.LogDescriptions.Select(description => line.Subscription.CreateClientLogLine(logType, description)) : new[] { line.Subscription.CreateClientLogLine(logType) }
+                    );
+                }
+                if (logType == ClientLogTypes.Changes)
+                {
+                    return multiLineLogs.SelectMany(line =>
+                        line.LogDescriptions.Select(description => line.Subscription.CreateClientLogLine(logType, description))
+                    );
+                }
+                
             }
 
             return queryResults
-                .Select(subscription => subscription.CreateClientLogLine()).ToArray();
+                .Select(subscription => subscription.CreateClientLogLine(logType)).ToArray();
         }
 
-        public static IEnumerable<string> GetClientsCatalogLog(this IQueryable<Subscription> query)
+        public static IEnumerable<string> GetClientsCatalogLog(this IQueryable<Subscription> query, DateTime from)
         {
-            return GetClientLog(query, ClientLogTypes.Catalog);
+            return GetClientLog(query, ClientLogTypes.Catalog, from);
         }
 
         public static IEnumerable<string> GetClientsChangeLogs(this IQueryable<Subscription> query, DateTime from)
@@ -205,8 +217,17 @@ namespace RadiusR.DB.BTKLogging
             return GetClientLog(query, ClientLogTypes.Changes, from);
         }
 
-        private static string CreateClientLogLine(this Subscription subscription, ClientChangeDescription changeDescription = null)
+        private static string CreateClientLogLine(this Subscription subscription, ClientLogTypes logType, ClientChangeDescription changeDescription = null)
         {
+            if (logType == ClientLogTypes.Catalog && changeDescription == null)
+            {
+                changeDescription = new ClientChangeDescription()
+                {
+                    Code = subscription.IsCancelled ? 10 : 1,
+                    Description = subscription.IsCancelled ? "HAT_IPTAL" : "YENI_ABONELIK_KAYDI",
+                    Time = subscription.IsCancelled ? subscription.EndDate ?? subscription.MembershipDate : subscription.MembershipDate
+                };
+            }
             return string.Join("|;|", new string[] {
                 BTKSettings.BTKOperatorCode,
                 subscription.SubscriberNo,

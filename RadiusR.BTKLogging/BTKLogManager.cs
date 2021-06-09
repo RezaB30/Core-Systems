@@ -106,7 +106,7 @@ namespace RadiusR.BTKLogging
                     if (currentCount <= 0)
                         break;
 
-                    contents.Append(string.Join(Environment.NewLine, query.GetClientsCatalogLog()));
+                    contents.Append(string.Join(Environment.NewLine, query.GetClientsCatalogLog(schedulerSettings.LastOperationTime)));
 
                     if (schedulerSettings.PartitionFiles)
                     {
