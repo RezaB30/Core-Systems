@@ -20,9 +20,9 @@ namespace RadiusR.FileManagement.BTKLogging
             switch (logType)
             {
                 case BTKLogTypes.ClientCatalog:
-                    return string.Format("{0}_{1}_{2}_ABONE_REHBER_{3}_{4}.abn.gz", BTKSettings.BTKOperatorName, BTKSettings.BTKOperatorCode, BTKSettings.BTKOperatorType, operationTime.ToString("yyyyMMddHHmmss"), index.ToString("000"));
+                    return string.Format("{0}_{1}_{2}_ABONE_REHBER_{3}_{4}.abn.gz", BTKSettings.BTKOperatorName, BTKSettings.BTKOperatorCode, BTKSettings.BTKOperatorType, operationTime.ToString("yyyyMMddHHmmss"), index.ToString("00"));
                 case BTKLogTypes.ClientChanges:
-                    return string.Format("{0}_{1}_{2}_ABONE_HAREKET_{3}_{4}.abn.gz", BTKSettings.BTKOperatorName, BTKSettings.BTKOperatorCode, BTKSettings.BTKOperatorType, operationTime.ToString("yyyyMMddHHmmss"), index.ToString("000"));
+                    return string.Format("{0}_{1}_{2}_ABONE_HAREKET_{3}_{4}.abn.gz", BTKSettings.BTKOperatorName, BTKSettings.BTKOperatorCode, BTKSettings.BTKOperatorType, operationTime.ToString("yyyyMMddHHmmss"), index.ToString("00"));
                 case BTKLogTypes.IPDR:
                     return string.Format("{0}_NAT_IPDR_{1}_{2}.log.gz", BTKSettings.BTKOperatorName, operationTime.ToString("yyyyMMddHHmmss"), index.ToString());
                 case BTKLogTypes.IPBlock:
