@@ -187,6 +187,15 @@ namespace RadiusR.Localization.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Agent Name.
+        /// </summary>
+        public static string AgentName {
+            get {
+                return ResourceManager.GetString("AgentName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Allocation Date.
         /// </summary>
         public static string AllocationDate {
@@ -840,6 +849,15 @@ namespace RadiusR.Localization.Model {
         public static string Code {
             get {
                 return ResourceManager.GetString("Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commission.
+        /// </summary>
+        public static string Commission {
+            get {
+                return ResourceManager.GetString("Commission", resourceCulture);
             }
         }
         
@@ -4242,6 +4260,15 @@ namespace RadiusR.Localization.Model {
         public static string Total {
             get {
                 return ResourceManager.GetString("Total", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Allowance.
+        /// </summary>
+        public static string TotalAllowance {
+            get {
+                return ResourceManager.GetString("TotalAllowance", resourceCulture);
             }
         }
         

@@ -934,6 +934,15 @@ namespace RadiusR.Localization.Pages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Collection Details.
+        /// </summary>
+        public static string CollectionDetails {
+            get {
+                return ResourceManager.GetString("CollectionDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Commitment Report.
         /// </summary>
         public static string CommitmentReport {
@@ -1029,6 +1038,15 @@ namespace RadiusR.Localization.Pages {
         public static string CreateBill {
             get {
                 return ResourceManager.GetString("CreateBill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Collection.
+        /// </summary>
+        public static string CreateCollection {
+            get {
+                return ResourceManager.GetString("CreateCollection", resourceCulture);
             }
         }
         

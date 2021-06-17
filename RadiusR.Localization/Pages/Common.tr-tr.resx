@@ -1275,4 +1275,10 @@
   <data name="EditVerticalDSLIPMaps" xml:space="preserve">
     <value>Dikey DSL IP Haritaları Düzenle</value>
   </data>
+  <data name="CreateCollection" xml:space="preserve">
+    <value>Hasılat Oluştur</value>
+  </data>
+  <data name="CollectionDetails" xml:space="preserve">
+    <value>Hasılat Detayları</value>
+  </data>
 </root>

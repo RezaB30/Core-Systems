@@ -12,6 +12,7 @@ using RadiusR_Manager.Models.RadiusViewModels;
 using RadiusR_Manager.Models.Extentions;
 using RezaB.Web;
 using RadiusR.DB.QueryExtentions;
+using RadiusR.DB.Utilities.Billing;
 
 namespace RadiusR_Manager.Controllers
 {
@@ -353,6 +354,177 @@ namespace RadiusR_Manager.Controllers
             ViewBag.Agents = new SelectList(db.Agents.OrderBy(a => a.CompanyTitle).Select(a => new { Name = a.CompanyTitle, Value = a.ID }), "Value", "Name", search?.AgentID);
 
             return View(viewResults);
+        }
+
+        [AuthorizePermission(Permissions = "Agent Allowance Collections")]
+        [HttpGet]
+        // GET: Agent/CreateCollection
+        public ActionResult CreateCollection(int? page, AgentPaymentsSearchViewModel search)
+        {
+            ViewBag.Agents = new SelectList(db.Agents.OrderBy(a => a.CompanyTitle).Select(a => new { Name = a.CompanyTitle, Value = a.ID }), "Value", "Name", search?.AgentID);
+            ViewBag.Search = search;
+
+            if (search?.AgentID.HasValue == true)
+            {
+                var baseQuery = db.AgentRelatedPayments.OrderByDescending(arp => arp.Bill.PayDate).Where(arp => arp.AgentID == search.AgentID && arp.Bill.AgentCollection == null && arp.Bill.PayDate.HasValue);
+                if (search?.StartDate.HasValue == true)
+                {
+                    baseQuery = baseQuery.Where(arp => arp.Bill.PayDate >= search.StartDate);
+                }
+                if (search?.EndDate.HasValue == true)
+                {
+                    baseQuery = baseQuery.Where(arp => arp.Bill.PayDate < search.EndDate);
+                }
+
+                var viewResult = baseQuery.Select(arp => new AgentPaymentViewModel()
+                {
+                    BillID = arp.BillID,
+                    SubscriptionID = arp.Bill.SubscriptionID,
+                    SubscriberNo = arp.Bill.Subscription.SubscriberNo,
+                    PaymentType = arp.Bill.PaymentTypeID,
+                    PaymentDate = arp.Bill.PayDate.Value,
+                    _allowance = arp.Allowance,
+                    _commission = arp.ExtraCommission,
+                    _total = arp.Bill.BillFees.Select(bf => bf.CurrentCost).DefaultIfEmpty(0m).Sum() - arp.Bill.BillFees.Select(bf => bf.DiscountID.HasValue ? bf.Discount.Amount : 0m).DefaultIfEmpty(0m).Sum()
+                });
+
+                ViewBag.Summary = new AgentPaymentsSummaryViewModel()
+                {
+                    _allowance = viewResult.Select(r => r._allowance).DefaultIfEmpty(0m).Sum(),
+                    _commission = viewResult.Select(r => r._commission).DefaultIfEmpty(0m).Sum(),
+                    _total = viewResult.Select(r => r._total).DefaultIfEmpty(0m).Sum()
+                };
+
+                SetupPages(page, ref viewResult);
+
+                return View(viewResult);
+            }
+
+            return View();
+        }
+
+        [ActionName("CreateCollection")]
+        [AuthorizePermission(Permissions = "Agent Allowance Collections")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        // POST: Agent/CreateCollection
+        public ActionResult CreateCollectionConfirm(int? page, AgentPaymentsSearchViewModel search)
+        {
+            if (search?.AgentID.HasValue == true)
+            {
+                var baseQuery = db.AgentRelatedPayments.OrderByDescending(arp => arp.Bill.PayDate).Where(arp => arp.AgentID == search.AgentID && arp.Bill.AgentCollection == null && arp.Bill.PayDate.HasValue);
+                if (search?.StartDate.HasValue == true)
+                {
+                    baseQuery = baseQuery.Where(arp => arp.Bill.PayDate >= search.StartDate);
+                }
+                if (search?.EndDate.HasValue == true)
+                {
+                    baseQuery = baseQuery.Where(arp => arp.Bill.PayDate < search.EndDate);
+                }
+
+                if (!baseQuery.Any())
+                {
+                    return RedirectToAction("CreateCollection", new { errorMessage = 9 });
+                }
+
+                var attachedBills = baseQuery.Select(arp => arp.BillID).ToArray().Select(billId => new Bill() { ID = billId }).ToArray();
+
+                for (int i = 0; i < attachedBills.Length; i++)
+                {
+                    db.Bills.Attach(attachedBills[i]);
+                }
+
+                var newCollection = new AgentCollection()
+                {
+                    AgentID = search.AgentID.Value,
+                    CreatorID = User.GiveUserId().Value,
+                    CreationDate = DateTime.Now,
+                    Bills = attachedBills
+                };
+
+                db.AgentCollections.Add(newCollection);
+                db.SaveChanges();
+
+                return RedirectToAction("Allowances", new { errorMessage = 0 });
+            }
+
+            return RedirectToAction("CreateCollection", new { errorMessage = 9 });
+        }
+
+        [AuthorizePermission(Permissions = "Agent Allowance Collections")]
+        [HttpGet]
+        // GET: Agent/CollectionDetails
+        public ActionResult CollectionDetails(long id, string returnUrl, int? page)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+
+            var collection = db.AgentCollections.Find(id);
+            if (collection == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            var viewResult = db.Bills.OrderByDescending(b => b.PayDate).Where(b => b.AgentCollection.ID == collection.ID).Select(b => new AgentPaymentViewModel()
+            {
+                BillID = b.ID,
+                SubscriptionID = b.SubscriptionID,
+                SubscriberNo = b.Subscription.SubscriberNo,
+                PaymentType = b.PaymentTypeID,
+                PaymentDate = b.PayDate.Value,
+                _allowance = b.AgentRelatedPayments.Select(arp => arp.Allowance).DefaultIfEmpty(0m).Sum(),
+                _commission = b.AgentRelatedPayments.Select(arp => arp.ExtraCommission).DefaultIfEmpty(0m).Sum(),
+                _total = b.BillFees.Select(bf => bf.CurrentCost).DefaultIfEmpty(0m).Sum() - b.BillFees.Select(bf => bf.DiscountID.HasValue ? bf.Discount.Amount : 0m).DefaultIfEmpty(0m).Sum()
+            });
+
+            ViewBag.Summary = new AgentPaymentsSummaryViewModel()
+            {
+                _allowance = viewResult.Select(r => r._allowance).DefaultIfEmpty(0m).Sum(),
+                _commission = viewResult.Select(r => r._commission).DefaultIfEmpty(0m).Sum(),
+                _total = viewResult.Select(r => r._total).DefaultIfEmpty(0m).Sum()
+            };
+
+            ViewBag.CollectionDetails = new AgentCollectionViewModel()
+            {
+                ID = collection.ID,
+                AgentName = collection.Agent.CompanyTitle,
+                CreationDate = collection.CreationDate,
+                CreatorName = collection.Creator.Name,
+                PaymentDate = collection.PaymentDate,
+                PayerName = collection.Payer?.Name,
+                _allowanceAmount = collection.Bills.SelectMany(b => b.BillFees.Where(bf => bf.FeeTypeID == (short)RadiusR.DB.Enums.FeeType.Tariff)).Select(bf => bf.CurrentCost - (bf.Discount != null ? bf.Discount.Amount : 0m)).DefaultIfEmpty(0m).Sum()
+            };
+
+            SetupPages(page, ref viewResult);
+
+            UrlUtilities.RemoveQueryStringParameter("errorMessage", uri);
+            ViewBag.ReturnUrl = uri.Uri.PathAndQuery + uri.Fragment;
+            return View(viewResult);
+        }
+
+        [AuthorizePermission(Permissions = "Agent Allowance Collections")]
+        [ActionName("CollectionDetails")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        // POST: Agent/CollectionPaymentConfirm
+        public ActionResult CollectionPaymentConfirm(long id, string returnUrl, int? page)
+        {
+            var uri = new UriBuilder(Request.Url.GetLeftPart(UriPartial.Authority) + returnUrl);
+
+            var collection = db.AgentCollections.Find(id);
+            if (collection == null)
+            {
+                UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "9", uri);
+                return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
+            }
+
+            collection.PayerID = User.GiveUserId().Value;
+            collection.PaymentDate = DateTime.Now;
+
+            db.SaveChanges();
+
+            UrlUtilities.AddOrModifyQueryStringParameter("errorMessage", "0", uri);
+            return Redirect(uri.Uri.PathAndQuery + uri.Fragment);
         }
 
         [AuthorizePermission(Permissions = "Modify Agents")]

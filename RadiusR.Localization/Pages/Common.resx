@@ -1278,4 +1278,10 @@
   <data name="EditVerticalDSLIPMaps" xml:space="preserve">
     <value>Edit Vertical DSL IP Maps</value>
   </data>
+  <data name="CreateCollection" xml:space="preserve">
+    <value>Create Collection</value>
+  </data>
+  <data name="CollectionDetails" xml:space="preserve">
+    <value>Collection Details</value>
+  </data>
 </root>

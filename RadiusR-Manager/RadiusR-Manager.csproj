@@ -1008,6 +1008,8 @@
     <Content Include="Views\NAS\EditVerticalDSLIPMaps.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\VerticalDSLIPMapViewModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\VerticalDSLIPMapViewModel.cshtml" />
+    <Content Include="Views\Agent\CreateCollection.cshtml" />
+    <Content Include="Views\Agent\CollectionDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

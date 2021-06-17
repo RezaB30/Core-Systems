@@ -11,8 +11,9 @@
                         loader.Load(currentForm.attr('action'), currentForm.serialize(), currentForm.attr("method"));
                         currentDialog.remove();
                     }
-                    else
+                    else {
                         currentForm.trigger('submit', true);
+                    }
                 });
             }
         });

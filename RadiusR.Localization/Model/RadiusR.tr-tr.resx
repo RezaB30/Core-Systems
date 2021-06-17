@@ -1653,4 +1653,13 @@
   <data name="LocalIPPools" xml:space="preserve">
     <value>Yerel IP Havuzları</value>
   </data>
+  <data name="AgentName" xml:space="preserve">
+    <value>Acente Adı</value>
+  </data>
+  <data name="Commission" xml:space="preserve">
+    <value>Komisyon</value>
+  </data>
+  <data name="TotalAllowance" xml:space="preserve">
+    <value>Toplam Hakediş</value>
+  </data>
 </root>

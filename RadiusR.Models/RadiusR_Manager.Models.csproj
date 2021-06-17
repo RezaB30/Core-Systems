@@ -184,6 +184,9 @@
     <Compile Include="RadiusViewModels\SupportGroupUserViewModel.cs" />
     <Compile Include="RadiusViewModels\SupportGroupViewModel.cs" />
     <Compile Include="RadiusViewModels\TransitionOperatorViewModel.cs" />
+    <Compile Include="ViewModels\AgentPaymentsSummaryViewModel.cs" />
+    <Compile Include="ViewModels\AgentPaymentViewModel.cs" />
+    <Compile Include="ViewModels\Search\AgentPaymentsSearchViewModel.cs" />
     <Compile Include="ViewModels\VerticalDSLIPMapViewModel.cs" />
     <Compile Include="ViewModels\AddAgentTariffViewModel.cs" />
     <Compile Include="ViewModels\AgentPasswordUpdateViewModel.cs" />

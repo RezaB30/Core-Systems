@@ -1,0 +1,126 @@
+﻿@using RezaB.Web.Helpers
+@using RadiusR_Manager.Helpers
+
+@model IEnumerable<RadiusR_Manager.Models.ViewModels.AgentPaymentViewModel>
+
+@{
+    ViewBag.Title = $"{RadiusR.Localization.Pages.Common.AgentAllowances}-{RadiusR.Localization.Pages.Common.CreateCollection}";
+    var search = (RadiusR_Manager.Models.ViewModels.Search.AgentPaymentsSearchViewModel)ViewBag.Search ?? new RadiusR_Manager.Models.ViewModels.Search.AgentPaymentsSearchViewModel();
+    var summary = (RadiusR_Manager.Models.ViewModels.AgentPaymentsSummaryViewModel)ViewBag.Summary ?? new RadiusR_Manager.Models.ViewModels.AgentPaymentsSummaryViewModel();
+}
+
+<div class="centered-form-wrapper">
+    <div class="centered-form">
+        @using (Html.BeginForm(null, null, FormMethod.Get))
+        {
+            <table class="input-table">
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => search.AgentID)
+                    </td>
+                    <td>
+                        @Html.Select(model => search.AgentID, (SelectList)ViewBag.Agents, RadiusR.Localization.Pages.Common.Choose)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => search.StartDate)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => search.StartDate)
+                        -
+                        @Html.EditorFor(model => search.EndDate)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="@RadiusR.Localization.Pages.Common.Search" class="link-button iconed-button search-button" />
+                        <input type="button" value="@RadiusR.Localization.Pages.Common.ClearSearch" class="link-button iconed-button clear-search" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+<table class="data-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SubscriberNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Allowance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Commission)
+        </th>
+    </tr>
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td class="centered">
+                    @Html.ActionLink(Html.DisplayTextFor(modelItem => item.SubscriberNo).ToString(), "Details", "Client", new { id = item.SubscriptionID }, new { @class = "details-link" })
+                </td>
+                <td class="centered">
+                    @Html.DisplayFor(modelItem => item.PaymentDate)
+                </td>
+                <td class="centered">
+                    @Html.DisplayFor(modelItem => item.PaymentType)
+                </td>
+                <td class="centered">
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td class="centered">
+                    @Html.DisplayFor(modelItem => item.Allowance)
+                </td>
+                <td class="centered">
+                    @Html.DisplayFor(modelItem => item.Commission)
+                </td>
+            </tr>
+        }
+    }
+    <tr class="total-row">
+        <td colspan="3">
+            @RadiusR.Localization.Pages.Common.Total
+        </td>
+        <td class="centered">
+            @Html.DisplayFor(model => summary.Total)
+        </td>
+        <td class="centered">
+            @Html.DisplayFor(model => summary.Allowance)
+        </td>
+        <td class="centered">
+            @Html.DisplayFor(model => summary.Commission)
+        </td>
+    </tr>
+    <tr class="total-row">
+        <td colspan="5">
+            @RadiusR.Localization.Model.RadiusR.TotalAllowance
+        </td>
+        <td class="centered">
+            @Html.DisplayFor(model => summary.TotalAllowance)
+        </td>
+    </tr>
+</table>
+@Html.PagedList()
+
+@if (Model?.Any() == true)
+{
+    <div class="button-row centered">
+        <form id="create-form" action="@Url.Action()" method="post" confirm="enabled">
+            @Html.AntiForgeryToken()
+            <input type="submit" value="@RadiusR.Localization.Pages.Common.CreateCollection" class="link-button iconed-button save-button" />
+        </form>
+    </div>
+}

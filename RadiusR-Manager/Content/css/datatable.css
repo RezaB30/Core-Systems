@@ -50,7 +50,7 @@
         vertical-align: top;
     }
 
-    .data-table > tbody > tr:nth-of-type(odd):not(:first-child) {
+    .data-table > tbody > tr:nth-of-type(odd):not(:first-child):not(.total-row) {
         background-color: #ececec;
     }
 
@@ -129,4 +129,9 @@ table.data-table > tbody > tr.highlighted-row {
 
 table.data-table > tbody > tr.greenlit-row {
     background-color: #d1eaa5 !important;
+}
+
+table.data-table > tbody > tr.total-row {
+    background-color: #292929;
+    color: white;
 }

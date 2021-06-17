@@ -1,4 +1,5 @@
-﻿@using RadiusR_Manager.Helpers
+﻿@using RezaB.Web.Authentication
+@using RadiusR_Manager.Helpers
 @using RezaB.Web.Helpers
 
 @model IEnumerable<RadiusR_Manager.Models.RadiusViewModels.AgentCollectionViewModel>
@@ -76,29 +77,37 @@
     </tr>
     @foreach (var item in Model)
     {
-        <tr>
+        var rowClass = item.PaymentDate.HasValue ? "greenlit-row" : string.Empty;
+        <tr class="@rowClass">
             <td>
                 @Html.DisplayFor(modelItem => item.AgentName)
             </td>
-            <td>
+            <td class="centered">
                 @Html.DisplayFor(modelItem => item.CreationDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatorName)
             </td>
-            <td>
+            <td class="centered">
                 @Html.DisplayFor(modelItem => item.PaymentDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PayerName)
             </td>
-            <td>
+            <td class="centered">
                 @Html.DisplayFor(modelItem => item.AllowanceAmount)
             </td>
             <td>
-                @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "CollectionDetails", new { id = item.ID, returnUrl = Request.Url.PathAndQuery })
+                @Html.ActionLink(RadiusR.Localization.Pages.Common.Details, "CollectionDetails", new { id = item.ID, returnUrl = Request.Url.PathAndQuery }, new { @class = "link-button iconed-button details-button" })
             </td>
         </tr>
     }
 </table>
 @Html.PagedList()
+
+@if (User.HasPermission("Agent Allowance Collections"))
+{
+    <div class="button-row centered">
+        @Html.ActionLink(RadiusR.Localization.Pages.Common.CreateCollection, "CreateCollection", null, new { @class = "link-button iconed-button new-button" })
+    </div>
+}
